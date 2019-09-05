@@ -219,24 +219,24 @@ item.OreTin_Concentrate.name=Tin Ore Concentrate
 item.OreSilver_Concentrate.name=Silver Ore Concentrate
 
 //oreblock
-item.BlockAluminum.name=Aluminum Block
-item.BlockCopper.name=Copper Block
-item.BlockTin.name=Tin Block
-item.BlockBronze.name=Bronze Block
-item.BlockTitanium.name=Titanium Block
-item.BlockTungsten.name=Tungsten Block
-item.BlockHss.name=HSS Block
-item.BlockStainless_Steel.name=Stainless Steel Block
-item.BlockTungsten_Steel.name=Tungsten Steel
-item.BlockVanadium.name=Vanadium Block
-item.BlockChromium.name=Chromium Block
-item.BlockSilver.name=Silver Block
-item.BlockInvar.name=Invar Block
-item.BlockSteel.name=Steel Block
-item.BlockNickel.name=Nickel Block
-item.BlockNcalloy.name=NCAlloy Block
-item.BlockCobalt.name=Cobalt Block
-item.BlockManganese.name=Manganese Block
+item.BlockAluminum.name=Block of Aluminum
+item.BlockCopper.name=Block of Copper
+item.BlockTin.name=Block of Tin
+item.BlockBronze.name=Block of Bronze
+item.BlockTitanium.name=Block of Titanium
+item.BlockTungsten.name=Block of Tungsten
+item.BlockHss.name=Block of HSS
+item.BlockStainless_Steel.name=Block of Stainless Steel
+item.BlockTungsten_Steel.name=Block of Tungsten Steel
+item.BlockVanadium.name=Block of Vanadium
+item.BlockChromium.name=Block of Chromium
+item.BlockSilver.name=Block of Silver
+item.BlockInvar.name=Block of Invar
+item.BlockSteel.name=Block of Steel
+item.BlockNickel.name=Block of Nickel
+item.BlockNcalloy.name=Block of NCAlloy
+item.BlockCobalt.name=Block of Cobalt
+item.BlockManganese.name=Block of Manganese
 
 //fluid
 fluid.molten_aluminum=Molten Aluminum
@@ -262,3 +262,38 @@ fluid.molten_vanadium=Molten Vanadium
 fluid.apple_juice=Apple Juice
 fluid.golden_apple_juice=Golden Apple Juice
 fluid.ethene=Ethene
+
+//foods
+item.apple_drops.name=Apple Drops
+item.apple_jam_bun.name=Apple Jam Bun
+item.golden_apple_drops.name=Goldenapple Drops
+item.golden_apple_jam_bun.name=Goldenapple Jam Bun
+
+//tools
+item.axebronze.name=Bronze Axe
+item.axetungsten_steel.name=Tungsten Steel Axe
+item.axehss.name=HSS Axe
+item.bronze_sword.name=Bronze Sword
+item.tungsten_steel_sword.name=Tungsten Sword
+item.hss_sword.name=HSS Sword
+item.stone_hammer.name=Stone Hammer
+item.bronze_hammer.name=Bronze Hammer
+item.iron_hammer.name=Iron Hammer
+
+//item
+item.monocrystalline_silicon.name=Monocrystalline Silicon
+item.wafer.name=Wafer
+item.etched_wafer.name=Etched Wafer
+item.i7_8700k.name=chip
+item.plate_pe.name=PE plate
+item.pcb.name=PCB
+item.capacitor.name=Capacitor
+item.resistor.name=Resistor
+item.laser.name=Laser
+item.clay_brick.name=Clay Brick
+item.fire_brick.name=Fire Brick
+item.plasma_generator.name=Plasma Generator
+item.dsb.name=Diamond Saw Blade
+item.hsb.name=HSS Saw Blade
+item.brick_powder.name=Brick powder
+item.clay_mixed_with_clinker.name=Clay mixed with Clinker

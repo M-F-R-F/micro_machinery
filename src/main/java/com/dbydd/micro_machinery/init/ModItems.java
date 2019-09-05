@@ -251,7 +251,7 @@ public class ModItems {
 	public static final Item GOLDEN_APPLE_JAM_BUN = new Golden_Apple_Food(10, 10.0f, "golden_apple_jam_bun", false);
 		//nomalfood
 	public static final Item APPLE_DROPS = new FoodBase(5, 5.0f, "apple_drops");
-	public static final Item APPLE_JAM_PUN = new FoodBase(10, 10.0f, "apple_jam_pun");
+	public static final Item APPLE_JAM_BUN = new FoodBase(10, 10.0f, "apple_jam_bun");
 	
 	//tools
 		//axe
