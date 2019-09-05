@@ -296,9 +296,9 @@ item.golden_apple_drops.name=金苹果糖
 item.golden_apple_jam_bun.name=金苹果酱面包
 
 //tools
-item.axebronze.name=青铜斧
-item.axetungsten_steel.name=钨钢斧
-item.axehss.name=高速钢斧
+item.bronze_axe.name=青铜斧
+item.tungsten_steel_axe.name=钨钢斧
+item.hss_axe.name=高速钢斧
 item.bronze_sword.name=青铜剑
 item.tungsten_steel_sword.name=钨钢剑
 item.hss_sword.name=高速钢剑
