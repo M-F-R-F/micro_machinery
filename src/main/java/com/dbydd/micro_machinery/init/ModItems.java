@@ -20,8 +20,7 @@ import com.dbydd.micro_machinery.items.MaterialBase.MaterialStick;
 import com.dbydd.micro_machinery.items.MaterialBase.MaterialString;
 import com.dbydd.micro_machinery.items.MaterialBase.MotorBase;
 import com.dbydd.micro_machinery.items.MaterialBase.OreConcentrate;
-import com.dbydd.micro_machinery.items.foods.FoodBase;
-import com.dbydd.micro_machinery.items.foods.Golden_Apple_Food;
+import com.dbydd.micro_machinery.items.foods.Golden_Apple_Juice_Bottel;
 import com.dbydd.micro_machinery.items.tools.MyMaterial;
 import com.dbydd.micro_machinery.items.tools.ToolAxe;
 import com.dbydd.micro_machinery.items.tools.ToolHammer;
@@ -30,11 +29,8 @@ import com.dbydd.micro_machinery.items.tools.ToolSword;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -44,8 +40,6 @@ public class ModItems {
 	static String materiallist[] = {"Copper","Tin","Bronze","Steel","Invar","Stainless_Steel","Tungsten",
 			"Tungsten_Steel", "HSS", "Gold", "Silver", "Manganese", "Chromium", "Nickel", "Vanadium", "Cobalt",
 			"Titanium", "Aluminum", "NCAlloy", "Silicon","Graphite","Iron","Carbon","Ferrochrome"};
-	
-	PotionEffect potioneffectIn[] = {};
 	
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	
@@ -274,17 +268,15 @@ public class ModItems {
 	public static final Item BRONZE_HAMMER = new ToolHammer(MyMaterial.BRONZE, 400, "bronze_hammer");
 	
 	//others
-	public static final Item ELECTRIC_PUMP = new ItemBase("electric_pump");
 	public static final Item MONOCRYSTALLINE_SILICON = new ItemBase("monocrystalline_silicon");
 	public static final Item WAFER = new ItemBase("wafer");
 	public static final Item ETCHED_WAFER = new ItemBase("etched_wafer");
 	public static final Item I7_8700K = new ItemBase("i7_8700k");
+	public static final Item PLATE_PE = new ItemBase("plate_pe");
 	public static final Item PCB = new ItemBase("pcb");
-	public static final Item CONTROL_SYSTEM = new ItemBase("control_system");
-	public static final Item POLYETHYLENE_SHEET = new ItemBase("polyethylene_sheet");
 	public static final Item CAPACITOR = new ItemBase("capacitor");
 	public static final Item RESISTOR = new ItemBase("resistor");
-	public static final Item LAZER = new ItemBase("lazer");
+	public static final Item LASER = new ItemBase("laser");
 	public static final Item CLAY_BRICK = new ItemBase("clay_brick");
 	public static final Item FIRE_BRICK = new ItemBase("fire_brick");
 	public static final Item PLASMA_GENERATOR = new ItemBase("plasma_generator");
@@ -292,6 +284,7 @@ public class ModItems {
 	public static final Item HSB = new ItemBase("hsb");
 	public static final Item BRICK_POWDER = new ItemBase("brick_powder");
 	public static final Item CLAY_MIXED_WITH_CLINKER = new ItemBase("clay_mixed_with_clinker");
+	
 	
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {
