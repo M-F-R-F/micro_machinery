@@ -261,12 +261,10 @@ public class ModItems {
 	
 	//tools
 		//axe
-	public static final Item TESTAXE = new ToolAxe(ToolMaterial.DIAMOND, 32767, "nothingjustatest", 6666, 199999.0f);
 	public static final Item AXEBRONZE = new ToolAxe(ToolMaterial.IRON, 300, "bronze_axe", 6.0f, 7.0f);
 	public static final Item AXETUNGSTEN_STEEL = new ToolAxe(ToolMaterial.DIAMOND, 1200, "tungsten_steel_axe", 7.0f, 12.0f);
 	public static final Item AXEHSS = new ToolAxe(ToolMaterial.DIAMOND, 800, "hss_axe", 12.0f, 15.0f);
 		//sword
-	public static final Item TESTSWORD = new ToolSword(MyMaterial.TOOL_MATERIAL_TEST, 32767, "atesttoo");
 	public static final Item BONZE_SWORD = new ToolSword(MyMaterial.BRONZE, 250, "bronze_sword");
 	public static final Item TUNGSTEN_STEEL_SWORD = new ToolSword(MyMaterial.TUNGSTEN_STEEL, 1000, "tungsten_steel_sword");
 	public static final Item HSS_SWORD = new ToolSword(MyMaterial.HSS, 750, "hss_sword");
@@ -276,12 +274,12 @@ public class ModItems {
 	public static final Item BRONZE_HAMMER = new ToolHammer(MyMaterial.BRONZE, 400, "bronze_hammer");
 	
 	//others
-	public static final Item ELECTRIC_PUNM = new ItemBase("electric_pump");
+	public static final Item ELECTRIC_PUMP = new ItemBase("electric_pump");
 	public static final Item MONOCRYSTALLINE_SILICON = new ItemBase("monocrystalline_silicon");
 	public static final Item WAFER = new ItemBase("wafer");
 	public static final Item ETCHED_WAFER = new ItemBase("etched_wafer");
 	public static final Item I7_8700K = new ItemBase("i7_8700k");
-	public static final Item CIRCULT = new ItemBase("circult");
+	public static final Item PCB = new ItemBase("pcb");
 	public static final Item CONTROL_SYSTEM = new ItemBase("control_system");
 	public static final Item POLYETHYLENE_SHEET = new ItemBase("polyethylene_sheet");
 	public static final Item CAPACITOR = new ItemBase("capacitor");
@@ -293,7 +291,7 @@ public class ModItems {
 	public static final Item DSB = new ItemBase("dsb");
 	public static final Item HSB = new ItemBase("hsb");
 	public static final Item BRICK_POWDER = new ItemBase("brick_powder");
-	public static final Item CLAY_MIXED_WITH_CLINKER = new ItemBase("clay_with_clinker");
+	public static final Item CLAY_MIXED_WITH_CLINKER = new ItemBase("clay_mixed_with_clinker");
 	
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {
