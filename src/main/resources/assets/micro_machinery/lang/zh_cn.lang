@@ -166,7 +166,7 @@ item.SSAdditive.name=不锈钢添加剂
 //ore
 tile.OreCopper.name=铜矿石
 tile.OreBauxite.name=铝土矿石
-tile.OreBauxit_Nether.name=下界铝土矿石
+tile.OreBauxite_Nether.name=下界铝土矿石
 tile.OreChromite.name=铬铁矿石
 tile.OreFerroManganese.name=锰铁矿石
 tile.OreFerroManganese_Nether.name=下界锰铁矿石
@@ -226,7 +226,7 @@ tile.BlockTin.name=锡块
 tile.BlockBronze.name=青铜块
 tile.BlockTitanium.name=钛块
 tile.BlockTungsten.name=钨块
-tile.BlockHss.name=高速钢块
+tile.BlockHSS.name=高速钢块
 tile.BlockStainless_Steel.name=不锈钢块
 tile.BlockTungsten_Steel.name=钨钢块
 tile.BlockVanadium.name=钒块
@@ -235,7 +235,7 @@ tile.BlockSilver.name=银块
 tile.BlockInvar.name=殷钢块
 tile.BlockSteel.name=钢块
 tile.BlockNickel.name=镍块
-tile.BlockNcalloy.name=镍铬合金块
+tile.BlockNCAlloy.name=镍铬合金块
 tile.BlockCobalt.name=钴块
 tile.BlockManganese.name=锰块
 
