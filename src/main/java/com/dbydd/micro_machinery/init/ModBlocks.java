@@ -9,6 +9,7 @@ import com.dbydd.micro_machinery.blocks.BlockOres;
 import com.dbydd.micro_machinery.blocks.MaterialBlock;
 import com.dbydd.micro_machinery.blocks.OreEnd;
 import com.dbydd.micro_machinery.blocks.OreNether;
+import com.dbydd.micro_machinery.blocks.tileentities.BlockKlin;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -85,4 +86,8 @@ public class ModBlocks {
 	public static final Block GOLDEN_APPLE_JUICE = new BlockFluid("golden_apple_juice", ModFluids.GOLDEN_APPLE_JUICE, Material.WATER, 15, 3);
 	public static final Block APPLE_JUICE = new BlockFluid("apple_juice", ModFluids.APPLE_JUICE, Material.WATER, 0, 3);
 	public static final Block ETHENE = new BlockFluid("ethene", ModFluids.ETHENE, Material.LAVA, 0, 3);
+
+	//tileentities
+		//machine
+	public static final Block KLIN = new BlockKlin("klin", Material.IRON);
 }
