@@ -23,7 +23,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -32,6 +34,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class TileEntityKlin extends TileEntity implements IInventory, ITickable, IFluidTank{
 
@@ -56,8 +61,16 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) this.handler;
 		return super.getCapability(capability, facing);
 	}
-	
-	public boolean hasCustomName() 
+
+	/**
+	 * Get the name of this object. For players this returns their username
+	 */
+	@Override
+	public String getName() {
+		return null;
+	}
+
+	public boolean hasCustomName()
 	{
 		return this.customName != null && !this.customName.isEmpty();
 	}
@@ -81,7 +94,7 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 		this.burnTime = compound.getInteger("BurnTime");
 		this.cookTime = compound.getInteger("CookTime");
 		this.totalCookTime = compound.getInteger("CookTimeTotal");
-		this.currentBurnTime = getItemBurnTime((ItemStack)this.handler.getStackInSlot(2));
+		this.currentBurnTime = getItemBurnTime(this.handler.getStackInSlot(2));
 		
 		if(compound.hasKey("CustomName", 8)) this.setCustomName(compound.getString("CustomName"));
 	}
@@ -184,17 +197,15 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 			}
 		}
 	}
-	
-	private boolean canSmelt() 
-	{
-		if(((ItemStack)this.handler.getStackInSlot(0)).isEmpty() || ((ItemStack)this.handler.getStackInSlot(1)).isEmpty()) return false;
+
+	private boolean canSmelt() {
+		if (this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty()) return false;
 		else 
 		{
 			ItemStack result = KlinRecipes.getInstance().getKlinResult((ItemStack)this.handler.getStackInSlot(0), (ItemStack)this.handler.getStackInSlot(1));	
 			if(result.isEmpty()) return false;
-			else
-			{
-				ItemStack output = (ItemStack)this.handler.getStackInSlot(3);
+			else {
+				ItemStack output = this.handler.getStackInSlot(3);
 				if(output.isEmpty()) return true;
 				if(!output.isItemEqual(result)) return false;
 				int res = output.getCount() + result.getCount();
@@ -236,10 +247,96 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 	{
 		return getItemBurnTime(fuel) > 0;
 	}
-	
-	public boolean isUsableByPlayer(EntityPlayer player) 
-	{
-		return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+
+	/**
+	 * Returns the number of slots in the inventory.
+	 */
+	@Override
+	public int getSizeInventory() {
+		return 5;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return false;
+	}
+
+	/**
+	 * Returns the stack in the given slot.
+	 *
+	 * @param index
+	 */
+	@Override
+	public ItemStack getStackInSlot(int index) {
+		return handler.getStackInSlot(index);
+	}
+
+	/**
+	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+	 *
+	 * @param index
+	 * @param count
+	 */
+	@Override
+	public ItemStack decrStackSize(int index, int count) {
+		return null;
+	}
+
+	/**
+	 * Removes a stack from the given slot and returns it.
+	 *
+	 * @param index
+	 */
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		ItemStack stack = handler.getStackInSlot(index);
+		handler.setStackInSlot(index, ItemStack.EMPTY);
+		return stack;
+	}
+
+	/**
+	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+	 *
+	 * @param index
+	 * @param stack
+	 */
+	@Override
+	public void setInventorySlotContents(int index, ItemStack stack) {
+		handler.setStackInSlot(index, Objects.requireNonNull(stack));
+	}
+
+	/**
+	 * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
+	 */
+	@Override
+	public int getInventoryStackLimit() {
+		return 0;
+	}
+
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+	}
+
+	@Override
+	public void openInventory(EntityPlayer player) {
+
+	}
+
+	@Override
+	public void closeInventory(EntityPlayer player) {
+
+	}
+
+	/**
+	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
+	 * guis use Slot.isItemValid
+	 *
+	 * @param index
+	 * @param stack
+	 */
+	@Override
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		return false;
 	}
 
 	public int getField(int id) 
@@ -272,9 +369,77 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 		case 2:
 			this.cookTime = value;
 			break;
-		case 3:
-			this.totalCookTime = value;
+			case 3:
+				this.totalCookTime = value;
 		}
 	}
-	
+
+	@Override
+	public int getFieldCount() {
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+
+	}
+
+	/**
+	 * @return FluidStack representing the fluid in the tank, null if the tank is empty.
+	 */
+	@Nullable
+	@Override
+	public FluidStack getFluid() {
+		return null;
+	}
+
+	/**
+	 * @return Current amount of fluid in the tank.
+	 */
+	@Override
+	public int getFluidAmount() {
+		return 0;
+	}
+
+	/**
+	 * @return Capacity of this fluid tank.
+	 */
+	@Override
+	public int getCapacity() {
+		return 0;
+	}
+
+	/**
+	 * Returns a wrapper object {@link FluidTankInfo } containing the capacity of the tank and the
+	 * FluidStack it holds.
+	 * <p>
+	 * Should prevent manipulation of the IFluidTank. See {@link FluidTank}.
+	 *
+	 * @return State information for the IFluidTank.
+	 */
+	@Override
+	public FluidTankInfo getInfo() {
+		return null;
+	}
+
+	/**
+	 * @param resource FluidStack attempting to fill the tank.
+	 * @param doFill   If false, the fill will only be simulated.
+	 * @return Amount of fluid that was accepted by the tank.
+	 */
+	@Override
+	public int fill(FluidStack resource, boolean doFill) {
+		return 0;
+	}
+
+	/**
+	 * @param maxDrain Maximum amount of fluid to be removed from the container.
+	 * @param doDrain  If false, the drain will only be simulated.
+	 * @return Amount of fluid that was removed from the tank.
+	 */
+	@Nullable
+	@Override
+	public FluidStack drain(int maxDrain, boolean doDrain) {
+		return null;
+	}
 }
