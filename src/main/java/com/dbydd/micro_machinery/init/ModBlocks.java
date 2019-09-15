@@ -9,7 +9,7 @@ import com.dbydd.micro_machinery.blocks.BlockOres;
 import com.dbydd.micro_machinery.blocks.MaterialBlock;
 import com.dbydd.micro_machinery.blocks.OreEnd;
 import com.dbydd.micro_machinery.blocks.OreNether;
-import com.dbydd.micro_machinery.blocks.tileentities.BlockKlin;
+import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

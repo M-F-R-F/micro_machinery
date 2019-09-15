@@ -1,10 +1,11 @@
-package com.dbydd.micro_machinery.blocks.tileentities;
+package com.dbydd.micro_machinery.blocks.machine;
 
 import java.util.Random;
 
 import com.dbydd.micro_machinery.Main;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.BlockBase;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.init.ModBlocks;
 
 import net.minecraft.block.Block;

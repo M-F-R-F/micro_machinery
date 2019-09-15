@@ -35,6 +35,7 @@ public class RegistryHandler {
         @SubscribeEvent
         public static void onBlockRegister(RegistryEvent.Register<Block> event) {
                 event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0])); //添加blocks到BLOCKS数组
+                TileRegisteryHandler.registerTileEntities();
                 
         }
         
