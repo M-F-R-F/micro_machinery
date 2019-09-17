@@ -23,42 +23,36 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class TileEntityKlin extends TileEntity implements IInventory, ITickable, IFluidTank{
+public class TileEntityKlin extends TileEntity implements IInventory, ITickable {
 
 	private ItemStackHandler handler = new ItemStackHandler(5);
 	private String customName;
 	private ItemStack smelting = ItemStack.EMPTY;
-	private IFluidHandler tank = new FluidTank(8000);
+    private FluidTank tank = new FluidTank(2000);
 	private int burnTime;
 	private int currentBurnTime;
 	private int cookTime;
 	private int totalCookTime = 200;
 
 	@Override
-	public boolean hasCapability(Capability<?> capability, EnumFacing facing) 
-	{
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
 	}
-	
+
 	@Override
-	public <T> T getCapability(Capability<T> capability, EnumFacing facing) 
-	{
-		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) this.handler;
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            return (T) this.handler;
 		return super.getCapability(capability, facing);
 	}
 
@@ -70,117 +64,97 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 		return null;
 	}
 
-	public boolean hasCustomName()
-	{
+    public boolean hasCustomName() {
 		return this.customName != null && !this.customName.isEmpty();
 	}
-	
-	public void setCustomName(String customName) 
-	{
+
+    public void setCustomName(String customName) {
 		this.customName = customName;
 	}
-	
+
 	@Override
-	public ITextComponent getDisplayName() 
-	{
+    public ITextComponent getDisplayName() {
 		return this.hasCustomName() ? new TextComponentString(this.customName) : new TextComponentTranslation("container.klin");
 	}
-	
+
 	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
+    public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
 		this.handler.deserializeNBT(compound.getCompoundTag("Inventory"));
 		this.burnTime = compound.getInteger("BurnTime");
 		this.cookTime = compound.getInteger("CookTime");
 		this.totalCookTime = compound.getInteger("CookTimeTotal");
 		this.currentBurnTime = getItemBurnTime(this.handler.getStackInSlot(2));
-		
-		if(compound.hasKey("CustomName", 8)) this.setCustomName(compound.getString("CustomName"));
-	}
-	
+        this.tank.readFromNBT(compound);
+
+        if (compound.hasKey("CustomName", 8)) this.setCustomName(compound.getString("CustomName"));
+
+    }
+
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound) 
-	{
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
-		compound.setInteger("BurnTime", (short)this.burnTime);
-		compound.setInteger("CookTime", (short)this.cookTime);
-		compound.setInteger("CookTimeTotal", (short)this.totalCookTime);
+        compound.setInteger("BurnTime", (short) this.burnTime);
+        compound.setInteger("CookTime", (short) this.cookTime);
+        compound.setInteger("CookTimeTotal", (short) this.totalCookTime);
 		compound.setTag("Inventory", this.handler.serializeNBT());
-		
-		if(this.hasCustomName()) compound.setString("CustomName", this.customName);
+
+        if (this.hasCustomName()) compound.setString("CustomName", this.customName);
 		return compound;
 	}
-	
-	public boolean isBurning() 
-	{
+
+    public boolean isBurning() {
 		return this.burnTime > 0;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
-	public static boolean isBurning(TileEntityKlin te) 
-	{
+    public static boolean isBurning(TileEntityKlin te) {
 		return te.getField(0) > 0;
 	}
-	
-	public void update() 
-	{	
-		if(this.isBurning())
-		{
+
+    public void update() {
+        if (this.isBurning()) {
 			--this.burnTime;
 			BlockKlin.setState(true, world, pos);
 		}
-		
-		ItemStack[] inputs = new ItemStack[] {handler.getStackInSlot(0), handler.getStackInSlot(1)};
+
+        ItemStack[] inputs = new ItemStack[]{handler.getStackInSlot(0), handler.getStackInSlot(1)};
 		ItemStack fuel = this.handler.getStackInSlot(2);
-		
-		if(this.isBurning() || !fuel.isEmpty() && !this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty())
-		{
-			if(!this.isBurning() && this.canSmelt())
-			{
+
+        if (this.isBurning() || !fuel.isEmpty() && !this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty()) {
+            if (!this.isBurning() && this.canSmelt()) {
 				this.burnTime = getItemBurnTime(fuel);
 				this.currentBurnTime = burnTime;
-				
-				if(this.isBurning() && !fuel.isEmpty())
-				{
+
+                if (this.isBurning() && !fuel.isEmpty()) {
 					Item item = fuel.getItem();
 					fuel.shrink(1);
-					
-					if(fuel.isEmpty())
-					{
+
+                    if (fuel.isEmpty()) {
 						ItemStack item1 = item.getContainerItem(fuel);
 						this.handler.setStackInSlot(2, item1);
 					}
 				}
 			}
 		}
-		
-		if(this.isBurning() && this.canSmelt() && cookTime > 0)
-		{
+
+        if (this.isBurning() && this.canSmelt() && cookTime > 0) {
 			cookTime++;
-			if(cookTime == totalCookTime)
-			{
-				if(handler.getStackInSlot(3).getCount() > 0)
-				{
+            if (cookTime == totalCookTime) {
+                if (handler.getStackInSlot(3).getCount() > 0) {
 					handler.getStackInSlot(3).grow(1);
-				}
-				else
-				{
+                } else {
 					handler.insertItem(3, smelting, false);
 				}
-				
+
 				smelting = ItemStack.EMPTY;
 				cookTime = 0;
 				return;
 			}
-		}
-		else
-		{
-			if(this.canSmelt() && this.isBurning())
-			{
+        } else {
+            if (this.canSmelt() && this.isBurning()) {
 				ItemStack output = KlinRecipes.getInstance().getKlinResult(inputs[0], inputs[1], inputs[2], inputs[3], inputs[4]);
-				if(!output.isEmpty())
-				{
+                if (!output.isEmpty()) {
 					smelting = output;
 					cookTime++;
 					inputs[0].shrink(1);
@@ -200,29 +174,25 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 
 	private boolean canSmelt() {
 		if (this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty()) return false;
-		else 
-		{
-			ItemStack result = KlinRecipes.getInstance().getKlinResult((ItemStack)this.handler.getStackInSlot(0), (ItemStack)this.handler.getStackInSlot(1));	
-			if(result.isEmpty()) return false;
+        else {
+            ItemStack result = KlinRecipes.getInstance().getKlinResult((ItemStack) this.handler.getStackInSlot(0), (ItemStack) this.handler.getStackInSlot(1));
+            if (result.isEmpty()) return false;
 			else {
 				ItemStack output = this.handler.getStackInSlot(3);
-				if(output.isEmpty()) return true;
-				if(!output.isItemEqual(result)) return false;
+                if (output.isEmpty()) return true;
+                if (!output.isItemEqual(result)) return false;
 				int res = output.getCount() + result.getCount();
 				return res <= 64 && res <= output.getMaxStackSize();
 			}
 		}
 	}
-	
-	public static int getItemBurnTime(ItemStack fuel) 
-	{
-		if(fuel.isEmpty()) return 0;
-		else 
-		{
+
+    public static int getItemBurnTime(ItemStack fuel) {
+        if (fuel.isEmpty()) return 0;
+        else {
 			Item item = fuel.getItem();
 
-			if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) 
-			{
+            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) {
 				Block block = Block.getBlockFromItem(item);
 
 				if (block == Blocks.WOODEN_SLAB) return 150;
@@ -230,9 +200,9 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 				if (block == Blocks.COAL_BLOCK) return 16000;
 			}
 
-			if (item instanceof ItemTool && "WOOD".equals(((ItemTool)item).getToolMaterialName())) return 200;
-			if (item instanceof ItemSword && "WOOD".equals(((ItemSword)item).getToolMaterialName())) return 200;
-			if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe)item).getMaterialName())) return 200;
+            if (item instanceof ItemTool && "WOOD".equals(((ItemTool) item).getToolMaterialName())) return 200;
+            if (item instanceof ItemSword && "WOOD".equals(((ItemSword) item).getToolMaterialName())) return 200;
+            if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe) item).getMaterialName())) return 200;
 			if (item == Items.STICK) return 100;
 			if (item == Items.COAL) return 1600;
 			if (item == Items.LAVA_BUCKET) return 20000;
@@ -242,9 +212,8 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 			return GameRegistry.getFuelValue(fuel);
 		}
 	}
-		
-	public static boolean isItemFuel(ItemStack fuel)
-	{
+
+    public static boolean isItemFuel(ItemStack fuel) {
 		return getItemBurnTime(fuel) > 0;
 	}
 
@@ -279,7 +248,7 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 	 */
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		return null;
+        return handler.extractItem(index, count, false);
 	}
 
 	/**
@@ -310,7 +279,7 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 	 */
 	@Override
 	public int getInventoryStackLimit() {
-		return 0;
+        return 64;
 	}
 
 	public boolean isUsableByPlayer(EntityPlayer player) {
@@ -339,36 +308,32 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 		return false;
 	}
 
-	public int getField(int id) 
-	{
-		switch(id) 
-		{
-		case 0:
-			return this.burnTime;
-		case 1:
-			return this.currentBurnTime;
-		case 2:
-			return this.cookTime;
-		case 3:
-			return this.totalCookTime;
-		default:
-			return 0;
+    public int getField(int id) {
+        switch (id) {
+            case 0:
+                return this.burnTime;
+            case 1:
+                return this.currentBurnTime;
+            case 2:
+                return this.cookTime;
+            case 3:
+                return this.totalCookTime;
+            default:
+                return 0;
 		}
 	}
 
-	public void setField(int id, int value) 
-	{
-		switch(id) 
-		{
-		case 0:
-			this.burnTime = value;
-			break;
-		case 1:
-			this.currentBurnTime = value;
-			break;
-		case 2:
-			this.cookTime = value;
-			break;
+    public void setField(int id, int value) {
+        switch (id) {
+            case 0:
+                this.burnTime = value;
+                break;
+            case 1:
+                this.currentBurnTime = value;
+                break;
+            case 2:
+                this.cookTime = value;
+                break;
 			case 3:
 				this.totalCookTime = value;
 		}
@@ -376,70 +341,13 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable,
 
 	@Override
 	public int getFieldCount() {
-		return 0;
+        return tank.getFluidAmount();
 	}
 
 	@Override
 	public void clear() {
+        tank.setFluid(null);
+    }
 
-	}
-
-	/**
-	 * @return FluidStack representing the fluid in the tank, null if the tank is empty.
-	 */
-	@Nullable
-	@Override
-	public FluidStack getFluid() {
-		return null;
-	}
-
-	/**
-	 * @return Current amount of fluid in the tank.
-	 */
-	@Override
-	public int getFluidAmount() {
-		return 0;
-	}
-
-	/**
-	 * @return Capacity of this fluid tank.
-	 */
-	@Override
-	public int getCapacity() {
-		return 0;
-	}
-
-	/**
-	 * Returns a wrapper object {@link FluidTankInfo } containing the capacity of the tank and the
-	 * FluidStack it holds.
-	 * <p>
-	 * Should prevent manipulation of the IFluidTank. See {@link FluidTank}.
-	 *
-	 * @return State information for the IFluidTank.
-	 */
-	@Override
-	public FluidTankInfo getInfo() {
-		return null;
-	}
-
-	/**
-	 * @param resource FluidStack attempting to fill the tank.
-	 * @param doFill   If false, the fill will only be simulated.
-	 * @return Amount of fluid that was accepted by the tank.
-	 */
-	@Override
-	public int fill(FluidStack resource, boolean doFill) {
-		return 0;
-	}
-
-	/**
-	 * @param maxDrain Maximum amount of fluid to be removed from the container.
-	 * @param doDrain  If false, the drain will only be simulated.
-	 * @return Amount of fluid that was removed from the tank.
-	 */
-	@Nullable
-	@Override
-	public FluidStack drain(int maxDrain, boolean doDrain) {
-		return null;
-	}
 }
+
