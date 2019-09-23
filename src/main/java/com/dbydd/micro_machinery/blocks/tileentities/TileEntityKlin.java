@@ -23,6 +23,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -37,7 +38,7 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable 
 
 	private ItemStackHandler handler = new ItemStackHandler(5);
 	private String customName;
-	private ItemStack smelting = ItemStack.EMPTY;
+    private FluidStack smelting = null;
     private FluidTank tank = new FluidTank(2000);
 	private int burnTime;
 	private int currentBurnTime;
@@ -112,25 +113,32 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable 
 		return te.getField(0) > 0;
 	}
 
-    public void update() {
-        if (this.isBurning()) {
+	/*
+	public void update()
+	{
+		if(this.isBurning())
+		{
 			--this.burnTime;
-			BlockKlin.setState(true, world, pos);
+			BlockSinteringFurnace.setState(true, world, pos);
 		}
 
-        ItemStack[] inputs = new ItemStack[]{handler.getStackInSlot(0), handler.getStackInSlot(1)};
+		ItemStack[] inputs = new ItemStack[] {handler.getStackInSlot(0), handler.getStackInSlot(1)};
 		ItemStack fuel = this.handler.getStackInSlot(2);
 
-        if (this.isBurning() || !fuel.isEmpty() && !this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty()) {
-            if (!this.isBurning() && this.canSmelt()) {
+		if(this.isBurning() || !fuel.isEmpty() && !this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty())
+		{
+			if(!this.isBurning() && this.canSmelt())
+			{
 				this.burnTime = getItemBurnTime(fuel);
 				this.currentBurnTime = burnTime;
 
-                if (this.isBurning() && !fuel.isEmpty()) {
+				if(this.isBurning() && !fuel.isEmpty())
+				{
 					Item item = fuel.getItem();
 					fuel.shrink(1);
 
-                    if (fuel.isEmpty()) {
+					if(fuel.isEmpty())
+					{
 						ItemStack item1 = item.getContainerItem(fuel);
 						this.handler.setStackInSlot(2, item1);
 					}
@@ -138,12 +146,17 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable 
 			}
 		}
 
-        if (this.isBurning() && this.canSmelt() && cookTime > 0) {
+		if(this.isBurning() && this.canSmelt() && cookTime > 0)
+		{
 			cookTime++;
-            if (cookTime == totalCookTime) {
-                if (handler.getStackInSlot(3).getCount() > 0) {
+			if(cookTime == totalCookTime)
+			{
+				if(handler.getStackInSlot(3).getCount() > 0)
+				{
 					handler.getStackInSlot(3).grow(1);
-                } else {
+				}
+				else
+				{
 					handler.insertItem(3, smelting, false);
 				}
 
@@ -151,26 +164,25 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable 
 				cookTime = 0;
 				return;
 			}
-        } else {
-            if (this.canSmelt() && this.isBurning()) {
-				ItemStack output = KlinRecipes.getInstance().getKlinResult(inputs[0], inputs[1], inputs[2], inputs[3], inputs[4]);
-                if (!output.isEmpty()) {
+		}
+		else
+		{
+			if(this.canSmelt() && this.isBurning())
+			{
+				ItemStack output = SinteringFurnaceRecipes.getInstance().getSinteringResult(inputs[0], inputs[1]);
+				if(!output.isEmpty())
+				{
 					smelting = output;
 					cookTime++;
 					inputs[0].shrink(1);
 					inputs[1].shrink(1);
-					inputs[2].shrink(1);
-					inputs[3].shrink(1);
-					inputs[4].shrink(1);
 					handler.setStackInSlot(0, inputs[0]);
 					handler.setStackInSlot(1, inputs[1]);
-					handler.setStackInSlot(2, inputs[2]);
-					handler.setStackInSlot(3, inputs[3]);
-					handler.setStackInSlot(4, inputs[4]);
 				}
 			}
 		}
 	}
+	 */
 
 	private boolean canSmelt() {
 		if (this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty()) return false;

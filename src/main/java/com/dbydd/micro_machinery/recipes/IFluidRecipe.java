@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.recipes.CustomRecipe;
+package com.dbydd.micro_machinery.recipes;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

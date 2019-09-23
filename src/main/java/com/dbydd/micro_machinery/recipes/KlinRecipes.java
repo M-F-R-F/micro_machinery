@@ -1,32 +1,22 @@
 package com.dbydd.micro_machinery.recipes;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.dbydd.micro_machinery.recipes.CustomRecipe.IFluidRecipe;
-import com.dbydd.micro_machinery.recipes.CustomRecipe.IKlinRecipe;
-import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class KlinRecipes {
-	private static final KlinRecipes INSTANCE = new KlinRecipes();
-	private final Table<IKlinRecipe, IFluidRecipe, Item> smeltingrecipe = HashBasedTable.<IKlinRecipe, IFluidRecipe, Item>create();
+	public static final Set<IKlinRecipe> recipes = new HashSet<IKlinRecipe>();
 
-	public static KlinRecipes getInstance() {
-		return INSTANCE;
-	}
-
-	public void addKlinRecipe(IKlinRecipe itemrecipe, IFluidRecipe fluidrecipe, Item item) {
-		if (itemrecipe.outputfluidstack != null || fluidrecipe.output != ItemStack.EMPTY) return;
-		this.smeltingrecipe.put(itemrecipe, fluidrecipe, item);
-	}
-
-	public ItemStack getKlinResult(ItemStack input1, ItemStack input2, IKlinRecipe klinRecipe) {
-		return ItemStack.EMPTY;
+	public static FluidStack getKlinToFluidResult(ItemStack input1, ItemStack input2) {
+		for (IKlinRecipe recipe : recipes) {
+			if (recipe.input1 == input1 || recipe.input1 == input2 && recipe.input2 == input2 || recipe.input1 == input1) {
+				return recipe.outputfluidstack;
+			}
+		}
+		return null;
 	}
 
 	private boolean compareItemStacks(ItemStack stack1, ItemStack stack2) {
