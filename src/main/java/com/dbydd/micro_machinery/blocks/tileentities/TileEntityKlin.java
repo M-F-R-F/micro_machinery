@@ -23,6 +23,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -36,7 +37,7 @@ import java.util.Objects;
 
 public class TileEntityKlin extends TileEntity implements IInventory, ITickable {
 
-	private ItemStackHandler handler = new ItemStackHandler(5);
+    private ItemStackHandler handler = new ItemStackHandler(3);
 	private String customName;
     private FluidStack smelting = null;
     private FluidTank tank = new FluidTank(2000);
@@ -113,6 +114,60 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable 
 		return te.getField(0) > 0;
 	}
 
+    public void update() {
+        if (this.isBurning()) {
+            --this.burnTime;
+            BlockKlin.setState(true, world, pos);
+        }
+
+        ItemStack[] inputs = new ItemStack[]{handler.getStackInSlot(0), handler.getStackInSlot(1)};
+        ItemStack fuel = this.handler.getStackInSlot(2);
+
+        if (this.isBurning() || !fuel.isEmpty() && !this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty()) {
+            if (!this.isBurning() && this.canSmelt()) {
+                this.burnTime = getItemBurnTime(fuel);
+                this.currentBurnTime = burnTime;
+
+                if (this.isBurning() && !fuel.isEmpty()) {
+                    Item item = fuel.getItem();
+                    fuel.shrink(1);
+
+                    if (fuel.isEmpty()) {
+                        ItemStack item1 = item.getContainerItem(fuel);
+                        this.handler.setStackInSlot(2, item1);
+                    }
+                }
+
+            }
+        }
+
+        if (this.isBurning() && this.canSmelt() && cookTime > 0) {
+            cookTime++;
+            if (cookTime == totalCookTime) {
+                if (tank.getFluidAmount() > 0) {
+                    tank.fill(new FluidStack(tank.getFluid().getFluid(), KlinRecipes.getKlinToFluidResult((ItemStack) this.handler.getStackInSlot(0), (ItemStack) this.handler.getStackInSlot(1)).amount), true);
+                } else {
+                    tank.fill(KlinRecipes.getKlinToFluidResult((ItemStack) this.handler.getStackInSlot(0), (ItemStack) this.handler.getStackInSlot(1)), true);
+                }
+
+                cookTime = 0;
+                return;
+            }
+        } else {
+            if (this.canSmelt() && this.isBurning()) {
+                FluidStack output = KlinRecipes.getKlinToFluidResult((ItemStack) this.handler.getStackInSlot(0), (ItemStack) this.handler.getStackInSlot(1));
+                if (!(output == null)) {
+                    smelting = output;
+                    cookTime++;
+                    inputs[0].shrink(1);
+                    inputs[1].shrink(1);
+                    handler.setStackInSlot(0, inputs[0]);
+                    handler.setStackInSlot(1, inputs[1]);
+                }
+            }
+        }
+    }
+
 	/*
 	public void update()
 	{
@@ -187,14 +242,14 @@ public class TileEntityKlin extends TileEntity implements IInventory, ITickable 
 	private boolean canSmelt() {
 		if (this.handler.getStackInSlot(0).isEmpty() || this.handler.getStackInSlot(1).isEmpty()) return false;
         else {
-            ItemStack result = KlinRecipes.getInstance().getKlinResult((ItemStack) this.handler.getStackInSlot(0), (ItemStack) this.handler.getStackInSlot(1));
-            if (result.isEmpty()) return false;
+            FluidStack result = KlinRecipes.getKlinToFluidResult((ItemStack) this.handler.getStackInSlot(0), (ItemStack) this.handler.getStackInSlot(1));
+            if (result == null) return false;
 			else {
-				ItemStack output = this.handler.getStackInSlot(3);
-                if (output.isEmpty()) return true;
-                if (!output.isItemEqual(result)) return false;
-				int res = output.getCount() + result.getCount();
-				return res <= 64 && res <= output.getMaxStackSize();
+                FluidStack output = this.tank.getFluid();
+                if (output == null) return true;
+                if (!output.isFluidEqual(result)) return false;
+                if (tank.getFluidAmount() + output.amount > 2000) return false;
+                return true;
 			}
 		}
 	}

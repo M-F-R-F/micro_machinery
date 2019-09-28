@@ -323,3 +323,8 @@ item.dsb.name=钻石锯片
 item.hsb.name=高速钢锯片
 item.brick_powder.name=红砖粉
 item.clay_mixed_with_clinker.name=掺杂熟料的粘土
+
+//tileentity
+container.klin.name=aaa
+
+container.klin=aaa

@@ -4,8 +4,7 @@ import com.google.common.collect.Table;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class KlinRecipes {
 	public static final Set<IKlinRecipe> recipes = new HashSet<IKlinRecipe>();
