@@ -5,12 +5,10 @@ import java.util.Random;
 import com.dbydd.micro_machinery.Main;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.BlockBase;
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityBase;
 import com.dbydd.micro_machinery.init.ModBlocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.BlockHugeMushroom.EnumType;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -102,7 +100,7 @@ public class BlockKlin extends BlockBase implements ITileEntityProvider{
 
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityKlin();
+		return new TileEntityBase();
 	}
 	
 	@Override
@@ -118,7 +116,7 @@ public class BlockKlin extends BlockBase implements ITileEntityProvider{
 	
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		TileEntityKlin tileentity = (TileEntityKlin)worldIn.getTileEntity(pos);
+		TileEntityBase tileentity = (TileEntityBase) worldIn.getTileEntity(pos);
 		InventoryHelper.dropInventoryItems(worldIn, pos, tileentity);
 		super.breakBlock(worldIn, pos, state);
 	}

@@ -3,8 +3,6 @@ package com.dbydd.micro_machinery;
 import com.dbydd.micro_machinery.proxy.CommonProxy;
 import com.dbydd.micro_machinery.tabs.micro_machinery;
 import com.dbydd.micro_machinery.util.handlers.RegistryHandler;
-import com.dbydd.micro_machinery.init.ModFluids;
-import com.dbydd.micro_machinery.proxy.ClientProxy;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -33,14 +31,13 @@ public class Main {
 		public static void PreInit(FMLPreInitializationEvent event)
 		{
 			RegistryHandler.preInitRegisteries(event);
-			
 		}
 		
 		@EventHandler
 		public static void init(FMLInitializationEvent event)
 		{
-			
-		}
+
+        }
 		
 		@EventHandler
 		public static void Postinit(FMLPostInitializationEvent event)
