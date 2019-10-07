@@ -1,30 +1,34 @@
 package com.dbydd.micro_machinery.recipes;
 
-import com.google.common.collect.Table;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class KlinRecipes {
-	public static final Set<IKlinRecipe> recipes = new HashSet<IKlinRecipe>();
 
-	public static FluidStack getKlinToFluidResult(ItemStack input1, ItemStack input2) {
-		for (IKlinRecipe recipe : recipes) {
-			if (recipe.input1 == input1 || recipe.input1 == input2 && recipe.input2 == input2 || recipe.input1 == input1) {
-				return recipe.outputfluidstack;
-			}
-		}
-		return null;
-	}
+    protected static KlinRecipes me;
+    public static List<IKlinRecipe> tofluidrecipes = new ArrayList<IKlinRecipe>();
 
-	private boolean compareItemStacks(ItemStack stack1, ItemStack stack2) {
-		return stack2.getItem() == stack1.getItem() && (stack2.getMetadata() == 32767 || stack2.getMetadata() == stack1.getMetadata());
-	}
+    protected KlinRecipes KlinRecipes() {
+        return this;
+    }
 
-	public Table<ItemStack, ItemStack, ItemStack> getDualsmeltingrecipe() {
-		//return this.smeltingrecipe;
-		return null;
-	}
+    public static KlinRecipes getInstance() {
+        if (me == null) me = new KlinRecipes();
+        return me;
+    }
 
+    public FluidStack getKlintofluidResult(ItemStack stackInSlot, ItemStack stackInSlot1) {
+        for (IKlinRecipe tofluidrecipe : tofluidrecipes) {
+            if (stackInSlot == tofluidrecipe.input1) {
+                if (stackInSlot1 == tofluidrecipe.input2) return tofluidrecipe.outputfluidstack;
+            }
+            if (stackInSlot == tofluidrecipe.input2) {
+                if (stackInSlot1 == tofluidrecipe.input1) return tofluidrecipe.outputfluidstack;
+            }
+        }
+        return null;
+    }
 }

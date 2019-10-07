@@ -1,6 +1,5 @@
 package com.dbydd.micro_machinery.recipes;
 
-import com.dbydd.micro_machinery.recipes.KlinRecipes;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -16,7 +15,7 @@ public class IKlinRecipe {
         this.input2 = input2;
         this.outputfluidstack = outputfluidstack;
 
-        KlinRecipes.recipes.add(this);
+        KlinRecipes.tofluidrecipes.add(this);
     }
 
 }
