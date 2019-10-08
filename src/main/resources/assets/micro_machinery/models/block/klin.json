@@ -1,5 +1,4 @@
 {
-  "parent": "block/cube_all",
   "textures": {
     "0": "micro_machinery:blocks/klin"
   },
