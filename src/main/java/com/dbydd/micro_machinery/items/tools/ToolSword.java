@@ -1,11 +1,10 @@
 package com.dbydd.micro_machinery.items.tools;
 
-import com.dbydd.micro_machinery.Main;
+import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
 
 import net.minecraft.item.ItemSword;
-import net.minecraft.item.Item.ToolMaterial;
 
 public class ToolSword extends ItemSword implements IHasModel{
 	
@@ -13,7 +12,7 @@ public class ToolSword extends ItemSword implements IHasModel{
 
 	public ToolSword(ToolMaterial material, int maxDamageIn, String name) {
 		super(material);
-		setCreativeTab(Main.Micro_Machinery);
+        setCreativeTab(Micro_Machinery.Micro_Machinery);
 		setRegistryName(name);
 		setUnlocalizedName(name);
 		
@@ -28,7 +27,7 @@ public class ToolSword extends ItemSword implements IHasModel{
 	@Override
 	public void registerModels() 
 	{
-		Main.proxy.registerItemRenderer(this, 0, "inventory");
+        Micro_Machinery.proxy.registerItemRenderer(this, 0, "inventory");
 	}
 
 }

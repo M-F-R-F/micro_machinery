@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class MoltenMaterial extends Fluid{
+public class MoltenMaterial extends Fluid {
 
 	public MoltenMaterial(String fluidName, ResourceLocation still, ResourceLocation flowing, int temperature) {
 		super(fluidName, still, flowing);

@@ -29,62 +29,60 @@ public class RegistryHandler {
 
     @SubscribeEvent
     public static void onItemRegister(RegistryEvent.Register<Item> event) {
-            event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0])); //Ìí¼Óitemsµ½ITEMSÊý×é
+        event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0])); //ï¿½ï¿½ï¿½itemsï¿½ï¿½ITEMSï¿½ï¿½ï¿½ï¿½
     }
-        
-        @SubscribeEvent
-        public static void onBlockRegister(RegistryEvent.Register<Block> event) {
-                event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0])); //Ìí¼Óblocksµ½BLOCKSÊý×é
-                TileRegisteryHandler.registerTileEntities();
-                
-        }
-        
-        
-        
-        @SubscribeEvent
-        public static void onModelRegister(ModelRegistryEvent event) {
 
-                for(Item item : ModItems.ITEMS) { //forÑ­»· ×¢²áitems
-                        if(item instanceof IHasModel) {
-                                ((IHasModel)item).registerModels();
-                        }
-                }
-                
+    @SubscribeEvent
+    public static void onBlockRegister(RegistryEvent.Register<Block> event) {
+        event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0])); //ï¿½ï¿½ï¿½blocksï¿½ï¿½BLOCKSï¿½ï¿½ï¿½ï¿½
+        TileRegisteryHandler.registerTileEntities();
 
-               for(Block block : ModBlocks.BLOCKS) { //forÑ­»· ×¢²áblocks
-                        if(block instanceof IHasModel) {
-                                ((IHasModel)block).registerModels();
-                        }
-                }
-               
+    }
+
+
+    @SubscribeEvent
+    public static void onModelRegister(ModelRegistryEvent event) {
+
+        for (Item item : ModItems.ITEMS) {
+            if (item instanceof IHasModel) {
+                ((IHasModel) item).registerModels();
+            }
         }
-        
-        public static void preInitRegisteries(FMLPreInitializationEvent event)
-        {
-        	ModFluids.registerFluids(ModFluids.MOLTEN_COPPER);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_TIN);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_BRONZE);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_STEEL);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_SS);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_TUNGSTEN);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_NICKEL);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_INVAR);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_HSS);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_SILVER);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_GOLD);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_MANGANESE);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_CHROMIUM);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_VANADIUM);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_COBALT);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_TITANIUM);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_ALUMINUM);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_NCALLOY);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_IRON);
-        	ModFluids.registerFluids(ModFluids.MOLTEN_FERROCHROME);
-        	ModFluids.registerFluids(ModFluids.GOLDEN_APPLE_JUICE);
-        	ModFluids.registerFluids(ModFluids.APPLE_JUICE);
-        	ModFluids.registerFluids(ModFluids.ETHENE);
-        	
-        	
+
+
+        for (Block block : ModBlocks.BLOCKS) {
+            if (block instanceof IHasModel) {
+                ((IHasModel) block).registerModels();
+            }
         }
+
+    }
+
+    public static void preInitRegisteries(FMLPreInitializationEvent event) {
+        ModFluids.registerFluids(ModFluids.MOLTEN_COPPER);
+        ModFluids.registerFluids(ModFluids.MOLTEN_TIN);
+        ModFluids.registerFluids(ModFluids.MOLTEN_BRONZE);
+        ModFluids.registerFluids(ModFluids.MOLTEN_STEEL);
+        ModFluids.registerFluids(ModFluids.MOLTEN_SS);
+        ModFluids.registerFluids(ModFluids.MOLTEN_TUNGSTEN);
+        ModFluids.registerFluids(ModFluids.MOLTEN_NICKEL);
+        ModFluids.registerFluids(ModFluids.MOLTEN_INVAR);
+        ModFluids.registerFluids(ModFluids.MOLTEN_HSS);
+        ModFluids.registerFluids(ModFluids.MOLTEN_SILVER);
+        ModFluids.registerFluids(ModFluids.MOLTEN_GOLD);
+        ModFluids.registerFluids(ModFluids.MOLTEN_MANGANESE);
+        ModFluids.registerFluids(ModFluids.MOLTEN_CHROMIUM);
+        ModFluids.registerFluids(ModFluids.MOLTEN_VANADIUM);
+        ModFluids.registerFluids(ModFluids.MOLTEN_COBALT);
+        ModFluids.registerFluids(ModFluids.MOLTEN_TITANIUM);
+        ModFluids.registerFluids(ModFluids.MOLTEN_ALUMINUM);
+        ModFluids.registerFluids(ModFluids.MOLTEN_NCALLOY);
+        ModFluids.registerFluids(ModFluids.MOLTEN_IRON);
+        ModFluids.registerFluids(ModFluids.MOLTEN_FERROCHROME);
+        ModFluids.registerFluids(ModFluids.GOLDEN_APPLE_JUICE);
+        ModFluids.registerFluids(ModFluids.APPLE_JUICE);
+        ModFluids.registerFluids(ModFluids.ETHENE);
+
+
+    }
 }

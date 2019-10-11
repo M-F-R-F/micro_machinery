@@ -1,8 +1,7 @@
 package com.dbydd.micro_machinery.util;
 
-public interface IHasModel 
-{
+public interface IHasModel {
 
-	public void registerModels();
-	
+    public void registerModels();
+
 }

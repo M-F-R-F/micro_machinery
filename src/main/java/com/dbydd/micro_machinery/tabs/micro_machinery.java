@@ -8,15 +8,13 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public class micro_machinery extends CreativeTabs {
 
-	public micro_machinery(String label)
-	{
-		super("Micro_Machinery");
-	}
+    public micro_machinery(String label) {
+        super("Micro_Machinery");
+    }
 
-	@Override
-	public ItemStack getTabIconItem() {
-		// TODO Auto-generated method stub
-		return new ItemStack(ModItems.AXISHSS);
-	}
-	
+    @Override
+    public ItemStack getTabIconItem() {
+        return new ItemStack(ModItems.AXISHSS);
+    }
+
 }
