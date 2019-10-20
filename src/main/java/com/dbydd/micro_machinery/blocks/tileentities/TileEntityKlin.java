@@ -21,7 +21,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityKlin extends TileEntityBase {
 
-    public ItemStackHandler itemStackHandler = new ItemStackHandler(3);
+    public ItemStackHandler itemhander = new ItemStackHandler(3);
     public String customname = "Klin";
 
     public int burnTime;
@@ -39,19 +39,34 @@ public class TileEntityKlin extends TileEntityBase {
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) this.itemhandler;
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) itemhandler;
         else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) this.fluidHandler;
         return getCapability(capability, facing);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        //todo
+        writeToNBT(compound);
+        itemhandler.deserializeNBT(compound.getCompoundTag("Inventory"));
+        this.burnTime = compound.getInteger("BurnTime");
+        this.cookTime = compound.getInteger("CookTime");
+        this.totalCookTime = compound.getInteger("CookTimeTotal");
+        this.currentBurnTime = getItemBurnTime((ItemStack)itemhandler.getStackInSlot(2));
 
+        if(compound.hasKey("CustomName", 8)) this.setCustomName(compound.getString("CustomName"));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        return null;
+        //todo
+        compound.setInteger("BurnTime", (short)this.burnTime);
+        compound.setInteger("CookTime", (short)this.cookTime);
+        compound.setInteger("CookTimeTotal", (short)this.totalCookTime);
+        compound.setTag("Inventory", itemhandler.serializeNBT());
+
+        if(this.hasCustomName()) compound.setString("CustomName", this.customName);
+        return compound;
     }
 
     public boolean isBurning() {
@@ -126,10 +141,10 @@ public class TileEntityKlin extends TileEntityBase {
     }
 
     private boolean canSmelt() {
-        if (((ItemStack) this.itemhandler.getStackInSlot(0)).isEmpty() || ((ItemStack) this.itemhandler.getStackInSlot(1)).isEmpty())
+        if (((ItemStack) itemhandler.getStackInSlot(0)).isEmpty() || ((ItemStack) itemhandler.getStackInSlot(1)).isEmpty())
             return false;
         else {
-            FluidStack result = KlinRecipes.getInstance().getKlintofluidResult((ItemStack) this.itemhandler.getStackInSlot(0), (ItemStack) this.itemhandler.getStackInSlot(1));
+            FluidStack result = KlinRecipes.getInstance().getKlintofluidResult((ItemStack) itemhandler.getStackInSlot(0), (ItemStack) itemhandler.getStackInSlot(1));
             if (result == null) return false;
             else {
                 FluidStack output = (FluidStack) this.fluidHandler.getTankProperties()[0].getContents();
@@ -146,7 +161,7 @@ public class TileEntityKlin extends TileEntityBase {
      */
     @Override
     public void update() {
+        //todo
 
     }
-
 }

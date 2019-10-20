@@ -8,7 +8,6 @@ public class MoltenMaterial extends Fluid {
 
 	public MoltenMaterial(String fluidName, ResourceLocation still, ResourceLocation flowing, int temperature) {
 		super(fluidName, still, flowing);
-		// TODO Auto-generated constructor stub
 		this.setTemperature(temperature);
 		this.setLuminosity(13);
 		this.setViscosity(4800);
