@@ -1,14 +1,13 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "micro_machinery:klin"
-  },
-  "variants": {
-    "normal": [
-      {}
-    ],
-    "inventory": [
-      {}
-    ]
-  }
+    "variants": 
+    {
+        "burning=true,facing=north": { "model": "micro_machinery:klin" },
+        "burning=true,facing=east": { "model": "micro_machinery:klin", "y": 90 },
+        "burning=true,facing=south": { "model": "micro_machinery:klin", "y": 180 },
+        "burning=true,facing=west": { "model": "micro_machinery:klin", "y": 270 },
+        "burning=false,facing=north": { "model": "micro_machinery:klin_burning" },
+        "burning=false,facing=east": { "model": "micro_machinery:klin_burning", "y": 90 },
+        "burning=false,facing=south": { "model": "micro_machinery:klin_burning", "y": 180 },
+        "burning=false,facing=west": { "model": "micro_machinery:klin_burning", "y":270  }
+    }
 }
