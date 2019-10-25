@@ -12,7 +12,7 @@ import org.lwjgl.opengl.GL11;
 public class GUIElementaryKlin extends GuiContainer {
 
     //指定自定义背景贴图位置
-    private static final String TEXTURE_BACK = Reference.MODID + ":" + "填吧";
+    private static final String TEXTURE_BACK = Reference.MODID + ":" + "textures/gui/klin.png";
     // private static final String TEXTURE_COMP = Reference.MODID + ":" + "rua!";
     //创建自定义贴图的ResourceLocation标识。
     private static final ResourceLocation TEXTUREBACK = new ResourceLocation(TEXTURE_BACK);
@@ -71,4 +71,10 @@ public class GUIElementaryKlin extends GuiContainer {
 //            }
 //        });
 //    }
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        this.drawDefaultBackground();
+        super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
 }
