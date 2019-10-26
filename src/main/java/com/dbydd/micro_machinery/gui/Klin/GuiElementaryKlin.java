@@ -1,15 +1,13 @@
-package com.dbydd.micro_machinery.util.containers;
+package com.dbydd.micro_machinery.gui.Klin;
 
 import com.dbydd.micro_machinery.Reference;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import com.dbydd.micro_machinery.gui.GuiBase;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-public class GUIElementaryKlin extends GuiContainer {
+public class GuiElementaryKlin extends GuiBase {
 
     //指定自定义背景贴图位置
     private static final String TEXTURE_BACK = Reference.MODID + ":" + "textures/gui/klin.png";
@@ -18,7 +16,7 @@ public class GUIElementaryKlin extends GuiContainer {
     private static final ResourceLocation TEXTUREBACK = new ResourceLocation(TEXTURE_BACK);
     //private static final ResourceLocation TEXTURECOMP = new ResourceLocation(TEXTURE_COMP);
 
-    public GUIElementaryKlin(Container inventorySlotsIn) {
+    public GuiElementaryKlin(Container inventorySlotsIn) {
         super(inventorySlotsIn);
         //设置GUI背景贴图的大小（方便后续计算GUI元素与背景贴图的相对位置）
         this.xSize = 176;
@@ -71,10 +69,5 @@ public class GUIElementaryKlin extends GuiContainer {
 //            }
 //        });
 //    }
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.drawDefaultBackground();
-        super.drawScreen(mouseX, mouseY, partialTicks);
-    }
 
 }

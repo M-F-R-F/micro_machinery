@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.util.handlers;
 
-import com.dbydd.micro_machinery.util.containers.ContainerElementaryKlin;
-import com.dbydd.micro_machinery.util.containers.GUIElementaryKlin;
+import com.dbydd.micro_machinery.gui.Klin.ContainerElementaryKlin;
+import com.dbydd.micro_machinery.gui.Klin.GuiElementaryKlin;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -52,7 +52,7 @@ public class GUIHandler implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         switch (ID) {
             case GUIElementaryKlin:
-                return new GUIElementaryKlin(new ContainerElementaryKlin(player));
+                return new GuiElementaryKlin(new ContainerElementaryKlin(player));
             default:
                 return null;
         }
