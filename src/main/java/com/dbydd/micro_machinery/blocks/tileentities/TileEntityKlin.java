@@ -1,36 +1,27 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
-import com.dbydd.micro_machinery.recipes.KlinRecipes;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
-public class TileEntityKlin extends TileEntityBase {
+import javax.annotation.Nullable;
 
-    public ItemStackHandler itemhander = new ItemStackHandler(3);
-    public String customname = "Klin";
+public class TileEntityKlin extends TileEntityBase implements IFluidTank {
 
-    public int burnTime;
-    public int currentBurnTime;
-    public int cookTime;
-    public int totalCookTime = 200;
+    public static FluidTank fluidHandler = new FluidTank(2000);
+    public static int heatwastepersec = 20, heatlimit = 3600, slot = 4, heat, timer1, timer2;
 
-    public IFluidHandler fluidHandler = new FluidTank(2000);
-
+    public TileEntityKlin() {
+        setItemhandler(slot);
+    }
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -40,7 +31,7 @@ public class TileEntityKlin extends TileEntityBase {
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) itemhandler;
-        else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) this.fluidHandler;
+        else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) fluidHandler;
         return getCapability(capability, facing);
     }
 
@@ -49,119 +40,110 @@ public class TileEntityKlin extends TileEntityBase {
         //todo
         writeToNBT(compound);
         itemhandler.deserializeNBT(compound.getCompoundTag("Inventory"));
-        this.burnTime = compound.getInteger("BurnTime");
-        this.cookTime = compound.getInteger("CookTime");
-        this.totalCookTime = compound.getInteger("CookTimeTotal");
-        this.currentBurnTime = getItemBurnTime((ItemStack)itemhandler.getStackInSlot(2));
+        heat = compound.getInteger("heat");
+//        this.cookTime = compound.getInteger("CookTime");
+//        this.totalCookTime = compound.getInteger("CookTimeTotal");
+//        this.currentBurnTime = getItemBurnTime((ItemStack)itemhandler.getStackInSlot(2));
 
-        if(compound.hasKey("CustomName", 8)) this.setCustomName(compound.getString("CustomName"));
+        if (compound.hasKey("CustomName", 8)) this.setCustomName(compound.getString("CustomName"));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         //todo
-        compound.setInteger("BurnTime", (short)this.burnTime);
-        compound.setInteger("CookTime", (short)this.cookTime);
-        compound.setInteger("CookTimeTotal", (short)this.totalCookTime);
+        compound.setInteger("heat", heat);
+//        compound.setInteger("CookTime", (short)this.cookTime);
+//        compound.setInteger("CookTimeTotal", (short)this.totalCookTime);
         compound.setTag("Inventory", itemhandler.serializeNBT());
 
-        if(this.hasCustomName()) compound.setString("CustomName", this.customName);
+        if (this.hasCustomName()) compound.setString("CustomName", getCustomName());
         return compound;
     }
 
-    public boolean isBurning() {
-        return this.burnTime > 0;
+    @Override
+    public boolean isEmpty() {
+        for (int i = 0; i < slot; i++) {
+            if (itemhandler.getStackInSlot(i) != ItemStack.EMPTY) return false;
+        }
+        return true;
     }
 
-    @SideOnly(Side.CLIENT)
-    public static boolean isBurning(TileEntityKlin te) {
-        return te.getField(0) > 0;
+    @Override
+    public int getInventoryStackLimit() {
+        return 64;
+    }
+
+    @Override
+    public int getFieldCount() {
+        return 0;
+    }
+
+    @Override
+    public String getName() {
+        return getCustomName();
+    }
+
+    @Nullable
+    @Override
+    public FluidStack getFluid() {
+        return fluidHandler.getFluid();
+    }
+
+    @Override
+    public int getFluidAmount() {
+        return fluidHandler.getFluidAmount();
+    }
+
+    @Override
+    public int getCapacity() {
+        return fluidHandler.getCapacity();
+    }
+
+    @Override
+    public FluidTankInfo getInfo() {
+        return fluidHandler.getInfo();
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
+        return fluidHandler.fill(resource, doFill);
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        return fluidHandler.drain(maxDrain, doDrain);
+    }
+
+    @Override
+    public void openInventory(EntityPlayer player) {
+
+    }
+
+    @Override
+    public void closeInventory(EntityPlayer player) {
+
     }
 
     @Override
     public int getField(int id) {
-        switch (id) {
-            case 0:
-                return this.burnTime;
-            case 1:
-                return this.currentBurnTime;
-            case 2:
-                return this.cookTime;
-            case 3:
-                return this.totalCookTime;
-            default:
-                return 0;
-        }
+        return 0;
     }
 
+    @Override
     public void setField(int id, int value) {
-        switch (id) {
-            case 0:
-                this.burnTime = value;
-                break;
-            case 1:
-                this.currentBurnTime = value;
-                break;
-            case 2:
-                this.cookTime = value;
-                break;
-            case 3:
-                this.totalCookTime = value;
-        }
+
     }
 
-    public static boolean isItemFuel(ItemStack fuel) {
-        return getItemBurnTime(fuel) > 0;
+    @Override
+    public void clear() {
+
     }
 
-    public static int getItemBurnTime(ItemStack fuel) {
-        if (fuel.isEmpty()) return 0;
-        else {
-            Item item = fuel.getItem();
 
-            if (item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) {
-                Block block = Block.getBlockFromItem(item);
-
-                if (block == Blocks.WOODEN_SLAB) return 150;
-                if (block.getDefaultState().getMaterial() == Material.WOOD) return 300;
-                if (block == Blocks.COAL_BLOCK) return 16000;
-            }
-
-            if (item instanceof ItemTool && "WOOD".equals(((ItemTool) item).getToolMaterialName())) return 200;
-            if (item instanceof ItemSword && "WOOD".equals(((ItemSword) item).getToolMaterialName())) return 200;
-            if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe) item).getMaterialName())) return 200;
-            if (item == Items.STICK) return 100;
-            if (item == Items.COAL) return 1600;
-            if (item == Items.LAVA_BUCKET) return 20000;
-            if (item == Item.getItemFromBlock(Blocks.SAPLING)) return 100;
-            if (item == Items.BLAZE_ROD) return 2400;
-
-            return GameRegistry.getFuelValue(fuel);
-        }
-    }
-
-    private boolean canSmelt() {
-        if (((ItemStack) itemhandler.getStackInSlot(0)).isEmpty() || ((ItemStack) itemhandler.getStackInSlot(1)).isEmpty())
-            return false;
-        else {
-            FluidStack result = KlinRecipes.getInstance().getKlintofluidResult((ItemStack) itemhandler.getStackInSlot(0), (ItemStack) itemhandler.getStackInSlot(1));
-            if (result == null) return false;
-            else {
-                FluidStack output = (FluidStack) this.fluidHandler.getTankProperties()[0].getContents();
-                if (output == null) return true;
-                if (!(output == result)) return false;
-                int res = output.amount + result.amount;
-                return res <= 2000;
-            }
-        }
-    }
-
-    /**
-     * Like the old updateEntity(), except more generic.
-     */
     @Override
     public void update() {
-        //todo
 
     }
+//todo
 }

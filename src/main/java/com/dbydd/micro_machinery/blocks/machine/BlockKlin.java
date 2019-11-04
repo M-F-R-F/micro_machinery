@@ -1,13 +1,8 @@
 package com.dbydd.micro_machinery.blocks.machine;
 
-import java.util.Random;
-
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.Reference;
-import com.dbydd.micro_machinery.blocks.BlockBase;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.init.ModBlocks;
-
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
 import com.dbydd.micro_machinery.util.handlers.GUIHandler;
@@ -31,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class BlockKlin extends BlockContainer implements IHasModel {
 
@@ -48,12 +44,23 @@ public class BlockKlin extends BlockContainer implements IHasModel {
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BURNING, false));
     }
 
-    @Override
-    public boolean isOpaqueCube(IBlockState state)
-    {
-        return false;
+    public static void setState(boolean active, World worldIn, BlockPos pos) {
+        IBlockState state = worldIn.getBlockState(pos);
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+
+        //if(active) worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true), 3);
+        //else worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false), 3);
+
+        if (tileentity != null) {
+            tileentity.validate();
+            worldIn.setTileEntity(pos, tileentity);
+        }
     }
 
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
     @Override
     public BlockRenderLayer getBlockLayer() {
@@ -97,19 +104,6 @@ public class BlockKlin extends BlockContainer implements IHasModel {
             else if (face == EnumFacing.WEST && west.isFullBlock() && !east.isFullBlock()) face = EnumFacing.EAST;
             else if (face == EnumFacing.EAST && east.isFullBlock() && !west.isFullBlock()) face = EnumFacing.WEST;
             worldIn.setBlockState(pos, state.withProperty(FACING, face), 2);
-        }
-    }
-
-    public static void setState(boolean active, World worldIn, BlockPos pos) {
-        IBlockState state = worldIn.getBlockState(pos);
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-
-        //if(active) worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true), 3);
-        //else worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false), 3);
-
-        if (tileentity != null) {
-            tileentity.validate();
-            worldIn.setTileEntity(pos, tileentity);
         }
     }
 
