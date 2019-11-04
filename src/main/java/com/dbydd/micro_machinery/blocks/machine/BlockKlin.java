@@ -64,7 +64,7 @@ public class BlockKlin extends BlockContainer implements IHasModel {
 
     @Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+        return BlockRenderLayer.SOLID;
     }
 
     @Override
