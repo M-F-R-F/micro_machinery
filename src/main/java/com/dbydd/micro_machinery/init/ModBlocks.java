@@ -61,6 +61,16 @@ public class ModBlocks {
     public static final Block BLOCKALUMINUM = new MaterialBlock("Aluminum", 2, 3.0f);
     public static final Block BLOCKNCALLOY = new MaterialBlock("NCAlloy", 2, 4.0f);
 
+    //block
+    public static final Block BLOCKPCM = new MaterialBlock("pcm", 2, 4.0f);
+    public static final Block BLOCKSTALINITE = new MaterialBlock("stalinite", 2, 4.0f);
+    public static final Block BLOCKTANK = new MaterialBlock("tank", 2, 4.0f);
+    public static final Block BLOCKCONTAINER = new MaterialBlock("container", 2, 4.0f);
+    public static final Block BLOCKSTEEL_SCAFFOLD = new MaterialBlock("steel_scaffold", 2, 4.0f);
+    public static final Block BLOCKVACUUM_FACILITIES = new MaterialBlock("vacuum_facilities", 2, 4.0f);
+    public static final Block BLOCKSLAG_CONCRETE = new MaterialBlock("slag_concrete", 2, 4.0f);
+    public static final Block BLOCKCLAYBRICK = new MaterialBlock("claybrick", 1, 4.0f);
+    public static final Block BLOCKFIREBRICK = new MaterialBlock("firebrick", 1, 4.0f);
 
     //fluids
     public static final Block MOLTEN_COPPER = new BlockFluid("molten_copper", ModFluids.MOLTEN_COPPER, Material.LAVA, 15, 3);

@@ -1,8 +1,6 @@
 package com.dbydd.micro_machinery.gui.Klin;
 
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.ContainerBase;
-import com.sun.tools.javac.jvm.Items;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
