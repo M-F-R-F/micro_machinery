@@ -1,16 +1,16 @@
 package com.dbydd.micro_machinery.blocks.machine;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
+import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
-import com.dbydd.micro_machinery.util.handlers.GUIHandler;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -24,14 +24,18 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.Random;
 
 public class BlockKlin extends BlockContainer implements IHasModel {
 
-    public static final PropertyDirection FACING = BlockHorizontal.FACING;
-    public static final PropertyBool BURNING = PropertyBool.create("burning");
+    private static final PropertyDirection FACING = BlockHorizontal.FACING;
+    private static final PropertyBool BURNING = PropertyBool.create("burning");
 
     public BlockKlin(String name, Material material) {
         super(material);
@@ -40,7 +44,7 @@ public class BlockKlin extends BlockContainer implements IHasModel {
         setRegistryName(name);
         setCreativeTab(Micro_Machinery.Micro_Machinery);
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BURNING, false));
     }
 
@@ -48,8 +52,10 @@ public class BlockKlin extends BlockContainer implements IHasModel {
         IBlockState state = worldIn.getBlockState(pos);
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        //if(active) worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true), 3);
-        //else worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false), 3);
+        if (active)
+            worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, true), 3);
+        else
+            worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(BURNING, false), 3);
 
         if (tileentity != null) {
             tileentity.validate();
@@ -80,11 +86,7 @@ public class BlockKlin extends BlockContainer implements IHasModel {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            if (!worldIn.isRemote) {
-                int id = GUIHandler.GUIElementaryKlin;
-                playerIn.openGui(Micro_Machinery.instance, id, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            }
-            return true;
+            playerIn.openGui(Micro_Machinery.instance, Reference.GUI_Klin, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
 
         return true;
@@ -139,7 +141,7 @@ public class BlockKlin extends BlockContainer implements IHasModel {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[]{BURNING, FACING});
+        return new BlockStateContainer(this, BURNING, FACING);
     }
 
     @Override
@@ -159,12 +161,6 @@ public class BlockKlin extends BlockContainer implements IHasModel {
         Micro_Machinery.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "invenroty");
     }
 
-    /**
-     * Returns a new instance of a block's tile entity class. Called on placing the block.
-     *
-     * @param worldIn
-     * @param meta
-     */
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {

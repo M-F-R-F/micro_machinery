@@ -1,11 +1,11 @@
 package com.dbydd.micro_machinery.gui.Klin;
 
 import com.dbydd.micro_machinery.Reference;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.GuiBase;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.inventory.Container;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class GuiElementaryKlin extends GuiBase {
 
@@ -13,34 +13,53 @@ public class GuiElementaryKlin extends GuiBase {
     private static final String TEXTURE_BACK = Reference.MODID + ":" + "textures/gui/klin.png";
     // private static final String TEXTURE_COMP = Reference.MODID + ":" + "rua!";
     //创建自定义贴图的ResourceLocation标识。
-    private static final ResourceLocation TEXTUREBACK = new ResourceLocation(TEXTURE_BACK);
+    private static final ResourceLocation TEXTURES = new ResourceLocation(TEXTURE_BACK);
+    private TileEntityKlin tileentity;
     //private static final ResourceLocation TEXTURECOMP = new ResourceLocation(TEXTURE_COMP);
 
-    public GuiElementaryKlin(Container inventorySlotsIn) {
-        super(inventorySlotsIn);
+    public GuiElementaryKlin(EntityPlayer player, TileEntityKlin tileentity) {
+        super(new ContainerElementaryKlin(player, tileentity));
+        this.tileentity = tileentity;
         //设置GUI背景贴图的大小（方便后续计算GUI元素与背景贴图的相对位置）
         this.xSize = 176;
         this.ySize = 166;
     }
 
+
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        //设置渲染混合模式及颜色模式（该处代码解释请查看lwjgl及OpenGL相关文档）
-        GL11.glPushMatrix();
-        GL11.glEnable(GL11.GL_BLEND);
-        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        //将自定义背景贴图与Minecraft材质管理器绑定
-        this.mc.getTextureManager().bindTexture(TEXTUREBACK);
-        //计算相对位置（以背景贴图左上角为(0,0)点）
-        int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
-        //绘制背景贴图（参数说明：在游戏中的XY位置；贴图在贴图文件中的XY位置；贴图的大小）
-        this.drawTexturedModalRect(offsetX, offsetY, 0, 0, this.xSize, this.ySize);
-        //结束渲染
-        GL11.glPopMatrix();
-    }
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        this.mc.getTextureManager().bindTexture(TEXTURES);
+        this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
+        //todo
+//        if(TileEntityKlin.isBurning(tileentity))
+//        {
+//            int k = this.getBurnLeftScaled(13);
+//            this.drawTexturedModalRect(this.guiLeft + 8, this.guiTop + 54 + 12 - k, 176, 12 - k, 14, k + 1);
+//        }
+//
+//        int l = this.getCookProgressScaled(24);
+//        this.drawTexturedModalRect(this.guiLeft + 44, this.guiTop + 36, 176, 14, l + 1, 16);
+    }
+//    @Override
+//    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+//        //设置渲染混合模式及颜色模式（该处代码解释请查看lwjgl及OpenGL相关文档）
+//        GL11.glPushMatrix();
+//        GL11.glEnable(GL11.GL_BLEND);
+//        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+//        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+//        //将自定义背景贴图与Minecraft材质管理器绑定
+//        this.mc.getTextureManager().bindTexture(TEXTUREBACK);
+//        //计算相对位置（以背景贴图左上角为(0,0)点）
+//        int offsetX = (this.width - this.xSize) / 2, offsetY = (this.height - this.ySize) / 2;
+//        //绘制背景贴图（参数说明：在游戏中的XY位置；贴图在贴图文件中的XY位置；贴图的大小）
+//        this.drawTexturedModalRect(offsetX, offsetY, 0, 0, this.xSize, this.ySize);
+//        //结束渲染
+//        GL11.glPopMatrix();
+//    }
+//
 //    @Override
 //    public void initGui() {
 //        super.initGui();

@@ -2,6 +2,7 @@ package com.dbydd.micro_machinery.util.handlers;
 
 import javax.annotation.Nonnull;
 
+import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.fluid.MoltenMaterial;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
@@ -21,20 +22,24 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 @EventBusSubscriber
 public class RegistryHandler {
 
     @SubscribeEvent
     public static void onItemRegister(RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0])); //���items��ITEMS����
+        event.getRegistry().registerAll(ModItems.ITEMS.toArray(new Item[0]));
     }
 
     @SubscribeEvent
     public static void onBlockRegister(RegistryEvent.Register<Block> event) {
-        event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0])); //���blocks��BLOCKS����
+        event.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
         TileRegisteryHandler.registerTileEntities();
 
     }
@@ -82,7 +87,16 @@ public class RegistryHandler {
         ModFluids.registerFluids(ModFluids.GOLDEN_APPLE_JUICE);
         ModFluids.registerFluids(ModFluids.APPLE_JUICE);
         ModFluids.registerFluids(ModFluids.ETHENE);
+    }
 
+    public static void initRegistries(FMLInitializationEvent event) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(Micro_Machinery.instance, new GUIHandler());
+    }
 
+    public static void postInitRegistries(FMLPostInitializationEvent event) {
+
+    }
+
+    public static void serverRegistries(FMLServerStartingEvent event) {
     }
 }

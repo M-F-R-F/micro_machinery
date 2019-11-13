@@ -10,7 +10,5 @@ public abstract class ContainerBase extends Container {
      * @param playerIn
      */
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
-        return true;
-    }
+    public abstract boolean canInteractWith(EntityPlayer playerIn);
 }
