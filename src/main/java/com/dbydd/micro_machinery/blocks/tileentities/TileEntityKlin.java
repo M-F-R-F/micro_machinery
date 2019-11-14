@@ -1,7 +1,10 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
+import com.dbydd.micro_machinery.recipes.KlinRecipe;
+import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -25,13 +28,21 @@ import javax.annotation.Nullable;
 public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHandler, ITickable {
 
 
-    private int melttime = 0;
-    private int currentmelttime = 0;
+    private static KlinRecipe recipeinsmelting = null;
+    private int melttime = -1;
+    private int currentmelttime = -1;
     private int burntime = 0;
-    private int currentburntime = 0;
-
     private FluidTank fluidhandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(4);
+    private World worldObj;
+
+    public static KlinRecipe getRecipeinsmelting() {
+        return recipeinsmelting;
+    }
+
+    public ItemStackHandler getItemhandler() {
+        return itemhandler;
+    }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
@@ -40,7 +51,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         this.melttime = compound.getInteger("melt time needed");
         this.currentmelttime = compound.getInteger("current melt time");
         this.burntime = compound.getInteger("burntime");
-        this.currentburntime = compound.getInteger("currentburntime");
     }
 
     @Override
@@ -49,7 +59,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         compound.setInteger("melt time needed", melttime);
         compound.setInteger("current melt time", currentmelttime);
         compound.setInteger("burntime", burntime);
-        compound.setInteger("currentburntime", currentburntime);
         compound.setTag("Inventory", this.itemhandler.serializeNBT());
 
         return compound;
@@ -123,9 +132,34 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     @Override
     public void update() {
 //        if (!this.worldObj.isRemote) {
-//            // TODO
+        if (burntime == 0) {
+            if (itemhandler.getStackInSlot(2).getItem() == Items.COAL && recipeinsmelting != null) {
+                burntime += 600;
+                extractItem(2, 1, false);
+                markDirty();
+            }
+        } else burntime--;
+
+        if (((recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), fluidhandler)).outputfluidstack != null) && (currentmelttime == -1)) {
+            this.melttime = recipeinsmelting.melttime;
+            currentmelttime = 0;
+            currentmelttime++;
+            markDirty();
+        }
+
+        if ((currentmelttime != 0 && currentmelttime != melttime) && burntime != 0) {
+            currentmelttime++;
+            markDirty();
+        } else if (currentmelttime == melttime) {
+            RecipeHelper.KlinSmelt(this);
+            recipeinsmelting = null;
+            melttime = 0;
+            currentmelttime = -1;
+            markDirty();
+        }
 //        }
     }
+
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
@@ -140,8 +174,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                 return currentmelttime;
             case 2:
                 return burntime;
-            case 3:
-                return currentburntime;
             default:
                 return 0;
         }
@@ -158,8 +190,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
             case 2:
                 this.burntime = value;
                 break;
-            case 3:
-                this.currentburntime = value;
         }
     }
 
