@@ -4,6 +4,7 @@ import com.dbydd.micro_machinery.recipes.KlinRecipe;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -28,20 +29,15 @@ import javax.annotation.Nullable;
 public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHandler, ITickable {
 
 
-    private static KlinRecipe recipeinsmelting = null;
+    private FluidStack result = null;
     private int melttime = 0;
     private int currentmelttime = -1;
     private int burntime = 0;
     private FluidTank fluidhandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(4);
-    private World worldObj;
 
-    public static KlinRecipe getRecipeinsmelting() {
-        return recipeinsmelting;
-    }
-
-    public ItemStackHandler getItemhandler() {
-        return itemhandler;
+    public FluidStack getResult() {
+        return result;
     }
 
     @Override
@@ -66,9 +62,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
-            return true;
-        else return false;
+        return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
     }
 
     @Nullable
@@ -84,7 +78,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     }
 
     public boolean issmelting() {
-        return this.melttime != -1 && recipeinsmelting != null;
+        return getResult() != null;
     }
 
     @Override
@@ -100,7 +94,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     @Nonnull
     @Override
-    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         return itemhandler.insertItem(slot, stack, simulate);
     }
 
@@ -139,36 +133,46 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     @Override
     public void update() {
-        boolean flag = this.isBurning();
-        boolean flag1 = false;
-        boolean flag2 = this.issmelting();
+        if (world.isRemote) {
 
-        if (flag) {
+            if (isBurning()) {
             --this.burntime;
         }
 
-        if (!this.world.isRemote) {
-            if (!flag2) {
-                recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), fluidhandler);
+            if (!issmelting()) {
+                KlinRecipe recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), fluidhandler);
                 if (recipeinsmelting != null) {
                     melttime = recipeinsmelting.melttime;
-                    markDirty();
-                }
-            } else {
-                if (currentmelttime >= melttime) {
-                    RecipeHelper.KlinSmelt(this);
-                    markDirty();
-                } else if (flag2) {
-                    if (!flag) {
-                        if (TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) {
-                            burntime = TileEntityFurnace.getItemBurnTime(itemhandler.extractItem(2, 1, false));
-                            markDirty();
-                        }
+                    result = recipeinsmelting.outputfluidstack;
+                    if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.input1.getItem()) {
+                        itemhandler.extractItem(0, recipeinsmelting.input1.getCount(), false);
                     } else {
-                        currentmelttime++;
-                        markDirty();
+                        itemhandler.extractItem(1, recipeinsmelting.input1.getCount(), false);
+                        itemhandler.extractItem(0, recipeinsmelting.input2.getCount(), false);
                     }
+                    markDirty();
                 }
+            }
+
+            if (isBurning() && issmelting()) {
+                ++currentmelttime;
+                if (currentmelttime >= melttime) {
+                    this.fluidhandler.fill(result, true);
+                    result = null;
+                    markDirty();
+                }
+            }
+
+            if (!isBurning() && issmelting()) {
+                if ((TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) && (itemhandler.getStackInSlot(2).getItem() == Items.COAL)) {
+                    burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
+                    itemhandler.extractItem(2, 1, false);
+                    markDirty();
+                }
+            }
+
+            if (isBurning() && !issmelting()) {
+                markDirty();
             }
         }
     }
