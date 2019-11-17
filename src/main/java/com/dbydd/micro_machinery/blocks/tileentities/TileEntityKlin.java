@@ -133,7 +133,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     @Override
     public void update() {
-        if (world.isRemote) {
+        if (!world.isRemote) {
 
             if (isBurning()) {
             --this.burntime;
