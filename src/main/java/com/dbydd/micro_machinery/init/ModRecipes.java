@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModRecipes {
-    public static List<KlinFluidRecipe> fluidRecipes = new ArrayList<KlinFluidRecipe>();
-    public static List<KlinRecipe> tofluidrecipes = new ArrayList<KlinRecipe>();
+    public static final List<KlinFluidRecipe> fluidRecipes = new ArrayList<KlinFluidRecipe>();
+    public static final List<KlinRecipe> tofluidrecipes = new ArrayList<KlinRecipe>();
 
     public static final KlinRecipe test = new KlinRecipe(new FluidStack(ModFluids.APPLE_JUICE, 144), new ItemStack(Items.APPLE, 1), new ItemStack(Items.APPLE, 1), 12);
 }

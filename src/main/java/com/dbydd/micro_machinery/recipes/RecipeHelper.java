@@ -12,8 +12,8 @@ public class RecipeHelper {
 
     public static KlinRecipe CanKlinSmelt(ItemStack stackInSlot, ItemStack stackInSlot1, FluidTank tank) {
         for (KlinRecipe tofluidrecipe : ModRecipes.tofluidrecipes) {
-            if ((stackInSlot == tofluidrecipe.input1 && stackInSlot1 == tofluidrecipe.input2) || (stackInSlot == tofluidrecipe.input2 && stackInSlot1 == tofluidrecipe.input1) && (tank.getFluid().getFluid() == tofluidrecipe.outputfluidstack.getFluid())) {
-                if ((stackInSlot.getCount() >= tofluidrecipe.input1.getCount() && stackInSlot1.getCount() == tofluidrecipe.input2.getCount()) || (stackInSlot.getCount() == tofluidrecipe.input2.getCount() && stackInSlot1.getCount() == tofluidrecipe.input1.getCount()) && ((tank.getFluidAmount() + tofluidrecipe.outputfluidstack.amount) <= 2000))
+            if ((stackInSlot.getItem() == tofluidrecipe.input1.getItem() && stackInSlot1.getItem() == tofluidrecipe.input2.getItem()) || (stackInSlot.getItem() == tofluidrecipe.input2.getItem() && stackInSlot1.getItem() == tofluidrecipe.input1.getItem()) && (tank.getFluid().getFluid() == tofluidrecipe.outputfluidstack.getFluid())) {
+                if ((stackInSlot.getCount() >= tofluidrecipe.input1.getCount() && stackInSlot1.getCount() >= tofluidrecipe.input2.getCount()) || (stackInSlot.getCount() >= tofluidrecipe.input2.getCount() && stackInSlot1.getCount() >= tofluidrecipe.input1.getCount()) && ((tank.getFluidAmount() + tofluidrecipe.outputfluidstack.amount) <= tank.getCapacity()))
                     return tofluidrecipe;
             }
         }

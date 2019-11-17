@@ -136,8 +136,8 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         if (!world.isRemote) {
 
             if (isBurning()) {
-            --this.burntime;
-        }
+                --this.burntime;
+            }
 
             if (!issmelting()) {
                 KlinRecipe recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), fluidhandler);
@@ -145,6 +145,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                     melttime = recipeinsmelting.melttime;
                     result = recipeinsmelting.outputfluidstack;
                     if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.input1.getItem()) {
+                        itemhandler.extractItem(1, recipeinsmelting.input2.getCount(), false);
                         itemhandler.extractItem(0, recipeinsmelting.input1.getCount(), false);
                     } else {
                         itemhandler.extractItem(1, recipeinsmelting.input1.getCount(), false);
@@ -157,25 +158,37 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
             if (isBurning() && issmelting()) {
                 ++currentmelttime;
                 if (currentmelttime >= melttime) {
-                    this.fluidhandler.fill(result, true);
-                    result = null;
-                    markDirty();
+                    if (fluidhandler.getFluid() != null) {
+                        if (result.amount + fluidhandler.getFluidAmount() > fluidhandler.getCapacity()) {
+                            --currentmelttime;
+                        } else {
+                            this.fluidhandler.fill(result, true);
+                            result = null;
+                            currentmelttime = -1;
+                        }
+                    } else {
+                        this.fluidhandler.fill(result, true);
+                        result = null;
+                        currentmelttime = -1;
+                    }
                 }
-            }
-
-            if (!isBurning() && issmelting()) {
-                if ((TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) && (itemhandler.getStackInSlot(2).getItem() == Items.COAL)) {
-                    burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
-                    itemhandler.extractItem(2, 1, false);
-                    markDirty();
-                }
-            }
-
-            if (isBurning() && !issmelting()) {
                 markDirty();
             }
         }
+
+        if (!isBurning() && issmelting()) {
+            if ((TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) && (itemhandler.getStackInSlot(2).getItem() == Items.COAL)) {
+                burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
+                itemhandler.extractItem(2, 1, false);
+                markDirty();
+            }
+        }
+
+        if (isBurning() && !issmelting()) {
+            markDirty();
+        }
     }
+
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
