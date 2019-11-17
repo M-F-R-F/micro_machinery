@@ -4,10 +4,10 @@ import com.dbydd.micro_machinery.recipes.KlinRecipe;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +29,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
 
     private static KlinRecipe recipeinsmelting = null;
-    private int melttime = -1;
+    private int melttime = 0;
     private int currentmelttime = -1;
     private int burntime = 0;
     private FluidTank fluidhandler = new FluidTank(2000);
@@ -77,6 +77,14 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) this.itemhandler;
         else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) this.fluidhandler;
         return super.getCapability(capability, facing);
+    }
+
+    public boolean isBurning() {
+        return this.burntime > 0;
+    }
+
+    public boolean issmelting() {
+        return this.melttime != -1 && recipeinsmelting != null;
     }
 
     @Override
@@ -131,35 +139,39 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     @Override
     public void update() {
-//        if (!this.worldObj.isRemote) {
-        if (burntime == 0) {
-            if (itemhandler.getStackInSlot(2).getItem() == Items.COAL && recipeinsmelting != null) {
-                burntime += 600;
-                extractItem(2, 1, false);
-                markDirty();
+        boolean flag = this.isBurning();
+        boolean flag1 = false;
+        boolean flag2 = this.issmelting();
+
+        if (flag) {
+            --this.burntime;
+        }
+
+        if (!this.world.isRemote) {
+            if (!flag2) {
+                recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), fluidhandler);
+                if (recipeinsmelting != null) {
+                    melttime = recipeinsmelting.melttime;
+                    markDirty();
+                }
+            } else {
+                if (currentmelttime >= melttime) {
+                    RecipeHelper.KlinSmelt(this);
+                    markDirty();
+                } else if (flag2) {
+                    if (!flag) {
+                        if (TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) {
+                            burntime = TileEntityFurnace.getItemBurnTime(itemhandler.extractItem(2, 1, false));
+                            markDirty();
+                        }
+                    } else {
+                        currentmelttime++;
+                        markDirty();
+                    }
+                }
             }
-        } else burntime--;
-
-        if (((recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), fluidhandler)).outputfluidstack != null) && (currentmelttime == -1)) {
-            this.melttime = recipeinsmelting.melttime;
-            currentmelttime = 0;
-            currentmelttime++;
-            markDirty();
         }
-
-        if ((currentmelttime != 0 && currentmelttime != melttime) && burntime != 0) {
-            currentmelttime++;
-            markDirty();
-        } else if (currentmelttime == melttime) {
-            RecipeHelper.KlinSmelt(this);
-            recipeinsmelting = null;
-            melttime = 0;
-            currentmelttime = -1;
-            markDirty();
-        }
-//        }
     }
-
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
@@ -194,7 +206,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     }
 
     public boolean isUsableByPlayer(EntityPlayer player) {
-        return this.world.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
 }

@@ -4,6 +4,10 @@ import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.init.ModRecipes;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class RecipeHelper {
 
@@ -19,14 +23,20 @@ public class RecipeHelper {
 
     public static void KlinSmelt(TileEntityKlin klin) {
         KlinRecipe recipe = klin.getRecipeinsmelting();
-        if (klin.getItemhandler().getStackInSlot(0).getItem() == recipe.input1.getItem()) {
-            klin.extractItem(0, recipe.input1.getCount(), false);
-            klin.extractItem(1, recipe.input2.getCount(), false);
-            klin.fill(recipe.outputfluidstack, false);
+        IItemHandler itemhandler = klin.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        IFluidHandler fluidhandler = klin.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+        if (itemhandler.getStackInSlot(0).getItem() == recipe.input1.getItem()) {
+            itemhandler.extractItem(0, recipe.input1.getCount(), false);
+            itemhandler.extractItem(1, recipe.input2.getCount(), false);
+            fluidhandler.fill(recipe.outputfluidstack, true);
+            klin.setField(0, -1);
+            klin.setField(1, 0);
         } else {
-            klin.extractItem(0, recipe.input2.getCount(), false);
-            klin.extractItem(1, recipe.input1.getCount(), false);
-            klin.fill(recipe.outputfluidstack, false);
+            itemhandler.extractItem(0, recipe.input2.getCount(), false);
+            itemhandler.extractItem(1, recipe.input1.getCount(), false);
+            fluidhandler.fill(recipe.outputfluidstack, true);
+            klin.setField(0, -1);
+            klin.setField(1, 0);
         }
     }
 }
