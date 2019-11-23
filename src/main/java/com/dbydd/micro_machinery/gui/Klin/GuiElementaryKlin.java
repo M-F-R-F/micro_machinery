@@ -54,7 +54,7 @@ public class GuiElementaryKlin extends GuiBase {
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 
-//    @Override
+//    @Overrided
 //    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 //        //设置渲染混合模式及颜色模式（该处代码解释请查看lwjgl及OpenGL相关文档）
 //        GL11.glPushMatrix();
