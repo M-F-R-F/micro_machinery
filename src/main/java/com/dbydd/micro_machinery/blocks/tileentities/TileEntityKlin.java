@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
@@ -30,12 +29,11 @@ import javax.annotation.Nullable;
 public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHandler, ITickable {
 
 
+    public FluidTank fluidhandler = new FluidTank(2000);
     private FluidStack result = null;
     private int melttime = 0;
     private int currentmelttime = -1;
     private int burntime = 0;
-
-    private FluidTank fluidhandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(4);
 
     public static boolean isBurning(TileEntityKlin tileentity) {
@@ -45,10 +43,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     public FluidStack getResult() {
         return result;
-    }
-
-    public FluidTank getFluidhandler() {
-        return fluidhandler;
     }
 
     @Override
