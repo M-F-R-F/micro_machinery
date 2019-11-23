@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
@@ -33,11 +34,21 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     private int melttime = 0;
     private int currentmelttime = -1;
     private int burntime = 0;
+
     private FluidTank fluidhandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(4);
 
+    public static boolean isBurning(TileEntityKlin tileentity) {
+        return tileentity.isBurning();
+    }
+
+
     public FluidStack getResult() {
         return result;
+    }
+
+    public FluidTank getFluidhandler() {
+        return fluidhandler;
     }
 
     @Override

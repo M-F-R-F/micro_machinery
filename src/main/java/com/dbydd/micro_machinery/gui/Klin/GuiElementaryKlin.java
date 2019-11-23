@@ -31,7 +31,7 @@ public class GuiElementaryKlin extends GuiBase {
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         this.mc.getTextureManager().bindTexture(TEXTURES);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-
+        this.renderFluidTank(tileentity.getFluidhandler(), this.guiTop, this.guiLeft, 64, 128);
         //todo
 //        if(TileEntityKlin.isBurning(tileentity))
 //        {
@@ -42,7 +42,19 @@ public class GuiElementaryKlin extends GuiBase {
 //        int l = this.getCookProgressScaled(24);
 //        this.drawTexturedModalRect(this.guiLeft + 44, this.guiTop + 36, 176, 14, l + 1, 16);
     }
-//    @Override
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+    }
+
+    @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+        super.drawScreen(mouseX, mouseY, partialTicks);
+    }
+
+//    @Overrided
 //    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 //        //设置渲染混合模式及颜色模式（该处代码解释请查看lwjgl及OpenGL相关文档）
 //        GL11.glPushMatrix();
@@ -60,7 +72,7 @@ public class GuiElementaryKlin extends GuiBase {
 //        GL11.glPopMatrix();
 //    }
 //
-//    @Override
+//    @Overrided
 //    public void initGui() {
 //        super.initGui();
 //        //计算相对位置（以背景贴图左上角为(0,0)点）
@@ -87,6 +99,13 @@ public class GuiElementaryKlin extends GuiBase {
 //                }
 //            }
 //        });
+//    }
+
+//    private int getBurnLeftScaled(int pixels)
+//    {
+//        int i = this.tileentity.getField(1);
+//        if(i == 0) i = 200;
+//        return this.tileentity.getField(2) * pixels / i;
 //    }
 
 }
