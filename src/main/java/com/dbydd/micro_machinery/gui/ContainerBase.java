@@ -11,4 +11,6 @@ public abstract class ContainerBase extends Container {
      */
     @Override
     public abstract boolean canInteractWith(EntityPlayer playerIn);
+
+
 }
