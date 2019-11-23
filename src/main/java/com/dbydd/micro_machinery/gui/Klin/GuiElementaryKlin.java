@@ -72,7 +72,7 @@ public class GuiElementaryKlin extends GuiBase {
 //        GL11.glPopMatrix();
 //    }
 //
-//    @Override
+//    @Overrided
 //    public void initGui() {
 //        super.initGui();
 //        //计算相对位置（以背景贴图左上角为(0,0)点）
