@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -166,4 +167,5 @@ public class BlockKlin extends BlockContainer implements IHasModel {
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityKlin();
     }
+
 }

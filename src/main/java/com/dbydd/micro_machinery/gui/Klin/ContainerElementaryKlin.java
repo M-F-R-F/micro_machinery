@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -15,6 +16,7 @@ import net.minecraftforge.items.SlotItemHandler;
 public class ContainerElementaryKlin extends ContainerBase {
     private TileEntityKlin tileentity;
     private int melttime, currentmelttimeTime, burnTime;
+    private FluidTank tank;
 
     public ContainerElementaryKlin(EntityPlayer player, TileEntityKlin tileEntity) {
         super();
@@ -36,6 +38,8 @@ public class ContainerElementaryKlin extends ContainerBase {
         for (int i = 0; i < 9; ++i) {
             this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 143));
         }
+
+        this.tank = tileentity.fluidhandler;
     }
 
 
@@ -46,11 +50,13 @@ public class ContainerElementaryKlin extends ContainerBase {
         for (IContainerListener iContainerListener : this.listeners) {
 
             if (this.melttime != this.tileentity.getField(0))
-                iContainerListener.sendWindowProperty(this, 2, this.tileentity.getField(0));
+                iContainerListener.sendWindowProperty(this, 0, this.tileentity.getField(0));
             if (this.burnTime != this.tileentity.getField(2))
-                iContainerListener.sendWindowProperty(this, 0, this.tileentity.getField(2));
+                iContainerListener.sendWindowProperty(this, 1, this.tileentity.getField(2));
             if (this.currentmelttimeTime != this.tileentity.getField(1))
-                iContainerListener.sendWindowProperty(this, 3, this.tileentity.getField(1));
+                iContainerListener.sendWindowProperty(this, 2, this.tileentity.getField(1));
+//            if (this.tank.getFluid() != this.tileentity.fluidhandler.getFluid())
+//                iContainerListener.sendWindowProperty(this, 3, this.tileentity.fluidhandler);
         }
 
         this.melttime = this.tileentity.getField(0);

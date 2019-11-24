@@ -4,15 +4,20 @@ import com.dbydd.micro_machinery.recipes.KlinRecipe;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -179,18 +184,19 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                 }
                 markDirty();
             }
-        }
 
-        if (!isBurning() && issmelting()) {
-            if ((TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) && (itemhandler.getStackInSlot(2).getItem() == Items.COAL)) {
-                burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
-                itemhandler.extractItem(2, 1, false);
+            if (!isBurning() && issmelting()) {
+                if ((TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) && (itemhandler.getStackInSlot(2).getItem() == Items.COAL)) {
+                    burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
+                    itemhandler.extractItem(2, 1, false);
+                    markDirty();
+                }
+            }
+
+            if (isBurning() && !issmelting()) {
                 markDirty();
             }
-        }
-
-        if (isBurning() && !issmelting()) {
-            markDirty();
+            this.syncToTrackingClients();
         }
     }
 
@@ -231,4 +237,29 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound nbtTag = this.fluidhandler.writeToNBT(new NBTTagCompound());
+        //Write your data into the nbtTag
+        return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        NBTTagCompound tag = pkt.getNbtCompound();
+        //Handle your Data
+        this.fluidhandler.readFromNBT(tag);
+    }
+
+    protected final void syncToTrackingClients() {
+        if (!this.world.isRemote) {
+            SPacketUpdateTileEntity packet = this.getUpdatePacket();
+            PlayerChunkMapEntry trackingEntry = ((WorldServer) this.world).getPlayerChunkMap().getEntry(this.pos.getX() >> 4, this.pos.getZ() >> 4);
+            if (trackingEntry != null) {
+                for (EntityPlayerMP player : trackingEntry.getWatchingPlayers()) {
+                    player.connection.sendPacket(packet);
+                }
+            }
+        }
+    }
 }
