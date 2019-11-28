@@ -326,5 +326,9 @@ item.clay_mixed_with_clinker.name=掺杂熟料的粘土
 
 //tileentity
 container.klin.name=aaa
-
 container.klin=aaa
+item.klin.name=窑
+
+//gui
+gui.fluid.name=%s
+gui.fluid.amount=%d mB/%d mB

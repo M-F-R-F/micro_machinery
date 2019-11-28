@@ -8,11 +8,11 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class GuiBase<T extends TileEntity> extends GuiContainer {
 
@@ -56,15 +56,21 @@ public class GuiBase<T extends TileEntity> extends GuiContainer {
         this.drawTexturedModalRect(x, y + tankHeight - scaledHeight, fluidSprite, tankWidth, scaledHeight);
     }
 
-    void renderFluidTankTooltip(final IFluidTank tank, final int x, final int y) {
-        FluidStack stack = tank.getFluid();
-        if (stack != null) {
-            String name = stack.getLocalizedName();
-            int amount = stack.amount;
-            String[] info = new String[] {I18n.format("gui.fluid.name", name), I18n.format("gui.fluid.amount", amount)};
-            this.drawHoveringText(Arrays.asList(info), x - guiLeft, y - guiTop);
-        } else {
-            this.drawHoveringText(Collections.singletonList(I18n.format("gui.fluid.null")), x - guiLeft, y - guiTop);
+    public void renderFluidTankTooltip(final IFluidTank tank, final int mouthx, final int mouthy, final int x, final int y, final int tankWidth, final int tankHeight) {
+        FluidStack fluid = tank.getFluid();
+        int amount = tank.getFluidAmount();
+        int max = tank.getCapacity();
+        if (fluid != null && (mouthy - tankHeight) <= y && (mouthy - tankHeight) >= 0 && (mouthx - tankWidth) <= x && (mouthx - tankWidth) >= 0) {
+            String name = fluid.getLocalizedName();
+            String[] info = new String[]{I18n.format("gui.fluid.name", name),TextFormatting.DARK_GRAY + I18n.format("gui.fluid.amount", amount, max)};
+            this.drawHoveringText(Arrays.asList(info), mouthx, mouthy);
         }
     }
+
+    public void rendergauage(final int x, final int y, final int gauagex, final int gauagey, final int tankWidth, final int tankHeight) {
+        //render gauage
+        this.mc.getTextureManager().bindTexture(TEXTURES);
+        this.drawTexturedModalRect(x, y, gauagex, gauagey, tankWidth, tankHeight);
+    }
+
 }

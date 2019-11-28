@@ -1,5 +1,6 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
+import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
 import com.dbydd.micro_machinery.recipes.KlinRecipe;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
@@ -147,6 +148,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
             if (isBurning()) {
                 --this.burntime;
+                BlockKlin.setState(true, world, this.getPos());
             }
 
             if (!issmelting()) {

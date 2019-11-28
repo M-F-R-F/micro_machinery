@@ -323,4 +323,9 @@ item.hsb.name=HSS Saw Blade
 item.brick_powder.name=Brick powder
 item.clay_mixed_with_clinker.name=Clay mixed with Clinker
 
+//tileentity
 container.klin=aaa
+
+//gui
+gui.fluid.name=%s
+gui.fluid.amount=%d mB

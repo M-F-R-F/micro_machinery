@@ -24,11 +24,18 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        int x = this.guiLeft + 152;
+        int y = this.guiTop + 3;
+        int tankWidth = 16;
+        int tankHeight = 60;
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-        this.renderFluidTank(tileentity.fluidhandler, this.guiTop, this.guiLeft, 32000, 32000);
+        this.renderFluidTank(tileentity.fluidhandler, x, y, tankWidth, tankHeight);
+        this.rendergauage(x, y, 210, 3, tankWidth, tankHeight);
+        this.renderFluidTankTooltip(tileentity.fluidhandler, mouseX, mouseY, this.guiLeft + 152, this.guiTop + 3, 16, 60);
+//       this.drawModalRectWithCustomSizedTexture(this.guiLeft + 152, this.guiTop + 3, 210,3, 16, 60,16, 60);
         //todo
-    }
 
+    }
 
 
 }
