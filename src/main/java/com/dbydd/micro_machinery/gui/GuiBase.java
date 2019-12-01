@@ -60,9 +60,9 @@ public class GuiBase<T extends TileEntity> extends GuiContainer {
         FluidStack fluid = tank.getFluid();
         int amount = tank.getFluidAmount();
         int max = tank.getCapacity();
-        if (fluid != null && (mouthy - tankHeight) <= y && (mouthy - tankHeight) >= 0 && (mouthx - tankWidth) <= x && (mouthx - tankWidth) >= 0) {
+        if (fluid != null && (mouthy - y) <= tankHeight && (mouthy - y) >= 0 && (mouthx - x) <= tankWidth && (mouthx - x) >= 0) {
             String name = fluid.getLocalizedName();
-            String[] info = new String[]{I18n.format("gui.fluid.name", name),TextFormatting.DARK_GRAY + I18n.format("gui.fluid.amount", amount, max)};
+            String[] info = new String[]{I18n.format("gui.fluid.name", name), TextFormatting.DARK_GRAY + I18n.format("gui.fluid.amount", amount, max)};
             this.drawHoveringText(Arrays.asList(info), mouthx, mouthy);
         }
     }

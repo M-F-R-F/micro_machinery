@@ -35,7 +35,20 @@ import javax.annotation.Nullable;
 public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHandler, ITickable {
 
 
-    public FluidTank fluidhandler = new FluidTank(2000);
+    public FluidTank fluidhandler = new FluidTank(2000){
+        @Override
+        public boolean canFillFluidType(FluidStack fluid) {
+            if(getFluid() == null && getCapacity() > fluid.amount){
+                return true;
+            }
+
+            if(getFluid().getFluid() == fluid.getFluid() && (getCapacity()-getFluidAmount())>fluid.amount){
+                return true;
+            }
+
+            return false;
+        }
+    };
     private FluidStack result = null;
     private int melttime = 0;
     private int currentmelttime = -1;
@@ -152,7 +165,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
             }
 
             if (!issmelting()) {
-                KlinRecipe recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), fluidhandler);
+                KlinRecipe recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), this.fluidhandler);
                 if (recipeinsmelting != null) {
                     melttime = recipeinsmelting.melttime;
                     result = recipeinsmelting.outputfluidstack;
@@ -188,7 +201,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
             }
 
             if (!isBurning() && issmelting()) {
-                if ((TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2)) > 0) && (itemhandler.getStackInSlot(2).getItem() == Items.COAL)) {
+                if (itemhandler.getStackInSlot(2).getItem() == Items.COAL) {
                     burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
                     itemhandler.extractItem(2, 1, false);
                     markDirty();

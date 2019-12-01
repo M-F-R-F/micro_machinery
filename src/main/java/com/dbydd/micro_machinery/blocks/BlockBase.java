@@ -26,4 +26,8 @@ public class BlockBase extends Block implements IHasModel {
                 Micro_Machinery.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "invenroty");
         }
 
+        public Item blockToItem(){
+                return Item.getItemFromBlock(this);
+        }
+
 }
