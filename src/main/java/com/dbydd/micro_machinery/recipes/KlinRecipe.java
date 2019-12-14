@@ -7,10 +7,10 @@ import net.minecraftforge.fluids.FluidStack;
 public class KlinRecipe {
 
 
-    public static ItemStack input1 = null;
-    public static ItemStack input2 = null;
-    public static FluidStack outputfluidstack = null;
-    public static int melttime;
+    public ItemStack input1 = null;
+    public ItemStack input2 = null;
+    public FluidStack outputfluidstack = null;
+    public int melttime;
 
 
     public KlinRecipe(FluidStack outputfluidstack, ItemStack input1, ItemStack input2, int melttime) {

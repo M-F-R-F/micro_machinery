@@ -34,7 +34,6 @@ public class RegistryHandler {
 
     }
 
-
     @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
 
