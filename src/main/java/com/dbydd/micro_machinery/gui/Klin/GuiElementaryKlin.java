@@ -35,6 +35,27 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
 //       this.drawModalRectWithCustomSizedTexture(this.guiLeft + 152, this.guiTop + 3, 210,3, 16, 60,16, 60);
         //todo
 
+        if(TileEntityKlin.isBurning(tileentity))
+        {
+            int k = this.getBurnLeftScaled(13);
+            this.drawTexturedModalRect(this.guiLeft + 8, this.guiTop + 54 + 12 - k, 176, 12 - k, 14, k + 1);
+        }
+
+    }
+
+    private int getBurnLeftScaled(int pixels)
+    {
+        int burntime = this.tileentity.getField(2);
+        int maxburntime = this.tileentity.getField(3);
+        if(maxburntime == 0) return 0;
+        return burntime * pixels / maxburntime;
+    }
+
+    private int getMeltProgressScaled(int pixels)
+    {
+        int maxmelttime = this.tileentity.getField(1);
+        int melttime = this.tileentity.getField(0);
+        return melttime != 0 && maxmelttime != 0 ? maxmelttime * pixels / melttime : 0;
     }
 
 

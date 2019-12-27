@@ -6,7 +6,6 @@ import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -25,6 +24,8 @@ import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -35,14 +36,14 @@ import javax.annotation.Nullable;
 public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHandler, ITickable {
 
 
-    public FluidTank fluidhandler = new FluidTank(2000){
+    public FluidTank fluidhandler = new FluidTank(2000) {
         @Override
         public boolean canFillFluidType(FluidStack fluid) {
-            if(getFluid() == null && getCapacity() > fluid.amount){
+            if (getFluid() == null && getCapacity() > fluid.amount) {
                 return true;
             }
 
-            if(getFluid().getFluid() == fluid.getFluid() && (getCapacity()-getFluidAmount())>fluid.amount){
+            if (getFluid().getFluid() == fluid.getFluid() && (getCapacity() - getFluidAmount()) > fluid.amount) {
                 return true;
             }
 
@@ -51,12 +52,14 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     };
     private FluidStack result = null;
     private int melttime = 0;
-    private int currentmelttime = -1;
-    private int burntime = 0;
+    private int currentmelttime = 0;
+    private int burntime = -1;
+    private int maxburntime = 0;
     private ItemStackHandler itemhandler = new ItemStackHandler(4);
 
-    public static boolean isBurning(TileEntityKlin tileentity) {
-        return tileentity.isBurning();
+    @SideOnly(Side.CLIENT)
+    public static boolean isBurning(TileEntityKlin te) {
+        return te.getField(2) > 0;
     }
 
 
@@ -71,6 +74,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         this.melttime = compound.getInteger("melt time needed");
         this.currentmelttime = compound.getInteger("current melt time");
         this.burntime = compound.getInteger("burntime");
+        this.fluidhandler.readFromNBT(compound);
     }
 
     @Override
@@ -80,6 +84,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         compound.setInteger("current melt time", currentmelttime);
         compound.setInteger("burntime", burntime);
         compound.setTag("Inventory", this.itemhandler.serializeNBT());
+        fluidhandler.writeToNBT(compound);
 
         return compound;
     }
@@ -98,11 +103,11 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     }
 
     public boolean isBurning() {
-        return this.burntime > 0;
+        return this.burntime >= 0 && maxburntime != 0;
     }
 
     public boolean issmelting() {
-        return getResult() != null;
+        return getResult() != null && melttime != 0;
     }
 
     @Override
@@ -158,60 +163,112 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     @Override
     public void update() {
         if (!world.isRemote) {
-
             if (isBurning()) {
-                --this.burntime;
+                ++this.burntime;
                 BlockKlin.setState(true, world, this.getPos());
-            }
-
-            if (!issmelting()) {
-                KlinRecipe recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), this.fluidhandler);
-                if (recipeinsmelting != null) {
-                    melttime = recipeinsmelting.melttime;
-                    result = recipeinsmelting.outputfluidstack;
-                    if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.input1.getItem()) {
-                        itemhandler.extractItem(1, recipeinsmelting.input2.getCount(), false);
-                        itemhandler.extractItem(0, recipeinsmelting.input1.getCount(), false);
-                    } else {
-                        itemhandler.extractItem(1, recipeinsmelting.input1.getCount(), false);
-                        itemhandler.extractItem(0, recipeinsmelting.input2.getCount(), false);
-                    }
-                    markDirty();
-                }
-            }
-
-            if (isBurning() && issmelting()) {
-                ++currentmelttime;
-                if (currentmelttime >= melttime) {
-                    if (fluidhandler.getFluid() != null) {
-                        if (result.amount + fluidhandler.getFluidAmount() > fluidhandler.getCapacity()) {
-                            --currentmelttime;
-                        } else {
+                if (issmelting()) {
+                    ++currentmelttime;
+                    if (currentmelttime >= melttime) {
+                        if (fluidhandler.canFillFluidType(result)) {
                             this.fluidhandler.fill(result, true);
                             result = null;
-                            currentmelttime = -1;
+                            currentmelttime = 0;
+                        } else {
+                            --currentmelttime;
                         }
-                    } else {
-                        this.fluidhandler.fill(result, true);
-                        result = null;
-                        currentmelttime = -1;
+                    }
+                } else {
+                    KlinRecipe recipeinsmelting = tryToGetRecipe();
+                    if (recipeinsmelting != null) {
+                        this.result = recipeinsmelting.outputfluidstack;
+                        this.melttime = recipeinsmelting.melttime;
+                        extractMaterial(recipeinsmelting);
                     }
                 }
                 markDirty();
-            }
-
-            if (!isBurning() && issmelting()) {
-                if (itemhandler.getStackInSlot(2).getItem() == Items.COAL) {
-                    burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
-                    itemhandler.extractItem(2, 1, false);
-                    markDirty();
-                }
-            }
-
-            if (isBurning() && !issmelting()) {
+            } else {
+                tryToGetFuel(this.itemhandler, 2);
                 markDirty();
             }
-            this.syncToTrackingClients();
+
+
+//            if (isBurning()) {
+//                --this.burntime;
+//                BlockKlin.setState(true, world, this.getPos());
+//            } else if (!issmelting()) {
+//                KlinRecipe recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), this.fluidhandler);
+//                if (recipeinsmelting != null) {
+//                    melttime = recipeinsmelting.melttime;
+//                    result = recipeinsmelting.outputfluidstack;
+//                    if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.input1.getItem()) {
+//                        itemhandler.extractItem(1, recipeinsmelting.input2.getCount(), false);
+//                        itemhandler.extractItem(0, recipeinsmelting.input1.getCount(), false);
+//                    } else {
+//                        itemhandler.extractItem(1, recipeinsmelting.input1.getCount(), false);
+//                        itemhandler.extractItem(0, recipeinsmelting.input2.getCount(), false);
+//                    }
+//                    markDirty();
+//                }
+//            }
+//
+//            if (isBurning() && issmelting()) {
+//                ++currentmelttime;
+//                if (currentmelttime >= melttime) {
+//                    if (fluidhandler.getFluid() != null) {
+//                        if (fluidhandler.canFillFluidType(result)) {
+//                            this.fluidhandler.fill(result, true);
+//                            result = null;
+//                            currentmelttime = -1;
+//                        } else {
+//                            --currentmelttime;
+//                        }
+//                    } else {
+//                        this.fluidhandler.fill(result, true);
+//                        result = null;
+//                        currentmelttime = -1;
+//                    }
+//                }
+//                markDirty();
+//            }
+//
+//            if (!isBurning() && issmelting()) {
+//                if (itemhandler.getStackInSlot(2).getItem() == Items.COAL) {
+//                    burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
+//                    maxburntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
+//                    itemhandler.extractItem(2, 1, false);
+//                    markDirty();
+//                }
+//            }
+//
+//            if (isBurning() && !issmelting()) {
+//                markDirty();
+//            }
+//            this.syncToTrackingClients();
+        }
+
+    }
+
+    private void extractMaterial(KlinRecipe recipeinsmelting) {
+        if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.input1.getItem()) {
+            itemhandler.extractItem(1, recipeinsmelting.input2.getCount(), false);
+            itemhandler.extractItem(0, recipeinsmelting.input1.getCount(), false);
+        } else {
+            itemhandler.extractItem(1, recipeinsmelting.input1.getCount(), false);
+            itemhandler.extractItem(0, recipeinsmelting.input2.getCount(), false);
+        }
+    }
+
+    private KlinRecipe tryToGetRecipe() {
+        return RecipeHelper.GetKlinRecipe(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1));
+    }
+
+    private void tryToGetFuel(ItemStackHandler handler, int index) {
+        if (handler.getStackInSlot(index) != null) {
+            maxburntime = TileEntityFurnace.getItemBurnTime(handler.getStackInSlot(index));
+            if (maxburntime != 0) {
+                burntime = 0;
+                handler.extractItem(index,1,false);
+            }
         }
     }
 
@@ -229,6 +286,8 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                 return currentmelttime;
             case 2:
                 return burntime;
+            case 3:
+                return maxburntime;
             default:
                 return 0;
         }
