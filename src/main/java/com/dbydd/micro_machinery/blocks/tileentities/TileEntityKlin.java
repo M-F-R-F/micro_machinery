@@ -74,6 +74,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         this.melttime = compound.getInteger("melt time needed");
         this.currentmelttime = compound.getInteger("current melt time");
         this.burntime = compound.getInteger("burntime");
+        this.maxburntime = compound.getInteger("maxburntime");
         this.fluidhandler.readFromNBT(compound);
     }
 
@@ -83,6 +84,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         compound.setInteger("melt time needed", melttime);
         compound.setInteger("current melt time", currentmelttime);
         compound.setInteger("burntime", burntime);
+        compound.setInteger("maxburntime", maxburntime);
         compound.setTag("Inventory", this.itemhandler.serializeNBT());
         fluidhandler.writeToNBT(compound);
 
@@ -107,7 +109,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     }
 
     public boolean issmelting() {
-        return getResult() != null && melttime != 0;
+        return getResult() != null && melttime != 0 && isBurning();
     }
 
     @Override
@@ -185,9 +187,14 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                         extractMaterial(recipeinsmelting);
                     }
                 }
+                if (burntime >= maxburntime) {
+                    burntime = -1;
+                    maxburntime = 0;
+                }
                 markDirty();
             } else {
-                tryToGetFuel(this.itemhandler, 2);
+                if (tryToGetRecipe() != null)
+                    tryToGetFuel(this.itemhandler, 2);
                 markDirty();
             }
 
@@ -243,7 +250,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 //            if (isBurning() && !issmelting()) {
 //                markDirty();
 //            }
-//            this.syncToTrackingClients();
+            this.syncToTrackingClients();
         }
 
     }
@@ -267,7 +274,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
             maxburntime = TileEntityFurnace.getItemBurnTime(handler.getStackInSlot(index));
             if (maxburntime != 0) {
                 burntime = 0;
-                handler.extractItem(index,1,false);
+                handler.extractItem(index, 1, false);
             }
         }
     }
@@ -314,6 +321,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = this.fluidhandler.writeToNBT(new NBTTagCompound());
+        writeToNBT(nbtTag);
         //Write your data into the nbtTag
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
@@ -321,6 +329,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.getNbtCompound();
+        readFromNBT(tag);
         //Handle your Data
         this.fluidhandler.readFromNBT(tag);
     }

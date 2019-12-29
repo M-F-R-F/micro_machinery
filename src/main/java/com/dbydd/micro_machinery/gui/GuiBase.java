@@ -73,4 +73,10 @@ public class GuiBase<T extends TileEntity> extends GuiContainer {
         this.drawTexturedModalRect(x, y, gauagex, gauagey, tankWidth, tankHeight);
     }
 
+    public void renderProgressBar(int sidex, int sidey, int textureX, int textureY, int barwidth, int barheight) {
+        this.mc.getTextureManager().bindTexture(TEXTURES);
+        this.drawTexturedModalRect(sidex, sidey, textureX, textureY, barwidth, barheight);
+    }
+
+
 }

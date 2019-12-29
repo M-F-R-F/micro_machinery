@@ -15,7 +15,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerElementaryKlin extends ContainerBase {
     private TileEntityKlin tileentity;
-    private int melttime, currentmelttimeTime, burnTime, maxburntime;
+    private int melttime, currentmelttimeTime, burntime, maxburntime;
     private FluidTank tank;
 
     public ContainerElementaryKlin(EntityPlayer player, TileEntityKlin tileEntity) {
@@ -51,9 +51,9 @@ public class ContainerElementaryKlin extends ContainerBase {
 
             if (this.melttime != this.tileentity.getField(0))
                 iContainerListener.sendWindowProperty(this, 0, this.tileentity.getField(0));
-            if (this.burnTime != this.tileentity.getField(2))
+            if (this.burntime != this.tileentity.getField(2))
                 iContainerListener.sendWindowProperty(this, 1, this.tileentity.getField(2));
-            if (this.burnTime != this.tileentity.getField(3))
+            if (this.maxburntime != this.tileentity.getField(3))
                 iContainerListener.sendWindowProperty(this, 1, this.tileentity.getField(3));
             if (this.currentmelttimeTime != this.tileentity.getField(1))
                 iContainerListener.sendWindowProperty(this, 2, this.tileentity.getField(1));
@@ -63,7 +63,7 @@ public class ContainerElementaryKlin extends ContainerBase {
 
         this.melttime = this.tileentity.getField(0);
         this.currentmelttimeTime = this.tileentity.getField(1);
-        this.burnTime = this.tileentity.getField(2);
+        this.burntime = this.tileentity.getField(2);
         this.maxburntime = this.tileentity.getField(3);
     }
 
@@ -84,7 +84,8 @@ public class ContainerElementaryKlin extends ContainerBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int id, int data) {
+    public void updateProgressBar(int id, int data)
+    {
         this.tileentity.setField(id, data);
     }
 

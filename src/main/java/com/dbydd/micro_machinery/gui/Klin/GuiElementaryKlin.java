@@ -14,13 +14,13 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
     //创建自定义贴图的ResourceLocation标识。
     private static final ResourceLocation TEXTURES = new ResourceLocation(TEXTURE_BACK);
     //private static final ResourceLocation TEXTURECOMP = new ResourceLocation(TEXTURE_COMP);
+    private int k = 0;
 
     public GuiElementaryKlin(EntityPlayer player, TileEntityKlin tileentity) {
         super(new ContainerElementaryKlin(player, tileentity), tileentity, TEXTURES);
         this.xSize = 176;
         this.ySize = 166;
     }
-
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
@@ -29,32 +29,27 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
         int tankWidth = 16;
         int tankHeight = 60;
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-        this.renderFluidTank(tileentity.fluidhandler, x, y, tankWidth, tankHeight);
-        this.rendergauage(x, y, 210, 3, tankWidth, tankHeight);
-        this.renderFluidTankTooltip(tileentity.fluidhandler, mouseX, mouseY, x, y, 16, 60);
-//       this.drawModalRectWithCustomSizedTexture(this.guiLeft + 152, this.guiTop + 3, 210,3, 16, 60,16, 60);
-        //todo
-
-        if(TileEntityKlin.isBurning(tileentity))
-        {
-            int k = this.getBurnLeftScaled(13);
-            this.drawTexturedModalRect(this.guiLeft + 8, this.guiTop + 54 + 12 - k, 176, 12 - k, 14, k + 1);
+        if (TileEntityKlin.isBurning(tileentity)) {
+            mc.getTextureManager().bindTexture(TEXTURES);
+            k = getBurnLeftScaled(13) ;
+            renderProgressBar(this.guiLeft + 82, this.guiTop + 29 - k, 176, 28 - k, 14, k + 1);
         }
-
+        renderFluidTank(tileentity.fluidhandler, x, y, tankWidth, tankHeight);
+        rendergauage(x, y, 210, 3, tankWidth, tankHeight);
+        renderFluidTankTooltip(tileentity.fluidhandler, mouseX, mouseY, x, y, 16, 60);
     }
 
-    private int getBurnLeftScaled(int pixels)
-    {
-        int burntime = this.tileentity.getField(2);
-        int maxburntime = this.tileentity.getField(3);
-        if(maxburntime == 0) return 0;
-        return burntime * pixels / maxburntime;
+    private int getBurnLeftScaled(int pixels) {
+        int burntime = tileentity.getField(2);
+        int maxburntime = tileentity.getField(3);
+        if (maxburntime == 0) return 0;
+         return pixels - (burntime * pixels / maxburntime);
+        //return burntime * pixels / maxburntime;
     }
 
-    private int getMeltProgressScaled(int pixels)
-    {
-        int maxmelttime = this.tileentity.getField(1);
-        int melttime = this.tileentity.getField(0);
+    private int getMeltProgressScaled(int pixels) {
+        int maxmelttime = tileentity.getField(1);
+        int melttime = tileentity.getField(0);
         return melttime != 0 && maxmelttime != 0 ? maxmelttime * pixels / melttime : 0;
     }
 
