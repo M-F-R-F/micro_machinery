@@ -197,59 +197,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                     tryToGetFuel(this.itemhandler, 2);
                 markDirty();
             }
-
-
-//            if (isBurning()) {
-//                --this.burntime;
-//                BlockKlin.setState(true, world, this.getPos());
-//            } else if (!issmelting()) {
-//                KlinRecipe recipeinsmelting = RecipeHelper.CanKlinSmelt(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), this.fluidhandler);
-//                if (recipeinsmelting != null) {
-//                    melttime = recipeinsmelting.melttime;
-//                    result = recipeinsmelting.outputfluidstack;
-//                    if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.input1.getItem()) {
-//                        itemhandler.extractItem(1, recipeinsmelting.input2.getCount(), false);
-//                        itemhandler.extractItem(0, recipeinsmelting.input1.getCount(), false);
-//                    } else {
-//                        itemhandler.extractItem(1, recipeinsmelting.input1.getCount(), false);
-//                        itemhandler.extractItem(0, recipeinsmelting.input2.getCount(), false);
-//                    }
-//                    markDirty();
-//                }
-//            }
-//
-//            if (isBurning() && issmelting()) {
-//                ++currentmelttime;
-//                if (currentmelttime >= melttime) {
-//                    if (fluidhandler.getFluid() != null) {
-//                        if (fluidhandler.canFillFluidType(result)) {
-//                            this.fluidhandler.fill(result, true);
-//                            result = null;
-//                            currentmelttime = -1;
-//                        } else {
-//                            --currentmelttime;
-//                        }
-//                    } else {
-//                        this.fluidhandler.fill(result, true);
-//                        result = null;
-//                        currentmelttime = -1;
-//                    }
-//                }
-//                markDirty();
-//            }
-//
-//            if (!isBurning() && issmelting()) {
-//                if (itemhandler.getStackInSlot(2).getItem() == Items.COAL) {
-//                    burntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
-//                    maxburntime = TileEntityFurnace.getItemBurnTime(itemhandler.getStackInSlot(2));
-//                    itemhandler.extractItem(2, 1, false);
-//                    markDirty();
-//                }
-//            }
-//
-//            if (isBurning() && !issmelting()) {
-//                markDirty();
-//            }
             this.syncToTrackingClients();
         }
 
