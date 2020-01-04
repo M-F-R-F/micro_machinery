@@ -62,6 +62,11 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         return te.getField(2) > 0;
     }
 
+    @SideOnly(Side.CLIENT)
+    public static boolean isSmelting(TileEntityKlin te) {
+        return te.getField(1) != 0 && te.getField(0) != 0;
+    }
+
 
     public FluidStack getResult() {
         return result;

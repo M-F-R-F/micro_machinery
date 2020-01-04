@@ -24,7 +24,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -168,4 +167,16 @@ public class BlockKlin extends BlockContainer implements IHasModel {
         return new TileEntityKlin();
     }
 
+    @Override
+    public void breakBlock(World p_breakBlock_1_, BlockPos p_breakBlock_2_, IBlockState p_breakBlock_3_) {
+        TileEntity te = p_breakBlock_1_.getTileEntity(p_breakBlock_2_);
+        IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+        for (int i = 0; i < handler.getSlots(); i++) {
+            if (handler.getStackInSlot(i) != ItemStack.EMPTY) {
+                Block.spawnAsEntity(p_breakBlock_1_, p_breakBlock_2_, handler.getStackInSlot(i));
+                ((IItemHandlerModifiable) handler).setStackInSlot(i, ItemStack.EMPTY);
+            }
+        }
+        super.breakBlock(p_breakBlock_1_, p_breakBlock_2_, p_breakBlock_3_);
+    }
 }

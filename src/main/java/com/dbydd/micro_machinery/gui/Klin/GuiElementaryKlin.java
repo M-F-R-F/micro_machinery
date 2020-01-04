@@ -31,9 +31,11 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         if (TileEntityKlin.isBurning(tileentity)) {
             mc.getTextureManager().bindTexture(TEXTURES);
-            k = getBurnLeftScaled(13) ;
+            k = getBurnLeftScaled(13);
             renderProgressBar(this.guiLeft + 82, this.guiTop + 29 - k, 176, 28 - k, 14, k + 1);
         }
+        k = getMeltProgressScaled(22);
+        renderProgressBar(this.guiLeft + 78, this.guiTop + 31, 176, 31, k, 16);
         renderFluidTank(tileentity.fluidhandler, x, y, tankWidth, tankHeight);
         rendergauage(x, y, 210, 3, tankWidth, tankHeight);
         renderFluidTankTooltip(tileentity.fluidhandler, mouseX, mouseY, x, y, 16, 60);
@@ -43,14 +45,15 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
         int burntime = tileentity.getField(2);
         int maxburntime = tileentity.getField(3);
         if (maxburntime == 0) return 0;
-         return pixels - (burntime * pixels / maxburntime);
+        return pixels - (burntime * pixels / maxburntime);
         //return burntime * pixels / maxburntime;
     }
 
     private int getMeltProgressScaled(int pixels) {
-        int maxmelttime = tileentity.getField(1);
-        int melttime = tileentity.getField(0);
-        return melttime != 0 && maxmelttime != 0 ? maxmelttime * pixels / melttime : 0;
+        int maxmelttime = tileentity.getField(0);
+        int melttime = tileentity.getField(1);
+        if (maxmelttime == 0) return 0;
+        return melttime * pixels / maxmelttime;
     }
 
 
