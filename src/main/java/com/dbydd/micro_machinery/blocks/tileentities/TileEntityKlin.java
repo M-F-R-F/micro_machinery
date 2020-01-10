@@ -55,8 +55,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     private int currentmelttime = 0;
     private int burntime = -1;
     private int maxburntime = 0;
-    private ItemStackHandler itemhandler = new ItemStackHandler(4);
-
+    private ItemStackHandler itemhandler = new ItemStackHandler(5);
     @SideOnly(Side.CLIENT)
     public static boolean isBurning(TileEntityKlin te) {
         return te.getField(2) > 0;
@@ -119,7 +118,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     @Override
     public int getSlots() {
-        return 4;
+        return 5;
     }
 
     @Nonnull
@@ -231,6 +230,9 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         }
     }
 
+    public ItemStack getCast() {
+        return itemhandler.getStackInSlot(5);
+    }
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {

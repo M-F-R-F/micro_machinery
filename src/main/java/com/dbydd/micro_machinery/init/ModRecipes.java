@@ -14,6 +14,8 @@ public class ModRecipes {
     public static final List<KlinFluidRecipe> fluidRecipes = new ArrayList<KlinFluidRecipe>();
     public static final List<KlinRecipe> tofluidrecipes = new ArrayList<KlinRecipe>();
 
-    public static final KlinRecipe test = new KlinRecipe(new FluidStack(ModFluids.APPLE_JUICE, 144), new ItemStack(Items.APPLE, 1), new ItemStack(Items.APPLE, 1), 12);
-    public static final KlinRecipe test1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.APPLE, 1), new ItemStack(ModBlocks.ORECOPPER, 1), 12);
+    public static final KlinRecipe test = new KlinRecipe(new FluidStack(ModFluids.APPLE_JUICE, 100), new ItemStack(Items.APPLE, 1), new ItemStack(Items.APPLE, 1), 12);
+    public static final KlinRecipe test1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 176), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORECOPPER, 1), 24);
+    public static final KlinRecipe test2 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 176), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORETIN, 1), 12);
+    public static final KlinRecipe test3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_BRONZE, 576), new ItemStack(ModItems.INGOTCOPPER, 3), new ItemStack(ModItems.INGOTTIN, 1), 20);
 }

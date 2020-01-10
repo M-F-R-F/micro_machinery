@@ -28,6 +28,7 @@ public class ContainerElementaryKlin extends ContainerBase {
         this.addSlotToContainer(new SlotItemHandler(itemHandler, 1, 40, 50));
         this.addSlotToContainer(new SlotItemHandler(itemHandler, 2, 80, 50));
         this.addSlotToContainer(new SlotItemHandler(itemHandler, 3, 120, 50));
+        this.addSlotToContainer(new SlotItemHandler(itemHandler, 4, 120, 24));
 
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
@@ -84,8 +85,7 @@ public class ContainerElementaryKlin extends ContainerBase {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int id, int data)
-    {
+    public void updateProgressBar(int id, int data) {
         this.tileentity.setField(id, data);
     }
 
