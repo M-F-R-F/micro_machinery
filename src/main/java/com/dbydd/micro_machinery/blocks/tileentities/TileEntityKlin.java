@@ -56,6 +56,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     private int burntime = -1;
     private int maxburntime = 0;
     private ItemStackHandler itemhandler = new ItemStackHandler(5);
+
     @SideOnly(Side.CLIENT)
     public static boolean isBurning(TileEntityKlin te) {
         return te.getField(2) > 0;
@@ -65,7 +66,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     public static boolean isSmelting(TileEntityKlin te) {
         return te.getField(1) != 0 && te.getField(0) != 0;
     }
-
 
     public FluidStack getResult() {
         return result;

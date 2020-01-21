@@ -1,5 +1,7 @@
 package com.dbydd.micro_machinery.gui.Klin;
 
+import com.dbydd.micro_machinery.Micro_Machinery;
+import com.dbydd.micro_machinery.network.TestPackge;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.GuiBase;
@@ -7,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
@@ -47,7 +50,10 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
 
     @Override
     protected void actionPerformed(GuiButton p_actionPerformed_1_) throws IOException {
-
+        tileentity.drain(tileentity.fluidhandler.getFluidAmount(), true);
+        NBTTagCompound tag = tileentity.fluidhandler.writeToNBT(new NBTTagCompound());
+        this.tileentity.writeToNBT(tag);
+        Micro_Machinery.getNetwork().sendToServer(new TestPackge(tag, this.tileentity.getPos()));
     }
 
     @Override
