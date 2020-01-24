@@ -1,10 +1,10 @@
 package com.dbydd.micro_machinery.gui.Klin;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.network.TestPackge;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.GuiBase;
+import com.dbydd.micro_machinery.network.TestPackge;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
@@ -53,7 +53,7 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
         tileentity.drain(tileentity.fluidhandler.getFluidAmount(), true);
         NBTTagCompound tag = tileentity.fluidhandler.writeToNBT(new NBTTagCompound());
         this.tileentity.writeToNBT(tag);
-        Micro_Machinery.getNetwork().sendToServer(new TestPackge(tag, this.tileentity.getPos()));
+        Micro_Machinery.getNetwork().sendToServer(new TestPackge(tag, this.tileentity.getPos(), tileentity.getWorld().provider.getDimension()));
     }
 
     @Override

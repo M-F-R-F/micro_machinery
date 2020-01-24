@@ -37,7 +37,7 @@ public class Micro_Machinery {
     public static void PreInit(FMLPreInitializationEvent event) {
         RegistryHandler.preInitRegisteries(event);
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);
-        getNetwork().registerMessage(new com.dbydd.micro_machinery.network.TestPackge.TestHandler(), com.dbydd.micro_machinery.network.TestPackge.class, 1, Side.SERVER);
+        network.registerMessage(new com.dbydd.micro_machinery.network.TestPackge.TestHandler(), com.dbydd.micro_machinery.network.TestPackge.class, 1, Side.SERVER);
     }
 
     @Mod.EventHandler

@@ -4,7 +4,9 @@ import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -13,16 +15,17 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class TestPackge implements IMessage {
     public NBTTagCompound compound;
-    public int x, y, z;
+    public int x, y, z, dimesion;
 
     public TestPackge() {
     }
 
-    public TestPackge(NBTTagCompound compound, BlockPos pos) {
+    public TestPackge(NBTTagCompound compound, BlockPos pos, int dimesion) {
         this.compound = compound;
         this.x = pos.getX();
         this.y = pos.getY();
         this.z = pos.getZ();
+        this.dimesion = dimesion;
     }
 
     @Override
@@ -31,6 +34,7 @@ public class TestPackge implements IMessage {
         x = buf.readInt();
         y = buf.readInt();
         z = buf.readInt();
+        dimesion = buf.readInt();
     }
 
     @Override
@@ -39,21 +43,23 @@ public class TestPackge implements IMessage {
         buf.writeInt(x);
         buf.writeInt(y);
         buf.writeInt(z);
+        buf.writeInt(dimesion);
     }
 
     public static class TestHandler implements IMessageHandler<TestPackge, IMessage> {
         @Override
         public IMessage onMessage(TestPackge message, MessageContext ctx) {
-            if (ctx.side == Side.CLIENT) {
-//                FluidTank tank = null;
-//                tank.readFromNBT(message.compound);
+            if (ctx.side == Side.SERVER) {
                 Minecraft.getMinecraft().addScheduledTask(() -> {
-                    TileEntityKlin te = (TileEntityKlin) Minecraft.getMinecraft().world.getTileEntity(new BlockPos(message.x, message.y, message.z));
+                    TileEntity te = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(message.dimesion).getTileEntity(new BlockPos(message.x, message.y, message.z));
                     assert te != null;
-                    te.readFromNBT(message.compound);
+                    if (te instanceof TileEntityKlin) {
+                        te.readFromNBT(message.compound);
+                    }
                 });
             }
             return null;
         }
+
     }
 }
