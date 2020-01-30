@@ -13,14 +13,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class TestPackge implements IMessage {
+public class KlinButtonEventPackage implements IMessage {
     public NBTTagCompound compound;
     public int x, y, z, dimesion;
 
-    public TestPackge() {
+    public KlinButtonEventPackage() {
     }
 
-    public TestPackge(NBTTagCompound compound, BlockPos pos, int dimesion) {
+    public KlinButtonEventPackage(NBTTagCompound compound, BlockPos pos, int dimesion) {
         this.compound = compound;
         this.x = pos.getX();
         this.y = pos.getY();
@@ -46,9 +46,9 @@ public class TestPackge implements IMessage {
         buf.writeInt(dimesion);
     }
 
-    public static class TestHandler implements IMessageHandler<TestPackge, IMessage> {
+    public static class TestHandler implements IMessageHandler<KlinButtonEventPackage, IMessage> {
         @Override
-        public IMessage onMessage(TestPackge message, MessageContext ctx) {
+        public IMessage onMessage(KlinButtonEventPackage message, MessageContext ctx) {
             if (ctx.side == Side.SERVER) {
                 Minecraft.getMinecraft().addScheduledTask(() -> {
                     TileEntity te = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(message.dimesion).getTileEntity(new BlockPos(message.x, message.y, message.z));
