@@ -22,7 +22,9 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -36,6 +38,8 @@ public class BlockKlin extends BlockContainer implements IHasModel {
 
     private static final PropertyDirection FACING = BlockHorizontal.FACING;
     private static final PropertyBool BURNING = PropertyBool.create("burning");
+    public static final AxisAlignedBB HIGHER_THAN_FULL_BLOCK_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.4D,
+            1.0D);
 
     public BlockKlin(String name, Material material) {
         super(material);
@@ -66,6 +70,17 @@ public class BlockKlin extends BlockContainer implements IHasModel {
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return HIGHER_THAN_FULL_BLOCK_AABB;
+    }
+
+    @Override
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+        //return super.getSelectedBoundingBox(state, worldIn, pos);
+        return HIGHER_THAN_FULL_BLOCK_AABB;
     }
 
     @Override
@@ -112,6 +127,11 @@ public class BlockKlin extends BlockContainer implements IHasModel {
     @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
     }
 
     @Override
