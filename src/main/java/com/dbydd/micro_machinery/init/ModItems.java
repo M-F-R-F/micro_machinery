@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.dbydd.micro_machinery.Reference;
+import com.dbydd.micro_machinery.enumtype.EnumCastType;
 import com.dbydd.micro_machinery.items.ItemBase;
+import com.dbydd.micro_machinery.items.ItemCast;
 import com.dbydd.micro_machinery.items.MaterialBase.CrushedOre;
 import com.dbydd.micro_machinery.items.MaterialBase.GearBlank;
 import com.dbydd.micro_machinery.items.MaterialBase.MaterialAxis;
@@ -285,7 +287,9 @@ public class ModItems {
 	public static final Item HSB = new ItemBase("hsb");
 	public static final Item BRICK_POWDER = new ItemBase("brick_powder");
 	public static final Item CLAY_MIXED_WITH_CLINKER = new ItemBase("clay_mixed_with_clinker");
-
+	public static final Item CAST_INGOT = new ItemCast("cast_ingot",160, EnumCastType.INGOT);
+	public static final Item CAST_STICK = new ItemCast("cast_stick",72,EnumCastType.STICK);
+	public static final Item CAST_GEAR = new ItemCast("cast_gear",584,EnumCastType.GEAR);
 
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {
