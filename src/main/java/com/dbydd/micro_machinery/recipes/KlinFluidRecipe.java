@@ -1,19 +1,23 @@
 package com.dbydd.micro_machinery.recipes;
 
 import com.dbydd.micro_machinery.init.ModRecipes;
+import com.dbydd.micro_machinery.items.ItemCast;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.Fluid;
 
 public class KlinFluidRecipe {
 
 
-    private ItemStack output = null;
-    private FluidStack inputfluidstack = null;
+    public ItemStack output = null;
+    public ItemCast cast = null;
+    public Fluid inputfluid = null;
 
 
-    public KlinFluidRecipe(FluidStack inputfluidstack, ItemStack output) {
+    public KlinFluidRecipe(ItemStack output, Fluid inputfluid, Item cast) {
         this.output = output;
-        this.inputfluidstack = inputfluidstack;
+        this.inputfluid = inputfluid;
+        this.cast = (ItemCast) cast;
 
         ModRecipes.fluidRecipes.add(this);
     }

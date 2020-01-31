@@ -1,6 +1,7 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
+import com.dbydd.micro_machinery.recipes.KlinFluidRecipe;
 import com.dbydd.micro_machinery.recipes.KlinRecipe;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
@@ -201,6 +202,14 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                     tryToGetFuel(this.itemhandler, 2);
                 markDirty();
             }
+            if (fluidhandler.getFluidAmount() != 0 && itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
+                KlinFluidRecipe recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidhandler.getFluid(), itemhandler.getStackInSlot(4));
+                if (recipe != null) {
+                    itemhandler.insertItem(3, recipe.output, false);
+                    fluidhandler.drain(recipe.cast.amount, true);
+                    markDirty();
+                }
+            }
             this.syncToTrackingClients();
         }
 
@@ -221,7 +230,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     }
 
     private void tryToGetFuel(ItemStackHandler handler, int index) {
-        if (handler.getStackInSlot(index) != null) {
+        if (handler.getStackInSlot(index) != ItemStack.EMPTY) {
             maxburntime = TileEntityFurnace.getItemBurnTime(handler.getStackInSlot(index));
             if (maxburntime != 0) {
                 burntime = 0;

@@ -8,7 +8,8 @@ import net.minecraft.item.Item;
 
 public class ItemBase extends Item implements IHasModel {
 
-	public ItemBase(String itemname) {
+
+    public ItemBase(String itemname) {
 		setUnlocalizedName(itemname);
 		setRegistryName(itemname);
 		setCreativeTab(Micro_Machinery.Micro_Machinery);

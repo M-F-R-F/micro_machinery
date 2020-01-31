@@ -23,14 +23,4 @@ public class KlinRecipe {
         ModRecipes.tofluidrecipes.add(this);
     }
 
-    public KlinRecipe(FluidStack outputfluidstack, ItemStack input1, int melttime) {
-        this.input1 = input1;
-        this.input2 = ItemStack.EMPTY;
-        this.outputfluidstack = outputfluidstack;
-        this.melttime = melttime;
-        issingle = true;
-
-        ModRecipes.tofluidrecipes.add(this);
-    }
-
 }

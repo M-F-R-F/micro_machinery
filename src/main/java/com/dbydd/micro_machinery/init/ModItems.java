@@ -1,46 +1,28 @@
 package com.dbydd.micro_machinery.init;
 
-import java.util.List;
-import java.util.ArrayList;
-
+import com.dbydd.micro_machinery.EnumType.EnumCastType;
 import com.dbydd.micro_machinery.Reference;
-import com.dbydd.micro_machinery.enumtype.EnumCastType;
 import com.dbydd.micro_machinery.items.ItemBase;
 import com.dbydd.micro_machinery.items.ItemCast;
-import com.dbydd.micro_machinery.items.MaterialBase.CrushedOre;
-import com.dbydd.micro_machinery.items.MaterialBase.GearBlank;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialAxis;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialCircleCasting;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialGear;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialIngot;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialPlate;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialDust;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialRoll;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialScrew;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialSlag;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialStick;
-import com.dbydd.micro_machinery.items.MaterialBase.MaterialString;
-import com.dbydd.micro_machinery.items.MaterialBase.MotorBase;
-import com.dbydd.micro_machinery.items.MaterialBase.OreConcentrate;
+import com.dbydd.micro_machinery.items.MaterialBase.*;
 import com.dbydd.micro_machinery.items.foods.FoodBase;
 import com.dbydd.micro_machinery.items.foods.Golden_Apple_Food;
 import com.dbydd.micro_machinery.items.tools.MyMaterial;
 import com.dbydd.micro_machinery.items.tools.ToolAxe;
 import com.dbydd.micro_machinery.items.tools.ToolHammer;
 import com.dbydd.micro_machinery.items.tools.ToolSword;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModItems {
 
-	static String materiallist[] = {"Copper", "Tin", "Bronze", "Steel", "Invar", "Stainless_Steel", "Tungsten",
+    private static String[] materiallist = {"Copper", "Tin", "Bronze", "Steel", "Invar", "Stainless_Steel", "Tungsten",
 			"Tungsten_Steel", "HSS", "Gold", "Silver", "Manganese", "Chromium", "Nickel", "Vanadium", "Cobalt",
 			"Titanium", "Aluminum", "NCAlloy", "Silicon", "Graphite", "Iron", "Carbon", "Ferrochrome"};
 
@@ -257,15 +239,15 @@ public class ModItems {
 	public static final Item APPLE_JAM_BUN = new FoodBase(10, 10.0f, "apple_jam_bun");
 
 	//tools
-	//axe
+    //axe
 	public static final Item AXEBRONZE = new ToolAxe(ToolMaterial.IRON, 300, "bronze_axe", 6.0f, 7.0f);
 	public static final Item AXETUNGSTEN_STEEL = new ToolAxe(ToolMaterial.DIAMOND, 1200, "tungsten_steel_axe", 7.0f, 12.0f);
 	public static final Item AXEHSS = new ToolAxe(ToolMaterial.DIAMOND, 800, "hss_axe", 12.0f, 15.0f);
-	//sword
+    //sword
 	public static final Item BONZE_SWORD = new ToolSword(MyMaterial.BRONZE, 250, "bronze_sword");
 	public static final Item TUNGSTEN_STEEL_SWORD = new ToolSword(MyMaterial.TUNGSTEN_STEEL, 1000, "tungsten_steel_sword");
 	public static final Item HSS_SWORD = new ToolSword(MyMaterial.HSS, 750, "hss_sword");
-	//hammer
+    //hammer
 	public static final Item STONE_HAMMER = new ToolHammer(ToolMaterial.STONE, 100, "stone_hammer");
 	public static final Item IRON_HAMMER = new ToolHammer(ToolMaterial.IRON, 700, "iron_hammer");
 	public static final Item BRONZE_HAMMER = new ToolHammer(MyMaterial.BRONZE, 400, "bronze_hammer");
@@ -287,9 +269,11 @@ public class ModItems {
 	public static final Item HSB = new ItemBase("hsb");
 	public static final Item BRICK_POWDER = new ItemBase("brick_powder");
 	public static final Item CLAY_MIXED_WITH_CLINKER = new ItemBase("clay_mixed_with_clinker");
-	public static final Item CAST_INGOT = new ItemCast("cast_ingot",160, EnumCastType.INGOT);
+
+    //casts
+    public static final Item CAST_INGOT = new ItemCast("cast_ingot",160, EnumCastType.INGOT);
 	public static final Item CAST_STICK = new ItemCast("cast_stick",72,EnumCastType.STICK);
-	public static final Item CAST_GEAR = new ItemCast("cast_gear",584,EnumCastType.GEAR);
+    public static final Item CAST_GEAR = new ItemCast("cast_gear", 584, EnumCastType.GEAR);
 
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {
