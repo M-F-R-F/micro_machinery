@@ -19,5 +19,5 @@ public class ModRecipes {
     public static final KlinRecipe test3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_BRONZE, 576), new ItemStack(ModItems.INGOTCOPPER, 3), new ItemStack(ModItems.INGOTTIN, 1), 20);
 
     //fluidtomaterial
-    public static final KlinFluidRecipe test = new KlinFluidRecipe(new ItemStack(ModItems.INGOTCOPPER), ModFluids.MOLTEN_COPPER, ModItems.CAST_INGOT);
+    public static final KlinFluidRecipe test = new KlinFluidRecipe(new ItemStack(ModItems.INGOTCOPPER), ModFluids.MOLTEN_COPPER, ModItems.CAST_INGOT, 60);
 }

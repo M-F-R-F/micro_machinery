@@ -52,11 +52,14 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         }
     };
     private FluidStack result = null;
+    private KlinFluidRecipe recipe = null;
     private int melttime = 0;
     private int currentmelttime = 0;
     private int burntime = -1;
     private int maxburntime = 0;
     private ItemStackHandler itemhandler = new ItemStackHandler(5);
+    private int pouringcooldown = 0;
+    private int currentcooldown = 0;
 
     @SideOnly(Side.CLIENT)
     public static boolean isBurning(TileEntityKlin te) {
@@ -80,6 +83,8 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         this.currentmelttime = compound.getInteger("current melt time");
         this.burntime = compound.getInteger("burntime");
         this.maxburntime = compound.getInteger("maxburntime");
+        this.pouringcooldown = compound.getInteger("pouringcooldown");
+        this.currentcooldown = compound.getInteger("currentcooldown");
         this.fluidhandler.readFromNBT(compound);
     }
 
@@ -91,6 +96,8 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         compound.setInteger("burntime", burntime);
         compound.setInteger("maxburntime", maxburntime);
         compound.setTag("Inventory", this.itemhandler.serializeNBT());
+        compound.setInteger("pouringcooldown", this.pouringcooldown);
+        compound.setInteger("currentcooldown", this.currentcooldown);
         fluidhandler.writeToNBT(compound);
 
         return compound;
@@ -202,18 +209,45 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                     tryToGetFuel(this.itemhandler, 2);
                 markDirty();
             }
-            if (fluidhandler.getFluidAmount() != 0 && itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
-                KlinFluidRecipe recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidhandler.getFluid(), itemhandler.getStackInSlot(4));
-                if (recipe != null) {
-                    itemhandler.insertItem(3, recipe.output, false);
+
+            if (recipe == null) {
+                if (fluidhandler.getFluidAmount() != 0 && getStackInSlot(4) != ItemStack.EMPTY) {
+                    recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidhandler.getFluid(), getStackInSlot(4));
+                    if (recipe != null) pouringcooldown = recipe.cooldown;
+                    markDirty();
+                }
+            } else if (currentcooldown < pouringcooldown) {
+                currentcooldown++;
+                markDirty();
+            } else {
+                if (canInsert(3, recipe.output)) {
+                    insertResult(3, recipe.output);
                     fluidhandler.drain(recipe.cast.amount, true);
+                    currentcooldown = 0;
+                    pouringcooldown = 0;
+                    recipe = null;
+                    markDirty();
+                } else {
+                    currentcooldown--;
                     markDirty();
                 }
             }
             this.syncToTrackingClients();
         }
-
     }
+
+    private boolean canInsert(int slot, ItemStack output) {
+        ItemStack stack = getStackInSlot(slot);
+        if (stack == ItemStack.EMPTY) return true;
+        if (stack.getItem() == output.getItem() && stack.getCount() + output.getCount() <= stack.getMaxStackSize())
+            return true;
+        return false;
+    }
+
+    private void insertResult(int slot, ItemStack output) {
+        itemhandler.setStackInSlot(slot, new ItemStack(output.getItem(), getStackInSlot(slot).getCount() + output.getCount()));
+    }
+
 
     private void extractMaterial(KlinRecipe recipeinsmelting) {
         if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.input1.getItem()) {

@@ -12,12 +12,14 @@ public class KlinFluidRecipe {
     public ItemStack output = null;
     public ItemCast cast = null;
     public Fluid inputfluid = null;
+    public int cooldown = 0;
 
 
-    public KlinFluidRecipe(ItemStack output, Fluid inputfluid, Item cast) {
+    public KlinFluidRecipe(ItemStack output, Fluid inputfluid, Item cast, int cooldown) {
         this.output = output;
         this.inputfluid = inputfluid;
         this.cast = (ItemCast) cast;
+        this.cooldown = cooldown;
 
         ModRecipes.fluidRecipes.add(this);
     }
