@@ -25,7 +25,7 @@ import java.util.Objects;
 public class BlockForgingAnvil extends BlockContainer implements IHasModel {
     private int level;
 
-    protected BlockForgingAnvil(String name, int level) {
+    public BlockForgingAnvil(String name, int level) {
         super(Material.ANVIL);
         setUnlocalizedName(name);
         setRegistryName(name);

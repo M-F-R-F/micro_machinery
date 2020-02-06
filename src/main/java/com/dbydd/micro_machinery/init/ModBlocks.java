@@ -9,6 +9,7 @@ import com.dbydd.micro_machinery.blocks.BlockOres;
 import com.dbydd.micro_machinery.blocks.MaterialBlock;
 import com.dbydd.micro_machinery.blocks.OreEnd;
 import com.dbydd.micro_machinery.blocks.OreNether;
+import com.dbydd.micro_machinery.blocks.machine.BlockForgingAnvil;
 import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
 
 import net.minecraft.block.Block;
@@ -100,4 +101,6 @@ public class ModBlocks {
     //tileentities
     //machine
     public static final Block KLIN = new BlockKlin("klin", Material.IRON);
+    public static final Block STONE_ANVIL = new BlockForgingAnvil("stone_anvil", 1);
+    public static final Block BRONZE_ANVIL = new BlockForgingAnvil("bronze_anvil",2);
 }

@@ -244,7 +244,7 @@ public class ModItems {
 	public static final Item AXETUNGSTEN_STEEL = new ToolAxe(ToolMaterial.DIAMOND, 1200, "tungsten_steel_axe", 7.0f, 12.0f);
 	public static final Item AXEHSS = new ToolAxe(ToolMaterial.DIAMOND, 800, "hss_axe", 12.0f, 15.0f);
     //sword
-	public static final Item BONZE_SWORD = new ToolSword(MyMaterial.BRONZE, 250, "bronze_sword");
+	public static final Item BRONZE_SWORD = new ToolSword(MyMaterial.BRONZE, 250, "bronze_sword");
 	public static final Item TUNGSTEN_STEEL_SWORD = new ToolSword(MyMaterial.TUNGSTEN_STEEL, 1000, "tungsten_steel_sword");
 	public static final Item HSS_SWORD = new ToolSword(MyMaterial.HSS, 750, "hss_sword");
     //hammer
@@ -269,11 +269,13 @@ public class ModItems {
 	public static final Item HSB = new ItemBase("hsb");
 	public static final Item BRICK_POWDER = new ItemBase("brick_powder");
 	public static final Item CLAY_MIXED_WITH_CLINKER = new ItemBase("clay_mixed_with_clinker");
+	public static final Item BRONZE_SWORD0 = new ItemBase("bronze_sword0");
 
     //casts
     public static final Item CAST_INGOT = new ItemCast("cast_ingot",160, EnumCastType.INGOT);
 	public static final Item CAST_STICK = new ItemCast("cast_stick",72,EnumCastType.STICK);
     public static final Item CAST_GEAR = new ItemCast("cast_gear", 584, EnumCastType.GEAR);
+	public static final Item CAST_SWORD = new ItemCast("cast_sword", 288, EnumCastType.SWORD);
 
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {
