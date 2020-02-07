@@ -16,9 +16,7 @@ import java.io.IOException;
 
 public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
 
-    //指定自定义背景贴图位置
     private static final String TEXTURE_BACK = Reference.MODID + ":" + "textures/gui/klin.png";
-    //创建自定义贴图的ResourceLocation标识。
     private static final ResourceLocation TEXTURES = new ResourceLocation(TEXTURE_BACK);
     private int k = 0;
 
