@@ -1,6 +1,7 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.items.tools.ToolHammer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -45,4 +46,7 @@ public class TileEntityForgingAnvil extends TileEntity {
         return null;
     }
 
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    }
 }

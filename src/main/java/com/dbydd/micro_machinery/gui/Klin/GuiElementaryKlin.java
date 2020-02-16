@@ -5,9 +5,7 @@ import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.GuiBase;
 import com.dbydd.micro_machinery.network.KlinButtonEventPackage;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -29,21 +27,7 @@ public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
     @Override
     public void initGui() {
         super.initGui();
-        this.buttonList.add(new GuiButton(0, this.guiLeft + 152, this.guiTop + 65, 16, 16, "") {
-            @Override
-            public void drawButton(Minecraft p_drawButton_1_, int mouseX, int mouseY, float p_drawButton_4_) {
-                GlStateManager.color(1.0F, 1.0F, 1.0F);
-                p_drawButton_1_.getTextureManager().bindTexture(TEXTURES);
-                int x = mouseX - this.x, y = mouseY - this.y;
-                if (this.visible) {
-                    if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
-                        this.drawTexturedModalRect(this.x, this.y, 176, 65, this.width, this.height);
-                    } else {
-                        this.drawTexturedModalRect(this.x, this.y, 176, 48, this.width, this.height);
-                    }
-                }
-            }
-        });
+        drawbutton(0, this.guiLeft + 152, this.guiTop + 65, 16, 16, "", 176, 65, 176, 48);
     }
 
     @Override

@@ -13,13 +13,13 @@ import net.minecraftforge.items.SlotItemHandler;
 import javax.annotation.Nonnull;
 
 public class ContainerElementryForgingAnvil extends ContainerBase {
-    private TileEntityForgingAnvil te;
+    private TileEntityForgingAnvil tileentity;
 
     public ContainerElementryForgingAnvil(EntityPlayer player, TileEntityForgingAnvil tileEntity) {
-        this.te = tileEntity;
+        this.tileentity = tileEntity;
         this.player = player;
-        IItemHandler input = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        IItemHandler output = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
+        IItemHandler input = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        IItemHandler output = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
 
         this.addSlotToContainer(new SlotItemHandler(input, 0, 52, 16));
         this.addSlotToContainer(new SlotItemHandler(input, 1, 132, 16) {
@@ -34,7 +34,17 @@ public class ContainerElementryForgingAnvil extends ContainerBase {
     }
 
     @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void onContainerClosed(EntityPlayer playerIn) {
+        super.onContainerClosed(playerIn);
+    }
+
+    @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return false;
+        return this.tileentity.isUsableByPlayer(playerIn);
     }
 }

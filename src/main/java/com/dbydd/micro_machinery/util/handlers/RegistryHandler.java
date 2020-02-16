@@ -1,6 +1,7 @@
 package com.dbydd.micro_machinery.util.handlers;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
+import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModItems;
@@ -8,6 +9,7 @@ import com.dbydd.micro_machinery.util.IHasModel;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -36,6 +38,7 @@ public class RegistryHandler {
 
     @SubscribeEvent
     public static void onModelRegister(ModelRegistryEvent event) {
+        OBJLoader.INSTANCE.addDomain(Reference.MODID);
 
         for (Item item : ModItems.ITEMS) {
             if (item instanceof IHasModel) {
@@ -43,13 +46,11 @@ public class RegistryHandler {
             }
         }
 
-
         for (Block block : ModBlocks.BLOCKS) {
             if (block instanceof IHasModel) {
                 ((IHasModel) block).registerModels();
             }
         }
-
     }
 
     public static void preInitRegisteries(FMLPreInitializationEvent event) {
