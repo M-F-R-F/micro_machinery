@@ -1,0 +1,331 @@
+//ingot
+item.IngotAluminum.name=Aluminum Ingot
+item.IngotBronze.name=IngotBronze 
+item.IngotChromium.name=IngotChromium 
+item.IngotCobalt.name=IngotCobalt 
+item.IngotCopper.name=IngotCopper 
+item.IngotGraphite.name=IngotGraphite 
+item.IngotHss.name=IngotHss 
+item.IngotInvar.name=IngotInvar 
+item.IngotManganese.name=IngotManganese 
+item.IngotNcalloy.name=IngotNcalloy 
+item.IngotSilicon.name=IngotSilicon 
+item.IngotSilver.name=IngotSilver 
+item.IngotStainless_Steel.name=IngotStainless_Steel 
+item.IngotSteel.name=IngotSteel 
+item.IngotTin.name=IngotTin 
+item.IngotTitanium.name=IngotTitanium 
+item.IngotTungsten.name=IngotTungsten 
+item.IngotTungsten_Steel.name=IngotTungsten_Steel 
+item.IngotVanadium.name=IngotVanadium 
+
+//circlecasting
+item.CircleCastingBronze.name=Bronze Circle Casting
+item.CircleCastingSteel.name=Steel Circle Casting
+item.CircleCastingIron.name=Iron Circle Casting
+item.CircleCastingSilver.name=Silver Circle Casting
+item.CircleCastingInvar.name=Invar Circle Casting
+item.CircleCastingGold.name=Gold Circle Casting
+item.CircleCastingAluminum.name=Aluminum Circle Casting
+item.CircleCastingNickel.name=Nickel Circle Casting
+item.CircleCastingStainless_Steel.name=Stainless Steel Circle Casting
+item.CircleCastingTungsten_Steel.name=Tungsten Steel Circle Casting
+item.CircleCastingTitanium.name=Titanium Circle Casting
+
+//dust
+item.DustBronze.name=Bronze Dust
+item.DustCopper.name=Copper Dust
+item.DustTin.name=Tin Dust
+item.DustSteel.name=Steel Dust
+item.DustInvar.name=Invar Dust
+item.DustStainless_Steel.name=Stainless_Steel Dust
+item.DustTungsten.name=Tungsten Dust
+item.DustTungsten_Steel.name=Tungsten_Steel Dust
+item.DustTitanium.name=Titanium Dust
+item.DustHss.name=Hss Dust
+item.DustGold.name=Gold Dust
+item.DustIron.name=Iron Dust
+item.DustSilver.name=Silver Dust
+item.DustManganese.name=Manganese Dust
+item.DustChromium.name=Chromium Dust
+item.DustNickel.name=Nickel Dust
+item.DustVanadium.name=Vanadium Dust
+item.DustCobalt.name=Cobalt Dust
+item.DustAluminum.name=Aluminum Dust
+item.DustNcalloy.name=Ncalloy Dust
+item.DustSilicon.name=Silicon Dust
+item.DustCarbon.name=Carbon Dust
+item.DustFerrochrome.name=Ferrochrome Dust
+
+//stick
+item.StickCopper.name=Copper Stick
+item.StickBronze.name=Bronze Stick
+item.StickIron.name=Iron Stick
+item.StickGold.name=Gold Stick
+item.StickSteel.name=Steel Stick
+item.StickInvar.name=Invar Stick
+item.StickStainless_Steel.name=Stainless Steel Stick
+item.StickTungsten_Steel.name=Tungsten Steel Stick
+item.StickHss.name=Hss Stick
+item.StickTitanium.name=Titanium Stick
+item.StickAluminum.name=Aluminum Stick
+
+//plate
+item.PlateCopper.name=Copper Plate
+item.PlateTin.name=Tin Plate
+item.PlateBronze.name=Bronze Plate
+item.PlateSteel.name=Steel Plate
+item.PlateStainless_Steel.name=Stainless Steel Plate
+item.PlateTungsten_Steel.name=Tungsten Steel Plate
+item.PlateGold.name=Gold Plate
+item.PlateIron.name=Iron Plate
+item.PlateInvar.name=Invar Plate
+item.PlateHss.name=Hss Plate
+item.PlateSilver.name=Silver Plate
+item.PlateChromium.name=Chromium Plate
+item.PlateNickel.name=Nickel Plate
+item.PlateTitanium.name=Titanium Plate
+item.PlateAluminum.name=Aluminum Plate
+item.PlateNcalloy.name=Ncalloy Plate
+item.PlateSilicon.name=Silicon Plate
+
+//screw
+item.ScrewBronze.name=Bronze Screw
+item.ScrewInvar.name=Invar Screw
+item.ScrewIron.name=Iron Screw
+item.ScrewTitanium.name=Titanium Screw
+item.ScrewStainless_Steel.name=Stainless_Steel Screw
+
+//string
+item.StringCopper.name=Copper String
+item.StringTin.name=Tin String
+item.StringTungsten.name=Tungsten String
+item.StringSilver.name=Silver String
+item.StringNickel.name=Nickel String
+item.StringCobalt.name=Cobalt String
+item.StringGold.name=Gold String
+item.StringIron.name=Iron String
+item.StringAluminum.name=Aluminum String
+item.StringNcalloy.name=Ncalloy String
+
+//roll
+item.RollInvar.name=Invar Roll
+item.RollStainless_Steel.name=Stainless_Steel Roll
+item.RollTungsten_Steel.name=Tungsten_Steel Roll
+item.RollIron.name=Iron Roll
+item.RollHss.name=Hss Roll
+
+//slag
+item.SlagMixture.name=Mixture Slag
+item.SlagManganese.name=Manganese Slag
+item.SlagCobalt.name=Cobalt Slag
+item.SlagVanadium.name=Vanadium Slag
+item.SlagTitanium.name=Titanium Slag
+item.SlagManganese_refined.name=Manganese_refined Slag
+item.SlagCobalt_refined.name=Cobalt_refined Slag
+item.SlagVanadium_refined.name=Vanadium_refined Slag
+item.SlagTitanium_refined.name=Titanium_refined Slag
+
+//axis
+item.AxisBronze.name=Bronze Axis
+item.AxisInvar.name=Invar Axis
+item.AxisStainless_Steel.name=Stainless_Steel Axis
+item.AxisSteel.name=Steel Axis
+item.AxisTungsten_Steel.name=Tungsten_Steel Axis
+item.AxisHss.name=Hss Axis
+item.AxisIron.name=Iron Axis
+item.AxisTitanium.name=Titanium Axis
+
+//gearblank
+item.GearBlankBronze.name=Bronze GearBlank
+item.GearBlankInvar.name=Invar GearBlank
+item.GearBlankStainless_Steel.name=Stainless_Steel GearBlank
+item.GearBlankTungsten_Steel.name=Tungsten_Steel GearBlank
+item.GearBlankSilver.name=Silver GearBlank
+item.GearBlankNickel.name=Nickel GearBlank
+item.GearBlankTitanium.name=Titanium GearBlank
+item.GearBlankAluminum.name=Aluminum GearBlank
+item.GearBlankIron.name=Iron GearBlank
+
+//gear
+item.GearBronze.name=Bronze Gear
+item.GearInvar.name=Invar Gear
+item.GearStainless_Steel.name=Stainless_Steel Gear
+item.GearTungsten_Steel.name=Tungsten_Steel Gear
+item.GearSilver.name=Silver Gear
+item.GearNickel.name=Nickel Gear
+item.GearTitanium.name=Titanium Gear
+item.GearAluminum.name=Aluminum Gear
+item.GearIron.name=Iron Gear
+
+//item
+item.HSSAdditive.name=HSS Additive
+item.SSAdditive.name=Stainless Steel Additive
+
+//ore
+tile.OreCopper.name=Copper Ore
+tile.OreBauxite.name=Bauxite Ore
+tile.OreBauxite_Nether.name=Nether Bauxit Ore
+tile.OreChromite.name=Chromite Ore
+tile.OreFerroManganese.name=FerroManganese Ore
+tile.OreFerroManganese_Nether.name=Nether FerroManganese Ore
+tile.OreGraphite.name=Graphite Ore
+tile.OreGraphite_Nether.name=Nether Graphite Ore
+tile.OreIlmenite.name=Ilmenite Ore
+tile.OreNickel.name=Nickel Ore
+tile.OreNolanite.name=Nolanite Ore
+tile.OreNolanite_Nether.name=Nether Nolanite Ore
+tile.OrePyrolusite.name=Pyrolusite Ore
+tile.OrePyrolusite_Nether.name=Nether Pyrolusite Ore
+tile.OreSilver.name=Silver Ore
+tile.OreTin.name=Tin Ore
+tile.OreTunstite_End.name=End Tunstite Ore
+
+//crushedore
+item.OreCopper_Crushed.name=Crushed Copper Ore
+item.OreFerroManganese_Crushed.name=Crushed FerroManganese Ore
+item.OreGold_Crushed.name=Crushed Gold Ore
+item.OreBauxite_Crushed.name=Crushed Bauxite Ore
+item.OreChromite_Crushed.name=Crushed Chromite Ore
+item.OreIlmenite_Crushed.name=Crushed Ilmenite Ore
+item.OreIron_Crushed.name=Crushed Iron Ore
+item.OreNickel_Crushed.name=Crushed Nickel Ore
+item.OreNolanite_Crushed.name=Crushed Nolanite Ore
+item.OrePyrolusite_Crushed.name=Crushed Pyrolusite Ore
+item.OreSilver_Crushed.name=Crushed Silver Ore
+item.OreTin_Crushed.name=Crushed Tin Ore
+item.OreTunstite_Crushed.name=Crushed Tunstite Ore
+
+//motor
+item.Motorlv1.name=Induction Motor LV
+item.Motorlv2.name=Induction Motor MV
+item.Motorlv3.name=Induction Motor HV
+item.Motorlv4.name=Pulse Motor
+item.Motorlv5.name=Servo Motor
+
+//oreconcentrate
+item.OreCopper_Concentrate.name=Copper Ore Concentrate
+item.OreBauxite_Concentrate.name=Bauxite Ore Concentrate
+item.OreChromite_Concentrate.name=Chromite Ore Concentrate
+item.OreFerroManganese_Concentrate.name=FerroManganese Ore Concentrate
+item.OreGold_Concentrate.name=Gold Ore Concentrate
+item.OreIron_Concentrate.name=Iron Ore Concentrate
+item.OreNickel_Concentrate.name=Nickel Ore Concentrate
+item.OreIlmenite_Concentrate.name=Ilmenite Ore Concentrate
+item.OrePyrolusite_Concentrate.name=Pyrolusite Ore Concentrate
+item.OreNolanite_Concentrate.name=Nolanite Ore Concentrate
+item.OreTunstite_Concentrate.name=Tunstite Ore Concentrate
+item.OreTin_Concentrate.name=Tin Ore Concentrate
+item.OreSilver_Concentrate.name=Silver Ore Concentrate
+
+//oreblock
+tile.BlockAluminum.name=Block of Aluminum
+tile.BlockCopper.name=Block of Copper
+tile.BlockTin.name=Block of Tin
+tile.BlockBronze.name=Block of Bronze
+tile.BlockTitanium.name=Block of Titanium
+tile.BlockTungsten.name=Block of Tungsten
+tile.BlockHSS.name=Block of HSS
+tile.BlockStainless_Steel.name=Block of Stainless Steel
+tile.BlockTungsten_Steel.name=Block of Tungsten Steel
+tile.BlockVanadium.name=Block of Vanadium
+tile.BlockChromium.name=Block of Chromium
+tile.BlockSilver.name=Block of Silver
+tile.BlockInvar.name=Block of Invar
+tile.BlockSteel.name=Block of Steel
+tile.BlockNickel.name=Block of Nickel
+tile.BlockNCalloy.name=Block of NCAlloy
+tile.BlockCobalt.name=Block of Cobalt
+tile.BlockManganese.name=Block of Manganese
+
+//fluidbukkit
+fluid.molten_aluminum=Molten Aluminum
+fluid.molten_bronze=Molten Bronze
+fluid.molten_chromium=Molten Chromium
+fluid.molten_cobalt=Molten Cobalt
+fluid.molten_copper=Molten Copper
+fluid.molten_ferrochrome=Molten Ferrochrome
+fluid.molten_gold=Molten Gold
+fluid.molten_hss=Molten HSS
+fluid.molten_invar=Molten Invar
+fluid.molten_iron=Molten Iron
+fluid.molten_manganese=Molten Manganese
+fluid.molten_ncalloy=Molten NCAlloy
+fluid.molten_nickel=Molten Nickel
+fluid.molten_silver=Molten Silver
+fluid.molten_ss=Molten Stainless Steel
+fluid.molten_steel=Molten Steel
+fluid.molten_tin=Molten Tin
+fluid.molten_titanium=Molten Titanium
+fluid.molten_tungsten=Molten Tungsten
+fluid.molten_vanadium=Molten Vanadium
+fluid.apple_juice=Apple Juice
+fluid.golden_apple_juice=Golden Apple Juice
+fluid.ethene=Ethene
+
+//fluid
+tile.molten_aluminum.name=Molten Aluminum
+tile.molten_bronze.name=Molten Bronze
+tile.molten_chromium.name=Molten Chromium
+tile.molten_cobalt.name=Molten Cobalt
+tile.molten_copper.name=Molten Copper
+tile.molten_ferrochrome.name=Molten Ferrochrome
+tile.molten_gold.name=Molten Gold
+tile.molten_hss.name=Molten HSS
+tile.molten_invar.name=Molten Invar
+tile.molten_iron.name=Molten Iron
+tile.molten_manganese.name=Molten Manganese
+tile.molten_ncalloy.name=Molten NCAlloy
+tile.molten_nickel.name=Molten Nickel
+tile.molten_silver.name=Molten Silver
+tile.molten_ss.name=Molten Stainless Steel
+tile.molten_steel.name=Molten Steel
+tile.molten_tin.name=Molten Tin
+tile.molten_titanium.name=Molten Titanium
+tile.molten_tungsten.name=Molten Tungsten
+tile.molten_vanadium.name=Molten Vanadium
+tile.apple_juice.name=Apple Juice
+tile.golden_apple_juice.name=Golden Apple Juice
+tile.ethene.name=Ethene
+
+//foods
+item.apple_drops.name=Apple Drops
+item.apple_jam_bun.name=Apple Jam Bun
+item.golden_apple_drops.name=Goldenapple Drops
+item.golden_apple_jam_bun.name=Goldenapple Jam Bun
+
+//tools
+item.bronze_axe.name=Bronze Axe
+item.tungsten_steel_axe.name=Tungsten Steel Axe
+item.hss_axe.name=HSS Axe
+item.bronze_sword.name=Bronze Sword
+item.tungsten_steel_sword.name=Tungsten Sword
+item.hss_sword.name=HSS Sword
+item.stone_hammer.name=Stone Hammer
+item.bronze_hammer.name=Bronze Hammer
+item.iron_hammer.name=Iron Hammer
+
+//item
+item.monocrystalline_silicon.name=Monocrystalline Silicon
+item.wafer.name=Wafer
+item.etched_wafer.name=Etched Wafer
+item.i7_8700k.name=chip
+item.plate_pe.name=PE plate
+item.pcb.name=PCB
+item.capacitor.name=Capacitor
+item.resistor.name=Resistor
+item.laser.name=Laser
+item.clay_brick.name=Clay Brick
+item.fire_brick.name=Fire Brick
+item.plasma_generator.name=Plasma Generator
+item.dsb.name=Diamond Saw Blade
+item.hsb.name=HSS Saw Blade
+item.brick_powder.name=Brick powder
+item.clay_mixed_with_clinker.name=Clay mixed with Clinker
+
+//tileentity
+container.klin=aaa
+
+//gui
+gui.fluid.name=%s
+gui.fluid.amount=%d mB

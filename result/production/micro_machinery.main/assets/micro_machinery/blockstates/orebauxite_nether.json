@@ -1,0 +1,10 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "micro_machinery:orebauxite_nether"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}
