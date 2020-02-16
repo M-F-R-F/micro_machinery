@@ -1,0 +1,11 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "micro_machinery:pigiron_anvil.obj"
+    },
+    "variants": {
+        "inventory": [{"textures": { "#pigiron_anvil": "micro_machinery:blocks/pigiron_anvil" }
+        }]
+        }
+    }
+}

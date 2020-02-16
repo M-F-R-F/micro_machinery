@@ -25,5 +25,5 @@ public class ModRecipes {
     public static final KlinFluidRecipe stick_copper = new KlinFluidRecipe(new ItemStack(ModItems.STICKCOPPER), ModFluids.MOLTEN_COPPER, ModItems.CAST_STICK, 30);
     public static final KlinFluidRecipe stick_bronze = new KlinFluidRecipe(new ItemStack(ModItems.STICKBRONZE), ModFluids.MOLTEN_BRONZE, ModItems.CAST_STICK, 30);
     public static final KlinFluidRecipe gear_bronze = new KlinFluidRecipe(new ItemStack(ModItems.GEARBRONZE), ModFluids.MOLTEN_BRONZE, ModItems.CAST_GEAR, 160);
-    public static final KlinFluidRecipe bronze_sword0 = new KlinFluidRecipe(new ItemStack(ModItems.BRONZE_SWORD0), ModFluids.MOLTEN_BRONZE, ModItems.CAST_SWORD, 360);
+    public static final KlinFluidRecipe bronze_sword0  = new KlinFluidRecipe(new ItemStack(ModItems.BRONZE_SWORD0), ModFluids.MOLTEN_BRONZE, ModItems.CAST_SWORD, 360);
 }
