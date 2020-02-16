@@ -23,7 +23,7 @@ public class GUIElementryForgingAnvil extends GuiBase {
     @Override
     public void initGui() {
         super.initGui();
-//        drawbutton(1, this.guiLeft + 101, this.guiTop + 14, 20,20,"",);
+        drawbutton(1, this.guiLeft + 101, this.guiTop + 14, 20,20,"",176,14,196,14);
     }
 
     @Override
