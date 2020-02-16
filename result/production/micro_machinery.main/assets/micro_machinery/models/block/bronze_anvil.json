@@ -1,8 +1,0 @@
-{
-    "parent": "block/anvil",
-    "textures": {
-        "particle": "micro_machinery:blocks/blockbronze",
-        "body": "micro_machinery:blocks/blockbronze",
-        "top": "micro_machinery:blocks/blockbronze"
-    }
-}
