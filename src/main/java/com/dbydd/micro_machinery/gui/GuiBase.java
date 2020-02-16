@@ -81,7 +81,7 @@ public class GuiBase<T extends TileEntity> extends GuiContainer {
     }
 
     public void drawbutton(int buttonid, int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey) {
-        this.buttonList.add(new GuiButton(buttonid, x, y, 16, 16, "") {
+        this.buttonList.add(new GuiButton(buttonid, x, y, width, height, "") {
             @Override
             public void drawButton(Minecraft p_drawButton_1_, int mouseX, int mouseY, float p_drawButton_4_) {
                 GlStateManager.color(1.0F, 1.0F, 1.0F);

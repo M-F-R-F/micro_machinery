@@ -178,7 +178,7 @@ public class BlockKlin extends BlockContainer implements IHasModel {
 
     @Override
     public void registerModels() {
-        Micro_Machinery.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "invenroty");
+        Micro_Machinery.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
 
     @Nullable
