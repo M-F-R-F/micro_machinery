@@ -2,6 +2,9 @@ package com.dbydd.micro_machinery.recipes;
 
 import com.dbydd.micro_machinery.init.ModRecipes;
 import com.dbydd.micro_machinery.items.ItemCast;
+import com.dbydd.micro_machinery.recipes.forginganvil.ForgingAnvilRecipe;
+import com.dbydd.micro_machinery.recipes.klin.KlinFluidRecipe;
+import com.dbydd.micro_machinery.recipes.klin.KlinRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -29,6 +32,13 @@ public class RecipeHelper {
         return null;
     }
 
+    public static ForgingAnvilRecipe getForgingAnvilRecipe(ItemStack itemStack) {
+        for (ForgingAnvilRecipe recipe : ModRecipes.forginganvilrecipes) {
+            if (areItemStackEqual(itemStack, recipe.getInput())) return recipe;
+        }
+        return null;
+    }
+
 
     private static boolean areItemStackEqual(ItemStack stackA, ItemStack stackB) {
         return stackA.getItem() == stackB.getItem() && stackA.getMetadata() == stackB.getMetadata();
@@ -36,6 +46,13 @@ public class RecipeHelper {
 
     private static boolean compareItemStackCont(ItemStack stackA, ItemStack stackB) {
         return stackA.getCount() >= stackB.getCount();
+    }
+
+    public static boolean canInsert(ItemStack stackinslot, ItemStack output) {
+        if (stackinslot == ItemStack.EMPTY) return true;
+        if (stackinslot.getItem() == output.getItem() && stackinslot.getCount() + output.getCount() <= stackinslot.getMaxStackSize())
+            return true;
+        return false;
     }
 
 }

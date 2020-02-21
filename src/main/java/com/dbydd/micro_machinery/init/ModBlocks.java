@@ -1,19 +1,12 @@
 package com.dbydd.micro_machinery.init;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.dbydd.micro_machinery.blocks.BlockBase;
-import com.dbydd.micro_machinery.blocks.BlockFluid;
-import com.dbydd.micro_machinery.blocks.BlockOres;
-import com.dbydd.micro_machinery.blocks.MaterialBlock;
-import com.dbydd.micro_machinery.blocks.OreEnd;
-import com.dbydd.micro_machinery.blocks.OreNether;
-import com.dbydd.micro_machinery.blocks.machine.BlockForgingAnvil;
+import com.dbydd.micro_machinery.blocks.*;
 import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModBlocks {
 
@@ -101,7 +94,7 @@ public class ModBlocks {
     //tileentities
     //machine
     public static final Block KLIN = new BlockKlin("klin", Material.IRON);
-    public static final Block STONE_ANVIL = new BlockForgingAnvil("stone_anvil", 1);
-    public static final Block BRONZE_ANVIL = new BlockForgingAnvil("bronze_anvil",2);
-    public static final Block PIGIRON_ANVIL = new BlockForgingAnvil("pigiron_anvil",3);
+//    public static final Block STONE_ANVIL = new BlockForgingAnvil("stone_anvil", 1);
+//    public static final Block BRONZE_ANVIL = new BlockForgingAnvil("bronze_anvil",2);
+//    public static final Block PIGIRON_ANVIL = new BlockForgingAnvil("pigiron_anvil",3);
 }

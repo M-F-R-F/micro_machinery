@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.recipes;
+package com.dbydd.micro_machinery.recipes.klin;
 
 import com.dbydd.micro_machinery.init.ModRecipes;
 import com.dbydd.micro_machinery.items.ItemCast;

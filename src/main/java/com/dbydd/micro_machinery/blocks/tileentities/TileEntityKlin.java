@@ -1,8 +1,8 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
-import com.dbydd.micro_machinery.recipes.KlinFluidRecipe;
-import com.dbydd.micro_machinery.recipes.KlinRecipe;
+import com.dbydd.micro_machinery.recipes.klin.KlinFluidRecipe;
+import com.dbydd.micro_machinery.recipes.klin.KlinRecipe;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -220,7 +220,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                 currentcooldown++;
                 markDirty();
             } else {
-                if (canInsert(3, recipe.output)) {
+                if (RecipeHelper.canInsert(getStackInSlot(3), recipe.output)) {
                     insertResult(3, recipe.output);
                     fluidhandler.drain(recipe.cast.amount, true);
                     currentcooldown = 0;
@@ -234,14 +234,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
             }
             this.syncToTrackingClients();
         }
-    }
-
-    private boolean canInsert(int slot, ItemStack output) {
-        ItemStack stack = getStackInSlot(slot);
-        if (stack == ItemStack.EMPTY) return true;
-        if (stack.getItem() == output.getItem() && stack.getCount() + output.getCount() <= stack.getMaxStackSize())
-            return true;
-        return false;
     }
 
     private void insertResult(int slot, ItemStack output) {
@@ -319,7 +311,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = this.fluidhandler.writeToNBT(new NBTTagCompound());
         writeToNBT(nbtTag);
-        //Write your data into the nbtTag
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
@@ -327,7 +318,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.getNbtCompound();
         readFromNBT(tag);
-        //Handle your Data
         this.fluidhandler.readFromNBT(tag);
     }
 
