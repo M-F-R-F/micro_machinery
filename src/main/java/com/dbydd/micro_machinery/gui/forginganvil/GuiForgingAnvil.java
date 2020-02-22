@@ -26,7 +26,7 @@ public class GuiForgingAnvil extends GuiBase<TileEntityForgingAnvil> {
     @Override
     public void initGui() {
         super.initGui();
-        drawbutton(0, this.guiLeft + 104, this.guiTop + 14, 20, 20, "", 176, 14, 104, 14);
+        drawbutton(0, this.guiLeft + 101, this.guiTop + 14, 20, 20, "", 176, 14, 101, 14);
     }
 
     @Override
@@ -39,10 +39,9 @@ public class GuiForgingAnvil extends GuiBase<TileEntityForgingAnvil> {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         int forgetime = tileentity.getField("forgetime");
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-//        for (int i = 0; i < forgetime;i++){
-//            renderProgressBar();
-//        }
-        //填！
+        for (int i = 0; i < forgetime; i++) {
+            renderProgressBar(84 + i * 20, 42, 176, 42, 14, 4);
+        }
     }
 
     private int getForgeTime() {
