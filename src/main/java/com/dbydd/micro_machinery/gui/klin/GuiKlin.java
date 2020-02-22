@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.gui.Klin;
+package com.dbydd.micro_machinery.gui.klin;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
@@ -12,14 +12,14 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
 
-public class GuiElementaryKlin extends GuiBase<TileEntityKlin> {
+public class GuiKlin extends GuiBase<TileEntityKlin> {
 
     private static final String TEXTURE_BACK = Reference.MODID + ":" + "textures/gui/klin.png";
     private static final ResourceLocation TEXTURES = new ResourceLocation(TEXTURE_BACK);
     private int k = 0;
 
-    public GuiElementaryKlin(EntityPlayer player, TileEntityKlin tileentity) {
-        super(new ContainerElementaryKlin(player, tileentity), tileentity, TEXTURES);
+    public GuiKlin(EntityPlayer player, TileEntityKlin tileentity) {
+        super(new ContainerKlin(player, tileentity), tileentity, TEXTURES);
         this.xSize = 176;
         this.ySize = 166;
     }

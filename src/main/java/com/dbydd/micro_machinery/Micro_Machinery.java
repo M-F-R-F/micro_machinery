@@ -1,5 +1,6 @@
 package com.dbydd.micro_machinery;
 
+import com.dbydd.micro_machinery.network.AnvilButtonEventPackage;
 import com.dbydd.micro_machinery.network.KlinButtonEventPackage;
 import com.dbydd.micro_machinery.proxy.CommonProxy;
 import com.dbydd.micro_machinery.tabs.micro_machinery;
@@ -38,7 +39,8 @@ public class Micro_Machinery {
     public static void PreInit(FMLPreInitializationEvent event) {
         RegistryHandler.preInitRegisteries(event);
         network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);
-        network.registerMessage(new KlinButtonEventPackage.TestHandler(), KlinButtonEventPackage.class, 1, Side.SERVER);
+        network.registerMessage(new KlinButtonEventPackage.MessageHandler(), KlinButtonEventPackage.class, 1, Side.SERVER);
+        network.registerMessage(new AnvilButtonEventPackage.MessageHandler(), AnvilButtonEventPackage.class, 2, Side.SERVER);
     }
 
     @Mod.EventHandler

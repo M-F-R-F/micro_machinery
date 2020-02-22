@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.gui.Klin;
+package com.dbydd.micro_machinery.gui.klin;
 
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.ContainerBase;
@@ -12,12 +12,12 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerElementaryKlin extends ContainerBase {
+public class ContainerKlin extends ContainerBase {
     private TileEntityKlin tileentity;
     private int melttime, currentmelttimeTime, burntime, maxburntime;
     private FluidTank tank;
 
-    public ContainerElementaryKlin(EntityPlayer player, TileEntityKlin tileEntity) {
+    public ContainerKlin(EntityPlayer player, TileEntityKlin tileEntity) {
         super();
 
         this.tileentity = tileEntity;
@@ -31,15 +31,6 @@ public class ContainerElementaryKlin extends ContainerBase {
         this.addSlotToContainer(new SlotItemHandler(itemHandler, 4, 120, 24));
 
         this.drawInventory(8, 84);
-//        for (int i = 0; i < 3; ++i) {
-//            for (int j = 0; j < 9; ++j) {
-//                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-//            }
-//        }
-//
-//        for (int i = 0; i < 9; ++i) {
-//            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 143));
-//        }
 
         this.tank = tileentity.fluidhandler;
     }
@@ -59,8 +50,6 @@ public class ContainerElementaryKlin extends ContainerBase {
                 iContainerListener.sendWindowProperty(this, 1, this.tileentity.getField(3));
             if (this.currentmelttimeTime != this.tileentity.getField(1))
                 iContainerListener.sendWindowProperty(this, 2, this.tileentity.getField(1));
-//            if (this.tank.getFluid() != this.tileentity.fluidhandler.getFluid())
-//                iContainerListener.sendWindowProperty(this, 3, this.tileentity.fluidhandler);
         }
 
         this.melttime = this.tileentity.getField(0);

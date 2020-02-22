@@ -1,6 +1,6 @@
 package com.dbydd.micro_machinery.network;
 
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityForgingAnvil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,14 +13,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class KlinButtonEventPackage implements IMessage {
+public class AnvilButtonEventPackage implements IMessage {
     public NBTTagCompound compound;
     public int x, y, z, dimesion;
 
-    public KlinButtonEventPackage() {
+    public AnvilButtonEventPackage() {
     }
 
-    public KlinButtonEventPackage(NBTTagCompound compound, BlockPos pos, int dimesion) {
+    public AnvilButtonEventPackage(NBTTagCompound compound, BlockPos pos, int dimesion) {
         this.compound = compound;
         this.x = pos.getX();
         this.y = pos.getY();
@@ -46,20 +46,19 @@ public class KlinButtonEventPackage implements IMessage {
         buf.writeInt(dimesion);
     }
 
-    public static class MessageHandler implements IMessageHandler<KlinButtonEventPackage, IMessage> {
+    public static class MessageHandler implements IMessageHandler<AnvilButtonEventPackage, IMessage> {
         @Override
-        public IMessage onMessage(KlinButtonEventPackage message, MessageContext ctx) {
+        public IMessage onMessage(AnvilButtonEventPackage message, MessageContext ctx) {
             if (ctx.side == Side.SERVER) {
                 Minecraft.getMinecraft().addScheduledTask(() -> {
                     TileEntity te = FMLCommonHandler.instance().getMinecraftServerInstance().getWorld(message.dimesion).getTileEntity(new BlockPos(message.x, message.y, message.z));
                     assert te != null;
-                    if (te instanceof TileEntityKlin) {
+                    if (te instanceof TileEntityForgingAnvil) {
                         te.readFromNBT(message.compound);
                     }
                 });
             }
             return null;
         }
-
     }
 }

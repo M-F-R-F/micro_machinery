@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.items.MaterialBase;
+package com.dbydd.micro_machinery.items.materialbase;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.init.ModItems;

@@ -1,0 +1,51 @@
+package com.dbydd.micro_machinery.gui.forginganvil;
+
+import com.dbydd.micro_machinery.Micro_Machinery;
+import com.dbydd.micro_machinery.Reference;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityForgingAnvil;
+import com.dbydd.micro_machinery.gui.GuiBase;
+import com.dbydd.micro_machinery.network.AnvilButtonEventPackage;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+
+import java.io.IOException;
+
+public class GuiForgingAnvil extends GuiBase<TileEntityForgingAnvil> {
+    private static final String TEXTURE_BACK = Reference.MODID + ":" + "textures/gui/anvil.png";
+    private static final ResourceLocation TEXTURES = new ResourceLocation(TEXTURE_BACK);
+
+    public GuiForgingAnvil(EntityPlayer player, TileEntityForgingAnvil tileentity) {
+        super(new ContainerForgingAnvil(player, tileentity), tileentity, TEXTURES);
+        this.xSize = 176;
+        this.ySize = 160;
+    }
+
+
+    @Override
+    public void initGui() {
+        super.initGui();
+        drawbutton(0, this.guiLeft + 104, this.guiTop + 14, 20, 20, "", 176, 14, 104, 14);
+    }
+
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+        this.tileentity.forge();
+        Micro_Machinery.getNetwork().sendToServer(new AnvilButtonEventPackage(tileentity.writeToNBT(new NBTTagCompound()), this.tileentity.getPos(), tileentity.getWorld().provider.getDimension()));
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        int forgetime = tileentity.getField("forgetime");
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+//        for (int i = 0; i < forgetime;i++){
+//            renderProgressBar();
+//        }
+        //填！
+    }
+
+    private int getForgeTime() {
+        return tileentity.getField("forgetime");
+    }
+}

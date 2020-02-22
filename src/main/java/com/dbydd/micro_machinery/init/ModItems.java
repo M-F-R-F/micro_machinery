@@ -4,7 +4,7 @@ import com.dbydd.micro_machinery.EnumType.EnumCastType;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.items.ItemBase;
 import com.dbydd.micro_machinery.items.ItemCast;
-import com.dbydd.micro_machinery.items.MaterialBase.*;
+import com.dbydd.micro_machinery.items.materialbase.*;
 import com.dbydd.micro_machinery.items.foods.FoodBase;
 import com.dbydd.micro_machinery.items.foods.Golden_Apple_Food;
 import com.dbydd.micro_machinery.items.tools.MyMaterial;

@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.items.MaterialBase;
+package com.dbydd.micro_machinery.items.materialbase;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.init.ModItems;
@@ -6,10 +6,10 @@ import com.dbydd.micro_machinery.util.IHasModel;
 
 import net.minecraft.item.Item;
 
-public class MaterialString extends Item implements IHasModel {
+public class MaterialSlag extends Item implements IHasModel {
 
-	public MaterialString(String material) {
-		String itemname = "String" + material;
+	public MaterialSlag(String material) {
+		String itemname = "Slag" + material;
 		setUnlocalizedName(itemname);
 		setRegistryName(itemname);
 		setCreativeTab(Micro_Machinery.Micro_Machinery);
