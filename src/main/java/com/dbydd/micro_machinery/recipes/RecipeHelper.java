@@ -48,12 +48,16 @@ public class RecipeHelper {
         return stackA.getCount() >= stackB.getCount();
     }
 
+    public static boolean isStackABiggerThanStackB(ItemStack stackA, ItemStack stackB) {
+        if (areItemStackEqual(stackA, stackB) && compareItemStackCont(stackA, stackB)) return true;
+        return false;
+    }
+
     public static boolean canInsert(ItemStack stackinslot, ItemStack output) {
-        if (stackinslot == ItemStack.EMPTY) return true;
+        if (stackinslot.isEmpty()) return true;
         if (stackinslot.getItem() == output.getItem() && stackinslot.getCount() + output.getCount() <= stackinslot.getMaxStackSize())
             return true;
         return false;
     }
-
 }
 
