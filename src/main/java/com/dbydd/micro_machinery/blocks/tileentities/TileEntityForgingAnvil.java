@@ -3,7 +3,6 @@ package com.dbydd.micro_machinery.blocks.tileentities;
 import com.dbydd.micro_machinery.items.tools.ToolHammer;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.forginganvil.ForgingAnvilRecipe;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -13,8 +12,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -36,6 +33,9 @@ public class TileEntityForgingAnvil extends TileEntity {
 
     public TileEntityForgingAnvil(int level) {
         this.level = level;
+    }
+
+    public TileEntityForgingAnvil() {
     }
 
     @Override
@@ -101,11 +101,6 @@ public class TileEntityForgingAnvil extends TileEntity {
         }
     }
 
-    @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-        return oldState.getBlock() != newState.getBlock();
-    }
-
     public void forge() {
         if (handler.getStackInSlot(1) != ItemStack.EMPTY) {
             ForgingAnvilRecipe recipe = RecipeHelper.getForgingAnvilRecipe(handler.getStackInSlot(0));
@@ -119,9 +114,12 @@ public class TileEntityForgingAnvil extends TileEntity {
                     forgetime = 0;
                 }
             }
+            ItemStack hammer = handler.getStackInSlot(1);
+            hammer.setItemDamage(hammer.getItemDamage() + 1);
             markDirty();
             syncToTrackingClients();
         }
+
     }
 
     public boolean isUsableByPlayer(EntityPlayer player) {

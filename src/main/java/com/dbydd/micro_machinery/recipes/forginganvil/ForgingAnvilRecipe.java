@@ -1,5 +1,6 @@
 package com.dbydd.micro_machinery.recipes.forginganvil;
 
+import com.dbydd.micro_machinery.init.ModRecipes;
 import net.minecraft.item.ItemStack;
 
 public class ForgingAnvilRecipe {
@@ -36,6 +37,8 @@ public class ForgingAnvilRecipe {
         this.forgetime = forgetime;
         this.output = output;
         this.input = input;
+
+        ModRecipes.forginganvilrecipes.add(this);
     }
 
 }

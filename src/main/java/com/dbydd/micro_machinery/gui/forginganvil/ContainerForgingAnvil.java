@@ -18,6 +18,8 @@ public class ContainerForgingAnvil extends ContainerBase {
     private TileEntityForgingAnvil tileentity;
 
     public ContainerForgingAnvil(EntityPlayer player, TileEntityForgingAnvil tileentity) {
+        super();
+
         this.tileentity = tileentity;
         this.player = player;
         IItemHandler handler = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
