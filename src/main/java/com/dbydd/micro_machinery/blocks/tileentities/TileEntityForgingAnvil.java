@@ -114,6 +114,8 @@ public class TileEntityForgingAnvil extends TileEntity {
                     forgetime = 0;
                 }
             }
+            ItemStack hammer = handler.getStackInSlot(1);
+            hammer.setItemDamage(hammer.getItemDamage() + 1);
             markDirty();
             syncToTrackingClients();
         }
