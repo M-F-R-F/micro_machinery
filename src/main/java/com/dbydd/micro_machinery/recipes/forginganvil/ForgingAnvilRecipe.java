@@ -4,7 +4,28 @@ import com.dbydd.micro_machinery.init.ModRecipes;
 import net.minecraft.item.ItemStack;
 
 public class ForgingAnvilRecipe {
-    int forgetime = 3;
+    private int level = 0;
+    private int forgetime = 4;
+    private ItemStack output = ItemStack.EMPTY;
+    private ItemStack input = ItemStack.EMPTY;
+
+    public ForgingAnvilRecipe(int level, int forgetime, ItemStack output, ItemStack input) {
+        if (forgetime <= 4)
+            this.forgetime = forgetime;
+        this.level = level;
+        this.output = output;
+        this.input = input;
+
+        ModRecipes.forginganvilrecipes.add(this);
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public int getForgetime() {
         return forgetime;
@@ -28,17 +49,6 @@ public class ForgingAnvilRecipe {
 
     public void setInput(ItemStack input) {
         this.input = input;
-    }
-
-    ItemStack output = ItemStack.EMPTY;
-    ItemStack input = ItemStack.EMPTY;
-
-    public ForgingAnvilRecipe(int forgetime, ItemStack output, ItemStack input) {
-        this.forgetime = forgetime;
-        this.output = output;
-        this.input = input;
-
-        ModRecipes.forginganvilrecipes.add(this);
     }
 
 }

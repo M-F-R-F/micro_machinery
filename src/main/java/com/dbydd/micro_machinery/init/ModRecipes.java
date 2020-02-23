@@ -30,6 +30,6 @@ public class ModRecipes {
     public static final KlinFluidRecipe bronze_sword0 = new KlinFluidRecipe(new ItemStack(ModItems.BRONZE_SWORD0), ModFluids.MOLTEN_BRONZE, ModItems.CAST_SWORD, 360);
 
     //forgerecipe
-    public static final ForgingAnvilRecipe test = new ForgingAnvilRecipe(3, new ItemStack(ModItems.APPLE_DROPS), new ItemStack(Items.APPLE));
-    public static final ForgingAnvilRecipe test1 = new ForgingAnvilRecipe(3, new ItemStack(Items.APPLE), new ItemStack(ModItems.APPLE_DROPS));
+    public static final ForgingAnvilRecipe test = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.APPLE_DROPS), new ItemStack(Items.APPLE));
+    public static final ForgingAnvilRecipe test1 = new ForgingAnvilRecipe(3, 4, new ItemStack(Items.APPLE), new ItemStack(ModItems.APPLE_DROPS));
 }
