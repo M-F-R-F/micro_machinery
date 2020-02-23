@@ -5,7 +5,6 @@ import com.dbydd.micro_machinery.recipes.klin.KlinFluidRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinRecipe;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -43,9 +42,9 @@ public class ModRecipes {
     public static final ForgingAnvilRecipe screw_bronze = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.SCREWBRONZE), new ItemStack(ModItems.STICKBRONZE));
     public static final ForgingAnvilRecipe string_copper = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.STRINGCOPPER), new ItemStack(ModItems.STICKCOPPER));
     public static final ForgingAnvilRecipe string_tin = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.STRINGTIN), new ItemStack(ModItems.STICKTIN));
-    public static final ForgingAnvilRecipe plate_iron = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEIRON), new ItemStack(Items.INGOTIRON));
+    public static final ForgingAnvilRecipe plate_iron = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEIRON), new ItemStack(Items.IRON_INGOT));
     public static final ForgingAnvilRecipe plate_nickel = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATENICKEL), new ItemStack(ModItems.INGOTNICKEL));
-    public static final ForgingAnvilRecipe plate_gold = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEGOLD), new ItemStack(Items.INGOTGOLD));
+    public static final ForgingAnvilRecipe plate_gold = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEGOLD), new ItemStack(Items.GOLD_INGOT));
     public static final ForgingAnvilRecipe plate_invar = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEINVAR), new ItemStack(ModItems.INGOTINVAR));
     public static final ForgingAnvilRecipe plate_silver = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATESILVER), new ItemStack(ModItems.INGOTSILVER));
     public static final ForgingAnvilRecipe string_gold = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.STRINGGOLD), new ItemStack(ModItems.STICKGOLD));
