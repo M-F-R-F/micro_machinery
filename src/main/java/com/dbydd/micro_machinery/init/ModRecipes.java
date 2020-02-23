@@ -16,8 +16,12 @@ public class ModRecipes {
     public static final List<ForgingAnvilRecipe> forginganvilrecipes = new ArrayList<ForgingAnvilRecipe>();
 
     //klintofluid
-    public static final KlinRecipe molten_copper = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORECOPPER, 1), 24);
-    public static final KlinRecipe molten_tin = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORETIN, 1), 12);
+    public static final KlinRecipe molten_copper1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORECOPPER, 1), 24);
+    public static final KlinRecipe molten_copper2 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.CRUSHEDCOPPER, 1), 24);
+    public static final KlinRecipe molten_copper3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 160), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.ORECOPPERCONCENTRATE, 1), 24);
+    public static final KlinRecipe molten_tin1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORETIN, 1), 12);
+    public static final KlinRecipe molten_tin2 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.CRUSHEDTIN, 1), 12);
+    public static final KlinRecipe molten_tin3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 160), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.ORETINCONCENTRATE, 1), 12);
     public static final KlinRecipe molten_bronze = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_BRONZE, 576), new ItemStack(ModItems.INGOTCOPPER, 3), new ItemStack(ModItems.INGOTTIN, 1), 20);
 
     //klinfluidtomaterial
@@ -25,11 +29,45 @@ public class ModRecipes {
     public static final KlinFluidRecipe ingot_tin = new KlinFluidRecipe(new ItemStack(ModItems.INGOTTIN), ModFluids.MOLTEN_TIN, ModItems.CAST_INGOT, 60);
     public static final KlinFluidRecipe ingot_bronze = new KlinFluidRecipe(new ItemStack(ModItems.INGOTBRONZE), ModFluids.MOLTEN_BRONZE, ModItems.CAST_INGOT, 60);
     public static final KlinFluidRecipe stick_copper = new KlinFluidRecipe(new ItemStack(ModItems.STICKCOPPER), ModFluids.MOLTEN_COPPER, ModItems.CAST_STICK, 30);
+    public static final KlinFluidRecipe stick_tin = new KlinFluidRecipe(new ItemStack(ModItems.STICKTIN), ModFluids.MOLTEN_TIN, ModItems.CAST_STICK, 20);
     public static final KlinFluidRecipe stick_bronze = new KlinFluidRecipe(new ItemStack(ModItems.STICKBRONZE), ModFluids.MOLTEN_BRONZE, ModItems.CAST_STICK, 30);
     public static final KlinFluidRecipe gear_bronze = new KlinFluidRecipe(new ItemStack(ModItems.GEARBRONZE), ModFluids.MOLTEN_BRONZE, ModItems.CAST_GEAR, 160);
     public static final KlinFluidRecipe bronze_sword0 = new KlinFluidRecipe(new ItemStack(ModItems.BRONZE_SWORD0), ModFluids.MOLTEN_BRONZE, ModItems.CAST_SWORD, 360);
 
     //forgerecipe
-    public static final ForgingAnvilRecipe test = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.APPLE_DROPS), new ItemStack(Items.APPLE));
-    public static final ForgingAnvilRecipe test1 = new ForgingAnvilRecipe(3, 4, new ItemStack(Items.APPLE), new ItemStack(ModItems.APPLE_DROPS));
+    public static final ForgingAnvilRecipe plate_copper = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.PLATECOPPER), new ItemStack(ModItems.INGOTCOPPER));
+    public static final ForgingAnvilRecipe plate_tin = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.PLATETIN), new ItemStack(ModItems.INGOTTIN));
+    public static final ForgingAnvilRecipe plate_bronze = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.PLATEBRONZE), new ItemStack(ModItems.INGOTBRONZE));
+    public static final ForgingAnvilRecipe screw_bronze = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.SCREWBRONZE), new ItemStack(ModItems.STICKBRONZE));
+    public static final ForgingAnvilRecipe string_copper = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.STRINGCOPPER), new ItemStack(ModItems.STICKCOPPER));
+    public static final ForgingAnvilRecipe string_tin = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.STRINGTIN), new ItemStack(ModItems.STICKTIN));
+    public static final ForgingAnvilRecipe plate_iron = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEIRON), new ItemStack(Items.INGOTIRON));
+    public static final ForgingAnvilRecipe plate_nickel = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATENICKEL), new ItemStack(ModItems.INGOTNICKEL));
+    public static final ForgingAnvilRecipe plate_gold = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEGOLD), new ItemStack(Items.INGOTGOLD));
+    public static final ForgingAnvilRecipe plate_invar = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATEINVAR), new ItemStack(ModItems.INGOTINVAR));
+    public static final ForgingAnvilRecipe plate_silver = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.PLATESILVER), new ItemStack(ModItems.INGOTSILVER));
+    public static final ForgingAnvilRecipe string_gold = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.STRINGGOLD), new ItemStack(ModItems.STICKGOLD));
+    public static final ForgingAnvilRecipe screw_iron = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.SCREWIRON), new ItemStack(ModItems.STICKIRON));
+    public static final ForgingAnvilRecipe screw_invar = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.SCREWINVAR), new ItemStack(ModItems.STICKINVAR));
+    public static final ForgingAnvilRecipe crushed_copper = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.CRUSHEDCOPPER, 2), new ItemStack(ModBlocks.ORECOPPER));
+    public static final ForgingAnvilRecipe crushed_tin = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.CRUSHEDTIN, 2), new ItemStack(ModBlocks.ORETIN));
+    public static final ForgingAnvilRecipe crushed_gold = new ForgingAnvilRecipe(2, 4, new ItemStack(ModItems.CRUSHEDGOLD, 2), new ItemStack(Blocks.OREGOLD));
+    public static final ForgingAnvilRecipe plate_steel = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.PLATESTEEL), new ItemStack(ModItems.INGOTSTEEL));
+    public static final ForgingAnvilRecipe plate_aluminum = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.PLATEALUMINUM), new ItemStack(ModItems.INGOTALUMINUM));
+    public static final ForgingAnvilRecipe plate_Stainless_Steel = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.PLATESS), new ItemStack(ModItems.INGOTSS));
+    public static final ForgingAnvilRecipe screw_Stainless_Steel = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.SCREWSS), new ItemStack(ModItems.STICKSS));
+    public static final ForgingAnvilRecipe string_aluminum = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.STRINGALUMINUM), new ItemStack(ModItems.STICKALUMINUM));
+    public static final ForgingAnvilRecipe crushed_iron = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDIRON, 2), new ItemStack(Blocks.OREIRON));
+    public static final ForgingAnvilRecipe crushed_silver = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDSILVER, 2), new ItemStack(ModBlocks.ORESILVER));
+    public static final ForgingAnvilRecipe crushed_pyrolusite1 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDPYROLUSITE, 2), new ItemStack(ModBlocks.OREPYROLUSITE));
+    public static final ForgingAnvilRecipe crushed_pyrolusite2 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDPYROLUSITE, 2), new ItemStack(ModBlocks.OREPYROLUSITE_NETHER));
+    public static final ForgingAnvilRecipe crushed_chromite = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDCHROMITE, 2), new ItemStack(ModBlocks.ORECHROMITE));
+    public static final ForgingAnvilRecipe crushed_bauxite1 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDBAUXITE, 2), new ItemStack(ModBlocks.OREBAUXITE));
+    public static final ForgingAnvilRecipe crushed_bauxite2 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDBAUXITE, 2), new ItemStack(ModBlocks.OREBAUXITE_NETHER));
+    public static final ForgingAnvilRecipe crushed_ferromanganese1 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDFERROMANGANESE, 2), new ItemStack(ModBlocks.OREFERROMANGANESE));
+    public static final ForgingAnvilRecipe crushed_ferromanganese2 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDFERROMANGANESE, 2), new ItemStack(ModBlocks.OREFERROMANGANESE_NETHER));
+    public static final ForgingAnvilRecipe crushed_nickel = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNICKEL, 2), new ItemStack(ModBlocks.ORENICKEL));
+    public static final ForgingAnvilRecipe crushed_nolanite1 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNOLANITE, 2), new ItemStack(ModBlocks.ORENOLANITE));
+    public static final ForgingAnvilRecipe crushed_nolanite2 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNOLANITE, 2), new ItemStack(ModBlocks.ORENOLANITE_NETHER));
+    public static final ForgingAnvilRecipe crushed_tunstite = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDTUNSTITE, 2), new ItemStack(ModBlocks.ORETUNSTITE));
 }

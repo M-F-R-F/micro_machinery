@@ -77,6 +77,7 @@ public class ModItems {
 
 	//stick
 	public static final Item STICKCOPPER = new MaterialStick(materiallist[0]);
+	public static final Item STICKTIN = new MaterialStick(materiallist[1]);
 	public static final Item STICKBRONZE = new MaterialStick(materiallist[2]);
 	public static final Item STICKSTEEL = new MaterialStick(materiallist[3]);
 	public static final Item STICKINVAR = new MaterialStick(materiallist[4]);

@@ -12,7 +12,7 @@ item.IngotNickel.name=镍锭
 item.IngotNCAlloy.name=镍铬合金锭
 item.IngotSilicon.name=硅锭
 item.IngotSilver.name=银锭
-item.IngotStainless_Steel.name=不锈钢锭
+item.IngotSS.name=不锈钢锭
 item.IngotSteel.name=钢锭
 item.IngotTin.name=锡锭
 item.IngotTitanium.name=钛锭
@@ -21,29 +21,29 @@ item.IngotTungsten_Steel.name=钨钢锭
 item.IngotVanadium.name=钒锭
 
 //dust
-item.DustBronze.name=青铜粉
-item.DustCopper.name=铜粉
-item.DustTin.name=锡粉
-item.DustSteel.name=钢粉
-item.DustInvar.name=殷钢粉
-item.DustStainless_Steel.name=不锈钢粉
-item.DustTungsten.name=钨粉
-item.DustTungsten_Steel.name=钨钢粉
-item.DustTitanium.name=钛粉
-item.DustHSS.name=高速钢粉
-item.DustGold.name=金粉
-item.DustIron.name=铁粉
-item.DustSilver.name=银粉
-item.DustManganese.name=锰粉
-item.DustChromium.name=铬粉
-item.DustNickel.name=镍粉
-item.DustVanadium.name=钒粉
-item.DustCobalt.name=钴粉
-item.DustAluminum.name=铝粉
-item.DustNCAlloy.name=镍铬合金粉
-item.DustSilicon.name=硅粉
-item.DustCarbon.name=碳粉
-item.DustFerrochrome.name=铬铁粉
+item.PowderBronze.name=青铜粉
+item.PowderCopper.name=铜粉
+item.PowderTin.name=锡粉
+item.PowderSteel.name=钢粉
+item.PowderInvar.name=殷钢粉
+item.PowderSS.name=不锈钢粉
+item.PowderTungsten.name=钨粉
+item.PowderTungsten_Steel.name=钨钢粉
+item.PowderTitanium.name=钛粉
+item.PowderHss.name=高速钢粉
+item.PowderGold.name=金粉
+item.PowderIron.name=铁粉
+item.PowderSilver.name=银粉
+item.PowderManganese.name=锰粉
+item.PowderChromium.name=铬粉
+item.PowderNickel.name=镍粉
+item.PowderVanadium.name=钒粉
+item.PowderCobalt.name=钴粉
+item.PowderAluminum.name=铝粉
+item.PowderNcalloy.name=镍铬合金粉
+item.PowderSilicon.name=硅粉
+item.PowderCarbon.name=碳粉
+item.PowderFerrochrome.name=铬铁粉
 
 //stick
 item.StickCopper.name=铜杆
@@ -52,9 +52,9 @@ item.StickIron.name=铁杆
 item.StickGold.name=金杆
 item.StickSteel.name=钢杆
 item.StickInvar.name=殷钢杆
-item.StickStainless_Steel.name=不锈钢杆
+item.StickSS.name=不锈钢杆
 item.StickTungsten_Steel.name=钨钢杆
-item.StickHSS.name=高速钢杆
+item.StickHss.name=高速钢杆
 item.StickTitanium.name=钛杆
 item.StickAluminum.name=铝杆
 
@@ -63,18 +63,18 @@ item.PlateCopper.name=铜板
 item.PlateTin.name=锡板
 item.PlateBronze.name=青铜板
 item.PlateSteel.name=钢板
-item.PlateStainless_Steel.name=不锈钢板
+item.PlateSS.name=不锈钢板
 item.PlateTungsten_Steel.name=钨钢板
 item.PlateGold.name=金板
 item.PlateIron.name=铁板
 item.PlateInvar.name=殷钢板
-item.PlateHSS.name=高速钢板
+item.PlateHss.name=高速钢板
 item.PlateSilver.name=银板
 item.PlateChromium.name=铬板
 item.PlateNickel.name=镍板
 item.PlateTitanium.name=钛板
 item.PlateAluminum.name=铝板
-item.PlateNCAlloy.name=镍铬合金板
+item.PlateNcalloy.name=镍铬合金板
 item.PlateSilicon.name=硅板
 
 //circlecasting
@@ -86,7 +86,7 @@ item.CircleCastingInvar.name=殷钢圆形铸件
 item.CircleCastingGold.name=金圆形铸件
 item.CircleCastingAluminum.name=铝圆形铸件
 item.CircleCastingNickel.name=镍圆形铸件
-item.CircleCastingStainless_Steel.name=不锈钢圆形铸件
+item.CircleCastingSS.name=不锈钢圆形铸件
 item.CircleCastingTungsten_Steel.name=钨钢圆形铸件
 item.CircleCastingTitanium.name=钛圆形铸件
 
@@ -95,7 +95,7 @@ item.ScrewBronze.name=青铜螺丝
 item.ScrewInvar.name=殷钢螺丝
 item.ScrewIron.name=铁螺丝
 item.ScrewTitanium.name=钛螺丝
-item.ScrewStainless_Steel.name=不锈钢螺丝
+item.ScrewSS.name=不锈钢螺丝
 
 //string
 item.StringCopper.name=铜线
@@ -107,14 +107,14 @@ item.StringCobalt.name=钴线
 item.StringGold.name=金线
 item.StringIron.name=铁线
 item.StringAluminum.name=铝线
-item.StringNCAlloy.name=镍铬合金线
+item.StringNcalloy.name=镍铬合金线
 
 //roll
 item.RollInvar.name=殷钢辊
-item.RollStainless_Steel.name=不锈钢辊
+item.RollSS.name=不锈钢辊
 item.RollTungsten_Steel.name=钨钢辊
 item.RollIron.name=铁辊
-item.RollHSS.name=高速钢辊
+item.RollHss.name=高速钢辊
 
 //slag
 item.SlagMixture.name=炉渣
@@ -122,25 +122,25 @@ item.SlagManganese.name=含锰炉渣
 item.SlagCobalt.name=含钴炉渣
 item.SlagVanadium.name=含钒炉渣
 item.SlagTitanium.name=含钛炉渣
-item.SlagManganese_Refined.name=提炼锰渣
-item.SlagCobalt_Refined.name=提炼钴渣
-item.SlagVanadium_Refined.name=提炼钒渣
-item.SlagTitanium_Refined.name=提炼钛渣
+item.SlagManganese_refined.name=提炼锰渣
+item.SlagCobalt_refined.name=提炼钴渣
+item.SlagVanadium_refined.name=提炼钒渣
+item.SlagTitanium_refined.name=提炼钛渣
 
 //axis
 item.AxisBronze.name=青铜轴
 item.AxisInvar.name=殷钢轴
-item.AxisStainless_Steel.name=不锈钢轴
+item.AxisSS.name=不锈钢轴
 item.AxisSteel.name=钢轴
 item.AxisTungsten_Steel.name=钨钢轴
-item.AxisHSS.name=高速钢轴
+item.AxisHss.name=高速钢轴
 item.AxisIron.name=铁轴
 item.AxisTitanium.name=钛轴
 
 //gearblank
 item.GearBlankBronze.name=青铜齿轮坯
 item.GearBlankInvar.name=殷钢齿轮坯
-item.GearBlankStainless_Steel.name=不锈钢齿轮坯
+item.GearBlankSS.name=不锈钢齿轮坯
 item.GearBlankTungsten_Steel.name=钨钢齿轮坯
 item.GearBlankSilver.name=银齿轮坯
 item.GearBlankNickel.name=镍齿轮坯
@@ -151,7 +151,7 @@ item.GearBlankIron.name=铁齿轮坯
 //gear
 item.GearBronze.name=青铜齿轮
 item.GearInvar.name=殷钢齿轮
-item.GearStainless_Steel.name=不锈钢齿轮
+item.GearSS.name=不锈钢齿轮
 item.GearTungsten_Steel.name=钨钢齿轮
 item.GearSilver.name=银齿轮
 item.GearNickel.name=镍齿轮
@@ -227,7 +227,7 @@ tile.BlockBronze.name=青铜块
 tile.BlockTitanium.name=钛块
 tile.BlockTungsten.name=钨块
 tile.BlockHSS.name=高速钢块
-tile.BlockStainless_Steel.name=不锈钢块
+tile.BlockSS.name=不锈钢块
 tile.BlockTungsten_Steel.name=钨钢块
 tile.BlockVanadium.name=钒块
 tile.BlockChromium.name=铬块
@@ -235,7 +235,7 @@ tile.BlockSilver.name=银块
 tile.BlockInvar.name=殷钢块
 tile.BlockSteel.name=钢块
 tile.BlockNickel.name=镍块
-tile.BlockNCAlloy.name=镍铬合金块
+tile.BlockNcalloy.name=镍铬合金块
 tile.BlockCobalt.name=钴块
 tile.BlockManganese.name=锰块
 
