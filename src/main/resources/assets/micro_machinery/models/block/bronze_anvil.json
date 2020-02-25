@@ -1,20 +1,26 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "block/block",
-	"textures": {
-		"0": "micro_machinery:blocks/bronze_anvil",
-		"particle": "micro_machinery:blocks/bronze_anvil"
-	},
-	"elements": [
-		{
-			"name": "Wider section beneath top portion",
-			"from": [6, 5, 4],
-			"to": [10, 9, 12],
-			"faces": {
-              "north": {
-                "uv": [
-                  6,
-                  8,
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "micro_machinery:blocks/bronze_anvil"
+  },
+  "elements": [
+    {
+      "name": "Wider section beneath top portion",
+      "from": [
+        6,
+        5,
+        4
+      ],
+      "to": [
+        10,
+        9,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            6,
+            8,
                   10,
                   12
                 ],
@@ -191,9 +197,59 @@
 		}
 	],
 	"display": {
-		"fixed": {
-			"rotation": [0, 90, 0],
-			"scale": [0.5, 0.5, 0.5]
-		}
-	}
+      "thirdperson_righthand": {
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "thirdperson_lefthand": {
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "firstperson_righthand": {
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "firstperson_lefthand": {
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "ground": {
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      "gui": {
+        "rotation": [
+          9,
+          57,
+          2.5
+        ],
+        "scale": [
+          0.8,
+          0.8,
+          0.8
+        ]
+      },
+      "fixed": {
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      }
+    }
 }

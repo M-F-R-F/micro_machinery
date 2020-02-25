@@ -42,7 +42,7 @@ public class ModBlocks {
     public static final Block BLOCKTIN = new MaterialBlock("Tin", 1, 2.5f);
     public static final Block BLOCKBRONZE = new MaterialBlock("Bronze", 2, 4.5f);
     public static final Block BLOCKSTEEL = new MaterialBlock("Steel", 2, 3.5f);
-    public static final Block BLOCKSS = new MaterialBlock("Stainless_Steel", 3, 5.0f);
+    public static final Block BLOCKSS = new MaterialBlock("SS", 3, 5.0f);
     public static final Block BLOCKTUNGSTEN = new MaterialBlock("Tungsten", 3, 7.0f);
     public static final Block BLOCKNICKEL = new MaterialBlock("Nickel", 2, 3.5f);
     public static final Block BLOCKTUNGSTEN_STEEL = new MaterialBlock("Tungsten_Steel", 3, 7.0f);

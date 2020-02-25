@@ -21,32 +21,33 @@ item.IngotTungsten_Steel.name=钨钢锭
 item.IngotVanadium.name=钒锭
 
 //dust
-item.PowderBronze.name=青铜粉
-item.PowderCopper.name=铜粉
-item.PowderTin.name=锡粉
-item.PowderSteel.name=钢粉
-item.PowderInvar.name=殷钢粉
-item.PowderSS.name=不锈钢粉
-item.PowderTungsten.name=钨粉
-item.PowderTungsten_Steel.name=钨钢粉
-item.PowderTitanium.name=钛粉
-item.PowderHss.name=高速钢粉
-item.PowderGold.name=金粉
-item.PowderIron.name=铁粉
-item.PowderSilver.name=银粉
-item.PowderManganese.name=锰粉
-item.PowderChromium.name=铬粉
-item.PowderNickel.name=镍粉
-item.PowderVanadium.name=钒粉
-item.PowderCobalt.name=钴粉
-item.PowderAluminum.name=铝粉
-item.PowderNcalloy.name=镍铬合金粉
-item.PowderSilicon.name=硅粉
-item.PowderCarbon.name=碳粉
-item.PowderFerrochrome.name=铬铁粉
+item.DustBronze.name=青铜粉
+item.DustCopper.name=铜粉
+item.DustTin.name=锡粉
+item.DustSteel.name=钢粉
+item.DustInvar.name=殷钢粉
+item.DustSS.name=不锈钢粉
+item.DustTungsten.name=钨粉
+item.DustTungsten_Steel.name=钨钢粉
+item.DustTitanium.name=钛粉
+item.DustHSS.name=高速钢粉
+item.DustGold.name=金粉
+item.DustIron.name=铁粉
+item.DustSilver.name=银粉
+item.DustManganese.name=锰粉
+item.DustChromium.name=铬粉
+item.DustNickel.name=镍粉
+item.DustVanadium.name=钒粉
+item.DustCobalt.name=钴粉
+item.DustAluminum.name=铝粉
+item.DustNCAlloy.name=镍铬合金粉
+item.DustSilicon.name=硅粉
+item.DustCarbon.name=碳粉
+item.DustFerrochrome.name=铬铁粉
 
 //stick
 item.StickCopper.name=铜杆
+item.StickTin.name=锡杆
 item.StickBronze.name=青铜杆
 item.StickIron.name=铁杆
 item.StickGold.name=金杆
@@ -54,7 +55,7 @@ item.StickSteel.name=钢杆
 item.StickInvar.name=殷钢杆
 item.StickSS.name=不锈钢杆
 item.StickTungsten_Steel.name=钨钢杆
-item.StickHss.name=高速钢杆
+item.StickHSS.name=高速钢杆
 item.StickTitanium.name=钛杆
 item.StickAluminum.name=铝杆
 
@@ -68,13 +69,13 @@ item.PlateTungsten_Steel.name=钨钢板
 item.PlateGold.name=金板
 item.PlateIron.name=铁板
 item.PlateInvar.name=殷钢板
-item.PlateHss.name=高速钢板
+item.PlateHSS.name=高速钢板
 item.PlateSilver.name=银板
 item.PlateChromium.name=铬板
 item.PlateNickel.name=镍板
 item.PlateTitanium.name=钛板
 item.PlateAluminum.name=铝板
-item.PlateNcalloy.name=镍铬合金板
+item.PlateNCAlloy.name=镍铬合金板
 item.PlateSilicon.name=硅板
 
 //circlecasting
@@ -107,14 +108,14 @@ item.StringCobalt.name=钴线
 item.StringGold.name=金线
 item.StringIron.name=铁线
 item.StringAluminum.name=铝线
-item.StringNcalloy.name=镍铬合金线
+item.StringNCAlloy.name=镍铬合金线
 
 //roll
 item.RollInvar.name=殷钢辊
 item.RollSS.name=不锈钢辊
 item.RollTungsten_Steel.name=钨钢辊
 item.RollIron.name=铁辊
-item.RollHss.name=高速钢辊
+item.RollHSS.name=高速钢辊
 
 //slag
 item.SlagMixture.name=炉渣
@@ -122,10 +123,10 @@ item.SlagManganese.name=含锰炉渣
 item.SlagCobalt.name=含钴炉渣
 item.SlagVanadium.name=含钒炉渣
 item.SlagTitanium.name=含钛炉渣
-item.SlagManganese_refined.name=提炼锰渣
-item.SlagCobalt_refined.name=提炼钴渣
-item.SlagVanadium_refined.name=提炼钒渣
-item.SlagTitanium_refined.name=提炼钛渣
+item.SlagManganese_Refined.name=提炼锰渣
+item.SlagCobalt_Refined.name=提炼钴渣
+item.SlagVanadium_Refined.name=提炼钒渣
+item.SlagTitanium_Refined.name=提炼钛渣
 
 //axis
 item.AxisBronze.name=青铜轴
@@ -133,7 +134,7 @@ item.AxisInvar.name=殷钢轴
 item.AxisSS.name=不锈钢轴
 item.AxisSteel.name=钢轴
 item.AxisTungsten_Steel.name=钨钢轴
-item.AxisHss.name=高速钢轴
+item.AxisHSS.name=高速钢轴
 item.AxisIron.name=铁轴
 item.AxisTitanium.name=钛轴
 
@@ -235,7 +236,7 @@ tile.BlockSilver.name=银块
 tile.BlockInvar.name=殷钢块
 tile.BlockSteel.name=钢块
 tile.BlockNickel.name=镍块
-tile.BlockNcalloy.name=镍铬合金块
+tile.BlockNCAlloy.name=镍铬合金块
 tile.BlockCobalt.name=钴块
 tile.BlockManganese.name=锰块
 
@@ -323,11 +324,31 @@ item.dsb.name=钻石锯片
 item.hsb.name=高速钢锯片
 item.brick_powder.name=红砖粉
 item.clay_mixed_with_clinker.name=掺杂熟料的粘土
+item.cast_stick.name=硬化粘土铸模（杆）
+item.cast_ingot.name=硬化粘土铸模（锭）
+item.cast_gear.name=硬化粘土铸模（齿轮）
+item.cast_sword.name=硬化粘土铸模（剑刃）
+item.bronze_sword0.name=青铜剑刃
+
+//block
+tile.Blockpcm.name=传动机械方块
+tile.Blockstalinite.name=强化玻璃
+tile.Blocktank.name=储罐方块
+tile.Blockcontainer.name=集装箱方块
+tile.Blocksteel_scaffold.name=钢制脚手架
+tile.Blockvacuum_facilities.name=真空控制模块
+tile.Blockslag_concrete.name=混凝土
+tile.Blockclaybrick.name=粘土砖块
+tile.Blockfirebrick.name=耐火砖块
 
 //tileentity
 container.klin.name=aaa
 container.klin=aaa
-item.klin.name=窑
+tile.klin.name=窑
+tile.stone_anvil.name=石砧
+tile.bronze_anvil.name=青铜砧
+tile.pigiron_anvil.name=铸铁砧
+
 
 //gui
 gui.fluid.name=%s

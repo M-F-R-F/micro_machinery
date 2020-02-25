@@ -4,9 +4,9 @@ import com.dbydd.micro_machinery.EnumType.EnumCastType;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.items.ItemBase;
 import com.dbydd.micro_machinery.items.ItemCast;
-import com.dbydd.micro_machinery.items.materialbase.*;
 import com.dbydd.micro_machinery.items.foods.FoodBase;
 import com.dbydd.micro_machinery.items.foods.Golden_Apple_Food;
+import com.dbydd.micro_machinery.items.materialbase.*;
 import com.dbydd.micro_machinery.items.tools.MyMaterial;
 import com.dbydd.micro_machinery.items.tools.ToolAxe;
 import com.dbydd.micro_machinery.items.tools.ToolHammer;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ModItems {
 
-    private static String[] materiallist = {"Copper", "Tin", "Bronze", "Steel", "Invar", "Stainless_Steel", "Tungsten",
+    private static String[] materiallist = {"Copper", "Tin", "Bronze", "Steel", "Invar", "SS", "Tungsten",
 			"Tungsten_Steel", "HSS", "Gold", "Silver", "Manganese", "Chromium", "Nickel", "Vanadium", "Cobalt",
 			"Titanium", "Aluminum", "NCAlloy", "Silicon", "Graphite", "Iron", "Carbon", "Ferrochrome"};
 
@@ -51,29 +51,29 @@ public class ModItems {
 	public static final Item INGOTGRAPHITE = new MaterialIngot(materiallist[20]);
 
 	//powder
-	public static final Item POWDERCOPPER = new MaterialDust(materiallist[0]);
-	public static final Item POWDERTIN = new MaterialDust(materiallist[1]);
-	public static final Item POWDERBRONZE = new MaterialDust(materiallist[2]);
-	public static final Item POWDERSTEEL = new MaterialDust(materiallist[3]);
-	public static final Item POWDERINVAR = new MaterialDust(materiallist[4]);
-	public static final Item POWDERSS = new MaterialDust(materiallist[5]);
-	public static final Item POWDERTUNGSTEN = new MaterialDust(materiallist[6]);
-	public static final Item POWDERTUNGSTEM_STEEL = new MaterialDust(materiallist[7]);
-	public static final Item POWDERHSS = new MaterialDust(materiallist[8]);
-	public static final Item POWDERGOLD = new MaterialDust(materiallist[9]);
-	public static final Item POWDERSILVER = new MaterialDust(materiallist[10]);
-	public static final Item POWDERMANGANESE = new MaterialDust(materiallist[11]);
-	public static final Item POWDERCHROMIUM = new MaterialDust(materiallist[12]);
-	public static final Item POWDERNICKEL = new MaterialDust(materiallist[13]);
-	public static final Item POWDERVANADIUM = new MaterialDust(materiallist[14]);
-	public static final Item POWDERCOBALT = new MaterialDust(materiallist[15]);
-	public static final Item POWDERTITANIUM = new MaterialDust(materiallist[16]);
-	public static final Item POWDERALUMINUM = new MaterialDust(materiallist[17]);
-	public static final Item POWDERNCALLOY = new MaterialDust(materiallist[18]);
-	public static final Item POWDERSILICON = new MaterialDust(materiallist[19]);
-	public static final Item POWDERIRON = new MaterialDust(materiallist[21]);
-	public static final Item POWDERCARBON = new MaterialDust(materiallist[22]);
-	public static final Item POWDERFERRCHROME = new MaterialDust(materiallist[23]);
+	public static final Item DUSTCOPPER = new MaterialDust(materiallist[0]);
+	public static final Item DUSTTIN = new MaterialDust(materiallist[1]);
+	public static final Item DUSTBRONZE = new MaterialDust(materiallist[2]);
+	public static final Item DUSTSTEEL = new MaterialDust(materiallist[3]);
+	public static final Item DUSTINVAR = new MaterialDust(materiallist[4]);
+	public static final Item DUSTSS = new MaterialDust(materiallist[5]);
+	public static final Item DUSTTUNGSTEN = new MaterialDust(materiallist[6]);
+	public static final Item DUSTTUNGSTEM_STEEL = new MaterialDust(materiallist[7]);
+	public static final Item DUSTHSS = new MaterialDust(materiallist[8]);
+	public static final Item DUSTGOLD = new MaterialDust(materiallist[9]);
+	public static final Item DUSTSILVER = new MaterialDust(materiallist[10]);
+	public static final Item DUSTMANGANESE = new MaterialDust(materiallist[11]);
+	public static final Item DUSTCHROMIUM = new MaterialDust(materiallist[12]);
+	public static final Item DUSTNICKEL = new MaterialDust(materiallist[13]);
+	public static final Item DUSTVANADIUM = new MaterialDust(materiallist[14]);
+	public static final Item DUSTCOBALT = new MaterialDust(materiallist[15]);
+	public static final Item DUSTTITANIUM = new MaterialDust(materiallist[16]);
+	public static final Item DUSTALUMINUM = new MaterialDust(materiallist[17]);
+	public static final Item DUSTNCALLOY = new MaterialDust(materiallist[18]);
+	public static final Item DUSTSILICON = new MaterialDust(materiallist[19]);
+	public static final Item DUSTIRON = new MaterialDust(materiallist[21]);
+	public static final Item DUSTCARBON = new MaterialDust(materiallist[22]);
+	public static final Item DUSTFERRCHROME = new MaterialDust(materiallist[23]);
 
 	//stick
 	public static final Item STICKCOPPER = new MaterialStick(materiallist[0]);
