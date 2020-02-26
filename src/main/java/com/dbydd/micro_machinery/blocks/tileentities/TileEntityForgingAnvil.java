@@ -104,18 +104,22 @@ public class TileEntityForgingAnvil extends TileEntity {
     public void forge() {
         if (!handler.getStackInSlot(1).isEmpty()) {
             ForgingAnvilRecipe recipe = RecipeHelper.getForgingAnvilRecipe(handler.getStackInSlot(0));
-            if (recipe != null && recipe.getLevel() <= this.level) {
-                forgetime++;
-                if (forgetime >= recipe.getForgetime() && RecipeHelper.canInsert(handler.getStackInSlot(2), recipe.getOutput())) {
-                    handler.insertItem(2, recipe.getOutput(), false);
-                    handler.extractItem(0, recipe.getInput().getCount(), false);
-                    forgetime = 0;
-                } else {
-                    forgetime = 0;
+            if (recipe != null) {
+                boolean caninsert = RecipeHelper.canInsert(handler.getStackInSlot(2), recipe.getOutput());
+                if (recipe.getLevel() <= this.level) {
+                    forgetime++;
+                    if (forgetime >= recipe.getForgetime() && caninsert) {
+                        handler.insertItem(2, recipe.getOutput(), false);
+                        handler.extractItem(0, recipe.getInput().getCount(), false);
+                        forgetime = 0;
+                    } else if (!caninsert) {
+                        forgetime--;
+                    }
                 }
             }
             ItemStack hammer = handler.getStackInSlot(1);
             hammer.setItemDamage(hammer.getItemDamage() + 1);
+            if (hammer.getItemDamage() >= hammer.getMaxDamage()) hammer.shrink(1);
             markDirty();
             syncToTrackingClients();
         }
