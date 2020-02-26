@@ -102,15 +102,15 @@ public class TileEntityForgingAnvil extends TileEntity {
     }
 
     public void forge() {
-        if (handler.getStackInSlot(1) != ItemStack.EMPTY) {
+        if (!handler.getStackInSlot(1).isEmpty()) {
             ForgingAnvilRecipe recipe = RecipeHelper.getForgingAnvilRecipe(handler.getStackInSlot(0));
-            if (recipe == null || recipe.getLevel() > this.level) {
-                forgetime = 0;
-            } else {
+            if (recipe != null && recipe.getLevel() <= this.level) {
                 forgetime++;
                 if (forgetime >= recipe.getForgetime() && RecipeHelper.canInsert(handler.getStackInSlot(2), recipe.getOutput())) {
                     handler.insertItem(2, recipe.getOutput(), false);
                     handler.extractItem(0, recipe.getInput().getCount(), false);
+                    forgetime = 0;
+                } else {
                     forgetime = 0;
                 }
             }

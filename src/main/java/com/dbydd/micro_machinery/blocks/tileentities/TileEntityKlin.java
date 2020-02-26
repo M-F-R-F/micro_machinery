@@ -202,6 +202,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                 if (burntime >= maxburntime) {
                     burntime = -1;
                     maxburntime = 0;
+                    BlockKlin.setState(false, world, this.getPos());
                 }
                 markDirty();
             } else {
