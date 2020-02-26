@@ -1,8 +1,11 @@
 {
-    "forge_marker": 1,
-    "variants": {
-      "normal": {
-        "model": "micro_machinery:blocks/obj/pigiron_anvil.obj"
-        }
-    }
+	"forge_marker": 1,
+	"defaults": {
+		"custom": {
+			"flip-v": true
+		},
+		"model": "micro_machinery:block/obj/pigiron_anvil.obj"
+	},
+	"variants": {
+	}
 }
