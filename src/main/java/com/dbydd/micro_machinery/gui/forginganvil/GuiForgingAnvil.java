@@ -38,7 +38,7 @@ public class GuiForgingAnvil extends GuiBase<TileEntityForgingAnvil> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String title = I18n.format("container.forginganvil.level" + tileentity.getLevel());
+        String title = I18n.format(tileentity.getBlockType().getLocalizedName());
         this.fontRenderer.drawString(title, (this.xSize - this.fontRenderer.getStringWidth(title)) / 2, 6, 0x404040);
         int forgetime = tileentity.getField("forgetime");
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
