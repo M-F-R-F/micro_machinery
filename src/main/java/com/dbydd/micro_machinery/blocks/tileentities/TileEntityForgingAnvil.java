@@ -30,12 +30,15 @@ public class TileEntityForgingAnvil extends TileEntity {
             return true;
         }
     };//0:material,1:hammer,2:output
-
     public TileEntityForgingAnvil(int level) {
         this.level = level;
     }
 
     public TileEntityForgingAnvil() {
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     @Override

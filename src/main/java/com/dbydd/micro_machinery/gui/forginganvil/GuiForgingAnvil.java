@@ -6,6 +6,7 @@ import com.dbydd.micro_machinery.blocks.tileentities.TileEntityForgingAnvil;
 import com.dbydd.micro_machinery.gui.GuiBase;
 import com.dbydd.micro_machinery.network.AnvilButtonEventPackage;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -37,6 +38,8 @@ public class GuiForgingAnvil extends GuiBase<TileEntityForgingAnvil> {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        String title = I18n.format("container.forginganvil.level" + tileentity.getLevel());
+        this.fontRenderer.drawString(title, (this.xSize - this.fontRenderer.getStringWidth(title)) / 2, 6, 0x404040);
         int forgetime = tileentity.getField("forgetime");
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         for (int i = 0; i < forgetime; i++) {

@@ -352,3 +352,4 @@ tile.pigiron_anvil.name=Iron Anvil
 //gui
 gui.fluid.name=%s
 gui.fluid.amount=%d mB/%d mB
+container.forginganvil=.level
