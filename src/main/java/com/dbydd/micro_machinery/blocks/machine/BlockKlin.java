@@ -38,7 +38,7 @@ public class BlockKlin extends BlockContainer implements IHasModel {
 
     private static final PropertyDirection FACING = BlockHorizontal.FACING;
     private static final PropertyBool BURNING = PropertyBool.create("burning");
-    public static final AxisAlignedBB HIGHER_THAN_FULL_BLOCK_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.4D,
+    public static final AxisAlignedBB HIGHER_THAN_FULL_BLOCK_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.25D,
             1.0D);
 
     public BlockKlin(String name, Material material) {
@@ -47,6 +47,7 @@ public class BlockKlin extends BlockContainer implements IHasModel {
         setUnlocalizedName(name);
         setRegistryName(name);
         setCreativeTab(Micro_Machinery.Micro_Machinery);
+        setHardness(3.0f);
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BURNING, false));

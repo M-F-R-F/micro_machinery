@@ -1,17 +1,17 @@
 {
     "variants": {
-      "facing=south": {
-        "model": "micro_machinery:bronze_anvil"
-      },
       "facing=west": {
-        "model": "micro_machinery:bronze_anvil",
-        "y": 90
+        "model": "micro_machinery:bronze_anvil"
       },
       "facing=north": {
         "model": "micro_machinery:bronze_anvil",
-        "y": 180
+        "y": 90
       },
       "facing=east": {
+        "model": "micro_machinery:bronze_anvil",
+        "y": 180
+      },
+      "facing=south": {
         "model": "micro_machinery:bronze_anvil",
         "y": 270
       }

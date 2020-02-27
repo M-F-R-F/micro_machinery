@@ -162,21 +162,79 @@
 		}
 	],
 	"display": {
+		"thirdperson_righthand": {
+			"scale": [
+				0.55,
+				0.55,
+				0.55
+			]
+		},
+		"thirdperson_lefthand": {
+			"scale": [
+				0.55,
+				0.55,
+				0.55
+			]
+		},
 		"firstperson_righthand": {
-			"translation": [6, -6.75, 1.75]
+			"rotation": [
+				7,
+				29,
+				11
+			],
+			"translation": [
+				2,
+				1,
+				0
+			],
+			"scale": [
+				0.55,
+				0.55,
+				0.55
+			]
 		},
 		"firstperson_lefthand": {
-			"translation": [6, -6.75, 1.75]
+			"rotation": [
+				7,
+				29,
+				11
+			],
+			"translation": [
+				2,
+				1,
+				0
+			],
+			"scale": [
+				0.55,
+				0.55,
+				0.55
+			]
 		},
 		"ground": {
-			"translation": [0, 4, 0]
+			"scale": [
+				0.5,
+				0.5,
+				0.5
+			]
 		},
 		"gui": {
-			"translation": [0, -1.75, 0],
-			"scale": [0.8, 0.8, 0.8]
+			"rotation": [
+				32,
+				49,
+				0
+			],
+			"scale": [
+				0.65,
+				0.65,
+				0.65
+			]
 		},
 		"fixed": {
-			"translation": [0, -2, 3.25]
+			"rotation": [
+				0,
+				90,
+				0
+			]
 		}
 	}
 }

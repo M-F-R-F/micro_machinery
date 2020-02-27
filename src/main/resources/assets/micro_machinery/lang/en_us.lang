@@ -348,8 +348,6 @@ tile.stone_anvil.name=Stone Anvil
 tile.bronze_anvil.name=Bronze Anvil
 tile.pigiron_anvil.name=Iron Anvil
 
-
 //gui
 gui.fluid.name=%s
 gui.fluid.amount=%d mB/%d mB
-container.forginganvil=.level

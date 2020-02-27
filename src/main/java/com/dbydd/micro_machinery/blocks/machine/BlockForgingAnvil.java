@@ -43,6 +43,7 @@ public class BlockForgingAnvil extends BlockContainer implements IHasModel {
         setCreativeTab(Micro_Machinery.Micro_Machinery);
         setSoundType(SoundType.ANVIL);
         setHarvestLevel("pickaxe", level - 1);
+        setHardness(3.0f);
         ModBlocks.BLOCKS.add(this);
         ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));

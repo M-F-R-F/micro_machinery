@@ -6,6 +6,7 @@ import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.GuiBase;
 import com.dbydd.micro_machinery.network.KlinButtonEventPackage;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -71,6 +72,10 @@ public class GuiKlin extends GuiBase<TileEntityKlin> {
         if (maxmelttime == 0) return 0;
         return melttime * pixels / maxmelttime;
     }
-
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        String title = I18n.format(""+tileentity.getBlockType().getLocalizedName());
+        this.fontRenderer.drawString(title, (this.xSize - this.fontRenderer.getStringWidth(title)) / 2, 3, 0x000000);
+    }
 
 }
