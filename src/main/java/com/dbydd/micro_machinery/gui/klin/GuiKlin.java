@@ -72,9 +72,10 @@ public class GuiKlin extends GuiBase<TileEntityKlin> {
         if (maxmelttime == 0) return 0;
         return melttime * pixels / maxmelttime;
     }
+
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        String title = I18n.format(""+tileentity.getBlockType().getLocalizedName());
+        String title = I18n.format("" + tileentity.getBlockType().getLocalizedName());
         this.fontRenderer.drawString(title, (this.xSize - this.fontRenderer.getStringWidth(title)) / 2, 3, 0x000000);
     }
 

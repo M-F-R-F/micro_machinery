@@ -71,4 +71,5 @@ public class ModRecipes {
     public static final ForgingAnvilRecipe crushed_nolanite1 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNOLANITE, 2), new ItemStack(ModBlocks.ORENOLANITE));
     public static final ForgingAnvilRecipe crushed_nolanite2 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNOLANITE, 2), new ItemStack(ModBlocks.ORENOLANITE_NETHER));
     public static final ForgingAnvilRecipe crushed_tunstite = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDTUNSTITE, 2), new ItemStack(ModBlocks.ORETUNSTITE));
+
 }

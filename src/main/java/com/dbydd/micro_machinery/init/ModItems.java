@@ -195,7 +195,7 @@ public class ModItems {
 	public static final Item HSSADDITIVE = new ItemBase("HSSAdditive");
 	public static final Item SSADDITIVE = new ItemBase("SSAdditive");
 
-	//crushedore
+	//crushed ore
 	public static final Item CRUSHEDCOPPER = new CrushedOre("Copper");
 	public static final Item CRUSHEDTIN = new CrushedOre("Tin");
 	public static final Item CRUSHEDILMENITE = new CrushedOre("Ilmenite");

@@ -1,13 +1,12 @@
 package com.dbydd.micro_machinery.init;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.dbydd.micro_machinery.fluid.MoltenMaterial;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModFluids {
 
