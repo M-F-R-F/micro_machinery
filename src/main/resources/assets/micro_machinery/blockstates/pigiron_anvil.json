@@ -3,6 +3,21 @@
   "variants": {
     "normal": {
       "model": "micro_machinery:obj/pigiron_anvil.obj"
+    },
+    "facing=west": {
+      "model": "micro_machinery:objiron_anvil.obj"
+    },
+    "facing=north": {
+      "model": "micro_machinery:objiron_anvil.obj",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "micro_machinery:objiron_anvil.obj",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "micro_machinery:objiron_anvil.obj",
+      "y": 270
     }
   }
 }
