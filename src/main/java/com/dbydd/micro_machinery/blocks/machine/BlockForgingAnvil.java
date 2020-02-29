@@ -22,7 +22,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -52,6 +55,17 @@ public class BlockForgingAnvil extends BlockContainer implements IHasModel {
     @Override
     public void registerModels() {
         Micro_Machinery.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
+    }
+
+//    @SideOnly(Side.CLIENT)
+//    public void initModel() {
+//        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+//    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+        return false;
     }
 
     @Override
@@ -84,6 +98,11 @@ public class BlockForgingAnvil extends BlockContainer implements IHasModel {
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityForgingAnvil(this.level);
+    }
+
+    @Override
+    public boolean isBlockNormalCube(IBlockState state) {
+        return false;
     }
 
     @Override
