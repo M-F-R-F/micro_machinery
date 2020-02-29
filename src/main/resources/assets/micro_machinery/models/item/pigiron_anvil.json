@@ -1,6 +1,6 @@
 {
   "parent": "micro_machinery:block/pigiron_anvil",
   "textures": {
-    "Material": "micro_machinery:blocks/pigiron_anvil"
+    "Material": "micro_machinery:obj/pigiron_anvil.obj"
   }
 }
