@@ -1,6 +1,7 @@
 {
   "forge_marker": 1,
   "defaults": {
+    "transform": "forge:default-block",
     "custom": {
       "flip-v": true
     },
@@ -8,23 +9,51 @@
   },
   "variants": {
     "normal": [
-      {}
+      {
+        "transform": {
+          "scale": 0.5,
+          "rotation": [
+            {
+              "x": 37.5
+            },
+            {
+              "y": 45
+            }
+          ],
+          "translation": [
+            -0.1875,
+            -0.1875,
+            0
+          ],
+          "thirdperson": {
+            "scale": 0.6,
+            "translation": [
+              0,
+              0.2,
+              0
+            ],
+            "rotation": {
+              "x": 62.5
+            }
+          }
+        }
+      }
     ],
     "inventory": [
       {}
     ],
-    "facing=west": {
+    "facing=south": {
       "model": "micro_machinery:obj/pigiron_anvil.obj"
     },
-    "facing=north": {
+    "facing=west": {
       "model": "micro_machinery:obj/pigiron_anvil.obj",
       "y": 90
     },
-    "facing=east": {
+    "facing=north": {
       "model": "micro_machinery:obj/pigiron_anvil.obj",
       "y": 180
     },
-    "facing=south": {
+    "facing=east": {
       "model": "micro_machinery:obj/pigiron_anvil.obj",
       "y": 270
     }
