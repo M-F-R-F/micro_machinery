@@ -36,8 +36,8 @@ import java.util.Objects;
 import java.util.Random;
 
 public class BlockForgingAnvil extends BlockContainer implements IHasModel {
-    public static final AxisAlignedBB NORMAL_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 1.0D, 0.8125D);
-    public static final AxisAlignedBB OBJ_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 1.0D, 1.0D);
+    public static final AxisAlignedBB NORMAL_AABB = new AxisAlignedBB(0.2D, 0.0D, 0.0D, 0.8D, 1.0D, 1.0D);
+    public static final AxisAlignedBB OBJ_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 0.75D, 1.0D);
     private static final PropertyDirection FACING = BlockHorizontal.FACING;
     private final int level;
 
