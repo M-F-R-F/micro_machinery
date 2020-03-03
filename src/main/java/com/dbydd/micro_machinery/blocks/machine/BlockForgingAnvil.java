@@ -21,6 +21,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -35,10 +36,10 @@ import java.util.Objects;
 import java.util.Random;
 
 public class BlockForgingAnvil extends BlockContainer implements IHasModel {
+    public static final AxisAlignedBB NORMAL_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 1.0D, 0.8125D);
+    public static final AxisAlignedBB OBJ_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 1.0D, 1.0D);
     private static final PropertyDirection FACING = BlockHorizontal.FACING;
     private final int level;
-    //public static final AxisAlignedBB level12 = new AxisAlignedBB(0.0D, 0.0D, 0.1875D, 1.0D, 1.0D, 0.8125D);
-    //public static final AxisAlignedBB level3 = new AxisAlignedBB(0.25D, 0.0D, 0.0D, 0.75D, 1.0D, 1.0D);
 
     public BlockForgingAnvil(String name, int level) {
         super(Material.ANVIL);
@@ -65,9 +66,30 @@ public class BlockForgingAnvil extends BlockContainer implements IHasModel {
         return false;
     }
 
+    private AxisAlignedBB getAABB() {
+        return level <= 2 ? NORMAL_AABB : OBJ_AABB;
+    }
+
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return getAABB();
+    }
+
+    @Nullable
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+        return getAABB();
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+        return getAABB();
+    }
+
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!worldIn.isRemote) {
+        if (!worldIn.isRemote && hitZ <= getAABB().maxY) {
             playerIn.openGui(Micro_Machinery.instance, Reference.GUI_ForgingAnvil, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
 
