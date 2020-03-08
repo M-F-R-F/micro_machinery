@@ -6,6 +6,7 @@ import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
+import com.dbydd.micro_machinery.worldgen.WorldGeneratorLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -81,6 +82,7 @@ public class RegistryHandler {
 
     public static void initRegistries(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(Micro_Machinery.instance, new GUIHandler());
+        new WorldGeneratorLoader();
     }
 
     public static void postInitRegistries(FMLPostInitializationEvent event) {
