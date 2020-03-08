@@ -14,7 +14,7 @@ public class MaterialBlock extends BlockBase {
 
     @Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+        return BlockRenderLayer.CUTOUT;
     }
 
     @Override

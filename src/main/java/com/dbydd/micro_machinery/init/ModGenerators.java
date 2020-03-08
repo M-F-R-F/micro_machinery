@@ -15,5 +15,4 @@ public class ModGenerators {
     public static final List<WorldGenerator> worldGenerators = new ArrayList<WorldGenerator>();
 
     public static final OreGenRecipe test = new OreGenRecipe(ModBlocks.BLOCKBRONZE, new Block[]{Blocks.STONE, Blocks.GRASS, Blocks.DIRT}, 0, 1, 255, 16, 4);
-
 }
