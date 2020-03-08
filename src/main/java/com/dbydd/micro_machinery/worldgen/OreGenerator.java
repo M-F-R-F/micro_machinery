@@ -15,8 +15,8 @@ import java.util.Random;
 public class OreGenerator extends WorldGenMinable {
     OreGenRecipe recipe;
 
-    public OreGenerator(IBlockState state, int blockCount, OreGenRecipe recipe) {
-        super(state, blockCount, new CustomPredicate(recipe));
+    public OreGenerator(IBlockState state, OreGenRecipe recipe) {
+        super(state, recipe.getCount(), new CustomPredicate(recipe));
         this.recipe = recipe;
         ModGenerators.worldGenerators.add(this);
     }
@@ -26,7 +26,7 @@ public class OreGenerator extends WorldGenMinable {
         if (TerrainGen.generateOre(worldIn, rand, this, position, OreGenEvent.GenerateMinable.EventType.CUSTOM)) {
             for (int i = 0; i < recipe.getGenerateCountPerChunk(); ++i) {
                 int posX = position.getX() + rand.nextInt(16);
-                int posY = 16 + rand.nextInt(recipe.getAllowedYOffset());
+                int posY = recipe.getMinHeight() + rand.nextInt(recipe.getAllowedYOffset());
                 int posZ = position.getZ() + rand.nextInt(16);
                 BlockPos blockpos = new BlockPos(posX, posY, posZ);
                 super.generate(worldIn, rand, blockpos);

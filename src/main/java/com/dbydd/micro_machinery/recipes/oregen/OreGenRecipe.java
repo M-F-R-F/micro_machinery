@@ -1,5 +1,7 @@
 package com.dbydd.micro_machinery.recipes.oregen;
 
+import com.dbydd.micro_machinery.init.ModGenerators;
+import com.dbydd.micro_machinery.worldgen.OreGenerator;
 import net.minecraft.block.Block;
 
 public class OreGenRecipe {
@@ -19,6 +21,8 @@ public class OreGenRecipe {
         this.allowedYOffset = allowedYOffset;
         this.count = count;
         this.generateCountPerChunk = generateCountPerChunk;
+        ModGenerators.oreGeneratorRecipes.add(this);
+        ModGenerators.worldGenerators.add(new OreGenerator(ore.getDefaultState(), this));
     }
 
     public boolean isBlockMatch(Block block) {
