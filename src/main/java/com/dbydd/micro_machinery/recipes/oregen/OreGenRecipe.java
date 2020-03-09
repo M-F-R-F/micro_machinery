@@ -3,19 +3,20 @@ package com.dbydd.micro_machinery.recipes.oregen;
 import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.worldgen.OreGenerator;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 
 public class OreGenRecipe {
     private Block ore;
-    private Block[] replaceBlocks;
+    private IBlockState[] replaceBlocks;
     private int dimision;
     private int minHeight;
     private int allowedYOffset;
     private int count;
     private int generateCountPerChunk;
 
-    public OreGenRecipe(Block ore, Block[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk) {
-        this.ore = ore;
+    public OreGenRecipe(Block ore, IBlockState[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk) {
         this.replaceBlocks = replaceBlocks;
+        this.ore = ore;
         this.dimision = dimision;
         this.minHeight = minHeight;
         this.allowedYOffset = allowedYOffset;
@@ -25,11 +26,15 @@ public class OreGenRecipe {
         ModGenerators.worldGenerators.add(new OreGenerator(ore.getDefaultState(), this));
     }
 
-    public boolean isBlockMatch(Block block) {
-        for (Block Blocks : replaceBlocks) {
+    public boolean isBlockMatch(IBlockState block) {
+        for (IBlockState Blocks : replaceBlocks) {
             if (Blocks == block) return true;
         }
         return false;
+    }
+
+    public IBlockState[] getReplaceBlocks() {
+        return replaceBlocks;
     }
 
     public int getMinHeight() {
@@ -48,9 +53,6 @@ public class OreGenRecipe {
         return ore;
     }
 
-    public Block[] getReplaceBlocks() {
-        return replaceBlocks;
-    }
 
     public int getDimision() {
         return dimision;

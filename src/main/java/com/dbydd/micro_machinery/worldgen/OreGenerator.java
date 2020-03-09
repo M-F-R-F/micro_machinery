@@ -43,7 +43,7 @@ public class OreGenerator extends WorldGenMinable {
         }
 
         public boolean apply(IBlockState p_apply_1_) {
-            return p_apply_1_ != null && recipe.isBlockMatch(p_apply_1_.getBlock());
+            return p_apply_1_ != null && recipe.isBlockMatch(p_apply_1_);
         }
 
     }
