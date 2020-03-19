@@ -4,11 +4,15 @@ import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
+import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
+import com.dbydd.micro_machinery.worldgen.SpecialGenerator;
+import com.dbydd.micro_machinery.worldgen.SpecialGeneratorLoader;
 import com.dbydd.micro_machinery.worldgen.WorldGeneratorLoader;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.event.RegistryEvent;
@@ -82,7 +86,12 @@ public class RegistryHandler {
 
     public static void initRegistries(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(Micro_Machinery.instance, new GUIHandler());
-        new WorldGeneratorLoader();
+        for (WorldGenerator generator : ModGenerators.worldGenerators) {
+            new WorldGeneratorLoader(generator);
+        }
+        for (SpecialGenerator generator : ModGenerators.worldSpecialGenerators) {
+            new SpecialGeneratorLoader(generator);
+        }
     }
 
     public static void postInitRegistries(FMLPostInitializationEvent event) {

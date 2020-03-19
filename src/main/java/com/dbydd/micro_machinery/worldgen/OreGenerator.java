@@ -1,6 +1,5 @@
 package com.dbydd.micro_machinery.worldgen;
 
-import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.recipes.oregen.OreGenRecipe;
 import com.google.common.base.Predicate;
 import net.minecraft.block.state.IBlockState;
@@ -18,7 +17,6 @@ public class OreGenerator extends WorldGenMinable {
     public OreGenerator(IBlockState state, OreGenRecipe recipe) {
         super(state, recipe.getCount(), new CustomPredicate(recipe));
         this.recipe = recipe;
-        ModGenerators.worldGenerators.add(this);
     }
 
     @Override
