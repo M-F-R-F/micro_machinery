@@ -7,6 +7,7 @@ import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
+import com.dbydd.micro_machinery.worldgen.DisabledOres;
 import com.dbydd.micro_machinery.worldgen.SpecialGenerator;
 import com.dbydd.micro_machinery.worldgen.SpecialGeneratorLoader;
 import com.dbydd.micro_machinery.worldgen.WorldGeneratorLoader;
@@ -15,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -86,6 +88,9 @@ public class RegistryHandler {
 
     public static void initRegistries(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(Micro_Machinery.instance, new GUIHandler());
+
+        MinecraftForge.ORE_GEN_BUS.register(DisabledOres.class);
+
         for (WorldGenerator generator : ModGenerators.worldGenerators) {
             new WorldGeneratorLoader(generator);
         }

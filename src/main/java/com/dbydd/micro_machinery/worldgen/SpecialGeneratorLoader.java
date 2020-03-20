@@ -3,7 +3,6 @@ package com.dbydd.micro_machinery.worldgen;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class SpecialGeneratorLoader {
@@ -17,8 +16,7 @@ public class SpecialGeneratorLoader {
 
     @SubscribeEvent
     public void onOreGen(OreGenEvent.GenerateMinable event) {
-        if (event.getType() == generator.getEventType()) {
-            event.setResult(Event.Result.DENY);
+        if (event.getType() == OreGenEvent.GenerateMinable.EventType.CUSTOM) {
             generator.generate(event.getWorld(), event.getRand(), event.getPos());
         }
     }

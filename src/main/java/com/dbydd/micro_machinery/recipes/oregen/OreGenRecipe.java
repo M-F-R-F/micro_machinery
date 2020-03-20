@@ -3,12 +3,12 @@ package com.dbydd.micro_machinery.recipes.oregen;
 import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.worldgen.OreGenerator;
 import com.dbydd.micro_machinery.worldgen.SpecialGenerator;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 
 public class OreGenRecipe {
-    private Block ore;
+    private final OreGenEvent.GenerateMinable.EventType eventType;
+    private IBlockState[] ore;
     private IBlockState[] replaceBlocks;
     private int dimision;
     private int minHeight;
@@ -16,7 +16,7 @@ public class OreGenRecipe {
     private int count;
     private int generateCountPerChunk;
 
-    public OreGenRecipe(Block ore, IBlockState[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk, Boolean isSpecialGenerate, OreGenEvent.GenerateMinable.EventType eventType) {
+    public OreGenRecipe(IBlockState[] ore, IBlockState[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk, Boolean isSpecialGenerate, int normalOreSize, OreGenEvent.GenerateMinable.EventType eventType) {
         this.replaceBlocks = replaceBlocks;
         this.ore = ore;
         this.dimision = dimision;
@@ -24,13 +24,18 @@ public class OreGenRecipe {
         this.allowedYOffset = allowedYOffset;
         this.count = count;
         this.generateCountPerChunk = generateCountPerChunk;
+        this.eventType = eventType;
         if (isSpecialGenerate) {
             ModGenerators.oreSpecialGeneratorRecipes.add(this);
-            ModGenerators.worldSpecialGenerators.add(new SpecialGenerator(ore.getDefaultState(), count, replaceBlocks, eventType));
+            ModGenerators.worldSpecialGenerators.add(new SpecialGenerator(ore, normalOreSize, this));
         } else {
             ModGenerators.oreGeneratorRecipes.add(this);
-            ModGenerators.worldGenerators.add(new OreGenerator(ore.getDefaultState(), this));
+            ModGenerators.worldGenerators.add(new OreGenerator(ore[0], this));
         }
+    }
+
+    public OreGenEvent.GenerateMinable.EventType getEventType() {
+        return eventType;
     }
 
     public boolean isBlockMatch(IBlockState block) {
@@ -56,7 +61,7 @@ public class OreGenRecipe {
         return count;
     }
 
-    public Block getOre() {
+    public IBlockState[] getOre() {
         return ore;
     }
 

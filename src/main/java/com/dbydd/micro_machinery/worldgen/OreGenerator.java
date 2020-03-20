@@ -13,9 +13,15 @@ import java.util.Random;
 
 public class OreGenerator extends WorldGenMinable {
     OreGenRecipe recipe;
+    BlockPos middleOre;
 
     public OreGenerator(IBlockState state, OreGenRecipe recipe) {
         super(state, recipe.getCount(), new CustomPredicate(recipe));
+        this.recipe = recipe;
+    }
+
+    public OreGenerator(IBlockState state, int normalOreSize, OreGenRecipe recipe) {
+        super(state, normalOreSize, new CustomPredicate(recipe));
         this.recipe = recipe;
     }
 
@@ -26,9 +32,10 @@ public class OreGenerator extends WorldGenMinable {
                 int posX = position.getX() + rand.nextInt(16);
                 int posY = recipe.getMinHeight() + rand.nextInt(recipe.getAllowedYOffset());
                 int posZ = position.getZ() + rand.nextInt(16);
-                BlockPos blockpos = new BlockPos(posX, posY, posZ);
-                super.generate(worldIn, rand, blockpos);
+                this.middleOre = new BlockPos(posX, posY, posZ);
+                super.generate(worldIn, rand, middleOre);
             }
+
         }
         return true;
     }
