@@ -16,7 +16,7 @@ public class OreGenRecipe {
     private int count;
     private int generateCountPerChunk;
 
-    public OreGenRecipe(IBlockState[] ore, IBlockState[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk, Boolean isSpecialGenerate, int normalOreSize, OreGenEvent.GenerateMinable.EventType eventType) {
+    public OreGenRecipe(IBlockState[] ore, IBlockState[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk, Boolean isSpecialGenerate, int normalOreSize, int mainMinHeight, int mainAllowedYOffset, OreGenEvent.GenerateMinable.EventType eventType) {
         this.replaceBlocks = replaceBlocks;
         this.ore = ore;
         this.dimision = dimision;
@@ -27,7 +27,7 @@ public class OreGenRecipe {
         this.eventType = eventType;
         if (isSpecialGenerate) {
             ModGenerators.oreSpecialGeneratorRecipes.add(this);
-            ModGenerators.worldSpecialGenerators.add(new SpecialGenerator(ore, normalOreSize, this));
+            ModGenerators.worldSpecialGenerators.add(new SpecialGenerator(ore, normalOreSize, mainMinHeight, mainAllowedYOffset, this));
         } else {
             ModGenerators.oreGeneratorRecipes.add(this);
             ModGenerators.worldGenerators.add(new OreGenerator(ore[0], this));
