@@ -6,8 +6,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraftforge.event.terraingen.OreGenEvent;
-import net.minecraftforge.event.terraingen.TerrainGen;
 
 import java.util.Random;
 
@@ -20,6 +18,11 @@ public class OreGenerator extends WorldGenMinable {
         this.recipe = recipe;
     }
 
+    public OreGenerator(IBlockState state, OreGenRecipe recipe, boolean isSpecialGenerate) {
+        super(state, recipe.getCount());
+        this.recipe = recipe;
+    }
+
     public OreGenerator(IBlockState state, int normalOreSize, OreGenRecipe recipe) {
         super(state, normalOreSize, new CustomPredicate(recipe));
         this.recipe = recipe;
@@ -27,7 +30,6 @@ public class OreGenerator extends WorldGenMinable {
 
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos position) {
-        if (TerrainGen.generateOre(worldIn, rand, this, position, OreGenEvent.GenerateMinable.EventType.CUSTOM)) {
             for (int i = 0; i < recipe.getGenerateCountPerChunk(); ++i) {
                 int posX = position.getX() + rand.nextInt(16);
                 int posY = recipe.getMinHeight() + rand.nextInt(recipe.getAllowedYOffset());
@@ -36,7 +38,6 @@ public class OreGenerator extends WorldGenMinable {
                 super.generate(worldIn, rand, middleOre);
             }
 
-        }
         return true;
     }
 

@@ -8,7 +8,7 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 
 public class OreGenRecipe {
     private final OreGenEvent.GenerateMinable.EventType eventType;
-    private IBlockState[] ore;
+    private IBlockState ore;
     private IBlockState[] replaceBlocks;
     private int dimision;
     private int minHeight;
@@ -16,7 +16,7 @@ public class OreGenRecipe {
     private int count;
     private int generateCountPerChunk;
 
-    public OreGenRecipe(IBlockState[] ore, IBlockState[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk, Boolean isSpecialGenerate, int normalOreSize, int mainMinHeight, int mainAllowedYOffset, OreGenEvent.GenerateMinable.EventType eventType) {
+    public OreGenRecipe(IBlockState ore, IBlockState[] replaceBlocks, int dimision, int minHeight, int allowedYOffset, int count, int generateCountPerChunk, Boolean isSpecialGenerate, int normalOreSize, int mainMinHeight, int mainAllowedYOffset, OreGenEvent.GenerateMinable.EventType eventType) {
         this.replaceBlocks = replaceBlocks;
         this.ore = ore;
         this.dimision = dimision;
@@ -27,10 +27,10 @@ public class OreGenRecipe {
         this.eventType = eventType;
         if (isSpecialGenerate) {
             ModGenerators.oreSpecialGeneratorRecipes.add(this);
-            ModGenerators.worldSpecialGenerators.add(new SpecialGenerator(ore, normalOreSize, mainMinHeight, mainAllowedYOffset, this));
+            ModGenerators.worldSpecialGenerators.add(new SpecialGenerator(ore, replaceBlocks, normalOreSize, mainMinHeight, mainAllowedYOffset, this));
         } else {
             ModGenerators.oreGeneratorRecipes.add(this);
-            ModGenerators.worldGenerators.add(new OreGenerator(ore[0], this));
+            ModGenerators.worldGenerators.add(new OreGenerator(ore, this));
         }
     }
 
@@ -61,7 +61,7 @@ public class OreGenRecipe {
         return count;
     }
 
-    public IBlockState[] getOre() {
+    public IBlockState getOre() {
         return ore;
     }
 

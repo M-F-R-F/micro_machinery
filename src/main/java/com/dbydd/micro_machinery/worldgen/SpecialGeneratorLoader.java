@@ -16,7 +16,7 @@ public class SpecialGeneratorLoader {
 
     @SubscribeEvent
     public void onOreGen(OreGenEvent.GenerateMinable event) {
-        if (event.getType() == OreGenEvent.GenerateMinable.EventType.CUSTOM) {
+        if (event.getType() == generator.recipe.getEventType()) {
             generator.generate(event.getWorld(), event.getRand(), event.getPos());
         }
     }
