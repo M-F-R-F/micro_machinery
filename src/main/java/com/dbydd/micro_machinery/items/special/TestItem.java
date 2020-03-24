@@ -20,12 +20,15 @@ public class TestItem extends Item {
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         int veinHeight = 5;
-        int middleY = Math.round(veinHeight / 2);
-        for (int i = 0 - middleY; i <= veinHeight; i++) {
+        int middleY = ((veinHeight - veinHeight % 2) / 2) + 1;
+        for (int i = 0 - middleY; i <= middleY; i++) {
             int x = pos.getX();
             int y = pos.getY() + i;
             int z = pos.getZ();
+
+            //半径
             int radius = veinHeight - (Math.abs(i));
+
             BlockPos beginPos = new BlockPos(x, y, z);
             for (int rx = x - radius; rx <= radius + x; rx++) {
                 for (int rz = z - radius; rz <= radius + z; rz++) {
