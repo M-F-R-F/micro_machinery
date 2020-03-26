@@ -72,7 +72,7 @@ public class VeinGenerator extends WorldGenerator {
                 int x2 = x1 + rand.nextInt(2 * range) - range;
                 int z2 = z1 + rand.nextInt(2 * range) - range;
                 //半径
-                int radius = (4 + range) + (int) (range * Math.sin(180 * ((double) (j + (stoneHeight + oreDepositHeight) * i) / (double) veinHeight)));
+                int radius = rand.nextInt(6) + range + (int) (0.8 * range * Math.sin(180 * ((double) (j + (stoneHeight + oreDepositHeight) * i) / (double) veinHeight)));
 
                 BlockPos beginPos = new BlockPos(x, y, z);
                 BlockPos secondPos = new BlockPos(x1, y, z1);

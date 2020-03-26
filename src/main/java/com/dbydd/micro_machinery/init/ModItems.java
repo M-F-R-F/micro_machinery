@@ -7,7 +7,6 @@ import com.dbydd.micro_machinery.items.ItemCast;
 import com.dbydd.micro_machinery.items.foods.FoodBase;
 import com.dbydd.micro_machinery.items.foods.Golden_Apple_Food;
 import com.dbydd.micro_machinery.items.materialbase.*;
-import com.dbydd.micro_machinery.items.special.TestItem;
 import com.dbydd.micro_machinery.items.tools.MyMaterial;
 import com.dbydd.micro_machinery.items.tools.ToolAxe;
 import com.dbydd.micro_machinery.items.tools.ToolHammer;
@@ -279,8 +278,6 @@ public class ModItems {
     public static final Item CAST_GEAR = new ItemCast("cast_gear", 584, EnumCastType.GEAR);
 	public static final Item CAST_SWORD = new ItemCast("cast_sword", 288, EnumCastType.SWORD);
 
-	//test
-	public static final Item TESTITEM = new TestItem();
 
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {

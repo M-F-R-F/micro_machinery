@@ -1,7 +1,6 @@
 package com.dbydd.micro_machinery.util;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 
 import java.util.Map;
 import java.util.Random;
@@ -13,7 +12,6 @@ public class RandomUtils {
         double d = rand.nextDouble();
         return d <= chance;
     }
-    //
 
     public static IBlockState outputRandmonBlockByList(Random rand, TreeMap<Double, IBlockState> map) {
         Double d = rand.nextDouble();
