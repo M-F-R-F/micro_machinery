@@ -1,7 +1,10 @@
 package com.dbydd.micro_machinery.init;
 
 import com.dbydd.micro_machinery.recipes.oregen.OreGenRecipe;
+import com.dbydd.micro_machinery.recipes.oregen.veins.VeinGenRecipe;
 import com.dbydd.micro_machinery.worldgen.SpecialGenerator;
+import com.dbydd.micro_machinery.worldgen.VeinGenerator;
+import com.dbydd.micro_machinery.worldgen.predicates.StonePredicate;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -9,14 +12,26 @@ import net.minecraftforge.event.terraingen.OreGenEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class ModGenerators {
     public static final List<OreGenRecipe> oreGeneratorRecipes = new ArrayList<OreGenRecipe>();
     public static final List<OreGenRecipe> oreSpecialGeneratorRecipes = new ArrayList<OreGenRecipe>();
+    public static final List<VeinGenRecipe> veinGeneratorRecipes = new ArrayList<VeinGenRecipe>();
+
     //    public static final List<OreGenRecipe> netherOreGenerators = new ArrayList<OreGenRecipe>();
-    //    public static final List<OreGenRecipe> endOreGenerators = new ArrayList<OreGenRecipe>();
+    public static final List<OreGenRecipe> endOreGenerators = new ArrayList<OreGenRecipe>();
     public static final List<WorldGenerator> worldGenerators = new ArrayList<WorldGenerator>();
     public static final List<SpecialGenerator> worldSpecialGenerators = new ArrayList<SpecialGenerator>();
+    public static final List<VeinGenerator> worldVeinGenerators = new ArrayList<VeinGenerator>();
+
+    public static final TreeMap<Double, IBlockState> testOreGen = new TreeMap<Double, IBlockState>();
+
+    public static void initMaps(){
+        testOreGen.put(0.9d, ModBlocks.BLOCKCOBALT.getDefaultState());
+    }
+    public static final VeinGenRecipe test = new VeinGenRecipe(0.8d, 0.2d, 1, 4, 2, 2, 45, 70, testOreGen, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.CUSTOM);
+
 
     public static final OreGenRecipe copper1 = new OreGenRecipe(ModBlocks.ORECOPPER.getDefaultState(), new IBlockState[]{Blocks.STONE.getDefaultState(), Blocks.STONE.getStateFromMeta(1), Blocks.STONE.getStateFromMeta(3), Blocks.STONE.getStateFromMeta(5)}, 0, 8, 48, 6, 8, false, 0, 0, 0, OreGenEvent.GenerateMinable.EventType.CUSTOM);
     public static final OreGenRecipe copper2 = new OreGenRecipe(ModBlocks.ORECOPPER.getDefaultState(), new IBlockState[]{Blocks.STONE.getStateFromMeta(5)}, 0, 0, 255, 8, 3, false, 0, 0, 0, OreGenEvent.GenerateMinable.EventType.CUSTOM);

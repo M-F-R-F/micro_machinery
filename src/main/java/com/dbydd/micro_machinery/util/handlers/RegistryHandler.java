@@ -7,10 +7,7 @@ import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
-import com.dbydd.micro_machinery.worldgen.DisabledOres;
-import com.dbydd.micro_machinery.worldgen.SpecialGenerator;
-import com.dbydd.micro_machinery.worldgen.SpecialGeneratorLoader;
-import com.dbydd.micro_machinery.worldgen.WorldGeneratorLoader;
+import com.dbydd.micro_machinery.worldgen.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -90,12 +87,17 @@ public class RegistryHandler {
         NetworkRegistry.INSTANCE.registerGuiHandler(Micro_Machinery.instance, new GUIHandler());
 
         MinecraftForge.ORE_GEN_BUS.register(DisabledOres.class);
+        ModGenerators.initMaps();
 
         for (WorldGenerator generator : ModGenerators.worldGenerators) {
             new WorldGeneratorLoader(generator);
         }
         for (SpecialGenerator generator : ModGenerators.worldSpecialGenerators) {
             new SpecialGeneratorLoader(generator);
+        }
+
+        for(VeinGenerator generator : ModGenerators.worldVeinGenerators){
+            new VeinGeneratorLoader(generator);
         }
     }
 
