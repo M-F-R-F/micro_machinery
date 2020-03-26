@@ -16,7 +16,7 @@ public class VeinGeneratorLoader {
 
     @SubscribeEvent
     public void onOreGen(OreGenEvent.GenerateMinable event) {
-        if (event.getType() == OreGenEvent.GenerateMinable.EventType.IRON) {
+        if (event.getType() == generator.getEvent()) {
             generator.generate(event.getWorld(), event.getRand(), event.getPos());
         }
     }

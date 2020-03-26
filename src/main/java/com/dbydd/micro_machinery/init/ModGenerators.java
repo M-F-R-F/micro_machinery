@@ -30,7 +30,7 @@ public class ModGenerators {
     public static void initMaps(){
         testOreGen.put(0.9d, ModBlocks.BLOCKCOBALT.getDefaultState());
     }
-    public static final VeinGenRecipe test = new VeinGenRecipe(0.8d, 0.2d, 1, 4, 2, 2, 45, 70, testOreGen, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.CUSTOM);
+    public static final VeinGenRecipe test = new VeinGenRecipe(0.8d, 0.2d, 1, 4, 2, 2, 45, 70, testOreGen, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
 
 
     public static final OreGenRecipe copper1 = new OreGenRecipe(ModBlocks.ORECOPPER.getDefaultState(), new IBlockState[]{Blocks.STONE.getDefaultState(), Blocks.STONE.getStateFromMeta(1), Blocks.STONE.getStateFromMeta(3), Blocks.STONE.getStateFromMeta(5)}, 0, 8, 48, 6, 8, false, 0, 0, 0, OreGenEvent.GenerateMinable.EventType.CUSTOM);
