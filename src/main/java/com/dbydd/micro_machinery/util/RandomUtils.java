@@ -13,6 +13,7 @@ public class RandomUtils {
         double d = rand.nextDouble();
         return d <= chance;
     }
+    //
 
     public static IBlockState outputRandmonBlockByList(Random rand, TreeMap<Double, IBlockState> map) {
         Double d = rand.nextDouble();
