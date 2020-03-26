@@ -67,16 +67,40 @@ public class VeinGenerator extends WorldGenerator {
                 int x = pos.getX();
                 int y = pos.getY() + j + (stoneHeight + oreDepositHeight) * i;
                 int z = pos.getZ();
-
+                int x1 = x + rand.nextInt(2 * range) - range;
+                int z1 = z + rand.nextInt(2 * range) - range;
+                int x2 = x1 + rand.nextInt(2 * range) - range;
+                int z2 = z1 + rand.nextInt(2 * range) - range;
                 //半径
                 int radius = (4 + range) + (int) (range * Math.sin(180 * ((double) (j + (stoneHeight + oreDepositHeight) * i) / (double) veinHeight)));
 
-
                 BlockPos beginPos = new BlockPos(x, y, z);
+                BlockPos secondPos = new BlockPos(x1, y, z1);
+                BlockPos thirdPos = new BlockPos(x2, y, z2);
                 for (int rx = x - radius; rx <= radius + x; rx++) {
                     for (int rz = z - radius; rz <= radius + z; rz++) {
                         BlockPos position = new BlockPos(rx, y, rz);
                         if ((Math.pow((x - rx), 2) + Math.pow((z - rz), 2)) <= Math.pow((radius), 2)) {
+                            if (RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position))) {
+                                worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
+                            }
+                        }
+                    }
+                }
+                for (int rx1 = x1 - radius; rx1 <= radius + x1; rx1++) {
+                    for (int rz1 = z1 - radius; rz1 <= radius + z1; rz1++) {
+                        BlockPos position = new BlockPos(rx1, y, rz1);
+                        if ((Math.pow((x1 - rx1), 2) + Math.pow((z1 - rz1), 2)) <= Math.pow((radius), 2)) {
+                            if (RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position))) {
+                                worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
+                            }
+                        }
+                    }
+                }
+                for (int rx2 = x2 - radius; rx2 <= radius + x2; rx2++) {
+                    for (int rz2 = z2 - radius; rz2 <= radius + z2; rz2++) {
+                        BlockPos position = new BlockPos(rx2, y, rz2);
+                        if ((Math.pow((x2 - rx2), 2) + Math.pow((z2 - rz2), 2)) <= Math.pow((radius), 2)) {
                             if (RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position))) {
                                 worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
                             }
