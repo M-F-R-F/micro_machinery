@@ -14,8 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.terraingen.OreGenEvent;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Random;
 
 public class TestItem extends Item {
@@ -28,12 +26,13 @@ public class TestItem extends Item {
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 
-        VeinGenerator generator = new VeinGenerator(0.8d,0.2d,  1, 4, 2, 2, 45, 70, ModGenerators.testOreGen, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.CUSTOM);
-        generator.generate(worldIn,new Random(worldIn.getSeed()),pos);
+        VeinGenerator generator = new VeinGenerator(0.8d, 0.2d, 1, 4, 2, 2, 45, 70, ModGenerators.testOreGen, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.CUSTOM);
+        generator.generate(worldIn, new Random(worldIn.getSeed()), pos);
         return EnumActionResult.SUCCESS;
     }
 
-    private EnumActionResult geneateTest(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {        //参数：矿脉最大半径R(5到R之间的随机数)，矿脉生成概率P，矿物层数OreStratum，矿层高度OreDepositHeight，石层高度StoneHeight，矿层矿物种类，矿层矿物比重，矿脉最低高度minHeight，矿脉最高高度maxHeight,总高度veinHeight
+    private EnumActionResult geneateTest(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        //参数：矿脉最大半径R(5到R之间的随机数)，矿脉生成概率P，矿物层数OreStratum，矿层高度OreDepositHeight，石层高度StoneHeight，矿层矿物种类，矿层矿物比重，矿脉最低高度minHeight，矿脉最高高度maxHeight,总高度veinHeight
         int range = 8;
         int oreStratum = 5;
         int oreDepositHeight = 4;
