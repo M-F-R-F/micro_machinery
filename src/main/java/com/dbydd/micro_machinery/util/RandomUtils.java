@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class RandomUtils {
 
@@ -13,7 +14,7 @@ public class RandomUtils {
         return d <= chance;
     }
 
-    public static IBlockState outputRandmonBlockByList(Random rand, Map<Double, IBlockState> map) {
+    public static IBlockState outputRandmonBlockByList(Random rand, TreeMap<Double, IBlockState> map) {
         Double d = rand.nextDouble();
         Double sum = 0.0d;
         for (Map.Entry entry : map.entrySet()) {
@@ -23,7 +24,7 @@ public class RandomUtils {
                 return (IBlockState) entry.getValue();
             }
         }
-        return Blocks.BEDROCK.getDefaultState();
+        return map.lastEntry().getValue();
     }
 
 }
