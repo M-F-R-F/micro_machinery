@@ -1,9 +1,7 @@
 package com.dbydd.micro_machinery.worldgen;
 
-import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.util.RandomUtils;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -53,7 +51,7 @@ public class VeinGenerator extends WorldGenerator {
             int posX = position.getX() + rand.nextInt(16);
             int posZ = position.getZ() + rand.nextInt(16);
             int tempY = worldIn.getHeight(posX, posZ) - (minHeight + veinHeight);
-            if(!(tempY < 0)) {
+            if (!(tempY < 0)) {
                 int posY = minHeight + rand.nextInt(tempY);
                 generateVein(worldIn, new BlockPos(posX, posY, posZ), rand);
             }
@@ -79,9 +77,9 @@ public class VeinGenerator extends WorldGenerator {
                     for (int rz = z - radius; rz <= radius + z; rz++) {
                         BlockPos position = new BlockPos(rx, y, rz);
                         if ((Math.pow((x - rx), 2) + Math.pow((z - rz), 2)) <= Math.pow((radius), 2)) {
-                            if(RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position)))
-                            worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
-                            worldIn.setBlockState(position, Blocks.BEACON.getDefaultState());
+                            if (RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position))) {
+                                worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
+                            }
                         }
                     }
                 }
