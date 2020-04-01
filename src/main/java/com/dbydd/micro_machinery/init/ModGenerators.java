@@ -2,10 +2,12 @@ package com.dbydd.micro_machinery.init;
 
 import com.dbydd.micro_machinery.recipes.oregen.OreGenRecipe;
 import com.dbydd.micro_machinery.recipes.oregen.veins.VeinGenRecipe;
+import com.dbydd.micro_machinery.worldgen.EndVeinGenerator;
 import com.dbydd.micro_machinery.worldgen.SpecialGenerator;
 import com.dbydd.micro_machinery.worldgen.VeinGenerator;
 import com.dbydd.micro_machinery.worldgen.predicates.PredicateNether;
 import com.dbydd.micro_machinery.worldgen.predicates.StonePredicate;
+import com.dbydd.micro_machinery.worldgen.predicates.TestPredicate;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -20,8 +22,7 @@ public class ModGenerators {
     public static final List<OreGenRecipe> oreSpecialGeneratorRecipes = new ArrayList<OreGenRecipe>();
     public static final List<VeinGenRecipe> veinGeneratorRecipes = new ArrayList<VeinGenRecipe>();
 
-    //    public static final List<OreGenRecipe> netherOreGenerators = new ArrayList<OreGenRecipe>();
-    //    public static final List<OreGenRecipe> endOreGenerators = new ArrayList<OreGenRecipe>();
+    public static final List<EndVeinGenerator> endVeinGenerators = new ArrayList<EndVeinGenerator>();
     public static final List<WorldGenerator> worldGenerators = new ArrayList<WorldGenerator>();
     public static final List<SpecialGenerator> worldSpecialGenerators = new ArrayList<SpecialGenerator>();
     public static final List<VeinGenerator> worldVeinGenerators = new ArrayList<VeinGenerator>();
@@ -123,4 +124,5 @@ public class ModGenerators {
     public static final VeinGenRecipe nethernolanite = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 3, 120, NetherOreNolanite, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
 //    public static final VeinGenRecipe endtunstite = new VeinGenRecipe(0.01d, 0.2d, 6, 3, 3, 3, 10, 84, EndOreTunstite, new PredicateEnd(), OreGenEvent.GenerateMinable.EventType.IRON);
 
+    public static final VeinGenRecipe test = new VeinGenRecipe(1.0d, 0.2d, 8, 3, 3, 3, 3, 62, OreCopper, new TestPredicate());
 }

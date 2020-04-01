@@ -99,6 +99,10 @@ public class RegistryHandler {
         for(VeinGenerator generator : ModGenerators.worldVeinGenerators){
             new VeinGeneratorLoader(generator);
         }
+
+        for(EndVeinGenerator generator: ModGenerators.endVeinGenerators){
+            new EndVeinGeneratorLoader(generator);
+        }
     }
 
     public static void postInitRegistries(FMLPostInitializationEvent event) {
