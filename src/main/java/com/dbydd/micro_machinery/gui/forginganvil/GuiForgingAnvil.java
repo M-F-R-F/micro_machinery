@@ -2,7 +2,7 @@ package com.dbydd.micro_machinery.gui.forginganvil;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityForgingAnvil;
+import com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity.TileEntityForgingAnvil;
 import com.dbydd.micro_machinery.gui.GuiBase;
 import com.dbydd.micro_machinery.network.AnvilButtonEventPackage;
 import net.minecraft.client.gui.GuiButton;

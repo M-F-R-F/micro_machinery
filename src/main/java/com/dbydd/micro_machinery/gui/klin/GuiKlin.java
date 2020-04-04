@@ -2,7 +2,7 @@ package com.dbydd.micro_machinery.gui.klin;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
+import com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.GuiBase;
 import com.dbydd.micro_machinery.network.KlinButtonEventPackage;
 import net.minecraft.client.gui.GuiButton;

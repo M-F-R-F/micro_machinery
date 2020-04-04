@@ -1,8 +1,8 @@
-package com.dbydd.micro_machinery.blocks.machine;
+package com.dbydd.micro_machinery.blocks.singlemachine;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityForgingAnvil;
+import com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity.TileEntityForgingAnvil;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
