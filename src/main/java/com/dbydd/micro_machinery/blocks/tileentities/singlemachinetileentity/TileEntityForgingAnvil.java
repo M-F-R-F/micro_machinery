@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.blocks.tileentities;
+package com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity;
 
 import com.dbydd.micro_machinery.items.tools.ToolHammer;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;

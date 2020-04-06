@@ -1,6 +1,6 @@
 package com.dbydd.micro_machinery.network;
 
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
+import com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity.TileEntityKlin;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;

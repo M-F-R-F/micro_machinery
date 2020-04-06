@@ -1,8 +1,8 @@
 package com.dbydd.micro_machinery.init;
 
 import com.dbydd.micro_machinery.blocks.*;
-import com.dbydd.micro_machinery.blocks.machine.BlockForgingAnvil;
-import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
+import com.dbydd.micro_machinery.blocks.singlemachine.BlockForgingAnvil;
+import com.dbydd.micro_machinery.blocks.singlemachine.BlockKlin;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
