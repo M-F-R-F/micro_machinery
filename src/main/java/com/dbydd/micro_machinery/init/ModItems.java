@@ -272,12 +272,14 @@ public class ModItems {
 	public static final Item CLAY_MIXED_WITH_CLINKER = new ItemBase("clay_mixed_with_clinker");
 	public static final Item BRONZE_SWORD0 = new ItemBase("bronze_sword0");
 
-    //casts
-    public static final Item CAST_INGOT = new ItemCast("cast_ingot",160, EnumCastType.INGOT);
-	public static final Item CAST_STICK = new ItemCast("cast_stick",72,EnumCastType.STICK);
-    public static final Item CAST_GEAR = new ItemCast("cast_gear", 584, EnumCastType.GEAR);
+	//casts
+	public static final Item CAST_INGOT = new ItemCast("cast_ingot", 160, EnumCastType.INGOT);
+	public static final Item CAST_STICK = new ItemCast("cast_stick", 72, EnumCastType.STICK);
+	public static final Item CAST_GEAR = new ItemCast("cast_gear", 584, EnumCastType.GEAR);
 	public static final Item CAST_SWORD = new ItemCast("cast_sword", 288, EnumCastType.SWORD);
 
+	//testtool
+	public static final Item TEST_TOOL = new ToolAxe(ToolMaterial.DIAMOND, 1000, "testtool", 12.0f, 15.0f);
 
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {
