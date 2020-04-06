@@ -1,5 +1,5 @@
 
-mtllib testitem.mtl
+mtllib models/testitem.mtl
 o Sphere
 v 1.000000 0.419194 -0.044194
 v 1.000000 0.398918 -0.057742
