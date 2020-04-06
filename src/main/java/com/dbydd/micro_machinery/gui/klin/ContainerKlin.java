@@ -1,6 +1,6 @@
 package com.dbydd.micro_machinery.gui.klin;
 
-import com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity.TileEntityKlin;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityKlin;
 import com.dbydd.micro_machinery.gui.ContainerBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;

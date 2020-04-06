@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity;
+package com.dbydd.micro_machinery.blocks.tileentities;
 
-import com.dbydd.micro_machinery.blocks.singlemachine.BlockKlin;
+import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinRecipe;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;

@@ -1,6 +1,6 @@
 package com.dbydd.micro_machinery.gui.forginganvil;
 
-import com.dbydd.micro_machinery.blocks.tileentities.singlemachinetileentity.TileEntityForgingAnvil;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityForgingAnvil;
 import com.dbydd.micro_machinery.gui.ContainerBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
