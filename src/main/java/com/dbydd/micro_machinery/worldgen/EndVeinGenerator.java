@@ -3,10 +3,8 @@ package com.dbydd.micro_machinery.worldgen;
 import com.dbydd.micro_machinery.util.RandomUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.event.terraingen.OreGenEvent;
 
 import java.util.Random;
 import java.util.TreeMap;
@@ -14,7 +12,7 @@ import java.util.function.Predicate;
 
 public class EndVeinGenerator extends WorldGenerator {
     private final Double veinGenChance;
-    private final Double nothingChance;
+    private final Double generateChancePerOre;
     private final int range;
     private final int oreStratum;
     private final int oreDepositHeight;
@@ -25,9 +23,9 @@ public class EndVeinGenerator extends WorldGenerator {
     private final TreeMap<Double, IBlockState> oreGenList;
     private final Predicate<IBlockState> predicate;
 
-    public EndVeinGenerator(Double veinGenChance, Double nothingChance, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, TreeMap<Double, IBlockState> oreGenList, Predicate<IBlockState> predicate) {
+    public EndVeinGenerator(Double veinGenChance, Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, TreeMap<Double, IBlockState> oreGenList, Predicate<IBlockState> predicate) {
         this.veinGenChance = veinGenChance;
-        this.nothingChance = nothingChance;
+        this.generateChancePerOre = generateChancePerOre;
         this.range = range;
         this.oreStratum = oreStratum;
         this.oreDepositHeight = oreDepositHeight;
@@ -75,7 +73,7 @@ public class EndVeinGenerator extends WorldGenerator {
                     for (int rz = z - radius; rz <= radius + z; rz++) {
                         BlockPos position = new BlockPos(rx, y, rz);
                         if ((Math.pow((x - rx), 2) + Math.pow((z - rz), 2)) <= Math.pow((radius), 2)) {
-                            if (RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position))) {
+                            if (RandomUtils.outputBooleanByChance(rand, generateChancePerOre) && predicate.test(worldIn.getBlockState(position))) {
                                 worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
                             }
                         }
@@ -85,7 +83,7 @@ public class EndVeinGenerator extends WorldGenerator {
                     for (int rz1 = z1 - radius; rz1 <= radius + z1; rz1++) {
                         BlockPos position = new BlockPos(rx1, y, rz1);
                         if ((Math.pow((x1 - rx1), 2) + Math.pow((z1 - rz1), 2)) <= Math.pow((radius), 2)) {
-                            if (RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position))) {
+                            if (RandomUtils.outputBooleanByChance(rand, generateChancePerOre) && predicate.test(worldIn.getBlockState(position))) {
                                 worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
                             }
                         }
@@ -95,7 +93,7 @@ public class EndVeinGenerator extends WorldGenerator {
                     for (int rz2 = z2 - radius; rz2 <= radius + z2; rz2++) {
                         BlockPos position = new BlockPos(rx2, y, rz2);
                         if ((Math.pow((x2 - rx2), 2) + Math.pow((z2 - rz2), 2)) <= Math.pow((radius), 2)) {
-                            if (RandomUtils.outputBooleanByChance(rand, nothingChance) && predicate.test(worldIn.getBlockState(position))) {
+                            if (RandomUtils.outputBooleanByChance(rand, generateChancePerOre) && predicate.test(worldIn.getBlockState(position))) {
                                 worldIn.setBlockState(position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
                             }
                         }

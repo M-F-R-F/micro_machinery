@@ -10,13 +10,13 @@ import java.util.TreeMap;
 import java.util.function.Predicate;
 
 public class VeinGenRecipe {
-    public VeinGenRecipe(Double veinGenChance,Double nothingChance, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, TreeMap<Double, IBlockState> oreGenList, Predicate<IBlockState> predicate, OreGenEvent.GenerateMinable.EventType event) {
+    public VeinGenRecipe(Double veinGenChance,Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, TreeMap<Double, IBlockState> oreGenList, Predicate<IBlockState> predicate, OreGenEvent.GenerateMinable.EventType event) {
         ModGenerators.veinGeneratorRecipes.add(this);
-        ModGenerators.worldVeinGenerators.add(new VeinGenerator(veinGenChance, nothingChance, range, oreStratum, oreDepositHeight, stoneHeight, minHeight, maxHeight, oreGenList, predicate, event));
+        ModGenerators.worldVeinGenerators.add(new VeinGenerator(veinGenChance, generateChancePerOre, range, oreStratum, oreDepositHeight, stoneHeight, minHeight, maxHeight, oreGenList, predicate, event));
     }
 
-    public VeinGenRecipe(Double veinGenChance,Double nothingChance, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, TreeMap<Double, IBlockState> oreGenList, Predicate<IBlockState> predicate) {
+    public VeinGenRecipe(Double veinGenChance,Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, TreeMap<Double, IBlockState> oreGenList, Predicate<IBlockState> predicate) {
         ModGenerators.veinGeneratorRecipes.add(this);
-        ModGenerators.endVeinGenerators.add(new EndVeinGenerator(veinGenChance, nothingChance, range, oreStratum, oreDepositHeight, stoneHeight, minHeight, maxHeight, oreGenList, predicate));
+        ModGenerators.endVeinGenerators.add(new EndVeinGenerator(veinGenChance, generateChancePerOre, range, oreStratum, oreDepositHeight, stoneHeight, minHeight, maxHeight, oreGenList, predicate));
     }
 }
