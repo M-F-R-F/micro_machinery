@@ -1,7 +1,70 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "transform": "forge:default-block",
+    "transform": {
+      "scale": 0.75,
+      "rotation": [
+        {
+          "x": 0
+        },
+        {
+          "y": 0
+        }
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "thirdperson": {
+        "scale": 1,
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": {
+          "x": 90
+        }
+      },
+      "thirdperson_lefthand": {
+        "scale": 1,
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": {
+          "x": 90
+        }
+      },
+      "gui": {
+        "scale": 1,
+        "translation": [
+          -0.05,
+          0,
+          0
+        ],
+        "rotation": [
+          15,
+          125,
+          0
+        ]
+      },
+      "fixed": {
+        "scale": 1,
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          -90,
+          0
+        ]
+      }
+    },
     "custom": {
       "flip-v": true
     },
@@ -10,33 +73,6 @@
   "variants": {
     "normal": [
       {
-        "transform": {
-          "scale": 0.5,
-          "rotation": [
-            {
-              "x": 37.5
-            },
-            {
-              "y": 45
-            }
-          ],
-          "translation": [
-            -0.1875,
-            -0.1875,
-            0
-          ],
-          "thirdperson": {
-            "scale": 0.6,
-            "translation": [
-              0,
-              0.2,
-              0
-            ],
-            "rotation": {
-              "x": 62.5
-            }
-          }
-        }
       }
     ],
     "inventory": [
