@@ -305,6 +305,7 @@ item.hss_sword.name=High Speed Steel Sword
 item.stone_hammer.name=Stone Hammer
 item.bronze_hammer.name=Bronze Hammer
 item.iron_hammer.name=Iron Hammer
+item.laser_drill.name=Laser Drill
 
 //item
 item.monocrystalline_silicon.name=Monocrystalline Silicon

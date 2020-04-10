@@ -306,6 +306,7 @@ item.hss_sword.name=高速钢剑
 item.stone_hammer.name=石锤
 item.bronze_hammer.name=青铜锤
 item.iron_hammer.name=铁锤
+item.laser_drill.name=便携式激光钻头
 
 //item
 item.monocrystalline_silicon.name=单晶硅
