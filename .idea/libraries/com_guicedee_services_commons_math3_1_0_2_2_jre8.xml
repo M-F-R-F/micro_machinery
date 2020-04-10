@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.guicedee.services:commons-math3:1.0.2.2-jre8" type="repository">
+    <properties maven-id="com.guicedee.services:commons-math3:1.0.2.2-jre8" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/commons-math3-1.0.2.2-jre8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/commons-math3-1.0.2.2-jre8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

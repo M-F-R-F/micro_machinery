@@ -1,6 +1,0 @@
-# Blender MTL File: 'testitem.blend'
-# Material Count: 1
-
-newmtl wow
-
-map_Kd micro_machinery:obj/testitem
