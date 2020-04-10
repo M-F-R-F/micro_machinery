@@ -1,0 +1,6 @@
+# Blender MTL File: 'lazer_drill.blend'
+# Material Count: 1
+
+newmtl wow
+
+map_Kd micro_machinery:obj/lazer_drill
