@@ -3,7 +3,6 @@ package com.dbydd.micro_machinery.interfaces;
 import com.dbydd.micro_machinery.EnumType.EnumInfluenceDirection;
 import com.dbydd.micro_machinery.EnumType.EnumMMFECableStatus;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.apache.commons.math3.linear.RealVector;
 
 import javax.vecmath.Vector3d;
 
@@ -23,7 +22,7 @@ public interface IMMFEStorage extends IEnergyStorage {
 
     EnumInfluenceDirection generateInfluences();
 
-    void ActionForgneticForce(RealVector force);
+    void ActionForgneticForce(Vector3d force);
 
     void updateState();
 
