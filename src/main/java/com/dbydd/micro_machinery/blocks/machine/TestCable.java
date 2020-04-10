@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.blocks.machine;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.blocks.tileentities.TileentityTestCable;
+import com.dbydd.micro_machinery.blocks.tileentities.MMFEMachineBase;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
@@ -37,7 +37,8 @@ public class TestCable extends BlockContainer implements IHasModel {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileentityTestCable();
+        return null;
     }
+    //todo
 
 }
