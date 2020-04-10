@@ -5,6 +5,8 @@ import com.dbydd.micro_machinery.EnumType.EnumMMFECableStatus;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.apache.commons.math3.linear.RealVector;
 
+import javax.vecmath.Vector3d;
+
 public interface IMMFEStorage extends IEnergyStorage {
 
     int FEConversion(int Ft, int Fr);
@@ -27,8 +29,8 @@ public interface IMMFEStorage extends IEnergyStorage {
 
     EnumMMFECableStatus getStatue();
 
-    RealVector getPreviousForgneticForce();
+    Vector3d getPreviousForgneticForce();
 
-    RealVector getForgneticForce();
+    Vector3d getForgneticForce();
 
 }
