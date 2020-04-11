@@ -1,5 +1,5 @@
 package com.dbydd.micro_machinery.EnumType;
 
-public enum EnumMMFECableStatus {
+public enum EnumMMFETineEntityStatus {
     OUTPUT,INPUT,CABLE
 }
