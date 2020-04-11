@@ -17,8 +17,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class TestCable extends BlockContainer implements IHasModel {
-    protected TestCable() {
+public class FireGenerator extends BlockContainer implements IHasModel {
+    protected FireGenerator() {
         super(Material.IRON);
         setSoundType(SoundType.METAL);
         setUnlocalizedName("testcable");

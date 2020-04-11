@@ -1,103 +1,131 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.EnumType.EnumInfluenceDirection;
-import com.dbydd.micro_machinery.EnumType.EnumMMFECableStatus;
-import com.dbydd.micro_machinery.blocks.machine.TestCable;
+import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.interfaces.IMMFEStorage;
-import net.minecraft.block.Block;
+import com.dbydd.micro_machinery.vector.FluxFlowVector;
+import com.dbydd.micro_machinery.vector.FluxPowerVector;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import javax.annotation.Nullable;
 
-public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage, ITickable {
+public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage {
 
-    private EnumMMFECableStatus status;
-    private int fortage;
-    private int furrect;
-    private int lossValue;
-    private EnumInfluenceDirection influenceDirection;
-    private Deque<IEnergyStorage> inputs = new ArrayDeque<>();
+    protected final int maxEnergyCapacity;
+    protected final int lossValue;
+    protected int energyStored;
+    protected EnumMMFETileEntityStatus status;
+    protected EnumInfluenceDirection influenceDirection;
 
-    @Override
-    public int FEConversion(int Ft, int Fr) {
-        return Fr * Fr;
-    }
-
-    @Override
-    public int getFortage() {
-        return this.fortage;
-    }
-
-    @Override
-    public int getFurrect() {
-        return this.furrect;
-    }
-
-    @Override
-    public int getPreviousFortage() {
-        int sumFortage = 0;
-        int count = 0;
-        for (int x = -1; x <= 1; x++) {
-            Block block = world.getBlockState(new BlockPos(pos.getX() + x, pos.getY(), pos.getZ())).getBlock();
-            if (block instanceof TestCable) {
-                sumFortage += ((MMFEMachineBase) world.getTileEntity(pos)).getFortage();
-                count++;
-            }
-        }
-        for (int y = -1; y <= 1; y++) {
-            Block block = world.getBlockState(new BlockPos(pos.getX(), pos.getY() + y, pos.getZ())).getBlock();
-            if (block instanceof TestCable) {
-                sumFortage += ((MMFEMachineBase) world.getTileEntity(pos)).getFortage();
-                count++;
-            }
-        }
-        for (int z = -1; z <= 1; z++) {
-            Block block = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + z)).getBlock();
-            if (block instanceof TestCable) {
-                sumFortage += ((MMFEMachineBase) world.getTileEntity(pos)).getFortage();
-                count++;
-            }
-        }
-        if (count == 0) return 0;
-        return sumFortage / count;
-    }
-
-    @Override
-    public int getPreviousFurrect() {
-        int sumFurrect = 0;
-        for (int x = -1; x <= 1; x++) {
-            Block block = world.getBlockState(new BlockPos(pos.getX() + x, pos.getY(), pos.getZ())).getBlock();
-            if (block instanceof TestCable) {
-                sumFurrect += ((MMFEMachineBase) world.getTileEntity(pos)).getFurrect();
-            }
-        }
-        for (int y = -1; y <= 1; y++) {
-            Block block = world.getBlockState(new BlockPos(pos.getX(), pos.getY() + y, pos.getZ())).getBlock();
-            if (block instanceof TestCable) {
-                sumFurrect += ((MMFEMachineBase) world.getTileEntity(pos)).getFurrect();
-            }
-        }
-        for (int z = -1; z <= 1; z++) {
-            Block block = world.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ() + z)).getBlock();
-            if (block instanceof TestCable) {
-                sumFurrect += ((MMFEMachineBase) world.getTileEntity(pos)).getFurrect();
-            }
-        }
-        return sumFurrect;
+    MMFEMachineBase(int level, int maxEnergyCapacity, EnumMMFETileEntityStatus status, int lossValue) {
+        this.maxEnergyCapacity = maxEnergyCapacity;
+        this.status = status;
+        this.lossValue = lossValue;
     }
 
     @Override
     public int loss(int FENeedToLoss) {
-        return FENeedToLoss - (this.furrect / (int) Math.round(Math.sqrt(this.fortage))) * this.lossValue;
+        return FENeedToLoss - lossValue;
     }
 
     @Override
-    public EnumInfluenceDirection generateInfluences() {
-        return this.influenceDirection;
+    public int getLossValue() {
+        return 0;
+    }
+
+    @Override
+    public boolean canExtract() {
+        return status != EnumMMFETileEntityStatus.INPUT;
+    }
+
+    @Override
+    public boolean canReceive() {
+        return status == EnumMMFETileEntityStatus.INPUT;
+    }
+
+    @Override
+    public int getEnergyStored() {
+        return energyStored;
+    }
+
+    @Override
+    public int getMaxEnergyStored() {
+        return maxEnergyCapacity;
+    }
+
+    @Override
+    public int receiveEnergy(int maxReceive, boolean simulate) {
+        if (maxReceive + energyStored >= energyStored) {
+            if (!simulate) energyStored = maxEnergyCapacity;
+            return maxReceive + energyStored - maxEnergyCapacity;
+        } else {
+            if (!simulate)
+                energyStored += maxReceive;
+            return 0;
+        }
+    }
+
+    @Override
+    public int extractEnergy(int maxExtract, boolean simulate) {
+        int output = 0;
+        if (maxExtract >= energyStored) {
+            output = energyStored;
+            if (!simulate) energyStored = 0;
+            return output;
+        } else {
+            if (!simulate)
+                energyStored -= maxExtract;
+            return maxExtract;
+        }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound.setInteger("energystored", energyStored);
+        compound.setString("status", status.name());
+        compound.setString("influenceDirection",influenceDirection.name() );
+        return compound;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        this.influenceDirection = EnumInfluenceDirection.valueOf(compound.getString("influenceDirection"));
+        this.status = EnumMMFETileEntityStatus.valueOf(compound.getString("status"));
+        this.energyStored = compound.getInteger("energystored");
+    }
+
+    @Override
+    public FluxPowerVector generateInfluences() {
+        return null;
+    }
+
+    @Override
+    public void ActionForgneticForce(FluxPowerVector force) {
+
+    }
+
+    @Override
+    public FluxFlowVector getForgneticForce() {
+        return null;
+    }
+
+    @Override
+    public FluxFlowVector getPreviousForgneticForce() {
+        return null;
+    }
+
+    @Override
+    public EnumMMFETileEntityStatus updateStatue() {
+        return null;
+    }
+
+    @Override
+    public void updateState() {
+
     }
 
 }

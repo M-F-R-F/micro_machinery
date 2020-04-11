@@ -1,35 +1,29 @@
 package com.dbydd.micro_machinery.interfaces;
 
 import com.dbydd.micro_machinery.EnumType.EnumInfluenceDirection;
-import com.dbydd.micro_machinery.EnumType.EnumMMFECableStatus;
+import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
+import com.dbydd.micro_machinery.vector.FluxFlowVector;
+import com.dbydd.micro_machinery.vector.FluxPowerVector;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.vecmath.Vector3d;
 
 public interface IMMFEStorage extends IEnergyStorage {
 
-    int FEConversion(int Ft, int Fr);
-
-    int getFortage();
-
-    int getFurrect();
-
-    int getPreviousFortage();
-
-    int getPreviousFurrect();
-
     int loss(int FENeedToLoss);
 
-    EnumInfluenceDirection generateInfluences();
+    int getLossValue();
 
-    void ActionForgneticForce(Vector3d force);
+    FluxPowerVector generateInfluences();
+
+    void ActionForgneticForce(FluxPowerVector force);
 
     void updateState();
 
-    EnumMMFECableStatus getStatue();
+    EnumMMFETileEntityStatus updateStatue();
 
-    Vector3d getPreviousForgneticForce();
+    FluxFlowVector getPreviousForgneticForce();
 
-    Vector3d getForgneticForce();
+    FluxFlowVector getForgneticForce();
 
 }
