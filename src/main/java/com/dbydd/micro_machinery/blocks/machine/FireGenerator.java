@@ -2,6 +2,7 @@ package com.dbydd.micro_machinery.blocks.machine;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.blocks.tileentities.MMFEMachineBase;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityFireGenerator;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
@@ -37,8 +38,7 @@ public class FireGenerator extends BlockContainer implements IHasModel {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return null;
+        return new TileEntityFireGenerator(128);
     }
-    //todo
 
 }

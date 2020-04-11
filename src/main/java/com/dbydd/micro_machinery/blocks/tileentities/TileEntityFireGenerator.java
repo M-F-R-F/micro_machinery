@@ -27,8 +27,8 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     private int waterNeededPerTick = 0;
     private boolean isGenerating = false;
 
-    TileEntityFireGenerator(int level, int maxEnergyCapacity) {
-        super(level, maxEnergyCapacity, EnumMMFETileEntityStatus.OUTPUT, 0);
+    public TileEntityFireGenerator(int maxEnergyCapacity) {
+        super(maxEnergyCapacity, EnumMMFETileEntityStatus.OUTPUT, 0);
     }
 
     @Override

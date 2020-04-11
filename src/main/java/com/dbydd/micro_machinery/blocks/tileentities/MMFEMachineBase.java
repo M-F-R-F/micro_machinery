@@ -21,7 +21,7 @@ public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage
     protected EnumMMFETileEntityStatus status;
     protected EnumInfluenceDirection influenceDirection;
 
-    MMFEMachineBase(int level, int maxEnergyCapacity, EnumMMFETileEntityStatus status, int lossValue) {
+    MMFEMachineBase(int maxEnergyCapacity, EnumMMFETileEntityStatus status, int lossValue) {
         this.maxEnergyCapacity = maxEnergyCapacity;
         this.status = status;
         this.lossValue = lossValue;
