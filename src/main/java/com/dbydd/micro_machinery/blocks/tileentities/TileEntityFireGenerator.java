@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.FluidStack;
@@ -37,11 +38,11 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setTag("inventory", fuelHandler.serializeNBT());
-        compound.setInteger("maxBurnTime",maxBurnTime);
-        compound.setInteger("currentBurnTime",currentBurnTime);
-        compound.setInteger("generateFEPerTick",generateFEPerTick);
-        compound.setInteger("waterNeededPerTick",waterNeededPerTick);
-        compound.setBoolean("isGenerating",isGenerating);
+        compound.setInteger("maxBurnTime", maxBurnTime);
+        compound.setInteger("currentBurnTime", currentBurnTime);
+        compound.setInteger("generateFEPerTick", generateFEPerTick);
+        compound.setInteger("waterNeededPerTick", waterNeededPerTick);
+        compound.setBoolean("isGenerating", isGenerating);
         return super.writeToNBT(tank.writeToNBT(compound));
     }
 
@@ -84,15 +85,24 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                     generateFEPerTick = recipe.getGenerateFEPerTick();
                     waterNeededPerTick = recipe.getWaterNeededPerTick();
                     isGenerating = true;
+                    world.playerEntities.get(0).sendMessage(new TextComponentString("yes"));
                     markDirty();
                 }
             }
         } else {
             currentBurnTime++;
-            tank.drain(waterNeededPerTick, true);
-            this.receiveEnergy(generateFEPerTick, false);
+            if(tank.getFluidAmount() >= 0) {
+                tank.drain(waterNeededPerTick, true);
+                if (energyStored + generateFEPerTick >= maxEnergyCapacity) {
+                    energyStored = maxEnergyCapacity;
+                } else energyStored += generateFEPerTick;
+            }
             if (currentBurnTime >= maxBurnTime) {
                 isGenerating = false;
+                currentBurnTime = 0;
+                maxBurnTime = 0;
+                generateFEPerTick = 0;
+                waterNeededPerTick = 0;
             }
             markDirty();
         }

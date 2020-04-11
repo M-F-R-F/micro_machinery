@@ -19,11 +19,11 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class FireGenerator extends BlockContainer implements IHasModel {
-    protected FireGenerator() {
+    public FireGenerator() {
         super(Material.IRON);
         setSoundType(SoundType.METAL);
-        setUnlocalizedName("testcable");
-        setRegistryName("testcable");
+        setUnlocalizedName("firegenerator");
+        setRegistryName("firegenerator");
         setCreativeTab(Micro_Machinery.Micro_Machinery);
         setHardness(3.0f);
         ModBlocks.BLOCKS.add(this);

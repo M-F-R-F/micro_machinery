@@ -3,6 +3,7 @@ package com.dbydd.micro_machinery.init;
 import com.dbydd.micro_machinery.blocks.*;
 import com.dbydd.micro_machinery.blocks.machine.BlockForgingAnvil;
 import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
+import com.dbydd.micro_machinery.blocks.machine.FireGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -98,4 +99,5 @@ public class ModBlocks {
     public static final Block STONE_ANVIL = new BlockForgingAnvil("stone_anvil", 1);
     public static final Block BRONZE_ANVIL = new BlockForgingAnvil("bronze_anvil", 2);
     public static final Block PIGIRON_ANVIL = new BlockForgingAnvil("pigiron_anvil", 3);
+    public static final Block FIREGENERATOR = new FireGenerator();
 }

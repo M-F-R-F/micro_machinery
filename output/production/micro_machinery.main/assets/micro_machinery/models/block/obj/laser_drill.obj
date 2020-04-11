@@ -1,6 +1,6 @@
-# Blender v2.80 (sub 75) OBJ File: 'lazer_drill.blend'
+# Blender v2.80 (sub 75) OBJ File: 'laser_drill.blend'
 # www.blender.org
-mtllib lazer_drill.mtl
+mtllib laser_drill.mtl
 o Sphere.001
 v 0.687500 0.234375 0.000000
 v 0.593750 0.140625 -0.062500
