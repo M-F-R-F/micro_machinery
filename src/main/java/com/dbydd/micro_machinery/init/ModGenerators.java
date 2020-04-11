@@ -123,5 +123,5 @@ public class ModGenerators {
     public static final VeinGenRecipe netherferromanganese = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 3, 120, NetherOreFerroManganese, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
     public static final VeinGenRecipe nethernolanite = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 3, 120, NetherOreNolanite, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
 
-    public static final VeinGenRecipe test = new VeinGenRecipe(0.05d, 0.04d, 8, 5, 3, 3, 3, 62, EndOreTunstite, new PredicateEnd());
+    public static final VeinGenRecipe tunstite = new VeinGenRecipe(0.05d, 0.04d, 8, 5, 3, 3, 3, 62, EndOreTunstite, new PredicateEnd());
 }
