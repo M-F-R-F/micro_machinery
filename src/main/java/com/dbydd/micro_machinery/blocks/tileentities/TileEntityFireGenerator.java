@@ -1,6 +1,9 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
+import com.dbydd.micro_machinery.init.ModRecipes;
+import com.dbydd.micro_machinery.recipes.RecipeHelper;
+import com.dbydd.micro_machinery.recipes.firegenerator.FireGeneratorRecipe;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -74,7 +77,25 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
 
     @Override
     public void update() {
-
+        if (!isGenerating) {
+            for (FireGeneratorRecipe recipe : ModRecipes.fireGenerateRecipes) {
+                if (RecipeHelper.isStackABiggerThanStackB(fuelHandler.getStackInSlot(0), recipe.getFuel())) {
+                    maxBurnTime = recipe.getMaxBurnTime();
+                    generateFEPerTick = recipe.getGenerateFEPerTick();
+                    waterNeededPerTick = recipe.getWaterNeededPerTick();
+                    isGenerating = true;
+                    markDirty();
+                }
+            }
+        } else {
+            currentBurnTime++;
+            tank.drain(waterNeededPerTick, true);
+            this.receiveEnergy(generateFEPerTick, false);
+            if (currentBurnTime >= maxBurnTime) {
+                isGenerating = false;
+            }
+            markDirty();
+        }
 
 
     }

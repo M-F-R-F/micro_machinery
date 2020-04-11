@@ -7,11 +7,6 @@ import com.dbydd.micro_machinery.vector.FluxFlowVector;
 import com.dbydd.micro_machinery.vector.FluxPowerVector;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.energy.CapabilityEnergy;
-
-import javax.annotation.Nullable;
 
 public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage {
 

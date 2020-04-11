@@ -76,5 +76,6 @@ public class ModRecipes {
     public static final ForgingAnvilRecipe dustcoal = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.DUSTCARBON), new ItemStack(Items.COAL, 1, 1));
 
     //firegenerator
-
+    public static final FireGeneratorRecipe coal = new FireGeneratorRecipe(new ItemStack(Items.COAL), 128, 500, 1);
+    public static final FireGeneratorRecipe log = new FireGeneratorRecipe(new ItemStack(Blocks.LOG), 128, 500, 1);
 }

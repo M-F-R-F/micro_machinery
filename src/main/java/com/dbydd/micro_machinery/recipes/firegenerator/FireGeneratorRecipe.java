@@ -9,6 +9,22 @@ public class FireGeneratorRecipe {
     private final int maxBurnTime;
     private final int waterNeededPerTick;
 
+    public ItemStack getFuel() {
+        return fuel;
+    }
+
+    public int getGenerateFEPerTick() {
+        return generateFEPerTick;
+    }
+
+    public int getMaxBurnTime() {
+        return maxBurnTime;
+    }
+
+    public int getWaterNeededPerTick() {
+        return waterNeededPerTick;
+    }
+
     public FireGeneratorRecipe(ItemStack fuel, int generateFEPerTick, int maxBurnTime, int waterNeededPerTick) {
         this.fuel = fuel;
         this.generateFEPerTick = generateFEPerTick;

@@ -40,11 +40,11 @@ public class RecipeHelper {
     }
 
 
-    private static boolean areItemStackEqual(ItemStack stackA, ItemStack stackB) {
+    public static boolean areItemStackEqual(ItemStack stackA, ItemStack stackB) {
         return stackA.getItem() == stackB.getItem() && stackA.getMetadata() == stackB.getMetadata();
     }
 
-    private static boolean compareItemStackCont(ItemStack stackA, ItemStack stackB) {
+    public static boolean compareItemStackCont(ItemStack stackA, ItemStack stackB) {
         return stackA.getCount() >= stackB.getCount();
     }
 
