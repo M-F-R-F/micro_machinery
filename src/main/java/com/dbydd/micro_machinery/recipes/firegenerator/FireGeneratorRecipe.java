@@ -1,5 +1,6 @@
 package com.dbydd.micro_machinery.recipes.firegenerator;
 
+import com.dbydd.micro_machinery.init.ModRecipes;
 import net.minecraft.item.ItemStack;
 
 public class FireGeneratorRecipe {
@@ -13,5 +14,6 @@ public class FireGeneratorRecipe {
         this.generateFEPerTick = generateFEPerTick;
         this.maxBurnTime = maxBurnTime;
         this.waterNeededPerTick = waterNeededPerTick;
+        ModRecipes.fireGenerateRecipes.add(this);
     }
 }
