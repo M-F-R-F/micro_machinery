@@ -38,7 +38,7 @@ public class FireGenerator extends BlockContainer implements IHasModel {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityFireGenerator(20000);
+        return new TileEntityFireGenerator(25600);
     }
 
 }
