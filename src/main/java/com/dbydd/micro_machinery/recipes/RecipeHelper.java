@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 public class RecipeHelper {
 
     public static KlinRecipe GetKlinRecipe(ItemStack stackInSlot, ItemStack stackInSlot1) {
-        for (KlinRecipe tofluidrecipe : ModRecipes.tofluidrecipes) {
+        for (KlinRecipe tofluidrecipe : ModRecipes.klinToFluidRecipes) {
             if (areItemStackEqual(stackInSlot, tofluidrecipe.input1) && areItemStackEqual(stackInSlot1, tofluidrecipe.input2) || (areItemStackEqual(stackInSlot1, tofluidrecipe.input1) && areItemStackEqual(stackInSlot, tofluidrecipe.input2))) {
                 if ((compareItemStackCont(stackInSlot, tofluidrecipe.input1) && compareItemStackCont(stackInSlot1, tofluidrecipe.input2)) || (compareItemStackCont(stackInSlot, tofluidrecipe.input2) && compareItemStackCont(stackInSlot1, tofluidrecipe.input1)))
                     return tofluidrecipe;
@@ -24,7 +24,7 @@ public class RecipeHelper {
     public static KlinFluidRecipe GetKlinFluidRecipe(FluidStack fluidStack, ItemStack castslot) {
         Item cast = castslot.getItem();
         if (cast instanceof ItemCast) {
-            for (KlinFluidRecipe recipe : ModRecipes.fluidRecipes) {
+            for (KlinFluidRecipe recipe : ModRecipes.klinFluidRecipes) {
                 if (fluidStack.getFluid() == recipe.inputfluid && recipe.cast.canpouring(fluidStack.amount) && recipe.cast.type == ((ItemCast) cast).type)
                     return recipe;
             }
@@ -33,7 +33,7 @@ public class RecipeHelper {
     }
 
     public static ForgingAnvilRecipe getForgingAnvilRecipe(ItemStack itemStack) {
-        for (ForgingAnvilRecipe recipe : ModRecipes.forginganvilrecipes) {
+        for (ForgingAnvilRecipe recipe : ModRecipes.forgingAnvilRecipes) {
             if (areItemStackEqual(itemStack, recipe.getInput())) return recipe;
         }
         return null;

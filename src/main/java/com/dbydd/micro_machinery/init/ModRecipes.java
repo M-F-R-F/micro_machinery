@@ -1,5 +1,6 @@
 package com.dbydd.micro_machinery.init;
 
+import com.dbydd.micro_machinery.recipes.firegenerator.FireGeneratorRecipe;
 import com.dbydd.micro_machinery.recipes.forginganvil.ForgingAnvilRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinRecipe;
@@ -12,9 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModRecipes {
-    public static final List<KlinFluidRecipe> fluidRecipes = new ArrayList<KlinFluidRecipe>();
-    public static final List<KlinRecipe> tofluidrecipes = new ArrayList<KlinRecipe>();
-    public static final List<ForgingAnvilRecipe> forginganvilrecipes = new ArrayList<ForgingAnvilRecipe>();
+    public static final List<KlinFluidRecipe> klinFluidRecipes = new ArrayList<KlinFluidRecipe>();
+    public static final List<KlinRecipe> klinToFluidRecipes = new ArrayList<KlinRecipe>();
+    public static final List<ForgingAnvilRecipe> forgingAnvilRecipes = new ArrayList<ForgingAnvilRecipe>();
+    public static final List<FireGeneratorRecipe> fireGenerateRecipes = new ArrayList<FireGeneratorRecipe>();
 
     //klintofluid
     public static final KlinRecipe molten_copper1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORECOPPER, 1), 24);
@@ -72,4 +74,7 @@ public class ModRecipes {
     public static final ForgingAnvilRecipe crushed_nolanite2 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNOLANITE, 2), new ItemStack(ModBlocks.ORENOLANITE_NETHER));
     public static final ForgingAnvilRecipe crushed_tunstite = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDTUNSTITE, 2), new ItemStack(ModBlocks.ORETUNSTITE));
     public static final ForgingAnvilRecipe dustcoal = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.DUSTCARBON), new ItemStack(Items.COAL, 1, 1));
+
+    //firegenerator
+
 }

@@ -21,7 +21,7 @@ public class KlinFluidRecipe {
         this.cast = (ItemCast) cast;
         this.cooldown = cooldown;
 
-        ModRecipes.fluidRecipes.add(this);
+        ModRecipes.klinFluidRecipes.add(this);
     }
 
 }

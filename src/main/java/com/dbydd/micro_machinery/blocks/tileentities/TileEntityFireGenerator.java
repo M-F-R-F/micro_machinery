@@ -24,6 +24,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     private int maxBurnTime = 0;
     private int currentBurnTime = 0;
     private int generateFEPerTick = 0;
+    private int waterNeededPerTick = 0;
     private boolean isGenerating = false;
 
     TileEntityFireGenerator(int level, int maxEnergyCapacity) {
@@ -36,6 +37,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
         compound.setInteger("maxBurnTime",maxBurnTime);
         compound.setInteger("currentBurnTime",currentBurnTime);
         compound.setInteger("generateFEPerTick",generateFEPerTick);
+        compound.setInteger("waterNeededPerTick",waterNeededPerTick);
         compound.setBoolean("isGenerating",isGenerating);
         return super.writeToNBT(tank.writeToNBT(compound));
     }
@@ -45,6 +47,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
         super.readFromNBT(compound);
         tank.readFromNBT(compound);
         isGenerating = compound.getBoolean("isGenerating");
+        waterNeededPerTick = compound.getInteger("waterNeededPerTick");
         generateFEPerTick = compound.getInteger("generateDEPerTick");
         currentBurnTime = compound.getInteger("currentBurnTime");
         maxBurnTime = compound.getInteger("maxBurnTime");

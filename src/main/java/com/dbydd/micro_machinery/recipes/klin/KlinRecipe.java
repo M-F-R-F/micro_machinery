@@ -20,7 +20,7 @@ public class KlinRecipe {
         this.outputfluidstack = outputfluidstack;
         this.melttime = melttime;
 
-        ModRecipes.tofluidrecipes.add(this);
+        ModRecipes.klinToFluidRecipes.add(this);
     }
 
 }

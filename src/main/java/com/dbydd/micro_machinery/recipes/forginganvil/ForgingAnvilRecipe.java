@@ -16,7 +16,7 @@ public class ForgingAnvilRecipe {
         this.output = output;
         this.input = input;
 
-        ModRecipes.forginganvilrecipes.add(this);
+        ModRecipes.forgingAnvilRecipes.add(this);
     }
 
     public int getLevel() {
