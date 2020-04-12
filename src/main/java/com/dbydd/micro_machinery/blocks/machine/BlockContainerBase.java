@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 
 public abstract class BlockContainerBase extends BlockContainer implements IHasModel {
 
-    private static final PropertyDirection FACING = BlockHorizontal.FACING;
+    protected static final PropertyDirection FACING = BlockHorizontal.FACING;
 
     protected BlockContainerBase(Material materialIn) {
         super(materialIn);

@@ -1,6 +1,7 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
+import com.dbydd.micro_machinery.blocks.machine.FireGenerator;
 import com.dbydd.micro_machinery.init.ModRecipes;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.firegenerator.FireGeneratorRecipe;
@@ -33,8 +34,11 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     private int waterNeededPerTick = 0;
     private boolean isGenerating = false;
 
+    public boolean isGenerating(){return isGenerating;}
+
     public TileEntityFireGenerator(int maxEnergyCapacity) {
         super(maxEnergyCapacity, EnumMMFETileEntityStatus.OUTPUT, 0);
+
     }
 
     @Override
@@ -93,6 +97,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                     generateFEPerTick = recipe.getGenerateFEPerTick();
                     waterNeededPerTick = recipe.getWaterNeededPerTick();
                     isGenerating = true;
+                    FireGenerator.setState(isGenerating,world,pos);
                     markDirty();
                 }
             }
@@ -110,6 +115,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                 maxBurnTime = 0;
                 generateFEPerTick = 0;
                 waterNeededPerTick = 0;
+                FireGenerator.setState(isGenerating,world,pos);
             }
             markDirty();
         }
