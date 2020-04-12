@@ -23,12 +23,16 @@ public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage
     protected int lossValue;
     protected int energyStored;
     protected EnumMMFETileEntityStatus status;
-//    protected EnumInfluenceDirection influenceDirection;
 
     MMFEMachineBase(int maxEnergyCapacity, EnumMMFETileEntityStatus status, int lossValue) {
         this.maxEnergyCapacity = maxEnergyCapacity;
         this.status = status;
         this.lossValue = lossValue;
+    }
+//    protected EnumInfluenceDirection influenceDirection;
+
+    public int getMaxEnergyCapacity() {
+        return maxEnergyCapacity;
     }
 
     @Override
@@ -170,5 +174,14 @@ public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage
             }
         }
     }
+
+    public int getField(int level) {
+        return 0;
+    }
+
+    public void setField(int id, int data) {
+    }
+
+    ;
 }
 

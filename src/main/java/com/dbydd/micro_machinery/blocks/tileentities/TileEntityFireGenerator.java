@@ -40,6 +40,14 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
 
     }
 
+    public int getMaxBurnTime() {
+        return maxBurnTime;
+    }
+
+    public int getCurrentBurnTime() {
+        return currentBurnTime;
+    }
+
     public boolean isGenerating() {
         return isGenerating;
     }
@@ -172,5 +180,33 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.getNbtCompound();
         readFromNBT(tag);
+    }
+
+    @Override
+    public int getField(int id) {
+        switch (id) {
+            case 0:
+                return energyStored;
+            case 1:
+                return maxBurnTime;
+            case 2:
+                return currentBurnTime;
+        }
+        return 0;
+    }
+
+    @Override
+    public void setField(int id, int data) {
+        switch (id) {
+            case 0:
+                energyStored = data;
+                break;
+            case 1:
+                maxBurnTime = data;
+                break;
+            case 2:
+                currentBurnTime = data;
+                break;
+        }
     }
 }

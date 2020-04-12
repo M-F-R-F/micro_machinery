@@ -17,7 +17,6 @@ public class GuiKlin extends GuiBase<TileEntityKlin> {
 
     private static final String TEXTURE_BACK = Reference.MODID + ":" + "textures/gui/klin.png";
     private static final ResourceLocation TEXTURES = new ResourceLocation(TEXTURE_BACK);
-    private int k = 0;
 
     public GuiKlin(EntityPlayer player, TileEntityKlin tileentity) {
         super(new ContainerKlin(player, tileentity), tileentity, TEXTURES);
@@ -41,6 +40,7 @@ public class GuiKlin extends GuiBase<TileEntityKlin> {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        int k = 0;
         int x = this.guiLeft + 152;
         int y = this.guiTop + 3;
         int tankWidth = 16;

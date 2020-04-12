@@ -10,5 +10,5 @@ public class Reference {
 
     public static final int GUI_Klin = 1;
     public static final int GUI_ForgingAnvil = 2;
-
+    public static final int GUI_FireGenerator = 3;
 }

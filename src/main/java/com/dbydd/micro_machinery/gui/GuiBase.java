@@ -98,4 +98,9 @@ public class GuiBase<T extends TileEntity> extends GuiContainer {
         });
     }
 
+    private int caculateLeftScaled(int pixels, int maxValue,int currentValue){
+        if (maxValue == 0) return 0;
+        return pixels - (currentValue * pixels / maxValue);
+    }
+
 }
