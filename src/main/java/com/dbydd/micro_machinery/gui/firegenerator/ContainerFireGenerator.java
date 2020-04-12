@@ -23,8 +23,8 @@ public class ContainerFireGenerator extends ContainerBase {
         this.energyCapacity = tileentity.getMaxEnergyCapacity();
 
         IItemHandler handler = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
-        this.addSlotToContainer(new SlotItemHandler(handler, 0, x, y));
-        this.drawInventory(x,y);
+        this.addSlotToContainer(new SlotItemHandler(handler, 0, 47, 40));
+        this.drawInventory(8, 96);
     }
 
     @Override

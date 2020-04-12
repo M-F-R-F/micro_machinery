@@ -32,6 +32,11 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     private int maxBurnTime = 0;
     private int currentBurnTime = 0;
     private int generateFEPerTick = 0;
+
+    public FluidTank getTank() {
+        return tank;
+    }
+
     private int waterNeededPerTick = 0;
     private boolean isGenerating = false;
 
@@ -109,6 +114,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                         generateFEPerTick = recipe.getGenerateFEPerTick();
                         waterNeededPerTick = recipe.getWaterNeededPerTick();
                         isGenerating = true;
+                        fuelHandler.extractItem(0, recipe.getFuel().getCount(), false);
                         FireGenerator.setState(isGenerating, world, pos);
                         markDirty();
                         syncToTrackingClients();
