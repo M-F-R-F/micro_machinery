@@ -1,0 +1,6 @@
+{
+  "parent": "micro_machinery:block/generator",
+  "textures": {
+    "0": "micro_machinery:blocks/generator_on"
+  }
+}

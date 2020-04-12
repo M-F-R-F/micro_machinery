@@ -1,33 +1,33 @@
 {
   "variants": {
-    "generating=true,facing=north": {
-      "model": "micro_machinery:fire_generator_on"
+    "facing=north,generating=true": {
+      "model": "micro_machinery:generator_on"
     },
-    "generating=true,facing=east": {
-      "model": "micro_machinery:fire_generator_on",
+    "facing=east,generating=true": {
+      "model": "micro_machinery:generator_on",
       "y": 90
     },
-    "generating=true,facing=south": {
-      "model": "micro_machinery:fire_generator_on",
+    "facing=south,generating=true": {
+      "model": "micro_machinery:generator_on",
       "y": 180
     },
-    "generating=true,facing=west": {
-      "model": "micro_machinery:fire_generator_on",
+    "facing=west,generating=true": {
+      "model": "micro_machinery:generator_on",
       "y": 270
     },
-    "generating=false,facing=north": {
-      "model": "micro_machinery:fire_generator_off"
+    "facing=north,generating=false": {
+      "model": "micro_machinery:generator_off"
     },
-    "generating=false,facing=east": {
-      "model": "micro_machinery:fire_generator_off",
+    "facing=east,generating=false": {
+      "model": "micro_machinery:generator_off",
       "y": 90
     },
-    "generating=false,facing=south": {
-      "model": "micro_machinery:fire_generator_off",
+    "facing=south,generating=false": {
+      "model": "micro_machinery:generator_off",
       "y": 180
     },
-    "generating=false,facing=west": {
-      "model": "micro_machinery:fire_generator_off",
+    "facing=west,generating=false": {
+      "model": "micro_machinery:generator_off",
       "y": 270
     }
   }

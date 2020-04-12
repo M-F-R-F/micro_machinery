@@ -1,12 +1,4 @@
 {
-  "credit": "Made with Blockbench",
-  "texture_size": [
-    64,
-    64
-  ],
-  "textures": {
-    "0": "micro_machinery:blocks/fire_generator_off"
-  },
   "elements": [
     {
       "from": [
