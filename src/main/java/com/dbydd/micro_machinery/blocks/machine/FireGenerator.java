@@ -9,7 +9,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +19,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+import java.util.Random;
 
 public class FireGenerator extends BlockContainerBase {
     private static final PropertyBool GENERATING = PropertyBool.create("generating");
@@ -38,14 +41,24 @@ public class FireGenerator extends BlockContainerBase {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
         if (active)
-            worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(GENERATING, true), 3);
+            worldIn.setBlockState(pos, ModBlocks.FIREGENERATOR.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(GENERATING, true), 3);
         else
-            worldIn.setBlockState(pos, ModBlocks.KLIN.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(GENERATING, false), 3);
+            worldIn.setBlockState(pos, ModBlocks.FIREGENERATOR.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(GENERATING, false), 3);
 
         if (tileentity != null) {
             tileentity.validate();
             worldIn.setTileEntity(pos, tileentity);
         }
+    }
+
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return Item.getItemFromBlock(ModBlocks.FIREGENERATOR);
+    }
+
+    @Override
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+        return new ItemStack(ModBlocks.FIREGENERATOR);
     }
 
     @Override
@@ -58,5 +71,7 @@ public class FireGenerator extends BlockContainerBase {
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityFireGenerator(25600);
     }
+
+
 
 }

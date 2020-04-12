@@ -4,10 +4,17 @@ import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.interfaces.IMMFEStorage;
 import com.dbydd.micro_machinery.vector.FluxFlowVector;
 import com.dbydd.micro_machinery.vector.FluxPowerVector;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage {
@@ -141,6 +148,27 @@ public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        return oldState.getBlock() != newState.getBlock();
+    }
+
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return this.world.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    }
+
+    protected final void syncToTrackingClients() {
+        if (!this.world.isRemote) {
+            SPacketUpdateTileEntity packet = this.getUpdatePacket();
+            PlayerChunkMapEntry trackingEntry = ((WorldServer) this.world).getPlayerChunkMap().getEntry(this.pos.getX() >> 4, this.pos.getZ() >> 4);
+            if (trackingEntry != null) {
+                for (EntityPlayerMP player : trackingEntry.getWatchingPlayers()) {
+                    player.connection.sendPacket(packet);
+                }
+            }
+        }
     }
 }
 

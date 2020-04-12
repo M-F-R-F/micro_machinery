@@ -8,10 +8,11 @@ import com.dbydd.micro_machinery.recipes.firegenerator.FireGeneratorRecipe;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.FluidStack;
@@ -34,11 +35,13 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     private int waterNeededPerTick = 0;
     private boolean isGenerating = false;
 
-    public boolean isGenerating(){return isGenerating;}
-
     public TileEntityFireGenerator(int maxEnergyCapacity) {
         super(maxEnergyCapacity, EnumMMFETileEntityStatus.OUTPUT, 0);
 
+    }
+
+    public boolean isGenerating() {
+        return isGenerating;
     }
 
     @Override
@@ -54,14 +57,14 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        tank.readFromNBT(compound);
-        isGenerating = compound.getBoolean("isGenerating");
-        waterNeededPerTick = compound.getInteger("waterNeededPerTick");
-        generateFEPerTick = compound.getInteger("generateDEPerTick");
-        currentBurnTime = compound.getInteger("currentBurnTime");
-        maxBurnTime = compound.getInteger("maxBurnTime");
         fuelHandler.deserializeNBT(compound.getCompoundTag("inventory"));
+        maxBurnTime = compound.getInteger("maxBurnTime");
+        currentBurnTime = compound.getInteger("currentBurnTime");
+        generateFEPerTick = compound.getInteger("generateDEPerTick");
+        waterNeededPerTick = compound.getInteger("waterNeededPerTick");
+        isGenerating = compound.getBoolean("isGenerating");
+        tank.readFromNBT(compound);
+        super.readFromNBT(compound);
     }
 
     public boolean reciveBehindBlockEnergy() {
@@ -90,41 +93,49 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
 
     @Override
     public void update() {
-        if (!isGenerating) {
-            for (FireGeneratorRecipe recipe : ModRecipes.fireGenerateRecipes) {
-                if (RecipeHelper.isStackABiggerThanStackB(fuelHandler.getStackInSlot(0), recipe.getFuel())) {
-                    maxBurnTime = recipe.getMaxBurnTime();
-                    generateFEPerTick = recipe.getGenerateFEPerTick();
-                    waterNeededPerTick = recipe.getWaterNeededPerTick();
-                    isGenerating = true;
-                    FireGenerator.setState(isGenerating,world,pos);
-                    markDirty();
+        if (!world.isRemote) {
+            if (!isGenerating) {
+                for (FireGeneratorRecipe recipe : ModRecipes.fireGenerateRecipes) {
+                    if (RecipeHelper.isStackABiggerThanStackB(fuelHandler.getStackInSlot(0), recipe.getFuel())) {
+                        maxBurnTime = recipe.getMaxBurnTime();
+                        generateFEPerTick = recipe.getGenerateFEPerTick();
+                        waterNeededPerTick = recipe.getWaterNeededPerTick();
+                        isGenerating = true;
+                        FireGenerator.setState(isGenerating, world, pos);
+                        markDirty();
+                        syncToTrackingClients();
+                    }
                 }
+            } else {
+                currentBurnTime++;
+                if (tank.getFluidAmount() >= 0) {
+                    tank.drain(waterNeededPerTick, true);
+                    if (energyStored + generateFEPerTick >= maxEnergyCapacity) {
+                        energyStored = maxEnergyCapacity;
+                    } else energyStored += generateFEPerTick;
+                }
+                if (currentBurnTime >= maxBurnTime) {
+                    isGenerating = false;
+                    currentBurnTime = 0;
+                    maxBurnTime = 0;
+                    generateFEPerTick = 0;
+                    waterNeededPerTick = 0;
+                    FireGenerator.setState(isGenerating, world, pos);
+                }
+                markDirty();
+                syncToTrackingClients();
             }
-        } else {
-            currentBurnTime++;
-            if (tank.getFluidAmount() >= 0) {
-                tank.drain(waterNeededPerTick, true);
-                if (energyStored + generateFEPerTick >= maxEnergyCapacity) {
-                    energyStored = maxEnergyCapacity;
-                } else energyStored += generateFEPerTick;
-            }
-            if (currentBurnTime >= maxBurnTime) {
-                isGenerating = false;
-                currentBurnTime = 0;
-                maxBurnTime = 0;
-                generateFEPerTick = 0;
-                waterNeededPerTick = 0;
-                FireGenerator.setState(isGenerating,world,pos);
-            }
-            markDirty();
-        }
 
-        if (energyStored > 0) {
-            if (reciveBehindBlockEnergy()) markDirty();
-        }
+            if (energyStored > 0) {
+                if (reciveBehindBlockEnergy()) {
+                    markDirty();
+                    syncToTrackingClients();
+                }
 
+            }
+        }
     }
+
 
     @Override
     public IFluidTankProperties[] getTankProperties() {
@@ -147,5 +158,19 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
         return tank.drain(maxDrain, doDrain);
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        writeToNBT(nbtTag);
+        return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        NBTTagCompound tag = pkt.getNbtCompound();
+        readFromNBT(tag);
     }
 }
