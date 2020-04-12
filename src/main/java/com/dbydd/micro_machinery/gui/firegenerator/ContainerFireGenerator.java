@@ -54,7 +54,7 @@ public class ContainerFireGenerator extends ContainerBase {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        return super.transferStackInSlot(playerIn, index);
+        return ItemStack.EMPTY;
     }
 
     @Override

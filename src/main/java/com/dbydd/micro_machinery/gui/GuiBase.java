@@ -103,4 +103,11 @@ public class GuiBase<T extends TileEntity> extends GuiContainer {
         return pixels - (currentValue * pixels / maxValue);
     }
 
+    protected void drawBarFromLowerToHigher(int sidex, int sidey, int textureX, int textureY, int barwidth, int barheight, int maxValue, int currentValue){
+        int k = caculateLeftScaled(barheight,maxValue,currentValue);
+        int leftBelowY = sidey + barheight;
+        int textureLeftBelowY = textureY+barheight;
+        renderProgressBar(this.guiLeft + sidex, this.guiTop + leftBelowY - k, 176, textureLeftBelowY - k, barwidth, k + 1);
+    }
+
 }
