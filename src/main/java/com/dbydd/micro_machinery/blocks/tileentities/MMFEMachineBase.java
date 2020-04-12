@@ -1,12 +1,14 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
-import com.dbydd.micro_machinery.EnumType.EnumInfluenceDirection;
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.interfaces.IMMFEStorage;
 import com.dbydd.micro_machinery.vector.FluxFlowVector;
 import com.dbydd.micro_machinery.vector.FluxPowerVector;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.energy.CapabilityEnergy;
 
 public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage {
 
@@ -54,39 +56,37 @@ public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-//        if(!canReceive())return 0;
-//        if (maxReceive + energyStored >= energyStored) {
-//            if (!simulate) energyStored = maxEnergyCapacity;
-//            return maxReceive + energyStored - maxEnergyCapacity;
-//        } else {
-//            if (!simulate)
-//                energyStored += maxReceive;
-//            return 0;
-//        }
-        return 100;
+        if (!canReceive()) return 0;
+        if (maxReceive + energyStored >= energyStored) {
+            if (!simulate) energyStored = maxEnergyCapacity;
+            return maxReceive + energyStored - maxEnergyCapacity;
+        } else {
+            if (!simulate)
+                energyStored += maxReceive;
+            return 0;
+        }
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-//        if(!canExtract())return 0;
-//        int output = 0;
-//        if (maxExtract >= energyStored) {
-//            output = energyStored;
-//            if (!simulate) energyStored = 0;
-//            return output;
-//        } else {
-//            if (!simulate)
-//                energyStored -= maxExtract;
-//            return maxExtract;
-//        }
-        return 100;
+        if (!canExtract()) return 0;
+        int output = 0;
+        if (maxExtract >= energyStored) {
+            output = energyStored;
+            if (!simulate) energyStored = 0;
+            return output;
+        } else {
+            if (!simulate)
+                energyStored -= maxExtract;
+            return maxExtract;
+        }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("energystored", energyStored);
-        compound.setInteger("maxEnergyCapacity",maxEnergyCapacity);
-        compound.setInteger("lossValue",lossValue);
+        compound.setInteger("maxEnergyCapacity", maxEnergyCapacity);
+        compound.setInteger("lossValue", lossValue);
         compound.setString("status", status.name());
 //        compound.setString("influenceDirection",influenceDirection.name() );
         return compound;
@@ -131,4 +131,16 @@ public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage
 
     }
 
+    protected boolean pushEnergy(BlockPos pos, EnumFacing facing) {
+        TileEntity te = world.getTileEntity(pos);
+        if (te != null) {
+            if (te.hasCapability(CapabilityEnergy.ENERGY, facing)) {
+                int energyRecived = te.getCapability(CapabilityEnergy.ENERGY, facing).receiveEnergy(energyStored, false);
+                energyStored -= energyRecived;
+                return energyRecived != 0;
+            }
+        }
+        return false;
+    }
 }
+

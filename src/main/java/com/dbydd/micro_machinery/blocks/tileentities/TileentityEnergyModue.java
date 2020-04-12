@@ -3,6 +3,7 @@ package com.dbydd.micro_machinery.blocks.tileentities;
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 
@@ -35,6 +36,11 @@ public class TileentityEnergyModue extends MMFEMachineBase {
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
         return 0;
+    }
+
+    @Override
+    protected boolean pushEnergy(BlockPos pos, EnumFacing facing) {
+        return false;
     }
 
 }

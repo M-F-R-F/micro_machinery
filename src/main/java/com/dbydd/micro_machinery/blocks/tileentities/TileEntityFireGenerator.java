@@ -4,10 +4,12 @@ import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.init.ModRecipes;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.firegenerator.FireGeneratorRecipe;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -58,6 +60,12 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
         fuelHandler.deserializeNBT(compound.getCompoundTag("inventory"));
     }
 
+    public boolean reciveBehindBlockEnergy() {
+        EnumFacing facing = world.getBlockState(pos).getValue(BlockHorizontal.FACING);
+        BlockPos behindBlock = pos.offset(facing.getOpposite());
+        return pushEnergy(behindBlock, facing);
+    }
+
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
@@ -85,13 +93,12 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                     generateFEPerTick = recipe.getGenerateFEPerTick();
                     waterNeededPerTick = recipe.getWaterNeededPerTick();
                     isGenerating = true;
-                    world.playerEntities.get(0).sendMessage(new TextComponentString("yes"));
                     markDirty();
                 }
             }
         } else {
             currentBurnTime++;
-            if(tank.getFluidAmount() >= 0) {
+            if (tank.getFluidAmount() >= 0) {
                 tank.drain(waterNeededPerTick, true);
                 if (energyStored + generateFEPerTick >= maxEnergyCapacity) {
                     energyStored = maxEnergyCapacity;
@@ -107,6 +114,9 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
             markDirty();
         }
 
+        if (energyStored > 0) {
+            if (reciveBehindBlockEnergy()) markDirty();
+        }
 
     }
 
