@@ -27,7 +27,7 @@ public class GuiFireGenerator extends GuiBase<TileEntityFireGenerator> {
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
         renderFluidTank(tileentity.getTank(), guiLeft + 17, guiTop + 15, 16, 60);
-        rendergauage(this.guiLeft + 17, this.guiTop + 15, 190, 16, 16, 60);
+        rendergauage(this.guiLeft + 17, this.guiTop + 15, 192, 18, 16, 60);
         drawBarFromLowerToHigher(157, 14, 176, 0, 5, 70, tileentity.getMaxEnergyCapacity(),tileentity.getMaxEnergyCapacity() -  tileentity.getEnergyStored());
         if (tileentity.isGenerating()) {
             drawBarFromLowerToHigher(70, 39, 201, 0, 16, 16, tileentity.getMaxBurnTime(), tileentity.getCurrentBurnTime());
