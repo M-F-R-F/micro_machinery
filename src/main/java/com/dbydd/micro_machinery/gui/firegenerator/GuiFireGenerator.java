@@ -25,13 +25,13 @@ public class GuiFireGenerator extends GuiBase<TileEntityFireGenerator> {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-        if (tileentity.isGenerating()) {
-            drawBarFromLowerToHigher(填);
-        }
-        drawBarFromLowerToHigher(填，alt+p查看参数);
         renderFluidTank(tileentity.getTank(), guiLeft + 17, guiTop + 15, 16, 60);
         rendergauage(this.guiLeft + 17, this.guiTop + 15, 190, 16, 16, 60);
         renderFluidTankTooltip(tileentity.getTank(),mouseX,mouseY, guiLeft + 17, guiTop + 15, 16, 60);
+        drawBarFromLowerToHigher(157,14,176,0,5,70,tileentity.getMaxEnergyCapacity(),tileentity.getEnergyStored());
+        if (tileentity.isGenerating()) {
+            drawBarFromLowerToHigher(70,39,201,0,16,16,tileentity.getMaxBurnTime(),tileentity.getCurrentBurnTime());
+        }
     }
 
 }
