@@ -32,17 +32,16 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     private int maxBurnTime = 0;
     private int currentBurnTime = 0;
     private int generateFEPerTick = 0;
-
-    public FluidTank getTank() {
-        return tank;
-    }
-
     private int waterNeededPerTick = 0;
     private boolean isGenerating = false;
 
     public TileEntityFireGenerator(int maxEnergyCapacity) {
         super(maxEnergyCapacity, EnumMMFETileEntityStatus.OUTPUT, 0);
 
+    }
+
+    public FluidTank getTank() {
+        return tank;
     }
 
     public int getMaxBurnTime() {
@@ -109,7 +108,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
         if (!world.isRemote) {
             if (!isGenerating) {
                 for (FireGeneratorRecipe recipe : ModRecipes.fireGenerateRecipes) {
-                    if (RecipeHelper.isStackABiggerThanStackB(fuelHandler.getStackInSlot(0), recipe.getFuel())) {
+                    if (RecipeHelper.isStackABiggerThanStackB(fuelHandler.getStackInSlot(0), recipe.getFuel()) && tank.getFluidAmount() >= recipe.getWaterNeededPerTick()) {
                         maxBurnTime = recipe.getMaxBurnTime();
                         generateFEPerTick = recipe.getGenerateFEPerTick();
                         waterNeededPerTick = recipe.getWaterNeededPerTick();
@@ -122,7 +121,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                 }
             } else {
                 currentBurnTime++;
-                if (tank.getFluidAmount() >= 0) {
+                if (tank.getFluidAmount() >= waterNeededPerTick) {
                     tank.drain(waterNeededPerTick, true);
                     if (energyStored + generateFEPerTick >= maxEnergyCapacity) {
                         energyStored = maxEnergyCapacity;
@@ -197,6 +196,8 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                 return maxBurnTime;
             case 2:
                 return currentBurnTime;
+            case 3:
+                return tank.getFluidAmount();
         }
         return 0;
     }
@@ -212,6 +213,8 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                 break;
             case 2:
                 currentBurnTime = data;
+            case 3:
+                tank.setFluid(new FluidStack(tank.getFluid().getFluid(), data));
                 break;
         }
     }

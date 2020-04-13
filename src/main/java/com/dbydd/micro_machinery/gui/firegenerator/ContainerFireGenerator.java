@@ -15,12 +15,14 @@ public class ContainerFireGenerator extends ContainerBase {
     private int energyStored = 0;
     private int maxBurnTime = 0;
     private int currentBurnTime = 0;
+    private int fluidcount = 0;
     private TileEntityFireGenerator tileentity;
 
     public ContainerFireGenerator(EntityPlayer player, TileEntityFireGenerator tileentity) {
         this.tileentity = tileentity;
         this.player = player;
         this.energyCapacity = tileentity.getMaxEnergyCapacity();
+        this.fluidcount = tileentity.getField(3);
 
         IItemHandler handler = tileentity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
         this.addSlotToContainer(new SlotItemHandler(handler, 0, 47, 40));
@@ -39,11 +41,14 @@ public class ContainerFireGenerator extends ContainerBase {
                 iContainerListener.sendWindowProperty(this, 1, this.tileentity.getField(1));
             if (this.currentBurnTime != this.tileentity.getField(2))
                 iContainerListener.sendWindowProperty(this, 2, this.tileentity.getField(2));
+            if(this.fluidcount != this.tileentity.getField(3))
+                iContainerListener.sendWindowProperty(this,3,this.tileentity.getField(3));
         }
 
         this.energyStored = this.tileentity.getField(0);
         this.maxBurnTime = this.tileentity.getField(1);
         this.currentBurnTime = this.tileentity.getField(2);
+        this.fluidcount = this.tileentity.getField(3);
 
     }
 
