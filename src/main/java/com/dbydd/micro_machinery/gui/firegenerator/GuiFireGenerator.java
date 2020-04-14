@@ -18,9 +18,14 @@ public class GuiFireGenerator extends GuiBase<TileEntityFireGenerator> {
 
 
     @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        renderFluidTankTooltip(tileentity.getTank(), mouseX, mouseY, guiLeft + 17, guiTop + 15, 16, 60);
+    }
+
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        renderFluidTankTooltip(tileentity.getTank(), mouseX, mouseY, guiLeft + 17, guiTop + 15, 16, 60);
     }
 
     @Override

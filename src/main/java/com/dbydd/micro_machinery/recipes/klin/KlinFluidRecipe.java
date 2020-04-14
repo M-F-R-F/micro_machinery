@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 public class KlinFluidRecipe {
 
 
-    public ItemStack output = null;
+    public ItemStack output = ItemStack.EMPTY;
     public ItemCast cast = null;
     public Fluid inputfluid = null;
     public int cooldown = 0;

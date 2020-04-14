@@ -32,30 +32,28 @@ public class GuiKlin extends GuiBase<TileEntityKlin> {
 
     @Override
     protected void actionPerformed(GuiButton p_actionPerformed_1_) throws IOException {
-        tileentity.drain(tileentity.fluidhandler.getFluidAmount(), true);
-        NBTTagCompound tag = tileentity.fluidhandler.writeToNBT(new NBTTagCompound());
-        this.tileentity.writeToNBT(tag);
+        tileentity.drain(tileentity.getFluidhandler().getFluidAmount(), true);
+        NBTTagCompound tag = this.tileentity.writeToNBT(new NBTTagCompound());
         Micro_Machinery.getNetwork().sendToServer(new KlinButtonEventPackage(tag, this.tileentity.getPos(), tileentity.getWorld().provider.getDimension()));
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        int k = 0;
         int x = this.guiLeft + 152;
         int y = this.guiTop + 3;
         int tankWidth = 16;
         int tankHeight = 60;
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-        if (TileEntityKlin.isBurning(tileentity)) {
+        if (tileentity.isBurning()) {
             mc.getTextureManager().bindTexture(TEXTURES);
-            k = getBurnLeftScaled(13);
+            int k = getBurnLeftScaled(13);
             renderProgressBar(this.guiLeft + 82, this.guiTop + 29 - k, 176, 28 - k, 14, k + 1);
         }
-        k = getMeltProgressScaled(22);
+        int k = getMeltProgressScaled(22);
         renderProgressBar(this.guiLeft + 78, this.guiTop + 31, 176, 31, k, 16);
-        renderFluidTank(tileentity.fluidhandler, x, y, tankWidth, tankHeight);
+        renderFluidTank(tileentity.getFluidhandler(), x, y, tankWidth, tankHeight);
         rendergauage(x, y, 210, 3, tankWidth, tankHeight);
-        renderFluidTankTooltip(tileentity.fluidhandler, mouseX, mouseY, x, y, 16, 60);
+        renderFluidTankTooltip(tileentity.getFluidhandler(), mouseX, mouseY, x, y, 16, 60);
     }
 
     private int getBurnLeftScaled(int pixels) {

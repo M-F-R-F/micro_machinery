@@ -75,7 +75,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
         generateFEPerTick = compound.getInteger("generateDEPerTick");
         waterNeededPerTick = compound.getInteger("waterNeededPerTick");
         isGenerating = compound.getBoolean("isGenerating");
-        tank.readFromNBT(compound);
+        tank = tank.readFromNBT(compound);
         super.readFromNBT(compound);
     }
 
@@ -177,14 +177,14 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
-        writeToNBT(nbtTag);
+        nbtTag = this.writeToNBT(nbtTag);
         return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
         NBTTagCompound tag = pkt.getNbtCompound();
-        readFromNBT(tag);
+        this.readFromNBT(tag);
     }
 
     @Override
@@ -196,8 +196,6 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                 return maxBurnTime;
             case 2:
                 return currentBurnTime;
-            case 3:
-                return tank.getFluidAmount();
         }
         return 0;
     }
@@ -213,8 +211,6 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
                 break;
             case 2:
                 currentBurnTime = data;
-            case 3:
-                tank.setFluid(new FluidStack(tank.getFluid().getFluid(), data));
                 break;
         }
     }
