@@ -158,7 +158,6 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
         if (!world.isRemote) {
             if (isBurning) {
                 this.burntime++;
-                BlockKlin.setState(isBurning, world, this.getPos());
                 if (issmelting()) {
                     currentmelttime++;
                     if (currentmelttime >= melttime) {
@@ -166,9 +165,15 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                             this.fluidhandler.fill(result, true);
                             result = null;
                             currentmelttime = 0;
+                            markDirty();
+                            this.syncToTrackingClients();
                         } else {
                             currentmelttime--;
+                            markDirty();
+                            this.syncToTrackingClients();
                         }
+                        markDirty();
+                        this.syncToTrackingClients();
                     }
                 } else {
                     KlinRecipe recipeinsmelting = tryToGetRecipe();
@@ -176,6 +181,8 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                         this.result = recipeinsmelting.outputfluidstack;
                         this.melttime = recipeinsmelting.melttime;
                         extractMaterial(recipeinsmelting);
+                        markDirty();
+                        this.syncToTrackingClients();
                     }
                 }
                 if (burntime >= maxburntime) {
@@ -183,9 +190,9 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                     maxburntime = 0;
                     isBurning = false;
                     BlockKlin.setState(isBurning, world, this.getPos());
+                    markDirty();
+                    this.syncToTrackingClients();
                 }
-                markDirty();
-                this.syncToTrackingClients();
             } else {
                 if (tryToGetRecipe() != null)
                     tryToGetFuel(this.itemhandler, 2);
@@ -247,6 +254,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
             if (maxburntime != 0) {
                 handler.extractItem(index, 1, false);
                 isBurning = true;
+                BlockKlin.setState(isBurning, world, this.getPos());
             }
         }
     }
@@ -257,7 +265,7 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
 
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-        return oldState.getBlock() != newState.getBlock();
+        return oldState.getBlock() != newState.getBlock() && super.shouldRefresh(world, pos, oldState, newState);
     }
 
     public int getField(int id) {
@@ -285,8 +293,8 @@ public class TileEntityKlin extends TileEntity implements IItemHandler, IFluidHa
                 break;
             case 2:
                 this.burntime = value;
-            case 3:
-                this.maxburntime = value;
+//            case 3:
+//                this.maxburntime = value;
                 break;
         }
     }

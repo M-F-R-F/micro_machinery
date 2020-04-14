@@ -59,9 +59,7 @@ public class GuiKlin extends GuiBase<TileEntityKlin> {
     private int getBurnLeftScaled(int pixels) {
         int burntime = tileentity.getField(2);
         int maxburntime = tileentity.getField(3);
-        if (maxburntime == 0) return 0;
         return pixels - (burntime * pixels / maxburntime);
-        //return burntime * pixels / maxburntime;
     }
 
     private int getMeltProgressScaled(int pixels) {
