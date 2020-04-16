@@ -11,6 +11,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -57,7 +58,14 @@ public class FireGenerator extends BlockContainerBase {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            playerIn.openGui(Micro_Machinery.instance, Reference.GUI_FireGenerator, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            if (playerIn.getHeldItem(hand).getItem() == Items.WATER_BUCKET) {
+                TileEntityFireGenerator te = ((TileEntityFireGenerator) worldIn.getTileEntity(pos));
+                if (te.addWater()) {
+                    playerIn.setHeldItem(hand, new ItemStack(Items.BUCKET));
+                }
+            } else if (!playerIn.isSneaking()) {
+                playerIn.openGui(Micro_Machinery.instance, Reference.GUI_FireGenerator, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            }
         }
 
         return true;
@@ -83,7 +91,6 @@ public class FireGenerator extends BlockContainerBase {
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityFireGenerator(25600);
     }
-
 
 
 }

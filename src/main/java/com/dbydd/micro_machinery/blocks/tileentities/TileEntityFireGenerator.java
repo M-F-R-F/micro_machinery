@@ -15,6 +15,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -157,7 +158,9 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
 
     @Override
     public int fill(FluidStack resource, boolean doFill) {
-        if (resource.getFluid().getBlock() == Blocks.WATER) return tank.fill(resource, doFill);
+        if (resource.getFluid().getBlock() == Blocks.WATER) {
+            return tank.fill(resource, doFill);
+        }
         return 0;
     }
 
@@ -171,6 +174,16 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
         return tank.drain(maxDrain, doDrain);
+    }
+
+    public boolean addWater(){
+        if(tank.getCapacity() - tank.getFluidAmount()>=1000){
+            this.fill(new FluidStack(FluidRegistry.WATER, 1000),true);
+            markDirty();
+            syncToTrackingClients();
+            return true;
+        }
+        else return false;
     }
 
     @Nullable
