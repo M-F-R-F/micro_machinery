@@ -1,7 +1,6 @@
-package com.dbydd.micro_machinery.vector;
+package com.dbydd.micro_machinery.energynetwork;
 
 import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
 
 public class FluxPowerVector extends Vector3d {
 

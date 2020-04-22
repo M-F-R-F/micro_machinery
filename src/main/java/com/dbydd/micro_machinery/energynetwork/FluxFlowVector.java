@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.vector;
+package com.dbydd.micro_machinery.energynetwork;
 
 import javax.vecmath.Vector3d;
 
@@ -18,4 +18,5 @@ public class FluxFlowVector extends Vector3d {
         double fluxPower = Math.sqrt(Math.sqrt(fluxFlow));
         return new FluxPowerVector(0,0,0,fluxPower);
     }
+
 }

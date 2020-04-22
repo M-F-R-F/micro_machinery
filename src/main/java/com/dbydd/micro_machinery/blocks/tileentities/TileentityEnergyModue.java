@@ -11,8 +11,8 @@ import javax.annotation.Nullable;
 
 public class TileentityEnergyModue extends MMFEMachineBase {
 
-    public TileentityEnergyModue( int maxCapacity, EnumMMFETileEntityStatus status, int lossValue) {
-        super(maxCapacity, status, lossValue);
+    public TileentityEnergyModue( int maxCapacity) {
+        super(maxCapacity,EnumMMFETileEntityStatus.BOTH);
     }
 
     @Nullable

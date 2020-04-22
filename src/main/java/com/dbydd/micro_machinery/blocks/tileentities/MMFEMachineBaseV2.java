@@ -1,7 +1,8 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
-import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.interfaces.IMMFEStorage;
+import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
+import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
 import com.dbydd.micro_machinery.energynetwork.FluxFlowVector;
 import com.dbydd.micro_machinery.energynetwork.FluxPowerVector;
 import net.minecraft.block.state.IBlockState;
@@ -17,119 +18,38 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.energy.CapabilityEnergy;
 
-public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage {
-
+public abstract class MMFEMachineBaseV2 extends TileEntity implements IMMFETransfer, IMMFEStorage {
     protected int maxEnergyCapacity;
     protected int energyStored;
-    protected EnumMMFETileEntityStatus status;
+    protected SurrondingsState states;
 
-    MMFEMachineBase(int maxEnergyCapacity, EnumMMFETileEntityStatus status) {
+    MMFEMachineBaseV2(int maxEnergyCapacity, SurrondingsState states) {
         this.maxEnergyCapacity = maxEnergyCapacity;
-        this.status = status;
+        this.states = states;
     }
 
-    public EnumMMFETileEntityStatus getStatus() {
-        return status;
+    public SurrondingsState getStatus() {
+        return states;
     }
-//    protected EnumInfluenceDirection influenceDirection;
 
     public int getMaxEnergyCapacity() {
         return maxEnergyCapacity;
     }
 
-    @Override
-    public boolean canExtract() {
-        return EnumMMFETileEntityStatus.canExtract(status);
-    }
-
-    @Override
-    public boolean canReceive() {
-        return EnumMMFETileEntityStatus.canRecive(status);
-    }
-
-    @Override
-    public int getEnergyStored() {
-        return energyStored;
-    }
-
-    @Override
-    public int getMaxEnergyStored() {
-        return maxEnergyCapacity;
-    }
-
-    @Override
-    public int receiveEnergy(int maxReceive, boolean simulate) {
-        if (!canReceive()) return 0;
-        if (maxReceive + energyStored >= energyStored) {
-            if (!simulate) energyStored = maxEnergyCapacity;
-            return maxReceive + energyStored - maxEnergyCapacity;
-        } else {
-            if (!simulate)
-                energyStored += maxReceive;
-            return 0;
-        }
-    }
-
-    @Override
-    public int extractEnergy(int maxExtract, boolean simulate) {
-        if (!canExtract()) return 0;
-        int output = 0;
-        if (maxExtract >= energyStored) {
-            output = energyStored;
-            if (!simulate) energyStored = 0;
-            return output;
-        } else {
-            if (!simulate)
-                energyStored -= maxExtract;
-            return maxExtract;
-        }
-    }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("energystored", energyStored);
         compound.setInteger("maxEnergyCapacity", maxEnergyCapacity);
-        compound.setString("status", status.name());
-//        compound.setString("influenceDirection",influenceDirection.name() );
+        compound = states.writeToNBT(compound);
         return compound;
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-//        this.influenceDirection = EnumInfluenceDirection.valueOf(compound.getString("influenceDirection"));
-        this.status = EnumMMFETileEntityStatus.valueOf(compound.getString("status"));
         this.maxEnergyCapacity = compound.getInteger("maxEnergyCapacity");
         this.energyStored = compound.getInteger("energystored");
-    }
-
-    @Override
-    public FluxPowerVector generateInfluences() {
-        return null;
-    }
-
-    @Override
-    public void ActionForgneticForce(FluxPowerVector force) {
-
-    }
-
-    @Override
-    public FluxFlowVector getForgneticForce() {
-        return null;
-    }
-
-    @Override
-    public FluxFlowVector getPreviousForgneticForce() {
-        return null;
-    }
-
-    @Override
-    public EnumMMFETileEntityStatus updateStatue() {
-        return null;
-    }
-
-    @Override
-    public void updateState() {
-
+        states.readFromNBT(compound);
     }
 
     protected boolean pushEnergy(BlockPos pos, EnumFacing facing) {
@@ -165,11 +85,43 @@ public abstract class MMFEMachineBase extends TileEntity implements IMMFEStorage
         }
     }
 
-    public int getField(int level) {
-        return 0;
+    @Override
+    public FluxPowerVector generateInfluences() {
+        return null;
     }
 
-    public void setField(int id, int data) {
+    @Override
+    public void ActionForgneticForce(FluxPowerVector force) {
+
+    }
+
+    @Override
+    public FluxFlowVector getPreviousForgneticForce() {
+        return null;
+    }
+
+    @Override
+    public FluxFlowVector getForgneticForce() {
+        return null;
+    }
+
+    @Override
+    public int getEnergyStored() {
+        return energyStored;
+    }
+
+    @Override
+    public int getMaxEnergyStored() {
+        return maxEnergyCapacity;
+    }
+
+    @Override
+    public boolean canExtract() {
+        return true;
+    }
+
+    @Override
+    public boolean canReceive() {
+        return true;
     }
 }
-
