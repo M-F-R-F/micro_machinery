@@ -18,16 +18,16 @@ public class ModRecipes {
     public static final List<ForgingAnvilRecipe> forgingAnvilRecipes = new ArrayList<ForgingAnvilRecipe>();
     public static final List<FireGeneratorRecipe> fireGenerateRecipes = new ArrayList<FireGeneratorRecipe>();
 
-    //klintofluid
-    public static final KlinRecipe molten_copper1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORECOPPER, 1), 24);
-    public static final KlinRecipe molten_copper2 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.CRUSHEDCOPPER, 1), 24);
-    public static final KlinRecipe molten_copper3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 160), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.ORECOPPERCONCENTRATE, 1), 24);
-    public static final KlinRecipe molten_tin1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORETIN, 1), 12);
-    public static final KlinRecipe molten_tin2 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.CRUSHEDTIN, 1), 12);
-    public static final KlinRecipe molten_tin3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 160), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.ORETINCONCENTRATE, 1), 12);
-    public static final KlinRecipe molten_bronze = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_BRONZE, 576), new ItemStack(ModItems.INGOTCOPPER, 3), new ItemStack(ModItems.INGOTTIN, 1), 20);
+    //klin to fluid
+    public static final KlinRecipe molten_copper1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORECOPPER, 1), 120);
+    public static final KlinRecipe molten_copper2 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.CRUSHEDCOPPER, 1), 120);
+    public static final KlinRecipe molten_copper3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_COPPER, 160), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.ORECOPPERCONCENTRATE, 1), 120);
+    public static final KlinRecipe molten_tin1 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModBlocks.ORETIN, 1), 60);
+    public static final KlinRecipe molten_tin2 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 144), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.CRUSHEDTIN, 1), 60);
+    public static final KlinRecipe molten_tin3 = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_TIN, 160), new ItemStack(Items.COAL, 1, 1), new ItemStack(ModItems.ORETINCONCENTRATE, 1), 60);
+    public static final KlinRecipe molten_bronze = new KlinRecipe(new FluidStack(ModFluids.MOLTEN_BRONZE, 576), new ItemStack(ModItems.INGOTCOPPER, 3), new ItemStack(ModItems.INGOTTIN, 1), 100);
 
-    //klinfluidtomaterial
+    //klin fluid to material
     public static final KlinFluidRecipe ingot_copper = new KlinFluidRecipe(new ItemStack(ModItems.INGOTCOPPER), ModFluids.MOLTEN_COPPER, ModItems.CAST_INGOT, 60);
     public static final KlinFluidRecipe ingot_tin = new KlinFluidRecipe(new ItemStack(ModItems.INGOTTIN), ModFluids.MOLTEN_TIN, ModItems.CAST_INGOT, 60);
     public static final KlinFluidRecipe ingot_bronze = new KlinFluidRecipe(new ItemStack(ModItems.INGOTBRONZE), ModFluids.MOLTEN_BRONZE, ModItems.CAST_INGOT, 60);
@@ -37,7 +37,7 @@ public class ModRecipes {
     public static final KlinFluidRecipe gear_bronze = new KlinFluidRecipe(new ItemStack(ModItems.GEARBRONZE), ModFluids.MOLTEN_BRONZE, ModItems.CAST_GEAR, 160);
     public static final KlinFluidRecipe bronze_sword0 = new KlinFluidRecipe(new ItemStack(ModItems.BRONZE_SWORD0), ModFluids.MOLTEN_BRONZE, ModItems.CAST_SWORD, 360);
 
-    //forgerecipe
+    //forge recipe
     public static final ForgingAnvilRecipe plate_copper = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.PLATECOPPER), new ItemStack(ModItems.INGOTCOPPER));
     public static final ForgingAnvilRecipe plate_tin = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.PLATETIN), new ItemStack(ModItems.INGOTTIN));
     public static final ForgingAnvilRecipe plate_bronze = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.PLATEBRONZE), new ItemStack(ModItems.INGOTBRONZE));
@@ -73,9 +73,16 @@ public class ModRecipes {
     public static final ForgingAnvilRecipe crushed_nolanite1 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNOLANITE, 2), new ItemStack(ModBlocks.ORENOLANITE));
     public static final ForgingAnvilRecipe crushed_nolanite2 = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDNOLANITE, 2), new ItemStack(ModBlocks.ORENOLANITE_NETHER));
     public static final ForgingAnvilRecipe crushed_tunstite = new ForgingAnvilRecipe(3, 4, new ItemStack(ModItems.CRUSHEDTUNSTITE, 2), new ItemStack(ModBlocks.ORETUNSTITE));
-    public static final ForgingAnvilRecipe dustcoal = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.DUSTCARBON), new ItemStack(Items.COAL, 1, 1));
+    public static final ForgingAnvilRecipe dust_carbon = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.DUSTCARBON), new ItemStack(Items.COAL));
+    public static final ForgingAnvilRecipe dust_carbon1 = new ForgingAnvilRecipe(1, 4, new ItemStack(ModItems.DUSTCARBON), new ItemStack(Items.COAL, 1, 1));
 
-    //firegenerator
+    //fire generator
     public static final FireGeneratorRecipe coal = new FireGeneratorRecipe(new ItemStack(Items.COAL), 128, 500, 1);
-    public static final FireGeneratorRecipe log = new FireGeneratorRecipe(new ItemStack(Blocks.LOG), 128, 500, 1);
+    public static final FireGeneratorRecipe coal1 = new FireGeneratorRecipe(new ItemStack(Items.COAL,1,1), 128, 500, 1);
+    public static final FireGeneratorRecipe log = new FireGeneratorRecipe(new ItemStack(Blocks.LOG), 64, 50, 2);
+    public static final FireGeneratorRecipe log1 = new FireGeneratorRecipe(new ItemStack(Blocks.LOG,1,1), 64, 50, 2);
+    public static final FireGeneratorRecipe log2 = new FireGeneratorRecipe(new ItemStack(Blocks.LOG,1,2), 64, 50, 2);
+    public static final FireGeneratorRecipe log3 = new FireGeneratorRecipe(new ItemStack(Blocks.LOG,1,3), 64, 50, 2);
+    public static final FireGeneratorRecipe log4 = new FireGeneratorRecipe(new ItemStack(Blocks.LOG2), 64, 50, 2);
+
 }
