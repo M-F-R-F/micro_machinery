@@ -4,6 +4,7 @@ import com.dbydd.micro_machinery.EnumType.EnumCastType;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.items.ItemBase;
 import com.dbydd.micro_machinery.items.ItemCast;
+import com.dbydd.micro_machinery.items.TestItem;
 import com.dbydd.micro_machinery.items.tools.Laser_Drill;
 import com.dbydd.micro_machinery.items.foods.FoodBase;
 import com.dbydd.micro_machinery.items.foods.Golden_Apple_Food;
@@ -281,6 +282,7 @@ public class ModItems {
 
 	//testtool
 	public static final Item LASER_DRILL = new Laser_Drill();
+	public static final Item TESTStick = new TestItem("testItem");
 
 	/*==========================================================================================================================================================================*/
 	public static void registerRenderItem(Item item) {

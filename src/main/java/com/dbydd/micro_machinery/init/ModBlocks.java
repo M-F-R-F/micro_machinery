@@ -1,9 +1,7 @@
 package com.dbydd.micro_machinery.init;
 
 import com.dbydd.micro_machinery.blocks.*;
-import com.dbydd.micro_machinery.blocks.machine.BlockForgingAnvil;
-import com.dbydd.micro_machinery.blocks.machine.BlockKlin;
-import com.dbydd.micro_machinery.blocks.machine.FireGenerator;
+import com.dbydd.micro_machinery.blocks.machine.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -100,4 +98,7 @@ public class ModBlocks {
     public static final Block BRONZE_ANVIL = new BlockForgingAnvil("bronze_anvil", 2);
     public static final Block PIGIRON_ANVIL = new BlockForgingAnvil("pigiron_anvil", 3);
     public static final Block FIREGENERATOR = new FireGenerator();
+
+    public static final Block test1 = new BlockTickableEnergyCableWithoutGenerateForce("test1",Material.IRON, 25600);
+    public static final Block test2 = new BlockEnergyCableWithOutGenerateForce("test2",Material.IRON, 25600);
 }

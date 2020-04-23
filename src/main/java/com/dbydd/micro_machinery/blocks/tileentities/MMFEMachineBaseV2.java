@@ -28,7 +28,7 @@ public abstract class MMFEMachineBaseV2 extends TileEntity implements IMMFETrans
         this.states = states;
     }
 
-    public SurrondingsState getStatus() {
+    public SurrondingsState getStates() {
         return states;
     }
 

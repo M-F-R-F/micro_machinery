@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.energynetwork;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithOutGenerateForce;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -11,7 +11,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SurrondingsState {
@@ -31,7 +33,7 @@ public class SurrondingsState {
     public SurrondingsState(BlockPos pos, World world) {
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
-            if (te instanceof TileEntityEnergyCableWithOutGenerateForce) {
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 map.put(facing, EnumMMFETileEntityStatus.CABLE);
             } else if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
                 IEnergyStorage tile = te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
@@ -47,8 +49,9 @@ public class SurrondingsState {
         }
     }
 
-    public final void setStatusInFacing(EnumFacing facing, EnumMMFETileEntityStatus status) {
-        map.put(facing, status);
+    public final SurrondingsState setStatusInFacing(EnumFacing facing, EnumMMFETileEntityStatus status) {
+        map.putIfAbsent(facing, status);
+        return this;
     }
 
     public EnumMMFETileEntityStatus getStatusInFacing(EnumFacing facing) {
@@ -68,4 +71,23 @@ public class SurrondingsState {
         }
     }
 
+    public List<EnumFacing> getInputFacings() {
+        List<EnumFacing> list = new ArrayList<>();
+        for(EnumFacing facing: EnergyNetWorkUtils.getFacings()){
+            if(map.get(facing) == EnumMMFETileEntityStatus.INPUT)list.add(facing);
+        }
+        return list;
+    }
+
+    public List<EnumFacing> getOutputFacings() {
+        List<EnumFacing> list = new ArrayList<>();
+        for(EnumFacing facing: EnergyNetWorkUtils.getFacings()){
+            if(map.get(facing) == EnumMMFETileEntityStatus.OUTPUT)list.add(facing);
+        }
+        return list;
+    }
+
+    public int getOutputFacingCounts(){
+        return getOutputFacings().size();
+    }
 }

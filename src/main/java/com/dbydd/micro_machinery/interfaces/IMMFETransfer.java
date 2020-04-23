@@ -2,7 +2,7 @@ package com.dbydd.micro_machinery.interfaces;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.blocks.tileentities.MMFEMachineBase;
-import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithOutGenerateForce;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
@@ -62,7 +62,7 @@ public interface IMMFETransfer {
         SurrondingsState state = new SurrondingsState();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
-            if (te instanceof TileEntityEnergyCableWithOutGenerateForce) {
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 state.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
             }
         }
@@ -77,11 +77,12 @@ public interface IMMFETransfer {
         return new SurrondingsState(pos, world);
     }
 
-    EnergyNetWorkSpecialPackge askForPackage();
-    EnergyNetWorkSpecialPackge sendPackage();
+    EnergyNetWorkSpecialPackge askForPackage(EnumFacing facing);
+    EnergyNetWorkSpecialPackge replyPackage(EnumFacing facing);
 
-    public void notifyNearByCable();
+    public void notifyNearbyCables();
+    public void notifyByNearbyCables(EnergyNetWorkSpecialPackge pack);
 
-    public void notifyByLastCable(EnergyNetWorkSpecialPackge pack);
+    public void notifyByLastCables();
 
 }
