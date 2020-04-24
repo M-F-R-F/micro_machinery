@@ -43,14 +43,36 @@ public class SurrondingsState {
         findNullFacing();
     }
 
+    public static List<EnumFacing> getOutputFacings(SurrondingsState state) {
+        List<EnumFacing> list = new ArrayList<>();
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (state.map.get(facing) == EnumMMFETileEntityStatus.OUTPUT)
+                list.add(facing);
+        }
+        return list;
+    }
+
+    public static List<EnumFacing> getNetOutputFacings(SurrondingsState state) {
+        List<EnumFacing> list = new ArrayList<>();
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (state.map.get(facing) ==  EnumMMFETileEntityStatus.NETOUT)
+                list.add(facing);
+        }
+        return list;
+    }
+
+    public List<EnumFacing> getOutputFacings() {
+        return getOutputFacings(this);
+    }
+
     private void findNullFacing() {
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            map.putIfAbsent(facing, EnumMMFETileEntityStatus.NULL);
+            map.put(facing, EnumMMFETileEntityStatus.NULL);
         }
     }
 
     public final SurrondingsState setStatusInFacing(EnumFacing facing, EnumMMFETileEntityStatus status) {
-        map.putIfAbsent(facing, status);
+        map.put(facing, status);
         return this;
     }
 
@@ -73,21 +95,21 @@ public class SurrondingsState {
 
     public List<EnumFacing> getInputFacings() {
         List<EnumFacing> list = new ArrayList<>();
-        for(EnumFacing facing: EnergyNetWorkUtils.getFacings()){
-            if(map.get(facing) == EnumMMFETileEntityStatus.INPUT)list.add(facing);
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (map.get(facing) == EnumMMFETileEntityStatus.INPUT) list.add(facing);
         }
         return list;
     }
 
-    public List<EnumFacing> getOutputFacings() {
+    public int getOutputFacingCounts() {
+        return getOutputFacings(this).size();
+    }
+
+    public List<EnumFacing> getNullFacings() {
         List<EnumFacing> list = new ArrayList<>();
-        for(EnumFacing facing: EnergyNetWorkUtils.getFacings()){
-            if(map.get(facing) == EnumMMFETileEntityStatus.OUTPUT)list.add(facing);
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (map.get(facing) == EnumMMFETileEntityStatus.NULL) list.add(facing);
         }
         return list;
-    }
-
-    public int getOutputFacingCounts(){
-        return getOutputFacings().size();
     }
 }

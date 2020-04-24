@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.EnumType;
 
 public enum EnumMMFETileEntityStatus {
-    OUTPUT, INPUT, CABLE, BOTH, NULL;
+    OUTPUT, INPUT, CABLE, BOTH, NULL,NETOUT;
 
     public static boolean canRecive(EnumMMFETileEntityStatus status) {
         return status == EnumMMFETileEntityStatus.INPUT || status == EnumMMFETileEntityStatus.BOTH || status == EnumMMFETileEntityStatus.CABLE;

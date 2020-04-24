@@ -4,12 +4,14 @@ import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.blocks.tileentities.MMFEMachineBase;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
-import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
+import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 
 public interface IMMFETransfer {
 
@@ -69,7 +71,7 @@ public interface IMMFETransfer {
         return state;
     }
 
-    default <T> T traverseNearbyCable(IMethodInterface<T> method){
+    default <T> T traverseNearbyCable(IMethodInterface<T> method) {
         return (T) method.Method();
     }
 
@@ -77,10 +79,32 @@ public interface IMMFETransfer {
         return new SurrondingsState(pos, world);
     }
 
+    default IEnergyStorage getOffsetBlockEnergyCapacity(EnumFacing facing, BlockPos pos, World world) {
+        return world.getTileEntity(pos.offset(facing)).getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+    }
+
+    default boolean isOffsetBlockHasEnergyCapacity(EnumFacing facing, BlockPos pos, World world) {
+        TileEntity te = world.getTileEntity(pos.offset(facing));
+        if (te != null && !(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
+            return te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+        }
+        return false;
+    }
+
+    default boolean isOffsetBlockCable(EnumFacing facing, BlockPos pos, World world) {
+        TileEntity te = world.getTileEntity(pos.offset(facing));
+        if (te != null && te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+            return true;
+        }
+        return false;
+    }
+
     EnergyNetWorkSpecialPackge askForPackage(EnumFacing facing);
+
     EnergyNetWorkSpecialPackge replyPackage(EnumFacing facing);
 
     public void notifyNearbyCables();
+
     public void notifyByNearbyCables(EnergyNetWorkSpecialPackge pack);
 
     public void notifyByLastCables();

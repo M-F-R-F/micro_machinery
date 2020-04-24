@@ -3,12 +3,14 @@ package com.dbydd.micro_machinery.blocks.tileentities;
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
+import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
 
-    private EnumFacing tempfacing;
+    protected EnumFacing tempfacing = null;
 
     public TileEntityEnergyCableWithoutGenerateForce(int maxEnergyCapacity, SurrondingsState state) {
         super(maxEnergyCapacity, state);
@@ -38,7 +40,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityEnergy.ENERGY) {
-            this.tempfacing = facing;
+            tempfacing = facing;
             return (T) this;
         }
         return null;
@@ -46,17 +48,22 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        //todo 更新state
-        SurrondingsState newstate = states.setStatusInFacing(tempfacing, EnumMMFETileEntityStatus.INPUT);
-        updateSurrondingState(newstate);
+        world.setBlockState(pos, ModBlocks.test1.getDefaultState());
         return 0;
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        if (states.getStatusInFacing(tempfacing) != EnumMMFETileEntityStatus.OUTPUT)
-            states.setStatusInFacing(tempfacing, EnumMMFETileEntityStatus.OUTPUT);
-        return energyStored / states.getOutputFacingCounts();
+        if (states.getStatusInFacing(tempfacing) != EnumMMFETileEntityStatus.NETOUT) {
+            states.setStatusInFacing(tempfacing, EnumMMFETileEntityStatus.NETOUT);
+            tempfacing = null;
+            markDirty();
+        }
+        if (states.getOutputFacingCounts() == 0) {
+            return energyStored;
+        } else {
+            return energyStored / states.getOutputFacingCounts();
+        }
     }
 
     @Override
@@ -78,26 +85,33 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     @Override
     public void notifyNearbyCables() {
-        List<EnumFacing> list = states.getOutputFacings();
+        List<EnumFacing> list = SurrondingsState.getOutputFacings(states);
         for (EnumFacing facing : list) {
-           TileEntity te =  world.getTileEntity(pos.offset(facing));
-            if(te instanceof TileEntityEnergyCableWithoutGenerateForce)
-            ((TileEntityEnergyCableWithoutGenerateForce)te).notifyByNearbyCables(new EnergyNetWorkSpecialPackge(pos, facing.getOpposite(), energyStored / list.size()));
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te != null) {
+                if (te instanceof TileEntityEnergyCableWithoutGenerateForce)
+                    ((TileEntityEnergyCableWithoutGenerateForce) te).notifyByNearbyCables(new EnergyNetWorkSpecialPackge(pos, facing.getOpposite(), energyStored / list.size()));
+            }
         }
     }
 
     @Override
     public void notifyByNearbyCables(EnergyNetWorkSpecialPackge pack) {
         int energy = pack.getEnergyTransfer();
+        states.setStatusInFacing(pack.getFromLastBlockFacing(), EnumMMFETileEntityStatus.INPUT);
         for (EnumFacing facing : states.getInputFacings()) {
             if (facing != pack.getFromLastBlockFacing()) {
                 EnergyNetWorkSpecialPackge tempPack = askForPackage(facing);
                 if (tempPack == null) states.setStatusInFacing(facing, EnumMMFETileEntityStatus.NULL);
-                else energy += tempPack.getEnergyTransfer();
+                else {
+                    energy += tempPack.getEnergyTransfer();
+                    states.setStatusInFacing(facing, EnumMMFETileEntityStatus.INPUT);
+                }
             }
         }
         this.energyStored = energy;
         markDirty();
+        notifyNearbyCables();
     }
 
     @Override
@@ -119,27 +133,57 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         return states;
     }
 
-    private SurrondingsState updateSurrondingState() {
-        SurrondingsState newstate = new SurrondingsState();
+    protected SurrondingsState updateSurrondingState() {
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if(world.getTileEntity(pos.offset(facing)) != null) {
+            if (world.getTileEntity(pos.offset(facing)) != null) {
                 TileEntity te = world.getTileEntity(pos.offset(facing));
                 if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                     TileEntityEnergyCableWithoutGenerateForce cable = (TileEntityEnergyCableWithoutGenerateForce) te;
                     if (cable.getStates().getStatusInFacing(facing.getOpposite()) == EnumMMFETileEntityStatus.NULL) {
                         cable.getStates().setStatusInFacing(facing.getOpposite(), EnumMMFETileEntityStatus.OUTPUT);
-                        newstate.setStatusInFacing(facing, EnumMMFETileEntityStatus.INPUT);
+                        cable.markDirty();
+                        states.setStatusInFacing(facing, EnumMMFETileEntityStatus.INPUT);
+                        markDirty();
+                    }
+                } else if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+                    IEnergyStorage energyStorage = te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+                    if (energyStorage.canReceive()) {
+//                        states.setStatusInFacing(facing, EnumMMFETileEntityStatus.NETOUT);
+                        world.setBlockState(pos, ModBlocks.test1.getDefaultState());
+                        return null;
+                    }
+                    if (energyStorage.canExtract()) {
+                        states.setStatusInFacing(facing, EnumMMFETileEntityStatus.INPUT);
+                        if (energyStorage.canReceive()) {
+                            world.setBlockState(pos, ModBlocks.test1.getDefaultState());
+                            return null;
+                        }
                     }
                 }
             }
         }
-        this.states = newstate;
-        markDirty();
-        return newstate;
+        return states;
+    }
+
+    boolean isOutPut() {
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (world.getTileEntity(pos.offset(facing)) != null) {
+                TileEntity te = world.getTileEntity(pos.offset(facing));
+                if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()) && !(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
+                    if (te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canReceive()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public void updateState() {
+        if (isOutPut()) {
+            world.setBlockState(pos, ModBlocks.test1.getDefaultState());
+        }
         updateSurrondingState();
     }
 

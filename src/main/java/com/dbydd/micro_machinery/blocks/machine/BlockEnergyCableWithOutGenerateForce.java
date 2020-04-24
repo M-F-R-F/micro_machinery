@@ -39,6 +39,13 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
     }
 
     @Override
+    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+        if(!(world.getTileEntity(neighbor) instanceof TileEntityEnergyCableWithoutGenerateForce)) {
+            ((TileEntityEnergyCableWithoutGenerateForce) world.getTileEntity(pos)).updateState();
+        }
+    }
+
+    @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
     }

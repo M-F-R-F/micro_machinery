@@ -15,9 +15,10 @@ public class TestItem extends ItemBase {
 
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(worldIn.getTileEntity(pos)!=null){
-            player.sendMessage(new TextComponentString(worldIn.getTileEntity(pos).serializeNBT().toString()));
-        }
+//        if(worldIn.getTileEntity(pos)!=null){
+//            player.sendMessage(new TextComponentString(worldIn.getTileEntity(pos).serializeNBT().toString()));
+//        }
+        player.sendMessage(new TextComponentString(facing.toString()));
         return EnumActionResult.SUCCESS;
     }
 }
