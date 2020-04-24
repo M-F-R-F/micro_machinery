@@ -349,6 +349,7 @@ tile.klin.name=窑
 tile.stone_anvil.name=石砧
 tile.bronze_anvil.name=青铜砧
 tile.pigiron_anvil.name=铸铁砧
+tile.firegenerator.name=火力发电机
 
 //gui
 gui.fluid.name=%s

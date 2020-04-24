@@ -348,6 +348,7 @@ tile.klin.name=Klin
 tile.stone_anvil.name=Stone Anvil
 tile.bronze_anvil.name=Bronze Anvil
 tile.pigiron_anvil.name=Iron Anvil
+tile.firegenerator.name=Generator
 
 //gui
 gui.fluid.name=%s
