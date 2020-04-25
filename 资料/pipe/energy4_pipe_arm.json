@@ -1,0 +1,4 @@
+{
+	"parent": "micro_machinery:block/pipe_arm",
+	"textures": {"#0": "micro_machinery:blocks/energy4_pipe"}
+}
