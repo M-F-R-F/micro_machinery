@@ -35,14 +35,12 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        ((TileEntityEnergyCableWithoutGenerateForce)worldIn.getTileEntity(pos)).updateState();
+        ((TileEntityEnergyCableWithoutGenerateForce)worldIn.getTileEntity(pos)).onBlockPlacedBy();
     }
 
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
-        if(!(world.getTileEntity(neighbor) instanceof TileEntityEnergyCableWithoutGenerateForce)) {
-            ((TileEntityEnergyCableWithoutGenerateForce) world.getTileEntity(pos)).updateState();
-        }
+        ((TileEntityEnergyCableWithoutGenerateForce)world.getTileEntity(pos)).onNeighborChanged(neighbor);
     }
 
     @Override
@@ -63,6 +61,6 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-            return new TileEntityEnergyCableWithoutGenerateForce(transferEnergyMaxValue);
+        return new TileEntityEnergyCableWithoutGenerateForce(transferEnergyMaxValue);
     }
 }

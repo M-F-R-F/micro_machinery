@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +57,16 @@ public class SurrondingsState {
     public static List<EnumFacing> getNetOutputFacings(SurrondingsState state) {
         List<EnumFacing> list = new ArrayList<>();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if (state.map.get(facing) ==  EnumMMFETileEntityStatus.NETOUT)
+            if (state.map.get(facing) == EnumMMFETileEntityStatus.NETOUT)
+                list.add(facing);
+        }
+        return list;
+    }
+
+    public static List<EnumFacing> getNotInputFacings(SurrondingsState state) {
+        List<EnumFacing> list = new ArrayList<>();
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (state.map.get(facing) != EnumMMFETileEntityStatus.INPUT)
                 list.add(facing);
         }
         return list;
@@ -112,4 +123,13 @@ public class SurrondingsState {
         }
         return list;
     }
+
+    public List<EnumFacing> getNotNullFacings() {
+        List<EnumFacing> list = new ArrayList<>();
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (map.get(facing) != EnumMMFETileEntityStatus.NULL) list.add(facing);
+        }
+        return list;
+    }
+
 }

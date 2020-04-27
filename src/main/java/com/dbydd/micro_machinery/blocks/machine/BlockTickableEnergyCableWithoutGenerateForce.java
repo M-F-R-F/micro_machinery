@@ -18,6 +18,6 @@ public class BlockTickableEnergyCableWithoutGenerateForce extends BlockEnergyCab
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityTickableEnergyCableWithoutGenerateForce(transferEnergyMaxValue);
+
     }
 }
