@@ -2,24 +2,40 @@ package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
+import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
+import com.dbydd.micro_machinery.worldsaveddatas.EnergyNetSavedData;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
+    private int sign;
 
     public TileEntityEnergyCableWithoutGenerateForce(int maxEnergyCapacity) {
         super(maxEnergyCapacity, new SurrondingsState());
     }
 
     @Override
-    public void updateState() {
+    public void readFromNBT(NBTTagCompound compound) {
+        this.sign = compound.getInteger("EnergyNetSign");
+        super.readFromNBT(compound);
+    }
 
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound.setInteger("EnergyNetSign", sign);
+        return super.writeToNBT(compound);
+    }
+
+    @Override
+    public void updateState() {
+    //todo 重写
     }
 
     @Override
@@ -34,21 +50,10 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     @Override
     public void notifyNearbyCables() {
-//        for (EnumFacing facing : states.getNotNullFacings()) {
-//            int energyRecived = ((TileEntityEnergyCableWithoutGenerateForce) world.getTileEntity(pos.offset(facing))).notifyByNearbyCables(generatePackage(facing, states.getOutputFacingCounts(), false));
-//            energyStored -= energyRecived;
-//            markDirty();
-//        }
-            // todo 重写
     }
 
     @Override
     public void notifyNearByCable(EnumFacing facing) {
-//        TileEntity te = world.getTileEntity(pos.offset(facing));
-//        if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
-//            ((TileEntityEnergyCableWithoutGenerateForce) te).notifyByNearbyCables(new EnergyNetWorkSpecialPackge(pos, facing));
-//        }
-            //todo 重写
     }
 
     @Override
@@ -57,41 +62,31 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         //todo 重写
     }
 
+    public int getSign() {
+        return sign;
+    }
+
     public void onBlockPlacedBy() {
-//        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-//            TileEntity te = world.getTileEntity(pos.offset(facing));
-//            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
-//                ((TileEntityEnergyCableWithoutGenerateForce) te).notifyByNearbyCables(generatePackage(facing, 0, true));
-//                setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
-//            } else if (te == null) {
-//                setStatusInFacing(facing, EnumMMFETileEntityStatus.NULL);
-//            } else if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
-//                IEnergyStorage storage = te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
-//                if (storage.canReceive()) {
-//                    this.transferToTickable();
-//                    //todo 重写，接下来输出由Tickable接管
-//                }
-//            }
-//        }
-        //todo 重写
+        int i = 0;
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                i++;
+                this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
+                markDirty();
+            }
+        }
+        if (i == 0) {
+            EnergyNetworkSign sign = new EnergyNetworkSign();
+            markDirty();
+            sign.addEnergyStoragedOfNetwork(energyStored);
+            sign.addMaxEnergyCapacityOfNetwork(maxEnergyCapacity);
+            EnergyNetSavedData.addSign(world, sign);
+        }
     }
 
     @Override
     public void onNeighborChanged(BlockPos neighbor) {
-//        TileEntity te = world.getTileEntity(neighbor);
-//        if (!(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
-//            if (te == null) {
-//                for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-//                    if (pos.offset(facing) == neighbor) {
-//                        setStatusInFacing(facing, EnumMMFETileEntityStatus.NULL);
-//                    }
-//                }
-//            } else {
-//                //todo 如果是机器
-//            }
-//        } else if (te instanceof TileEntityTickableEnergyCableWithoutGenerateForce) {
-//            //todo tickable的电线,(重新理逻辑)
-//        }
         //todo 重写
     }
 
