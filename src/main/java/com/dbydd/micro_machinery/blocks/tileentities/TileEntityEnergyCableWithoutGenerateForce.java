@@ -12,10 +12,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
-    private int sign;
+    protected int sign;
 
     public TileEntityEnergyCableWithoutGenerateForce(int maxEnergyCapacity) {
         super(maxEnergyCapacity, new SurrondingsState());
@@ -34,11 +36,6 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     @Override
-    public void updateState() {
-    //todo 重写
-    }
-
-    @Override
     public EnumMMFETileEntityStatus updateStatue() {
         return EnumMMFETileEntityStatus.CABLE;
     }
@@ -49,21 +46,45 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     @Override
-    public void notifyNearbyCables() {
+    public void notifyNearbyCablesUpdateEnergyNetFlow() {
     }
 
     @Override
-    public void notifyNearByCable(EnumFacing facing) {
+    public void notifyNearByCableUpdateEnergyNetFlow(EnumFacing facing) {
     }
 
     @Override
-    public int notifyByNearbyCables(EnergyNetWorkSpecialPackge pack) {
+    public int notifyByNearbyCablesUpdateEnergyNetFlow(EnergyNetWorkSpecialPackge pack) {
         return 0;
         //todo 重写
     }
 
+    @Override
+    public void notifyNearbyCablesUpdateSign(int Sign) {
+        for (EnumFacing face : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(face));
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSign() != Sign) {
+                    ((TileEntityEnergyCableWithoutGenerateForce) te).setSign(Sign);
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void notifyByNearbyCablesUpdateSign(int Sign) {
+        this.setSign(Sign);
+        notifyNearbyCablesUpdateSign(Sign);
+    }
+
     public int getSign() {
         return sign;
+    }
+
+    public void setSign(int sign) {
+        this.sign = sign;
+        markDirty();
     }
 
     public void onBlockPlacedBy() {
@@ -87,7 +108,18 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     @Override
     public void onNeighborChanged(BlockPos neighbor) {
-        //todo 重写
+        TileEntity te = world.getTileEntity(neighbor);
+        if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+            if (((TileEntityEnergyCableWithoutGenerateForce) te).getSign() != this.sign) {
+                EnergyNetSavedData.mergeEnergyNet(((TileEntityEnergyCableWithoutGenerateForce) te).getSign(), this.sign, world);
+                this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
+                notifyNearbyCablesUpdateSign(((TileEntityEnergyCableWithoutGenerateForce) te).getSign());
+                markDirty();
+            }
+        } else if (te.hasCapability(CapabilityEnergy.ENERGY, EnergyNetWorkUtils.getFacing(pos, neighbor))) {
+            IEnergyStorage storage = te.getCapability(CapabilityEnergy.ENERGY, EnergyNetWorkUtils.getFacing(pos, neighbor));
+            if (storage.canReceive()) transferToTickable();
+        }
     }
 
     @Override
@@ -107,38 +139,13 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        this.transferToTickable();
+        transferToTickable();
         return 0;
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-//        if (!simulate) {
-//
-//            if (energyStored - maxExtract < 0) {
-//                int tempInt = energyStored;
-//                energyStored = 0;
-//                markDirty();
-//                return tempInt;
-//            } else {
-//                energyStored -= maxExtract;
-//                markDirty();
-//                return maxExtract;
-//            }
-//
-//        } else {
-//
-//            if (energyStored - maxExtract < 0) {
-//                int tempInt = energyStored;
-//                energyStored = 0;
-//                return tempInt;
-//            } else {
-//                energyStored -= maxExtract;
-//                return maxExtract;
-//            }
-//
-//        }
-        //todo 重写,世界附加存储
+        transferToTickable();
         return 0;
     }
 }

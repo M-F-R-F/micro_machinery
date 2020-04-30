@@ -59,6 +59,30 @@ public class EnergyNetSavedData extends WorldSavedData {
         data.addSign(sign);
     }
 
+    public static void mergeEnergyNet(int signMergeIn, int signNeedToMerge, World world) {
+        EnergyNetSavedData data = getData(world);
+        EnergyNetworkSign sign1 = data.getSign(signMergeIn);
+        EnergyNetworkSign sign2 = data.getSign(signNeedToMerge);
+        sign1.addMaxEnergyCapacityOfNetwork(sign2.getMaxEnergyCapacityOfNetwork());
+        sign1.addEnergyStoragedOfNetwork(sign2.getEnergyStoragedOfNetwork());
+        RemoveSign(signNeedToMerge, world);
+        data.markDirty();
+    }
+
+    public static int ExtractEnergy(int Sign, int maxExtract, boolean simulate, World world) {
+        EnergyNetSavedData data = EnergyNetSavedData.getData(world);
+        int i = data.getSign(Sign).extractEnergy(maxExtract, simulate);
+        data.markDirty();
+        return i;
+    }
+
+    public static int ReciveEnergy(int Sign, int maxRecive, boolean simulate, World world) {
+        EnergyNetSavedData data = EnergyNetSavedData.getData(world);
+        int i = data.getSign(Sign).receiveEnergy(maxRecive, simulate);
+        data.markDirty();
+        return i;
+    }
+
     public List<EnergyNetworkSign> getNetworkSignList() {
         return networkSignList;
     }

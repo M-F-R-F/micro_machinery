@@ -63,4 +63,46 @@ public class EnergyNetworkSign {
         this.maxEnergyCapacityOfNetwork = NBT.getInteger("maxEnergyCapacityOfNetwork");
     }
 
+    public int extractEnergy(int maxExtract, boolean simulate) {
+        if (!simulate) {
+            if (energyStoragedOfNetwork - maxExtract < 0) {
+                int tempInt = energyStoragedOfNetwork;
+                energyStoragedOfNetwork = 0;
+                return tempInt;
+            } else {
+                energyStoragedOfNetwork -= maxExtract;
+                return maxExtract;
+            }
+        } else {
+            if (energyStoragedOfNetwork - maxExtract < 0) {
+                int tempInt = energyStoragedOfNetwork;
+                energyStoragedOfNetwork = 0;
+                return tempInt;
+            } else {
+                energyStoragedOfNetwork -= maxExtract;
+                return maxExtract;
+            }
+        }
+    }
+
+    public int receiveEnergy(int maxReceive, boolean simulate) {
+        if (!simulate) {
+            if (energyStoragedOfNetwork + maxReceive > maxEnergyCapacityOfNetwork) {
+                int i = maxEnergyCapacityOfNetwork - energyStoragedOfNetwork;
+                energyStoragedOfNetwork = maxEnergyCapacityOfNetwork;
+                return i;
+            } else {
+                energyStoragedOfNetwork += maxReceive;
+                return maxReceive;
+            }
+        } else {
+            if (energyStoragedOfNetwork + maxReceive > maxEnergyCapacityOfNetwork) {
+                return maxEnergyCapacityOfNetwork - energyStoragedOfNetwork;
+
+            } else {
+                return maxReceive;
+            }
+        }
+    }
+
 }

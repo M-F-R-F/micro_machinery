@@ -124,4 +124,9 @@ public abstract class MMFEMachineBaseV2 extends TileEntity implements IMMFETrans
     public boolean canReceive() {
         return true;
     }
+
+    @Override
+    public void updateState() {
+
+    }
 }

@@ -51,11 +51,15 @@ public interface IMMFETransfer {
 
     EnergyNetWorkSpecialPackge generatePackage(EnumFacing facing);
 
-    public void notifyNearbyCables();
+    public void notifyNearbyCablesUpdateEnergyNetFlow();
 
-    public void notifyNearByCable(EnumFacing facing);
+    public void notifyNearByCableUpdateEnergyNetFlow(EnumFacing facing);
 
-    public int notifyByNearbyCables(EnergyNetWorkSpecialPackge pack);
+    public int notifyByNearbyCablesUpdateEnergyNetFlow(EnergyNetWorkSpecialPackge pack);
+
+    public void notifyNearbyCablesUpdateSign(int Sign);
+
+    public void notifyByNearbyCablesUpdateSign(int Sign);
 
     public void onBlockPlacedBy();
 
