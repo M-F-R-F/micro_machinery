@@ -99,6 +99,6 @@ public class ModBlocks {
     public static final Block PIGIRON_ANVIL = new BlockForgingAnvil("pigiron_anvil", 3);
     public static final Block FIREGENERATOR = new FireGenerator();
 
-    public static final Block test1 = new BlockTickableEnergyCableWithoutGenerateForce("test1",Material.IRON, 25600);
-    public static final Block test2 = new BlockEnergyCableWithOutGenerateForce("blockenergycablewithoutgenerateforce",Material.IRON, 25600);
+    public static final Block test1 = new BlockTickableEnergyCableWithoutGenerateForce("tickableenergycablewithoutgenerateforce",Material.IRON, 25600);
+    public static final Block test2 = new BlockEnergyCableWithOutGenerateForce("energycablewithoutgenerateforce",Material.IRON, 25600);
 }
