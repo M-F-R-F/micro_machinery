@@ -23,7 +23,7 @@ public class TestItem extends ItemBase {
 //        player.sendMessage(new TextComponentString(facing.toString()));
         Block block = worldIn.getBlockState(pos).getBlock();
         if (block instanceof BlockEnergyCableWithOutGenerateForce){
-            BlockEnergyCableWithOutGenerateForce.setFacingProperty(facing, EnumMMFETileEntityStatus.NETOUT, pos, worldIn);
+            BlockEnergyCableWithOutGenerateForce.setFacingProperty(facing, EnumMMFETileEntityStatus.ENERGYNET_OUTPUT, pos, worldIn);
         }
         return EnumActionResult.SUCCESS;
     }

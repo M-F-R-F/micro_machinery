@@ -55,7 +55,7 @@ public class SurrondingsState {
     public static List<EnumFacing> getNetOutputFacings(SurrondingsState state) {
         List<EnumFacing> list = new ArrayList<>();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if (state.map.get(facing) == EnumMMFETileEntityStatus.NETOUT)
+            if (state.map.get(facing) == EnumMMFETileEntityStatus.ENERGYNET_OUTPUT)
                 list.add(facing);
         }
         return list;

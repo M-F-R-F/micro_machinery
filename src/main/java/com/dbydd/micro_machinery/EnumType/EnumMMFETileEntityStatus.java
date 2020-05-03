@@ -3,7 +3,7 @@ package com.dbydd.micro_machinery.EnumType;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumMMFETileEntityStatus implements IStringSerializable {
-    CABLE_OUTPUT("cable_output"), CABLE_INPUT("cable_input"), CABLE("cable"), BOTH("both"), NULL("null"), NETOUT("netout");
+    CABLE_OUTPUT("cable_output"), CABLE_INPUT("cable_input"), CABLE("cable"), BOTH("both"), NULL("null"), ENERGYNET_OUTPUT("energynet_output");
 
     private final String name;
 
