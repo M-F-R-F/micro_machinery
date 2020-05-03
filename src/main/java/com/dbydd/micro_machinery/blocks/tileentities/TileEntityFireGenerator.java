@@ -37,7 +37,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     private boolean isGenerating = false;
 
     public TileEntityFireGenerator(int maxEnergyCapacity) {
-        super(maxEnergyCapacity, EnumMMFETileEntityStatus.OUTPUT);
+        super(maxEnergyCapacity, EnumMMFETileEntityStatus.CABLE_OUTPUT);
 
     }
 

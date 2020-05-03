@@ -19,7 +19,7 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
     @Override
     public void update() {
         if (world.isRemote) {
-            if(!needUpdate){
+            if (!needUpdate) {
                 notifyNearbyCablesUpdateEnergyNetFlow();
             }
         }

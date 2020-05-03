@@ -11,8 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +37,7 @@ public class SurrondingsState {
                 map.put(facing, EnumMMFETileEntityStatus.CABLE);
             } else if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
                 IEnergyStorage tile = te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
-                if (tile.canReceive()) map.put(facing, EnumMMFETileEntityStatus.OUTPUT);
+                if (tile.canReceive()) map.put(facing, EnumMMFETileEntityStatus.CABLE_OUTPUT);
             }
         }
         findNullFacing();
@@ -48,7 +46,7 @@ public class SurrondingsState {
     public static List<EnumFacing> getOutputFacings(SurrondingsState state) {
         List<EnumFacing> list = new ArrayList<>();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if (state.map.get(facing) == EnumMMFETileEntityStatus.OUTPUT)
+            if (state.map.get(facing) == EnumMMFETileEntityStatus.CABLE_OUTPUT)
                 list.add(facing);
         }
         return list;
@@ -66,7 +64,7 @@ public class SurrondingsState {
     public static List<EnumFacing> getNotInputFacings(SurrondingsState state) {
         List<EnumFacing> list = new ArrayList<>();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if (state.map.get(facing) != EnumMMFETileEntityStatus.INPUT)
+            if (state.map.get(facing) != EnumMMFETileEntityStatus.CABLE_INPUT)
                 list.add(facing);
         }
         return list;
@@ -107,7 +105,7 @@ public class SurrondingsState {
     public List<EnumFacing> getInputFacings() {
         List<EnumFacing> list = new ArrayList<>();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if (map.get(facing) == EnumMMFETileEntityStatus.INPUT) list.add(facing);
+            if (map.get(facing) == EnumMMFETileEntityStatus.CABLE_INPUT) list.add(facing);
         }
         return list;
     }
