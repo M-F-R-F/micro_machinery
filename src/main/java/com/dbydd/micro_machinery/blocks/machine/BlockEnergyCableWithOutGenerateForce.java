@@ -8,7 +8,6 @@ import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -25,8 +24,13 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
-    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE = PropertyEnum.create("statue", EnumMMFETileEntityStatus.class);
-    protected static final PropertyDirection FACES = PropertyDirection.create("faces");
+    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_UP = PropertyEnum.create("statue_up", EnumMMFETileEntityStatus.class);
+    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_DOWN = PropertyEnum.create("statue_down", EnumMMFETileEntityStatus.class);
+    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_SOUTH = PropertyEnum.create("statue_south", EnumMMFETileEntityStatus.class);
+    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_NORTH = PropertyEnum.create("statue_north", EnumMMFETileEntityStatus.class);
+    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_WEST = PropertyEnum.create("statue_west", EnumMMFETileEntityStatus.class);
+    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_EAST = PropertyEnum.create("statue_east", EnumMMFETileEntityStatus.class);
+//    protected static final PropertyDirection FACES = PropertyDirection.create("faces");
 
     protected final int transferEnergyMaxValue;
 
@@ -43,12 +47,61 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
 
     public static void setFacingProperty(EnumFacing facing, EnumMMFETileEntityStatus status, BlockPos pos, World world) {
         IBlockState state = world.getBlockState(pos);
-        world.setBlockState(pos, state.withProperty(STATUE, status));
+        switch (facing.getName()) {
+            case "up": {
+                world.setBlockState(pos, state.withProperty(STATUE_UP, status));
+                break;
+            }
+            case "down": {
+                world.setBlockState(pos, state.withProperty(STATUE_DOWN, status));
+                break;
+            }
+            case "south": {
+                world.setBlockState(pos, state.withProperty(STATUE_SOUTH, status));
+                break;
+            }
+            case "north": {
+                world.setBlockState(pos, state.withProperty(STATUE_NORTH, status));
+                break;
+            }
+            case "west": {
+                world.setBlockState(pos, state.withProperty(STATUE_WEST, status));
+                break;
+            }
+            case "east": {
+                world.setBlockState(pos, state.withProperty(STATUE_EAST, status));
+                break;
+            }
+        }
+    }
+
+    public static IBlockState setFacingProperty(EnumFacing facing, EnumMMFETileEntityStatus status, IBlockState state) {
+        switch (facing.getName()) {
+            case "up": {
+                return state.withProperty(STATUE_UP, status);
+            }
+            case "down": {
+                return state.withProperty(STATUE_DOWN, status);
+            }
+            case "south": {
+                return state.withProperty(STATUE_SOUTH, status);
+            }
+            case "north": {
+                return state.withProperty(STATUE_NORTH, status);
+            }
+            case "west": {
+                return state.withProperty(STATUE_WEST, status);
+            }
+            case "east": {
+                return state.withProperty(STATUE_EAST, status);
+            }
+        }
+        return state;
     }
 
     private static IBlockState getDefaultBlockState(IBlockState state) {
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            state.withProperty(FACES, facing).withProperty(STATUE, EnumMMFETileEntityStatus.NULL);
+            state = setFacingProperty(facing, EnumMMFETileEntityStatus.NULL, state);
         }
         return state;
     }
@@ -80,7 +133,7 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACES, STATUE);
+        return new BlockStateContainer(this, STATUE_UP, STATUE_DOWN, STATUE_WEST, STATUE_EAST, STATUE_NORTH, STATUE_SOUTH);
     }
 
     @Nullable
