@@ -8,12 +8,7 @@ public enum EnumMMFETileEntityStatus implements IStringSerializable {
     CABLE("cable"),
     BOTH("both"),
     NULL("null"),
-    ENERGYNET_OUTPUT("energynet_output"),
-    ENERGYNET_INPUT("energynet_input"),
-    FLUID_OUTPUT("fluid_output"),
-    FLUID_INPUT("fluid_input"),
-    ITEM_OUTPUT("item_output"),
-    ITEM_INPUT("item_input");
+    ENERGYNET_OUTPUT("energynet_output");
 
     private final String name;
 
