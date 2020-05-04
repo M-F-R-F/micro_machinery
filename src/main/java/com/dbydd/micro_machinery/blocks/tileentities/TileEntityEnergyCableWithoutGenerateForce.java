@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
-import com.dbydd.micro_machinery.blocks.machine.BlockEnergyCableWithOutGenerateForce;
+import com.dbydd.micro_machinery.blocks.machine.BlockEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
@@ -154,6 +154,6 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     protected void setConnection(EnumFacing facing, EnumMMFETileEntityStatus status) {
-        BlockEnergyCableWithOutGenerateForce.setFacingProperty(facing, status, pos, world);
+        BlockEnergyCableWithoutGenerateForce.setFacingProperty(facing, status, pos, world);
     }
 }

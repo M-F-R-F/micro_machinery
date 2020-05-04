@@ -11,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,7 +27,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
+public class BlockEnergyCableWithoutGenerateForce extends BlockContainer {
     protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_UP = PropertyEnum.create("statue_up", EnumMMFETileEntityStatus.class);
     protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_DOWN = PropertyEnum.create("statue_down", EnumMMFETileEntityStatus.class);
     protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_SOUTH = PropertyEnum.create("statue_south", EnumMMFETileEntityStatus.class);
@@ -36,7 +38,7 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
 
     protected final int transferEnergyMaxValue;
 
-    public BlockEnergyCableWithOutGenerateForce(String name, Material materialIn, int transferEnergyMaxValue) {
+    public BlockEnergyCableWithoutGenerateForce(String name, Material materialIn, int transferEnergyMaxValue) {
         super(materialIn);
         this.setUnlocalizedName(name);
         this.setRegistryName(name);
@@ -75,6 +77,7 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
                 break;
             }
         }
+        world.setBlockState(pos, state);
     }
 
     public static IBlockState setFacingProperty(EnumFacing facing, EnumMMFETileEntityStatus status, IBlockState state) {
@@ -158,4 +161,5 @@ public class BlockEnergyCableWithOutGenerateForce extends BlockContainer {
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityEnergyCableWithoutGenerateForce(transferEnergyMaxValue);
     }
+
 }

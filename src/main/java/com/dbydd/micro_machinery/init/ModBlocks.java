@@ -100,5 +100,5 @@ public class ModBlocks {
     public static final Block FIREGENERATOR = new FireGenerator();
 
     public static final Block test1 = new BlockTickableEnergyCableWithoutGenerateForce("tickableenergycablewithoutgenerateforce",Material.IRON, 25600);
-    public static final Block test2 = new BlockEnergyCableWithOutGenerateForce("energycablewithoutgenerateforce",Material.IRON, 25600);
+    public static final Block test2 = new BlockEnergyCableWithoutGenerateForce("energycablewithoutgenerateforce",Material.IRON, 25600);
 }

@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.items;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
-import com.dbydd.micro_machinery.blocks.machine.BlockEnergyCableWithOutGenerateForce;
+import com.dbydd.micro_machinery.blocks.machine.BlockEnergyCableWithoutGenerateForce;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumActionResult;
@@ -22,8 +22,8 @@ public class TestItem extends ItemBase {
 //        }
 //        player.sendMessage(new TextComponentString(facing.toString()));
         Block block = worldIn.getBlockState(pos).getBlock();
-        if (block instanceof BlockEnergyCableWithOutGenerateForce){
-            BlockEnergyCableWithOutGenerateForce.setFacingProperty(facing, EnumMMFETileEntityStatus.ENERGYNET_OUTPUT, pos, worldIn);
+        if (block instanceof BlockEnergyCableWithoutGenerateForce){
+            BlockEnergyCableWithoutGenerateForce.setFacingProperty(facing, EnumMMFETileEntityStatus.ENERGYNET_OUTPUT, pos, worldIn);
         }
         return EnumActionResult.SUCCESS;
     }
