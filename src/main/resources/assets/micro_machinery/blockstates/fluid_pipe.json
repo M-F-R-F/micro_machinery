@@ -1,0 +1,9 @@
+{
+    "parent":"micro_machinery:blockstate/pipe",
+	"models":{
+	"center":"micro_machinery:block/pipe/fluid_pipe_center",
+	"arm":"micro_machinery:block/pipe/fluid_pipe_arm",
+	"input":"micro_machinery:block/pipe/fluid_pipe_input",
+	"output":"micro_machinery:block/pipe/fluid_pipe_output"
+	}
+}
