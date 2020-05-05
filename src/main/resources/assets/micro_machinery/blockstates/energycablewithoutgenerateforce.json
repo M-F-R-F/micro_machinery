@@ -1,23 +1,23 @@
 {
 	"multipart": [
-		{   "apply": { "model": "micro_machinery:energy1_pipe_center" }},
-		{   "when": { "statue_north": "true" },
-			"apply": { "model": "micro_machinery:energy1_pipe_arm", "uvlock": true }
+		{   "apply": { "model": "micro_machinery:pipe/energy1_pipe_center" }},
+		{   "when": { "status_north": "true" },
+			"apply": { "model": "micro_machinery:pipe/energy1_pipe_arm", "uvlock": true }
 		},
-		{   "when": { "statue_east": "true" },
-			"apply": { "model": "micro_machinery:energy1_pipe_arm", "y": 90, "uvlock": true }
+		{   "when": { "status_east": "true" },
+			"apply": { "model": "micro_machinery:pipe/energy1_pipe_arm", "y": 90, "uvlock": true }
 		},
-		{   "when": { "statue_south": "true" },
-			"apply": { "model": "micro_machinery:energy1_pipe_arm", "y": 180, "uvlock": true }
+		{   "when": { "status_south": "true" },
+			"apply": { "model": "micro_machinery:pipe/energy1_pipe_arm", "y": 180, "uvlock": true }
 		},
-		{   "when": { "statue_west": "true" },
-			"apply": { "model": "micro_machinery:energy1_pipe_arm", "y": 270, "uvlock": true }
+		{   "when": { "status_west": "true" },
+			"apply": { "model": "micro_machinery:pipe/energy1_pipe_arm", "y": 270, "uvlock": true }
 		},
-		{   "when": { "statue_up": "true" },
-			"apply": { "model": "micro_machinery:energy1_pipe_arm", "z": 90, "uvlock": true }
+		{   "when": { "status_up": "true" },
+			"apply": { "model": "micro_machinery:pipe/energy1_pipe_arm", "z": 90, "uvlock": true }
 		},
-		{   "when": { "statue_down": "true" },
-			"apply": { "model": "micro_machinery:energy1_pipe_arm", "z": 270, "uvlock": true }
+		{   "when": { "status_down": "true" },
+			"apply": { "model": "micro_machinery:pipe/energy1_pipe_arm", "z": 270, "uvlock": true }
 		}
 	]
 }

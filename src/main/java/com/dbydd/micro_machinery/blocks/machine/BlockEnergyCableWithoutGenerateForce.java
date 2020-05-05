@@ -5,7 +5,6 @@ import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModItems;
-import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.util.IHasModel;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -17,11 +16,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -36,12 +35,12 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
 //    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_WEST = PropertyEnum.create("statue_west", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
 //    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_EAST = PropertyEnum.create("statue_east", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
 //    protected static final PropertyDirection FACES = PropertyDirection.create("faces");
-    public static final PropertyBool STATUE_UP = PropertyBool.create("statue_up");
-    public static final PropertyBool STATUE_DOWN = PropertyBool.create("statue_down");
-    public static final PropertyBool STATUE_SOUTH = PropertyBool.create("statue_sout");
-    public static final PropertyBool STATUE_NORTH = PropertyBool.create("statue_nort");
-    public static final PropertyBool STATUE_WEST = PropertyBool.create("statue_west");
-    public static final PropertyBool STATUE_EAST = PropertyBool.create("statue_east");
+    public static final PropertyBool STATUS_UP = PropertyBool.create("status_up");
+    public static final PropertyBool STATUS_DOWN = PropertyBool.create("status_down");
+    public static final PropertyBool STATUS_SOUTH = PropertyBool.create("status_south");
+    public static final PropertyBool STATUS_NORTH = PropertyBool.create("status_north");
+    public static final PropertyBool STATUS_WEST = PropertyBool.create("status_west");
+    public static final PropertyBool STATUS_EAST = PropertyBool.create("status_east");
 
 
     protected final int transferEnergyMaxValue;
@@ -60,33 +59,33 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
     private static IBlockState getDefaultBlockState(IBlockState state) {
 //        return state.withProperty(STATUE_UP, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_DOWN, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_SOUTH, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_NORTH, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_WEST, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_EAST, EnumMMFETileEntityStatus.NULL);
         return state
-                .withProperty(STATUE_UP, Boolean.FALSE)
-                .withProperty(STATUE_DOWN, Boolean.FALSE)
-                .withProperty(STATUE_SOUTH, Boolean.FALSE)
-                .withProperty(STATUE_NORTH, Boolean.FALSE)
-                .withProperty(STATUE_WEST, Boolean.FALSE)
-                .withProperty(STATUE_EAST, Boolean.FALSE);
+                .withProperty(STATUS_UP, Boolean.FALSE)
+                .withProperty(STATUS_DOWN, Boolean.FALSE)
+                .withProperty(STATUS_SOUTH, Boolean.FALSE)
+                .withProperty(STATUS_NORTH, Boolean.FALSE)
+                .withProperty(STATUS_WEST, Boolean.FALSE)
+                .withProperty(STATUS_EAST, Boolean.FALSE);
     }
 
     public static IBlockState setFacingProperty(EnumFacing facing, Boolean canconnect, IBlockState state) {
         switch (facing.getName()) {
             case "up": {
-                return state.withProperty(STATUE_UP, canconnect);
+                return state.withProperty(STATUS_UP, canconnect);
             }
             case "down": {
-                return state.withProperty(STATUE_DOWN, canconnect);
+                return state.withProperty(STATUS_DOWN, canconnect);
             }
             case "south": {
-                return state.withProperty(STATUE_SOUTH, canconnect);
+                return state.withProperty(STATUS_SOUTH, canconnect);
             }
             case "north": {
-                return state.withProperty(STATUE_NORTH, canconnect);
+                return state.withProperty(STATUS_NORTH, canconnect);
             }
             case "west": {
-                return state.withProperty(STATUE_WEST, canconnect);
+                return state.withProperty(STATUS_WEST, canconnect);
             }
             case "east": {
-                return state.withProperty(STATUE_EAST, canconnect);
+                return state.withProperty(STATUS_EAST, canconnect);
             }
         }
         return state;
@@ -124,28 +123,68 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
 
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if (worldIn.getBlockState(pos).getBlock() instanceof BlockEnergyCableWithoutGenerateForce) {
-                state = setFacingProperty(facing, Boolean.TRUE, state);
-            }
+        return state.withProperty(STATUS_UP, canconnect(worldIn, pos, EnumFacing.UP))
+                .withProperty(STATUS_DOWN, canconnect(worldIn, pos, EnumFacing.UP))
+                .withProperty(STATUS_SOUTH, canconnect(worldIn, pos, EnumFacing.UP))
+                .withProperty(STATUS_NORTH, canconnect(worldIn, pos, EnumFacing.UP))
+                .withProperty(STATUS_WEST, canconnect(worldIn, pos, EnumFacing.UP))
+                .withProperty(STATUS_EAST, canconnect(worldIn, pos, EnumFacing.UP));
+    }
+
+    private boolean canconnect(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+        TileEntity te = world.getTileEntity(pos.offset(facing));
+        if (te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+            return true;
         }
-        return state;
+        return false;
+    }
+
+    @Override
+    public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+        return canconnect(world, pos, facing);
+    }
+
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        switch (rot) {
+            case CLOCKWISE_180:
+                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
+            case COUNTERCLOCKWISE_90:
+                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_EAST)).withProperty(STATUS_EAST, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_NORTH));
+            case CLOCKWISE_90:
+                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_WEST)).withProperty(STATUS_EAST, state.getValue(STATUS_NORTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_EAST)).withProperty(STATUS_WEST, state.getValue(STATUS_SOUTH));
+
+            default:
+                return state;
+        }
+    }
+
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        switch (mirrorIn)
+        {
+            case LEFT_RIGHT:
+                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH));
+            case FRONT_BACK:
+                return state.withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
+            default:
+                return super.withMirror(state, mirrorIn);
+        }
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, STATUE_UP, STATUE_DOWN, STATUE_WEST, STATUE_EAST, STATUE_NORTH, STATUE_SOUTH);
-//        return new BlockStateContainer(this);
+        return new BlockStateContainer(this, STATUS_UP, STATUS_DOWN, STATUS_WEST, STATUS_EAST, STATUS_NORTH, STATUS_SOUTH);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+        return getDefaultBlockState(this.getDefaultState());
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
         return 0;
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState();
     }
 
     @Nullable

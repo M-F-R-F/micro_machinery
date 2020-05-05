@@ -1,7 +1,6 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
-import com.dbydd.micro_machinery.blocks.machine.BlockEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
@@ -9,7 +8,6 @@ import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.worldsaveddatas.EnergyNetSavedData;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
