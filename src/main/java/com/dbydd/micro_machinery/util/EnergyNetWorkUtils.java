@@ -4,7 +4,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
 public class EnergyNetWorkUtils {
-    private static final EnumFacing[] facings = {EnumFacing.UP, EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.SOUTH, EnumFacing.EAST, EnumFacing.DOWN};
+    private static final EnumFacing[] facings = {EnumFacing.UP, EnumFacing.DOWN, EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.SOUTH, EnumFacing.EAST};
 
     private EnergyNetWorkUtils() {
     }

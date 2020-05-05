@@ -9,6 +9,7 @@ import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.worldsaveddatas.EnergyNetSavedData;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -128,7 +129,6 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     @Override
     public void setStatusInFacing(EnumFacing facing, EnumMMFETileEntityStatus status) {
         states.setStatusInFacing(facing, status);
-        setConnection(facing, status);
         markDirty();
     }
 
@@ -153,7 +153,4 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         return 0;
     }
 
-    protected void setConnection(EnumFacing facing, EnumMMFETileEntityStatus status) {
-        BlockEnergyCableWithoutGenerateForce.setFacingProperty(facing, status, pos, world);
-    }
 }

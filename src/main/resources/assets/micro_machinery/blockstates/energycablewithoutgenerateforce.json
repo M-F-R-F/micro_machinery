@@ -58,22 +58,22 @@
 			"apply": { "model": "micro_machinery:energy1_pipe_arm", "z": 270, "uvlock": true }
 		},
 
-		{   "when": { "statue_north": "energy_output" },
+		{   "when": { "statue_north": "energynet_output" },
 			"apply": { "model": "micro_machinery:energy1_pipe_output", "uvlock": true }
 		},
-		{   "when": { "statue_east": "energy_output" },
+		{   "when": { "statue_east": "energynet_output" },
 			"apply": { "model": "micro_machinery:energy1_pipe_output", "y": 90, "uvlock": true }
 		},
-		{   "when": { "statue_south": "energy_output" },
+		{   "when": { "statue_south": "energynet_output" },
 			"apply": { "model": "micro_machinery:energy1_pipe_output", "y": 180, "uvlock": true }
 		},
-		{   "when": { "statue_west": "energy_output" },
+		{   "when": { "statue_west": "energynet_output" },
 			"apply": { "model": "micro_machinery:energy1_pipe_output", "y": 270, "uvlock": true }
 		},
-		{   "when": { "statue_up": "energy_output" },
+		{   "when": { "statue_up": "energynet_output" },
 			"apply": { "model": "micro_machinery:energy1_pipe_output", "z": 90, "uvlock": true }
 		},
-		{   "when": { "statue_down": "energy_output" },
+		{   "when": { "statue_down": "energynet_output" },
 			"apply": { "model": "micro_machinery:energy1_pipe_output", "z": 270, "uvlock": true }
 		}
 	]

@@ -143,3 +143,71 @@
 //        else if (inputCount > 0) return EnumMMFETileEntityStatus.OUTPUT;
 //        return EnumMMFETileEntityStatus.CABLE;
 //        }
+//    public static void setFacingProperty(EnumFacing facing, EnumMMFETileEntityStatus status, BlockPos pos, World world) {
+//        IBlockState state = world.getBlockState(pos);
+//        switch (facing.getName()) {
+//            case "up": {
+//                world.setBlockState(pos, state.withProperty(STATUE_UP, status));
+//                break;
+//            }
+//            case "down": {
+//                world.setBlockState(pos, state.withProperty(STATUE_DOWN, status));
+//                break;
+//            }
+//            case "south": {
+//                world.setBlockState(pos, state.withProperty(STATUE_SOUTH, status));
+//                break;
+//            }
+//            case "north": {
+//                world.setBlockState(pos, state.withProperty(STATUE_NORTH, status));
+//                break;
+//            }
+//            case "west": {
+//                world.setBlockState(pos, state.withProperty(STATUE_WEST, status));
+//                break;
+//            }
+//            case "east": {
+//                world.setBlockState(pos, state.withProperty(STATUE_EAST, status));
+//                break;
+//            }
+//        }
+//        world.setBlockState(pos, state);
+//    }
+//
+//
+//    protected static PropertyEnum getProperty(EnumFacing facing) {
+//        switch (facing.getName()) {
+//            case "up": {
+//                return STATUE_UP;
+//            }
+//            case "down": {
+//                return STATUE_DOWN;
+//            }
+//            case "south": {
+//                return STATUE_SOUTH;
+//            }
+//            case "north": {
+//                return STATUE_NORTH;
+//            }
+//            case "west": {
+//                return STATUE_WEST;
+//            }
+//            case "east": {
+//                return STATUE_EAST;
+//            }
+//        }
+//        return STATUE_UP;
+//    }
+//    protected static final EnumMMFETileEntityStatus[] CABLE_STATUS_LIST = {EnumMMFETileEntityStatus.NULL, EnumMMFETileEntityStatus.CABLE, EnumMMFETileEntityStatus.CABLE_OUTPUT, EnumMMFETileEntityStatus.CABLE_INPUT, EnumMMFETileEntityStatus.ENERGYNET_OUTPUT};
+//
+//    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_UP = PropertyEnum.create("statue_up", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
+//    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_DOWN = PropertyEnum.create("statue_down", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
+//    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_SOUTH = PropertyEnum.create("statue_south", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
+//    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_NORTH = PropertyEnum.create("statue_north", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
+//    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_WEST = PropertyEnum.create("statue_west", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
+//    protected static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_EAST = PropertyEnum.create("statue_east", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
+//    protected static final PropertyDirection FACES = PropertyDirection.create("faces");
+//    private static IBlockState getDefaultBlockState(IBlockState state) {
+//        return state.withProperty(STATUE_UP, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_DOWN, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_SOUTH, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_NORTH, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_WEST, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_EAST, EnumMMFETileEntityStatus.NULL);
+//    }
+//
