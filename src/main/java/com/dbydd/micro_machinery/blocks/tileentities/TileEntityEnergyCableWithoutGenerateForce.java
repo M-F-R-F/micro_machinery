@@ -136,7 +136,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     private void transferToTickable() {
-        world.setBlockState(pos, ModBlocks.test1.getDefaultState());
+//        world.setBlockState(pos, ModBlocks.test1.getDefaultState());
     }
 
     @Override
