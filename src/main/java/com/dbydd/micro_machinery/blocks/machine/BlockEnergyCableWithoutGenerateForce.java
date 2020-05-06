@@ -16,7 +16,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -42,7 +46,7 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
     public static final PropertyBool STATUS_WEST = PropertyBool.create("status_west");
     public static final PropertyBool STATUS_EAST = PropertyBool.create("status_east");
 
-
+    public static final AxisAlignedBB EMPTYAABB = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
     protected final int transferEnergyMaxValue;
 
     public BlockEnergyCableWithoutGenerateForce(String name, Material materialIn, int transferEnergyMaxValue) {
@@ -103,7 +107,7 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
 
     @Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.SOLID;
+        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     @Override
@@ -144,33 +148,33 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
         return canconnect(world, pos, facing);
     }
 
-    @Override
-    public IBlockState withRotation(IBlockState state, Rotation rot) {
-        switch (rot) {
-            case CLOCKWISE_180:
-                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
-            case COUNTERCLOCKWISE_90:
-                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_EAST)).withProperty(STATUS_EAST, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_NORTH));
-            case CLOCKWISE_90:
-                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_WEST)).withProperty(STATUS_EAST, state.getValue(STATUS_NORTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_EAST)).withProperty(STATUS_WEST, state.getValue(STATUS_SOUTH));
-
-            default:
-                return state;
-        }
-    }
-
-    @Override
-    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-        switch (mirrorIn)
-        {
-            case LEFT_RIGHT:
-                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH));
-            case FRONT_BACK:
-                return state.withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
-            default:
-                return super.withMirror(state, mirrorIn);
-        }
-    }
+//    @Override
+//    public IBlockState withRotation(IBlockState state, Rotation rot) {
+//        switch (rot) {
+//            case CLOCKWISE_180:
+//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
+//            case COUNTERCLOCKWISE_90:
+//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_EAST)).withProperty(STATUS_EAST, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_NORTH));
+//            case CLOCKWISE_90:
+//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_WEST)).withProperty(STATUS_EAST, state.getValue(STATUS_NORTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_EAST)).withProperty(STATUS_WEST, state.getValue(STATUS_SOUTH));
+//
+//            default:
+//                return state;
+//        }
+//    }
+//
+//    @Override
+//    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+//        switch (mirrorIn)
+//        {
+//            case LEFT_RIGHT:
+//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH));
+//            case FRONT_BACK:
+//                return state.withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
+//            default:
+//                return super.withMirror(state, mirrorIn);
+//        }
+//    }
 
     @Override
     protected BlockStateContainer createBlockState() {
@@ -197,4 +201,10 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
     public void registerModels() {
         Micro_Machinery.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
     }
+
+    @Override
+    public EnumBlockRenderType getRenderType(IBlockState state) {
+        return EnumBlockRenderType.MODEL;
+    }
+
 }

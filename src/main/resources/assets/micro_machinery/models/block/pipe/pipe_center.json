@@ -1,7 +1,4 @@
 {
-	"textures": {
-		"particle": "#texture"
-	},
 	"elements": [
 		{
 			"name": "center",
