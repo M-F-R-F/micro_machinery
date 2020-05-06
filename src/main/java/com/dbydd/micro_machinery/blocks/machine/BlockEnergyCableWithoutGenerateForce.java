@@ -6,6 +6,7 @@ import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithou
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -29,7 +30,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class BlockEnergyCableWithoutGenerateForce extends BlockContainer implements IHasModel {
+public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasModel {
     public static final EnumMMFETileEntityStatus[] CABLE_STATUS_LIST = {EnumMMFETileEntityStatus.NULL, EnumMMFETileEntityStatus.CABLE, EnumMMFETileEntityStatus.CABLE_OUTPUT, EnumMMFETileEntityStatus.CABLE_INPUT, EnumMMFETileEntityStatus.ENERGYNET_OUTPUT};
 
     //    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_UP = PropertyEnum.create("statue_up", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
@@ -193,7 +194,7 @@ public class BlockEnergyCableWithoutGenerateForce extends BlockContainer impleme
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityEnergyCableWithoutGenerateForce(transferEnergyMaxValue);
     }
 

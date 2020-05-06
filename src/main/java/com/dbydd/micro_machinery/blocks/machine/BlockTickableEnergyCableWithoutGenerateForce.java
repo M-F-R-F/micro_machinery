@@ -2,6 +2,7 @@ package com.dbydd.micro_machinery.blocks.machine;
 
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityTickableEnergyCableWithoutGenerateForce;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -14,7 +15,7 @@ public class BlockTickableEnergyCableWithoutGenerateForce extends BlockEnergyCab
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityTickableEnergyCableWithoutGenerateForce(transferEnergyMaxValue);
     }
 }
