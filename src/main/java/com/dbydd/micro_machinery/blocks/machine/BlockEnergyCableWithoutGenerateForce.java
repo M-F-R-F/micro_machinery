@@ -128,11 +128,11 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return state.withProperty(STATUS_UP, canconnect(worldIn, pos, EnumFacing.UP))
-                .withProperty(STATUS_DOWN, canconnect(worldIn, pos, EnumFacing.UP))
-                .withProperty(STATUS_SOUTH, canconnect(worldIn, pos, EnumFacing.UP))
-                .withProperty(STATUS_NORTH, canconnect(worldIn, pos, EnumFacing.UP))
-                .withProperty(STATUS_WEST, canconnect(worldIn, pos, EnumFacing.UP))
-                .withProperty(STATUS_EAST, canconnect(worldIn, pos, EnumFacing.UP));
+                .withProperty(STATUS_DOWN, canconnect(worldIn, pos, EnumFacing.DOWN))
+                .withProperty(STATUS_SOUTH, canconnect(worldIn, pos, EnumFacing.SOUTH))
+                .withProperty(STATUS_NORTH, canconnect(worldIn, pos, EnumFacing.NORTH))
+                .withProperty(STATUS_WEST, canconnect(worldIn, pos, EnumFacing.WEST))
+                .withProperty(STATUS_EAST, canconnect(worldIn, pos, EnumFacing.EAST));
     }
 
     private boolean canconnect(IBlockAccess world, BlockPos pos, EnumFacing facing) {

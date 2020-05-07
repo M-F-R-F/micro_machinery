@@ -16,7 +16,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+
+import javax.annotation.Nullable;
 
 public abstract class MMFEMachineBaseV2 extends TileEntity implements IMMFETransfer, IMMFEStorage {
     protected int maxEnergyCapacity;
@@ -62,6 +65,12 @@ public abstract class MMFEMachineBaseV2 extends TileEntity implements IMMFETrans
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityEnergy.ENERGY) return true;
+        return super.hasCapability(capability, facing);
     }
 
     @Override

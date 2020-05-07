@@ -12,8 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+
+import javax.annotation.Nullable;
 
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
@@ -33,6 +36,12 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("EnergyNetSign", sign);
         return super.writeToNBT(compound);
+    }
+
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+        return (T) this;
     }
 
     @Override
@@ -64,7 +73,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         for (EnumFacing face : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(face));
             if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
-                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSign() != Sign) {
+                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSign() != Sign){
                     ((TileEntityEnergyCableWithoutGenerateForce) te).setSign(Sign);
                 }
             }
@@ -136,7 +145,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     private void transferToTickable() {
-//        world.setBlockState(pos, ModBlocks.test1.getDefaultState());
+        world.setBlockState(pos, ModBlocks.test1.getDefaultState());
     }
 
     @Override
