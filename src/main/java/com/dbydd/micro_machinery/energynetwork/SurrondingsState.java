@@ -74,6 +74,10 @@ public class SurrondingsState {
         return getOutputFacings(this);
     }
 
+    public List<EnumFacing> getNetOutputFacings() {
+        return getNetOutputFacings(this);
+    }
+
     private void findNullFacing() {
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             map.put(facing, EnumMMFETileEntityStatus.NULL);

@@ -18,7 +18,7 @@ public interface IMMFETransfer {
         SurrondingsState state = new SurrondingsState();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
-            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+            if (te instanceof IMMFETransfer) {
                 state.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
             }
         }
@@ -35,7 +35,7 @@ public interface IMMFETransfer {
 
     default boolean isOffsetBlockHasEnergyCapacity(EnumFacing facing, BlockPos pos, World world) {
         TileEntity te = world.getTileEntity(pos.offset(facing));
-        if (te != null && !(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
+        if (te != null && !(te instanceof IMMFETransfer)) {
             return te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
         }
         return false;
@@ -43,7 +43,7 @@ public interface IMMFETransfer {
 
     default boolean isOffsetBlockCable(EnumFacing facing, BlockPos pos, World world) {
         TileEntity te = world.getTileEntity(pos.offset(facing));
-        if (te != null && te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+        if (te != null && te instanceof IMMFETransfer) {
             return true;
         }
         return false;

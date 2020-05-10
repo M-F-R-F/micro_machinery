@@ -31,7 +31,7 @@ public class EnergyNetworkSign {
     }
 
     public void addEnergyStoragedOfNetwork(int energyStorageAdd) {
-        this.energyStoragedOfNetwork += energyStoragedOfNetwork;
+        this.energyStoragedOfNetwork += energyStorageAdd;
     }
 
     public int getMaxEnergyCapacityOfNetwork() {
@@ -39,7 +39,7 @@ public class EnergyNetworkSign {
     }
 
     public void addMaxEnergyCapacityOfNetwork(int maxEnergyCapacityAdd) {
-        this.maxEnergyCapacityOfNetwork += maxEnergyCapacityOfNetwork;
+        this.maxEnergyCapacityOfNetwork += maxEnergyCapacityAdd;
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound NBT) {

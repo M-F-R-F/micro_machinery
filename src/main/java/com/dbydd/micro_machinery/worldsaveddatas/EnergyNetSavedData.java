@@ -28,7 +28,7 @@ public class EnergyNetSavedData extends WorldSavedData {
     }
 
     public static void updateEnergyNetCapacity(World world, int energyCapacityAdd, int sign) {
-        EnergyNetSavedData data = getData(world);
+        EnergyNetSavedData data = EnergyNetSavedData.getData(world);
         if (data.getSign(sign) != null) {
             data.getSign(sign).addMaxEnergyCapacityOfNetwork(energyCapacityAdd);
             data.markDirty();
@@ -57,6 +57,7 @@ public class EnergyNetSavedData extends WorldSavedData {
     public static void addSign(World world, EnergyNetworkSign sign) {
         EnergyNetSavedData data = EnergyNetSavedData.getData(world);
         data.addSign(sign);
+        data.markDirty();
     }
 
     public static void mergeEnergyNet(int signMergeIn, int signNeedToMerge, World world) {

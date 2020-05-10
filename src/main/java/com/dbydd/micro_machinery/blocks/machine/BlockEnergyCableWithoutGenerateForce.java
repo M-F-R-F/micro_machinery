@@ -112,7 +112,9 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        ((TileEntityEnergyCableWithoutGenerateForce) worldIn.getTileEntity(pos)).onBlockPlacedBy();
+        if(!worldIn.isRemote) {
+            ((TileEntityEnergyCableWithoutGenerateForce) worldIn.getTileEntity(pos)).onBlockPlacedBy();
+        }
     }
 
     @Override
