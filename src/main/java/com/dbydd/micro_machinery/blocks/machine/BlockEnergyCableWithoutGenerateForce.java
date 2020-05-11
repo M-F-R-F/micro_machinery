@@ -11,6 +11,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -27,18 +28,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Objects;
 
 public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasModel {
     public static final EnumMMFETileEntityStatus[] CABLE_STATUS_LIST = {EnumMMFETileEntityStatus.NULL, EnumMMFETileEntityStatus.CABLE, EnumMMFETileEntityStatus.CABLE_OUTPUT, EnumMMFETileEntityStatus.CABLE_INPUT, EnumMMFETileEntityStatus.ENERGYNET_OUTPUT};
+    public static final AxisAlignedBB CENTER_AABB = new AxisAlignedBB(0.375D, 0.375D, 0.375D, 0.625D, 0.625D, 0.625D);
+    public static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(0.375D, 0.375D, 0.0D, 0.625D, 0.625D, 0.375D);
+    public static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.625D, 0.375D, 0.375D, 1D, 0.625D, 0.625D);
+    public static final AxisAlignedBB SOUTH_AABB = new AxisAlignedBB(0.375D, 0.375D, 0.625D, 0.625D, 0.625D, 1D);
+    public static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.0D, 0.375D, 0.375D, 0.375D, 0.625D, 0.625D);
+    public static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.375D, 0.625D, 0.375D, 0.625D, 1D, 0.625D);
+    public static final AxisAlignedBB DOWN_AABB = new AxisAlignedBB(0.375D, 0.0D, 0.375D, 0.625D, 0.375D, 0.625D);
 
-    //    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_UP = PropertyEnum.create("statue_up", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
-//    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_DOWN = PropertyEnum.create("statue_down", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
-//    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_SOUTH = PropertyEnum.create("statue_south", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
-//    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_NORTH = PropertyEnum.create("statue_north", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
-//    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_WEST = PropertyEnum.create("statue_west", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
-//    public static final PropertyEnum<EnumMMFETileEntityStatus> STATUE_EAST = PropertyEnum.create("statue_east", EnumMMFETileEntityStatus.class, CABLE_STATUS_LIST);
-//    protected static final PropertyDirection FACES = PropertyDirection.create("faces");
     public static final PropertyBool STATUS_UP = PropertyBool.create("status_up");
     public static final PropertyBool STATUS_DOWN = PropertyBool.create("status_down");
     public static final PropertyBool STATUS_SOUTH = PropertyBool.create("status_south");
@@ -61,7 +63,6 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
     }
 
     private static IBlockState getDefaultBlockState(IBlockState state) {
-//        return state.withProperty(STATUE_UP, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_DOWN, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_SOUTH, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_NORTH, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_WEST, EnumMMFETileEntityStatus.NULL).withProperty(STATUE_EAST, EnumMMFETileEntityStatus.NULL);
         return state
                 .withProperty(STATUS_UP, Boolean.FALSE)
                 .withProperty(STATUS_DOWN, Boolean.FALSE)
@@ -96,6 +97,69 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
     }
 
     @Override
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+        if (!isActualState) {
+            state = state.getActualState(worldIn, pos);
+        }
+
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, CENTER_AABB);
+
+        if (((Boolean) state.getValue(STATUS_UP)).booleanValue()) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, UP_AABB);
+        }
+        if (((Boolean) state.getValue(STATUS_DOWN)).booleanValue()) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, DOWN_AABB);
+        }
+        if (((Boolean) state.getValue(STATUS_SOUTH)).booleanValue()) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, SOUTH_AABB);
+        }
+        if (((Boolean) state.getValue(STATUS_NORTH)).booleanValue()) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, NORTH_AABB);
+        }
+        if (((Boolean) state.getValue(STATUS_WEST)).booleanValue()) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, WEST_AABB);
+        }
+        if (((Boolean) state.getValue(STATUS_EAST)).booleanValue()) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, EAST_AABB);
+        }
+    }
+
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        state = this.getActualState(state, source, pos);
+
+        double x1 = ;
+        double x2 = ;
+        double y1 = ;
+        double y2 = ;
+        double z1 = ;
+        double z2 = ;
+        //todo 给他们初值
+
+        if (((Boolean) state.getValue(STATUS_UP)).booleanValue()) {
+
+        }
+        if (((Boolean) state.getValue(STATUS_DOWN)).booleanValue()) {
+
+        }
+        if (((Boolean) state.getValue(STATUS_SOUTH)).booleanValue()) {
+
+        }
+        if (((Boolean) state.getValue(STATUS_NORTH)).booleanValue()) {
+
+        }
+        if (((Boolean) state.getValue(STATUS_WEST)).booleanValue()) {
+
+        }
+        if (((Boolean) state.getValue(STATUS_EAST)).booleanValue()) {
+
+        }
+
+        return new AxisAlignedBB()
+                //todo 在不同的连接的时候动态生成aabb
+
+    }
+
+    @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
@@ -112,7 +176,7 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        if(!worldIn.isRemote) {
+        if (!worldIn.isRemote) {
             ((TileEntityEnergyCableWithoutGenerateForce) worldIn.getTileEntity(pos)).onBlockPlacedBy();
         }
     }
@@ -149,34 +213,6 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
     public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
         return canconnect(world, pos, facing);
     }
-
-//    @Override
-//    public IBlockState withRotation(IBlockState state, Rotation rot) {
-//        switch (rot) {
-//            case CLOCKWISE_180:
-//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
-//            case COUNTERCLOCKWISE_90:
-//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_EAST)).withProperty(STATUS_EAST, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_NORTH));
-//            case CLOCKWISE_90:
-//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_WEST)).withProperty(STATUS_EAST, state.getValue(STATUS_NORTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_EAST)).withProperty(STATUS_WEST, state.getValue(STATUS_SOUTH));
-//
-//            default:
-//                return state;
-//        }
-//    }
-//
-//    @Override
-//    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-//        switch (mirrorIn)
-//        {
-//            case LEFT_RIGHT:
-//                return state.withProperty(STATUS_NORTH, state.getValue(STATUS_SOUTH)).withProperty(STATUS_SOUTH, state.getValue(STATUS_NORTH));
-//            case FRONT_BACK:
-//                return state.withProperty(STATUS_EAST, state.getValue(STATUS_WEST)).withProperty(STATUS_WEST, state.getValue(STATUS_EAST));
-//            default:
-//                return super.withMirror(state, mirrorIn);
-//        }
-//    }
 
     @Override
     protected BlockStateContainer createBlockState() {
