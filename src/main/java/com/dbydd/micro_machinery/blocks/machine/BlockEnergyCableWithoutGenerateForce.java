@@ -124,16 +124,15 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
         }
     }
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    /**public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         state = this.getActualState(state, source, pos);
 
-        double x1 = ;
-        double x2 = ;
-        double y1 = ;
-        double y2 = ;
-        double z1 = ;
-        double z2 = ;
-        //todo 给他们初值
+        double x1 = 0.375;
+        double x2 = 0.625;
+        double y1 = 0.375;
+        double y2 = 0.625;
+        double z1 = 0.375;
+        double z2 = 0.625;
 
         if (((Boolean) state.getValue(STATUS_UP)).booleanValue()) {
 
@@ -154,10 +153,11 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
 
         }
 
-        return new AxisAlignedBB()
+        return new AxisAlignedBB();
                 //todo 在不同的连接的时候动态生成aabb
 
     }
+     **/
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
