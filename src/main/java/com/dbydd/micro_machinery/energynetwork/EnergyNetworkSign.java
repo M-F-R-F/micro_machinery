@@ -1,19 +1,19 @@
 package com.dbydd.micro_machinery.energynetwork;
 
+import com.dbydd.micro_machinery.util.RandomUtils;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class EnergyNetworkSign {
-    private static int i = 0;
     private int SIGN;
     private int energyStoragedOfNetwork = 0;
     private int maxEnergyCapacityOfNetwork = 0;
 
     public EnergyNetworkSign() {
-        this.SIGN = i++;
+        this.SIGN = RandomUtils.nextRandomInt();
     }
 
     public EnergyNetworkSign(int energyStoragedOfNetwork, int maxEnergyCapacityOfNetwork) {
-        this.SIGN = i++;
+        this.SIGN = RandomUtils.nextRandomInt();
         this.energyStoragedOfNetwork = energyStoragedOfNetwork;
         this.maxEnergyCapacityOfNetwork = maxEnergyCapacityOfNetwork;
     }

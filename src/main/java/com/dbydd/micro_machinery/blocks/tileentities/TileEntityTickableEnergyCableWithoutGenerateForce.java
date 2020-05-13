@@ -1,16 +1,14 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
-import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
+import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.worldsaveddatas.EnergyNetSavedData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntityEnergyCableWithoutGenerateForce implements ITickable {
     private boolean needUpdate = false;
@@ -26,7 +24,7 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
             if (!needUpdate) {
                 notifyNearbyCablesUpdateEnergyNetFlow();
             }
-         PushEnergyToSurrondingMachine();
+            PushEnergyToSurrondingMachine();
         }
     }
 
@@ -38,7 +36,7 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
     @Override
     public void onNeighborChanged(BlockPos neighbor) {
         super.onNeighborChanged(neighbor);
-        for(EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te != null) {
                 if (!(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
@@ -51,17 +49,42 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
         }
     }
 
+    @Override
+    public void onBlockPlacedBy() {
+        int i = 0;
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                i++;
+                this.sequence = ++((TileEntityEnergyCableWithoutGenerateForce) te).sequence;
+                this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
+                EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
+                EnergyNetSavedData.updateEnergyNetCapacity(world, energyStored, this.sign);
+                markDirty();
+                break;
+            }
+        }
+        if (i == 0) {
+            EnergyNetworkSign sign = new EnergyNetworkSign();
+            this.sign = sign.getSIGN();
+            markDirty();
+            sign.addEnergyStoragedOfNetwork(energyStored);
+            sign.addMaxEnergyCapacityOfNetwork(maxEnergyCapacity);
+            EnergyNetSavedData.addSign(world, sign);
+        }
+    }
+
     private int PushEnergy(EnumFacing facing) {
         TileEntity te = world.getTileEntity(pos.offset(facing));
-        if(te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+        if (te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
             return te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).receiveEnergy(this.extractEnergy(maxEnergyCapacity, false), false);
         }
         return 0;
     }
 
-    private void PushEnergyToSurrondingMachine(){
-        for(EnumFacing facing : states.getNetOutputFacings()){
-            this.receiveEnergy(PushEnergy(facing),false);
+    private void PushEnergyToSurrondingMachine() {
+        for (EnumFacing facing : states.getNetOutputFacings()) {
+            this.receiveEnergy(PushEnergy(facing), false);
         }
     }
 

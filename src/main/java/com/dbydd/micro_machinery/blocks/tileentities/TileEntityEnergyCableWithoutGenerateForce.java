@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
     protected int sign;
+    protected int sequence = 0;
 
     public TileEntityEnergyCableWithoutGenerateForce(int maxEnergyCapacity) {
         super(maxEnergyCapacity, new SurrondingsState());
@@ -28,12 +29,14 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        this.sequence = compound.getInteger("sequence");
         this.sign = compound.getInteger("EnergyNetSign");
         super.readFromNBT(compound);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound.setInteger("sequence", sequence);
         compound.setInteger("EnergyNetSign", sign);
         return super.writeToNBT(compound);
     }
@@ -114,6 +117,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 i++;
+                this.sequence = ++((TileEntityEnergyCableWithoutGenerateForce) te).sequence;
                 this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
                 EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
                 EnergyNetSavedData.updateEnergyNetCapacity(world, energyStored, this.sign);
