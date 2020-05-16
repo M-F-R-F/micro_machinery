@@ -210,6 +210,12 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
     }
 
     @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        ((TileEntityEnergyCableWithoutGenerateForce)worldIn.getTileEntity(pos)).OnBlockDestroyed();
+        super.breakBlock(worldIn, pos, state);
+    }
+
+    @Override
     public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
         return canconnect(world, pos, facing);
     }

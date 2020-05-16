@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -21,7 +22,7 @@ import javax.annotation.Nullable;
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
     protected int sign;
-    protected int sequence = 0;
+    protected int sequence;
 
     public TileEntityEnergyCableWithoutGenerateForce(int maxEnergyCapacity) {
         super(maxEnergyCapacity, new SurrondingsState());
@@ -44,7 +45,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     @Nullable
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
-        if(capability == CapabilityEnergy.ENERGY) return (T) this;
+        if (capability == CapabilityEnergy.ENERGY) return (T) this;
         return null;
     }
 
@@ -101,7 +102,10 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     public void onBlockPlacedBy() {
-        for(EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+
+        UpdateSequence();
+
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te != null) {
                 if (!(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
@@ -117,14 +121,15 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 i++;
-                this.sequence = ++((TileEntityEnergyCableWithoutGenerateForce) te).sequence;
                 this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
+                //unsafe todo 合并电网
                 EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
                 EnergyNetSavedData.updateEnergyNetCapacity(world, energyStored, this.sign);
                 markDirty();
                 break;
             }
         }
+
         if (i == 0) {
             EnergyNetworkSign sign = new EnergyNetworkSign();
             this.sign = sign.getSIGN();
@@ -136,21 +141,70 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     }
 
+    public int getSequence() {
+        return sequence;
+    }
+
     @Override
     public void onNeighborChanged(BlockPos neighbor) {
         TileEntity te = world.getTileEntity(neighbor);
         if (te != null) {
-            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
-                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSign() != this.sign) {
-                    EnergyNetSavedData.mergeEnergyNet(((TileEntityEnergyCableWithoutGenerateForce) te).getSign(), this.sign, world);
-                    this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
-                    notifyNearbyCablesUpdateSign(((TileEntityEnergyCableWithoutGenerateForce) te).getSign());
-                    markDirty();
-                }
-            } else if (te.hasCapability(CapabilityEnergy.ENERGY, EnergyNetWorkUtils.getFacing(pos, neighbor))) {
+            if (!(te instanceof TileEntityEnergyCableWithoutGenerateForce) && te.hasCapability(CapabilityEnergy.ENERGY, EnergyNetWorkUtils.getFacing(pos, neighbor))) {
                 IEnergyStorage storage = te.getCapability(CapabilityEnergy.ENERGY, EnergyNetWorkUtils.getFacing(pos, neighbor));
                 if (storage.canReceive()) transferToTickable();
             }
+        }
+
+
+    }
+
+    public boolean askForZeroSequence() {
+        if (this.sequence == 0) return true;
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSequence() < this.sequence) {
+                    if (((TileEntityEnergyCableWithoutGenerateForce) te).askForZeroSequence()) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void OnNeighborDestoryed() {
+        boolean canReciveZeroSequencd = askForZeroSequence();
+        //todo 拆分电网
+        if (canReciveZeroSequencd) world.playerEntities.get(0).sendMessage(new TextComponentString("yes"));
+    }
+
+    public void OnBlockDestroyed() {
+        EnergyNetSavedData.updateEnergyNetCapacity(world, -maxEnergyCapacity, sign);
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                ((TileEntityEnergyCableWithoutGenerateForce) te).OnNeighborDestoryed();
+            }
+        }
+    }
+
+    protected void UpdateSequence() {
+        int tempsequence = 0;
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSequence() == 0) {
+                    this.sequence = 1;
+                    markDirty();
+                } else {
+                    if (tempsequence == 0 || tempsequence > ((TileEntityEnergyCableWithoutGenerateForce) te).getSequence()) {
+                        tempsequence = ((TileEntityEnergyCableWithoutGenerateForce) te).getSequence();
+                    }
+                }
+            }
+        }
+        if (tempsequence != 0) {
+            this.sequence = tempsequence + 1;
+            markDirty();
         }
     }
 
@@ -167,14 +221,11 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     private void transferToTickable() {
         world.setBlockState(pos, ModBlocks.test1.getDefaultState());
-//        ((TileEntityTickableEnergyCableWithoutGenerateForce)world.getTileEntity(pos)).onBlockPlacedBy();
     }
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
         return EnergyNetSavedData.ReciveEnergy(this.sign, maxReceive, simulate, world);
-//        world.playerEntities.get(0).sendMessage(new TextComponentString("sign is" + this.sign));
-//        return maxReceive;
     }
 
     @Override

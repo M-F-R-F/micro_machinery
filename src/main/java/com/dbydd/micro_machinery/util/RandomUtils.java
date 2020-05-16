@@ -28,7 +28,7 @@ public class RandomUtils {
     }
 
     public static int nextRandomInt(){
-        return org.apache.commons.lang3.RandomUtils.nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return org.apache.commons.lang3.RandomUtils.nextInt();
     }
 
 }

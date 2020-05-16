@@ -31,6 +31,9 @@ public class EnergyNetSavedData extends WorldSavedData {
         EnergyNetSavedData data = EnergyNetSavedData.getData(world);
         if (data.getSign(sign) != null) {
             data.getSign(sign).addMaxEnergyCapacityOfNetwork(energyCapacityAdd);
+            if(data.getSign(sign).getMaxEnergyCapacityOfNetwork() <= 0){
+                RemoveSign(sign, world);
+            }
             data.markDirty();
         }
     }

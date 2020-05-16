@@ -40,6 +40,9 @@ public class EnergyNetworkSign {
 
     public void addMaxEnergyCapacityOfNetwork(int maxEnergyCapacityAdd) {
         this.maxEnergyCapacityOfNetwork += maxEnergyCapacityAdd;
+        if (this.energyStoragedOfNetwork > maxEnergyCapacityOfNetwork) {
+            this.energyStoragedOfNetwork = maxEnergyCapacityOfNetwork;
+        }
     }
 
     public NBTTagCompound writeToNBT(NBTTagCompound NBT) {
