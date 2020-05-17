@@ -4,6 +4,7 @@ import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
+import com.dbydd.micro_machinery.exceptions.ErrorNumberException;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
@@ -12,12 +13,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
@@ -171,20 +172,223 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         return false;
     }
 
-    public void OnNeighborDestoryed() {
-        boolean canReciveZeroSequencd = askForZeroSequence();
-        //todo 拆分电网
-        if (canReciveZeroSequencd) world.playerEntities.get(0).sendMessage(new TextComponentString("yes"));
+    public int askForFinalSequence(EnumFacing facingFrom, int useless) {
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (facing != facingFrom) {
+                TileEntity te = world.getTileEntity(pos.offset(facing));
+                if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                    if (((TileEntityEnergyCableWithoutGenerateForce) te).getSequence() > this.sequence) {
+                        return ((TileEntityEnergyCableWithoutGenerateForce) te).askForFinalSequence(facing.getOpposite(), useless);
+                    }
+                }
+            }
+        }
+        return this.sequence;
+    }
+
+    public int askForFinalSequence(EnumFacing facingFrom) {
+        return ((TileEntityEnergyCableWithoutGenerateForce) world.getTileEntity(pos.offset(facingFrom))).askForFinalSequence(facingFrom.getOpposite(), 1);
+    }
+
+    public boolean askForZeroSequence(EnumFacing facing) {
+        if (this.sequence == 0) return true;
+        TileEntity te = world.getTileEntity(pos.offset(facing));
+        if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+            if (((TileEntityEnergyCableWithoutGenerateForce) te).getSequence() < this.sequence) {
+                if (((TileEntityEnergyCableWithoutGenerateForce) te).askForZeroSequence()) return true;
+            }
+        }
+        return false;
+    }
+
+    public int[] askForCapacity(EnumFacing fromFacing) {
+        List<EnumFacing> facings = IMMFETransfer.getNearbyCables(pos, world).getFacings(EnumMMFETileEntityStatus.CABLE);
+        facings.remove(fromFacing);
+        if (facings.size() == 0) {
+            return new int[]{1, this.maxEnergyCapacity};
+        } else {
+            int[] amountandCapacity = new int[]{1, this.maxEnergyCapacity};
+            for (EnumFacing facing : facings) {
+                int[] tempArray = ((TileEntityEnergyCableWithoutGenerateForce) world.getTileEntity(pos.offset(facing))).askForCapacity(facing.getOpposite());
+                amountandCapacity[0] += tempArray[0];
+                amountandCapacity[1] += tempArray[1];
+            }
+            return amountandCapacity;
+        }
+    }
+
+    public boolean OnNeighborDestoryed(EnumFacing facing) {
+        return askForZeroSequence(facing);
     }
 
     public void OnBlockDestroyed() {
         EnergyNetSavedData.updateEnergyNetCapacity(world, -maxEnergyCapacity, sign);
-        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            TileEntity te = world.getTileEntity(pos.offset(facing));
-            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
-                ((TileEntityEnergyCableWithoutGenerateForce) te).OnNeighborDestoryed();
+    }
+
+    public void splitEnergyNet() throws ErrorNumberException {
+        int i = 0;
+
+        //todo 用自己的state
+        SurrondingsState state = IMMFETransfer.getNearbyCables(pos, world);
+        List<EnumFacing> list = state.getFacings(EnumMMFETileEntityStatus.CABLE);
+
+        for (EnumFacing facing : list) {
+            int tempsequence = askForFinalSequence(facing);
+            for (EnumFacing facing2 : list) {
+                if (facing2 != facing) {
+                    if (askForFinalSequence(facing) == tempsequence) {
+                        list.remove(facing2);
+                    }
+                }
             }
         }
+
+        int size = list.size();
+
+        if (size != 1) {
+            //todo 发包
+            switch (size) {
+                case 2: {
+                    EnergyNetworkSign sign1 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign2 = new EnergyNetworkSign();
+
+                    int[] sign1AmountAndCapacity = askForCapacity(list.get(0));
+                    int[] sign2AmountAndCapacity = askForCapacity(list.get(1));
+
+                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], this.sign, this.world);
+                    //todo
+                    break;
+                }
+                case 3: {
+                    EnergyNetworkSign sign1 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign2 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign3 = new EnergyNetworkSign();
+                    EnergyNetworkSign tempSign = null;
+
+                    int[] sign1AmountAndCapacity = askForCapacity(list.get(0));
+                    int[] sign2AmountAndCapacity = askForCapacity(list.get(1));
+                    int[] sign3AmountAndCapacity = askForCapacity(list.get(2));
+
+                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0] + sign3AmountAndCapacity[0], sign1AmountAndCapacity[1] + sign3AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], this.sign, this.world);
+
+                    //1 -> 1,3
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign1.getSIGN(), world);
+                    sign1 = tempSign;
+
+                    //todo
+                    break;
+                }
+                case 4: {
+                    EnergyNetworkSign sign1 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign2 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign3 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign4 = new EnergyNetworkSign();
+                    EnergyNetworkSign tempSign = null;
+
+                    int[] sign1AmountAndCapacity = askForCapacity(list.get(0));
+                    int[] sign2AmountAndCapacity = askForCapacity(list.get(1));
+                    int[] sign3AmountAndCapacity = askForCapacity(list.get(2));
+                    int[] sign4AmountAndCapacity = askForCapacity(list.get(3));
+
+
+                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0]+sign3AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign3AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0]+sign4AmountAndCapacity[0], sign2AmountAndCapacity[1]+sign4AmountAndCapacity[1], this.sign, this.world);
+
+                    //1 -> 1,3
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign1.getSIGN(), world);
+                    sign1 = tempSign;
+
+                    //2 -> 2,4
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign4, sign4AmountAndCapacity[0], sign4AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], sign2.getSIGN(), world);
+                    sign2 = tempSign;
+
+                    //todo
+                    break;
+                }
+                case 5: {
+                    EnergyNetworkSign sign1 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign2 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign3 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign4 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign5 = new EnergyNetworkSign();
+                    EnergyNetworkSign tempSign = null;
+
+                    int[] sign1AmountAndCapacity = askForCapacity(list.get(0));
+                    int[] sign2AmountAndCapacity = askForCapacity(list.get(1));
+                    int[] sign3AmountAndCapacity = askForCapacity(list.get(2));
+                    int[] sign4AmountAndCapacity = askForCapacity(list.get(3));
+                    int[] sign5AmountAndCapacity = askForCapacity(list.get(4));
+
+
+                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0]+sign3AmountAndCapacity[0]+sign5AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign3AmountAndCapacity[1]+sign5AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0]+sign4AmountAndCapacity[0], sign2AmountAndCapacity[1]+sign4AmountAndCapacity[1], this.sign, this.world);
+
+                    //1->1,3,5
+                        //1 -> 1,3
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0]+sign5AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign5AmountAndCapacity[1], sign1.getSIGN(), world);
+                    sign1 = tempSign;
+
+                        //1 -> 1,5
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign5, sign5AmountAndCapacity[0], sign5AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign1.getSIGN(), world);
+                    sign1 = tempSign;
+
+                    //2->2,4
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign4, sign4AmountAndCapacity[0], sign4AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], sign2.getSIGN(), world);
+                    sign2 = tempSign;
+
+                    //todo
+                    break;
+                }
+                case 6: {
+                    EnergyNetworkSign sign1 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign2 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign3 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign4 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign5 = new EnergyNetworkSign();
+                    EnergyNetworkSign sign6 = new EnergyNetworkSign();
+                    EnergyNetworkSign tempSign = null;
+
+                    int[] sign1AmountAndCapacity = askForCapacity(list.get(0));
+                    int[] sign2AmountAndCapacity = askForCapacity(list.get(1));
+                    int[] sign3AmountAndCapacity = askForCapacity(list.get(2));
+                    int[] sign4AmountAndCapacity = askForCapacity(list.get(3));
+                    int[] sign5AmountAndCapacity = askForCapacity(list.get(4));
+                    int[] sign6AmountAndCapacity = askForCapacity(list.get(5));
+
+                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], this.sign, this.world);
+
+                    //1->1,3,5
+                        //1 -> 1,3
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0]+sign5AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign5AmountAndCapacity[1], sign1.getSIGN(), world);
+                    sign1 = tempSign;
+
+                        //1 -> 1,5
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign5, sign5AmountAndCapacity[0], sign5AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign1.getSIGN(), world);
+                    sign1 = tempSign;
+
+                    //2->2,4,6
+                        //2->2,4
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign4, sign4AmountAndCapacity[0], sign4AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0]+sign6AmountAndCapacity[0], sign2AmountAndCapacity[1]+sign6AmountAndCapacity[1], sign2.getSIGN(), world);
+                    sign2 = tempSign;
+
+                        //2->2,6
+                    tempSign = new EnergyNetworkSign();
+                    EnergyNetSavedData.splitTwoEnergyNet(sign6, sign6AmountAndCapacity[0], sign6AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], sign2.getSIGN(), world);
+                    sign2 = tempSign;
+
+                    //todo
+                    break;
+                }
+            }
+        }
+
     }
 
     protected void UpdateSequence() {

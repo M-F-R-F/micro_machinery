@@ -70,6 +70,15 @@ public class SurrondingsState {
         return list;
     }
 
+    public List<EnumFacing> getFacings( EnumMMFETileEntityStatus status) {
+        List<EnumFacing> list = new ArrayList<>();
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            if (this.map.get(facing) == status)
+                list.add(facing);
+        }
+        return list;
+    }
+
     public List<EnumFacing> getOutputFacings() {
         return getOutputFacings(this);
     }

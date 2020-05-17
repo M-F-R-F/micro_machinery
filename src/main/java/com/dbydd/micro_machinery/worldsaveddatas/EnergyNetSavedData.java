@@ -1,6 +1,8 @@
 package com.dbydd.micro_machinery.worldsaveddatas;
 
 import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
+import com.dbydd.micro_machinery.exceptions.ErrorNumberException;
+import com.sun.xml.internal.ws.api.message.ExceptionHasMessage;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -31,7 +33,7 @@ public class EnergyNetSavedData extends WorldSavedData {
         EnergyNetSavedData data = EnergyNetSavedData.getData(world);
         if (data.getSign(sign) != null) {
             data.getSign(sign).addMaxEnergyCapacityOfNetwork(energyCapacityAdd);
-            if(data.getSign(sign).getMaxEnergyCapacityOfNetwork() <= 0){
+            if (data.getSign(sign).getMaxEnergyCapacityOfNetwork() <= 0) {
                 RemoveSign(sign, world);
             }
             data.markDirty();
@@ -85,6 +87,29 @@ public class EnergyNetSavedData extends WorldSavedData {
         int i = data.getSign(Sign).receiveEnergy(maxRecive, simulate);
         data.markDirty();
         return i;
+    }
+
+    public static boolean splitTwoEnergyNet(EnergyNetworkSign sign1, int amountOfSign1, int capacityOfSign1, EnergyNetworkSign sign2, int amountOfSign2, int capacityOfSign2, int signSIGNNeedToSplit, World world) throws ErrorNumberException {
+        EnergyNetSavedData data = getData(world);
+        EnergyNetworkSign signNeedToSplit = data.getSign(signSIGNNeedToSplit);
+        if (capacityOfSign1 + capacityOfSign2 == signNeedToSplit.getMaxEnergyCapacityOfNetwork()) {
+            int amountOfAllCable = amountOfSign1 + amountOfSign2;
+            int EnergyStorageOfSign1 = Math.round(signNeedToSplit.getEnergyStoragedOfNetwork() * (amountOfSign1 / amountOfAllCable));
+            int EnergyStorageOfSign2 = Math.round(signNeedToSplit.getEnergyStoragedOfNetwork() * (amountOfSign2 / amountOfAllCable));
+
+            EnergyNetworkSign SignNeedToSplit = data.getSign(signNeedToSplit.getSIGN());
+            sign1.addMaxEnergyCapacityOfNetwork(capacityOfSign1);
+            sign1.addEnergyStoragedOfNetwork(EnergyStorageOfSign1);
+
+            sign2.addMaxEnergyCapacityOfNetwork(capacityOfSign2);
+            sign2.addEnergyStoragedOfNetwork(EnergyStorageOfSign2);
+
+            data.addSign(sign1);
+            data.addSign(sign2);
+            RemoveSign(signNeedToSplit.getSIGN(), world);
+            return true;
+        }else throw new ErrorNumberException("The capacity of energynet has wrong, pleast commit issuse");
+
     }
 
     public List<EnergyNetworkSign> getNetworkSignList() {
