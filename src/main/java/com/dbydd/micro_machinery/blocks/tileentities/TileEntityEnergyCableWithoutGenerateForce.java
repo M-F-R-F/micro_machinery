@@ -125,7 +125,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                 this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
                 //unsafe todo 合并电网
                 EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
-                EnergyNetSavedData.updateEnergyNetCapacity(world, energyStored, this.sign);
+                EnergyNetSavedData.updateEnergyNetEnergy(world, energyStored, this.sign);
                 markDirty();
                 break;
             }
@@ -202,8 +202,8 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     public int[] askForCapacity(EnumFacing fromFacing) {
-        List<EnumFacing> facings = IMMFETransfer.getNearbyCables(pos, world).getFacings(EnumMMFETileEntityStatus.CABLE);
-        facings.remove(fromFacing);
+        List<EnumFacing> facings = IMMFETransfer.getNearbyCables(pos.offset(fromFacing), world).getFacings(EnumMMFETileEntityStatus.CABLE);
+        facings.remove(fromFacing.getOpposite());
         if (facings.size() == 0) {
             return new int[]{1, this.maxEnergyCapacity};
         } else {
@@ -221,27 +221,26 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         return askForZeroSequence(facing);
     }
 
-    public void OnBlockDestroyed() {
+    public void OnBlockDestroyed() throws ErrorNumberException {
         EnergyNetSavedData.updateEnergyNetCapacity(world, -maxEnergyCapacity, sign);
+        splitEnergyNet();
     }
 
     public void splitEnergyNet() throws ErrorNumberException {
-        int i = 0;
-
         //todo 用自己的state
         SurrondingsState state = IMMFETransfer.getNearbyCables(pos, world);
         List<EnumFacing> list = state.getFacings(EnumMMFETileEntityStatus.CABLE);
 
-        for (EnumFacing facing : list) {
-            int tempsequence = askForFinalSequence(facing);
-            for (EnumFacing facing2 : list) {
-                if (facing2 != facing) {
-                    if (askForFinalSequence(facing) == tempsequence) {
-                        list.remove(facing2);
-                    }
-                }
-            }
-        }
+//        for (EnumFacing facing : list) {
+//            int tempsequence = askForFinalSequence(facing);
+//            for (EnumFacing facing2 : list) {
+//                if (facing2 != facing) {
+//                    if (askForFinalSequence(facing) == tempsequence) {
+//                        list.remove(facing2);
+//                    }
+//                }
+//            }
+//        }
 
         int size = list.size();
 

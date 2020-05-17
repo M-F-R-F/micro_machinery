@@ -3,6 +3,7 @@ package com.dbydd.micro_machinery.blocks.machine;
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
+import com.dbydd.micro_machinery.exceptions.ErrorNumberException;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModItems;
 import com.dbydd.micro_machinery.util.IHasModel;
@@ -211,7 +212,11 @@ public class BlockEnergyCableWithoutGenerateForce extends Block implements IHasM
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        ((TileEntityEnergyCableWithoutGenerateForce)worldIn.getTileEntity(pos)).OnBlockDestroyed();
+        try {
+            ((TileEntityEnergyCableWithoutGenerateForce)worldIn.getTileEntity(pos)).OnBlockDestroyed();
+        } catch (ErrorNumberException e) {
+            e.printStackTrace();
+        }
         super.breakBlock(worldIn, pos, state);
     }
 
