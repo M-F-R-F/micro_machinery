@@ -3,6 +3,7 @@ package com.dbydd.micro_machinery.interfaces;
 import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetWorkSpecialPackge;
+import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
 import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import net.minecraft.tileentity.TileEntity;
@@ -26,12 +27,14 @@ public interface IMMFETransfer {
     }
 
     default SurrondingsState getNearbyCablesWithoutFacing(BlockPos pos, World world) {
-        return new SurrondingsState(pos, world);
+        return getNearbyCables(pos,world);
     }
 
     default IEnergyStorage getOffsetBlockEnergyCapacity(EnumFacing facing, BlockPos pos, World world) {
         return world.getTileEntity(pos.offset(facing)).getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
     }
+
+    public void notifyNearbyCableUpdateSign(int sign, int sequence, EnumFacing toFacing);
 
     default boolean isOffsetBlockHasEnergyCapacity(EnumFacing facing, BlockPos pos, World world) {
         TileEntity te = world.getTileEntity(pos.offset(facing));
@@ -49,17 +52,11 @@ public interface IMMFETransfer {
         return false;
     }
 
-    EnergyNetWorkSpecialPackge generatePackage(EnumFacing facing);
+    EnergyNetWorkSpecialPackge generatePackage();
 
-    public void notifyNearbyCablesUpdateEnergyNetFlow();
+    public void notifyNearbyCablesUpdateSign(int sign, int sequence, EnumFacing fromFacing);
 
-    public void notifyNearByCableUpdateEnergyNetFlow(EnumFacing facing);
-
-    public int notifyByNearbyCablesUpdateEnergyNetFlow(EnergyNetWorkSpecialPackge pack);
-
-    public void notifyNearbyCablesUpdateSign(int Sign);
-
-    public void notifyByNearbyCablesUpdateSign(int Sign);
+    public void notifyByNearbyCablesUpdateSign(int sign, int sequence, EnumFacing fromFacing);
 
     public void onBlockPlacedBy();
 

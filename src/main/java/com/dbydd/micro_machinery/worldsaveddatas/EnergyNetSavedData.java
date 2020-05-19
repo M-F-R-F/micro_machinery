@@ -55,6 +55,7 @@ public class EnergyNetSavedData extends WorldSavedData {
             if (energyNetworkSign.getSIGN() == sign) {
                 list.remove(energyNetworkSign);
                 data.markDirty();
+                break;
             }
         }
     }

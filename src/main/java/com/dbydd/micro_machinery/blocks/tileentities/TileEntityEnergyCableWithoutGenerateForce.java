@@ -18,6 +18,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
@@ -55,51 +56,48 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         return EnumMMFETileEntityStatus.CABLE;
     }
 
+
     @Override
-    public EnergyNetWorkSpecialPackge generatePackage(EnumFacing facing) {
-        return new EnergyNetWorkSpecialPackge(pos, facing);
+    public EnergyNetWorkSpecialPackge generatePackage() {
+        return null;
     }
 
     @Override
-    public void notifyNearbyCablesUpdateEnergyNetFlow() {
-    }
-
-    @Override
-    public void notifyNearByCableUpdateEnergyNetFlow(EnumFacing facing) {
-    }
-
-    @Override
-    public int notifyByNearbyCablesUpdateEnergyNetFlow(EnergyNetWorkSpecialPackge pack) {
-        return 0;
-        //todo 重写
-    }
-
-    @Override
-    public void notifyNearbyCablesUpdateSign(int Sign) {
-        for (EnumFacing face : EnergyNetWorkUtils.getFacings()) {
-            TileEntity te = world.getTileEntity(pos.offset(face));
-            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
-                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSign() != Sign) {
-                    ((TileEntityEnergyCableWithoutGenerateForce) te).setSign(Sign);
-                }
-            }
+    public void notifyNearbyCablesUpdateSign(int sign, int sequence, EnumFacing fromFacing) {
+//        for (EnumFacing face : EnergyNetWorkUtils.getFacings()) {
+//            TileEntity te = world.getTileEntity(pos.offset(face));
+//            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+//                if (((TileEntityEnergyCableWithoutGenerateForce) te).getSign() != Sign) {
+//                    ((TileEntityEnergyCableWithoutGenerateForce) te).setSign(Sign);
+//                }
+//            }
+//        }
+        List<EnumFacing> list = getNearbyCablesWithoutFacing(pos, world).getFacings(EnumMMFETileEntityStatus.CABLE);
+        list.remove(fromFacing);
+        for (EnumFacing facing : list) {
+            ((TileEntityEnergyCableWithoutGenerateForce) world.getTileEntity(pos.offset(facing))).notifyByNearbyCablesUpdateSign(sign, sequence, facing.getOpposite());
         }
 
     }
 
     @Override
-    public void notifyByNearbyCablesUpdateSign(int Sign) {
-        this.setSign(Sign);
-        notifyNearbyCablesUpdateSign(Sign);
+    public void notifyNearbyCableUpdateSign(int sign, int sequence, EnumFacing toFacing) {
+        ((TileEntityEnergyCableWithoutGenerateForce) world.getTileEntity(pos.offset(toFacing))).notifyByNearbyCablesUpdateSign(sign, sequence, toFacing.getOpposite());
+    }
+
+    @Override
+    public void notifyByNearbyCablesUpdateSign(int sign, int sequence, EnumFacing fromFacing) {
+
+        this.sign = sign;
+        this.sequence = sequence + 1;
+        markDirty();
+        notifyNearbyCablesUpdateSign(sign, this.sequence, fromFacing);
+//        this.setSign(Sign);
+//        notifyNearbyCablesUpdateSign(Sign);
     }
 
     public int getSign() {
         return sign;
-    }
-
-    public void setSign(int sign) {
-        this.sign = sign;
-        markDirty();
     }
 
     public void onBlockPlacedBy() {
@@ -118,6 +116,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         }
 
         int i = 0;
+        boolean hasUpdated = false;
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
@@ -202,8 +201,8 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     public int[] askForCapacity(EnumFacing fromFacing) {
-        List<EnumFacing> facings = IMMFETransfer.getNearbyCables(pos.offset(fromFacing), world).getFacings(EnumMMFETileEntityStatus.CABLE);
-        facings.remove(fromFacing.getOpposite());
+        List<EnumFacing> facings = IMMFETransfer.getNearbyCables(pos.offset(fromFacing.getOpposite()), world).getFacings(EnumMMFETileEntityStatus.CABLE);
+        facings.remove(fromFacing);
         if (facings.size() == 0) {
             return new int[]{1, this.maxEnergyCapacity};
         } else {
@@ -231,17 +230,6 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         SurrondingsState state = IMMFETransfer.getNearbyCables(pos, world);
         List<EnumFacing> list = state.getFacings(EnumMMFETileEntityStatus.CABLE);
 
-//        for (EnumFacing facing : list) {
-//            int tempsequence = askForFinalSequence(facing);
-//            for (EnumFacing facing2 : list) {
-//                if (facing2 != facing) {
-//                    if (askForFinalSequence(facing) == tempsequence) {
-//                        list.remove(facing2);
-//                    }
-//                }
-//            }
-//        }
-
         int size = list.size();
 
         if (size != 1) {
@@ -255,7 +243,13 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     int[] sign2AmountAndCapacity = askForCapacity(list.get(1));
 
                     EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], this.sign, this.world);
-                    //todo
+
+                    List<EnergyNetworkSign> listSigns = new ArrayList<>();
+                    listSigns.add(sign1);
+                    listSigns.add(sign2);
+                    for (int b = 0; b < size; b++) {
+                        notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
+                    }
                     break;
                 }
                 case 3: {
@@ -275,7 +269,13 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign1.getSIGN(), world);
                     sign1 = tempSign;
 
-                    //todo
+                    List<EnergyNetworkSign> listSigns = new ArrayList<>();
+                    listSigns.add(sign1);
+                    listSigns.add(sign2);
+                    listSigns.add(sign3);
+                    for (int b = 0; b < size; b++) {
+                        notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
+                    }
                     break;
                 }
                 case 4: {
@@ -291,7 +291,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     int[] sign4AmountAndCapacity = askForCapacity(list.get(3));
 
 
-                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0]+sign3AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign3AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0]+sign4AmountAndCapacity[0], sign2AmountAndCapacity[1]+sign4AmountAndCapacity[1], this.sign, this.world);
+                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0] + sign3AmountAndCapacity[0], sign1AmountAndCapacity[1] + sign3AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0] + sign4AmountAndCapacity[0], sign2AmountAndCapacity[1] + sign4AmountAndCapacity[1], this.sign, this.world);
 
                     //1 -> 1,3
                     tempSign = new EnergyNetworkSign();
@@ -303,7 +303,14 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     EnergyNetSavedData.splitTwoEnergyNet(sign4, sign4AmountAndCapacity[0], sign4AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], sign2.getSIGN(), world);
                     sign2 = tempSign;
 
-                    //todo
+                    List<EnergyNetworkSign> listSigns = new ArrayList<>();
+                    listSigns.add(sign1);
+                    listSigns.add(sign2);
+                    listSigns.add(sign3);
+                    listSigns.add(sign4);
+                    for (int b =0;b<size;b++) {
+                        notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
+                    }
                     break;
                 }
                 case 5: {
@@ -321,15 +328,15 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     int[] sign5AmountAndCapacity = askForCapacity(list.get(4));
 
 
-                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0]+sign3AmountAndCapacity[0]+sign5AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign3AmountAndCapacity[1]+sign5AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0]+sign4AmountAndCapacity[0], sign2AmountAndCapacity[1]+sign4AmountAndCapacity[1], this.sign, this.world);
+                    EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0] + sign3AmountAndCapacity[0] + sign5AmountAndCapacity[0], sign1AmountAndCapacity[1] + sign3AmountAndCapacity[1] + sign5AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0] + sign4AmountAndCapacity[0], sign2AmountAndCapacity[1] + sign4AmountAndCapacity[1], this.sign, this.world);
 
                     //1->1,3,5
-                        //1 -> 1,3
+                    //1 -> 1,3
                     tempSign = new EnergyNetworkSign();
-                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0]+sign5AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign5AmountAndCapacity[1], sign1.getSIGN(), world);
+                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0] + sign5AmountAndCapacity[0], sign1AmountAndCapacity[1] + sign5AmountAndCapacity[1], sign1.getSIGN(), world);
                     sign1 = tempSign;
 
-                        //1 -> 1,5
+                    //1 -> 1,5
                     tempSign = new EnergyNetworkSign();
                     EnergyNetSavedData.splitTwoEnergyNet(sign5, sign5AmountAndCapacity[0], sign5AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign1.getSIGN(), world);
                     sign1 = tempSign;
@@ -339,7 +346,15 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     EnergyNetSavedData.splitTwoEnergyNet(sign4, sign4AmountAndCapacity[0], sign4AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], sign2.getSIGN(), world);
                     sign2 = tempSign;
 
-                    //todo
+                    List<EnergyNetworkSign> listSigns = new ArrayList<>();
+                    listSigns.add(sign1);
+                    listSigns.add(sign2);
+                    listSigns.add(sign3);
+                    listSigns.add(sign4);
+                    listSigns.add(sign5);
+                    for (int b =0;b<size;b++) {
+                        notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
+                    }
                     break;
                 }
                 case 6: {
@@ -361,28 +376,37 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     EnergyNetSavedData.splitTwoEnergyNet(sign1, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign2, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], this.sign, this.world);
 
                     //1->1,3,5
-                        //1 -> 1,3
+                    //1 -> 1,3
                     tempSign = new EnergyNetworkSign();
-                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0]+sign5AmountAndCapacity[0], sign1AmountAndCapacity[1]+sign5AmountAndCapacity[1], sign1.getSIGN(), world);
+                    EnergyNetSavedData.splitTwoEnergyNet(sign3, sign3AmountAndCapacity[0], sign3AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0] + sign5AmountAndCapacity[0], sign1AmountAndCapacity[1] + sign5AmountAndCapacity[1], sign1.getSIGN(), world);
                     sign1 = tempSign;
 
-                        //1 -> 1,5
+                    //1 -> 1,5
                     tempSign = new EnergyNetworkSign();
                     EnergyNetSavedData.splitTwoEnergyNet(sign5, sign5AmountAndCapacity[0], sign5AmountAndCapacity[1], tempSign, sign1AmountAndCapacity[0], sign1AmountAndCapacity[1], sign1.getSIGN(), world);
                     sign1 = tempSign;
 
                     //2->2,4,6
-                        //2->2,4
+                    //2->2,4
                     tempSign = new EnergyNetworkSign();
-                    EnergyNetSavedData.splitTwoEnergyNet(sign4, sign4AmountAndCapacity[0], sign4AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0]+sign6AmountAndCapacity[0], sign2AmountAndCapacity[1]+sign6AmountAndCapacity[1], sign2.getSIGN(), world);
+                    EnergyNetSavedData.splitTwoEnergyNet(sign4, sign4AmountAndCapacity[0], sign4AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0] + sign6AmountAndCapacity[0], sign2AmountAndCapacity[1] + sign6AmountAndCapacity[1], sign2.getSIGN(), world);
                     sign2 = tempSign;
 
-                        //2->2,6
+                    //2->2,6
                     tempSign = new EnergyNetworkSign();
                     EnergyNetSavedData.splitTwoEnergyNet(sign6, sign6AmountAndCapacity[0], sign6AmountAndCapacity[1], tempSign, sign2AmountAndCapacity[0], sign2AmountAndCapacity[1], sign2.getSIGN(), world);
                     sign2 = tempSign;
 
-                    //todo
+                    List<EnergyNetworkSign> listSigns = new ArrayList<>();
+                    listSigns.add(sign1);
+                    listSigns.add(sign2);
+                    listSigns.add(sign3);
+                    listSigns.add(sign4);
+                    listSigns.add(sign5);
+                    listSigns.add(sign6);
+                    for (int b =0;b<size;b++) {
+                        notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
+                    }
                     break;
                 }
             }

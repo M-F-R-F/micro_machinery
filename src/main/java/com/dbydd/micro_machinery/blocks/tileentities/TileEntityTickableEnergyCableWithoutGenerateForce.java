@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntityEnergyCableWithoutGenerateForce implements ITickable {
-    private boolean needUpdate = false;
 
 
     public TileEntityTickableEnergyCableWithoutGenerateForce(int maxEnergyCapacity) {
@@ -21,16 +20,8 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
     @Override
     public void update() {
         if (!world.isRemote) {
-            if (!needUpdate) {
-                notifyNearbyCablesUpdateEnergyNetFlow();
-            }
             PushEnergyToSurrondingMachine();
         }
-    }
-
-    @Override
-    public void notifyNearbyCablesUpdateEnergyNetFlow() {
-        //todo 重写
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.dbydd.micro_machinery.blocks.tileentities;
 
-import com.dbydd.micro_machinery.interfaces.IMMFEStorage;
-import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
-import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
 import com.dbydd.micro_machinery.energynetwork.FluxFlowVector;
 import com.dbydd.micro_machinery.energynetwork.FluxPowerVector;
+import com.dbydd.micro_machinery.energynetwork.SurrondingsState;
+import com.dbydd.micro_machinery.interfaces.IMMFEStorage;
+import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
