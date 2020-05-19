@@ -92,8 +92,20 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         this.sequence = sequence + 1;
         markDirty();
         notifyNearbyCablesUpdateSign(sign, this.sequence, fromFacing);
-//        this.setSign(Sign);
-//        notifyNearbyCablesUpdateSign(Sign);
+    }
+
+    public void notifyNearbyCableMergeSign(int sign, int sequence, EnumFacing fromFacing){
+        List<EnumFacing> list = getNearbyCablesWithoutFacing(pos,world).getFacings(EnumMMFETileEntityStatus.CABLE);
+        for(EnumFacing facing : list){
+            TileEntity tile = world.getTileEntity(pos.offset(facing));
+            if(tile instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                int tileSign = ((TileEntityEnergyCableWithoutGenerateForce) tile).getSign();
+                if (tileSign !=this.sign){
+                    EnergyNetSavedData.mergeEnergyNet(this.sign, tileSign, world);
+                    notifyNearbyCableUpdateSign(sign, sequence, facing);
+                }
+            }
+        }
     }
 
     public int getSign() {
@@ -121,12 +133,17 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 i++;
-                this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
+                int sign1 = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
                 //unsafe todo 合并电网
-                EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
-                EnergyNetSavedData.updateEnergyNetEnergy(world, energyStored, this.sign);
-                markDirty();
-                break;
+                if(!hasUpdated && sign1 != this.sign) {
+                    this.sign = sign1;
+                    EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
+                    EnergyNetSavedData.updateEnergyNetEnergy(world, energyStored, this.sign);
+                    hasUpdated = true;
+                    markDirty();
+                }else {
+                    notifyNearbyCableMergeSign(this.sign,sequence, facing);
+                }
             }
         }
 
