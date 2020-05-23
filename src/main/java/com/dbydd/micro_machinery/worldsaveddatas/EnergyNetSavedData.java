@@ -85,9 +85,12 @@ public class EnergyNetSavedData extends WorldSavedData {
 
     public static int ReciveEnergy(int Sign, int maxRecive, boolean simulate, World world) {
         EnergyNetSavedData data = EnergyNetSavedData.getData(world);
-        int i = data.getSign(Sign).receiveEnergy(maxRecive, simulate);
-        data.markDirty();
-        return i;
+        EnergyNetworkSign sign = data.getSign(Sign);
+        if(sign != null) {
+            int i = sign.receiveEnergy(maxRecive, simulate);
+            data.markDirty();
+            return i;
+        }else return 0;
     }
 
     public static boolean splitTwoEnergyNet(EnergyNetworkSign sign1, int amountOfSign1, int capacityOfSign1, EnergyNetworkSign sign2, int amountOfSign2, int capacityOfSign2, int signSIGNNeedToSplit, World world) throws ErrorNumberException {

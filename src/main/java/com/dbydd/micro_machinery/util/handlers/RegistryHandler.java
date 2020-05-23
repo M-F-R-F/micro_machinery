@@ -2,10 +2,12 @@ package com.dbydd.micro_machinery.util.handlers;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.init.ModItems;
+import com.dbydd.micro_machinery.renderer.TileentityCableSpecialRenderer;
 import com.dbydd.micro_machinery.util.IHasModel;
 import com.dbydd.micro_machinery.worldgen.*;
 import net.minecraft.block.Block;
@@ -15,6 +17,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -55,6 +58,8 @@ public class RegistryHandler {
                 ((IHasModel) block).registerModels();
             }
         }
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer());
     }
 
     public static void preInitRegisteries(FMLPreInitializationEvent event) {

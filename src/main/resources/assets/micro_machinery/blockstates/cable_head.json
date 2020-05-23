@@ -1,0 +1,10 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "micro_machinery:enrgy1_pipe_input"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}
