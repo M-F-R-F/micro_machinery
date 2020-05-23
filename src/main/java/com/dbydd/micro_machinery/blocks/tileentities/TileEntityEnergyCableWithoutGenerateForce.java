@@ -166,7 +166,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
            TileEntity te =  world.getTileEntity(pos.offset(facing));
             if(te instanceof TileEntityEnergyCableWithoutGenerateForce){
                 states.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
-            }else if(te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())){
+            }else if(te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())){
                 if(te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canExtract()){
                     states.setStatusInFacing(facing, EnumMMFETileEntityStatus.ENERGYNET_INPUT);
                 }

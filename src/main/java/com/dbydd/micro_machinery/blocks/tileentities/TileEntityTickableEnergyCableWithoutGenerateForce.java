@@ -4,6 +4,7 @@ import com.dbydd.micro_machinery.EnumType.EnumMMFETileEntityStatus;
 import com.dbydd.micro_machinery.energynetwork.EnergyNetworkSign;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.worldsaveddatas.EnergyNetSavedData;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -11,15 +12,32 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntityEnergyCableWithoutGenerateForce implements ITickable {
+    boolean checked = false;
 
 
     public TileEntityTickableEnergyCableWithoutGenerateForce(int maxEnergyCapacity) {
         super(maxEnergyCapacity);
     }
 
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        this.checked = compound.getBoolean("checked");
+        return super.writeToNBT(compound);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        compound.setBoolean("checked", checked);
+        super.readFromNBT(compound);
+    }
+
     @Override
     public void update() {
         if (!world.isRemote) {
+            if(!checked){
+                onBlockPlacedBy();
+            }
             PushEnergyToSurrondingMachine();
         }
     }
@@ -42,19 +60,29 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
 
     @Override
     public void onBlockPlacedBy() {
+
+        UpdateSequence();
+        updateState();
+
         int i = 0;
+        boolean hasUpdated = false;
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
             if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 i++;
-                this.sequence = ++((TileEntityEnergyCableWithoutGenerateForce) te).sequence;
-                this.sign = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
-                EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
-                EnergyNetSavedData.updateEnergyNetCapacity(world, energyStored, this.sign);
-                markDirty();
-                break;
+                int sign1 = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
+                if(!hasUpdated && sign1 != this.sign) {
+                    this.sign = sign1;
+                    EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
+                    EnergyNetSavedData.updateEnergyNetEnergy(world, energyStored, this.sign);
+                    hasUpdated = true;
+                    markDirty();
+                }else {
+                    notifyNearbyCableMergeSign(this.sign,sequence, facing);
+                }
             }
         }
+
         if (i == 0) {
             EnergyNetworkSign sign = new EnergyNetworkSign();
             this.sign = sign.getSIGN();
@@ -62,6 +90,20 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
             sign.addEnergyStoragedOfNetwork(energyStored);
             sign.addMaxEnergyCapacityOfNetwork(maxEnergyCapacity);
             EnergyNetSavedData.addSign(world, sign);
+        }
+    }
+
+    @Override
+    public void updateState() {
+        for(EnumFacing facing : EnergyNetWorkUtils.getFacings()){
+            TileEntity te =  world.getTileEntity(pos.offset(facing));
+            if(te instanceof TileEntityEnergyCableWithoutGenerateForce){
+                states.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
+            }else if(te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())){
+                if(te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canExtract()){
+                    states.setStatusInFacing(facing, EnumMMFETileEntityStatus.ENERGYNET_INPUT);
+                }
+            }
         }
     }
 
