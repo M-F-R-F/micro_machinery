@@ -1,4 +1,5 @@
 {
+	"textures": {"0": "micro_machinery:blocks/energy1_pipe"},
 	"elements": [
 		{
 			"name": "input",

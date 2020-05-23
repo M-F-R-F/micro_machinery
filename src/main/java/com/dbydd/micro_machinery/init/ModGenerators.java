@@ -104,24 +104,24 @@ public class ModGenerators {
         EndOreTunstite.put(1.0d, ModBlocks.ORETUNSTITE.getDefaultState());
     }
 
-    public static final VeinGenRecipe copper = new VeinGenRecipe(0.015d, 0.2d, 8, 3, 3, 3, 3, 62, OreCopper, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
-    public static final VeinGenRecipe tin = new VeinGenRecipe(0.01d, 0.2d, 7, 2, 5, 3, 32, 80, OreTin, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
-    public static final VeinGenRecipe iron = new VeinGenRecipe(0.0075d, 0.2d, 8, 4, 3, 3, 3, 80, OreIron, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
-    public static final VeinGenRecipe gold = new VeinGenRecipe(0.005d, 0.2d, 6, 3, 3, 3, 3, 32, OreGold, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
-    public static final VeinGenRecipe coal = new VeinGenRecipe(0.015d, 0.2d, 9, 5, 3, 3, 3, 120, OreCoal, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe copper = new VeinGenRecipe(0.01d, 0.2d, 8, 3, 3, 3, 3, 62, OreCopper, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe tin = new VeinGenRecipe(0.006d, 0.2d, 7, 2, 5, 3, 32, 80, OreTin, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe iron = new VeinGenRecipe(0.0045d, 0.2d, 8, 4, 3, 3, 3, 80, OreIron, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe gold = new VeinGenRecipe(0.0035d, 0.2d, 6, 3, 3, 3, 3, 32, OreGold, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe coal = new VeinGenRecipe(0.01d, 0.2d, 9, 5, 3, 3, 3, 120, OreCoal, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
     public static final VeinGenRecipe ilmenite = new VeinGenRecipe(0.004d, 0.2d, 6, 3, 3, 3, 3, 32, OreIlmenite, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
     public static final VeinGenRecipe silver = new VeinGenRecipe(0.005d, 0.2d, 6, 3, 3, 3, 3, 48, OreSilver, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
     public static final VeinGenRecipe pyrolusite = new VeinGenRecipe(0.004d, 0.2d, 6, 2, 4, 3, 3, 80, OrePyrolusite, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
     public static final VeinGenRecipe chromite = new VeinGenRecipe(0.005d, 0.2d, 7, 3, 3, 3, 3, 62, OreChromite, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
-    public static final VeinGenRecipe bauxite = new VeinGenRecipe(0.01d, 0.2d, 6, 1, 4, 3, 48, 80, OreBauxite, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
-    public static final VeinGenRecipe nickel = new VeinGenRecipe(0.0075d, 0.2d, 8, 3, 3, 3, 3, 62, OreNickel, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe bauxite = new VeinGenRecipe(0.007d, 0.2d, 6, 1, 4, 3, 48, 80, OreBauxite, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe nickel = new VeinGenRecipe(0.0055d, 0.2d, 8, 3, 3, 3, 3, 62, OreNickel, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
     public static final VeinGenRecipe nolanite = new VeinGenRecipe(0.005d, 0.2d, 6, 3, 3, 3, 3, 48, OreNolanite, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
-    public static final VeinGenRecipe ferromanganese = new VeinGenRecipe(0.005d, 0.2d, 6, 3, 3, 3, 3, 48, OreFerroManganese, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
+    public static final VeinGenRecipe ferromanganese = new VeinGenRecipe(0.0005d, 0.2d, 6, 3, 3, 3, 3, 48, OreFerroManganese, new StonePredicate(), OreGenEvent.GenerateMinable.EventType.IRON);
     public static final VeinGenRecipe netherpyrolusite = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 60, 120, NetherOrePyrolusite, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
     public static final VeinGenRecipe nethergraphite = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 3, 48, NetherOreGraphite, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
     public static final VeinGenRecipe netherbauxite = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 48, 120, NetherOreBauxite, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
     public static final VeinGenRecipe netherferromanganese = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 3, 120, NetherOreFerroManganese, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
     public static final VeinGenRecipe nethernolanite = new VeinGenRecipe(0.05d, 0.2d, 6, 3, 3, 3, 3, 120, NetherOreNolanite, new PredicateNether(), OreGenEvent.GenerateMinable.EventType.QUARTZ);
 
-    public static final VeinGenRecipe tunstite = new VeinGenRecipe(0.05d, 0.04d, 8, 5, 3, 3, 3, 62, EndOreTunstite, new PredicateEnd());
+    public static final VeinGenRecipe tunstite = new VeinGenRecipe(0.075d, 0.04d, 8, 5, 3, 3, 3, 62, EndOreTunstite, new PredicateEnd());
 }
