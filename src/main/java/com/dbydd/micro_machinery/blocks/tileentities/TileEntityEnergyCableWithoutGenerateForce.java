@@ -10,6 +10,8 @@ import com.dbydd.micro_machinery.interfaces.IMMFETransfer;
 import com.dbydd.micro_machinery.util.EnergyNetWorkUtils;
 import com.dbydd.micro_machinery.worldsaveddatas.EnergyNetSavedData;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
+public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer{
 
     protected int sign;
     protected int sequence;
@@ -115,6 +117,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     public void onBlockPlacedBy() {
 
         UpdateSequence();
+        updateState();
 
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
@@ -155,7 +158,20 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
             sign.addMaxEnergyCapacityOfNetwork(maxEnergyCapacity);
             EnergyNetSavedData.addSign(world, sign);
         }
+    }
 
+    @Override
+    public void updateState() {
+        for(EnumFacing facing : EnergyNetWorkUtils.getFacings()){
+           TileEntity te =  world.getTileEntity(pos.offset(facing));
+            if(te instanceof TileEntityEnergyCableWithoutGenerateForce){
+                states.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
+            }else if(te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())){
+                if(te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canExtract()){
+                    states.setStatusInFacing(facing, EnumMMFETileEntityStatus.ENERGYNET_INPUT);
+                }
+            }
+        }
     }
 
     public int getSequence() {
@@ -478,4 +494,35 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         return 0;
     }
 
+    @Override
+    public boolean hasFastRenderer() {
+        return true;
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        // getUpdateTag() is called whenever the chunkdata is sent to the
+        // client. In contrast getUpdatePacket() is called when the tile entity
+        // itself wants to sync to the client. In many cases you want to send
+        // over the same information in getUpdateTag() as in getUpdatePacket().
+        return writeToNBT(new NBTTagCompound());
+    }
+
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        // Prepare a packet for syncing our TE to the client. Since we only have to sync the stack
+        // and that's all we have we just write our entire NBT here. If you have a complex
+        // tile entity that doesn't need to have all information on the client you can write
+        // a more optimal NBT here.
+
+        NBTTagCompound nbtTag = new NBTTagCompound();
+        this.writeToNBT(nbtTag);
+        return new SPacketUpdateTileEntity(getPos(), 1, nbtTag);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        // Here we get the packet from the server and read it into our client side tile entity
+        this.readFromNBT(packet.getNbtCompound());
+    }
 }
