@@ -44,18 +44,7 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
 
     @Override
     public void onNeighborChanged(BlockPos neighbor) {
-        super.onNeighborChanged(neighbor);
-        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            TileEntity te = world.getTileEntity(pos.offset(facing));
-            if (te != null) {
-                if (!(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
-                    if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()) && te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canReceive()) {
-                        states.setStatusInFacing(facing, EnumMMFETileEntityStatus.ENERGYNET_OUTPUT);
-                        markDirty();
-                    }
-                }
-            }
-        }
+        updateState();
     }
 
     @Override
@@ -64,6 +53,17 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
         UpdateSequence();
         updateState();
 
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te != null) {
+                if (!(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
+                    if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()) && te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canReceive()) {
+                        setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE_HEAD);
+                    }
+                }
+            }
+        }
+
         int i = 0;
         boolean hasUpdated = false;
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
@@ -71,14 +71,15 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
             if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 i++;
                 int sign1 = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
-                if(!hasUpdated && sign1 != this.sign) {
+                //unsafe todo 合并电网
+                if (!hasUpdated && sign1 != this.sign) {
                     this.sign = sign1;
                     EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
                     EnergyNetSavedData.updateEnergyNetEnergy(world, energyStored, this.sign);
                     hasUpdated = true;
                     markDirty();
-                }else {
-                    notifyNearbyCableMergeSign(this.sign,sequence, facing);
+                } else {
+                    notifyNearbyCableMergeSign(this.sign, sequence, facing);
                 }
             }
         }
@@ -91,20 +92,9 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
             sign.addMaxEnergyCapacityOfNetwork(maxEnergyCapacity);
             EnergyNetSavedData.addSign(world, sign);
         }
-    }
 
-    @Override
-    public void updateState() {
-        for(EnumFacing facing : EnergyNetWorkUtils.getFacings()){
-            TileEntity te =  world.getTileEntity(pos.offset(facing));
-            if(te instanceof TileEntityEnergyCableWithoutGenerateForce){
-                states.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
-            }else if(te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())){
-                if(te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canExtract()){
-                    states.setStatusInFacing(facing, EnumMMFETileEntityStatus.ENERGYNET_INPUT);
-                }
-            }
-        }
+        checked = true;
+        markDirty();
     }
 
     private int PushEnergy(EnumFacing facing) {
@@ -116,7 +106,7 @@ public class TileEntityTickableEnergyCableWithoutGenerateForce extends TileEntit
     }
 
     private void PushEnergyToSurrondingMachine() {
-        for (EnumFacing facing : states.getNetOutputFacings()) {
+        for (EnumFacing facing : states.getCableHeadFacings()) {
             this.receiveEnergy(PushEnergy(facing), false);
         }
     }

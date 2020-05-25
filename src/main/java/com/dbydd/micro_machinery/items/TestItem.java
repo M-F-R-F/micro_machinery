@@ -11,6 +11,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class TestItem extends ItemBase {
     public TestItem(String itemname) {
@@ -34,6 +35,14 @@ public class TestItem extends ItemBase {
 //            data.markDirty();
 
 //        }
+//            list.removeIf(new Predicate<EnergyNetworkSign>(){
+//
+//                @Override
+//                public boolean test(EnergyNetworkSign sign) {
+//                    return true;
+//                }
+//            });
+//            data.markDirty();
             for (EnergyNetworkSign o : list) {
                 player.sendMessage(new TextComponentString("sign:" + o.getSIGN() + "  energy:" + o.getEnergyStoragedOfNetwork() + "  maxenergy" + o.getMaxEnergyCapacityOfNetwork() + "  index:" + list.indexOf(o)));
             }

@@ -101,6 +101,6 @@ public class ModBlocks {
 
     public static final Block test1 = new BlockTickableEnergyCableWithoutGenerateForce("tickableenergycablewithoutgenerateforce",Material.IRON, 25600);
     public static final Block test2 = new BlockEnergyCableWithoutGenerateForce("energycablewithoutgenerateforce",Material.IRON, 25600);
-    public static final Block CABLE_HEAD = new BlockBase("cable_head", Material.IRON);
+    public static final Block CABLE_HEAD = new Cable_Heads("cable_head");
 //    public static final Block TESTBLOCK = new TestBlock("energycablewithoutgenerateforce");
 }

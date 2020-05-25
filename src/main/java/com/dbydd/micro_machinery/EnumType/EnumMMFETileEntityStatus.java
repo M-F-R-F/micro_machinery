@@ -3,13 +3,12 @@ package com.dbydd.micro_machinery.EnumType;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumMMFETileEntityStatus implements IStringSerializable {
-    ENERGYNET_INPUT("energynet_input"),
     CABLE_OUTPUT("cable_output"),
     CABLE_INPUT("cable_input"),
     CABLE("cable"),
     BOTH("both"),
     NULL("null"),
-    ENERGYNET_OUTPUT("energynet_output");
+    CABLE_HEAD("cable_head");
 
     private final String name;
 

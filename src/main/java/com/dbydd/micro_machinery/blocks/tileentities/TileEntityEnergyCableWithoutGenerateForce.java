@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer{
+public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2 implements IMMFETransfer {
 
     protected int sign;
     protected int sequence;
@@ -96,13 +96,13 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
         notifyNearbyCablesUpdateSign(sign, this.sequence, fromFacing);
     }
 
-    public void notifyNearbyCableMergeSign(int sign, int sequence, EnumFacing fromFacing){
-        List<EnumFacing> list = getNearbyCablesWithoutFacing(pos,world).getFacings(EnumMMFETileEntityStatus.CABLE);
-        for(EnumFacing facing : list){
+    public void notifyNearbyCableMergeSign(int sign, int sequence, EnumFacing fromFacing) {
+        List<EnumFacing> list = getNearbyCablesWithoutFacing(pos, world).getFacings(EnumMMFETileEntityStatus.CABLE);
+        for (EnumFacing facing : list) {
             TileEntity tile = world.getTileEntity(pos.offset(facing));
-            if(tile instanceof TileEntityEnergyCableWithoutGenerateForce) {
+            if (tile instanceof TileEntityEnergyCableWithoutGenerateForce) {
                 int tileSign = ((TileEntityEnergyCableWithoutGenerateForce) tile).getSign();
-                if (tileSign !=this.sign){
+                if (tileSign != this.sign) {
                     EnergyNetSavedData.mergeEnergyNet(this.sign, tileSign, world);
                     notifyNearbyCableUpdateSign(sign, sequence, facing);
                 }
@@ -118,6 +118,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
         UpdateSequence();
         updateState();
+        boolean hasupdated = false;
 
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
             TileEntity te = world.getTileEntity(pos.offset(facing));
@@ -125,6 +126,8 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                 if (!(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
                     if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite()) && te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canReceive()) {
                         transferToTickable();
+                        hasupdated = true;
+                        break;
                     }
                 }
             }
@@ -138,19 +141,19 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                 i++;
                 int sign1 = ((TileEntityEnergyCableWithoutGenerateForce) te).getSign();
                 //unsafe todo 合并电网
-                if(!hasUpdated && sign1 != this.sign) {
+                if (!hasUpdated && sign1 != this.sign) {
                     this.sign = sign1;
                     EnergyNetSavedData.updateEnergyNetCapacity(world, maxEnergyCapacity, this.sign);
                     EnergyNetSavedData.updateEnergyNetEnergy(world, energyStored, this.sign);
                     hasUpdated = true;
                     markDirty();
-                }else {
-                    notifyNearbyCableMergeSign(this.sign,sequence, facing);
+                } else {
+                    notifyNearbyCableMergeSign(this.sign, sequence, facing);
                 }
             }
         }
 
-        if (i == 0) {
+        if (i == 0 && !hasupdated) {
             EnergyNetworkSign sign = new EnergyNetworkSign();
             this.sign = sign.getSIGN();
             markDirty();
@@ -158,17 +161,24 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
             sign.addMaxEnergyCapacityOfNetwork(maxEnergyCapacity);
             EnergyNetSavedData.addSign(world, sign);
         }
+
     }
 
     @Override
     public void updateState() {
-        for(EnumFacing facing : EnergyNetWorkUtils.getFacings()){
-           TileEntity te =  world.getTileEntity(pos.offset(facing));
-            if(te instanceof TileEntityEnergyCableWithoutGenerateForce){
-                states.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
-            }else if(te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())){
-                if(te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canExtract()){
-                    states.setStatusInFacing(facing, EnumMMFETileEntityStatus.ENERGYNET_INPUT);
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te instanceof TileEntityEnergyCableWithoutGenerateForce) {
+                if (states.getStatusInFacing(facing) != EnumMMFETileEntityStatus.CABLE) {
+                    states.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE);
+                    markDirty();
+                }
+            } else if (te != null && te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+                if (te.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).canExtract()) {
+                    if (states.getStatusInFacing(facing) != EnumMMFETileEntityStatus.CABLE_HEAD) {
+                        states.setStatusInFacing(facing, EnumMMFETileEntityStatus.CABLE_HEAD);
+                        markDirty();
+                    }
                 }
             }
         }
@@ -341,7 +351,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     listSigns.add(sign2);
                     listSigns.add(sign3);
                     listSigns.add(sign4);
-                    for (int b =0;b<size;b++) {
+                    for (int b = 0; b < size; b++) {
                         notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
                     }
                     break;
@@ -385,7 +395,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     listSigns.add(sign3);
                     listSigns.add(sign4);
                     listSigns.add(sign5);
-                    for (int b =0;b<size;b++) {
+                    for (int b = 0; b < size; b++) {
                         notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
                     }
                     break;
@@ -437,7 +447,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
                     listSigns.add(sign4);
                     listSigns.add(sign5);
                     listSigns.add(sign6);
-                    for (int b =0;b<size;b++) {
+                    for (int b = 0; b < size; b++) {
                         notifyNearbyCableUpdateSign(listSigns.get(b).getSIGN(), -1, list.get(b).getOpposite());
                     }
                     break;
@@ -480,6 +490,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     }
 
     private void transferToTickable() {
+        EnergyNetSavedData.updateEnergyNetCapacity(world, -maxEnergyCapacity, sign);
         world.setBlockState(pos, ModBlocks.test1.getDefaultState());
     }
 
@@ -524,5 +535,20 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
         // Here we get the packet from the server and read it into our client side tile entity
         this.readFromNBT(packet.getNbtCompound());
+    }
+
+    public List<EnumFacing> getCableHeads(EnumMMFETileEntityStatus cableHead) {
+
+        List<EnumFacing> list = new ArrayList<>();
+
+        for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
+            TileEntity te = world.getTileEntity(pos.offset(facing));
+            if (te != null && !(te instanceof TileEntityEnergyCableWithoutGenerateForce)) {
+                if (te.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+                    list.add(facing);
+                }
+            }
+        }
+        return list;
     }
 }

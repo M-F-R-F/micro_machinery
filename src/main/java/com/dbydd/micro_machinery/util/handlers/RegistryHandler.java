@@ -3,6 +3,7 @@ package com.dbydd.micro_machinery.util.handlers;
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityTickableEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModGenerators;
@@ -59,7 +60,8 @@ public class RegistryHandler {
             }
         }
 
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTickableEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer<TileEntityTickableEnergyCableWithoutGenerateForce>());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer<TileEntityEnergyCableWithoutGenerateForce>());
     }
 
     public static void preInitRegisteries(FMLPreInitializationEvent event) {

@@ -78,9 +78,13 @@ public class EnergyNetSavedData extends WorldSavedData {
 
     public static int ExtractEnergy(int Sign, int maxExtract, boolean simulate, World world) {
         EnergyNetSavedData data = EnergyNetSavedData.getData(world);
-        int i = data.getSign(Sign).extractEnergy(maxExtract, simulate);
-        data.markDirty();
-        return i;
+        EnergyNetworkSign sign = data.getSign(Sign);
+        if(sign != null) {
+            int i = sign.extractEnergy(maxExtract, simulate);
+            data.markDirty();
+            return i;
+        }
+        return 0;
     }
 
     public static int ReciveEnergy(int Sign, int maxRecive, boolean simulate, World world) {

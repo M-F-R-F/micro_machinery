@@ -52,10 +52,10 @@ public class SurrondingsState {
         return list;
     }
 
-    public static List<EnumFacing> getNetOutputFacings(SurrondingsState state) {
+    public static List<EnumFacing> getCableHeadFacings(SurrondingsState state) {
         List<EnumFacing> list = new ArrayList<>();
         for (EnumFacing facing : EnergyNetWorkUtils.getFacings()) {
-            if (state.map.get(facing) == EnumMMFETileEntityStatus.ENERGYNET_OUTPUT)
+            if (state.map.get(facing) == EnumMMFETileEntityStatus.CABLE_HEAD)
                 list.add(facing);
         }
         return list;
@@ -83,8 +83,8 @@ public class SurrondingsState {
         return getOutputFacings(this);
     }
 
-    public List<EnumFacing> getNetOutputFacings() {
-        return getNetOutputFacings(this);
+    public List<EnumFacing> getCableHeadFacings() {
+        return getCableHeadFacings(this);
     }
 
     private void findNullFacing() {
