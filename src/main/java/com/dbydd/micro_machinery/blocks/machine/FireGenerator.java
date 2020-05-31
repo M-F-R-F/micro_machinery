@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class FireGenerator extends BlockContainerBase {
-    private static final PropertyBool GENERATING = PropertyBool.create("generating");
+    public static final PropertyBool GENERATING = PropertyBool.create("generating");
 
     public FireGenerator() {
         super(Material.IRON);

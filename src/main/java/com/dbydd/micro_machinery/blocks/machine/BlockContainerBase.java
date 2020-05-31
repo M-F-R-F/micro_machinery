@@ -22,7 +22,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 
 public abstract class BlockContainerBase extends BlockContainer implements IHasModel {
 
-    protected static final PropertyDirection FACING = BlockHorizontal.FACING;
+    public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
     public BlockContainerBase(Material materialIn) {
         super(materialIn);

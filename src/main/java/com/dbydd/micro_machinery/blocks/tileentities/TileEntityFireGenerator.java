@@ -5,6 +5,7 @@ import com.dbydd.micro_machinery.blocks.machine.FireGenerator;
 import com.dbydd.micro_machinery.init.ModRecipes;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.firegenerator.FireGeneratorRecipe;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.FilterGenerator;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -99,7 +100,7 @@ public class TileEntityFireGenerator extends MMFEMachineBase implements ITickabl
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return true;
         if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return true;
-        if (capability == CapabilityEnergy.ENERGY) return true;
+        if (capability == CapabilityEnergy.ENERGY && world.getBlockState(pos).getValue(FireGenerator.FACING).getOpposite() == facing) return true;
         return super.hasCapability(capability, facing);
     }
 
