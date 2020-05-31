@@ -2,12 +2,15 @@ package com.dbydd.micro_machinery.util.handlers;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.Reference;
+import com.dbydd.micro_machinery.blocks.tileentities.TESRTestTile;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityTickableEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.init.ModItems;
+import com.dbydd.micro_machinery.renderer.FastTesrRender;
+import com.dbydd.micro_machinery.renderer.TesrRender;
 import com.dbydd.micro_machinery.renderer.TileentityCableSpecialRenderer;
 import com.dbydd.micro_machinery.util.IHasModel;
 import com.dbydd.micro_machinery.worldgen.*;
@@ -62,6 +65,8 @@ public class RegistryHandler {
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTickableEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer<TileEntityTickableEnergyCableWithoutGenerateForce>());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer<TileEntityEnergyCableWithoutGenerateForce>());
+        ClientRegistry.bindTileEntitySpecialRenderer(TESRTestTile.class, new TesrRender());
+//        ClientRegistry.bindTileEntitySpecialRenderer(TESRTestTile.class, new FastTesrRender());
     }
 
     public static void preInitRegisteries(FMLPreInitializationEvent event) {
