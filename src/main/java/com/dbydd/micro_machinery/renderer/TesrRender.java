@@ -38,8 +38,8 @@ public class TesrRender extends TileEntitySpecialRenderer<TESRTestTile> {//在�
 
         BlockPos pos = te.getPos();//获得方块位置
         buffer.setTranslation(x - pos.getX(), y - pos.getY(), z - pos.getZ());//buffer的平移，看不懂坐标系
-        GlStateManager.rotate();//旋转
-        GlStateManager.translate();//平移
+//        GlStateManager.rotate();//旋转
+//        GlStateManager.translate();//平移
         dispatcher.getBlockModelRenderer().renderModel(te.getWorld(), model, state, pos, buffer, true);//进行渲染
         tessellator.draw();//开始绘制
 

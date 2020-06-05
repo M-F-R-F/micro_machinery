@@ -29,10 +29,8 @@ public class FireGenerator extends BlockContainerBase {
     public static final PropertyBool GENERATING = PropertyBool.create("generating");
 
     public FireGenerator() {
-        super(Material.IRON);
+        super("firegenerator", Material.IRON);
         setSoundType(SoundType.METAL);
-        setUnlocalizedName("firegenerator");
-        setRegistryName("firegenerator");
         setCreativeTab(Micro_Machinery.Micro_Machinery);
         setHardness(3.0f);
         ModBlocks.BLOCKS.add(this);
@@ -88,9 +86,7 @@ public class FireGenerator extends BlockContainerBase {
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityFireGenerator(25600);
     }
-
-
 }

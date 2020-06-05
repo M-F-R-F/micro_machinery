@@ -1,9 +1,8 @@
 package com.dbydd.micro_machinery.blocks.machine;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.util.IHasModel;
+import com.dbydd.micro_machinery.blocks.BlockBase;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -20,13 +19,16 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public abstract class BlockContainerBase extends BlockContainer implements IHasModel {
+import javax.annotation.Nullable;
+
+public abstract class BlockContainerBase extends BlockBase {
 
     public static final PropertyDirection FACING = BlockHorizontal.FACING;
 
-    public BlockContainerBase(Material materialIn) {
-        super(materialIn);
+    public BlockContainerBase(String name, Material material) {
+        super(name, material);
     }
+
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
@@ -126,4 +128,8 @@ public abstract class BlockContainerBase extends BlockContainer implements IHasM
             super.breakBlock(p_breakBlock_1_, p_breakBlock_2_, p_breakBlock_3_);
         }
     }
+
+    @Nullable
+    @Override
+    public abstract TileEntity createTileEntity(World world, IBlockState state);
 }
