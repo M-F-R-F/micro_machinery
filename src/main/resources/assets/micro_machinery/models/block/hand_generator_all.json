@@ -4,8 +4,8 @@
 		"0": "micro_machinery:blocks/copper_coil_side",
 		"1": "micro_machinery:blocks/copper_coil_top",
 		"2": "micro_machinery:blocks/hand_generator",
-		"4": "micro_machinery:blocks/stone",
-		"5": "micro_machinery:blocks/planks_oak"
+		"4": "blocks/stone",
+		"5": "blocks/planks_oak"
 	},
 	"elements": [
 		{
