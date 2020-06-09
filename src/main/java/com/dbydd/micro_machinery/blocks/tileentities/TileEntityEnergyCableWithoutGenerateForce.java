@@ -491,7 +491,7 @@ public class TileEntityEnergyCableWithoutGenerateForce extends MMFEMachineBaseV2
 
     private void transferToTickable() {
         EnergyNetSavedData.updateEnergyNetCapacity(world, -maxEnergyCapacity, sign);
-        world.setBlockState(pos, ModBlocks.test1.getDefaultState());
+        world.setBlockState(pos, ModBlocks.TICKABLEENERGYCABLEWITHOUTGENERATEFORCE.getDefaultState());
     }
 
     @Override

@@ -5,12 +5,11 @@ import com.dbydd.micro_machinery.Reference;
 import com.dbydd.micro_machinery.blocks.tileentities.TESRTestTile;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityEnergyCableWithoutGenerateForce;
 import com.dbydd.micro_machinery.blocks.tileentities.TileEntityTickableEnergyCableWithoutGenerateForce;
-import com.dbydd.micro_machinery.blocks.tileentities.TileentityHandGenerator;
+import com.dbydd.micro_machinery.blocks.tileentities.TileEntityHandGenerator;
 import com.dbydd.micro_machinery.init.ModBlocks;
 import com.dbydd.micro_machinery.init.ModFluids;
 import com.dbydd.micro_machinery.init.ModGenerators;
 import com.dbydd.micro_machinery.init.ModItems;
-import com.dbydd.micro_machinery.renderer.FastTesrRender;
 import com.dbydd.micro_machinery.renderer.TesrRender;
 import com.dbydd.micro_machinery.renderer.TileEntityHandGeneratorRender;
 import com.dbydd.micro_machinery.renderer.TileentityCableSpecialRenderer;
@@ -68,7 +67,7 @@ public class RegistryHandler {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTickableEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer<TileEntityTickableEnergyCableWithoutGenerateForce>());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnergyCableWithoutGenerateForce.class, new TileentityCableSpecialRenderer<TileEntityEnergyCableWithoutGenerateForce>());
         ClientRegistry.bindTileEntitySpecialRenderer(TESRTestTile.class, new TesrRender());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileentityHandGenerator.class, new TileEntityHandGeneratorRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityHandGenerator.class, new TileEntityHandGeneratorRender());
 //        ClientRegistry.bindTileEntitySpecialRenderer(TESRTestTile.class, new FastTesrRender());
     }
 

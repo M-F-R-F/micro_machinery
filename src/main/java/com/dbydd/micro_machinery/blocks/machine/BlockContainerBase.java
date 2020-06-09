@@ -41,6 +41,11 @@ public abstract class BlockContainerBase extends BlockBase {
     }
 
     @Override
+    public boolean hasTileEntity() {
+        return true;
+    }
+
+    @Override
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.SOLID;
     }

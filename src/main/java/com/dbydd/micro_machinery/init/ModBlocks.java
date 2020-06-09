@@ -99,8 +99,9 @@ public class ModBlocks {
     public static final Block PIGIRON_ANVIL = new BlockForgingAnvil("pigiron_anvil", 3);
     public static final Block FIREGENERATOR = new FireGenerator();
 
-    public static final Block test1 = new BlockTickableEnergyCableWithoutGenerateForce("tickableenergycablewithoutgenerateforce",Material.IRON, 25600);
-    public static final Block test2 = new BlockEnergyCableWithoutGenerateForce("energycablewithoutgenerateforce",Material.IRON, 25600);
+    public static final Block TICKABLEENERGYCABLEWITHOUTGENERATEFORCE = new BlockTickableEnergyCableWithoutGenerateForce("tickableenergycablewithoutgenerateforce",Material.IRON, 25600);
+    public static final Block ENERGYCABLEWITHOUTGENERATEFORCE = new BlockEnergyCableWithoutGenerateForce("energycablewithoutgenerateforce",Material.IRON, 25600);
     public static final Block CABLE_HEAD = new Cable_Heads("cable_head");
-//    public static final Block TESTBLOCK = new TestBlock("energycablewithoutgenerateforce");
+    public static final Block HAND_GENERATOR = new BlockHandGenerator();
+    public static final Block HAND_GENERATOR_HANDLE = new BlockWithFacing("hand_generator_handle", Material.AIR).setCreativeTab(null);
 }

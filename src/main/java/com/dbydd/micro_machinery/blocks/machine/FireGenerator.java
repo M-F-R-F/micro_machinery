@@ -33,8 +33,6 @@ public class FireGenerator extends BlockContainerBase {
         setSoundType(SoundType.METAL);
         setCreativeTab(Micro_Machinery.Micro_Machinery);
         setHardness(3.0f);
-        ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(Objects.requireNonNull(this.getRegistryName())));
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(GENERATING, false));
     }
 
