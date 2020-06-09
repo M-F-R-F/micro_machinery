@@ -92,7 +92,7 @@ public class TileEntityHandGeneratorRender extends TileEntitySpecialRenderer<Til
         Vector3d vector = new Vector3d();
         vector.x = 0;
         vector.y = 0.5;
-        vector.z = 0;
+        vector.z = 0.5;
         if (x != 0) {
             if (x > 0) {
                 vector.z = 0.5;

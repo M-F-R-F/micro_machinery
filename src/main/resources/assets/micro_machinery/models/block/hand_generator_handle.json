@@ -1,12 +1,14 @@
 {
+	"credit": "Made with Blockbench",
 	"textures": {
 		"4": "blocks/stone",
 		"5": "blocks/planks_oak"
 	},
 	"elements": [
 		{
-			"from": [1, 2, 2],
-			"to": [3, 14, 14],
+			"from": [1, -6, -6],
+			"to": [3, 6, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 0]},
 			"faces": {
 				"north": {"uv": [14, 2, 16, 14], "texture": "#4"},
 				"east": {"uv": [2, 1, 14, 13], "rotation": 90, "texture": "#4"},
@@ -17,8 +19,9 @@
 			}
 		},
 		{
-			"from": [0, 4, 4],
-			"to": [1, 12, 12],
+			"from": [0, -4, -4],
+			"to": [1, 4, 4],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 0]},
 			"faces": {
 				"north": {"uv": [9, 2, 10, 10], "rotation": 180, "texture": "#4"},
 				"south": {"uv": [9, 2, 10, 10], "rotation": 180, "texture": "#4"},
@@ -28,8 +31,9 @@
 			}
 		},
 		{
-			"from": [-1, 2.5, 2.5],
-			"to": [1, 3.5, 3.5],
+			"from": [-1, -5.5, -5.5],
+			"to": [1, -4.5, -4.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 0]},
 			"faces": {
 				"north": {"uv": [4, 1, 5, 3], "rotation": 90, "texture": "#5"},
 				"south": {"uv": [4, 4, 5, 6], "rotation": 270, "texture": "#5"},
@@ -39,8 +43,9 @@
 			}
 		},
 		{
-			"from": [-0.5, 7, 7],
-			"to": [4, 9, 9],
+			"from": [-0.5, -1, -1],
+			"to": [4, 1, 1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 0, 0]},
 			"faces": {
 				"north": {"uv": [7, 0, 11.5, 2], "texture": "#5"},
 				"south": {"uv": [3, 5, 7.5, 7], "rotation": 180, "texture": "#5"},
