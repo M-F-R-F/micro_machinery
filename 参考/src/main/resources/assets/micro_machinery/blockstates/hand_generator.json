@@ -1,0 +1,20 @@
+{
+    "variants": 
+    {
+        "facing=north": {
+            "model": "micro_machinery:hand_generator"
+        },
+        "facing=east": {
+            "model": "micro_machinery:hand_generator",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "micro_machinery:hand_generator",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "micro_machinery:hand_generator",
+            "y": 270
+        }
+    }
+}

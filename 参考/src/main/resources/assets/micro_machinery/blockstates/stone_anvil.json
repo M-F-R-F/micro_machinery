@@ -1,0 +1,19 @@
+{
+    "variants": {
+      "facing=west": {
+        "model": "micro_machinery:stone_anvil"
+      },
+      "facing=north": {
+        "model": "micro_machinery:stone_anvil",
+        "y": 90
+      },
+      "facing=east": {
+        "model": "micro_machinery:stone_anvil",
+        "y": 180
+      },
+      "facing=south": {
+        "model": "micro_machinery:stone_anvil",
+        "y": 270
+      }
+    }
+}

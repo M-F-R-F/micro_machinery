@@ -1,0 +1,22 @@
+{
+	"multipart": [
+		{   "when": { "status_north": "true" },
+			"apply": { "model": "micro_machinery:pipe/cable_head"}
+		},
+		{   "when": { "status_east": "true" },
+			"apply": { "model": "micro_machinery:pipe/cable_head", "y": 90}
+		},
+		{   "when": { "status_south": "true" },
+			"apply": { "model": "micro_machinery:pipe/cable_head", "y": 180}
+		},
+		{   "when": { "status_west": "true" },
+			"apply": { "model": "micro_machinery:pipe/cable_head", "y": 270}
+		},
+		{   "when": { "status_up": "true" },
+			"apply": { "model": "micro_machinery:pipe/cable_head", "x": 270}
+		},
+		{   "when": { "status_down": "true" },
+			"apply": { "model": "micro_machinery:pipe/cable_head", "x": 90}
+		}
+	]
+}

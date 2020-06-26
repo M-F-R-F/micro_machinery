@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,generating=true": {
+      "model": "micro_machinery:generator_on"
+    },
+    "facing=south,generating=true": {
+      "model": "micro_machinery:generator_on",
+      "y": 90
+    },
+    "facing=west,generating=true": {
+      "model": "micro_machinery:generator_on",
+      "y": 180
+    },
+    "facing=north,generating=true": {
+      "model": "micro_machinery:generator_on",
+      "y": 270
+    },
+    "facing=east,generating=false": {
+      "model": "micro_machinery:generator_off"
+    },
+    "facing=south,generating=false": {
+      "model": "micro_machinery:generator_off",
+      "y": 90
+    },
+    "facing=west,generating=false": {
+      "model": "micro_machinery:generator_off",
+      "y": 180
+    },
+    "facing=north,generating=false": {
+      "model": "micro_machinery:generator_off",
+      "y": 270
+    }
+  }
+}

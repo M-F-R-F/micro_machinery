@@ -1,0 +1,80 @@
+{
+    "multipart": [
+        {   "apply": { "model": "#center" }},
+		{   "when": { "state_north": "cable" },
+            "apply": { "model": "#arm", "uvlock": true }
+        },
+		{   "when": { "state_east": "cable" },
+            "apply": { "model": "#arm", "y": 90, "uvlock": true }
+        },
+		{   "when": { "state_south": "cable" },
+            "apply": { "model": "#arm", "y": 180, "uvlock": true }
+        },
+		{   "when": { "state_west": "cable" },
+            "apply": { "model": "#arm", "y": 270, "uvlock": true }
+        },
+		{   "when": { "state_up": "cable" },
+            "apply": { "model": "#arm", "z": 90, "uvlock": true }
+        },
+		{   "when": { "state_down": "cable" },
+            "apply": { "model": "#arm", "z": 270, "uvlock": true }
+        },
+		
+		{   "when": { "state_north": "cable_input" },
+            "apply": { "model": "#arm", "uvlock": true }
+        },
+		{   "when": { "state_east": "cable_input" },
+            "apply": { "model": "#arm", "y": 90, "uvlock": true }
+        },
+		{   "when": { "state_south": "cable_input" },
+            "apply": { "model": "#arm", "y": 180, "uvlock": true }
+        },
+		{   "when": { "state_west": "cable_input" },
+            "apply": { "model": "#arm", "y": 270, "uvlock": true }
+        },
+		{   "when": { "state_up": "cable_input" },
+            "apply": { "model": "#arm", "z": 90, "uvlock": true }
+        },
+		{   "when": { "state_down": "cable_input" },
+            "apply": { "model": "#arm", "z": 270, "uvlock": true }
+        },
+		
+		{   "when": { "state_north": "cable_output" },
+            "apply": { "model": "#arm", "uvlock": true }
+        },
+		{   "when": { "state_east": "cable_output" },
+            "apply": { "model": "#arm", "y": 90, "uvlock": true }
+        },
+		{   "when": { "state_south": "cable_output" },
+            "apply": { "model": "#arm", "y": 180, "uvlock": true }
+        },
+		{   "when": { "state_west": "cable_output" },
+            "apply": { "model": "#arm", "y": 270, "uvlock": true }
+        },
+		{   "when": { "state_up": "cable_output" },
+            "apply": { "model": "#arm", "z": 90, "uvlock": true }
+        },
+		{   "when": { "state_down": "cable_output" },
+            "apply": { "model": "#arm", "z": 270, "uvlock": true }
+        },
+		
+		{   "when": { "state_north": "energy_output" },
+            "apply": { "model": "#output", "uvlock": true }
+        },
+		{   "when": { "state_east": "energy_output" },
+            "apply": { "model": "#output", "y": 90, "uvlock": true }
+        },
+		{   "when": { "state_south": "energy_output" },
+            "apply": { "model": "#output", "y": 180, "uvlock": true }
+        },
+		{   "when": { "state_west": "energy_output" },
+            "apply": { "model": "#output", "y": 270, "uvlock": true }
+        },
+		{   "when": { "state_up": "energy_output" },
+            "apply": { "model": "#output", "z": 90, "uvlock": true }
+        },
+		{   "when": { "state_down": "energy_output" },
+            "apply": { "model": "#output", "z": 270, "uvlock": true }
+        }
+	]
+}

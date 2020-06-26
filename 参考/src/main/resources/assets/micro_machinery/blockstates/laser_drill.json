@@ -1,0 +1,102 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "micro_machinery:obj/laser_drill.obj",
+    "custom": {
+      "flip-v": true
+    },
+    "transform": {
+      "scale": 0.75,
+      "thirdperson": {
+        "translation": [
+          0,
+          -0.05,
+          -0.15
+        ],
+        "rotation": [
+          {
+            "x": 90
+          }
+        ]
+      },
+      "thirdperson_lefthand": {
+        "translation": [
+          0,
+          -0.05,
+          -0.15
+        ],
+        "rotation": [
+          {
+            "x": 90
+          }
+        ]
+      },
+      "firstperson": {
+        "translation": [
+          0.3,
+          0,
+          0
+        ],
+        "rotation": [
+          16,
+          17,
+          0
+        ]
+      },
+      "firstperson_lefthand": {
+        "translation": [
+          0.3,
+          0,
+          0
+        ],
+        "rotation": [
+          16,
+          17,
+          0
+        ]
+      },
+      "head": {
+        "scale": 0.8
+      },
+      "gui": {
+        "scale": 0.6,
+        "translation": [
+          0.05,
+          0,
+          0
+        ],
+        "rotation": [
+          15,
+          125,
+          0
+        ]
+      },
+      "ground": {
+        "translation": [
+          0,
+          0.25,
+          0
+        ]
+      },
+      "fixed": {
+        "scale": 0.65,
+        "translation": [
+          -0.05,
+          0,
+          -0.05
+        ],
+        "rotation": [
+          0,
+          -90,
+          0
+        ]
+      }
+    }
+  },
+  "variants": {
+    "inventory": [
+      {
+      }
+    ]
+  }
+}

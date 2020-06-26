@@ -1,0 +1,61 @@
+{
+  "multipart": [
+    {   "apply": { "model": "energy4_pipe_center" }},
+    {   "when": { "north": "true" },
+      "apply": { "model": "energy4_pipe_arm", "uvlock": true }
+    },
+    {   "when": { "east": "true" },
+      "apply": { "model": "energy4_pipe_arm", "y": 90, "uvlock": true }
+    },
+    {   "when": { "south": "true" },
+      "apply": { "model": "energy4_pipe_arm", "y": 180, "uvlock": true }
+    },
+    {   "when": { "west": "true" },
+      "apply": { "model": "energy4_pipe_arm", "y": 270, "uvlock": true }
+    },
+    {   "when": { "up": "true" },
+      "apply": { "model": "energy4_pipe_arm", "z": 90, "uvlock": true }
+    },
+    {   "when": { "down": "true" },
+      "apply": { "model": "energy4_pipe_arm", "z": 270, "uvlock": true }
+    },
+
+    {   "when": { "north_input": "true" },
+      "apply": { "model": "energy4_pipe_input", "y": 180, "uvlock": true }
+    },
+    {   "when": { "east_input": "true" },
+      "apply": { "model": "energy4_pipe_input", "y": 180, "uvlock": true }
+    },
+    {   "when": { "south_input": "true" },
+      "apply": { "model": "energy4_pipe_input", "y": 180, "uvlock": true }
+    },
+    {   "when": { "west_input": "true" },
+      "apply": { "model": "energy4_pipe_input", "y": 180, "uvlock": true }
+    },
+    {   "when": { "up_input": "true" },
+      "apply": { "model": "energy4_pipe_input", "y": 90, "uvlock": true }
+    },
+    {   "when": { "down_input": "true" },
+      "apply": { "model": "energy4_pipe_input", "y": 270, "uvlock": true }
+    },
+
+    {   "when": { "north_output": "true" },
+      "apply": { "model": "energy4_pipe_output", "y": 180, "uvlock": true }
+    },
+    {   "when": { "east_output": "true" },
+      "apply": { "model": "energy4_pipe_output", "y": 180, "uvlock": true }
+    },
+    {   "when": { "south_output": "true" },
+      "apply": { "model": "energy4_pipe_output", "y": 180, "uvlock": true }
+    },
+    {   "when": { "west_output": "true" },
+      "apply": { "model": "energy4_pipe_output", "y": 180, "uvlock": true }
+    },
+    {   "when": { "up_output": "true" },
+      "apply": { "model": "energy4_pipe_output", "y": 90, "uvlock": true }
+    },
+    {   "when": { "down_output": "true" },
+      "apply": { "model": "energy4_pipe_output", "y": 270, "uvlock": true }
+    }
+  ]
+}
