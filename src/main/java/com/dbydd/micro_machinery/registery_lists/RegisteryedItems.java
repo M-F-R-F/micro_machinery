@@ -6,9 +6,8 @@ import net.minecraft.item.ItemGroup;
 
 public class RegisteryedItems {
 
-    static {
-        new MMItemBase(new Item.Properties().group(ItemGroup.FOOD), "testitem");
-    }
+        public static final Item TESTITEM = new MMItemBase(new Item.Properties().group(ItemGroup.FOOD), "testitem");
+
 
     private RegisteryedItems() {
 
