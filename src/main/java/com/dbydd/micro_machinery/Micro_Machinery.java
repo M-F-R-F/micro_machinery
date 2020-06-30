@@ -2,7 +2,10 @@ package com.dbydd.micro_machinery;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
 import com.dbydd.micro_machinery.groups.MMTAB;
+import com.dbydd.micro_machinery.items.MMAxeBase;
+import com.dbydd.micro_machinery.items.MMHammerBase;
 import com.dbydd.micro_machinery.items.MMItemBase;
+import com.dbydd.micro_machinery.items.MMSwordBase;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedItems;
 import net.minecraft.block.Block;
@@ -28,6 +31,9 @@ public class Micro_Machinery {
         InitListsNeedToRegister();
 
         Micro_Machinery.RegisteryItems(MMItemBase.registerys);
+        Micro_Machinery.RegisteryItems(MMSwordBase.registerys);
+        Micro_Machinery.RegisteryItems(MMHammerBase.registerys);
+        Micro_Machinery.RegisteryItems(MMAxeBase.registerys);
         Micro_Machinery.RegisteryBlocks(MMBlockBase.registerys);
     }
 

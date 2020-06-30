@@ -1,8 +1,8 @@
 package com.dbydd.micro_machinery.items;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
+import net.minecraft.item.Food;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,16 +10,11 @@ import java.util.function.Supplier;
 
 public class MMItemBase extends Item {
     public static Map<String, Supplier<Item>> registerys = new HashMap<>();
-    public static Properties DEFAULT_PROPERTIES = new Properties();
+    public static Properties DEFAULT_PROPERTIES = new Properties().group(Micro_Machinery.MMTAB);
 
     public MMItemBase(Properties properties, String name) {
         super(properties);
         registerys.put(name, () -> this);
-    }
-
-    public MMItemBase(Properties properties, String name, Supplier<Item> supplier) {
-        super(properties);
-        registerys.put(name, supplier);
     }
 
     public MMItemBase(String name) {
@@ -27,8 +22,11 @@ public class MMItemBase extends Item {
         registerys.put(name, () -> this);
     }
 
-    public MMItemBase(String name, Supplier<Item> supplier) {
-        super(DEFAULT_PROPERTIES);
+    /**
+     * registry food
+     */
+    public MMItemBase(String name, Food food) {
+        super(new Properties().group(Micro_Machinery.MMTAB).food(food));
         registerys.put(name, () -> this);
     }
 }
