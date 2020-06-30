@@ -7,8 +7,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-public class MMBlockGroup extends ItemGroup {
-    public MMBlockGroup() {
+public class MMTAB extends ItemGroup {
+    public MMTAB() {
         super("Micro_Machinery:Blocks");
     }
 

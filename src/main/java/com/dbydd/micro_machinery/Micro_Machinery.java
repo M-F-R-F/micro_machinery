@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
-import com.dbydd.micro_machinery.groups.MMBlockGroup;
+import com.dbydd.micro_machinery.groups.MMTAB;
 import com.dbydd.micro_machinery.items.MMItemBase;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedItems;
@@ -22,7 +22,7 @@ public class Micro_Machinery {
     public static final String NAME = "micro_machinery";
     public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, NAME);
     public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, NAME);
-    public static final ItemGroup MMBLOCK_GROUP = new MMBlockGroup();
+    public static final ItemGroup MMTAB = new MMTAB();
 
     static {
         InitListsNeedToRegister();
@@ -34,6 +34,7 @@ public class Micro_Machinery {
 
     public Micro_Machinery() {
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {
@@ -45,7 +46,7 @@ public class Micro_Machinery {
     public static void RegisteryBlocks(Map<String, Supplier<Block>> map) {
         for (Map.Entry<String, Supplier<Block>> entry : map.entrySet()) {
             BLOCK_REGISTER.register(entry.getKey(), entry.getValue());
-            ITEM_REGISTER.register(entry.getKey(), () -> new BlockItem(entry.getValue().get(), new Item.Properties().group(MMBLOCK_GROUP)));
+            ITEM_REGISTER.register(entry.getKey(), () -> new BlockItem(entry.getValue().get(), new Item.Properties().group(MMTAB)));
         }
     }
 

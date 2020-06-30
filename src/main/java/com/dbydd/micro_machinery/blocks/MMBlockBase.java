@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class MMBlockBase extends Block {
     public static final Properties DEFAULT_PROPERTIES = Properties.create(Material.ROCK).notSolid();
     public static Map<String, Supplier<Block>> registerys = new HashMap<>();
-    private String name;
+    private final String name;
 
     public MMBlockBase(Properties properties, String name) {
         super(properties);
@@ -22,17 +22,8 @@ public class MMBlockBase extends Block {
 
     public MMBlockBase(String name) {
         super(DEFAULT_PROPERTIES);
+        this.name = name;
         registerys.put(name, () -> this);
-    }
-
-    public MMBlockBase(String name, Supplier<Block> supplier) {
-        super(DEFAULT_PROPERTIES);
-        registerys.put(name, supplier);
-    }
-
-    public MMBlockBase(Properties properties, String name, Supplier<Block> supplier) {
-        super(properties);
-        registerys.put(name, supplier);
     }
 
     public MMBlockBase(Properties properties, String name, RenderType renderType) {
@@ -44,19 +35,8 @@ public class MMBlockBase extends Block {
 
     public MMBlockBase(String name, RenderType renderType) {
         super(DEFAULT_PROPERTIES);
+        this.name = name;
         registerys.put(name, () -> this);
-        BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
-    }
-
-    public MMBlockBase(String name, Supplier<Block> supplier, RenderType renderType) {
-        super(DEFAULT_PROPERTIES);
-        registerys.put(name, supplier);
-        BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
-    }
-
-    public MMBlockBase(Properties properties, String name, Supplier<Block> supplier, RenderType renderType) {
-        super(properties);
-        registerys.put(name, supplier);
         BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
     }
 
