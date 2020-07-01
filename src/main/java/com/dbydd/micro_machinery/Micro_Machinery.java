@@ -1,7 +1,6 @@
 package com.dbydd.micro_machinery;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
-import com.dbydd.micro_machinery.groups.MMTAB;
 import com.dbydd.micro_machinery.items.MMAxeBase;
 import com.dbydd.micro_machinery.items.MMHammerBase;
 import com.dbydd.micro_machinery.items.MMItemBase;
@@ -25,7 +24,7 @@ public class Micro_Machinery {
     public static final String NAME = "micro_machinery";
     public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, NAME);
     public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, NAME);
-    public static final ItemGroup MMTAB = new MMTAB();
+    public static final ItemGroup MMTAB = new MMTab();
 
     static {
         InitListsNeedToRegister();
