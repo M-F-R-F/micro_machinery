@@ -18,8 +18,8 @@ public class RegisteryedItems {
     public static final Item LOGO = new MMItemBase(new Item.Properties(), "micro_machinery_logo");
     //hammer
     public static final Item STONE_HAMMER = new MMHammerBase(4.0f, 1.0f, ItemTier.STONE, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.STONE.getHarvestLevel()), "stone_hammer");
-    public static final Item BRONZE_HAMMER = new MMHammerBase(5.0f, 1.0f, EnumToolTier.BRONZE, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, EnumToolTier.BRONZE.getHarvestLevel()), "bronze_hammer");
-    public static final Item IRON_HAMMER = new MMHammerBase(6.0f, 1.0f, ItemTier.IRON, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.IRON.getHarvestLevel()), "iron_hammer");
+    public static final Item BRONZE_HAMMER = new MMHammerBase(5.0f, 1.0f, ItemTier.IRON, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.IRON.getHarvestLevel()), "bronze_hammer");
+    public static final Item STEEL_HAMMER = new MMHammerBase(6.0f, 1.0f, ItemTier.DIAMOND, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.DIAMOND.getHarvestLevel()), "steel_hammer");
     //axe
     public static final Item BRONZE_AXE = new MMAxeBase(EnumToolTier.BRONZE, 6, 1.0f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, EnumToolTier.BRONZE.getHarvestLevel()), "bronze_axe");
     //sword
