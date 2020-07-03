@@ -6,13 +6,16 @@ import com.dbydd.micro_machinery.items.MMHammerBase;
 import com.dbydd.micro_machinery.items.MMItemBase;
 import com.dbydd.micro_machinery.items.MMSwordBase;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
+import com.dbydd.micro_machinery.registery_lists.RegisteryedFluids;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedItems;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -62,11 +65,8 @@ public class Micro_Machinery {
     private static void InitListsNeedToRegister() {
         RegisteryedItems.Init();
         RegisteryedBlocks.Init();
-        RegisteryedBlocks.Init();
+        RegisteryedFluids.Init();
     }
 
-    //registery fluids, fuck.
-    static {
 
-    }
 }
