@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class MMSwordBase extends SwordItem {
-    public static Map<String, Supplier<Item>> registerys = new HashMap<>();
+    public static Map<String, Supplier<Item>> registeries = new HashMap<>();
     public static Properties DEFAULT_PROPERTIES = new Properties().group(Micro_Machinery.MMTAB);
 
     /**
@@ -18,7 +18,7 @@ public class MMSwordBase extends SwordItem {
      */
     public MMSwordBase(IItemTier material_tier, int correct_value, float attack_speed, Properties properties, String name) {
         super(material_tier, correct_value, attack_speed, properties);
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 
     /**
@@ -26,7 +26,7 @@ public class MMSwordBase extends SwordItem {
      */
     public MMSwordBase(IItemTier material_tier, int correct_value, float attack_speed, String name) {
         super(material_tier, correct_value, attack_speed, DEFAULT_PROPERTIES);
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 
 }

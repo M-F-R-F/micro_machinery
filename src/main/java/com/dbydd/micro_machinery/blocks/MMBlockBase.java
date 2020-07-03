@@ -11,32 +11,32 @@ import java.util.function.Supplier;
 
 public class MMBlockBase extends Block {
     public static final Properties DEFAULT_PROPERTIES = Properties.create(Material.ROCK).notSolid();
-    public static Map<String, Supplier<Block>> registerys = new HashMap<>();
+    public static Map<String, Supplier<Block>> registeries = new HashMap<>();
     private final String name;
 
     public MMBlockBase(Properties properties, String name) {
         super(properties);
         this.name = name;
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 
     public MMBlockBase(String name) {
         super(DEFAULT_PROPERTIES);
         this.name = name;
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 
     public MMBlockBase(Properties properties, String name, RenderType renderType) {
         super(properties);
         this.name = name;
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
         BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
     }
 
     public MMBlockBase(String name, RenderType renderType) {
         super(DEFAULT_PROPERTIES);
         this.name = name;
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
         BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
     }
 

@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class MMHammerBase extends ToolItem {
-    public static Map<String, Supplier<Item>> registerys = new HashMap<>();
+    public static Map<String, Supplier<Item>> registeries = new HashMap<>();
 
     /**
      * @param attackDamageIn
@@ -29,7 +29,7 @@ public class MMHammerBase extends ToolItem {
      */
     public MMHammerBase(float attackDamageIn, float attackSpeedIn, IItemTier tier, Item.Properties builder, String name) {
         super(attackDamageIn, attackSpeedIn, tier, new HashSet<>(), builder);
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 
     @Override

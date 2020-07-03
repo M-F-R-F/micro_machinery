@@ -9,17 +9,17 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class MMItemBase extends Item {
-    public static Map<String, Supplier<Item>> registerys = new HashMap<>();
+    public static Map<String, Supplier<Item>> registeries = new HashMap<>();
     public static Properties DEFAULT_PROPERTIES = new Properties().group(Micro_Machinery.MMTAB);
 
     public MMItemBase(Properties properties, String name) {
         super(properties);
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 
     public MMItemBase(String name) {
         super(DEFAULT_PROPERTIES);
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 
     /**
@@ -27,6 +27,6 @@ public class MMItemBase extends Item {
      */
     public MMItemBase(Properties properties,String name, Food food) {
         super(properties.food(food));
-        registerys.put(name, () -> this);
+        registeries.put(name, () -> this);
     }
 }

@@ -25,7 +25,7 @@ public class RegisteryedItems {
     //sword
     public static final Item BRONZE_SWORD = new MMSwordBase(EnumToolTier.BRONZE, 2, 1.5f, new Item.Properties().group(Micro_Machinery.MMTAB), "bronze_sword");
 
-    public static final Item TEST_FOOD = new MMItemBase(new Item.Properties(), "test_food", new Food(new Food.Builder().effect(() -> new EffectInstance(Effects.JUMP_BOOST, 2000, 50), 1.0f).hunger(20).setAlwaysEdible()));
+    public static final Item TEST_FOOD = new MMItemBase(new Item.Properties(), "test_food", new Food.Builder().effect(() -> new EffectInstance(Effects.JUMP_BOOST, 2000, 50), 1.0f).hunger(20).setAlwaysEdible().build());
 
     private RegisteryedItems() {
 

@@ -8,9 +8,11 @@ import com.dbydd.micro_machinery.items.MMSwordBase;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedItems;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -24,18 +26,18 @@ public class Micro_Machinery {
     public static final String NAME = "micro_machinery";
     public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, NAME);
     public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, NAME);
+    public static final DeferredRegister<Fluid> FLUID_REGISTER = DeferredRegister.create(ForgeRegistries.FLUIDS, NAME);
     public static final ItemGroup MMTAB = new MMTab();
 
     static {
         InitListsNeedToRegister();
 
-        Micro_Machinery.RegisteryItems(MMItemBase.registerys);
-        Micro_Machinery.RegisteryItems(MMSwordBase.registerys);
-        Micro_Machinery.RegisteryItems(MMHammerBase.registerys);
-        Micro_Machinery.RegisteryItems(MMAxeBase.registerys);
-        Micro_Machinery.RegisteryBlocks(MMBlockBase.registerys);
+        Micro_Machinery.RegisteryItems(MMItemBase.registeries);
+        Micro_Machinery.RegisteryItems(MMSwordBase.registeries);
+        Micro_Machinery.RegisteryItems(MMHammerBase.registeries);
+        Micro_Machinery.RegisteryItems(MMAxeBase.registeries);
+        Micro_Machinery.RegisteryBlocks(MMBlockBase.registeries);
     }
-
 
     public Micro_Machinery() {
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -55,8 +57,15 @@ public class Micro_Machinery {
         }
     }
 
+
     private static void InitListsNeedToRegister() {
         RegisteryedItems.Init();
         RegisteryedBlocks.Init();
+        RegisteryedBlocks.Init();
+    }
+
+    //registery fluids, fuck.
+    static {
+
     }
 }
