@@ -42,6 +42,7 @@ public class Micro_Machinery {
     public Micro_Machinery() {
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        FLUID_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {
