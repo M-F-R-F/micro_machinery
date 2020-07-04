@@ -12,8 +12,6 @@ public class RegisteryedBlocks {
     public static final Block.Properties HARD1 = Block.Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE);
     public static final Block.Properties HARD2 = Block.Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE);
     public static final Block.Properties HARD3 = Block.Properties.create(Material.ROCK).harvestLevel(3).harvestTool(ToolType.PICKAXE);
-    public static final Block.Properties MOLTEN_ORE = Block.Properties.create(Material.LAVA);
-    public static final Block.Properties JUICE = Block.Properties.create(Material.WATER);
 
     public static final Block STALINITE = new MMBlockBase(Block.Properties.create(Material.GLASS).hardnessAndResistance(8.0f).harvestTool(ToolType.PICKAXE).noDrops(), "stalinite",RenderType.getTranslucent());
     public static final Block STEEL_SCAFFOLDING = new MMBlockBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.0f).harvestTool(ToolType.PICKAXE),"steel_scaffolding",RenderType.getTranslucent());
@@ -59,12 +57,6 @@ public class RegisteryedBlocks {
     public static final Block COILALUMINUM = new MMBlockBase(HARD2.hardnessAndResistance(2.0f),"coilaluminum");
     public static final Block COILTUNGSTEN = new MMBlockBase(HARD3.hardnessAndResistance(6.0f),"coiltungsten");
     public static final Block COILCOBALT = new MMBlockBase(HARD3.hardnessAndResistance(4.0f),"coilcobalt");
-//fluid
-    public static final Block MOLTEN_COPPER = new MMBlockBase(MOLTEN_ORE,"molten_copper");
-
-    public static final Block APPLE_JUICE = new MMBlockBase(JUICE,"apple_juice");
-    public static final Block GOLDEN_APPLE_JUICE = new MMBlockBase(JUICE.lightValue(9),"golden_apple_juice");
-    public static final Block ETHENE = new MMBlockBase(JUICE,"ethene");
 //machine casing
     public static final Block CASING_1 = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"casing_1");
     public static final Block CASING_2 = new MMBlockBase(HARD1.hardnessAndResistance(3.0f),"casing_2");
@@ -77,7 +69,7 @@ public class RegisteryedBlocks {
     public static final Block SLAG_CONCRETE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f),"slag_concrete");
     public static final Block CLAY_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"clay_brick_block");
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"fire_brick_block");
-//tile entity
+//tileentity
     //machine
 
     //cable
