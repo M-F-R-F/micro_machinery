@@ -4,7 +4,8 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 
 public enum EnumToolTier implements IItemTier {
-    BRONZE(400,2,5,3,2,Ingredient.EMPTY);
+    BRONZE(400,2,5,3,2,Ingredient.EMPTY),
+    HSS(900,5,7,5,3,Ingredient.EMPTY);
 
     private final int maxUses;
     private final int efficiency;
