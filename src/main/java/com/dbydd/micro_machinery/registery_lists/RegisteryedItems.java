@@ -241,8 +241,8 @@ public class RegisteryedItems {
     public static final Item BRICK_POWDER = new MMItemBase("brick_powder");
     public static final Item CLAY_MIXED_WITH_CLINKER = new MMItemBase("clay_mixed_with_clinker");
     public static final Item BRONZE_SWORD0 = new MMItemBase("bronze_sword0");
-    public static final Item HSS_ADDITIVE = new MMItemBase("HSS_Additive");
-    public static final Item SS_ADDITIVE = new MMItemBase("SS_Additive");
+    public static final Item HSS_ADDITIVE = new MMItemBase("hss_additive");
+    public static final Item SS_ADDITIVE = new MMItemBase("ss_additive");
 
     private RegisteryedItems() {
     }
