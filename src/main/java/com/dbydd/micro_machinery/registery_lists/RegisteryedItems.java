@@ -2,10 +2,7 @@ package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.enums.EnumToolTier;
-import com.dbydd.micro_machinery.items.MMAxeBase;
-import com.dbydd.micro_machinery.items.MMHammerBase;
-import com.dbydd.micro_machinery.items.MMItemBase;
-import com.dbydd.micro_machinery.items.MMSwordBase;
+import com.dbydd.micro_machinery.items.*;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
@@ -35,7 +32,7 @@ public class RegisteryedItems {
     //drill
     public static final Item LASER_DRILL = new MMItemBase("laser_drill");
     //ingot
-    public static final Item INGOT_COPPER = new MMItemBase("ingot_copper");
+    public static final Item INGOT_COPPER = new MMItemIngot("ingot_copper");
     public static final Item INGOT_TIN = new MMItemBase("ingot_tin");
     public static final Item INGOT_BRONZE = new MMItemBase("ingot_bronze");
     public static final Item INGOT_STEEL = new MMItemBase("ingot_steel");
