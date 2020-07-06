@@ -119,6 +119,7 @@ public class RegisteryedItems {
     public static final Item PLATE_NCALLOY = new MMItemBase("plate_ncalloy");
     public static final Item PLATE_SILICON = new MMItemBase("plate_silicon");
     public static final Item PLATE_IRON = new MMItemBase("plate_iron");
+    public static final Item PLATE_PE = new MMItemBase("plate_pe");
     //screw
     public static final Item SCREW_BRONZE = new MMItemBase("screw_bronze");
     public static final Item SCREW_INVAR = new MMItemBase("screw_invar");
@@ -195,12 +196,13 @@ public class RegisteryedItems {
     public static final Item CRUSHED_NOLANITE = new MMItemBase("crushed_nolanite");
     public static final Item CRUSHED_TUNSTITE = new MMItemBase("crushed_tunstite");
     public static final Item CRUSHED_IRON = new MMItemBase("crushed_iron");
+    public static final Item CRUSHED_MANGANESE = new MMItemBase("crushed_manganese");
     //motor
-    public static final Item MOTOR1 = new MMItemBase("motor1");
-    public static final Item MOTOR2 = new MMItemBase("motor2");
-    public static final Item MOTOR3 = new MMItemBase("motor3");
-    public static final Item MOTOR4 = new MMItemBase("motor4");
-    public static final Item MOTOR5 = new MMItemBase("motor5");
+    public static final Item MOTOR_1 = new MMItemBase("motor_1");
+    public static final Item MOTOR_2 = new MMItemBase("motor_2");
+    public static final Item MOTOR_3 = new MMItemBase("motor_3");
+    public static final Item MOTOR_4 = new MMItemBase("motor_4");
+    public static final Item MOTOR_5 = new MMItemBase("motor_5");
     //oreconcentrate
     public static final Item ORE_COPPER_CONCENTRATE = new MMItemBase("ore_copper_concentrate");
     public static final Item ORE_TIN_CONCENTRATE = new MMItemBase("ore_tin_concentrate");
@@ -225,7 +227,6 @@ public class RegisteryedItems {
     public static final Item WAFER = new MMItemBase("wafer");
     public static final Item ETCHED_WAFER = new MMItemBase("etched_wafer");
     public static final Item I7_8700K = new MMItemBase("i7_8700k");
-    public static final Item PLATE_PE = new MMItemBase("plate_pe");
     public static final Item PCB = new MMItemBase("pcb");
     public static final Item CAPACITOR = new MMItemBase("capacitor");
     public static final Item RESISTOR = new MMItemBase("resistor");

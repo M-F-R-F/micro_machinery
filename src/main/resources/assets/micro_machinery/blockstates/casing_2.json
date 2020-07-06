@@ -1,0 +1,10 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "micro_machinery:casing_2"
+	},
+	"variants": {
+		"normal": [{}],
+		"inventory": [{}]
+	}
+}
