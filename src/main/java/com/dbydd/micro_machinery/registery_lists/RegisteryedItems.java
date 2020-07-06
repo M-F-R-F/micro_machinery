@@ -32,7 +32,7 @@ public class RegisteryedItems {
     //drill
     public static final Item LASER_DRILL = new MMItemBase("laser_drill");
     //ingot
-    public static final Item INGOT_COPPER = new MMItemIngot("ingot_copper");
+    public static final Item INGOT_COPPER = new MMItemBase("ingot_copper");
     public static final Item INGOT_TIN = new MMItemBase("ingot_tin");
     public static final Item INGOT_BRONZE = new MMItemBase("ingot_bronze");
     public static final Item INGOT_STEEL = new MMItemBase("ingot_steel");
