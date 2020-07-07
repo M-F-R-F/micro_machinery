@@ -1,6 +1,11 @@
 {
-	"parent": "block/cube_all",
+	"parent": "block/cube",
 	"textures": {
-		"all": "micro_machinery:blocks/coilcobalt"
+		"down": "micro_machinery:blocks/coilcobalt_top",
+		"up": "micro_machinery:blocks/coilcobalt_top",
+		"north": "micro_machinery:blocks/coilcobalt_side",
+		"west": "micro_machinery:blocks/coilcobalt_side",
+		"south": "micro_machinery:blocks/coilcobalt_side",
+		"east": "micro_machinery:blocks/coilcobalt_side"
 	}
 }
