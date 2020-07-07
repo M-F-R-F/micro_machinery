@@ -17,6 +17,7 @@ public class RegisteryedItems {
     public static final Item STONE_HAMMER = new MMHammerBase(4.0f, 1.0f, ItemTier.STONE, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.STONE.getHarvestLevel()), "stone_hammer");
     public static final Item BRONZE_HAMMER = new MMHammerBase(5.0f, 1.0f, ItemTier.IRON, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.IRON.getHarvestLevel()), "bronze_hammer");
     public static final Item STEEL_HAMMER = new MMHammerBase(6.0f, 1.0f, ItemTier.DIAMOND, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.DIAMOND.getHarvestLevel()), "steel_hammer");
+    public static final Item SUPERHAMMER = new MMHammerBase(8.0f,2.0f,EnumToolTier.HSS,new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE,EnumToolTier.HSS.getHarvestLevel()),"superhammer");
     //axe
     public static final Item BRONZE_AXE = new MMAxeBase(EnumToolTier.BRONZE, 1, 1.0f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, EnumToolTier.BRONZE.getHarvestLevel()), "bronze_axe");
     public static final Item TUNGSTEN_STEEL_AXE = new MMAxeBase(ItemTier.DIAMOND, 2, 1.0f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, ItemTier.DIAMOND.getHarvestLevel()), "tungsten_steel_axe");
@@ -172,6 +173,8 @@ public class RegisteryedItems {
     public static final Item GEAR_BLANK_TITANIUM = new MMItemBase("gear_blank_titanium");
     public static final Item GEAR_BLANK_ALUMINUM = new MMItemBase("gear_blank_aluminum");
     public static final Item GEAR_BLANK_IRON = new MMItemBase("gear_blank_iron");
+    public static final Item GEAR_BLANK_GOLD = new MMItemBase("gear_blank_gold");
+    public static final Item GEAR_BLANK_STEEL = new MMItemBase("gear_blank_steel");
     //gear
     public static final Item GEAR_BRONZE = new MMItemBase("gear_bronze");
     public static final Item GEAR_INVAR = new MMItemBase("gear_invar");
@@ -182,6 +185,8 @@ public class RegisteryedItems {
     public static final Item GEAR_TITANIUM = new MMItemBase("gear_titanium");
     public static final Item GEAR_ALUMINUM = new MMItemBase("gear_aluminum");
     public static final Item GEAR_IRON = new MMItemBase("gear_iron");
+    public static final Item GEAR_GOLD = new MMItemBase("gear_gold");
+    public static final Item GEAR_STEEL = new MMItemBase("gear_steel");
     //crushed ore
     public static final Item CRUSHED_COPPER = new MMItemBase("crushed_copper");
     public static final Item CRUSHED_TIN = new MMItemBase("crushed_tin");
@@ -196,7 +201,6 @@ public class RegisteryedItems {
     public static final Item CRUSHED_NOLANITE = new MMItemBase("crushed_nolanite");
     public static final Item CRUSHED_TUNSTITE = new MMItemBase("crushed_tunstite");
     public static final Item CRUSHED_IRON = new MMItemBase("crushed_iron");
-    public static final Item CRUSHED_MANGANESE = new MMItemBase("crushed_manganese");
     //motor
     public static final Item MOTOR_1 = new MMItemBase("motor_1");
     public static final Item MOTOR_2 = new MMItemBase("motor_2");
