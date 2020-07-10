@@ -8,14 +8,14 @@ import com.dbydd.micro_machinery.items.MMSwordBase;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedFluids;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedItems;
+import com.dbydd.micro_machinery.registery_lists.strctures.Veins;
+import com.dbydd.micro_machinery.worldgen.VeinFeature;
 import net.minecraft.block.Block;
-import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -30,6 +30,7 @@ public class Micro_Machinery {
     public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, NAME);
     public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, NAME);
     public static final DeferredRegister<Fluid> FLUID_REGISTER = DeferredRegister.create(ForgeRegistries.FLUIDS, NAME);
+    public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, NAME);
     public static final ItemGroup MMTAB = new MMTab();
 
     static {
@@ -46,6 +47,7 @@ public class Micro_Machinery {
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FLUID_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        FEATURE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {
@@ -65,6 +67,8 @@ public class Micro_Machinery {
         RegisteryedItems.Init();
         RegisteryedBlocks.Init();
         RegisteryedFluids.Init();
+        Veins.init();
+        VeinFeature.init();
     }
 
 
