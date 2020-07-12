@@ -50,7 +50,7 @@ public class RegisteryedBlocks {
     public static final Block BLOCKCOBALT = new MMBlockBase(HARD3.hardnessAndResistance(5.0f),"blockcobalt");
     public static final Block BLOCKTITANIUM = new MMBlockBase(HARD3.hardnessAndResistance(7.0f),"blocktitanium");
     public static final Block BLOCKALUMINUM = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"blockaluminum");
-    public static final Block BLOCKCALLOY = new MMBlockBase(HARD2.hardnessAndResistance(4.0f),"blockcalloy");
+    public static final Block BLOCKNCALLOY = new MMBlockBase(HARD2.hardnessAndResistance(4.0f),"blockncalloy");
 //coil
     public static final Block COILCOPPER = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"coilcopper");
     public static final Block COILNICKEL = new MMBlockBase(HARD2.hardnessAndResistance(2.5f),"coilnickel");
