@@ -7,10 +7,11 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Supplier;
 
 public class MMItemBase extends Item {
-    public static Map<String, Supplier<Item>> registeries = new HashMap<>();
+    public static Map<String, Supplier<Item>> registeries = new TreeMap<>();
     public static Properties DEFAULT_PROPERTIES = new Properties().group(Micro_Machinery.MMTAB);
 
     public MMItemBase(Properties properties, String name) {
