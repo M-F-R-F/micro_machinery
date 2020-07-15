@@ -29,7 +29,6 @@ public class RegisteryedItems {
     //food
     public static final Item TEST_FOOD = new MMItemBase(new Item.Properties(), "test_food", new Food.Builder().effect(() -> new EffectInstance(Effects.JUMP_BOOST, 2000, 50), 1.0f).hunger(20).setAlwaysEdible().build());
 
-
     //drill
     public static final Item LASER_DRILL = new MMItemBase("laser_drill");
     //ingot
