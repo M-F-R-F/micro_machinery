@@ -17,7 +17,7 @@ public class RegisteryedItems {
     public static final Item STONE_HAMMER = new MMHammerBase(4.0f, 1.0f, ItemTier.STONE, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.STONE.getHarvestLevel()), "stone_hammer");
     public static final Item BRONZE_HAMMER = new MMHammerBase(5.0f, 1.0f, ItemTier.IRON, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.IRON.getHarvestLevel()), "bronze_hammer");
     public static final Item IRON_HAMMER = new MMHammerBase(6.0f, 1.0f, ItemTier.DIAMOND, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.DIAMOND.getHarvestLevel()), "iron_hammer");
-    public static final Item SUPERHAMMER = new MMHammerBase(8.0f,2.0f,EnumToolTier.HSS,new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE,EnumToolTier.HSS.getHarvestLevel()),"superhammer");
+    public static final Item SUPERHAMMER = new MMHammerBase(8.0f, 2.0f, EnumToolTier.HSS, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, EnumToolTier.HSS.getHarvestLevel()), "superhammer");
     //axe
     public static final Item BRONZE_AXE = new MMAxeBase(EnumToolTier.BRONZE, 1, 1.0f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, EnumToolTier.BRONZE.getHarvestLevel()), "bronze_axe");
     public static final Item TUNGSTEN_STEEL_AXE = new MMAxeBase(ItemTier.DIAMOND, 2, 1.0f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, ItemTier.DIAMOND.getHarvestLevel()), "tungsten_steel_axe");
@@ -27,7 +27,10 @@ public class RegisteryedItems {
     public static final Item TUNGSTEN_STEEL_SWORD = new MMSwordBase(ItemTier.DIAMOND, 4, 1.2f, new Item.Properties().group(Micro_Machinery.MMTAB), "tungsten_steel_sword");
     public static final Item HSS_SWORD = new MMSwordBase(EnumToolTier.HSS, 7, 2.5f, new Item.Properties().group(Micro_Machinery.MMTAB), "hss_sword");
     //food
-    public static final Item TEST_FOOD = new MMItemBase(new Item.Properties(), "test_food", new Food.Builder().effect(() -> new EffectInstance(Effects.JUMP_BOOST, 2000, 50), 1.0f).hunger(20).setAlwaysEdible().build());
+    public static final Item GOLDEN_APPLE_DROPS = new MMItemBase(new Item.Properties(), "golden_apple_drops", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 200, 1), 1.0F).effect(() -> new EffectInstance(Effects.RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.FIRE_RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 3), 1.0F).hunger(3).setAlwaysEdible().saturation(1).build());
+    public static final Item GOLDEN_APPLE_JAM_BUN = new MMItemBase(new Item.Properties(), "golden_apple_jam_bun", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 200, 1), 1.0F).effect(() -> new EffectInstance(Effects.RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.FIRE_RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 3), 1.0F).hunger(10).saturation(1).build());
+    public static final Item APPLE_DROPS = new MMItemBase(new Item.Properties(), "apple_drops", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 50, 1), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 0), 1.0F).hunger(2).setAlwaysEdible().saturation(1).build());
+    public static final Item APPLE_JAM_BUN = new MMItemBase(new Item.Properties(), "apple_jam_bun", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 50, 1), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 0), 1.0F).hunger(8).saturation(1).build());
 
     //drill
     public static final Item LASER_DRILL = new MMItemBase("laser_drill");

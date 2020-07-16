@@ -13,17 +13,11 @@ public class MMSwordBase extends SwordItem {
     public static Map<String, Supplier<Item>> registeries = new HashMap<>();
     public static Properties DEFAULT_PROPERTIES = new Properties().group(Micro_Machinery.MMTAB);
 
-    /**
-     * @param correct_value 修正值，会在材料的伤害值基础上对此项做加法作为最终攻击力
-     */
     public MMSwordBase(IItemTier material_tier, int correct_value, float attack_speed, Properties properties, String name) {
         super(material_tier, correct_value, attack_speed, properties);
         registeries.put(name, () -> this);
     }
 
-    /**
-     * @param correct_value 修正值，会在材料的伤害值基础上对此项做加法作为最终攻击力
-     */
     public MMSwordBase(IItemTier material_tier, int correct_value, float attack_speed, String name) {
         super(material_tier, correct_value, attack_speed, DEFAULT_PROPERTIES);
         registeries.put(name, () -> this);
