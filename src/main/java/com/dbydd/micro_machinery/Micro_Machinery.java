@@ -1,7 +1,6 @@
 package com.dbydd.micro_machinery;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
-import com.dbydd.micro_machinery.blocks.mathines.TileEntityRegistryBase;
 import com.dbydd.micro_machinery.items.MMAxeBase;
 import com.dbydd.micro_machinery.items.MMHammerBase;
 import com.dbydd.micro_machinery.items.MMItemBase;
@@ -17,14 +16,13 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -36,25 +34,23 @@ public class Micro_Machinery {
     public static final DeferredRegister<Fluid> FLUID_REGISTER = DeferredRegister.create(ForgeRegistries.FLUIDS, NAME);
     public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, NAME);
     public static final ItemGroup MMTAB = new MMTab();
-    public static DeferredRegister<TileEntityType<?>> TILEENTITY_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, NAME);
 
     static {
-        InitListsNeedToRegister();
 
         Micro_Machinery.RegisteryItems(MMItemBase.registeries);
         Micro_Machinery.RegisteryItems(MMSwordBase.registeries);
         Micro_Machinery.RegisteryItems(MMHammerBase.registeries);
         Micro_Machinery.RegisteryItems(MMAxeBase.registeries);
         Micro_Machinery.RegisteryBlocks(MMBlockBase.registeries);
-        Micro_Machinery.RegistryTileentityTypes(TileEntityRegistryBase.registerys);
     }
 
     public Micro_Machinery() {
+        InitListsNeedToRegister();
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FLUID_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FEATURE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TILEENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Registereyed_Tileentities.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {
@@ -70,19 +66,18 @@ public class Micro_Machinery {
         }
     }
 
-    public static void RegistryTileentityTypes(List<TileEntityRegistryBase> list) {
-        list.forEach(tileEntityRegistryBase -> TILEENTITY_TYPE_REGISTER.register(tileEntityRegistryBase.getName(), () -> tileEntityRegistryBase.getType()));
-
+    public static RegistryObject<Block> RegisterySingleBlock(String name, Supplier<Block> supplier) {
+        ITEM_REGISTER.register(name, () -> new BlockItem(supplier.get(), new Item.Properties().group(MMTAB)));
+        return BLOCK_REGISTER.register(name, supplier);
     }
 
     private static void InitListsNeedToRegister() {
         RegisteryedItems.Init();
         RegisteryedBlocks.Init();
         RegisteryedFluids.Init();
-        Veins.init();
-        VeinFeature.init();
-        Registereyed_Tileentities.init();
+        Veins.Init();
+        VeinFeature.Init();
+        Registereyed_Tileentities.Init();
     }
-
 
 }

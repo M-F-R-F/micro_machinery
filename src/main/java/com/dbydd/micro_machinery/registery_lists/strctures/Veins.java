@@ -17,7 +17,7 @@ public class Veins {
         TEST_MAP.put(1.0, Blocks.DIAMOND_BLOCK);
     }
 
-    public static final void init(){
+    public static final void Init(){
 
     }
 }

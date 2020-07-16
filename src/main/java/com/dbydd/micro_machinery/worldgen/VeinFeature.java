@@ -32,7 +32,7 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         return (F) (Registry.<Feature<?>>register(Registry.FEATURE, key, value));
     }
 
-    public static void init() {
+    public static void Init() {
 
     }
 
