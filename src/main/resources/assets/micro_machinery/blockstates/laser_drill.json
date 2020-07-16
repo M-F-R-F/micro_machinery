@@ -1,11 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "micro_machinery:obj/laser_drill.obj"
-    },
-    "custom": {
-      "flip-v": true
-    },
+  "loader": "forge:obj",
+  "model": "micro_machinery:models/block/obj/laser_drill.obj",
+  "flip-v": true,
     "transform": {
       "scale": 0.75,
       "thirdperson": {
@@ -94,4 +90,3 @@
       }
     }
   }
-}
