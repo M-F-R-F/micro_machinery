@@ -1,10 +1,5 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "micro_machinery:tank_block"
-	},
 	"variants": {
-		"normal": [{}],
-		"inventory": [{}]
+		"": {"model": "micro_machinery:block/tank_block"}
 	}
 }

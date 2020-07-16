@@ -1,7 +1,8 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "micro_machinery:obj/laser_drill.obj",
+  "variants": {
+    "": {
+      "model": "micro_machinery:obj/laser_drill.obj"
+    },
     "custom": {
       "flip-v": true
     },
@@ -92,11 +93,5 @@
         ]
       }
     }
-  },
-  "variants": {
-    "inventory": [
-      {
-      }
-    ]
   }
 }
