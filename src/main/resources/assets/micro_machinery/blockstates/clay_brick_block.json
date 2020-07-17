@@ -1,10 +1,5 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "micro_machinery:clay_brick_block"
-	},
 	"variants": {
-		"normal": [{}],
-		"inventory": [{}]
+		"": {"model": "micro_machinery:block/clay_brick_block"}
 	}
 }
