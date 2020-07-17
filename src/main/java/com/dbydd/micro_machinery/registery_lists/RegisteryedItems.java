@@ -248,6 +248,8 @@ public class RegisteryedItems {
     public static final Item HSS_ADDITIVE = new MMItemBase("hss_additive");
     public static final Item SS_ADDITIVE = new MMItemBase("ss_additive");
 
+    public static final Item TEST_UTIL = new DebugTool();
+
     private RegisteryedItems() {
     }
 

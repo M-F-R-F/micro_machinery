@@ -1,5 +1,6 @@
 package com.dbydd.micro_machinery.blocks.mathines;
 
+import com.dbydd.micro_machinery.blocks.MMBlockBase;
 import com.dbydd.micro_machinery.registery_lists.BlockRenderTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,13 +19,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public abstract class MMBlockTileProviderBase extends Block {
+public abstract class MMBlockTileProviderBase extends MMBlockBase {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
     public MMBlockTileProviderBase(Properties properties, String name, RenderType renderType) {
-        super(properties);
+        super(properties, name, renderType);
         BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
-        this.setDefaultState(get_DefaultState());
     }
 
     @Override
@@ -32,18 +32,10 @@ public abstract class MMBlockTileProviderBase extends Block {
         return true;
     }
 
-    protected BlockState get_DefaultState() {
-        return this.stateContainer.getBaseState().with(FACING, Direction.NORTH);
-    }
-
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING);
-    }
-
-    @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        super.fillStateContainer(builder);
     }
 
     @Nullable

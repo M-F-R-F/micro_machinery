@@ -36,6 +36,7 @@ public class Micro_Machinery {
     public static final ItemGroup MMTAB = new MMTab();
 
     static {
+        InitListsNeedToRegister();
 
         Micro_Machinery.RegisteryItems(MMItemBase.registeries);
         Micro_Machinery.RegisteryItems(MMSwordBase.registeries);
@@ -45,7 +46,6 @@ public class Micro_Machinery {
     }
 
     public Micro_Machinery() {
-        InitListsNeedToRegister();
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FLUID_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -66,9 +66,9 @@ public class Micro_Machinery {
         }
     }
 
-    public static RegistryObject<Block> RegisterySingleBlock(String name, Supplier<Block> supplier) {
-        ITEM_REGISTER.register(name, () -> new BlockItem(supplier.get(), new Item.Properties().group(MMTAB)));
-        return BLOCK_REGISTER.register(name, supplier);
+    public static void RegisterySingleBlock(String name, Block block, Item item) {
+        BLOCK_REGISTER.register(name, () -> block);
+        ITEM_REGISTER.register(name, () -> item);
     }
 
     private static void InitListsNeedToRegister() {
@@ -77,7 +77,6 @@ public class Micro_Machinery {
         RegisteryedFluids.Init();
         Veins.Init();
         VeinFeature.Init();
-        Registereyed_Tileentities.Init();
     }
 
 }

@@ -13,11 +13,5 @@ public class Registereyed_Tileentities {
     public static DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Micro_Machinery.NAME);
 
 
-    public static RegistryObject<Block> KLINBLOCK = Micro_Machinery.RegisterySingleBlock("klin", BlockKlin::new);
-    public static RegistryObject<TileEntityType<TileKlin>> KLIN_TYPE = TILE_ENTITY_TYPE_REGISTER.register("klin",
-            () -> TileEntityType.Builder.create(TileKlin::new, KLINBLOCK.get()).build(null));
-
-    public static void Init() {
-        TileKlin tileKlin = new TileKlin();
-    }
+    public static RegistryObject<TileEntityType<TileKlin>> KLIN_TYPE = TILE_ENTITY_TYPE_REGISTER.register("klin", () -> TileEntityType.Builder.create(TileKlin::new, RegisteryedBlocks.KLIN).build(null));
 }

@@ -72,7 +72,7 @@ public class RegisteryedBlocks {
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "fire_brick_block");
     //tileentity
     //machine
-//    public static final Block KLIN = new BlockKlin();
+    public static final Block KLIN = new BlockKlin();
     //cable
 
     //pipe
