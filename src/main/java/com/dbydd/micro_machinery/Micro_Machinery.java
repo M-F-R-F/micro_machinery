@@ -5,10 +5,7 @@ import com.dbydd.micro_machinery.items.MMAxeBase;
 import com.dbydd.micro_machinery.items.MMHammerBase;
 import com.dbydd.micro_machinery.items.MMItemBase;
 import com.dbydd.micro_machinery.items.MMSwordBase;
-import com.dbydd.micro_machinery.registery_lists.Registereyed_Tileentities;
-import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
-import com.dbydd.micro_machinery.registery_lists.RegisteryedFluids;
-import com.dbydd.micro_machinery.registery_lists.RegisteryedItems;
+import com.dbydd.micro_machinery.registery_lists.*;
 import com.dbydd.micro_machinery.registery_lists.strctures.Veins;
 import com.dbydd.micro_machinery.worldgen.VeinFeature;
 import net.minecraft.block.Block;
@@ -51,6 +48,7 @@ public class Micro_Machinery {
         FLUID_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FEATURE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         Registereyed_Tileentities.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Registeryed_ContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {

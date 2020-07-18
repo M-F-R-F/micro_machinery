@@ -1,23 +1,28 @@
 package com.dbydd.micro_machinery.blocks.mathines.klin;
 
+import com.dbydd.micro_machinery.gui.klin.KlinContainer;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import com.dbydd.micro_machinery.registery_lists.Registereyed_Tileentities;
+import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -32,7 +37,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHandler, IFluidHandler {
+public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHandler, IFluidHandler, INamedContainerProvider {
 
     private FluidTank fluidHandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(5);
@@ -45,6 +50,7 @@ public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHa
     private int pouringCoolDown = 0;
     private int currentcooldown = 0;
     private boolean isBurning = false;
+    private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
 
 
     public TileKlin() {
@@ -140,6 +146,10 @@ public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHa
     @Override
     public void tick() {
         if (!world.isRemote) {
+            this.progressBarNumArray.set(0, this.currentMeltTime);
+            this.progressBarNumArray.set(1, this.meltTime);
+            this.progressBarNumArray.set(2, this.currentBurnTime);
+            this.progressBarNumArray.set(3, this.maxBurnTime);
             if (isBurning) {
                 this.currentBurnTime++;
                 if (issmelting()) {
@@ -294,5 +304,43 @@ public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHa
         FluidStack drain = fluidHandler.drain(maxDrain, action);
         markDirty();
         return drain;
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return RegisteryedBlocks.KLIN.getNameTextComponent();
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int sycID, PlayerInventory inventory, PlayerEntity player) {
+        return new KlinContainer(sycID, inventory, this.pos, this.world, progressBarNumArray);
+    }
+
+    public ItemStackHandler getItemHandler() {
+        return itemhandler;
+    }
+
+    public boolean isUsableByPlayer(PlayerEntity playerIn) {
+        return this.world.getTileEntity(this.pos) == this && playerIn.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    }
+
+    public static class KlinProgressBarNumArray implements IIntArray {
+        private int[] iArray = {0, 0};
+
+        @Override
+        public int get(int index) {
+            return iArray[index];
+        }
+
+        @Override
+        public void set(int index, int value) {
+            iArray[index] = value;
+        }
+
+        @Override
+        public int size() {
+            return 4;
+        }
     }
 }

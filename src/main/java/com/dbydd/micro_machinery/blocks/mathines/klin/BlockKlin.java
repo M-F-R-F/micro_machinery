@@ -8,6 +8,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -18,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -57,9 +60,11 @@ public class BlockKlin extends MMBlockTileProviderBase {
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if(tileEntity instanceof TileKlin){
-            ((TileKlin)tileEntity).onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        if (!worldIn.isRemote && handIn == Hand.MAIN_HAND) {
+            TileKlin tileKlin = (TileKlin) worldIn.getTileEntity(pos);
+            NetworkHooks.openGui((ServerPlayerEntity) player, tileKlin, (PacketBuffer packerBuffer) -> {
+                packerBuffer.writeBlockPos(tileKlin.getPos());
+            });
         }
         return ActionResultType.SUCCESS;
     }
