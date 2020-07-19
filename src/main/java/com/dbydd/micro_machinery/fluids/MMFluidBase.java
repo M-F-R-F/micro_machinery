@@ -2,10 +2,12 @@ package com.dbydd.micro_machinery.fluids;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.items.MMItemBase;
+import com.dbydd.micro_machinery.registery_lists.BlockRenderTypes;
 import com.dbydd.micro_machinery.registery_lists.RegisteryedFluids;
 import com.mojang.datafixers.types.Func;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BucketItem;
