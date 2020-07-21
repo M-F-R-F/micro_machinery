@@ -31,7 +31,7 @@ public class MoltenMaterialToRockEventDenier {
 
             for (MMFluidBase fluidBase : MMFluidBase.fluidBaseList) {
                 if (path.contains(fluidBase.getName())) {
-                    Block block = MMBlockBase.registeries.get(fluidBase.getName()+"_discarded").get();
+                    Block block = MMBlockBase.registeries.get(fluidBase.getName() + "_discarded").get();
                     event.setNewState(block.getDefaultState());
                 }
             }
