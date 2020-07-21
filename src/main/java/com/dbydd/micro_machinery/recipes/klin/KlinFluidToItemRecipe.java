@@ -1,10 +1,7 @@
 package com.dbydd.micro_machinery.recipes.klin;
 
 import com.dbydd.micro_machinery.enums.EnumCastType;
-import com.dbydd.micro_machinery.items.MMCastBase;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;

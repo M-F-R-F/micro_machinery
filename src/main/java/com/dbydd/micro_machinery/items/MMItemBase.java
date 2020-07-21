@@ -3,9 +3,7 @@ package com.dbydd.micro_machinery.items;
 import com.dbydd.micro_machinery.Micro_Machinery;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
