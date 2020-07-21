@@ -1,11 +1,10 @@
 package com.dbydd.micro_machinery.blocks;
 
-import com.dbydd.micro_machinery.registery_lists.BlockRenderTypes;
+import com.dbydd.micro_machinery.registery_lists.RenderTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
@@ -31,14 +30,14 @@ public class MMBlockBase extends Block {
         super(properties);
         this.name = name;
         registeries.put(name, () -> this);
-        BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
+        RenderTypes.blockRenderTypeMap.put(this, renderType);
     }
 
     public MMBlockBase(String name, RenderType renderType) {
         super(DEFAULT_PROPERTIES);
         this.name = name;
         registeries.put(name, () -> this);
-        BlockRenderTypes.blockRenderTypeMap.put(this, renderType);
+        RenderTypes.blockRenderTypeMap.put(this, renderType);
     }
 
     @Override

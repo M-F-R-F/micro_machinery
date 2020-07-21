@@ -2,12 +2,10 @@ package com.dbydd.micro_machinery.fluids;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.items.MMItemBase;
-import com.dbydd.micro_machinery.registery_lists.BlockRenderTypes;
-import com.dbydd.micro_machinery.registery_lists.RegisteryedFluids;
-import com.mojang.datafixers.types.Func;
+import com.dbydd.micro_machinery.registery_lists.FluidBucketDispenserRegister;
+import com.dbydd.micro_machinery.registery_lists.RenderTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BucketItem;
@@ -18,7 +16,6 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class MMFluidBase {
@@ -41,5 +38,7 @@ public class MMFluidBase {
         this.fluid_block = BLOCK_REGISTER.register("fluids/"+name, () -> new FlowingFluidBlock(this.fluid, fluid_block_properties));
         this.fluid_bucket = ITEM_REGISTER.register(name + "_bucket", () -> new BucketItem(this.fluid, MMItemBase.DEFAULT_PROPERTIES));
         this.fluid_properties = new ForgeFlowingFluid.Properties(this.fluid, this.fluid_flowing, factory.apply(FluidAttributes.builder(fluid_resource_location, fluid_flow_resource_location).density(10).viscosity(1500))).bucket(this.fluid_bucket).block(this.fluid_block).slopeFindDistance(3).explosionResistance(100F).tickRate(tickRate);
+        RenderTypes.fluidRenderTypeMap.add(this);
+        FluidBucketDispenserRegister.fluids.add(this);
     }
 }
