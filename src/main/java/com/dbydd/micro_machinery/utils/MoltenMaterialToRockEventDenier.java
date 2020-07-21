@@ -24,7 +24,6 @@ public class MoltenMaterialToRockEventDenier {
         Fluid fluid = event.getWorld().getFluidState(event.getLiquidPos()).getFluid();
         if (fluid.getRegistryName().getNamespace().equals(Micro_Machinery.NAME) && fluid.getTags().contains(new ResourceLocation("minecraft", "lava"))) {
             //todo
-//            world.setBlockState(pos, Blocks.DIAMOND_BLOCK.getDefaultState(),2);
             event.setNewState(Blocks.DIAMOND_BLOCK.getDefaultState());
         }
             event.setResult(Event.Result.ALLOW);
