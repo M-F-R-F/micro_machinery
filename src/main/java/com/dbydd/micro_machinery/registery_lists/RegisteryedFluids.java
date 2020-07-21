@@ -27,10 +27,10 @@ public class RegisteryedFluids {
     public static final MMFluidBase MOLTEN_ALUMINUM = new MMFluidBase("molten_aluminum", Block.Properties.create(Material.LAVA).lightValue(15), (fluid) -> fluid.temperature(933),20);
     public static final MMFluidBase MOLTEN_NCALLOY = new MMFluidBase("molten_ncalloy", Block.Properties.create(Material.LAVA).lightValue(15), (fluid) -> fluid.temperature(1625),20);
     public static final MMFluidBase MOLTEN_FERROCHROME = new MMFluidBase("molten_ferrochrome", Block.Properties.create(Material.LAVA).lightValue(15), (fluid) -> fluid.temperature(2130),20);
-    public static final MMFluidBase MOLTEN_IRON = new MMFluidBase("molten_iron", Block.Properties.create(Material.LAVA).lightValue(15), (fluid) -> fluid.temperature(1808).density(10000),20);
-    public static final MMFluidBase GOLDEN_APPLE_JUICE = new MMFluidBase("golden_apple_juice", Block.Properties.create(Material.WATER).lightValue(8), (fluid) -> fluid.temperature(293).viscosity(500),20);
-    public static final MMFluidBase APPLE_JUICE = new MMFluidBase("apple_juice", Block.Properties.create(Material.WATER), (fluid) -> fluid.temperature(293).viscosity(500),20);
-    public static final MMFluidBase ETHENE = new MMFluidBase("ethene", Block.Properties.create(Material.WATER), (fluid) -> fluid.temperature(293).viscosity(100000),20);
+    public static final MMFluidBase MOLTEN_IRON = new MMFluidBase("molten_iron", Block.Properties.create(Material.LAVA).lightValue(15), (fluid) -> fluid.temperature(1808),20);
+    public static final MMFluidBase GOLDEN_APPLE_JUICE = new MMFluidBase("golden_apple_juice", Block.Properties.create(Material.WATER).lightValue(8), (fluid) -> fluid.temperature(293).viscosity(500),5);
+    public static final MMFluidBase APPLE_JUICE = new MMFluidBase("apple_juice", Block.Properties.create(Material.WATER), (fluid) -> fluid.temperature(293).viscosity(500),3);
+    public static final MMFluidBase ETHENE = new MMFluidBase("ethene", Block.Properties.create(Material.WATER), (fluid) -> fluid.temperature(293).viscosity(1000),10);
 
     public static void Init() {
     }
