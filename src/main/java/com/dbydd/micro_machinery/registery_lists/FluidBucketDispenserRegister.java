@@ -18,6 +18,7 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FluidBucketDispenserRegister {
+
     public static List<MMFluidBase> fluids = new ArrayList<>();
 
     @SubscribeEvent

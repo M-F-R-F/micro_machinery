@@ -16,9 +16,12 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public class MMFluidBase {
+    public static List<MMFluidBase> fluidBaseList = new ArrayList<>();
     private static DeferredRegister<Fluid> FLUID_REGISTER = Micro_Machinery.FLUID_REGISTER;
     private static DeferredRegister<Block> BLOCK_REGISTER = Micro_Machinery.BLOCK_REGISTER;
     private static DeferredRegister<Item> ITEM_REGISTER = Micro_Machinery.ITEM_REGISTER;
