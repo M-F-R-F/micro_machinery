@@ -17,9 +17,8 @@ import javax.annotation.Nullable;
 public abstract class MMBlockTileProviderBase extends MMBlockBase {
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
-    public MMBlockTileProviderBase(Properties properties, String name, RenderType renderType) {
-        super(properties, name, renderType);
-        RenderTypes.blockRenderTypeMap.put(this, renderType);
+    public MMBlockTileProviderBase(Properties properties, String name) {
+        super(properties, name);
     }
 
     @Override

@@ -26,20 +26,6 @@ public class MMBlockBase extends Block {
         registeries.put(name, () -> this);
     }
 
-    public MMBlockBase(Properties properties, String name, RenderType renderType) {
-        super(properties);
-        this.name = name;
-        registeries.put(name, () -> this);
-        RenderTypes.blockRenderTypeMap.put(this, renderType);
-    }
-
-    public MMBlockBase(String name, RenderType renderType) {
-        super(DEFAULT_PROPERTIES);
-        this.name = name;
-        registeries.put(name, () -> this);
-        RenderTypes.blockRenderTypeMap.put(this, renderType);
-    }
-
     @Override
     public String getTranslationKey() {
         return "micro_machinery_" + name;

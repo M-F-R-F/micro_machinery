@@ -28,7 +28,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
     protected static final BooleanProperty BURNING = BooleanProperty.create("burning");
 
     public BlockKlin() {
-        super(Properties.create(Material.ROCK), "klin", RenderType.getTranslucent());
+        super(Properties.create(Material.ROCK), "klin");
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(BURNING, false));
     }
 

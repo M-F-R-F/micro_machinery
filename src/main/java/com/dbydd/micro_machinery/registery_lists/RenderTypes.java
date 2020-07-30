@@ -15,19 +15,17 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RenderTypes {
-    public static Map<Block, RenderType> blockRenderTypeMap = new HashMap<>();
-    public static List<MMFluidBase> fluidRenderTypeMap = new ArrayList<>();
 
     @SubscribeEvent
     public static void onRenderTypeSetup(FMLClientSetupEvent event) {
-        for(Map.Entry<Block, RenderType> entry : blockRenderTypeMap.entrySet()){
-            RenderTypeLookup.setRenderLayer(entry.getKey(), entry.getValue());
-        }
+            RenderTypeLookup.setRenderLayer(RegisteryedBlocks.KLIN, RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteryedBlocks.STALINITE, RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteryedBlocks.STEEL_SCAFFOLDING, RenderType.getTranslucent());
     }
 
     @SubscribeEvent
     public static void onFluidRenderTypeSetup(FMLClientSetupEvent event) {
-        for (MMFluidBase mmFluidBase : fluidRenderTypeMap) {
+        for (MMFluidBase mmFluidBase : MMFluidBase.fluidBaseList) {
             RenderTypeLookup.setRenderLayer(mmFluidBase.fluid.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(mmFluidBase.fluid_flowing.get(), RenderType.getTranslucent());
         }

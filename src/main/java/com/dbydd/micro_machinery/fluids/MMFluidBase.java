@@ -43,7 +43,6 @@ public class MMFluidBase {
         this.fluid_bucket = ITEM_REGISTER.register(name + "_bucket", () -> new BucketItem(this.fluid, MMItemBase.DEFAULT_PROPERTIES));
         this.fluid_properties = new ForgeFlowingFluid.Properties(this.fluid, this.fluid_flowing, factory.apply(FluidAttributes.builder(fluid_resource_location, fluid_flow_resource_location).density(10).viscosity(1500))).bucket(this.fluid_bucket).block(this.fluid_block).slopeFindDistance(3).explosionResistance(100F).tickRate(tickRate);
         fluidBaseList.add(this);
-        RenderTypes.fluidRenderTypeMap.add(this);
         FluidBucketDispenserRegister.fluids.add(this);
     }
 
