@@ -79,6 +79,7 @@ public class RegisteryedBlocks {
     public static final Block MOLTEN_VANADIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_vanadium_discarded");
     public static final Block MOLTEN_COBALT_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_cobalt_discarded");
     public static final Block MOLTEN_TITANIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_titanium_discarded");
+    public static final Block MOLTEN_ALUMINUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_aluminum_discarded");
     public static final Block MOLTEN_NCALLOY_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_ncalloy_discarded");
     public static final Block MOLTEN_FERROCHROME_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_ferrochrome_discarded");
     public static final Block MOLTEN_IRON_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_iron_discarded");
