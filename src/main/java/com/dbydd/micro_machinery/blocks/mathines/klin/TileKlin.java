@@ -1,5 +1,6 @@
 package com.dbydd.micro_machinery.blocks.mathines.klin;
 
+import com.dbydd.micro_machinery.blocks.mathines.MMTileBase;
 import com.dbydd.micro_machinery.gui.klin.KlinContainer;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
@@ -37,7 +38,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHandler, IFluidHandler, INamedContainerProvider {
+public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHandler, IFluidHandler, INamedContainerProvider {
 
     private FluidTank fluidHandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(5);
@@ -188,8 +189,9 @@ public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHa
 //                    this.syncToTrackingClients();
                 }
             } else {
-                if (tryToGetRecipe() != null)
+                if (tryToGetRecipe() != null) {
                     tryToExtractFuel(this.itemhandler, 2);
+                }
                 markDirty();
 //                this.syncToTrackingClients();
             }
@@ -197,7 +199,9 @@ public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHa
             if (recipe == null) {
                 if (fluidHandler.getFluidAmount() != 0 && itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
                     recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidHandler.getFluid(), itemhandler.getStackInSlot(4));
-                    if (recipe != null) pouringCoolDown = recipe.getCooldown();
+                    if (recipe != null) {
+                        pouringCoolDown = recipe.getCooldown();
+                    }
                     markDirty();
 //                    this.syncToTrackingClients();
                 }
