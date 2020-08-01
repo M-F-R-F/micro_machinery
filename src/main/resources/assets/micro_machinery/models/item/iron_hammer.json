@@ -1,0 +1,23 @@
+{
+    "parent": "micro_machinery:hammer",
+    "textures": {
+        "0": "micro_machinery:items/iron_hammer_0"
+    },
+    "overrides":[
+        {"predicate":{
+            "damage_tier" : 1
+        },
+            "model":"micro_machinery:items/iron_hammer_0"
+        },
+        {"predicate":{
+            "damage_tier" : 2
+        },
+            "model":"micro_machinery:items/iron_hammer_1"
+        },
+        {"predicate":{
+            "damage_tier" : 3
+        },
+            "model":"micro_machinery:items/iron_hammer_2"
+        }
+    ]
+}
