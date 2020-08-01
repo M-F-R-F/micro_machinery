@@ -46,8 +46,8 @@ public class Micro_Machinery {
         BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FLUID_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FEATURE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
-        Registereyed_Tileentities.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
-        Registeryed_ContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Registered_Tileentitie_Types.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Registered_ContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {
@@ -69,9 +69,9 @@ public class Micro_Machinery {
     }
 
     private static void InitListsNeedToRegister() {
-        RegisteryedItems.Init();
-        RegisteryedBlocks.Init();
-        RegisteryedFluids.Init();
+        RegisteredItems.Init();
+        RegisteredBlocks.Init();
+        RegisteredFluids.Init();
         Veins.Init();
         VeinFeature.Init();
     }

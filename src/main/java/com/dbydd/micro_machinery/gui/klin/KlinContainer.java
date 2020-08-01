@@ -2,7 +2,7 @@ package com.dbydd.micro_machinery.gui.klin;
 
 import com.dbydd.micro_machinery.blocks.mathines.klin.TileKlin;
 import com.dbydd.micro_machinery.gui.ContainerBase;
-import com.dbydd.micro_machinery.registery_lists.Registeryed_ContainerTypes;
+import com.dbydd.micro_machinery.registery_lists.Registered_ContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ public class KlinContainer extends ContainerBase {
     private final TileKlin klin;
 
     public KlinContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world, IIntArray intArray) {
-        super(Registeryed_ContainerTypes.KLINCONTAINER.get(), id);
+        super(Registered_ContainerTypes.KLINCONTAINER.get(), id);
         this.intArray = intArray;
         trackIntArray(this.intArray);
         this.klin = (TileKlin) world.getTileEntity(pos);

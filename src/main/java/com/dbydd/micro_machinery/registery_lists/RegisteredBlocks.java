@@ -2,12 +2,14 @@ package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
 import com.dbydd.micro_machinery.blocks.mathines.klin.BlockKlin;
+import com.dbydd.micro_machinery.blocks.mathines.ter_test.TestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.common.ToolType;
+import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil;
 
-public class RegisteryedBlocks {
+public class RegisteredBlocks {
 
     public static final Block.Properties HARD1 = Block.Properties.create(Material.ROCK).harvestLevel(1).harvestTool(ToolType.PICKAXE);
     public static final Block.Properties HARD2 = Block.Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE);
@@ -93,6 +95,7 @@ public class RegisteryedBlocks {
     //tile entity
     //machine
     public static final Block KLIN = new BlockKlin();
+    public static final Block TESTBLOCK = new TestBlock(Block.Properties.create(Material.ROCK), "testblock");
     //cable
 
     //pipe
@@ -100,7 +103,7 @@ public class RegisteryedBlocks {
     //fluid pipe
 
 
-    private RegisteryedBlocks() {
+    private RegisteredBlocks() {
     }
 
     public static void Init() {

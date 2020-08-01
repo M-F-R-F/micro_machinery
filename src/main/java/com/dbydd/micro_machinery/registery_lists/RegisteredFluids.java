@@ -4,7 +4,7 @@ import com.dbydd.micro_machinery.fluids.MMFluidBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-public class RegisteryedFluids {
+public class RegisteredFluids {
 
     public static final MMFluidBase MOLTEN_COPPER = new MMFluidBase("molten_copper", Block.Properties.create(Material.LAVA).lightValue(15), (fluid) -> fluid.temperature(1356),20);
     public static final MMFluidBase MOLTEN_TIN = new MMFluidBase("molten_tin", Block.Properties.create(Material.LAVA).lightValue(15), (fluid) -> fluid.temperature(505),20);

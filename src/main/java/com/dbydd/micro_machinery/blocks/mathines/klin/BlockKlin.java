@@ -1,11 +1,10 @@
 package com.dbydd.micro_machinery.blocks.mathines.klin;
 
 import com.dbydd.micro_machinery.blocks.mathines.MMBlockTileProviderBase;
-import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
+import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -36,9 +35,9 @@ public class BlockKlin extends MMBlockTileProviderBase {
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
         if (active)
-            worldIn.setBlockState(pos, RegisteryedBlocks.KLIN.getDefaultState().with(FACING, state.get(FACING)).with(BURNING, true), 3);
+            worldIn.setBlockState(pos, RegisteredBlocks.KLIN.getDefaultState().with(FACING, state.get(FACING)).with(BURNING, true), 3);
         else
-            worldIn.setBlockState(pos, RegisteryedBlocks.KLIN.getDefaultState().with(FACING, state.get(FACING)).with(BURNING, false), 3);
+            worldIn.setBlockState(pos, RegisteredBlocks.KLIN.getDefaultState().with(FACING, state.get(FACING)).with(BURNING, false), 3);
 
         if (tileentity != null) {
             tileentity.validate();

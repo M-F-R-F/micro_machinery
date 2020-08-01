@@ -1,6 +1,6 @@
 package com.dbydd.micro_machinery;
 
-import com.dbydd.micro_machinery.registery_lists.RegisteryedItems;
+import com.dbydd.micro_machinery.registery_lists.RegisteredItems;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -11,6 +11,6 @@ public class MMTab extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(RegisteryedItems.LOGO);
+        return new ItemStack(RegisteredItems.LOGO);
     }
 }

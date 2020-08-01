@@ -4,8 +4,8 @@ import com.dbydd.micro_machinery.gui.klin.KlinContainer;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
-import com.dbydd.micro_machinery.registery_lists.Registereyed_Tileentities;
-import com.dbydd.micro_machinery.registery_lists.RegisteryedBlocks;
+import com.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
+import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -54,7 +54,7 @@ public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHa
 
 
     public TileKlin() {
-        super(Registereyed_Tileentities.KLIN_TYPE.get());
+        super(Registered_Tileentitie_Types.KLIN_TYPE.get());
     }
 
     public void onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -308,7 +308,7 @@ public class TileKlin extends TileEntity implements ITickableTileEntity, IItemHa
 
     @Override
     public ITextComponent getDisplayName() {
-        return RegisteryedBlocks.KLIN.getNameTextComponent();
+        return RegisteredBlocks.KLIN.getNameTextComponent();
     }
 
     @Nullable

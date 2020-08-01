@@ -10,7 +10,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraftforge.common.ToolType;
 
-public class RegisteryedItems {
+public class RegisteredItems {
 
     public static final Item LOGO = new MMItemBase(new Item.Properties(), "micro_machinery_logo");
     //hammer
@@ -250,7 +250,7 @@ public class RegisteryedItems {
 
     public static final Item TEST_UTIL = new DebugTool();
 
-    private RegisteryedItems() {
+    private RegisteredItems() {
     }
 
     public static void Init() {
