@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -30,6 +31,10 @@ public class MMHammerBase extends ToolItem {
     public MMHammerBase(float attackDamageIn, float attackSpeedIn, IItemTier tier, Item.Properties builder, String name) {
         super(attackDamageIn, attackSpeedIn, tier, new HashSet<>(), builder);
         registeries.put(name, () -> this);
+        this.addPropertyOverride(new ResourceLocation("damage_tier"), (p_call_1_, p_call_2_, p_call_3_) -> {
+            int value = p_call_1_.getDamage() / p_call_1_.getMaxDamage();
+            return (float) (value <= 0.4 ? 1.0 : value <= 0.6 ? 2.0 : 3.0);
+        });
     }
 
     @Override
@@ -61,7 +66,7 @@ public class MMHammerBase extends ToolItem {
             if (direction == Direction.DOWN || direction == Direction.UP) {
                 for (int x = -1; x <= 1; x++) {
                     for (int z = -1; z <= 1; z++) {
-                        BlockPos position = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ()+z);
+                        BlockPos position = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
                         digBlock(worldIn, position, entityLiving);
                     }
                 }
