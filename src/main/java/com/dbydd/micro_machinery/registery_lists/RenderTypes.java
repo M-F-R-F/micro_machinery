@@ -19,6 +19,7 @@ public class RenderTypes {
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.WATER_INDICATOR,RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.FLUID_INDICATOR,RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.TEMPERATURE_INDICATOR,RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteredBlocks.REV_INDICATOR,RenderType.getTranslucent());
     }
 
     @SubscribeEvent

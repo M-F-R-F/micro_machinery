@@ -108,10 +108,11 @@ public class RegisteredBlocks {
     public static final Block WATER_INDICATOR = new MMBlockBase("water_indicator");
     public static final Block TEMPERATURE_INDICATOR = new MMBlockBase("temperature_indicator");
     public static final Block FLUID_INDICATOR = new MMBlockBase("fluid_indicator");
+    public static final Block REV_INDICATOR = new MMBlockBase("rev_indicator");
 
     public static final Block PUSHROD = new MMBlockBase("pushrod");
 
-    public static final Block LIGHT_GREED = new MMBlockBase("light_green");
+    public static final Block LIGHT_GREEN = new MMBlockBase("light_green");
     public static final Block LIGHT_RED = new MMBlockBase("light_red");
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black");
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker");

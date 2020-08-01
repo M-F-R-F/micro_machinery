@@ -1,6 +1,8 @@
 package com.dbydd.micro_machinery.special_renders.ter;
 
+import com.dbydd.micro_machinery.blocks.MMBlockBase;
 import com.dbydd.micro_machinery.blocks.mathines.ter_test.TerTestTile;
+import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -24,7 +26,7 @@ public class TestBlockTer extends TileEntityRenderer<TerTestTile> {
         BlockRendererDispatcher blockRenderer = Minecraft.getInstance().getBlockRendererDispatcher();
         matrixStackIn.push();
         matrixStackIn.translate(1, 0, 0);
-        blockRenderer.renderBlock(Blocks.LANTERN.getDefaultState(), matrixStackIn, bufferIn, 0x00F000F0, combinedOverlayIn, EmptyModelData.INSTANCE);
+        blockRenderer.renderBlock(RegisteredBlocks.LIGHT_FLICKER.getDefaultState(), matrixStackIn,bufferIn , 0x00F000F0, combinedOverlayIn,EmptyModelData.INSTANCE);
         matrixStackIn.pop();
     }
 }
