@@ -117,6 +117,8 @@ public class RegisteredBlocks {
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black");
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker");
 
+    public static final Block FORGING_PRESS = new MMBlockBase("forging_press");
+
     private RegisteredBlocks() {
     }
 
