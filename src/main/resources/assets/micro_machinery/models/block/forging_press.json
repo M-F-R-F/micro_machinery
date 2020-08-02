@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "micro_machinery:models/block/obj/forging_press.obj",
+  "flip-v": true
+  }
