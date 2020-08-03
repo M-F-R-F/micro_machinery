@@ -103,21 +103,21 @@ public class RegisteredBlocks {
     //fluid pipe
 
     //indicator
-    public static final Block INDICATOR = new MMBlockBase("indicator");
-    public static final Block ENERGY_INDICATOR = new MMBlockBase("energy_indicator");
-    public static final Block WATER_INDICATOR = new MMBlockBase("water_indicator");
-    public static final Block TEMPERATURE_INDICATOR = new MMBlockBase("temperature_indicator");
-    public static final Block FLUID_INDICATOR = new MMBlockBase("fluid_indicator");
-    public static final Block REV_INDICATOR = new MMBlockBase("rev_indicator");
+    public static final Block INDICATOR = new MMBlockBase("indicator", true);
+    public static final Block ENERGY_INDICATOR = new MMBlockBase("energy_indicator", true);
+    public static final Block WATER_INDICATOR = new MMBlockBase("water_indicator", true);
+    public static final Block TEMPERATURE_INDICATOR = new MMBlockBase("temperature_indicator", true);
+    public static final Block FLUID_INDICATOR = new MMBlockBase("fluid_indicator", true);
+    public static final Block REV_INDICATOR = new MMBlockBase("rev_indicator", true);
 
-    public static final Block PUSHROD = new MMBlockBase("pushrod");
+    public static final Block PUSHROD = new MMBlockBase("pushrod", true);
 
-    public static final Block LIGHT_GREEN = new MMBlockBase("light_green");
-    public static final Block LIGHT_RED = new MMBlockBase("light_red");
-    public static final Block LIGHT_BLACK = new MMBlockBase("light_black");
-    public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker");
+    public static final Block LIGHT_GREEN = new MMBlockBase("light_green", true);
+    public static final Block LIGHT_RED = new MMBlockBase("light_red", true);
+    public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
+    public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
 
-    public static final Block FORGING_PRESS = new MMBlockBase("forging_press");
+    public static final Block FORGING_PRESS = new MMBlockBase("forging_press", true);
 
     private RegisteredBlocks() {
     }

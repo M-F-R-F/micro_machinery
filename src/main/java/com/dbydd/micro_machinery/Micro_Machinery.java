@@ -39,6 +39,7 @@ public class Micro_Machinery {
         Micro_Machinery.RegisteryItems(MMHammerBase.registeries);
         Micro_Machinery.RegisteryItems(MMAxeBase.registeries);
         Micro_Machinery.RegisteryBlocks(MMBlockBase.registeries);
+        Micro_Machinery.RegisteryBlocksWithoutItem(MMBlockBase.registeries_no_item);
     }
 
     public Micro_Machinery() {
@@ -60,6 +61,12 @@ public class Micro_Machinery {
         for (Map.Entry<String, Supplier<Block>> entry : map.entrySet()) {
             BLOCK_REGISTER.register(entry.getKey(), entry.getValue());
             ITEM_REGISTER.register(entry.getKey(), () -> new BlockItem(entry.getValue().get(), new Item.Properties().group(MMTAB)));
+        }
+    }
+
+    public static void RegisteryBlocksWithoutItem(Map<String, Supplier<Block>> map) {
+        for (Map.Entry<String, Supplier<Block>> entry : map.entrySet()) {
+            BLOCK_REGISTER.register(entry.getKey(), entry.getValue());
         }
     }
 

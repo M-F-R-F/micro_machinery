@@ -7,17 +7,17 @@
         {"predicate":{
             "damage_tier" : 1
         },
-            "model":"micro_machinery:items/stone_hammer_0"
+            "model":"micro_machinery:item/stone_hammer_0"
         },
         {"predicate":{
             "damage_tier" : 2
         },
-            "model":"micro_machinery:items/stone_hammer_1"
+            "model":"micro_machinery:item/stone_hammer_1"
         },
         {"predicate":{
             "damage_tier" : 3
         },
-            "model":"micro_machinery:items/stone_hammer_2"
+            "model":"micro_machinery:item/stone_hammer_2"
         }
     ]
 }
