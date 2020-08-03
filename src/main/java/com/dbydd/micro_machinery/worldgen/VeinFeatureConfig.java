@@ -23,7 +23,7 @@ public class VeinFeatureConfig implements IFeatureConfig {
     private final Map<Double, Block> oreGenList;
     private final Predicates predicate;
 
-    public VeinFeatureConfig(Double veinGenChance, Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, int veinHeight, Map<Double, Block> oreGenList, Predicates predicate) {
+    public VeinFeatureConfig(Double veinGenChance, Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, Map<Double, Block> oreGenList, Predicates predicate) {
         this.veinGenChance = veinGenChance;
         this.generateChancePerOre = generateChancePerOre;
         this.oreStratum = oreStratum;
@@ -31,7 +31,7 @@ public class VeinFeatureConfig implements IFeatureConfig {
         this.stoneHeight = stoneHeight;
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
-        this.veinHeight = veinHeight;
+        this.veinHeight = (oreDepositHeight + stoneHeight) * oreStratum - stoneHeight;
         this.oreGenList = oreGenList;
         this.predicate = predicate;
         if (range > 32) {

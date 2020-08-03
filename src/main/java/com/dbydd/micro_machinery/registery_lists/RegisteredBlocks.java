@@ -85,6 +85,15 @@ public class RegisteredBlocks {
     public static final Block MOLTEN_NCALLOY_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_ncalloy_discarded");
     public static final Block MOLTEN_FERROCHROME_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_ferrochrome_discarded");
     public static final Block MOLTEN_IRON_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_iron_discarded");
+    //modules
+    public static final Block MODULE_GENERATOR = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_generator");
+    public static final Block MODULE_HEAT_SINK = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_heat_sink");
+    public static final Block MODULE_PRESSURE_BEARING = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_pressure_bearing");
+    public static final Block MODULE_TRANSMISSION_1 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_1");
+    public static final Block MODULE_TRANSMISSION_2 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_2");
+    public static final Block MODULE_TRANSMISSION_3 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_3");
+    public static final Block MODULE_TRANSMISSION_4 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_4");
+    public static final Block MODULE_TRANSMISSION_5 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_5");
     //other
     public static final Block PCM = new MMBlockBase(HARD1.hardnessAndResistance(2.5f), "pcm");
     public static final Block TANK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "tank_block");
@@ -116,7 +125,7 @@ public class RegisteredBlocks {
     public static final Block LIGHT_RED = new MMBlockBase("light_red", true);
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
-
+    /** ↓this is machine with many blocks */
     public static final Block FORGING_PRESS = new MMBlockBase("forging_press", true);
 
     private RegisteredBlocks() {
