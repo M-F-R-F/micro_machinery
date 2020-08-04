@@ -32,7 +32,7 @@ public class MMHammerBase extends ToolItem {
         super(attackDamageIn, attackSpeedIn, tier, new HashSet<>(), builder);
         registeries.put(name, () -> this);
         this.addPropertyOverride(new ResourceLocation("damage_tier"), (p_call_1_, p_call_2_, p_call_3_) -> {
-            int value = p_call_1_.getDamage() / p_call_1_.getMaxDamage();
+            float value = (float) p_call_1_.getDamage() / (float) p_call_1_.getMaxDamage();
             return (float) (value <= 0.4 ? 1.0 : value <= 0.6 ? 2.0 : 3.0);
         });
     }

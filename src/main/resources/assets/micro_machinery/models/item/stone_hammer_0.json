@@ -1,5 +1,5 @@
 {
-  "parent": "micro_machinery:hammer",
+  "parent": "micro_machinery:item/hammer",
   "textures": {
     "0": "micro_machinery:items/stone_hammer_0"
   }
