@@ -97,7 +97,7 @@ public class RegisteredBlocks {
     //other
     public static final Block PCM = new MMBlockBase(HARD1.hardnessAndResistance(2.5f), "pcm");
     public static final Block TANK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "tank_block");
-    public static final Block CONTAINER_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "container_block");
+    //拟删除 public static final Block CONTAINER_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "container_block");
     public static final Block SLAG_CONCRETE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "slag_concrete");
     public static final Block CLAY_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "clay_brick_block");
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "fire_brick_block");
@@ -127,6 +127,10 @@ public class RegisteredBlocks {
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
     /** ↓this is machine with many blocks */
     public static final Block FORGING_PRESS = new MMBlockBase("forging_press", true);
+    public static final Block REACTION_STILL = new MMBlockBase("reaction_still", true);
+    public static final Block SPHERICAL_TANK = new MMBlockBase("spherical_tank", true);
+    public static final Block THERMAL_POWER_PLANT = new MMBlockBase("thermal_power_plant", true);
+
 
     private RegisteredBlocks() {
     }
