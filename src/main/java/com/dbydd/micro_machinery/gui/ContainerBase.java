@@ -18,14 +18,14 @@ public abstract class ContainerBase extends Container {
     public abstract boolean canInteractWith(PlayerEntity playerIn);
 
     protected void drawInventory(int x, int y, IInventory inventory) {
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(inventory, j + i * 9 + 9, x + j * 18, y + i * 18));
-            }
+        for (int i = 0; i < 9; ++i) {
+            this.addSlot(new Slot(inventory, i, 8 + i * 18, y + 59));
         }
 
-        for (int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(inventory, i, 8 + i * 18, y + 58));
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                this.addSlot(new Slot(inventory, 9 + i * 9 + j, 8 + x + j * 18, y + i * 18));
+            }
         }
     }
 
