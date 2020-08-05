@@ -1,0 +1,6 @@
+# Blender MTL File: 'reaction_still.blend'
+# Material Count: 1
+
+newmtl m_0
+
+map_Kd micro_machinery:obj/reaction_still
