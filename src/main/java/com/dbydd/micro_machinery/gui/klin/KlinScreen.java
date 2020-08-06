@@ -24,11 +24,10 @@ public class KlinScreen extends ScreenBase<KlinContainer> {
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 
 
-
-
-
         super.render(mouseX, mouseY, partialTicks);
         renderFluidTank(klin.getFluidInTank(0), klin.getTankCapacity(0), guiLeft+152,guiTop+47, 16, 60);
+
+        renderFluidTankTooltip(klin.getFluidHandler(), mouseX, mouseY, guiLeft + 152, this.guiTop + 3, 16, 60);
         renderHoveredToolTip(mouseX,mouseY);
     }
 

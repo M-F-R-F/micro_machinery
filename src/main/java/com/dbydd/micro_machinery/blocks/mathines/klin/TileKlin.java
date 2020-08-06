@@ -52,10 +52,12 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     private int currentcooldown = 0;
     private boolean isBurning = false;
     private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
-
-
     public TileKlin() {
         super(Registered_Tileentitie_Types.KLIN_TYPE.get());
+    }
+
+    public FluidTank getFluidHandler() {
+        return fluidHandler;
     }
 
     public void onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -106,7 +108,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     }
 
     public boolean issmelting() {
-        return result != null && currentMeltTime != 0 && isBurning;
+        return result != FluidStack.EMPTY && meltTime != 0 && isBurning;
     }
 
     private KlinItemToFluidRecipe tryToGetRecipe() {
@@ -118,7 +120,8 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
             int maxburntime = ForgeHooks.getBurnTime(handler.getStackInSlot(index));
             if (maxburntime != 0) {
                 handler.extractItem(index, 1, false);
-                isBurning = true;
+                this.isBurning = true;
+                this.maxBurnTime = maxburntime;
                 BlockKlin.setState(isBurning, world, this.getPos());
             }
         }
@@ -159,9 +162,9 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                 if (issmelting()) {
                     currentMeltTime++;
                     if (currentMeltTime >= meltTime) {
-                        if (fluidHandler.fill(result, IFluidHandler.FluidAction.SIMULATE) == 0) {
+                        if (fluidHandler.fill(result, IFluidHandler.FluidAction.SIMULATE) == result.getAmount()) {
                             this.fluidHandler.fill(result, IFluidHandler.FluidAction.EXECUTE);
-                            result = null;
+                            result = FluidStack.EMPTY;
                             currentMeltTime = 0;
                             markDirty2();
 //                            this.syncToTrackingClients();
@@ -331,8 +334,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     public boolean isUsableByPlayer(PlayerEntity playerIn) {
         return this.world.getTileEntity(this.pos) == this && playerIn.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
-    
-    
+
 
     public static class KlinProgressBarNumArray implements IIntArray {
         private int[] iArray = {0, 0, 0, 0};

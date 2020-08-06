@@ -2,15 +2,21 @@ package com.dbydd.micro_machinery.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+
+import java.util.Arrays;
 
 public class ScreenBase<T extends Container> extends ContainerScreen<T> {
 
@@ -50,5 +56,16 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
             blit(beginx, beginy - 16 * i1, 0, tankWidth, 16, fluidSprite);
         }
         blit(beginx, beginy-16*(i-1), 0, tankWidth, -j, fluidSprite);
+    }
+
+    public void renderFluidTankTooltip(final IFluidTank tank, final int mouthx, final int mouthy, final int x, final int y, final int tankWidth, final int tankHeight) {
+        FluidStack fluid = tank.getFluid();
+        int amount = tank.getFluidAmount();
+        int max = tank.getCapacity();
+        if (fluid != null && (mouthy - y) <= tankHeight && (mouthy - y) >= 0 && (mouthx - x) <= tankWidth && (mouthx - x) >= 0) {
+            String name = fluid.getDisplayName().getString();
+            String[] info = new String[]{I18n.format("gui.fluid.name", name), TextFormatting.DARK_GRAY + I18n.format("gui.fluid.amount", amount, max)};
+            this.renderTooltip(Arrays.asList(info), mouthx, mouthy);
+        }
     }
 }
