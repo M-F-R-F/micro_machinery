@@ -6,6 +6,7 @@ import com.dbydd.micro_machinery.items.MMHammerBase;
 import com.dbydd.micro_machinery.items.MMItemBase;
 import com.dbydd.micro_machinery.items.MMSwordBase;
 import com.dbydd.micro_machinery.registery_lists.*;
+import com.dbydd.micro_machinery.registery_lists.recipes.KlinRecipe;
 import com.dbydd.micro_machinery.registery_lists.strctures.Veins;
 import com.dbydd.micro_machinery.worldgen.VeinFeature;
 import net.minecraft.block.Block;

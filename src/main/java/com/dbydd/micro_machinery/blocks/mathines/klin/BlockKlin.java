@@ -7,8 +7,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.item.BucketItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -18,6 +22,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -34,10 +40,11 @@ public class BlockKlin extends MMBlockTileProviderBase {
         BlockState state = worldIn.getBlockState(pos);
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
-        if (active)
+        if (active) {
             worldIn.setBlockState(pos, RegisteredBlocks.KLIN.getDefaultState().with(FACING, state.get(FACING)).with(BURNING, true), 3);
-        else
+        } else {
             worldIn.setBlockState(pos, RegisteredBlocks.KLIN.getDefaultState().with(FACING, state.get(FACING)).with(BURNING, false), 3);
+        }
 
         if (tileentity != null) {
             tileentity.validate();
@@ -60,9 +67,16 @@ public class BlockKlin extends MMBlockTileProviderBase {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote && handIn == Hand.MAIN_HAND) {
             TileKlin tileKlin = (TileKlin) worldIn.getTileEntity(pos);
-            NetworkHooks.openGui((ServerPlayerEntity) player, tileKlin, (PacketBuffer packerBuffer) -> {
-                packerBuffer.writeBlockPos(tileKlin.getPos());
-            });
+            ItemStack heldItem = player.getHeldItem(handIn);
+            if (heldItem.getItem() instanceof BucketItem) {
+                Fluid fluid = ((BucketItem) heldItem.getItem()).getFluid();
+                tileKlin.fill(new FluidStack(fluid, 1000), IFluidHandler.FluidAction.EXECUTE);
+
+            } else {
+                NetworkHooks.openGui((ServerPlayerEntity) player, tileKlin, (PacketBuffer packerBuffer) -> {
+                    packerBuffer.writeBlockPos(tileKlin.getPos());
+                });
+            }
         }
         return ActionResultType.SUCCESS;
     }
