@@ -53,6 +53,7 @@ public class RegisteredBlocks {
     public static final Block BLOCKTITANIUM = new MMBlockBase(HARD3.hardnessAndResistance(7.0f), "blocktitanium");
     public static final Block BLOCKALUMINUM = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "blockaluminum");
     public static final Block BLOCKNCALLOY = new MMBlockBase(HARD2.hardnessAndResistance(4.0f), "blockncalloy");
+    public static final Block BLOCKMANGANESE = new MMBlockBase(HARD2.hardnessAndResistance(4.0f), "blockmanganese");
     //coil
     public static final Block COILCOPPER = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "coilcopper");
     public static final Block COILNICKEL = new MMBlockBase(HARD2.hardnessAndResistance(2.5f), "coilnickel");
@@ -97,7 +98,7 @@ public class RegisteredBlocks {
     //other
     public static final Block PCM = new MMBlockBase(HARD1.hardnessAndResistance(2.5f), "pcm");
     public static final Block TANK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "tank_block");
-    //拟删除 public static final Block CONTAINER_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "container_block");
+    public static final Block GRAPHITE_CRUCIBLE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "graphite_crucible");
     public static final Block SLAG_CONCRETE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "slag_concrete");
     public static final Block CLAY_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "clay_brick_block");
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "fire_brick_block");
