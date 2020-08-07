@@ -1,6 +1,7 @@
 package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
+import com.dbydd.micro_machinery.enums.EnumCastType;
 import com.dbydd.micro_machinery.enums.EnumToolTier;
 import com.dbydd.micro_machinery.items.*;
 import net.minecraft.item.Food;
@@ -224,10 +225,10 @@ public class RegisteredItems {
     public static final Item ORE_NOLANITE_CONCENTRATE = new MMItemBase("ore_nolanite_concentrate");
     public static final Item ORE_TUNSTITE_CONCENTRATE = new MMItemBase("ore_tunstite_concentrate");
     //casts
-    public static final Item CAST_INGOT = new MMItemBase("cast_ingot");
-    public static final Item CAST_STICK = new MMItemBase("cast_stick");
-    public static final Item CAST_GEAR = new MMItemBase("cast_gear");
-    public static final Item CAST_SWORD = new MMItemBase("cast_sword");
+    public static final Item CAST_INGOT = new MMCastBase("cast_ingot", EnumCastType.INGOT);
+    public static final Item CAST_STICK = new MMCastBase("cast_stick",EnumCastType.STICK);
+    public static final Item CAST_GEAR = new MMCastBase("cast_gear",EnumCastType.GEAR);
+    public static final Item CAST_SWORD = new MMCastBase("cast_sword",EnumCastType.SWORD);
     //other
     public static final Item MONOCRYSTALLINE_SILICON = new MMItemBase("monocrystalline_silicon");
     public static final Item WAFER = new MMItemBase("wafer");
