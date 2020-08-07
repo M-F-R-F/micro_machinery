@@ -50,6 +50,11 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     private int maxBurnTime = 0;
     private int pouringCoolDown = 0;
     private int currentcooldown = 0;
+
+    public boolean isBurning() {
+        return isBurning;
+    }
+
     private boolean isBurning = false;
     private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
     public TileKlin() {
