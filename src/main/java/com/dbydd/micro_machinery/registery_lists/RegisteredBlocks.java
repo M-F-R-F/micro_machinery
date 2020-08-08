@@ -1,6 +1,8 @@
 package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
+import com.dbydd.micro_machinery.blocks.mathines.generator.BlockGenerator;
+import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator;
 import com.dbydd.micro_machinery.blocks.mathines.klin.BlockKlin;
 import com.dbydd.micro_machinery.blocks.mathines.ter_test.TestBlock;
 import net.minecraft.block.Block;
@@ -105,6 +107,8 @@ public class RegisteredBlocks {
     //tile entity
     //machine
     public static final Block KLIN = new BlockKlin();
+    public static final Block GENERATOR = new BlockGenerator();
+    public static final Block HAND_GENERATOR = new BlockHandGenerator();
     public static final Block TESTBLOCK = new TestBlock(Block.Properties.create(Material.ROCK), "testblock");
     //cable
 
