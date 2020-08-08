@@ -34,7 +34,7 @@ public class RecipeHelper {
         Item cast = castslot.getItem();
         if (cast instanceof MMCastBase) {
             for (KlinFluidToItemRecipe recipe : KlinFluidToItemRecipe.RECIPES) {
-                if (fluidStack.getFluid() == recipe.getInputfluid().getFluid() && ((MMCastBase) cast).amount <= fluidStack.getAmount() && recipe.getCast() == ((MMCastBase) cast).type) {
+                if (fluidStack.getFluid() == recipe.getInputfluid().getFluid() && recipe.getInputfluid().getAmount() <= fluidStack.getAmount() && recipe.getCast() == ((MMCastBase) cast).type) {
                     return recipe;
                 }
             }
