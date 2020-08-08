@@ -130,7 +130,8 @@ public class RegisteredBlocks {
     public static final Block LIGHT_RED = new MMBlockBase("light_red", true);
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
-    /** ↓this is machine with many blocks */
+    public static final Block HAND_GENERATOR_HAND = new MMBlockBase("hand_generator_1", true);
+    /** ↓this is machine with multi_block */
     public static final Block FORGING_PRESS = new MMBlockBase("forging_press", true);
     public static final Block REACTION_STILL = new MMBlockBase("reaction_still", true);
     public static final Block SPHERICAL_TANK = new MMBlockBase("spherical_tank", true);
