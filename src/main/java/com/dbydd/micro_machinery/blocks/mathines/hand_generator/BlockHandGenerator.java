@@ -11,13 +11,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
 
 public class BlockHandGenerator extends MMBlockTileProviderBase {
 
     public BlockHandGenerator() {
-        super(Properties.create(Material.IRON).hardnessAndResistance(3).notSolid(), "hand_generator");
+        super(Properties.create(Material.IRON).hardnessAndResistance(3).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1), "hand_generator");
     }
 
     @Override

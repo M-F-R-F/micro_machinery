@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.blockplacer.BlockPlacer;
+import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
 
@@ -19,7 +20,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     public static final BooleanProperty ISBURNING = BooleanProperty.create("isburning");
 
     public BlockGenerator() {
-        super(Properties.create(Material.IRON).notSolid().hardnessAndResistance(3.0f), "generator");
+        super(Properties.create(Material.IRON).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(3.0f), "generator");
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ISBURNING, false));
     }
 

@@ -33,7 +33,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
     protected static final BooleanProperty BURNING = BooleanProperty.create("burning");
 
     public BlockKlin() {
-        super(Properties.create(Material.ROCK).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(2).hardnessAndResistance(2.0f), "klin");
+        super(Properties.create(Material.ROCK).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(2.0f), "klin");
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(BURNING, false));
     }
 
