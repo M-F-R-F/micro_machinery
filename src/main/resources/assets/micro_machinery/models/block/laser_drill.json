@@ -1,6 +1,6 @@
 {
   "loader": "forge:obj",
-  "model": "micro_machinery:models/block/obj/laser_drill.obj",
+  "model": "micro_machinery:block/obj/laser_drill.obj",
   "flip-v": true,
     "transform": {
       "scale": 0.75,

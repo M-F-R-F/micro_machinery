@@ -22,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -32,7 +33,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
     protected static final BooleanProperty BURNING = BooleanProperty.create("burning");
 
     public BlockKlin() {
-        super(Properties.create(Material.ROCK), "klin");
+        super(Properties.create(Material.ROCK).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(2).hardnessAndResistance(2.0f), "klin");
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(BURNING, false));
     }
 
