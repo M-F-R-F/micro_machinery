@@ -65,7 +65,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         FluidStack fluid = tank.getFluid();
         int amount = tank.getFluidAmount();
         int max = tank.getCapacity();
-        if (fluid != null && (mouthy - y) <= tankHeight && (mouthy - y) >= 0 && (mouthx - x) <= tankWidth && (mouthx - x) >= 0) {
+        if (!fluid.isEmpty() && (mouthy - y) <= tankHeight && (mouthy - y) >= 0 && (mouthx - x) <= tankWidth && (mouthx - x) >= 0) {
             String name = fluid.getDisplayName().getString();
             String[] info = new String[]{I18n.format("gui.fluid.name", name), TextFormatting.DARK_GRAY + I18n.format("gui.fluid.amount", amount, max)};
             this.renderTooltip(Arrays.asList(info), mouthx, mouthy);
