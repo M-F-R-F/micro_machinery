@@ -1,0 +1,6 @@
+
+{
+  "variants": {
+    "": { "model": "neutrino:block/flywheel" }
+  }
+}
