@@ -1,6 +1,6 @@
 
 {
   "variants": {
-    "": { "model": "neutrino:block/forging_press" }
+    "": { "model": "micro_machinery:block/forging_press" }
   }
 }

@@ -1,6 +1,6 @@
 
 {
   "variants": {
-    "": { "model": "neutrino:block/flywheel" }
+    "": { "model": "micro_machinery:block/flywheel" }
   }
 }
