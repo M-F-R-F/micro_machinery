@@ -136,6 +136,7 @@ public class RegisteredBlocks {
     public static final Block REACTION_STILL = new MMBlockBase("reaction_still", true);
     public static final Block SPHERICAL_TANK = new MMBlockBase("spherical_tank", true);
     public static final Block THERMAL_POWER_PLANT = new MMBlockBase("thermal_power_plant", true);
+    public static final Block FLYWHEEL = new MMBlockBase("flywheel", true);
 
 
     private RegisteredBlocks() {
