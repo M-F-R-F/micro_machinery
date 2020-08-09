@@ -21,10 +21,10 @@ public class KlinScreen extends ScreenBase<KlinContainer> {
         initBase();
         super.render(mouseX, mouseY, partialTicks);
         if (klin.issmelting()) {
-            renderModule(guiLeft + 78, guiTop + 31, 70, 0, calcProgressBarWidth(), 16);
+            renderModule(78, 31, 70, 0, calcProgressBarWidth(), 16);
         }
         if (klin.isBurning()) {
-            renderModule(guiLeft + 82, guiTop + 29, 56, 12, 14, calcBurnProgressBarHeight());
+            renderModule(82, 29, 56, 12, 14, calcBurnProgressBarHeight());
         }
         renderFluidTank(klin.getFluidHandler(), 152, 63, 16, 60);
         renderTankGauage(152, 3, 16, 60);

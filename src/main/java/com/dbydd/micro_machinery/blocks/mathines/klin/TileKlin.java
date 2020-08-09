@@ -172,14 +172,11 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                             result = FluidStack.EMPTY;
                             currentMeltTime = 0;
                             markDirty2();
-//                            this.syncToTrackingClients();
                         } else {
                             currentMeltTime--;
                             markDirty2();
-//                            this.syncToTrackingClients();
                         }
                         markDirty2();
-//                        this.syncToTrackingClients();
                     }
                 } else {
                     KlinItemToFluidRecipe recipeinsmelting = tryToGetRecipe();
@@ -188,7 +185,6 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                         this.meltTime = recipeinsmelting.getMelttime();
                         extractMaterial(recipeinsmelting);
                         markDirty2();
-//                        this.syncToTrackingClients();
                     }
                 }
                 if (currentBurnTime >= maxBurnTime) {
@@ -197,14 +193,12 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                     isBurning = false;
                     BlockKlin.setState(isBurning, world, this.getPos());
                     markDirty2();
-//                    this.syncToTrackingClients();
                 }
             } else {
                 if (tryToGetRecipe() != null) {
                     tryToExtractFuel(this.itemhandler, 2);
                 }
                 markDirty2();
-//                this.syncToTrackingClients();
             }
 
             if (recipe == null) {
@@ -214,12 +208,10 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                         pouringCoolDown = recipe.getCooldown();
                     }
                     markDirty2();
-//                    this.syncToTrackingClients();
                 }
             } else if (currentcooldown < pouringCoolDown) {
                 currentcooldown++;
                 markDirty2();
-//                this.syncToTrackingClients();
             } else {
                 if (RecipeHelper.canInsert(itemhandler.getStackInSlot(3), recipe.getOutput())) {
                     insertResult(3, recipe.getOutput());
@@ -228,11 +220,9 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                     pouringCoolDown = 0;
                     recipe = null;
                     markDirty2();
-//                    this.syncToTrackingClients();
                 } else {
                     currentcooldown--;
                     markDirty2();
-//                    this.syncToTrackingClients();
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.dbydd.micro_machinery.gui;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
+import com.dbydd.micro_machinery.utils.FEContainer;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.AbstractGui;
@@ -76,6 +77,14 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         }
     }
 
+    protected void renderEnergyBarTooltip(FEContainer container, int mouthx, int mouthy, int x, int y, int barWidth, int barHeight) {
+        if ((mouthy - (guiTop + y)) <= barHeight && (mouthy - (guiTop + y)) >= 0 && (mouthx - (guiLeft + x)) <= barWidth && (mouthx - (guiLeft + x)) >= 0) {
+            int current = container.getCurrent();
+            int max = container.getMaxEnergyStored();
+            this.renderTooltip(current+"/"+max+" FE", mouthx, mouthy);
+        }
+    }
+
     protected void renderTankGauage(int beginX, int beginY, int texture_width, int texture_height) {
         this.minecraft.getTextureManager().bindTexture(MODULES);
         blit(guiLeft + beginX, guiTop + beginY, 0, 0, texture_width, texture_height);
@@ -83,7 +92,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
 
     protected void renderModule(int beginX, int beginY, int u, int v, int texture_width, int texture_height) {
         this.minecraft.getTextureManager().bindTexture(MODULES);
-        blit(beginX, beginY, u, v, texture_width, texture_height);
+        blit(guiLeft+beginX, guiTop+beginY, u, v, texture_width, texture_height);
     }
 
     protected void initBase() {

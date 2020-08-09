@@ -22,6 +22,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -45,12 +46,15 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
 
         @Override
         public int self_add() {
-            return add(200, false);
+            int add = add(200, false);
+            markDirty2();
+            return add;
         }
     };
     private IntegerContainer burnTimeContainer = new IntegerContainer(0, 0);
     private boolean isBurning = false;
     private GeneratorEnergyAndFuelIntArray array = new GeneratorEnergyAndFuelIntArray();
+
     public TileGenerator() {
         super(Registered_Tileentitie_Types.TILE_GENERATOR_TYPE.get());
     }
@@ -100,19 +104,24 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
         return super.getCapability(cap, side);
     }
 
+    public FEContainer getEnergyContainer() {
+        return energyContainer;
+    }
+
+    public IntegerContainer getBurnTimeContainer() {
+        return burnTimeContainer;
+    }
+
     @Override
     public void tick() {
         if (!world.isRemote()) {
-            this.array.set(0, burnTimeContainer.getMax());
-            this.array.set(1, burnTimeContainer.getCurrent());
-            this.array.set(2, energyContainer.getMax());
-            this.array.set(3, energyContainer.getCurrent());
             if (isBurning) {
                 burnTimeContainer.self_add();
+                tank.drain(1, IFluidHandler.FluidAction.EXECUTE);
                 if (!tank.isEmpty()) {
                     energyContainer.self_add();
-                    markDirty2();
                 }
+                markDirty2();
             } else {
                 tryToGetFuel();
             }
@@ -132,7 +141,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     private void tryToGetFuel() {
         if (!energyContainer.atMaxValue()) {
             ItemStack stackInSlot = fuel_handler.getStackInSlot(0);
-            if (!stackInSlot.isEmpty()) {
+            if (!stackInSlot.isEmpty() && !tank.isEmpty()) {
                 int burnTime = ForgeHooks.getBurnTime(stackInSlot);
                 if (burnTime != 0) {
                     stackInSlot.shrink(1);
