@@ -10,11 +10,13 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
@@ -24,15 +26,13 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
 
     protected final ResourceLocation MODULES = new ResourceLocation(Micro_Machinery.NAME, "textures/gui/module.png");
     protected final ResourceLocation TEXTURES;
-    protected final int textureHeight;
-    protected final int textureWidth;
     private final T screenContainer;
 
     public ScreenBase(T screenContainer, PlayerInventory inv, ITextComponent titleIn, ResourceLocation TEXTURES, int textureWidth, int textureHeight) {
         super(screenContainer, inv, titleIn);
         this.TEXTURES = TEXTURES;
-        this.textureWidth = textureWidth;
-        this.textureHeight = textureHeight;
+        this.xSize = textureWidth;
+        this.ySize = textureHeight;
         this.screenContainer = screenContainer;
     }
 
@@ -42,30 +42,34 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         this.minecraft.getTextureManager().bindTexture(TEXTURES);
     }
 
-    protected void renderFluidTank(IFluidTank tank, int capacity, int x, int y, int tankWidth, int tankHeight) {
+    protected void renderFluidTank(IFluidTank tank, int x, int y, int tankWidth, int tankHeight) {
         if (tank == null || tank.getFluid().isEmpty()) {
             return;
         }
-        TextureAtlasSprite fluidSprite = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(tank.getFluid().getFluid().getAttributes().getStillTexture());
+        FluidAttributes attributes = tank.getFluid().getFluid().getAttributes();
+        int color = attributes.getColor(tank.getFluid());
+        TextureAtlasSprite fluidSprite = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(attributes.getStillTexture());
+        RenderSystem.color4f((color >> 16 & 255) / 255.0f, (color >> 8 & 255) / 255.0f, (color & 255) / 255.0f, (color >> 24 & 255) / 255.0f);
         this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-        int scaledHeight = tankHeight * tank.getFluid().getAmount() / capacity;
-        renderFluid(scaledHeight, x, y, tankWidth, fluidSprite);
+        int scaledHeight = Math.round((float) tankHeight * ((float) tank.getFluid().getAmount() / (float) tank.getCapacity()));
+        renderFluid(scaledHeight, guiLeft + x, guiTop + y, tankWidth, fluidSprite);
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     private void renderFluid(int scaledHeight, int beginx, int beginy, int tankWidth, TextureAtlasSprite fluidSprite) {
-        int i = scaledHeight / 16;
-        int j = scaledHeight % 16;
-        for (int i1 = 0; i1 < i; i1++) {
-            blit(beginx, beginy - 16 * i1, 0, tankWidth, 16, fluidSprite);
+        int heightLayerTarget = scaledHeight / 16;
+        int i = scaledHeight - heightLayerTarget * 16;
+        for (int heightLayer = 0; heightLayer < heightLayerTarget; heightLayer++) {
+            blit(beginx, beginy - 16 * heightLayer, 0, tankWidth, -16, fluidSprite);
         }
-        blit(beginx, beginy - 16 * (i - 1), 0, tankWidth, -j, fluidSprite);
+        blit(beginx, beginy - 16 * (heightLayerTarget), 0, tankWidth, -i, fluidSprite);
     }
 
-    protected void renderFluidTankTooltip(final IFluidTank tank, final int mouthx, final int mouthy, final int x, final int y, final int tankWidth, final int tankHeight) {
+    protected void renderFluidTankTooltip(IFluidTank tank, int mouthx, int mouthy, int x, int y, int tankWidth, int tankHeight) {
         FluidStack fluid = tank.getFluid();
         int amount = tank.getFluidAmount();
         int max = tank.getCapacity();
-        if (!fluid.isEmpty() && (mouthy - y) <= tankHeight && (mouthy - y) >= 0 && (mouthx - x) <= tankWidth && (mouthx - x) >= 0) {
+        if (!fluid.isEmpty() && (mouthy - (guiTop + y)) <= tankHeight && (mouthy - (guiTop + y)) >= 0 && (mouthx - (guiLeft + x)) <= tankWidth && (mouthx - (guiLeft + x)) >= 0) {
             String name = fluid.getDisplayName().getString();
             String[] info = new String[]{I18n.format("gui.fluid.name", name), TextFormatting.DARK_GRAY + I18n.format("gui.fluid.amount", amount, max)};
             this.renderTooltip(Arrays.asList(info), mouthx, mouthy);
@@ -74,12 +78,19 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
 
     protected void renderTankGauage(int beginX, int beginY, int texture_width, int texture_height) {
         this.minecraft.getTextureManager().bindTexture(MODULES);
-        blit(beginX, beginY, 0, 0, texture_width, texture_height);
+        blit(guiLeft + beginX, guiTop + beginY, 0, 0, texture_width, texture_height);
     }
 
     protected void renderModule(int beginX, int beginY, int u, int v, int texture_width, int texture_height) {
         this.minecraft.getTextureManager().bindTexture(MODULES);
         blit(beginX, beginY, u, v, texture_width, texture_height);
+    }
+
+    protected void initBase() {
+        renderBackground();
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+        this.minecraft.getTextureManager().bindTexture(TEXTURES);
+        blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
 }

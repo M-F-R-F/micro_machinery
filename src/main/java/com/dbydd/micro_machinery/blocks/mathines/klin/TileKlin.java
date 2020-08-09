@@ -336,9 +336,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
         return itemhandler;
     }
 
-    public boolean isUsableByPlayer(PlayerEntity playerIn) {
-        return this.world.getTileEntity(this.pos) == this && playerIn.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
-    }
+
 
 
     public static class KlinProgressBarNumArray implements IIntArray {

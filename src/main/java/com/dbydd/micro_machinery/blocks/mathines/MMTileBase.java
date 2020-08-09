@@ -2,6 +2,7 @@ package com.dbydd.micro_machinery.blocks.mathines;
 
 import com.dbydd.micro_machinery.utils.FEContainer;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -70,5 +71,9 @@ public class MMTileBase extends TileEntity {
         }
 
         return null;
+    }
+
+    public boolean isUsableByPlayer(PlayerEntity playerIn) {
+        return this.world.getTileEntity(this.pos) == this && playerIn.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 }

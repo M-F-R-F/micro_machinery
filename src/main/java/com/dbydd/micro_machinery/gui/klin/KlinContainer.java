@@ -24,12 +24,12 @@ public class KlinContainer extends ContainerBase {
         trackIntArray(this.intArray);
         this.klin = (TileKlin) world.getTileEntity(pos);
         ItemStackHandler itemHandler = klin.getItemHandler();
-        drawInventory(0, 84, playerInventory);
         this.addSlot(new SlotItemHandler(itemHandler, 0, 40, 24));
         this.addSlot(new SlotItemHandler(itemHandler, 1, 40, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 2, 80, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 3, 120, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 4, 120, 24));
+        drawInventory(0, 84, playerInventory, 5);
     }
 
     public TileKlin getKlin() {

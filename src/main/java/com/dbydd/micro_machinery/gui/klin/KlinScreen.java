@@ -18,11 +18,7 @@ public class KlinScreen extends ScreenBase<KlinContainer> {
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         TileKlin klin = container.getKlin();
-        renderBackground();
-        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.minecraft.getTextureManager().bindTexture(TEXTURES);
-//        blit(this.width / 2 - 150, 10, 0, 0, 300, 200, textureWidth, textureHeight);
-        blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+        initBase();
         super.render(mouseX, mouseY, partialTicks);
         if (klin.issmelting()) {
             renderModule(guiLeft + 78, guiTop + 31, 70, 0, calcProgressBarWidth(), 16);
@@ -30,9 +26,9 @@ public class KlinScreen extends ScreenBase<KlinContainer> {
         if (klin.isBurning()) {
             renderModule(guiLeft + 82, guiTop + 29, 56, 12, 14, calcBurnProgressBarHeight());
         }
-        renderFluidTank(klin.getFluidHandler(), klin.getTankCapacity(0), guiLeft + 152, guiTop + 47, 16, 60);
-        renderTankGauage(guiLeft + 152, guiTop + 3, 16, 60);
-        renderFluidTankTooltip(klin.getFluidHandler(), mouseX, mouseY, guiLeft + 152, this.guiTop + 3, 16, 60);
+        renderFluidTank(klin.getFluidHandler(), 152, 63, 16, 60);
+        renderTankGauage(152, 3, 16, 60);
+        renderFluidTankTooltip(klin.getFluidHandler(), mouseX, mouseY, 152, 3, 16, 60);
         renderHoveredToolTip(mouseX, mouseY);
     }
 
