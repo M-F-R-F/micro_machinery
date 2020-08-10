@@ -32,9 +32,4 @@ public class MMBlockBase extends Block {
         this.name = name;
         registeries_no_item.put(name, () -> this);
     }
-
-    @Override
-    public String getTranslationKey() {
-        return name;
-    }
 }
