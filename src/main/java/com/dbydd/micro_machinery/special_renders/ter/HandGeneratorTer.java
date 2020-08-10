@@ -29,7 +29,7 @@ public class HandGeneratorTer extends MMTERBase<TileHandGenerator> {
         matrixStackIn.push();
         matrixStackIn.translate(move.getX(), move.getY(), move.getZ());
         matrixStackIn.rotate(new Quaternion(vector3f, 360 * ((float) progress.getCurrent() / (float) progress.getMax()), true));
-        blockRenderer.renderBlock(RegisteredBlocks.HAND_GENERATOR_1.getDefaultState().with(BlockHandGenerator_Handler.FACING, facing), matrixStackIn, bufferIn, 0x00F0_00F0, combinedOverlayIn, EmptyModelData.INSTANCE);
+        blockRenderer.renderBlock(RegisteredBlocks.HAND_GENERATOR_1.getDefaultState().with(BlockHandGenerator_Handler.FACING, facing), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, EmptyModelData.INSTANCE);
         matrixStackIn.pop();
 
     }
