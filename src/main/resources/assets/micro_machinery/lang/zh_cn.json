@@ -402,6 +402,6 @@
     "block.micro_machinery.bronze_anvil": "青铜砧",
     "block.micro_machinery.pigiron_anvil": "铸铁砧",
 
-    "gui.fluid": "%s",
+    "gui.fluid.name": "%s",
     "gui.fluid.amount": "%d mB/%d mB"
 }

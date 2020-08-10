@@ -402,6 +402,6 @@
   "block.micro_machinery.bronze_anvil": "Bronze Anvil",
   "block.micro_machinery.pigiron_anvil": "Iron Anvil",
 
-  "gui.fluid": "%s",
+  "gui.fluid.name": "%s",
   "gui.fluid.amount": "%d mB/%d mB"
 }

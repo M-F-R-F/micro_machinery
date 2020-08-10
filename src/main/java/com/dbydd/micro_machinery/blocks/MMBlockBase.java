@@ -35,6 +35,6 @@ public class MMBlockBase extends Block {
 
     @Override
     public String getTranslationKey() {
-        return "micro_machinery_" + name;
+        return name;
     }
 }
