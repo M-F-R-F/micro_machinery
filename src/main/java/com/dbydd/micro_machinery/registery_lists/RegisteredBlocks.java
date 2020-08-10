@@ -3,6 +3,7 @@ package com.dbydd.micro_machinery.registery_lists;
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
 import com.dbydd.micro_machinery.blocks.mathines.generator.BlockGenerator;
 import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator;
+import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator_Handler;
 import com.dbydd.micro_machinery.blocks.mathines.klin.BlockKlin;
 import com.dbydd.micro_machinery.blocks.mathines.ter_test.TestBlock;
 import net.minecraft.block.Block;
@@ -130,7 +131,7 @@ public class RegisteredBlocks {
     public static final Block LIGHT_RED = new MMBlockBase("light_red", true);
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
-    public static final Block HAND_GENERATOR_1 = new MMBlockBase("hand_generator_1", true);
+    public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
     /** ↓this is machine with multi_block */
     public static final Block FORGING_PRESS = new MMBlockBase("forging_press", true);
     public static final Block REACTION_STILL = new MMBlockBase("reaction_still", true);

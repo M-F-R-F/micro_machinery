@@ -29,7 +29,7 @@ public class KlinContainer extends ContainerBase {
         this.addSlot(new SlotItemHandler(itemHandler, 2, 80, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 3, 120, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 4, 120, 24));
-        drawInventory(0, 84, playerInventory, 5);
+        drawInventory(0, 84, playerInventory);
     }
 
     public TileKlin getKlin() {

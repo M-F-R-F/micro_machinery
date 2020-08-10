@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -25,8 +26,9 @@ public class BlockHandGenerator extends MMBlockTileProviderBase {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if(!worldIn.isRemote() && handIn == Hand.MAIN_HAND){
             TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if(tileEntity instanceof TileHandGenerator){
-                ((TileHandGenerator)tileEntity).OnActivated();
+            Direction direction = Direction.fromAngle(state.get(FACING).getHorizontalAngle() - 90);
+            if(tileEntity instanceof TileHandGenerator && hit.getFace() == direction){
+                ((TileHandGenerator)tileEntity).OnActivated(direction.getOpposite());
             }
         }
         return ActionResultType.SUCCESS;

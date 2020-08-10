@@ -6,6 +6,7 @@ import com.dbydd.micro_machinery.utils.FEContainer;
 import com.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -15,7 +16,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileHandGenerator extends MMTileBase implements ITickable {
+public class TileHandGenerator extends MMTileBase implements ITickableTileEntity {
     private FEContainer container = new FEContainer(0, 16) {
         @Override
         public boolean canExtract() {
@@ -32,7 +33,7 @@ public class TileHandGenerator extends MMTileBase implements ITickable {
             return add(16, false);
         }
     };
-    private IntegerContainer progress = new IntegerContainer(0, 21);
+    private IntegerContainer progress = new IntegerContainer(0, 20);
 
     public TileHandGenerator() {
         super(Registered_Tileentitie_Types.TILE_HAND_GENERATOR.get());
@@ -52,7 +53,7 @@ public class TileHandGenerator extends MMTileBase implements ITickable {
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.put("energy_container", container.serializeNBT());
-        compound.put("progress", container.serializeNBT());
+        compound.put("progress", progress.serializeNBT());
         return super.write(compound);
     }
 
@@ -65,13 +66,13 @@ public class TileHandGenerator extends MMTileBase implements ITickable {
         return super.getCapability(cap, side);
     }
 
-    public void OnActivated() {
+    public void OnActivated(Direction outPutDirection) {
         if (!world.isRemote() && progress.atMinValue()) {
             container.self_add();
-            Direction backDirection = getBackDirection();
-            if (backDirection != null) {
-                container = pushEnergyToDirection(backDirection, container);
+            if (outPutDirection != null) {
+                container = pushEnergyToDirection(outPutDirection, container);
                 progress.self_add();
+                markDirty2();
             }
             markDirty2();
         }
@@ -82,10 +83,12 @@ public class TileHandGenerator extends MMTileBase implements ITickable {
         if (!world.isRemote()) {
             if (!progress.atMinValue()) {
                 progress.self_add();
+                markDirty2();
             }
 
             if (progress.atMaxValue()) {
-                progress = new IntegerContainer(0, 21);
+                progress = new IntegerContainer(0, 20);
+                markDirty2();
             }
         }
     }
