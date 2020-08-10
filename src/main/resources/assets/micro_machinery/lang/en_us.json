@@ -3,22 +3,17 @@
   "item.micro_machinery.bronze_hammer": "Bronze Hammer",
   "item.micro_machinery.iron_hammer": "Iron Hammer",
   "item.micro_machinery.superhammer": "Super Hammer",
-
   "item.micro_machinery.bronze_axe": "Bronze Axe",
   "item.micro_machinery.tungsten_steel_axe": "Tungsten steel Axe",
   "item.micro_machinery.hss_axe": "High_Speed Steel Axe",
-
   "item.micro_machinery.bronze_sword": "Bronze Sword",
   "item.micro_machinery.tungsten_steel_sword": "Tungsten Steel Sword",
   "item.micro_machinery.hss_sword": "High_Speed Steel Sword",
-
   "item.micro_machinery.apple_drops": "Apple Drops",
   "item.micro_machinery.apple_jam_bun": "Apple Jam Bun",
   "item.micro_machinery.golden_apple_drops": "Golden Apple Drops",
   "item.micro_machinery.golden_apple_jam_bun": "Golden Apple Jam Bun",
-
   "item.micro_machinery.laser_drill": "Laser Drill",
-
   "item.micro_machinery.ingot_aluminum": "Aluminum Ingot",
   "item.micro_machinery.ingot_bronze": "Bronze Ingot",
   "item.micro_machinery.ingot_chromium": "Chromium Ingot",
@@ -39,7 +34,6 @@
   "item.micro_machinery.ingot_tungsten": "Tungsten Ingot",
   "item.micro_machinery.ingot_tungsten_steel": "Tungsten Steel Ingot",
   "item.micro_machinery.ingot_vanadium": "Vanadium Ingot",
-
   "item.micro_machinery.dust_bronze": "Bronze Dust",
   "item.micro_machinery.dust_copper": "Copper Dust",
   "item.micro_machinery.dust_tin": "Tin Dust",
@@ -63,7 +57,6 @@
   "item.micro_machinery.dust_silicon": "Silicon Dust",
   "item.micro_machinery.dust_carbon": "Carbon Dust",
   "item.micro_machinery.dust_ferrochrome": "FerroChrome Dust",
-
   "item.micro_machinery.stick_copper": "Copper Stick",
   "item.micro_machinery.stick_tin": "Tin Stick",
   "item.micro_machinery.stick_bronze": "Bronze Stick",
@@ -76,7 +69,6 @@
   "item.micro_machinery.stick_hss": "High_Speed Steel Stick",
   "item.micro_machinery.stick_titanium": "Titanium Stick",
   "item.micro_machinery.stick_aluminum": "Aluminum Stick",
-
   "item.micro_machinery.circle_casting_bronze": "Bronze Round Casting",
   "item.micro_machinery.circle_casting_steel": "Steel Round Casting",
   "item.micro_machinery.circle_casting_iron": "Iron Round Casting",
@@ -88,7 +80,6 @@
   "item.micro_machinery.circle_casting_ss": "Stainless Steel Round Casting",
   "item.micro_machinery.circle_casting_tungsten_steel": "Tungsten Steel Round Casting",
   "item.micro_machinery.circle_casting_titanium": "Titanium Round Casting",
-
   "item.micro_machinery.plate_copper": "Copper Plate",
   "item.micro_machinery.plate_tin": "Tin Plate",
   "item.micro_machinery.plate_bronze": "Bronze Plate",
@@ -107,13 +98,11 @@
   "item.micro_machinery.plate_ncalloy": "NicoChrome Plate",
   "item.micro_machinery.plate_silicon": "Silicon Plate",
   "item.micro_machinery.plate_pe": "PE Plate",
-
   "item.micro_machinery.screw_bronze": "Bronze Screw",
   "item.micro_machinery.screw_invar": "Invar Screw",
   "item.micro_machinery.screw_iron": "Iron Screw",
   "item.micro_machinery.screw_titanium": "Titanium Screw",
   "item.micro_machinery.screw_ss": "Stainless Steel Screw",
-
   "item.micro_machinery.string_copper": "Copper String",
   "item.micro_machinery.string_tin": "Tin String",
   "item.micro_machinery.string_tungsten": "Tungsten String",
@@ -124,13 +113,11 @@
   "item.micro_machinery.string_iron": "Iron String",
   "item.micro_machinery.string_aluminum": "Aluminum String",
   "item.micro_machinery.string_ncalloy": "NicoChrome String",
-
   "item.micro_machinery.roll_invar": "Invar Roll",
   "item.micro_machinery.roll_ss": "Stainless Steel Roll",
   "item.micro_machinery.roll_tungsten_steel": "Tungsten Steel Roll",
   "item.micro_machinery.roll_iron": "Iron Roll",
   "item.micro_machinery.roll_hss": "High_Speed Steel Roll",
-
   "item.micro_machinery.slag": "Slag",
   "item.micro_machinery.slag_manganese": "Manganese Slag",
   "item.micro_machinery.slag_cobalt": "Cobalt Slag",
@@ -140,7 +127,6 @@
   "item.micro_machinery.refined_slag_cobalt": "Refined Cobalt Slag",
   "item.micro_machinery.refined_slag_vanadium": "Refined Vanadium Slag",
   "item.micro_machinery.refined_slag_titanium": "Refined Titanium Slag",
-
   "item.micro_machinery.axis_bronze": "Bronze Axis",
   "item.micro_machinery.axis_invar": "Invar Axis",
   "item.micro_machinery.axis_ss": "Stainless Steel Axis",
@@ -149,7 +135,6 @@
   "item.micro_machinery.axis_hss": "High_Speed Steel Axis",
   "item.micro_machinery.axis_iron": "Iron Axis",
   "item.micro_machinery.axis_titanium": "Titanium Axis",
-
   "item.micro_machinery.gear_blank_bronze": "Bronze Gear Blank",
   "item.micro_machinery.gear_blank_invar": "Invar Gear Blank",
   "item.micro_machinery.gear_blank_ss": "Stainless Steel Gear Blank",
@@ -161,7 +146,6 @@
   "item.micro_machinery.gear_blank_iron": "Iron Gear Blank",
   "item.micro_machinery.gear_blank_gold": "Gold Gear Blank",
   "item.micro_machinery.gear_blank_steel": "Steel Gear Blank",
-
   "item.micro_machinery.gear_bronze": "Bronze Gear",
   "item.micro_machinery.gear_invar": "Invar Gear",
   "item.micro_machinery.gear_ss": "Stainless Steel Gear",
@@ -173,7 +157,6 @@
   "item.micro_machinery.gear_iron": "Iron Gear",
   "item.micro_machinery.gear_gold": "Gold Gear",
   "item.micro_machinery.gear_steel": "Steel Gear",
-
   "item.micro_machinery.crushed_copper": "Crushed Copper Ore",
   "item.micro_machinery.crushed_ferromanganese": "Crushed FerroManganese Ore",
   "item.micro_machinery.crushed_gold": "Crushed Gold Ore",
@@ -187,13 +170,11 @@
   "item.micro_machinery.crushed_silver": "Crushed Silver Ore",
   "item.micro_machinery.crushed_tin": "Crushed Tin Ore",
   "item.micro_machinery.crushed_tunstite": "Crushed Tunstite Ore",
-
   "item.micro_machinery.motor_1": "LV Motor",
   "item.micro_machinery.motor_2": "MV Motor",
   "item.micro_machinery.motor_3": "HV Motor",
   "item.micro_machinery.motor_4": "Pulse Motor",
   "item.micro_machinery.motor_5": "Servo Motor",
-
   "item.micro_machinery.ore_copper_concentrate": "Copper Concentrate",
   "item.micro_machinery.ore_bauxite_concentrate": "Bauxite Concentrate",
   "item.micro_machinery.ore_chromite_concentrate": "Chromite Concentrate",
@@ -207,12 +188,10 @@
   "item.micro_machinery.ore_tunstite_concentrate": "Tunstite Concentrate",
   "item.micro_machinery.ore_tin_concentrate": "Tin Concentrate",
   "item.micro_machinery.ore_silver_concentrate": "Silver Concentrate",
-
   "item.micro_machinery.cast_stick": "Stick Cast",
   "item.micro_machinery.cast_ingot": "Ingot Cast",
   "item.micro_machinery.cast_gear": "Gear Cast",
   "item.micro_machinery.cast_sword": "Sword Cast",
-
   "item.micro_machinery.monocrystalline_silicon": "MonoCrystalline_Silicon",
   "item.micro_machinery.wafer": "Wafer",
   "item.micro_machinery.etched_wafer": "Etched Wafer",
@@ -231,11 +210,8 @@
   "item.micro_machinery.bronze_sword0": "Bronze Blade",
   "item.micro_machinery.hss_additive": "High_Speed Steel Additive",
   "item.micro_machinery.ss_additive": "Stainless Steel Additive",
-
-
   "block.micro_machinery.stalinite": "Stalinite",
   "block.micro_machinery.steel_scaffolding": "Steel Scaffolding",
-
   "block.micro_machinery.orecopper": "Copper Ore",
   "block.micro_machinery.orebauxite": "Bauxite Ore",
   "block.micro_machinery.orebauxite_nether": "Nether Bauxite Ore",
@@ -253,7 +229,6 @@
   "block.micro_machinery.oresilver": "Silver Ore",
   "block.micro_machinery.oretin": "Tin Ore",
   "block.micro_machinery.oretunstite": "Tunstite Ore",
-
   "block.micro_machinery.blockaluminum": "Aluminum Block",
   "block.micro_machinery.blockcopper": "Copper Block",
   "block.micro_machinery.blocktin": "Tin Block",
@@ -272,18 +247,15 @@
   "block.micro_machinery.blockncalloy": "NicoChrome Block",
   "block.micro_machinery.blockcobalt": "Cobalt Block",
   "block.micro_machinery.blockmanganese": "Manganese Block",
-
   "block.micro_machinery.coilcopper": "Copper Coil",
   "block.micro_machinery.coilnickel": "Nickel Coil",
   "block.micro_machinery.coilaluminum": "Aluminum Coil",
   "block.micro_machinery.coiltungsten": "Tungsten Coil",
   "block.micro_machinery.coilcobalt": "Cobalt Coil",
-
   "block.micro_machinery.casing_1": "Basic Casing",
   "block.micro_machinery.casing_2": "Advanced Casing",
   "block.micro_machinery.casing_3": "Elite Casing",
   "block.micro_machinery.casing_4": "Sophisticated Casing",
-
   "block.micro_machinery.molten_copper_discarded": "Discarded Copper Block",
   "block.micro_machinery.molten_tin_discarded": "Discarded Tin Block",
   "block.micro_machinery.molten_bronze_discarded": "Discarded Bronze Block",
@@ -304,7 +276,6 @@
   "block.micro_machinery.molten_ncalloy_discarded": "Discarded NicoChrome Block",
   "block.micro_machinery.molten_ferrochrome_discarded": "Discarded FerroChrome Block",
   "block.micro_machinery.molten_iron_discarded": "Discarded Iron Block",
-
   "block.micro_machinery.module_generator": "Generator Module",
   "block.micro_machinery.module_heat_sink": "Heat Sink Module",
   "block.micro_machinery.module_pressure_bearing": "Pressure Bearing Module",
@@ -313,15 +284,12 @@
   "block.micro_machinery.module_transmission_3": "Transmission Module III",
   "block.micro_machinery.module_transmission_4": "Transmission Module IV",
   "block.micro_machinery.module_transmission_5": "Transmission Module V",
-
   "block.micro_machinery.pcm": "Complex Transmission Module",
   "block.micro_machinery.tank_block": "Tank Block",
   "block.micro_machinery.graphite_crucible": "Graphite Crucible",
   "block.micro_machinery.slag_concrete": "Concrete Slag Block",
   "block.micro_machinery.clay_brick_block": "Clay Brick Block",
   "block.micro_machinery.fire_brick_block": "Fire Brick Block",
-
-
   "fluid.micro_machinery.fluids.molten_aluminum": "Molten Aluminum",
   "fluid.micro_machinery.fluids.molten_bronze": "Molten Bronze",
   "fluid.micro_machinery.fluids.molten_chromium": "Molten Chromium",
@@ -345,7 +313,6 @@
   "fluid.micro_machinery.fluids.apple_juice": "Apple Juice",
   "fluid.micro_machinery.fluids.golden_apple_juice": "Golden Apple Juice",
   "fluid.micro_machinery.fluids.ethene": "Ethene",
-
   "block.micro_machinery.molten_aluminum": "Molten Aluminum",
   "block.micro_machinery.molten_bronze": "Molten Bronze",
   "block.micro_machinery.molten_chromium": "Molten Chromium",
@@ -369,7 +336,6 @@
   "block.micro_machinery.apple_juice": "Apple Juice",
   "block.micro_machinery.golden_apple_juice": "Golden Apple Juice",
   "block.micro_machinery.ethene": "Ethene",
-
   "item.micro_machinery.molten_aluminum_bucket": "Molten Aluminum Bucket",
   "item.micro_machinery.molten_bronze_bucket": "Molten Bronze Bucket",
   "item.micro_machinery.molten_chromium_bucket": "Molten Chromium Bucket",
@@ -393,15 +359,13 @@
   "item.micro_machinery.apple_juice_bucket": "Apple Juice Bucket",
   "item.micro_machinery.golden_apple_juice_bucket": "Golden Apple Juice Bucket",
   "item.micro_machinery.ethene_bucket": "Ethene Bucket",
-
-  "container.klin": "aaa",
+  "container.klin": "Klin",
   "block.micro_machinery.klin": "Klin",
   "block.micro_machinery.generator": "Generator",
   "block.micro_machinery.hand_generator": "Hand Generator",
   "block.micro_machinery.stone_anvil": "Stone Anvil",
   "block.micro_machinery.bronze_anvil": "Bronze Anvil",
   "block.micro_machinery.pigiron_anvil": "Iron Anvil",
-
   "gui.fluid.name": "%s",
   "gui.fluid.amount": "%d mB/%d mB"
 }
