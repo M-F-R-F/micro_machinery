@@ -46,7 +46,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
 
         @Override
         public int self_add() {
-            int add = add(200, false);
+            int add = add(12, false);
             markDirty2();
             return add;
         }
