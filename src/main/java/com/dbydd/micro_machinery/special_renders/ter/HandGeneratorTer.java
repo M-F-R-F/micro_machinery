@@ -24,29 +24,28 @@ public class HandGeneratorTer extends MMTERBase<TileHandGenerator> {
         Direction facing = tileEntityIn.getBlockState().get(BlockHandGenerator.FACING);
         Direction direction = Direction.fromAngle(facing.getHorizontalAngle() + 90);
         IntegerContainer progress = tileEntityIn.getProgress();
+        Vector3f vector3f = direction.toVector3f();
+        Vector3f move = move(vector3f);
         matrixStackIn.push();
-        matrixStackIn.translate((float) direction.getDirectionVec().getX() / (float) 2, 0.5, (float) direction.getDirectionVec().getX() / (float) 2);
-        if (!progress.atMinValue()) {
-            matrixStackIn.rotate(new Quaternion(direction.toVector3f(), 360 * ((float) progress.getCurrent() / (float) progress.getMax()), true));
-        //todo fix
-        }
-
+        matrixStackIn.translate(move.getX(), move.getY(), move.getZ());
+        matrixStackIn.rotate(new Quaternion(vector3f, 360 * ((float) progress.getCurrent() / (float) progress.getMax()), true));
         blockRenderer.renderBlock(RegisteredBlocks.HAND_GENERATOR_1.getDefaultState().with(BlockHandGenerator_Handler.FACING, facing), matrixStackIn, bufferIn, 0x00F0_00F0, combinedOverlayIn, EmptyModelData.INSTANCE);
         matrixStackIn.pop();
 
     }
 
-    private Vector3f move(float x, float z) {
-        float tempX = 0;
-        float tempZ = 0;
-        if (x != 0) {
-            if (x > 0) {
-                tempZ = 0.5f;
-            }
-            if (z != 0) {
-                tempX = 0.5f;
-            }
+    private Vector3f move(Vector3f vector3f) {
+        Vector3f copy = vector3f.copy();
+        if (vector3f.getX() > 0) {
+            return new Vector3f(0, 0.5f, copy.getX() / 2.0f);
+        } else if (vector3f.getX() < 0) {
+            return new Vector3f(0, 0.5f, -copy.getX() / 2.0f);
         }
-        return new Vector3f(tempX, 0.5f, tempZ);
+        if (vector3f.getZ() > 0) {
+            return new Vector3f(copy.getZ() / 2.0f, 0.5f, 0);
+        } else if (vector3f.getZ() < 0) {
+            return new Vector3f(-copy.getZ() / 2.0f, 0.5f, 0);
+        }
+        return vector3f;
     }
 }
