@@ -21,30 +21,29 @@ public class HandGeneratorTer extends MMTERBase<TileHandGenerator> {
 
     @Override
     public void render(TileHandGenerator tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        Direction facing = tileEntityIn.getBlockState().get(BlockHandGenerator.FACING);
-        Direction direction = Direction.fromAngle(facing.getHorizontalAngle() + 90);
-        IntegerContainer progress = tileEntityIn.getProgress();
-        Vector3f vector3f = direction.toVector3f();
-        Vector3f move = move(vector3f);
         matrixStackIn.push();
+        Direction direction = tileEntityIn.getBlockState().get(BlockHandGenerator.FACING);
+        Vector3f move = move(direction);
+        IntegerContainer progress = tileEntityIn.getProgress();
+        matrixStackIn.rotate(new Quaternion(new Vector3f(0,1,0), -direction.getOpposite().getHorizontalAngle(), true));
         matrixStackIn.translate(move.getX(), move.getY(), move.getZ());
-        matrixStackIn.rotate(new Quaternion(vector3f, 360 * ((float) progress.getCurrent() / (float) progress.getMax()), true));
-        blockRenderer.renderBlock(RegisteredBlocks.HAND_GENERATOR_1.getDefaultState().with(BlockHandGenerator_Handler.FACING, facing), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, EmptyModelData.INSTANCE);
+        matrixStackIn.rotate(new Quaternion(new Vector3f(1,0,0), 360*((float)progress.getCurrent()/(float)progress.getMax()), true));
+        blockRenderer.renderBlock(RegisteredBlocks.HAND_GENERATOR_1.getDefaultState(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, EmptyModelData.INSTANCE);
         matrixStackIn.pop();
 
     }
 
-    private Vector3f move(Vector3f vector3f) {
-        Vector3f copy = vector3f.copy();
+    private Vector3f move(Direction direction) {
+        Vector3f vector3f = direction.getOpposite().toVector3f();
         if (vector3f.getX() > 0) {
-            return new Vector3f(0, 0.5f, copy.getX() / 2.0f);
+            return new Vector3f(-1, 0.5f, 0.5f);
         } else if (vector3f.getX() < 0) {
-            return new Vector3f(0, 0.5f, -copy.getX() / 2.0f);
+            return new Vector3f(0, 0.5f, -0.5f);
         }
         if (vector3f.getZ() > 0) {
-            return new Vector3f(copy.getZ() / 2.0f, 0.5f, 0);
+            return new Vector3f(0, 0.5f, 0.5f);
         } else if (vector3f.getZ() < 0) {
-            return new Vector3f(-copy.getZ() / 2.0f, 0.5f, 0);
+            return new Vector3f(-1, 0.5f, -0.5f);
         }
         return vector3f;
     }
