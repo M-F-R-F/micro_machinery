@@ -19,16 +19,17 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class BlockAnvil extends MMBlockTileProviderBase {
-    public static final EnumProperty<EnumAnvilType> ENUM_ANVIL_TYPE_ENUM_PROPERTY = EnumProperty.create("anvil_material", EnumAnvilType.class);
+
+    private final EnumAnvilType anvilType;
 
     public BlockAnvil(Properties properties, String name, EnumAnvilType anvilType) {
         super(properties, name);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ENUM_ANVIL_TYPE_ENUM_PROPERTY, anvilType));
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+        this.anvilType = anvilType;
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(ENUM_ANVIL_TYPE_ENUM_PROPERTY);
         super.fillStateContainer(builder);
     }
 
@@ -44,6 +45,6 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileAnvil(state.get(ENUM_ANVIL_TYPE_ENUM_PROPERTY));
+        return new TileAnvil(anvilType);
     }
 }
