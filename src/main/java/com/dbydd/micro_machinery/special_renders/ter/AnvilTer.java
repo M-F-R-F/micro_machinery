@@ -1,0 +1,44 @@
+package com.dbydd.micro_machinery.special_renders.ter;
+
+import com.dbydd.micro_machinery.blocks.mathines.MMBlockTileProviderBase;
+import com.dbydd.micro_machinery.blocks.mathines.forge_anvil.TileAnvil;
+import com.dbydd.micro_machinery.utils.IntegerContainer;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Quaternion;
+import net.minecraft.client.renderer.Vector3f;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraftforge.items.ItemStackHandler;
+
+public class AnvilTer extends MMTERBase<TileAnvil> {
+
+    public AnvilTer(TileEntityRendererDispatcher rendererDispatcherIn) {
+        super(rendererDispatcherIn);
+    }
+
+    @Override
+    public void render(TileAnvil tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+        ItemStack itemStack = tileEntityIn.getItemStackHandler().getStackInSlot(0);
+        if (!itemStack.isEmpty()) {
+            matrixStackIn.push();
+            BlockState blockState = tileEntityIn.getBlockState();
+            IntegerContainer forgeTime = tileEntityIn.getForgeTime();
+            Direction direction = blockState.get(MMBlockTileProviderBase.FACING);
+            VoxelShape collisionShape = blockState.getCollisionShape(tileEntityIn.getWorld(), tileEntityIn.getPos());
+            double maxY = collisionShape.getBoundingBox().maxY;
+            matrixStackIn.scale(1, (float) forgeTime.getCurrent() / (float) forgeTime.getMax(), 1);
+            matrixStackIn.translate(2, maxY, 2);
+            matrixStackIn.rotate(new Quaternion(new Vector3f(0, 1, 0), direction.getHorizontalAngle(), true));
+            IBakedModel ibakedmodel = itemRenderer.getItemModelWithOverrides(itemStack, tileEntityIn.getWorld(), null);
+            itemRenderer.renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED, true, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, ibakedmodel);
+            matrixStackIn.pop();
+        }
+    }
+}

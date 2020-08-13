@@ -2,9 +2,11 @@ package com.dbydd.micro_machinery.recipes;
 
 
 import com.dbydd.micro_machinery.items.MMCastBase;
+import com.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
-import com.dbydd.micro_machinery.registery_lists.recipes.KlinRecipe;
+import com.dbydd.micro_machinery.registery_lists.recipes.AnvilRecipes;
+import com.dbydd.micro_machinery.registery_lists.recipes.KlinRecipes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -42,12 +44,15 @@ public class RecipeHelper {
         return null;
     }
 
-//    public static ForgingAnvilRecipe getForgingAnvilRecipe(ItemStack itemStack) {
-//        for (ForgingAnvilRecipe recipe : ModRecipes.forgingAnvilRecipes) {
-//            if (areItemStackEqual(itemStack, recipe.getInput())) return recipe;
-//        }
-//        return null;
-//    }
+    public static AnvilRecipe getForgingAnvilRecipe(ItemStack input) {
+        checkIsEmpty();
+        for (AnvilRecipe recipe : AnvilRecipe.RECIPES) {
+            if (input.isItemEqual(recipe.getInput())) {
+                return recipe;
+            }
+        }
+        return null;
+    }
 
 
     public static boolean isStackABiggerThanStackB(ItemStack stackA, ItemStack stackB) {
@@ -64,9 +69,12 @@ public class RecipeHelper {
         return false;
     }
 
-    private static void checkIsEmpty(){
-        if(KlinItemToFluidRecipe.RECIPES.isEmpty() || KlinFluidToItemRecipe.RECIPES.isEmpty()){
-            KlinRecipe.init();
+    private static void checkIsEmpty() {
+        if (KlinItemToFluidRecipe.RECIPES.isEmpty() || KlinFluidToItemRecipe.RECIPES.isEmpty()) {
+            KlinRecipes.init();
+        }
+        if (AnvilRecipe.RECIPES.isEmpty()) {
+            AnvilRecipes.init();
         }
     }
 

@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraftforge.fluids.FluidStack;
 
-public class KlinRecipe {
+public class KlinRecipes {
 
     public static final KlinItemToFluidRecipe molten_copper1 = new KlinItemToFluidRecipe(new FluidStack(RegisteredFluids.MOLTEN_COPPER.fluid.get(), 144), new ItemStack(Items.CHARCOAL, 1), new ItemStack(RegisteredBlocks.ORECOPPER, 1), 120);
     public static final KlinItemToFluidRecipe molten_copper2 = new KlinItemToFluidRecipe(new FluidStack(RegisteredFluids.MOLTEN_COPPER.fluid.get(), 144), new ItemStack(Items.CHARCOAL, 1), new ItemStack(RegisteredItems.CRUSHED_COPPER, 1), 120);

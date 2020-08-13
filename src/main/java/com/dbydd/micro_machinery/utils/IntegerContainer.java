@@ -123,4 +123,8 @@ public class IntegerContainer {
         return current;
     }
 
+    public void resetValue() {
+        this.current = min;
+    }
+
 }

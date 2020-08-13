@@ -1,11 +1,14 @@
 package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
+import com.dbydd.micro_machinery.blocks.mathines.forge_anvil.BlockAnvil;
 import com.dbydd.micro_machinery.blocks.mathines.generator.BlockGenerator;
 import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator;
 import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator_Handler;
 import com.dbydd.micro_machinery.blocks.mathines.klin.BlockKlin;
 import com.dbydd.micro_machinery.blocks.mathines.ter_test.TestBlock;
+import com.dbydd.micro_machinery.enums.EnumAnvilType;
+import net.minecraft.block.AnvilBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
@@ -111,6 +114,9 @@ public class RegisteredBlocks {
     public static final Block GENERATOR = new BlockGenerator();
     public static final Block HAND_GENERATOR = new BlockHandGenerator();
     public static final Block TESTBLOCK = new TestBlock(Block.Properties.create(Material.ROCK), "testblock");
+    public static final Block STONE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ROCK).notSolid().hardnessAndResistance(2.0f), "stone_anvil", EnumAnvilType.STONE);
+    public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(3.0f), "bronze_anvil", EnumAnvilType.BRONZE);
+    public static final Block PIG_IRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(4.0f), "pig_iron_anvil", EnumAnvilType.PIGIRON);
     //cable
 
     //pipe
