@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 public class BlockAnvil extends MMBlockTileProviderBase {
 
     private final EnumAnvilType anvilType;
-    public static final VoxelShape anvil = Block.makeCuboidShape(0, 0, 4, 16, 16, 12);
+    public static final VoxelShape anvil = Block.makeCuboidShape(0, 0, 3, 16, 16, 13);
 
     public BlockAnvil(Properties properties, String name, EnumAnvilType anvilType) {
         super(properties, name);
