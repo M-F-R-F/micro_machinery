@@ -20,6 +20,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -31,6 +33,8 @@ import javax.annotation.Nullable;
 
 public class BlockKlin extends MMBlockTileProviderBase {
     protected static final BooleanProperty BURNING = BooleanProperty.create("burning");
+    public static final VoxelShape klin = Block.makeCuboidShape(0, 0, 0, 16, 20, 16);
+
 
     public BlockKlin() {
         super(Properties.create(Material.ROCK).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(2.0f), "klin");
@@ -86,5 +90,15 @@ public class BlockKlin extends MMBlockTileProviderBase {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileKlin();
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return klin;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return klin;
     }
 }

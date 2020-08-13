@@ -13,6 +13,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -21,6 +23,7 @@ import javax.annotation.Nullable;
 public class BlockAnvil extends MMBlockTileProviderBase {
 
     private final EnumAnvilType anvilType;
+    public static final VoxelShape anvil = Block.makeCuboidShape(0, 0, 4, 16, 16, 12);
 
     public BlockAnvil(Properties properties, String name, EnumAnvilType anvilType) {
         super(properties, name);
@@ -46,5 +49,15 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileAnvil(anvilType);
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return anvil;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return anvil;
     }
 }

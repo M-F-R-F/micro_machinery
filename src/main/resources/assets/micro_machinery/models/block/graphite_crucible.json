@@ -1,6 +1,7 @@
 {
 	"textures": {
-		"0": "micro_machinery:blocks/graphite_crucible"
+		"0": "micro_machinery:blocks/graphite_crucible",
+		"particle": "micro_machinery:blocks/graphite_crucible"
 	},
 	"elements": [
 		{
