@@ -4,11 +4,9 @@ import com.dbydd.micro_machinery.enums.EnumAnvilType;
 import com.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
 import com.dbydd.micro_machinery.registery_lists.RegisteredItems;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraftforge.common.Tags;
 
 public class AnvilRecipes {
     //stone
