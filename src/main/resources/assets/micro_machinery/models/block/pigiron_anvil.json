@@ -1,35 +1,8 @@
 {
 	"loader": "forge:obj",
 	"model": "micro_machinery:models/block/obj/pigiron_anvil.obj",
-	"flip-v": true,
-	"display": {
-		"translation": [0, 0, 0],
-		"thirdperson": {"scale": 1, "translation": [0, 0, 0], "rotation": {"x": 90}},
-		"gui": {
-				"scale": 1,
-				"translation": [
-					-0.05,
-					0,
-					0
-				],
-				"rotation": [
-					15,
-					125,
-					0
-				]
-			},
-		"fixed": {
-				"scale": 1,
-				"translation": [
-					0,
-					0,
-					0
-				],
-				"rotation": [
-					0,
-					-90,
-					0
-				]
-			}
-		}
+	"textures": {
+		"particle": "micro_machinery:obj/pigiron_anvil"
+	},
+	"flip-v": true
 }

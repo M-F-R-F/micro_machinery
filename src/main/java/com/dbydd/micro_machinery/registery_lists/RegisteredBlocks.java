@@ -104,7 +104,7 @@ public class RegisteredBlocks {
     //other
     public static final Block PCM = new MMBlockBase(HARD1.hardnessAndResistance(2.5f), "pcm");
     public static final Block TANK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "tank_block");
-    public static final Block GRAPHITE_CRUCIBLE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "graphite_crucible");
+    public static final Block GRAPHITE_CRUCIBLE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f).notSolid(), "graphite_crucible");
     public static final Block SLAG_CONCRETE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "slag_concrete");
     public static final Block CLAY_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "clay_brick_block");
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "fire_brick_block");
