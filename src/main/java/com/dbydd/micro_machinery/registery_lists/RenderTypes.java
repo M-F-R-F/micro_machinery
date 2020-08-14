@@ -20,6 +20,9 @@ public class RenderTypes {
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.FLUID_INDICATOR,RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.TEMPERATURE_INDICATOR,RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.REV_INDICATOR,RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteredBlocks.BRONZE_ANVIL, RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteredBlocks.STONE_ANVIL, RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteredBlocks.PIGIRON_ANVIL, RenderType.getTranslucent());
     }
 
     @SubscribeEvent
