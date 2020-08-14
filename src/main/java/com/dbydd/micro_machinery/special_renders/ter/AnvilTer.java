@@ -33,9 +33,11 @@ public class AnvilTer extends MMTERBase<TileAnvil> {
             Direction direction = blockState.get(MMBlockTileProviderBase.FACING);
             VoxelShape collisionShape = blockState.getCollisionShape(tileEntityIn.getWorld(), tileEntityIn.getPos());
             double maxY = collisionShape.getBoundingBox().maxY;
-            matrixStackIn.scale(1, (float) forgeTime.getCurrent() / (float) forgeTime.getMax(), 1);
-            matrixStackIn.translate(2, maxY, 2);
+            matrixStackIn.translate(0.5, maxY+0.01, 0.5);
             matrixStackIn.rotate(new Quaternion(new Vector3f(0, 1, 0), direction.getHorizontalAngle(), true));
+            matrixStackIn.rotate(new Quaternion(new Vector3f(1,0,0), 90,true));
+            matrixStackIn.scale(0.5f, 0.5f, 0.5f);
+            matrixStackIn.scale(1,1,forgeTime.getCurrent() == 0?1:1-((float) forgeTime.getCurrent() / (float) forgeTime.getMax()));
             IBakedModel ibakedmodel = itemRenderer.getItemModelWithOverrides(itemStack, tileEntityIn.getWorld(), null);
             itemRenderer.renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED, true, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, ibakedmodel);
             matrixStackIn.pop();

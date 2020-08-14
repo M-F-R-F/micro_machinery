@@ -14,6 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
@@ -43,7 +45,7 @@ public class TileAnvil extends MMTileBase {
 
     @Override
     public void read(CompoundNBT compound) {
-        forgeTime.deserializeNBT(compound);
+        forgeTime.deserializeNBT(compound.getCompound("forge_time"));
         rank = EnumAnvilType.valueOf(compound.getString("rank"));
         itemStackHandler.deserializeNBT(compound.getCompound("items"));
         super.read(compound);
@@ -58,7 +60,7 @@ public class TileAnvil extends MMTileBase {
     }
 
     public ActionResultType onActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote()) {
+//        if (!worldIn.isRemote()) {
             if (handIn == Hand.MAIN_HAND) {
                 ItemStack heldItem = player.getHeldItem(handIn);
                 if (heldItem.isEmpty()) {
@@ -66,19 +68,22 @@ public class TileAnvil extends MMTileBase {
                         ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
                         itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
                         ItemHandlerHelper.giveItemToPlayer(player, stackInSlot);
+                        forgeTime.resetValue();
                         markDirty2();
                     }
                 } else {
                     Item item = heldItem.getItem();
                     if (item instanceof MMHammerBase) {
                         forgeTime.self_add();
-                        player.playSound(rank.getSound(), 1.0f,1.0f);
+                        heldItem.damageItem(1, player, playerEntity -> {});
+                        worldIn.playSound(player, pos, rank.getSound(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                         if (forgeTime.atMaxValue()) {
                             ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
                             if (!stackInSlot.isEmpty()) {
                                 AnvilRecipe recipe = RecipeHelper.getForgingAnvilRecipe(stackInSlot);
                                 if (recipe != null && recipe.getRankNeed().getRank() <= this.rank.getRank()) {
                                     itemStackHandler.setStackInSlot(0, recipe.getOutput());
+                                    forgeTime.resetValue();
                                     markDirty2();
                                 } else {
                                     forgeTime.resetValue();
@@ -90,14 +95,20 @@ public class TileAnvil extends MMTileBase {
                     } else {
                         if (itemStackHandler.getStackInSlot(0).isEmpty()) {
                             itemStackHandler.setStackInSlot(0, new ItemStack(heldItem.getItem()));
+                            forgeTime.resetValue();
                             heldItem.shrink(1);
                             player.setHeldItem(handIn, heldItem);
-                            markDirty2();
+                        }else {
+                            ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
+                            ItemHandlerHelper.giveItemToPlayer(player, stackInSlot);
+                            itemStackHandler.setStackInSlot(0,ItemStack.EMPTY);
+                            forgeTime.resetValue();
                         }
+                        markDirty2();
                     }
                 }
             }
-        }
+//        }
         return ActionResultType.SUCCESS;
     }
 }

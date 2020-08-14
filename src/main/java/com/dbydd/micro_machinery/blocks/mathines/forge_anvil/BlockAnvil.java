@@ -23,7 +23,8 @@ import javax.annotation.Nullable;
 public class BlockAnvil extends MMBlockTileProviderBase {
 
     private final EnumAnvilType anvilType;
-    public static final VoxelShape anvil = Block.makeCuboidShape(0, 0, 3, 16, 16, 13);
+    public static final VoxelShape ANVIL_SN = Block.makeCuboidShape(0, 0, 3, 16, 16, 13);
+    public static final VoxelShape ANVIL_WE = Block.makeCuboidShape(3, 0, 0, 13,16, 16);
 
     public BlockAnvil(Properties properties, String name, EnumAnvilType anvilType) {
         super(properties, name);
@@ -53,11 +54,19 @@ public class BlockAnvil extends MMBlockTileProviderBase {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return anvil;
+        Direction direction = state.get(FACING);
+        if(direction == Direction.WEST ||direction == Direction.EAST){
+            return ANVIL_WE;
+        }
+        return ANVIL_SN;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return anvil;
+        Direction direction = state.get(FACING);
+        if(direction == Direction.WEST ||direction == Direction.EAST){
+            return ANVIL_WE;
+        }
+        return ANVIL_SN;
     }
 }
