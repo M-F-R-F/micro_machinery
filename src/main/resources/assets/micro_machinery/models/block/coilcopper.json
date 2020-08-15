@@ -6,6 +6,7 @@
 		"north": "micro_machinery:blocks/coilcopper_side",
 		"west": "micro_machinery:blocks/coilcopper_side",
 		"south": "micro_machinery:blocks/coilcopper_side",
-		"east": "micro_machinery:blocks/coilcopper_side"
+		"east": "micro_machinery:blocks/coilcopper_side",
+		"particle": "micro_machinery:blocks/coilcopper_side"
 	}
 }

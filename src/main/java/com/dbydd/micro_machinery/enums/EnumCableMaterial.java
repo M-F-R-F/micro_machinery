@@ -3,11 +3,11 @@ package com.dbydd.micro_machinery.enums;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumCableMaterial implements IStringSerializable {
-    COPPER(100, "copper"),
-    NICLEL(200, "nickel"),
-    ALUMINUM(300, "aluminum"),
-    TUNGSTEN(400, "tungsten"),
-    COBALT(500, "cobalt");
+    COPPER(1024, "copper"),
+    NICLEL(4096, "nickel"),
+    ALUMINUM(16384, "aluminum"),
+    TUNGSTEN(65536, "tungsten"),
+    COBALT(262144, "cobalt");
 
 
     private final int transfer;

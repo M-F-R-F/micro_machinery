@@ -6,6 +6,7 @@
 		"north": "micro_machinery:blocks/coiltungsten_side",
 		"west": "micro_machinery:blocks/coiltungsten_side",
 		"south": "micro_machinery:blocks/coiltungsten_side",
-		"east": "micro_machinery:blocks/coiltungsten_side"
+		"east": "micro_machinery:blocks/coiltungsten_side",
+		"particle": "micro_machinery:blocks/coiltungsten_side"
 	}
 }
