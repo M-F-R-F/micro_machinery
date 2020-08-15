@@ -114,9 +114,9 @@ public class RegisteredBlocks {
     public static final Block GENERATOR = new BlockGenerator();
     public static final Block HAND_GENERATOR = new BlockHandGenerator();
     public static final Block TESTBLOCK = new TestBlock(Block.Properties.create(Material.ROCK), "testblock");
-    public static final Block STONE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ROCK).notSolid().hardnessAndResistance(2.0f), "stone_anvil", EnumAnvilType.STONE);
-    public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(3.0f), "bronze_anvil", EnumAnvilType.BRONZE);
-    public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(4.0f), "pigiron_anvil", EnumAnvilType.PIGIRON);
+    public static final Block STONE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ROCK).notSolid().hardnessAndResistance(2.0f), "stone_anvil", EnumAnvilType.STONE, 16);
+    public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(3.0f), "bronze_anvil", EnumAnvilType.BRONZE, 16);
+    public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(4.0f), "pigiron_anvil", EnumAnvilType.PIGIRON, 12);
     //cable
 
     //pipe

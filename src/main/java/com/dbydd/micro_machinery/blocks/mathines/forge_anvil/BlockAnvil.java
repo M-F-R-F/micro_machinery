@@ -22,14 +22,16 @@ import javax.annotation.Nullable;
 
 public class BlockAnvil extends MMBlockTileProviderBase {
 
+    public final VoxelShape ANVIL_SN;
+    public final VoxelShape ANVIL_WE;
     private final EnumAnvilType anvilType;
-    public static final VoxelShape ANVIL_SN = Block.makeCuboidShape(0, 0, 3, 16, 16, 13);
-    public static final VoxelShape ANVIL_WE = Block.makeCuboidShape(3, 0, 0, 13,16, 16);
 
-    public BlockAnvil(Properties properties, String name, EnumAnvilType anvilType) {
+    public BlockAnvil(Properties properties, String name, EnumAnvilType anvilType, int height) {
         super(properties, name);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
         this.anvilType = anvilType;
+        this.ANVIL_SN = Block.makeCuboidShape(0, 0, 3, 16, height, 13);
+        this.ANVIL_WE = Block.makeCuboidShape(3, 0, 0, 13, height, 16);
     }
 
     @Override
@@ -40,8 +42,8 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if(tileEntity instanceof TileAnvil){
-            return ((TileAnvil)tileEntity).onActivated(state, worldIn, pos, player, handIn, hit);
+        if (tileEntity instanceof TileAnvil) {
+            return ((TileAnvil) tileEntity).onActivated(state, worldIn, pos, player, handIn, hit);
         }
         return ActionResultType.PASS;
     }
@@ -55,7 +57,7 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Direction direction = state.get(FACING);
-        if(direction == Direction.WEST ||direction == Direction.EAST){
+        if (direction == Direction.WEST || direction == Direction.EAST) {
             return ANVIL_WE;
         }
         return ANVIL_SN;
@@ -64,7 +66,7 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Direction direction = state.get(FACING);
-        if(direction == Direction.WEST ||direction == Direction.EAST){
+        if (direction == Direction.WEST || direction == Direction.EAST) {
             return ANVIL_WE;
         }
         return ANVIL_SN;
