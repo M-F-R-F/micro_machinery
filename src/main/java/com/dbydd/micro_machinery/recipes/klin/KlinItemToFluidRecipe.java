@@ -1,14 +1,24 @@
 package com.dbydd.micro_machinery.recipes.klin;
 
+import com.dbydd.micro_machinery.Micro_Machinery;
+import com.dbydd.micro_machinery.recipes.MMRecipeBase;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class KlinItemToFluidRecipe {
+public class KlinItemToFluidRecipe extends MMRecipeBase {
 
-    public static List<KlinItemToFluidRecipe> RECIPES = new ArrayList<>();
+    public static IRecipeType<KlinItemToFluidRecipe> TYPE = IRecipeType.register(Micro_Machinery.NAME+":klin_item_to_fluid");
+    public static Map<ResourceLocation, KlinItemToFluidRecipe> RECIPES = new HashMap<>();
 
     private final ItemStack input1;
     private final ItemStack input2;
@@ -25,8 +35,6 @@ public class KlinItemToFluidRecipe {
         this.outputfluidstack = outputfluidstack;
         this.melttime = melttime;
         this.issingle = false;
-
-        RECIPES.add(this);
     }
 
     public KlinItemToFluidRecipe(FluidStack outputfluidstack, ItemStack input, int melttime) {
@@ -36,8 +44,6 @@ public class KlinItemToFluidRecipe {
         this.outputfluidstack = outputfluidstack;
         this.melttime = melttime;
         this.issingle = true;
-
-        RECIPES.add(this);
     }
 
     public ItemStack getInput1() {
@@ -62,5 +68,30 @@ public class KlinItemToFluidRecipe {
 
     public boolean isIssingle() {
         return issingle;
+    }
+
+    @Override
+    public boolean matches(IInventory inv, World worldIn) {
+        return false;
+    }
+
+    @Override
+    public ItemStack getCraftingResult(IInventory inv) {
+        return null;
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return null;
+    }
+
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+        return null;
+    }
+
+    @Override
+    public IRecipeType<?> getType() {
+        return null;
     }
 }
