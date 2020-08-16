@@ -36,6 +36,8 @@ public class AnvilRecipes {
     public static final AnvilRecipe platesilver = new AnvilRecipe(new ItemStack(RegisteredItems.INGOT_SILVER),new ItemStack(RegisteredItems.PLATE_SILVER), EnumAnvilType.BRONZE);
     public static final AnvilRecipe plategold = new AnvilRecipe(new ItemStack(Items.GOLD_INGOT),new ItemStack(RegisteredItems.PLATE_GOLD), EnumAnvilType.BRONZE);
     public static final AnvilRecipe plateiron = new AnvilRecipe(new ItemStack(Items.IRON_INGOT),new ItemStack(RegisteredItems.PLATE_IRON), EnumAnvilType.BRONZE);
+    public static final AnvilRecipe wirecopper = new AnvilRecipe(new ItemStack(RegisteredItems.STICK_COPPER),new ItemStack(RegisteredItems.STRING_COPPER), EnumAnvilType.BRONZE);
+    public static final AnvilRecipe wiretin = new AnvilRecipe(new ItemStack(RegisteredItems.STICK_TIN),new ItemStack(RegisteredItems.STRING_TIN), EnumAnvilType.BRONZE);
 
     //iron
     public static final AnvilRecipe platesteel = new AnvilRecipe(new ItemStack(RegisteredItems.INGOT_STEEL),new ItemStack(RegisteredItems.PLATE_STEEL), EnumAnvilType.PIGIRON);
@@ -52,6 +54,9 @@ public class AnvilRecipes {
     public static final AnvilRecipe orenolanite1 = new AnvilRecipe(new ItemStack(RegisteredBlocks.ORENOLANITE_NETHER),new ItemStack(RegisteredItems.CRUSHED_NOLANITE,2), EnumAnvilType.BRONZE);
     public static final AnvilRecipe oretunstite = new AnvilRecipe(new ItemStack(RegisteredBlocks.ORETUNSTITE),new ItemStack(RegisteredItems.CRUSHED_TUNSTITE,2), EnumAnvilType.BRONZE);
     public static final AnvilRecipe oreilmenite = new AnvilRecipe(new ItemStack(RegisteredBlocks.OREILMENITE),new ItemStack(RegisteredItems.CRUSHED_ILMENITE,2), EnumAnvilType.BRONZE);
+    public static final AnvilRecipe wiregold = new AnvilRecipe(new ItemStack(RegisteredItems.STICK_GOLD),new ItemStack(RegisteredItems.STRING_GOLD), EnumAnvilType.BRONZE);
+    public static final AnvilRecipe wireiron = new AnvilRecipe(new ItemStack(RegisteredItems.STICK_IRON),new ItemStack(RegisteredItems.STRING_IRON), EnumAnvilType.BRONZE);
+    public static final AnvilRecipe wirealuminum = new AnvilRecipe(new ItemStack(RegisteredItems.STICK_ALUMINUM),new ItemStack(RegisteredItems.STRING_ALUMINUM), EnumAnvilType.BRONZE);
 
 
     public static void init(){
