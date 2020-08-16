@@ -25,6 +25,7 @@ public class AnvilRecipes {
     public static final AnvilRecipe sand2 = new AnvilRecipe(new ItemStack(Blocks.SANDSTONE),new ItemStack(Blocks.SAND), EnumAnvilType.STONE);
     public static final AnvilRecipe sand3 = new AnvilRecipe(new ItemStack(Blocks.RED_SANDSTONE),new ItemStack(Blocks.RED_SAND), EnumAnvilType.STONE);
     public static final AnvilRecipe dustcarbon = new AnvilRecipe(new ItemStack(Items.COAL),new ItemStack(RegisteredItems.DUST_CARBON), EnumAnvilType.STONE);
+    public static final AnvilRecipe brick_powder = new AnvilRecipe(new ItemStack(Items.BRICK),new ItemStack(RegisteredItems.BRICK_POWDER), EnumAnvilType.STONE);
 
     //bronze
     public static final AnvilRecipe oreiron = new AnvilRecipe(new ItemStack(Blocks.IRON_ORE),new ItemStack(RegisteredItems.CRUSHED_IRON,2), EnumAnvilType.BRONZE);

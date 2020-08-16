@@ -26,7 +26,7 @@ public class RegisteredBlocks {
     //Ores
     public static final Block ORECOPPER = new MMBlockBase(HARD1.hardnessAndResistance(2.5f), "orecopper");
     public static final Block ORETIN = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "oretin");
-    public static final Block OREILMENITE = new MMBlockBase(HARD1.hardnessAndResistance(5.0f), "oreilmenite");
+    public static final Block OREILMENITE = new MMBlockBase(HARD3.hardnessAndResistance(5.0f), "oreilmenite");
     public static final Block ORESILVER = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "oresilver");
     public static final Block OREPYROLUSITE = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "orepyrolusite");
     public static final Block OREGRAPHITE = new MMBlockBase(HARD2.hardnessAndResistance(2.0f), "oregraphite");
