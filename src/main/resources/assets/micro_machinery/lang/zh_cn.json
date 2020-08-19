@@ -367,5 +367,19 @@
   "block.micro_machinery.bronze_anvil": "青铜砧",
   "block.micro_machinery.pigiron_anvil": "铸铁砧",
   "gui.fluid.name": "%s",
-  "gui.fluid.amount": "%d mB/%d mB"
+  "gui.fluid.amount": "%d mB/%d mB",
+  "advancement.micro_machinery.root": "玩个锤子！",
+  "advancement.micro_machinery.root.desc": "制作一个石锤",
+  "advancement.micro_machinery.ingot_copper": "正在炼铜",
+  "advancement.micro_machinery.ingot_copper.desc": "获得一块铜锭",
+  "advancement.micro_machinery.stone_anvil": "敲敲打打",
+  "advancement.micro_machinery.stone_anvil.desc": "使用它！",
+  "advancement.micro_machinery.pigiron_anvil": "叮叮当当",
+  "advancement.micro_machinery.pigiron_anvil.desc": "它渴望一次按摩",
+  "advancement.micro_machinery.superhammer": "超进化",
+  "advancement.micro_machinery.superhammer.desc": "获得超级锤",
+  "advancement.micro_machinery.hand_generator": "苦力时代",
+  "advancement.micro_machinery.hand_generator.desc": "建造一台手动发电机",
+  "advancement.micro_machinery.generator": "水快干了！",
+  "advancement.micro_machinery.generator.desc": "建造一台火力发电机"
 }

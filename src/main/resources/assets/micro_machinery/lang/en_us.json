@@ -367,5 +367,19 @@
   "block.micro_machinery.bronze_anvil": "Bronze Anvil",
   "block.micro_machinery.pigiron_anvil": "Iron Anvil",
   "gui.fluid.name": "%s",
-  "gui.fluid.amount": "%d mB/%d mB"
+  "gui.fluid.amount": "%d mB/%d mB",
+  "advancement.micro_machinery.root": "HAMMER!",
+  "advancement.micro_machinery.root.desc": "make a stone hammer",
+  "advancement.micro_machinery.ingot_copper": "Copper is being smelted",
+  "advancement.micro_machinery.ingot_copper.desc": "get a copper ingot",
+  "advancement.micro_machinery.stone_anvil": "Strike it",
+  "advancement.micro_machinery.stone_anvil.desc": "use this stone anvil",
+  "advancement.micro_machinery.pigiron_anvil": "TingTingDong",
+  "advancement.micro_machinery.pigiron_anvil.desc": "he need a massage",
+  "advancement.micro_machinery.superhammer": "Mega Evolution",
+  "advancement.micro_machinery.superhammer.desc": "get a super hammer",
+  "advancement.micro_machinery.hand_generator": "He was tired out",
+  "advancement.micro_machinery.hand_generator.desc": "make a hand generator",
+  "advancement.micro_machinery.generator": "The water dries up!",
+  "advancement.micro_machinery.generator.desc": "make a generator"
 }

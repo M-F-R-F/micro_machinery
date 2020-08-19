@@ -1,0 +1,35 @@
+{
+  "parent": "micro_machinery:micro_machinery/hand_generator",
+  "display": {
+    "icon": {
+      "item": "micro_machinery:generator"
+    },
+    "title": {
+      "translate": "advancement.micro_machinery.generator"
+    },
+    "description": {
+      "translate": "advancement.micro_machinery.generator.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "generator": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "micro_machinery:generator"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "generator"
+    ]
+  ]
+}

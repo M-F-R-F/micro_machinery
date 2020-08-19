@@ -1,0 +1,35 @@
+{
+  "parent": "micro_machinery:micro_machinery/pigiron_anvil",
+  "display": {
+    "icon": {
+      "item": "micro_machinery:superhammer"
+    },
+    "title": {
+      "translate": "advancement.micro_machinery.superhammer"
+    },
+    "description": {
+      "translate": "advancement.micro_machinery.superhammer.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "superhammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "micro_machinery:superhammer"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "superhammer"
+    ]
+  ]
+}
