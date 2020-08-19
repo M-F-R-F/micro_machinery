@@ -7,9 +7,12 @@ import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import com.dbydd.micro_machinery.registery_lists.recipes.AnvilRecipes;
 import com.dbydd.micro_machinery.registery_lists.recipes.KlinRecipes;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class RecipeHelper {
 
@@ -76,6 +79,10 @@ public class RecipeHelper {
         if (AnvilRecipe.RECIPES.isEmpty()) {
             AnvilRecipes.init();
         }
+    }
+
+    public static Fluid getFluidByName(String name) {
+        return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(name));
     }
 
 }
