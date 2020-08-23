@@ -4,15 +4,9 @@ import com.dbydd.micro_machinery.enums.EnumAnvilType;
 import com.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
 import com.dbydd.micro_machinery.registery_lists.RegisteredItems;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-import jdk.internal.util.xml.impl.ReaderUTF8;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraftforge.common.util.JsonUtils;
-
-import java.io.BufferedInputStream;
 
 public class AnvilRecipes {
     //stone

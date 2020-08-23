@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "micro_machinery:logo"
+      "item": "micro_machinery:micro_machinery_logo"
     },
     "title": {
       "translate": "advancement.micro_machinery.root"
