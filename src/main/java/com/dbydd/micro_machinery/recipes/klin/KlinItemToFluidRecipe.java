@@ -2,6 +2,7 @@ package com.dbydd.micro_machinery.recipes.klin;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
+import com.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
 import com.google.gson.JsonObject;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -28,8 +29,6 @@ import java.util.List;
 import java.util.Map;
 
 public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
-
-    public static IRecipeType<KlinItemToFluidRecipe> TYPE = IRecipeType.register(Micro_Machinery.NAME + ":klin_item_to_fluid");
     public static List<KlinItemToFluidRecipe> RECIPES = new ArrayList<>();
 
     private final boolean issingle;
@@ -116,7 +115,7 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public IRecipeType<?> getType() {
-        return TYPE;
+        return RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE;
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<KlinItemToFluidRecipe> {

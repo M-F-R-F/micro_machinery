@@ -50,6 +50,7 @@ public class Micro_Machinery {
         FEATURE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         Registered_Tileentitie_Types.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         Registered_ContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        RegisteredRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {
