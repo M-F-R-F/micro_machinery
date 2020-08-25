@@ -1,0 +1,12 @@
+﻿{
+    "coolDown": "value",
+    "castType": "value",
+    "input": {
+        "fluidName": "value",
+        "amount": "value"
+    },
+    "output": {
+        "itemName": "value",
+        "count": "value"
+    }
+}

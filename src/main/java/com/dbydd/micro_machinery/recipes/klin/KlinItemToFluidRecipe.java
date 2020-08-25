@@ -172,4 +172,16 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
         //- write: reads the data from your instance to a packet buffer (server/client packet sending)
 
     }
+
+    @Override
+    public String toString() {
+        return "KlinItemToFluidRecipe{" +
+                "issingle=" + issingle +
+                ", melttime=" + melttime +
+                ", input1=" + input1 +
+                ", input2=" + input2 +
+                ", input=" + input +
+                ", outputfluidstack=" + outputfluidstack +
+                '}';
+    }
 }
