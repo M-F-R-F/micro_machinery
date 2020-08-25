@@ -1,0 +1,12 @@
+﻿{
+    "coolDown": 60,
+    "castType": "ingot",
+    "input": {
+        "fluidName": "micro_machinery:molten_bronze",
+        "amount": 160
+    },
+    "output": {
+        "itemName": "micro_machinery:ingot_bronze",
+        "count": 1
+    }
+}

@@ -1,0 +1,12 @@
+﻿{
+    "coolDown": 30,
+    "castType": "stick",
+    "input": {
+        "fluidName": "micro_machinery:molten_bronze",
+        "amount": 80
+    },
+    "output": {
+        "itemName": "micro_machinery:stick_bronze",
+        "count": 1
+    }
+}

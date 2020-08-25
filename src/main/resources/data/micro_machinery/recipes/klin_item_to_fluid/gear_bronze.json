@@ -1,0 +1,12 @@
+﻿{
+    "coolDown": 160,
+    "castType": "gear",
+    "input": {
+        "fluidName": "micro_machinery:molten_bronze",
+        "amount": 640
+    },
+    "output": {
+        "itemName": "micro_machinery:gear_bronze",
+        "count": 1
+    }
+}

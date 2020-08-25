@@ -1,0 +1,12 @@
+﻿{
+    "coolDown": 360,
+    "castType": "sword",
+    "input": {
+        "fluidName": "micro_machinery:molten_bronze",
+        "amount": 320
+    },
+    "output": {
+        "itemName": "micro_machinery:bronze_sword0",
+        "count": 1
+    }
+}
