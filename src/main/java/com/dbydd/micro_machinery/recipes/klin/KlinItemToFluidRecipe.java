@@ -1,32 +1,24 @@
 package com.dbydd.micro_machinery.recipes.klin;
 
-import com.dbydd.micro_machinery.Micro_Machinery;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
 import com.google.gson.JsonObject;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.JsonUtils;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
     public static List<KlinItemToFluidRecipe> RECIPES = new ArrayList<>();
@@ -83,14 +75,12 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public boolean matches(RecipeWrapper inv, World worldIn) {
-        int sizeInventory = inv.getSizeInventory();
-        KlinItemToFluidRecipe recipe = RecipeHelper.GetKlinItemToFluidRecipe(inv.getStackInSlot(0), inv.getStackInSlot(sizeInventory));
-        return recipe != null;
+        return false;
     }
 
     @Override
     public ItemStack getCraftingResult(RecipeWrapper inv) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -110,12 +100,24 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return null;
+        return new Serializer();
     }
 
     @Override
     public IRecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE;
+    }
+
+    @Override
+    public String toString() {
+        return "KlinItemToFluidRecipe{" +
+                "issingle=" + issingle +
+                ", melttime=" + melttime +
+                ", input1=" + input1 +
+                ", input2=" + input2 +
+                ", input=" + input +
+                ", outputfluidstack=" + outputfluidstack +
+                '}';
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<KlinItemToFluidRecipe> {
@@ -151,7 +153,7 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
             ItemStack input2 = buffer.readItemStack();
             FluidStack result = FluidStack.readFromPacket(buffer);
             if (isSingle) {
-            return new KlinItemToFluidRecipe(result, input, meltTime);
+                return new KlinItemToFluidRecipe(result, input, meltTime);
             } else {
                 return new KlinItemToFluidRecipe(result, input1, input2, meltTime);
             }
@@ -171,17 +173,5 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
         //- read: reads the data from a PacketBuffer and returns an instance of your recipe (server/client packet sending)
         //- write: reads the data from your instance to a packet buffer (server/client packet sending)
 
-    }
-
-    @Override
-    public String toString() {
-        return "KlinItemToFluidRecipe{" +
-                "issingle=" + issingle +
-                ", melttime=" + melttime +
-                ", input1=" + input1 +
-                ", input2=" + input2 +
-                ", input=" + input +
-                ", outputfluidstack=" + outputfluidstack +
-                '}';
     }
 }

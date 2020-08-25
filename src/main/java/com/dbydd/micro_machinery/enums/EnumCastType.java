@@ -14,6 +14,20 @@ public enum EnumCastType {
             case SWORD:
                 return "sword";
         }
+        return "null";
+    }
+
+    public static EnumCastType fromString(String type) {
+        switch (type) {
+            case "gear":
+                return GEAR;
+            case "ingot":
+                return INGOT;
+            case "stick":
+                return STICK;
+            case "sword":
+                return SWORD;
+        }
         return null;
     }
 }
