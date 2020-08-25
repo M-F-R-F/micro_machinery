@@ -17,16 +17,11 @@
   },
   "criteria": {
     "stone_anvil": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
-	  "location": {
-          "blocks": {
-            "block": "micro_machinery:stone_anvil"
-          }
-        },
         "items": [
           {
-            "tag": "micro_machinery:hammers"
+            "item": "micro_machinery:stone_anvil"
           }
         ]
       }

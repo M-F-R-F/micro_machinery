@@ -17,16 +17,11 @@
   },
   "criteria": {
     "pigiron_anvil": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
-	  "location": {
-          "blocks": {
-            "block": "micro_machinery:pigiron_anvil"
-          }
-        },
         "items": [
           {
-            "tag": "micro_machinery:hammers"
+            "item": "micro_machinery:pigiron_anvil"
           }
         ]
       }

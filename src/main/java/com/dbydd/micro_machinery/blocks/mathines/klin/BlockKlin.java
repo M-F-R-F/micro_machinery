@@ -22,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
@@ -33,8 +34,11 @@ import javax.annotation.Nullable;
 
 public class BlockKlin extends MMBlockTileProviderBase {
     protected static final BooleanProperty BURNING = BooleanProperty.create("burning");
-    public static final VoxelShape klin = Block.makeCuboidShape(0, 0, 0, 16, 20, 16);
-
+    public static final VoxelShape klin1 = Block.makeCuboidShape(1, 0, 1, 15, 9, 15);
+    public static final VoxelShape klin2 = Block.makeCuboidShape(2, 9, 2, 14, 15, 14);
+    public static final VoxelShape klin3 = Block.makeCuboidShape(3, 15, 3, 13, 18, 13);
+    public static final VoxelShape klin4 = Block.makeCuboidShape(4, 18, 4, 12, 20, 12);
+    private static final VoxelShape klin = VoxelShapes.or(klin1, klin2, klin3, klin4);
 
     public BlockKlin() {
         super(Properties.create(Material.IRON).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(2.0f), "klin");
