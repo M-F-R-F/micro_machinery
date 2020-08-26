@@ -38,7 +38,7 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         int posX = pos.getX() + rand.nextInt(16);
         int posZ = pos.getZ() + rand.nextInt(16);
         int tempY = worldIn.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, posX, posZ) - (config.getMinHeight() + config.getVeinHeight());
-        if (!(tempY < 0)) {
+        if (tempY > 0) {
             int posY = config.getMinHeight() + rand.nextInt(tempY);
             generateVein(worldIn, new BlockPos(posX, posY, posZ), rand, config);
         }

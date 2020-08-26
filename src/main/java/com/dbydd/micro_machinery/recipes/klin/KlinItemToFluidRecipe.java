@@ -29,18 +29,21 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
     private final ItemStack input2;
     private final ItemStack input;
     private final FluidStack outputfluidstack;
+    private final ResourceLocation id;
 
 
-    public KlinItemToFluidRecipe(FluidStack outputfluidstack, ItemStack input1, ItemStack input2, int melttime) {
+    public KlinItemToFluidRecipe(FluidStack outputfluidstack, ItemStack input1, ItemStack input2, int melttime, ResourceLocation id) {
         this.input1 = input1;
         this.input2 = input2;
+        this.id = id;
         this.input = ItemStack.EMPTY;
         this.outputfluidstack = outputfluidstack;
         this.melttime = melttime;
         this.issingle = false;
     }
 
-    public KlinItemToFluidRecipe(FluidStack outputfluidstack, ItemStack input, int melttime) {
+    public KlinItemToFluidRecipe(FluidStack outputfluidstack, ItemStack input, int melttime, ResourceLocation id) {
+        this.id = id;
         this.input1 = ItemStack.EMPTY;
         this.input2 = ItemStack.EMPTY;
         this.input = input;
@@ -85,7 +88,7 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public boolean canFit(int width, int height) {
-        return false;
+        return true;
     }
 
     @Override
@@ -95,12 +98,12 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public ResourceLocation getId() {
-        return null;
+        return id;
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return new Serializer();
+        return RegisteredRecipeSerializers.KLIN_ITEM_TO_FLUID.get();
     }
 
     @Override
@@ -131,15 +134,16 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
                 JsonObject inputIfSingle = JSONUtils.getJsonObject(json, "inputIfSingle");
                 Item item = JSONUtils.getItem(inputIfSingle, "item");
                 int count = JSONUtils.getInt(inputIfSingle, "count");
-                return new KlinItemToFluidRecipe(result, new ItemStack(item, count), meltTime);
+                return new KlinItemToFluidRecipe(result, new ItemStack(item, count), meltTime, recipeId);
             } else {
-                JsonObject input1 = JSONUtils.getJsonObject(json, "input1");
+                JsonObject input = JSONUtils.getJsonObject(json, "input");
+                JsonObject input1 = JSONUtils.getJsonObject(input, "input1");
                 Item item1 = JSONUtils.getItem(input1, "item");
                 int count1 = JSONUtils.getInt(input1, "count");
-                JsonObject input2 = JSONUtils.getJsonObject(json, "input2");
+                JsonObject input2 = JSONUtils.getJsonObject(input, "input2");
                 Item item2 = JSONUtils.getItem(input2, "item");
                 int count2 = JSONUtils.getInt(input2, "count");
-                return new KlinItemToFluidRecipe(result, new ItemStack(item2, count2), meltTime);
+                return new KlinItemToFluidRecipe(result, new ItemStack(item2, count2), meltTime, recipeId);
             }
         }
 
@@ -153,9 +157,9 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
             ItemStack input2 = buffer.readItemStack();
             FluidStack result = FluidStack.readFromPacket(buffer);
             if (isSingle) {
-                return new KlinItemToFluidRecipe(result, input, meltTime);
+                return new KlinItemToFluidRecipe(result, input, meltTime, recipeId);
             } else {
-                return new KlinItemToFluidRecipe(result, input1, input2, meltTime);
+                return new KlinItemToFluidRecipe(result, input1, input2, meltTime, recipeId);
             }
         }
 

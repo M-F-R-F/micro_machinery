@@ -1,13 +1,12 @@
 ﻿{
   "type": "micro_machinery:klin_item_to_fluid",
-
   "isSingle": false,
   "meltTime": 100,
   "output": {
     "fluidName": "micro_machinery:molten_bronze",
     "amount": 576
   },
-  "input1": {
+  "input": {
     "input1": {
       "item": "micro_machinery:ingot_copper",
       "count": 3

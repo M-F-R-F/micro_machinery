@@ -1,4 +1,5 @@
 ﻿{
+    "type":"micro_machinery:klin_fluid_to_item",
     "coolDown": 30,
     "castType": "stick",
     "input": {

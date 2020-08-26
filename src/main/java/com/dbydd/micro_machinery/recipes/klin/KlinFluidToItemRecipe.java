@@ -23,17 +23,18 @@ public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
 
     public static List<KlinFluidToItemRecipe> RECIPES = new ArrayList<>();
 
-    private ItemStack output;
-    private EnumCastType cast;
-    private FluidStack inputfluid;
-    private int cooldown;
+    private final ItemStack output;
+    private final EnumCastType cast;
+    private final FluidStack inputfluid;
+    private final int cooldown;
+    private final ResourceLocation id;
 
-
-    public KlinFluidToItemRecipe(ItemStack output, FluidStack inputfluid, EnumCastType cast, int cooldown) {
+    public KlinFluidToItemRecipe(ItemStack output, FluidStack inputfluid, EnumCastType cast, int cooldown, ResourceLocation id) {
         this.output = output;
         this.inputfluid = inputfluid;
         this.cast = cast;
         this.cooldown = cooldown;
+        this.id = id;
 
         RECIPES.add(this);
     }
@@ -71,17 +72,17 @@ public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public ItemStack getRecipeOutput() {
-        return output;
+        return output.copy();
     }
 
     @Override
     public ResourceLocation getId() {
-        return null;
+        return id;
     }
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return new Serializer();
+        return RegisteredRecipeSerializers.KLIN_FLUID_TO_ITEM.get();
     }
 
     @Override
@@ -97,10 +98,10 @@ public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
             JsonObject input = JSONUtils.getJsonObject(json, "input");
             JsonObject output = JSONUtils.getJsonObject(json, "output");
 
-            FluidStack inputFluidStack = new FluidStack(RecipeHelper.getFluidByName(JSONUtils.getString(input, "amount")), JSONUtils.getInt(input, "fluidName"));
+            FluidStack inputFluidStack = new FluidStack(RecipeHelper.getFluidByName(JSONUtils.getString(input, "fluidName")), JSONUtils.getInt(input, "amount"));
             ItemStack outputItemStack = new ItemStack(JSONUtils.getItem(output, "itemName"), JSONUtils.getInt(output, "count"));
 
-            return new KlinFluidToItemRecipe(outputItemStack, inputFluidStack, castType, coolDown);
+            return new KlinFluidToItemRecipe(outputItemStack, inputFluidStack, castType, coolDown, recipeId);
         }
 
         @Override
@@ -109,7 +110,7 @@ public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
             EnumCastType enumCastType = EnumCastType.fromString(buffer.readString());
             ItemStack outPut = buffer.readItemStack();
             FluidStack inputFluid = buffer.readFluidStack();
-            return new KlinFluidToItemRecipe(outPut, inputFluid, enumCastType, coolDown);
+            return new KlinFluidToItemRecipe(outPut, inputFluid, enumCastType, coolDown, recipeId);
         }
 
         @Override

@@ -21,7 +21,7 @@ public class RegisteredRecipeSerializers {
     }
 
     public static class Type {
-        public static final IRecipeType<KlinItemToFluidRecipe> KLIN_ITEM_TO_FLUID_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + ":klin_item_to_fluid_recipe");
-        public static final IRecipeType<KlinFluidToItemRecipe> KLIN_FLUID_TP_ITEM_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + ":klin_fluid_to_item_recipe");
+        public static final IRecipeType<KlinItemToFluidRecipe> KLIN_ITEM_TO_FLUID_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "klin_item_to_fluid_recipe");
+        public static final IRecipeType<KlinFluidToItemRecipe> KLIN_FLUID_TP_ITEM_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "klin_fluid_to_item_recipe");
     }
 }

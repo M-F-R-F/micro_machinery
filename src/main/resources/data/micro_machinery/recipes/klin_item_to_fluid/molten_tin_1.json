@@ -6,10 +6,9 @@
   "output": {
     "fluidName": "micro_machinery:molten_tin",
     "amount": 144
-  }
+  },
     "inputIfSingle": {
       "item": "micro_machinery:oretin",
       "count": 1
     }
-  }
 }

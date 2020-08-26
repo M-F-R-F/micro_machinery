@@ -1,15 +1,13 @@
 ﻿{
   "type": "micro_machinery:klin_item_to_fluid",
-
   "isSingle": true,
   "meltTime": 120,
   "output": {
     "fluidName": "micro_machinery:molten_copper",
     "amount": 144
-  }
+  },
     "inputIfSingle": {
       "item": "micro_machinery:crushed_copper",
       "count": 1
     }
-  }
 }
