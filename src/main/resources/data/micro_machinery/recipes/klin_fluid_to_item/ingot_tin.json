@@ -3,7 +3,7 @@
     "coolDown": 60,
     "castType": "ingot",
     "input": {
-        "fluidName": "micro_machinery:molten_tin",
+        "fluidName": "micro_machinery:fluids/molten_tin",
         "amount": 160
     },
     "output": {

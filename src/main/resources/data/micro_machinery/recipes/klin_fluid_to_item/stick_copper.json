@@ -3,7 +3,7 @@
     "coolDown": 30,
     "castType": "stick",
     "input": {
-        "fluidName": "micro_machinery:molten_copper",
+        "fluidName": "micro_machinery:fluids/molten_copper",
         "amount": 80
     },
     "output": {
