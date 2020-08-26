@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
-    public static List<KlinItemToFluidRecipe> RECIPES = new ArrayList<>();
 
     private final boolean issingle;
     private final int melttime;
@@ -40,6 +39,7 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
         this.outputfluidstack = outputfluidstack;
         this.melttime = melttime;
         this.issingle = false;
+
     }
 
     public KlinItemToFluidRecipe(FluidStack outputfluidstack, ItemStack input, int melttime, ResourceLocation id) {
@@ -50,6 +50,7 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
         this.outputfluidstack = outputfluidstack;
         this.melttime = melttime;
         this.issingle = true;
+
     }
 
     public ItemStack getInput1() {

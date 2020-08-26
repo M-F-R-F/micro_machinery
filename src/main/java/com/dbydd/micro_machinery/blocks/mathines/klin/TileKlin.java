@@ -118,7 +118,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     }
 
     private KlinItemToFluidRecipe tryToGetRecipe() {
-        return RecipeHelper.GetKlinItemToFluidRecipe(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1));
+        return RecipeHelper.GetKlinItemToFluidRecipe(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), world.getRecipeManager());
     }
 
     private void tryToExtractFuel(ItemStackHandler handler, int index) {
@@ -204,7 +204,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
 
             if (recipe == null) {
                 if (fluidHandler.getFluidAmount() != 0 && itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
-                    recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidHandler.getFluid(), itemhandler.getStackInSlot(4));
+                    recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidHandler.getFluid(), itemhandler.getStackInSlot(4), world.getRecipeManager());
                     if (recipe != null) {
                         pouringCoolDown = recipe.getCooldown();
                     }

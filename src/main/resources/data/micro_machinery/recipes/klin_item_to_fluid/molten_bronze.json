@@ -3,7 +3,7 @@
   "isSingle": false,
   "meltTime": 100,
   "output": {
-    "fluidName": "micro_machinery:molten_bronze",
+    "fluidName": "micro_machinery:fluids/molten_bronze",
     "amount": 576
   },
   "input": {

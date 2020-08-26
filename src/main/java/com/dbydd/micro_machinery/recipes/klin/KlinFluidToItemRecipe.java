@@ -21,8 +21,6 @@ import java.util.List;
 
 public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
 
-    public static List<KlinFluidToItemRecipe> RECIPES = new ArrayList<>();
-
     private final ItemStack output;
     private final EnumCastType cast;
     private final FluidStack inputfluid;
@@ -36,7 +34,6 @@ public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
         this.cooldown = cooldown;
         this.id = id;
 
-        RECIPES.add(this);
     }
 
     public ItemStack getOutput() {

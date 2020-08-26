@@ -5,21 +5,25 @@ import com.dbydd.micro_machinery.items.MMCastBase;
 import com.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
-import com.dbydd.micro_machinery.registery_lists.recipes.AnvilRecipes;
-import com.dbydd.micro_machinery.registery_lists.recipes.KlinRecipes;
+import com.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class RecipeHelper {
 
-    public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2) {
-        checkIsEmpty();
-        for (KlinItemToFluidRecipe recipe : KlinItemToFluidRecipe.RECIPES) {
+    public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
+//        List<KlinItemToFluidRecipe> collect = manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE).map(iRecipe -> (KlinItemToFluidRecipe) iRecipe).collect(Collectors.toList());
+        List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
+        for (KlinItemToFluidRecipe recipe : collect) {
             if (recipe.isIssingle()) {
                 if ((recipe.getInput().getItem() == stackInSlot1.getItem()) || (stackInSlot1.getItem() == stackInSlot2.getItem())) {
                     if (stackInSlot1.getCount() + stackInSlot2.getCount() >= recipe.getInput().getCount()) {
@@ -35,11 +39,12 @@ public class RecipeHelper {
         return null;
     }
 
-    public static KlinFluidToItemRecipe GetKlinFluidRecipe(FluidStack fluidStack, ItemStack castslot) {
-        checkIsEmpty();
+    public static KlinFluidToItemRecipe GetKlinFluidRecipe(FluidStack fluidStack, ItemStack castslot, RecipeManager manager) {
+//        List<KlinFluidToItemRecipe> collect = manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == RegisteredRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE).map(iRecipe -> (KlinFluidToItemRecipe) iRecipe).collect(Collectors.toList());
+        List<KlinFluidToItemRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE);
         Item cast = castslot.getItem();
         if (cast instanceof MMCastBase) {
-            for (KlinFluidToItemRecipe recipe : KlinFluidToItemRecipe.RECIPES) {
+            for (KlinFluidToItemRecipe recipe : collect) {
                 if (fluidStack.getFluid() == recipe.getInputfluid().getFluid() && recipe.getInputfluid().getAmount() <= fluidStack.getAmount() && recipe.getCast() == ((MMCastBase) cast).type) {
                     return recipe;
                 }
@@ -49,7 +54,6 @@ public class RecipeHelper {
     }
 
     public static AnvilRecipe getForgingAnvilRecipe(ItemStack input) {
-        checkIsEmpty();
         for (AnvilRecipe recipe : AnvilRecipe.RECIPES) {
             if (input.isItemEqual(recipe.getInput())) {
                 return recipe;
@@ -73,17 +77,12 @@ public class RecipeHelper {
         return false;
     }
 
-    private static void checkIsEmpty() {
-        if (KlinItemToFluidRecipe.RECIPES.isEmpty() || KlinFluidToItemRecipe.RECIPES.isEmpty()) {
-            KlinRecipes.init();
-        }
-        if (AnvilRecipe.RECIPES.isEmpty()) {
-            AnvilRecipes.init();
-        }
-    }
-
     public static Fluid getFluidByName(String name) {
         return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(name));
+    }
+
+    public static <cast> List<cast> getRecipeListByType(RecipeManager manager, IRecipeType<?> type){
+        return manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).map(iRecipe -> (cast) iRecipe).collect(Collectors.toList());
     }
 
 }
