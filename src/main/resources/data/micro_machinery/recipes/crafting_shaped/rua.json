@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "www",
+      "wbw",
+      "www"
+    ],
+    "key": {
+      "w": {
+        "tag": "minecraft:planks"
+      },
+      "b": {
+        "item": "micro_machinery:molten_copper_bucket"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:ingot_copper"
+    }
+  }

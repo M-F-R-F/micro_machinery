@@ -8,13 +8,13 @@
   },
   "input": {
     "input1": {
-      "isTag": "true",
-      "tag": "forge:items/ingots/copper",
+      "isTag": true,
+      "tag": "forge:ingots/copper",
       "count": 3
     },
     "input2": {
-      "isTag": "true",
-      "tag": "forge:items/ingots/tin",
+      "isTag": true,
+      "tag": "forge:ingots/tin",
       "count": 1
     }
   }

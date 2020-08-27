@@ -7,6 +7,7 @@
     "amount": 160
   },
     "inputIfSingle": {
+      "isTag": false,
       "item": "micro_machinery:ore_copper_concentrate",
       "count": 1
     }

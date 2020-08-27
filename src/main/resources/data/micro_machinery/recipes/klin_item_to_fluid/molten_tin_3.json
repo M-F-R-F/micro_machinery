@@ -1,6 +1,5 @@
 ﻿{
   "type": "micro_machinery:klin_item_to_fluid",
-
   "isSingle": true,
   "meltTime": 60,
   "output": {
@@ -8,6 +7,7 @@
     "amount": 160
   },
     "inputIfSingle": {
+      "isTag": false,
       "item": "micro_machinery:ore_tin_concentrate",
       "count": 1
     }

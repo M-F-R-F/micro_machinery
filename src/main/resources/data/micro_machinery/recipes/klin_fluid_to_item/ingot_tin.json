@@ -7,6 +7,7 @@
         "amount": 160
     },
     "output": {
+        "isTag": false,
         "itemName": "micro_machinery:ingot_tin",
         "count": 1
     }

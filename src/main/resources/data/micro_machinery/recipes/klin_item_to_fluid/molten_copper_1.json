@@ -7,7 +7,8 @@
     "amount": 144
   },
     "inputIfSingle": {
-      "item": "micro_machinery:orecopper",
+      "isTag": true,
+      "tag": "forge:ores/copper",
       "count": 1
     }
 }
