@@ -3,7 +3,7 @@
     "coolDown": 30,
     "castType": "stick",
     "input": {
-        "fluidName": "micro_machinery:molten_bronze",
+        "fluidName": "micro_machinery:fluids/molten_bronze",
         "amount": 80
     },
     "output": {

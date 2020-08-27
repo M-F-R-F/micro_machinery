@@ -3,7 +3,7 @@
     "coolDown": 60,
     "castType": "ingot",
     "input": {
-        "fluidName": "micro_machinery:molten_bronze",
+        "fluidName": "micro_machinery:fluids/molten_bronze",
         "amount": 160
     },
     "output": {

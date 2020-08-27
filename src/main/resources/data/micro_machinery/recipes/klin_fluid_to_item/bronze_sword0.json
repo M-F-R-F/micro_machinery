@@ -3,7 +3,7 @@
     "coolDown": 360,
     "castType": "sword",
     "input": {
-        "fluidName": "micro_machinery:molten_bronze",
+        "fluidName": "micro_machinery:fluids/molten_bronze",
         "amount": 320
     },
     "output": {

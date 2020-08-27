@@ -4,7 +4,7 @@
   "isSingle": true,
   "meltTime": 60,
   "output": {
-    "fluidName": "micro_machinery:molten_tin",
+    "fluidName": "micro_machinery:fluids/molten_tin",
     "amount": 144
   },
     "inputIfSingle": {
