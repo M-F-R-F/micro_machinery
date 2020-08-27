@@ -8,11 +8,13 @@
   },
   "input": {
     "input1": {
-      "item": "micro_machinery:ingot_copper",
+      "isTag": "true",
+      "tag": "forge:items/ingots/copper",
       "count": 3
     },
     "input2": {
-      "item": "micro_machinery:ingot_tin",
+      "isTag": "true",
+      "tag": "forge:items/ingots/tin",
       "count": 1
     }
   }
