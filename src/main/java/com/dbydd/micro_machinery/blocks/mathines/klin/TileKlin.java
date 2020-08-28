@@ -5,18 +5,16 @@ import com.dbydd.micro_machinery.gui.klin.KlinContainer;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
-import com.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
 import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
+import com.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IIntArray;
@@ -51,15 +49,15 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     private int maxBurnTime = 0;
     private int pouringCoolDown = 0;
     private int currentcooldown = 0;
+    private boolean isBurning = false;
+    private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
+
+    public TileKlin() {
+        super(Registered_Tileentitie_Types.KLIN_TYPE.get());
+    }
 
     public boolean isBurning() {
         return isBurning;
-    }
-
-    private boolean isBurning = false;
-    private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
-    public TileKlin() {
-        super(Registered_Tileentitie_Types.KLIN_TYPE.get());
     }
 
     public FluidTank getFluidHandler() {
@@ -135,22 +133,25 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
 
     private void extractMaterial(KlinItemToFluidRecipe recipeinsmelting) {
         if (recipeinsmelting.isIssingle()) {
-            int amount = recipeinsmelting.getInput().getCount();
+            int amount = recipeinsmelting.getCount();
             int extracted1 = itemhandler.extractItem(0, amount, false).getCount();
             amount -= extracted1;
             if (amount > 0) {
                 itemhandler.extractItem(1, amount, false);
             }
         } else {
-            if (itemhandler.getStackInSlot(0).getItem() == recipeinsmelting.getInput1().getItem()) {
-                itemhandler.extractItem(1, recipeinsmelting.getInput2().getCount(), false);
-                itemhandler.extractItem(0, recipeinsmelting.getInput1().getCount(), false);
+
+            if (RecipeHelper.testItemStackWithIngredient(itemhandler.getStackInSlot(0), recipeinsmelting.getInput1(), recipeinsmelting.getCount1())) {
+                itemhandler.extractItem(0, recipeinsmelting.getCount1(), false);
+                itemhandler.extractItem(1, recipeinsmelting.getCount2(), false);
             } else {
-                itemhandler.extractItem(1, recipeinsmelting.getInput1().getCount(), false);
-                itemhandler.extractItem(0, recipeinsmelting.getInput2().getCount(), false);
+                itemhandler.extractItem(0, recipeinsmelting.getCount2(), false);
+                itemhandler.extractItem(1, recipeinsmelting.getCount1(), false);
             }
+
         }
     }
+
 
     private void insertResult(int slot, ItemStack output) {
         itemhandler.setStackInSlot(slot, new ItemStack(output.getItem(), itemhandler.getStackInSlot(slot).getCount() + output.getCount()));
@@ -210,7 +211,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                     }
                     markDirty2();
                 }
-            } else if (currentcooldown < pouringCoolDown) {
+            } else if (currentcooldown < pouringCoolDown && this.isBurning()) {
                 currentcooldown++;
                 markDirty2();
             } else {
@@ -326,9 +327,6 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     public ItemStackHandler getItemHandler() {
         return itemhandler;
     }
-
-
-
 
     public static class KlinProgressBarNumArray implements IIntArray {
         private int[] iArray = {0, 0, 0, 0};

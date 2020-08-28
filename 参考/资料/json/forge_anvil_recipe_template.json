@@ -1,0 +1,11 @@
+﻿{
+  "type": "micro_machinery:forge_anvil_recipe",
+  "tier": "value",
+  "input": {
+    "item": "value"
+  },
+  "output": {
+    "count": "value",
+    "item": "value"
+  }
+}

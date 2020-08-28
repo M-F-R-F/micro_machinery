@@ -80,8 +80,8 @@ public class TileAnvil extends MMTileBase {
                         if (forgeTime.atMaxValue()) {
                             ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
                             if (!stackInSlot.isEmpty()) {
-                                AnvilRecipe recipe = RecipeHelper.getForgingAnvilRecipe(stackInSlot);
-                                if (recipe != null && recipe.getRankNeed().getRank() <= this.rank.getRank()) {
+                                AnvilRecipe recipe = RecipeHelper.getForgingAnvilRecipe(stackInSlot, worldIn.getRecipeManager());
+                                if (recipe != null && recipe.getRankNeed() <= this.rank.getRank()) {
                                     itemStackHandler.setStackInSlot(0, recipe.getOutput());
                                     forgeTime.resetValue();
                                     markDirty2();

@@ -6,10 +6,12 @@ import com.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import com.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
+import com.dbydd.micro_machinery.registery_lists.recipes.AnvilRecipes;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -21,33 +23,23 @@ import java.util.stream.Collectors;
 public class RecipeHelper {
 
     public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
-        List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
-        for (KlinItemToFluidRecipe recipe : collect) {
-            if (recipe.isIssingle()) {
-                if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
-                    if (recipe.isInputTag()) {
-                        if ((stackInSlot1.isEmpty() || stackInSlot1.getItem().getTags().contains(recipe.getTag())) && (stackInSlot2.isEmpty() || stackInSlot2.getItem().getTags().contains(recipe.getTag()))) {
-                            if (stackInSlot1.getCount() + stackInSlot2.getCount() >= recipe.getInput().getCount()) {
-                                return recipe;
+        if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
+            boolean itemEqual = stackInSlot1.isItemEqual(stackInSlot2);
+            List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
+                for (KlinItemToFluidRecipe klinItemToFluidRecipe : collect) {
+                    if (klinItemToFluidRecipe.isIssingle() == itemEqual) {
+                        boolean issingle = klinItemToFluidRecipe.isIssingle();
+                        if (issingle) {
+                            if (testItemStackWithIngredient(new ItemStack(stackInSlot1.isEmpty() ? stackInSlot2.getItem() : stackInSlot1.getItem(), Math.min(stackInSlot1.getCount() + stackInSlot2.getCount(), 64)), klinItemToFluidRecipe.getInput(), klinItemToFluidRecipe.getCount())) {
+                                return klinItemToFluidRecipe;
                             }
-                        }
-                    } else {
-                        if ((recipe.getInput().getItem() == stackInSlot1.getItem()) || (stackInSlot1.getItem() == stackInSlot2.getItem())) {
-                            if (stackInSlot1.getCount() + stackInSlot2.getCount() >= recipe.getInput().getCount()) {
-                                return recipe;
+                        } else {
+                            if ((testItemStackWithIngredient(stackInSlot1, klinItemToFluidRecipe.getInput1(), klinItemToFluidRecipe.getCount1()) || testItemStackWithIngredient(stackInSlot2, klinItemToFluidRecipe.getInput1(), klinItemToFluidRecipe.getCount1())) && (testItemStackWithIngredient(stackInSlot1, klinItemToFluidRecipe.getInput2(), klinItemToFluidRecipe.getCount2()) || testItemStackWithIngredient(stackInSlot2, klinItemToFluidRecipe.getInput2(), klinItemToFluidRecipe.getCount2()))) {
+                                return klinItemToFluidRecipe;
                             }
                         }
                     }
                 }
-            } else if (!(stackInSlot1.isEmpty() || stackInSlot2.isEmpty())) {
-                if (((recipe.isInput1Tag() ? stackInSlot1.getItem().getTags().contains(recipe.getTag1()) : (stackInSlot1.getItem() == recipe.getInput1().getItem())) && (recipe.isInput2Tag() ? stackInSlot2.getItem().getTags().contains(recipe.getTag2()) : (stackInSlot2.getItem() == recipe.getInput2().getItem()))) || ((recipe.isInput1Tag() ? stackInSlot2.getItem().getTags().contains(recipe.getTag1()) : (stackInSlot2.getItem() == recipe.getInput1().getItem())) && (recipe.isInput2Tag() ? stackInSlot1.getItem().getTags().contains(recipe.getTag2()) : (stackInSlot1.getItem() == recipe.getInput2().getItem()))))
-
-//                        if ((stackInSlot1.getItem() == recipe.getInput1().getItem()) && (stackInSlot2.getItem() == recipe.getInput2().getItem()) || ((stackInSlot2.getItem() == recipe.getInput1().getItem()) && (stackInSlot1.getItem() == recipe.getInput2().getItem()))) {
-                    if ((stackInSlot1.getCount() >= recipe.getInput1().getCount()) && (stackInSlot2.getCount() >= recipe.getInput2().getCount()) || ((stackInSlot2.getCount() >= recipe.getInput1().getCount()) && (stackInSlot1.getCount() >= recipe.getInput2().getCount()))) {
-                        return recipe;
-                    }
-//                        }
-            }
         }
         return null;
     }
@@ -65,9 +57,10 @@ public class RecipeHelper {
         return null;
     }
 
-    public static AnvilRecipe getForgingAnvilRecipe(ItemStack input) {
-        for (AnvilRecipe recipe : AnvilRecipe.RECIPES) {
-            if (input.isItemEqual(recipe.getInput())) {
+    public static AnvilRecipe getForgingAnvilRecipe(ItemStack input, RecipeManager manager) {
+        List<AnvilRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE);
+        for (AnvilRecipe recipe : recipeListByType) {
+            if (recipe.getInput().test(input)) {
                 return recipe;
             }
         }
@@ -95,6 +88,10 @@ public class RecipeHelper {
 
     public static <cast> List<cast> getRecipeListByType(RecipeManager manager, IRecipeType<?> type) {
         return manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).map(iRecipe -> (cast) iRecipe).collect(Collectors.toList());
+    }
+
+    public static boolean testItemStackWithIngredient(ItemStack stack, Ingredient ingredient, int count) {
+        return ingredient.test(stack) && stack.getCount() > count;
     }
 
 }
