@@ -1,12 +1,10 @@
 package com.dbydd.micro_machinery.gui.klin;
 
-import com.dbydd.micro_machinery.blocks.mathines.klin.TileKlin;
+import com.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import com.dbydd.micro_machinery.gui.ContainerBase;
 import com.dbydd.micro_machinery.registery_lists.Registered_ContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.IContainerListener;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.BlockPos;

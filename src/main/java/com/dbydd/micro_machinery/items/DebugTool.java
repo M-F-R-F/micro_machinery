@@ -1,16 +1,12 @@
 package com.dbydd.micro_machinery.items;
 
-import com.dbydd.micro_machinery.blocks.mathines.klin.TileKlin;
+import com.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import com.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;

@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.mathines.forge_anvil;
+package com.dbydd.micro_machinery.blocks.machines.forge_anvil;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMTileBase;
+import com.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import com.dbydd.micro_machinery.enums.EnumAnvilType;
 import com.dbydd.micro_machinery.items.MMHammerBase;
 import com.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
@@ -15,7 +15,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;

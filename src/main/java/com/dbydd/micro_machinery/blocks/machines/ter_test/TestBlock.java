@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.mathines.ter_test;
+package com.dbydd.micro_machinery.blocks.machines.ter_test;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMBlockTileProviderBase;
+import com.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;

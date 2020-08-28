@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.mathines.generator;
+package com.dbydd.micro_machinery.blocks.machines.generator;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMTileBase;
+import com.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import com.dbydd.micro_machinery.gui.generator.GeneratorContainer;
 import com.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
 import com.dbydd.micro_machinery.utils.FEContainer;

@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.gui.generator;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.blocks.mathines.generator.TileGenerator;
+import com.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import com.dbydd.micro_machinery.gui.ScreenBase;
 import com.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerInventory;

@@ -1,11 +1,9 @@
-package com.dbydd.micro_machinery.blocks.mathines;
+package com.dbydd.micro_machinery.blocks.machines;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
-import com.dbydd.micro_machinery.registery_lists.RenderTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;

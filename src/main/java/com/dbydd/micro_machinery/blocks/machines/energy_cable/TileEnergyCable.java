@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.mathines.energy_cable;
+package com.dbydd.micro_machinery.blocks.machines.energy_cable;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMTileBase;
+import com.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import net.minecraft.tileentity.TileEntityType;
 
 public class TileEnergyCable extends MMTileBase {

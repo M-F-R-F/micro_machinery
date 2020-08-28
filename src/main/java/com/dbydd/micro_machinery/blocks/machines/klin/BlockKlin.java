@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.mathines.klin;
+package com.dbydd.micro_machinery.blocks.machines.klin;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMBlockTileProviderBase;
+import com.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,7 +12,6 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;

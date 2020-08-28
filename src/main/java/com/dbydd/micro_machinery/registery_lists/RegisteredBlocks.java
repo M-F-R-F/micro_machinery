@@ -1,19 +1,16 @@
 package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
-import com.dbydd.micro_machinery.blocks.mathines.forge_anvil.BlockAnvil;
-import com.dbydd.micro_machinery.blocks.mathines.generator.BlockGenerator;
-import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator;
-import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator_Handler;
-import com.dbydd.micro_machinery.blocks.mathines.klin.BlockKlin;
-import com.dbydd.micro_machinery.blocks.mathines.ter_test.TestBlock;
+import com.dbydd.micro_machinery.blocks.machines.forge_anvil.BlockAnvil;
+import com.dbydd.micro_machinery.blocks.machines.generator.BlockGenerator;
+import com.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator;
+import com.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator_Handler;
+import com.dbydd.micro_machinery.blocks.machines.klin.BlockKlin;
+import com.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import com.dbydd.micro_machinery.enums.EnumAnvilType;
-import net.minecraft.block.AnvilBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.common.ToolType;
-import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil;
 
 public class RegisteredBlocks {
 

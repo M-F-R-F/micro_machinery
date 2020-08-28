@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.blocks.mathines;
+package com.dbydd.micro_machinery.blocks.machines;
 
 import com.dbydd.micro_machinery.utils.FEContainer;
 import net.minecraft.block.BlockState;

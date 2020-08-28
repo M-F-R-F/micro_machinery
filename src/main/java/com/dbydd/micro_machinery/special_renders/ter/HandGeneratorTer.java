@@ -1,17 +1,13 @@
 package com.dbydd.micro_machinery.special_renders.ter;
 
-import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator;
-import com.dbydd.micro_machinery.blocks.mathines.hand_generator.BlockHandGenerator_Handler;
-import com.dbydd.micro_machinery.blocks.mathines.hand_generator.TileHandGenerator;
+import com.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator;
+import com.dbydd.micro_machinery.blocks.machines.hand_generator.TileHandGenerator;
 import com.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
 import com.dbydd.micro_machinery.utils.IntegerContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.HorizontalBlock;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.client.model.data.EmptyModelData;
 
 public class HandGeneratorTer extends MMTERBase<TileHandGenerator> {

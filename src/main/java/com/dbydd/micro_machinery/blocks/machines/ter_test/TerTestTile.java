@@ -1,4 +1,4 @@
-package com.dbydd.micro_machinery.blocks.mathines.ter_test;
+package com.dbydd.micro_machinery.blocks.machines.ter_test;
 
 import com.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
 import net.minecraft.tileentity.TileEntity;

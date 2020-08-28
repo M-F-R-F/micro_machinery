@@ -1,9 +1,8 @@
 package com.dbydd.micro_machinery.gui.klin;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.blocks.mathines.klin.TileKlin;
+import com.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import com.dbydd.micro_machinery.gui.ScreenBase;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.ResourceLocation;

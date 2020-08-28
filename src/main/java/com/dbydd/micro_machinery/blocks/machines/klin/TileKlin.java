@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.mathines.klin;
+package com.dbydd.micro_machinery.blocks.machines.klin;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMTileBase;
+import com.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import com.dbydd.micro_machinery.gui.klin.KlinContainer;
 import com.dbydd.micro_machinery.recipes.RecipeHelper;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;

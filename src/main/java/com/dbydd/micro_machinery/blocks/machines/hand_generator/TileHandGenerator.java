@@ -1,13 +1,11 @@
-package com.dbydd.micro_machinery.blocks.mathines.hand_generator;
+package com.dbydd.micro_machinery.blocks.machines.hand_generator;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMTileBase;
+import com.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import com.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
 import com.dbydd.micro_machinery.utils.FEContainer;
 import com.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;

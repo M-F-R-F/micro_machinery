@@ -1,7 +1,7 @@
 package com.dbydd.micro_machinery.special_renders.ter;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMBlockTileProviderBase;
-import com.dbydd.micro_machinery.blocks.mathines.forge_anvil.TileAnvil;
+import com.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import com.dbydd.micro_machinery.blocks.machines.forge_anvil.TileAnvil;
 import com.dbydd.micro_machinery.utils.IntegerContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
@@ -13,9 +13,7 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class AnvilTer extends MMTERBase<TileAnvil> {
 

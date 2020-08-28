@@ -1,6 +1,6 @@
 package com.dbydd.micro_machinery.gui.generator;
 
-import com.dbydd.micro_machinery.blocks.mathines.generator.TileGenerator;
+import com.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import com.dbydd.micro_machinery.gui.ContainerBase;
 import com.dbydd.micro_machinery.registery_lists.Registered_ContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,11 +1,11 @@
 package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.blocks.mathines.forge_anvil.TileAnvil;
-import com.dbydd.micro_machinery.blocks.mathines.generator.TileGenerator;
-import com.dbydd.micro_machinery.blocks.mathines.hand_generator.TileHandGenerator;
-import com.dbydd.micro_machinery.blocks.mathines.klin.TileKlin;
-import com.dbydd.micro_machinery.blocks.mathines.ter_test.TerTestTile;
+import com.dbydd.micro_machinery.blocks.machines.forge_anvil.TileAnvil;
+import com.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
+import com.dbydd.micro_machinery.blocks.machines.hand_generator.TileHandGenerator;
+import com.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
+import com.dbydd.micro_machinery.blocks.machines.ter_test.TerTestTile;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

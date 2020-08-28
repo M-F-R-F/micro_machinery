@@ -1,12 +1,9 @@
-package com.dbydd.micro_machinery.blocks.mathines.hand_generator;
+package com.dbydd.micro_machinery.blocks.machines.hand_generator;
 
 import com.dbydd.micro_machinery.blocks.MMBlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
 
 public class BlockHandGenerator_Handler extends MMBlockBase {
     public BlockHandGenerator_Handler() {

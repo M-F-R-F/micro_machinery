@@ -1,13 +1,11 @@
 package com.dbydd.micro_machinery.registery_lists;
 
 import com.dbydd.micro_machinery.Micro_Machinery;
-import com.dbydd.micro_machinery.blocks.mathines.generator.TileGenerator;
-import com.dbydd.micro_machinery.blocks.mathines.klin.TileKlin;
-import com.dbydd.micro_machinery.gui.ContainerBase;
+import com.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
+import com.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import com.dbydd.micro_machinery.gui.generator.GeneratorContainer;
 import com.dbydd.micro_machinery.gui.klin.KlinContainer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;

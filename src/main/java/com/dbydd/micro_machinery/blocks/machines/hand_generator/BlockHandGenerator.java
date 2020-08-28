@@ -1,6 +1,6 @@
-package com.dbydd.micro_machinery.blocks.mathines.hand_generator;
+package com.dbydd.micro_machinery.blocks.machines.hand_generator;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMBlockTileProviderBase;
+import com.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;

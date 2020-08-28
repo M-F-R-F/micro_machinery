@@ -1,11 +1,10 @@
-package com.dbydd.micro_machinery.blocks.mathines.forge_anvil;
+package com.dbydd.micro_machinery.blocks.machines.forge_anvil;
 
-import com.dbydd.micro_machinery.blocks.mathines.MMBlockTileProviderBase;
+import com.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import com.dbydd.micro_machinery.enums.EnumAnvilType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
