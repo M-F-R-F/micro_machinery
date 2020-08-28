@@ -1,0 +1,11 @@
+{
+    "type": "micro_machinery:forge_anvil_recipe",
+    "tier": 0,
+    "input": {
+      "tag": "forge:ores/copper"
+    },
+    "output": {
+      "count": 2,
+      "item": "micro_machinery:crushed_copper"
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "micro_machinery:forge_anvil_recipe",
+  "tier": 2,
+  "input": {
+    "tag": "forge:sticks/aluminum"
+  },
+  "output": {
+    "count": 1,
+    "item": "micro_machinery:string_aluminum"
+  }
+}
