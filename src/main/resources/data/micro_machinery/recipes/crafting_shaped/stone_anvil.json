@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "www",
+      " w ",
+      "www"
+    ],
+    "key": {
+      "w": {
+        "item": "minecraft:stone"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:stone_anvil"
+    }
+  }

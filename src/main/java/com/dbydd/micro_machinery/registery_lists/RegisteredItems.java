@@ -6,6 +6,7 @@ import com.dbydd.micro_machinery.enums.EnumToolTier;
 import com.dbydd.micro_machinery.items.*;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemTier;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -20,13 +21,13 @@ public class RegisteredItems {
     public static final Item IRON_HAMMER = new MMHammerBase(6.0f, -3.2f, ItemTier.DIAMOND, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.DIAMOND.getHarvestLevel()), "iron_hammer");
     public static final Item SUPERHAMMER = new MMHammerBase(8.0f, 0.0f, EnumToolTier.HSS, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.PICKAXE, EnumToolTier.HSS.getHarvestLevel()), "superhammer");
     //axe
-    public static final Item BRONZE_AXE = new MMAxeBase(EnumToolTier.BRONZE, 1, -3.1f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, EnumToolTier.BRONZE.getHarvestLevel()), "bronze_axe");
-    public static final Item TUNGSTEN_STEEL_AXE = new MMAxeBase(ItemTier.DIAMOND, 2, -3.1f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, ItemTier.DIAMOND.getHarvestLevel()), "tungsten_steel_axe");
-    public static final Item HSS_AXE = new MMAxeBase(EnumToolTier.HSS, 4, -3.0f, new Item.Properties().group(Micro_Machinery.MMTAB).addToolType(ToolType.AXE, EnumToolTier.HSS.getHarvestLevel()), "hss_axe");
+    public static final Item BRONZE_AXE = new MMAxeBase(EnumToolTier.BRONZE, 1, -3.1f, new Item.Properties().group(ItemGroup.TOOLS).addToolType(ToolType.AXE, EnumToolTier.BRONZE.getHarvestLevel()), "bronze_axe");
+    public static final Item TUNGSTEN_STEEL_AXE = new MMAxeBase(ItemTier.DIAMOND, 2, -3.1f, new Item.Properties().group(ItemGroup.TOOLS).addToolType(ToolType.AXE, ItemTier.DIAMOND.getHarvestLevel()), "tungsten_steel_axe");
+    public static final Item HSS_AXE = new MMAxeBase(EnumToolTier.HSS, 4, -3.0f, new Item.Properties().group(ItemGroup.TOOLS).addToolType(ToolType.AXE, EnumToolTier.HSS.getHarvestLevel()), "hss_axe");
     //sword
-    public static final Item BRONZE_SWORD = new MMSwordBase(EnumToolTier.BRONZE, 2, -2.4f, new Item.Properties().group(Micro_Machinery.MMTAB), "bronze_sword");
-    public static final Item TUNGSTEN_STEEL_SWORD = new MMSwordBase(ItemTier.DIAMOND, 4, -2.6f, new Item.Properties().group(Micro_Machinery.MMTAB), "tungsten_steel_sword");
-    public static final Item HSS_SWORD = new MMSwordBase(EnumToolTier.HSS, 7, -2.2f, new Item.Properties().group(Micro_Machinery.MMTAB), "hss_sword");
+    public static final Item BRONZE_SWORD = new MMSwordBase(EnumToolTier.BRONZE, 2, -2.4f, new Item.Properties().group(ItemGroup.COMBAT), "bronze_sword");
+    public static final Item TUNGSTEN_STEEL_SWORD = new MMSwordBase(ItemTier.DIAMOND, 4, -2.6f, new Item.Properties().group(ItemGroup.COMBAT), "tungsten_steel_sword");
+    public static final Item HSS_SWORD = new MMSwordBase(EnumToolTier.HSS, 7, -2.2f, new Item.Properties().group(ItemGroup.COMBAT), "hss_sword");
     //food
     public static final Item GOLDEN_APPLE_DROPS = new MMItemBase(new Item.Properties(), "golden_apple_drops", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 200, 1), 1.0F).effect(() -> new EffectInstance(Effects.RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.FIRE_RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 3), 1.0F).hunger(3).setAlwaysEdible().saturation(1).build());
     public static final Item GOLDEN_APPLE_JAM_BUN = new MMItemBase(new Item.Properties(), "golden_apple_jam_bun", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 200, 1), 1.0F).effect(() -> new EffectInstance(Effects.RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.FIRE_RESISTANCE, 3000, 0), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 3), 1.0F).hunger(10).saturation(1).build());
