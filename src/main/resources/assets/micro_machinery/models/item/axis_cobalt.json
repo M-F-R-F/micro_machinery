@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "micro_machinery:items/roll_iron"
+        "layer0": "micro_machinery:items/axis_cobalt"
     }
 }

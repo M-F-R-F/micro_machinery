@@ -149,7 +149,7 @@ public class RegisteredItems {
     public static final Item ROLL_SS = new MMItemBase("roll_ss");
     public static final Item ROLL_TUNGSTEN_STEEL = new MMItemBase("roll_tungsten_steel");
     public static final Item ROLL_HSS = new MMItemBase("roll_hss");
-    public static final Item ROLL_IRON = new MMItemBase("roll_iron");
+    public static final Item ROLL_STEEL = new MMItemBase("roll_steel");
     //slag
     public static final Item SLAG = new MMItemBase("slag");
     public static final Item SLAG_MANGANESE = new MMItemBase("slag_manganese");
@@ -169,6 +169,8 @@ public class RegisteredItems {
     public static final Item AXIS_STEEL = new MMItemBase("axis_steel");
     public static final Item AXIS_TITANIUM = new MMItemBase("axis_titanium");
     public static final Item AXIS_IRON = new MMItemBase("axis_iron");
+    public static final Item AXIS_CHROMIUM = new MMItemBase("axis_chromium");
+    public static final Item AXIS_COBALT = new MMItemBase("axis_cobalt");
     //gear blank
     public static final Item GEAR_BLANK_BRONZE = new MMItemBase("gear_blank_bronze");
     public static final Item GEAR_BLANK_INVAR = new MMItemBase("gear_blank_invar");
