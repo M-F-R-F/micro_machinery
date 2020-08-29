@@ -1,14 +1,14 @@
 {
-  "parent": "micro_machinery:micro_machinery/root",
+  "parent": "micro_machinery:main/ingot_copper",
   "display": {
     "icon": {
-      "item": "micro_machinery:ingot_copper"
+      "item": "micro_machinery:hand_generator"
     },
     "title": {
-      "translate": "advancement.micro_machinery.ingot_copper"
+      "translate": "advancement.micro_machinery.hand_generator"
     },
     "description": {
-      "translate": "advancement.micro_machinery.ingot_copper.desc"
+      "translate": "advancement.micro_machinery.hand_generator.desc"
     },
     "frame": "task",
     "show_toast": true,
@@ -16,12 +16,12 @@
     "hidden": false
   },
   "criteria": {
-    "ingot_copper": {
+    "hand_generator": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "micro_machinery:ingot_copper"
+            "item": "micro_machinery:hand_generator"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "ingot_copper"
+      "hand_generator"
     ]
   ]
 }

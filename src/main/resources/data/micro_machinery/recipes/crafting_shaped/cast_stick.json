@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "b b",
+      " w ",
+      "b b"
+    ],
+    "key": {
+      "b": {
+        "item": "micro_machinery:clay_brick"
+      },
+      "w": {
+        "tag": "forge:rods/wooden"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:cast_stick"
+    }
+  }

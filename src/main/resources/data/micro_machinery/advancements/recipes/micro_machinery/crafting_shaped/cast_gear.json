@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "micro_machinery:crafting_shaped/cast_gear"
+    ]
+  },
+  "criteria": {
+    "has_clay_brick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "micro_machinery:clay_brick"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "micro_machinery:crafting_shaped/cast_gear"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_clay_brick",
+      "has_the_recipe"
+    ]
+  ]
+}

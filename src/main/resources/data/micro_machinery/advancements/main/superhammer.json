@@ -1,27 +1,27 @@
 {
-  "parent": "micro_machinery:micro_machinery/hand_generator",
+  "parent": "micro_machinery:main/pigiron_anvil",
   "display": {
     "icon": {
-      "item": "micro_machinery:generator"
+      "item": "micro_machinery:superhammer"
     },
     "title": {
-      "translate": "advancement.micro_machinery.generator"
+      "translate": "advancement.micro_machinery.superhammer"
     },
     "description": {
-      "translate": "advancement.micro_machinery.generator.desc"
+      "translate": "advancement.micro_machinery.superhammer.desc"
     },
-    "frame": "task",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "generator": {
+    "superhammer": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "micro_machinery:generator"
+            "item": "micro_machinery:superhammer"
           }
         ]
       }
@@ -29,7 +29,7 @@
   },
   "requirements": [
     [
-      "generator"
+      "superhammer"
     ]
   ]
 }

@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "c c",
+      "cbc",
+      "www"
+    ],
+    "key": {
+      "w": {
+        "item": "micro_machinery:fire_brick_block"
+      },
+      "b": {
+        "item": "minecraft:cauldron"
+      },
+      "c": {
+        "item": "micro_machinery:fire_brick"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:graphite_crucible"
+    }
+  }

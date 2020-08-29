@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "ccc",
+      " b ",
+      "b b"
+    ],
+    "key": {
+      "b": {
+        "tag": "forge:sticks/steel"
+      },
+      "c": {
+        "tag": "forge:plates/steel"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:steel_scaffolding"
+    }
+  }

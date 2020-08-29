@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "wb",
+      "bw"
+    ],
+    "key": {
+      "w": {
+        "item": "minecraft:clay_ball"
+      },
+      "b": {
+        "item": "micro_machinery:brick_powder"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:clay_mixed_with_clinker",
+      "count": 2
+    }
+  }

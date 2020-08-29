@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cwc",
+    "vbv",
+    "cwc"
+  ],
+  "key": {
+    "w": {
+      "tag": "forge:wires/cobalt"
+    },
+    "b": {
+      "tag": "forge:sticks/highspeedsteel"
+    },
+    "c": {
+      "tag": "forge:plates/tungstensteel"
+    },
+    "v": {
+      "tag": "forge:wires/nicochrome"
+    }
+  },
+  "result": {
+    "item": "micro_machinery:motor_5"
+  }
+}

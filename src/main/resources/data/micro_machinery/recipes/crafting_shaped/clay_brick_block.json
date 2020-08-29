@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "wbw",
+      "bwb",
+      "wbw"
+    ],
+    "key": {
+      "w": {
+        "item": "micro_machinery:clay_brick"
+      },
+      "b": {
+        "item": "minecraft:clay_ball"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:clay_brick_block",
+      "count": 2
+    }
+  }

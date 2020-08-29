@@ -34,6 +34,8 @@ public class RegisteredItems {
     public static final Item APPLE_DROPS = new MMItemBase(new Item.Properties(), "apple_drops", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 50, 1), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 0), 1.0F).hunger(2).setAlwaysEdible().saturation(1).build());
     public static final Item APPLE_JAM_BUN = new MMItemBase(new Item.Properties(), "apple_jam_bun", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 50, 1), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 0), 1.0F).hunger(8).saturation(1).build());
 
+    //prospector
+    public static final Item PROSPECTOR = new MMItemBase("prospector");
     //drill
     public static final Item LASER_DRILL = new MMItemBase("laser_drill");
     //ingot
