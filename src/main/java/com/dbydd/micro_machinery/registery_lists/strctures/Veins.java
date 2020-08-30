@@ -33,15 +33,15 @@ public class Veins {
     public static final Map<Double, Block> EndOreTunstite = new HashMap<>();
 
     public static final VeinGenerations copper = new VeinGenerations(new VeinFeatureConfig(0.01, 0.2, 8, 3, 3, 3, 3, 62, OreCopper, Predicates.STONE));
-    public static final VeinGenerations tin = new VeinGenerations(new VeinFeatureConfig(0.006, 0.2, 7, 2, 5, 3, 32, 80, OreTin, Predicates.STONE));
-    public static final VeinGenerations iron = new VeinGenerations(new VeinFeatureConfig(0.0045, 0.2, 8, 4, 3, 3, 3, 80, OreIron, Predicates.STONE));
-    public static final VeinGenerations gold = new VeinGenerations(new VeinFeatureConfig(0.0035, 0.2, 6, 3, 3, 3, 3, 32, OreGold, Predicates.STONE));
-    public static final VeinGenerations coal = new VeinGenerations(new VeinFeatureConfig(0.01, 0.2, 9, 5, 3, 3, 3, 120, OreCoal, Predicates.STONE));
-    public static final VeinGenerations ilmenite = new VeinGenerations(new VeinFeatureConfig(0.004, 0.2, 6, 3, 3, 3, 3, 32, OreIlmenite, Predicates.STONE));
+    public static final VeinGenerations tin = new VeinGenerations(new VeinFeatureConfig(0.008, 0.2, 7, 2, 5, 3, 32, 80, OreTin, Predicates.STONE));
+    public static final VeinGenerations iron = new VeinGenerations(new VeinFeatureConfig(0.0075, 0.2, 8, 4, 3, 3, 3, 80, OreIron, Predicates.STONE));
+    public static final VeinGenerations gold = new VeinGenerations(new VeinFeatureConfig(0.004, 0.2, 6, 3, 3, 3, 3, 32, OreGold, Predicates.STONE));
+    public static final VeinGenerations coal = new VeinGenerations(new VeinFeatureConfig(0.012, 0.2, 10, 5, 3, 3, 3, 120, OreCoal, Predicates.STONE));
+    public static final VeinGenerations ilmenite = new VeinGenerations(new VeinFeatureConfig(0.006, 0.2, 6, 3, 3, 3, 3, 32, OreIlmenite, Predicates.STONE));
     public static final VeinGenerations silver = new VeinGenerations(new VeinFeatureConfig(0.005, 0.2, 6, 3, 3, 3, 3, 48, OreSilver, Predicates.STONE));
-    public static final VeinGenerations pyrolusite = new VeinGenerations(new VeinFeatureConfig(0.004, 0.2, 6, 2, 4, 3, 3, 80, OrePyrolusite, Predicates.STONE));
+    public static final VeinGenerations pyrolusite = new VeinGenerations(new VeinFeatureConfig(0.004, 0.2, 6, 2, 4, 3, 16, 80, OrePyrolusite, Predicates.STONE));
     public static final VeinGenerations chromite = new VeinGenerations(new VeinFeatureConfig(0.005, 0.2, 7, 3, 3, 3, 3, 62, OreChromite, Predicates.STONE));
-    public static final VeinGenerations bauxite = new VeinGenerations(new VeinFeatureConfig(0.007, 0.2, 6, 1, 4, 3, 48, 80, OreBauxite, Predicates.STONE));
+    public static final VeinGenerations bauxite = new VeinGenerations(new VeinFeatureConfig(0.007, 0.2, 6, 1, 4, 3, 32, 80, OreBauxite, Predicates.STONE));
     public static final VeinGenerations nickel = new VeinGenerations(new VeinFeatureConfig(0.0055, 0.2, 8, 3, 3, 3, 3, 62, OreNickel, Predicates.STONE));
     public static final VeinGenerations nolanite = new VeinGenerations(new VeinFeatureConfig(0.005, 0.2, 6, 3, 3, 3, 3, 48, OreNolanite, Predicates.STONE));
     public static final VeinGenerations ferromanganese = new VeinGenerations(new VeinFeatureConfig(0.0005, 0.2, 6, 3, 3, 3, 3, 48, OreFerroManganese, Predicates.STONE));
@@ -52,7 +52,7 @@ public class Veins {
     public static final VeinGenerations netherferromanganese = new VeinGenerations(new VeinFeatureConfig(0.05, 0.2, 6, 3, 3, 3, 3, 120, NetherOreFerroManganese, Predicates.NETHER));
     public static final VeinGenerations nethernolanite = new VeinGenerations(new VeinFeatureConfig(0.05, 0.2, 6, 3, 3, 3, 3, 120, NetherOreNolanite, Predicates.NETHER));
 
-    public static final VeinGenerations tunstite = new VeinGenerations(new VeinFeatureConfig(0.075d, 0.04d, 8, 5, 3, 3, 3, 62, EndOreTunstite, Predicates.END));
+    public static final VeinGenerations tunstite = new VeinGenerations(new VeinFeatureConfig(0.075, 0.04, 8, 5, 3, 3, 3, 62, EndOreTunstite, Predicates.END));
 
     static{
         OreCopper.put(0.8d, RegisteredBlocks.ORECOPPER);
