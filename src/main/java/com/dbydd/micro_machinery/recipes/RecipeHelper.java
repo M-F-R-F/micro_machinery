@@ -6,7 +6,6 @@ import com.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import com.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import com.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
-import com.dbydd.micro_machinery.registery_lists.recipes.AnvilRecipes;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

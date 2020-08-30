@@ -1,0 +1,11 @@
+{
+  "type": "micro_machinery:forge_anvil_recipe",
+  "tier": 2,
+  "input": {
+    "tag": "forge:ores/tungsten"
+  },
+  "output": {
+    "count": 2,
+    "item": "micro_machinery:crushed_tunstite"
+  }
+}

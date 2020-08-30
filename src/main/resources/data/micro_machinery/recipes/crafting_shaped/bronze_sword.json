@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "w ",
+      " b"
+    ],
+    "key": {
+      "w": {
+        "item": "micro_machinery:bronze_sword0"
+      },
+      "b": {
+        "tag": "forge:rods/wooden"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:bronze_sword"
+    }
+  }

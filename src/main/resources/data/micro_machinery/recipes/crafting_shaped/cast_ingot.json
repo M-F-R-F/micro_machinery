@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "b b",
+      "   ",
+      "b b"
+    ],
+    "key": {
+      "b": {
+        "item": "micro_machinery:clay_brick"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:cast_ingot"
+    }
+  }

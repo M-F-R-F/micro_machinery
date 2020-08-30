@@ -1,0 +1,35 @@
+{
+  "parent": "micro_machinery:main/root",
+  "display": {
+    "icon": {
+      "item": "micro_machinery:ingot_copper"
+    },
+    "title": {
+      "translate": "advancement.micro_machinery.ingot_copper"
+    },
+    "description": {
+      "translate": "advancement.micro_machinery.ingot_copper.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ingot_copper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "micro_machinery:ingot_copper"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ingot_copper"
+    ]
+  ]
+}

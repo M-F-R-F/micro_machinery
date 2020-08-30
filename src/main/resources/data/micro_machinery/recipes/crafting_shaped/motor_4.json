@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cwc",
+    "vbv",
+    "cwc"
+  ],
+  "key": {
+    "w": {
+      "tag": "forge:wires/tungsten"
+    },
+    "b": {
+      "tag": "forge:sticks/titanium"
+    },
+    "c": {
+      "tag": "forge:plates/chromium"
+    },
+    "v": {
+      "tag": "forge:wires/gold"
+    }
+  },
+  "result": {
+    "item": "micro_machinery:motor_4"
+  }
+}

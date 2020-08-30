@@ -34,6 +34,8 @@ public class RegisteredItems {
     public static final Item APPLE_DROPS = new MMItemBase(new Item.Properties(), "apple_drops", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 50, 1), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 0), 1.0F).hunger(2).setAlwaysEdible().saturation(1).build());
     public static final Item APPLE_JAM_BUN = new MMItemBase(new Item.Properties(), "apple_jam_bun", new Food.Builder().effect(() -> new EffectInstance(Effects.REGENERATION, 50, 1), 1.0F).effect(() -> new EffectInstance(Effects.ABSORPTION, 1200, 0), 1.0F).hunger(8).saturation(1).build());
 
+    //prospector
+    public static final Item PROSPECTOR = new MMItemBase("prospector");
     //drill
     public static final Item LASER_DRILL = new MMItemBase("laser_drill");
     //ingot
@@ -147,7 +149,7 @@ public class RegisteredItems {
     public static final Item ROLL_SS = new MMItemBase("roll_ss");
     public static final Item ROLL_TUNGSTEN_STEEL = new MMItemBase("roll_tungsten_steel");
     public static final Item ROLL_HSS = new MMItemBase("roll_hss");
-    public static final Item ROLL_IRON = new MMItemBase("roll_iron");
+    public static final Item ROLL_STEEL = new MMItemBase("roll_steel");
     //slag
     public static final Item SLAG = new MMItemBase("slag");
     public static final Item SLAG_MANGANESE = new MMItemBase("slag_manganese");
@@ -167,6 +169,8 @@ public class RegisteredItems {
     public static final Item AXIS_STEEL = new MMItemBase("axis_steel");
     public static final Item AXIS_TITANIUM = new MMItemBase("axis_titanium");
     public static final Item AXIS_IRON = new MMItemBase("axis_iron");
+    public static final Item AXIS_CHROMIUM = new MMItemBase("axis_chromium");
+    public static final Item AXIS_COBALT = new MMItemBase("axis_cobalt");
     //gear blank
     public static final Item GEAR_BLANK_BRONZE = new MMItemBase("gear_blank_bronze");
     public static final Item GEAR_BLANK_INVAR = new MMItemBase("gear_blank_invar");
