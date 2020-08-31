@@ -5,6 +5,7 @@ import mfrf.dbydd.micro_machinery.blocks.MMOreBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
@@ -24,7 +25,7 @@ public class ToolProspector extends MMItemBase {
     private static final String NO_FEEDBACK = Micro_Machinery.NAME + ".notify." + "no_feedback";
 
     public ToolProspector() {
-        super(new Properties().maxStackSize(1).group(Micro_Machinery.MMTAB), "prospector");
+        super(new Properties().maxStackSize(1).group(Micro_Machinery.MMTAB).maxDamage(16), "prospector");
     }
 
     @Override
@@ -49,6 +50,9 @@ public class ToolProspector extends MMItemBase {
                 }
                 player.sendMessage(new TranslationTextComponent(count > 64 ? STRONG_FEEDBACK : count > 32 ? OBVIOUS_FEEDBACK : count > 16 ? WEAK_FEEDBACK : count > 4 ? WEAKST_FEEDBACK : NO_FEEDBACK, TextFormatting.DARK_GRAY));
             }
+            context.getItem().damageItem(1, context.getPlayer(), (player1) -> {
+                player1.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+            });
         }
         return ActionResultType.SUCCESS;
     }
