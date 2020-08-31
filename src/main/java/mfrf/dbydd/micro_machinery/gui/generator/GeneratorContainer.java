@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.gui.generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
-import mfrf.dbydd.micro_machinery.registery_lists.Registered_ContainerTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.Registered_ContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;

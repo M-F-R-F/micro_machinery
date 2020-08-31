@@ -1,8 +1,8 @@
 package mfrf.dbydd.micro_machinery.worldgen;
 
+import com.mojang.datafixers.Dynamic;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.utils.RandomUtils;
-import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -35,16 +35,14 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
 
     @Override
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, VeinFeatureConfig config) {
-        if(config.getBiomeTypes().contains(worldIn.getBiome(pos))){
-            int posX = pos.getX() + rand.nextInt(16);
-            int posZ = pos.getZ() + rand.nextInt(16);
-            int tempY = worldIn.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, posX, posZ) - (config.getMinHeight() + config.getVeinHeight());
-            if (tempY > 0) {
-                int posY = config.getMinHeight() + rand.nextInt(tempY);
-                generateVein(worldIn, new BlockPos(posX, posY, posZ), rand, config);
-            }
+        int posX = pos.getX() + rand.nextInt(16);
+        int posZ = pos.getZ() + rand.nextInt(16);
+        int tempY = worldIn.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, posX, posZ) - (config.getMinHeight() + config.getVeinHeight());
+        if (tempY > 0) {
+            int posY = config.getMinHeight() + rand.nextInt(tempY);
+            generateVein(worldIn, new BlockPos(posX, posY, posZ), rand, config);
         }
-            return true;
+        return true;
     }
 
     private void generateVein(IWorld worldIn, BlockPos pos, Random rand, VeinFeatureConfig config) {
@@ -85,7 +83,7 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
                 BlockPos position = new BlockPos(rx1, y, rz1);
                 if ((Math.pow((x1 - rx1), 2) + Math.pow((z1 - rz1), 2)) <= Math.pow((radius), 2)) {
                     if (RandomUtils.outputBooleanByChance(rand, generateChancePerOre) && predicate.test(worldIn.getChunk(position).getBlockState(position))) {
-                        setBlockState(worldIn,position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
+                        setBlockState(worldIn, position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
                     }
 
                 }

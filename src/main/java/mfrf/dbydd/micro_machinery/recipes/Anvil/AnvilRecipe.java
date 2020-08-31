@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.recipes.Anvil;
 
-import mfrf.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

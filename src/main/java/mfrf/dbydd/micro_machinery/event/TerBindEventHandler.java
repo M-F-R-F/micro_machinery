@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.event;
 
-import mfrf.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.special_renders.ter.AnvilTer;
 import mfrf.dbydd.micro_machinery.special_renders.ter.HandGeneratorTer;
 import mfrf.dbydd.micro_machinery.special_renders.ter.TestBlockTer;

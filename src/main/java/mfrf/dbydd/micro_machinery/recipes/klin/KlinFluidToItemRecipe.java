@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.recipes.klin;
 
 import mfrf.dbydd.micro_machinery.enums.EnumCastType;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

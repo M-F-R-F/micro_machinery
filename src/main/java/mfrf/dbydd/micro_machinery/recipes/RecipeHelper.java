@@ -5,7 +5,7 @@ import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
-import mfrf.dbydd.micro_machinery.registery_lists.RegisteredRecipeSerializers;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

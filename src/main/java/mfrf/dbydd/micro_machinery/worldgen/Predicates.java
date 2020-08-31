@@ -1,31 +1,34 @@
 package mfrf.dbydd.micro_machinery.worldgen;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.swing.text.html.HTML;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public enum Predicates implements Predicate<BlockState> {
-    STONE(ForgeRegistries.BLOCKS.getValues().stream().flatMap(block -> block.getStateContainer().getValidStates().stream()).filter(blockState -> blockState.getMaterial() == Material.ROCK).collect(Collectors.toList())),
-    NETHER(Arrays.asList(Blocks.MAGMA_BLOCK.getDefaultState(), Blocks.NETHERRACK.getDefaultState(), Blocks.SOUL_SAND.getDefaultState())),
-    END(Arrays.asList(Blocks.END_STONE.getDefaultState()));
+    OVERWORLD(blockState -> !(blockState.isIn(Tags.Blocks.NETHERRACK) || blockState.isIn(Tags.Blocks.END_STONES)) && blockState.isIn(Tags.Blocks.STONE) || blockState.isIn(Tags.Blocks.COBBLESTONE)),
+    NETHER(blockState -> blockState.isIn(Tags.Blocks.NETHERRACK)),
+    END(blockState -> blockState.isIn(Tags.Blocks.END_STONES));
 
-    private final Collection<BlockState> blocks;
+    private final Predicate<BlockState> predicate;
 
-    Predicates(Collection<BlockState> blocks) {
-        this.blocks = blocks;
+    Predicates(Predicate<BlockState> predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public boolean test(BlockState block) {
-        return blocks.contains(block);
+        return predicate.test(block);
     }
 
 }

@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.klin;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.registery_lists.RegisteredBlocks;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;

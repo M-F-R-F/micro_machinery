@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class VeinGenerations {
+public class VeinGenerationsRegisterEventHandler {
     public static List<VeinFeatureConfig> registerys = new ArrayList<>();
 
-    public VeinGenerations(VeinFeatureConfig config) {
+    public VeinGenerationsRegisterEventHandler(VeinFeatureConfig config) {
         registerys.add(config);
     }
 

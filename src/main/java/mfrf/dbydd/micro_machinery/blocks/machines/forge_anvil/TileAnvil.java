@@ -5,7 +5,7 @@ import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.items.MMHammerBase;
 import mfrf.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

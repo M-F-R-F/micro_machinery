@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.hand_generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.registery_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.nbt.CompoundNBT;

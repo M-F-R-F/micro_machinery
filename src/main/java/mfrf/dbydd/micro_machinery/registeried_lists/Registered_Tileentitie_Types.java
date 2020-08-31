@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.registery_lists;
+package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.TileAnvil;

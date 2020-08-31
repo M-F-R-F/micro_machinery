@@ -26,9 +26,8 @@ public class VeinFeatureConfig implements IFeatureConfig {
     private final int veinHeight;
     private final Map<Double, Block> oreGenList;
     private final Predicates predicate;
-    private final List<Biome> biomeTypes;
 
-    public VeinFeatureConfig(Double veinGenChance, Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, Map<Double, Block> oreGenList, Predicates predicate, Biome... biomeTypes) {
+    public VeinFeatureConfig(Double veinGenChance, Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, Map<Double, Block> oreGenList, Predicates predicate) {
         this.veinGenChance = veinGenChance;
         this.generateChancePerOre = generateChancePerOre;
         this.oreStratum = oreStratum;
@@ -39,7 +38,6 @@ public class VeinFeatureConfig implements IFeatureConfig {
         this.veinHeight = (oreDepositHeight + stoneHeight) * oreStratum - stoneHeight;
         this.oreGenList = oreGenList;
         this.predicate = predicate;
-        this.biomeTypes = Arrays.asList(biomeTypes);
         if (range > 32) {
             this.range = 32;
         } else this.range = range;
@@ -57,7 +55,6 @@ public class VeinFeatureConfig implements IFeatureConfig {
         this.maxHeight = dynamic.get("max_height").asInt(0);
         this.oreGenList = dynamic.get("ore_gen_list").asMap(dynamic1 -> dynamic1.asDouble(0), dynamic2 -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(dynamic2.asString(null))));
         this.predicate = Predicates.valueOf(dynamic.get("predicate").asString("STONE"));
-        this.biomeTypes = (List<Biome>) dynamic.get("dimension_type").asList(Dynamic::getValue);
     }
 
     public Double getVeinGenChance() {
@@ -82,10 +79,6 @@ public class VeinFeatureConfig implements IFeatureConfig {
 
     public int getStoneHeight() {
         return stoneHeight;
-    }
-
-    public List<Biome> getBiomeTypes() {
-        return biomeTypes;
     }
 
     public int getMinHeight() {
@@ -123,7 +116,6 @@ public class VeinFeatureConfig implements IFeatureConfig {
         oreGenList.forEach((_Double, block) -> ore_gen_list_builder.put(ops.createDouble(_Double), ops.createString(block.getRegistryName().getPath())));
         builder.put(ops.createString("ore_gen_list"), ops.createMap(ore_gen_list_builder.build()));
         builder.put(ops.createString("predicate"), ops.createString(predicate.name()));
-        builder.put(ops.createString("dimension_type"), ops.createList((Stream<T>) biomeTypes.stream()));
         return new Dynamic<>(ops, ops.createMap(builder.build()));
     }
 }
