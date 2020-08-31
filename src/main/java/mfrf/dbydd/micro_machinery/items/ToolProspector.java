@@ -21,11 +21,11 @@ public class ToolProspector extends MMItemBase {
     private static final String STRONG_FEEDBACK = Micro_Machinery.NAME + ".notify." + "strong_feedback";
     private static final String OBVIOUS_FEEDBACK = Micro_Machinery.NAME + ".notify." + "obvious_feedback";
     private static final String WEAK_FEEDBACK = Micro_Machinery.NAME + ".notify." + "weak_feedback";
-    private static final String WEAKST_FEEDBACK = Micro_Machinery.NAME + ".notify." + "weakst_feedback";
+    private static final String WEAKEST_FEEDBACK = Micro_Machinery.NAME + ".notify." + "weakest_feedback";
     private static final String NO_FEEDBACK = Micro_Machinery.NAME + ".notify." + "no_feedback";
 
     public ToolProspector() {
-        super(new Properties().maxStackSize(1).group(Micro_Machinery.MMTAB).maxDamage(16), "prospector");
+        super(new Properties().maxStackSize(1).group(Micro_Machinery.MMTAB).maxDamage(36), "prospector");
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ToolProspector extends MMItemBase {
                         }
                     }
                 }
-                player.sendMessage(new TranslationTextComponent(count > 64 ? STRONG_FEEDBACK : count > 32 ? OBVIOUS_FEEDBACK : count > 16 ? WEAK_FEEDBACK : count > 4 ? WEAKST_FEEDBACK : NO_FEEDBACK, TextFormatting.DARK_GRAY));
+                player.sendMessage(new TranslationTextComponent(count > 64 ? STRONG_FEEDBACK : count > 32 ? OBVIOUS_FEEDBACK : count > 16 ? WEAK_FEEDBACK : count > 4 ? WEAKEST_FEEDBACK : NO_FEEDBACK, TextFormatting.DARK_GRAY));
             }
             context.getItem().damageItem(1, context.getPlayer(), (player1) -> {
                 player1.sendBreakAnimation(EquipmentSlotType.MAINHAND);
