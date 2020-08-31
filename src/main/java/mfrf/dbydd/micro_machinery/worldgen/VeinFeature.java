@@ -62,10 +62,10 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
                 int x = pos.getX();
                 int y = pos.getY() + j + (stoneHeight + oreDepositHeight) * i;
                 int z = pos.getZ();
-                int x1 = x + rand.nextInt(2 * range) - range;
-                int z1 = z + rand.nextInt(2 * range) - range;
-                int x2 = x1 + rand.nextInt(2 * range) - range;
-                int z2 = z1 + rand.nextInt(2 * range) - range;
+                int x1 = x + rand.nextInt(2 * range);
+                int z1 = z + rand.nextInt(2 * range);
+                int x2 = x1 + rand.nextInt(2 * range);
+                int z2 = z1 + rand.nextInt(2 * range);
                 //半径
                 int radius = rand.nextInt(6) + range + (int) (0.8 * range * Math.sin(180 * ((double) (j + (stoneHeight + oreDepositHeight) * i) / (double) veinHeight)));
 
