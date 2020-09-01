@@ -2,20 +2,22 @@ package mfrf.dbydd.micro_machinery.blocks.machines.energy_cable;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
+import mfrf.dbydd.micro_machinery.enums.EnumCableState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
+import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -23,24 +25,24 @@ import java.util.Map;
 
 public class BlockEnergyCable extends MMBlockBase {
     public static final EnumProperty<EnumCableMaterial> CABLE_MATERIAL_ENUM_PROPERTY = EnumProperty.create("material", EnumCableMaterial.class);
-    public static final Map<Direction, BooleanProperty> BOOLEAN_PROPERTY_HASH_MAP = new HashMap<>();
-    public static final BooleanProperty UP_ISCONNECTED = BooleanProperty.create("up_connect");
-    public static final BooleanProperty DOWN_ISCONNECTED = BooleanProperty.create("down_connect");
-    public static final BooleanProperty SOUTH_ISCONNECTED = BooleanProperty.create("south_connect");
-    public static final BooleanProperty NORTH_ISCONNECTED = BooleanProperty.create("north_connect");
-    public static final BooleanProperty WEST_ISCONNECTED = BooleanProperty.create("west_connect");
-    public static final BooleanProperty EAST_ISCONNECTED = BooleanProperty.create("east_connect");
+    public static final Map<Direction, EnumProperty<EnumCableState>> DIRECTION_ENUM_PROPERTY_MAP = new HashMap<>();
+    public static final EnumProperty<EnumCableState> UP_ISCONNECTED = EnumProperty.create("up_connect", EnumCableState.class);
+    public static final EnumProperty<EnumCableState> DOWN_ISCONNECTED = EnumProperty.create("down_connect", EnumCableState.class);
+    public static final EnumProperty<EnumCableState> SOUTH_ISCONNECTED = EnumProperty.create("south_connect", EnumCableState.class);
+    public static final EnumProperty<EnumCableState> NORTH_ISCONNECTED = EnumProperty.create("north_connect", EnumCableState.class);
+    public static final EnumProperty<EnumCableState> WEST_ISCONNECTED = EnumProperty.create("west_connect", EnumCableState.class);
+    public static final EnumProperty<EnumCableState> EAST_ISCONNECTED = EnumProperty.create("east_connect", EnumCableState.class);
 
     public BlockEnergyCable(Properties properties, String name, EnumCableMaterial material) {
         super(properties, name);
-        BOOLEAN_PROPERTY_HASH_MAP.put(Direction.UP, UP_ISCONNECTED);
-        BOOLEAN_PROPERTY_HASH_MAP.put(Direction.DOWN, DOWN_ISCONNECTED);
-        BOOLEAN_PROPERTY_HASH_MAP.put(Direction.SOUTH, SOUTH_ISCONNECTED);
-        BOOLEAN_PROPERTY_HASH_MAP.put(Direction.NORTH, NORTH_ISCONNECTED);
-        BOOLEAN_PROPERTY_HASH_MAP.put(Direction.WEST, WEST_ISCONNECTED);
-        BOOLEAN_PROPERTY_HASH_MAP.put(Direction.EAST, EAST_ISCONNECTED);
-        this.setDefaultState(this.stateContainer.getBaseState().with(CABLE_MATERIAL_ENUM_PROPERTY, material).with(UP_ISCONNECTED, false).with(DOWN_ISCONNECTED, false).with(SOUTH_ISCONNECTED, false
-        ).with(NORTH_ISCONNECTED, false).with(WEST_ISCONNECTED, false).with(EAST_ISCONNECTED, false));
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.UP, UP_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.DOWN, DOWN_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.SOUTH, SOUTH_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.NORTH, NORTH_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.WEST, WEST_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.EAST, EAST_ISCONNECTED);
+        this.setDefaultState(this.stateContainer.getBaseState().with(CABLE_MATERIAL_ENUM_PROPERTY, material).with(UP_ISCONNECTED, EnumCableState.EMPTY).with(DOWN_ISCONNECTED, EnumCableState.EMPTY).with(SOUTH_ISCONNECTED, EnumCableState.EMPTY
+        ).with(NORTH_ISCONNECTED, EnumCableState.EMPTY).with(WEST_ISCONNECTED, EnumCableState.EMPTY).with(EAST_ISCONNECTED, EnumCableState.EMPTY));
     }
 
     @Override
@@ -52,18 +54,20 @@ public class BlockEnergyCable extends MMBlockBase {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         World world = context.getWorld();
-        BlockState state = this.getDefaultState();
-            BlockPos pos = context.getPos();
-            for (Direction direction : Direction.values()) {
-                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
-                if (tileEntity != null) {
-                    LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
-                    if (capability.isPresent()) {
-                        state.with(BOOLEAN_PROPERTY_HASH_MAP.get(direction), true);
-                    }
+        BlockPos pos = context.getPos();
+        BlockState defaultState = this.getDefaultState();
+        for (Direction direction : Direction.values()) {
+            BlockPos offset = pos.offset(direction);
+            if (world.getBlockState(offset).getBlock() == this) {
+                defaultState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CABLE);
+            } else {
+                TileEntity tileEntity = world.getTileEntity(offset);
+                if (tileEntity != null && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) {
+                    defaultState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CONNECT);
                 }
             }
-        return state;
+        }
+        return defaultState;
     }
 
     @Override
@@ -82,7 +86,24 @@ public class BlockEnergyCable extends MMBlockBase {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return null;
-        //todo
+        return new TileEnergyCable();
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if(tileEntity instanceof TileEnergyCable){
+            TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+            tileEnergyCable.notifyStateUpdate(state);
+        }
+    }
+
+    @Override
+    public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if(tileEntity instanceof TileEnergyCable){
+            TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+            tileEnergyCable.notifyStateUpdate(state);
+        }
     }
 }

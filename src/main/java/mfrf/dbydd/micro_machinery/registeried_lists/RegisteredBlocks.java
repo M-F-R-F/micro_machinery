@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.BlockEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.BlockAnvil;
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.BlockGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator;
@@ -8,6 +9,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenera
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
+import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
@@ -115,7 +117,7 @@ public class RegisteredBlocks {
     public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).harvestLevel(2), "bronze_anvil", EnumAnvilType.BRONZE, 16);
     public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(4.0f).harvestTool(ToolType.PICKAXE).harvestLevel(3), "pigiron_anvil", EnumAnvilType.PIGIRON, 12);
     //cable
-
+    public static final Block TESTENERGY_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON), "test_cable", EnumCableMaterial.TEST);
     //pipe
 
     //fluid pipe

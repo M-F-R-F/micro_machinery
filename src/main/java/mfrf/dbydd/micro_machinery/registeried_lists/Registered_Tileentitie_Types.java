@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.TileEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.TileAnvil;
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.TileHandGenerator;
@@ -20,5 +21,5 @@ public class Registered_Tileentitie_Types {
     public static final RegistryObject<TileEntityType<TileGenerator>> TILE_GENERATOR_TYPE = TILE_ENTITY_TYPE_REGISTER.register("generator", ()->TileEntityType.Builder.create(TileGenerator::new, RegisteredBlocks.GENERATOR).build(null));
     public static final RegistryObject<TileEntityType<TileHandGenerator>> TILE_HAND_GENERATOR = TILE_ENTITY_TYPE_REGISTER.register("hand_generator", ()->TileEntityType.Builder.create(TileHandGenerator::new, RegisteredBlocks.HAND_GENERATOR).build(null));
     public static final RegistryObject<TileEntityType<TileAnvil>> TILE_ANVIL_TYPE = TILE_ENTITY_TYPE_REGISTER.register("anvil", ()->TileEntityType.Builder.create(TileAnvil::new, RegisteredBlocks.STONE_ANVIL, RegisteredBlocks.BRONZE_ANVIL, RegisteredBlocks.PIGIRON_ANVIL).build(null));
-
+    public static final RegistryObject<TileEntityType<TileEnergyCable>> TILE_ENERGY_CABLE = TILE_ENTITY_TYPE_REGISTER.register("energy_cable", ()->TileEntityType.Builder.create(TileEnergyCable::new, RegisteredBlocks.TESTENERGY_CABLE).build(null));
 }

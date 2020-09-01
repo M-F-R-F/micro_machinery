@@ -3,11 +3,13 @@ package mfrf.dbydd.micro_machinery.enums;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumCableMaterial implements IStringSerializable {
+    TEST(Integer.MAX_VALUE, "test_material"),
     COPPER(256, "copper"),
-    NICLEL(1024, "nickel"),
+    NICkEL(1024, "nickel"),
     ALUMINUM(4096, "aluminum"),
     TUNGSTEN(16384, "tungsten"),
-    COBALT(65536, "cobalt");
+    COBALT(65536, "cobalt"),
+    NULL(0, "null");
 
 
     private final int transfer;
@@ -25,5 +27,24 @@ public enum EnumCableMaterial implements IStringSerializable {
     @Override
     public String getName() {
         return materialName;
+    }
+
+    public static EnumCableMaterial fromName(String name) {
+        switch (name) {
+            case "test_material":
+                return TEST;
+            case "copper":
+                return COPPER;
+            case "nickel":
+                return NICkEL;
+            case "aluminum":
+                return ALUMINUM;
+            case "tungsten":
+                return TUNGSTEN;
+            case "cobalt":
+                return COBALT;
+            default:
+                return NULL;
+        }
     }
 }
