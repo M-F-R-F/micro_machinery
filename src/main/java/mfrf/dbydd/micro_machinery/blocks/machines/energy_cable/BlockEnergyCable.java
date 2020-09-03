@@ -6,6 +6,7 @@ import mfrf.dbydd.micro_machinery.enums.EnumCableState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.EnumProperty;
@@ -17,7 +18,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
-import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -92,18 +92,27 @@ public class BlockEnergyCable extends MMBlockBase {
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         TileEntity tileEntity = worldIn.getTileEntity(pos);
+        if (tileEntity instanceof TileEnergyCable) {
+            TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+            tileEnergyCable.notifyStateUpdate(state, worldIn);
+        }
+    }
+
+    @Override
+    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack) {
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
         if(tileEntity instanceof TileEnergyCable){
             TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-            tileEnergyCable.notifyStateUpdate(state);
+            tileEnergyCable.notifyBreak(state, worldIn);
         }
     }
 
     @Override
     public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
         TileEntity tileEntity = world.getTileEntity(pos);
-        if(tileEntity instanceof TileEnergyCable){
+        if (tileEntity instanceof TileEnergyCable) {
             TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-            tileEnergyCable.notifyStateUpdate(state);
+            tileEnergyCable.notifyStateUpdate(state, world.getDimension().getWorld());
         }
     }
 }

@@ -102,6 +102,10 @@ public class WorldFEContainer implements IEnergyStorage {
         return current;
     }
 
+    public void setCurrent(BigInteger current) {
+        this.current = current;
+    }
+
     public void resetValue() {
         this.current = min;
     }
