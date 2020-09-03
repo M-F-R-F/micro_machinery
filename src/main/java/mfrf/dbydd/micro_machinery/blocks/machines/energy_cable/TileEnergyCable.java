@@ -70,13 +70,11 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
                     TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
                     if (tileEntity instanceof TileEnergyCable) {
                         TileEnergyCable tileCable = (TileEnergyCable) tileEntity;
-                        if (tileCable.sign.equals(tempSign)) {
-                            tileCable.notifyMergeByNearbyCable(signToChange, direction.getOpposite(), world);
-                        } else {
+                        if (!tileCable.sign.equals(tempSign)) {
                             EnergyCableSavedData data = EnergyCableSavedData.get(world);
                             data.mergeOneInToAnother(signToChange, tileCable.sign);
-                            tileCable.notifyMergeByNearbyCable(signToChange, direction.getOpposite(), world);
                         }
+                        tileCable.notifyMergeByNearbyCable(signToChange, direction.getOpposite(), world);
                     }
                 }
             }
