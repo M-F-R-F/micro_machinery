@@ -1,8 +1,13 @@
 package mfrf.dbydd.micro_machinery.items;
 
+import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.TileEnergyCable;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import org.lwjgl.system.CallbackI;
 
 public class DebugTool extends MMItemBase {
     public DebugTool() {
@@ -24,6 +29,13 @@ public class DebugTool extends MMItemBase {
 //                    }
 //                }
 //            }
+
+            BlockPos pos = context.getPos();
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if(tileEntity instanceof TileEnergyCable){
+                context.getPlayer().sendMessage(new StringTextComponent(((TileEnergyCable)tileEntity).getSign().toString()));
+            }
+
         }
         return ActionResultType.SUCCESS;
     }

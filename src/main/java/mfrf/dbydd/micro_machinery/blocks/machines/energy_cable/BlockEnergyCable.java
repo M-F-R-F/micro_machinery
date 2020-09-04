@@ -91,28 +91,34 @@ public class BlockEnergyCable extends MMBlockBase {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if (tileEntity instanceof TileEnergyCable) {
-            TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-            tileEnergyCable.notifyStateUpdate(state, worldIn);
+        if(!worldIn.isRemote()) {
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            if (tileEntity instanceof TileEnergyCable) {
+                TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+                tileEnergyCable.notifyStateUpdate(state, worldIn);
+            }
         }
     }
 
     @Override
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack) {
-        TileEntity tileEntity = worldIn.getTileEntity(pos);
-        if(tileEntity instanceof TileEnergyCable){
-            TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-            tileEnergyCable.notifyBreak(state, worldIn);
+        if(!worldIn.isRemote()) {
+            TileEntity tileEntity = worldIn.getTileEntity(pos);
+            if (tileEntity instanceof TileEnergyCable) {
+                TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+                tileEnergyCable.notifyBreak(state, worldIn);
+            }
         }
     }
 
     @Override
     public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof TileEnergyCable) {
-            TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-            tileEnergyCable.notifyStateUpdate(state, world.getDimension().getWorld());
+        if(!world.isRemote()) {
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (tileEntity instanceof TileEnergyCable) {
+                TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+                tileEnergyCable.notifyStateUpdate(state, world.getDimension().getWorld());
+            }
         }
     }
 }

@@ -12,8 +12,10 @@ import net.minecraft.world.storage.WorldSavedData;
 
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class EnergyCableSavedData extends WorldSavedData {
     public static final String NAME = "CableWorldSavedData";
@@ -36,27 +38,22 @@ public class EnergyCableSavedData extends WorldSavedData {
 
     @Override
     public void read(CompoundNBT nbt) {
+        integerWorldFEContainerMap.clear();
         INBT inbt = nbt.get("list");
         if (inbt instanceof ListNBT) {
             ListNBT list = (ListNBT) inbt;
-            for (INBT inbt1 : list) {
-                CompoundNBT inbt11 = (CompoundNBT) inbt1;
-                int sign = inbt11.getInt("sign");
-                WorldFEContainer.deserializeNBT((CompoundNBT) inbt11.get(Integer.toString(sign)));
-            }
+
+            List<PackedContainer> packedContainerListFromNBTList = PackedContainer.getPackedContainerListFromNBTList(list);
+
+            packedContainerListFromNBTList.forEach(packedContainer -> integerWorldFEContainerMap.put(packedContainer.sign, packedContainer.container));
         }
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        ListNBT inbts = new ListNBT();
-        integerWorldFEContainerMap.forEach((integer, container) -> {
-            CompoundNBT compoundNBT = new CompoundNBT();
-            compound.putInt("sign", integer);
-            compound.put(integer.toString(), container.serializeNBT());
-            inbts.add(compound);
-        });
-        compound.put("list", inbts);
+        ListNBT listNBT = new ListNBT();
+        listNBT.addAll(PackedContainer.getPackedContainerListFromMap(integerWorldFEContainerMap).stream().map(PackedContainer::serializeNBT).collect(Collectors.toList()));
+        compound.put("list", listNBT);
         return compound;
     }
 
@@ -160,12 +157,12 @@ public class EnergyCableSavedData extends WorldSavedData {
 
     }
 
-    public int splitOutPart(int signToBeSplit, BigInteger splitOutMaxEnergy) {
+    public int splitOutAPartFromMain(int signToBeSplit, BigInteger splitOutMaxEnergy) {
         WorldFEContainer container = integerWorldFEContainerMap.get(signToBeSplit);
         BigInteger subtractedMax = container.getMax().subtract(splitOutMaxEnergy);
         if (subtractedMax.compareTo(BigInteger.ZERO) <= 0) {
             return signToBeSplit;
-        }else {
+        } else {
             BigInteger currentSplited = container.getCurrent().multiply(splitOutMaxEnergy.divide(container.getMax()));
             WorldFEContainer containerSplitOut = new WorldFEContainer(BigInteger.ZERO, splitOutMaxEnergy, currentSplited);
             container.setMax(container.getMax().subtract(subtractedMax));
@@ -205,5 +202,38 @@ public class EnergyCableSavedData extends WorldSavedData {
             }
         }
 
+    }
+
+    public static class PackedContainer {
+        private int sign;
+        private WorldFEContainer container;
+
+        public PackedContainer(Integer sign, WorldFEContainer container) {
+            this.container = container;
+            this.sign = sign;
+        }
+
+        public static PackedContainer deserializeNBT(CompoundNBT nbt) {
+            return new PackedContainer(nbt.getInt("sign"), WorldFEContainer.deserializeNBT(nbt.getCompound("container")));
+        }
+
+        public static List<PackedContainer> getPackedContainerListFromMap(Map<Integer, WorldFEContainer> map) {
+            return map.entrySet().stream().map(integerWorldFEContainerEntry -> new PackedContainer(integerWorldFEContainerEntry.getKey(), integerWorldFEContainerEntry.getValue())).collect(Collectors.toList());
+        }
+
+        public static List<PackedContainer> getPackedContainerListFromNBTList(ListNBT listNBT) {
+            return listNBT.stream().map(inbt -> (CompoundNBT) inbt).map(PackedContainer::deserializeNBT).collect(Collectors.toList());
+        }
+
+        public CompoundNBT serializeNBT() {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putInt("sign", sign);
+            compoundNBT.put("container", container.serializeNBT());
+            return null;
+        }
+
+        public void setSign(int sign) {
+            this.sign = sign;
+        }
     }
 }

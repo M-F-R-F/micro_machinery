@@ -57,7 +57,41 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
         if (!world.isRemote()) {
 
 
+
         }
+    }
+
+    public Integer getSign() {
+        return sign;
+    }
+
+    public boolean existLoop(Direction fromDirection, World world) {
+        List<Direction> tempList = new ArrayList<>();
+
+        stateMap.forEach((direction, enumCableState) -> {
+            if (direction != fromDirection && enumCableState == EnumCableState.CABLE) tempList.add(direction);
+        });
+
+        if (this.number.equals(BigInteger.ZERO)) {
+            return true;
+        } else {
+            if (tempList.size() == 0) return false;
+
+            for (Direction direction : tempList) {
+                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+                if (tileEntity instanceof TileEnergyCable) {
+                    TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+
+                    boolean existLoop = tileEnergyCable.existLoop(direction.getOpposite(), world);
+
+                    if (existLoop) return true;
+
+                }
+            }
+            return false;
+
+        }
+
     }
 
     public void notifyMergeByNearbyCable(Integer signToChange, Direction fromDirection, World world) {
@@ -94,12 +128,55 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
 
             for (Direction direction : tempList) {
                 TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
-                if(tileEntity instanceof TileEnergyCable){
+                if (tileEntity instanceof TileEnergyCable) {
                     TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
                     tileEnergyCable.notifyUpdateNumber(number.add(BigInteger.ONE), direction.getOpposite());
                 }
             }
+            markDirty2();
         }
+    }
+
+    public BigInteger askForConnectedCapacity(BigInteger integer, Direction fromDirection, World world) {
+
+        BigInteger add = integer.add(BigInteger.valueOf(this.material.getTransfer()));
+
+        List<Direction> cableDirectionList = getCableDirectionList(fromDirection);
+
+        if (cableDirectionList.size() == 0) return add;
+        else {
+            for (Direction direction : cableDirectionList) {
+                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+
+                if (tileEntity instanceof TileEnergyCable) {
+                    TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+
+                    add = tileEnergyCable.askForConnectedCapacity(add, direction.getOpposite(), world);
+
+                }
+            }
+            return add;
+        }
+
+    }
+
+    public void notifyUpdateSign(int signTochange, Direction fromDirection, World world) {
+        this.sign = signTochange;
+
+        List<Direction> cableDirectionList = getCableDirectionList(fromDirection);
+
+        for (Direction direction : cableDirectionList) {
+            TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+            if (tileEntity instanceof TileEnergyCable) {
+                TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+
+                tileEnergyCable.notifyMergeByNearbyCable(signTochange, fromDirection, world);
+
+            }
+        }
+
+
+        markDirty2();
     }
 
     public void notifyStateUpdate(BlockState state, World world) {
@@ -185,6 +262,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
 
     public void notifyBreak(BlockState state, World world) {
         List<Direction> tempDirectionList = new ArrayList<>();
+        List<Direction> directionConnectToOroginPoint = new ArrayList<>();
         for (Direction direction : Direction.values()) {
             EnumCableState enumCableState = state.get(BlockEnergyCable.DIRECTION_ENUM_PROPERTY_MAP.get(direction));
             if (enumCableState == EnumCableState.CABLE) {
@@ -197,9 +275,39 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
 
         if (!removeCablePartRemainValue.equals(BigInteger.ZERO)) {
 
+            if (this.number.compareTo(BigInteger.ZERO) == 0) {
+                TileEntity tileEntity = world.getTileEntity(pos.offset(tempDirectionList.get(0)));
+                if (tileEntity instanceof TileEnergyCable) {
+                    TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+                    tileEnergyCable.notifyUpdateNumber(BigInteger.ZERO, tempDirectionList.get(0).getOpposite());
+                }
+            }
 
+            for (Direction direction : tempDirectionList) {
+
+                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+                if (tileEntity instanceof TileEnergyCable) {
+                    TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+                    boolean b = tileEnergyCable.existLoop(direction.getOpposite(), world);
+                    if (!b) {
+                        int sign = data.splitOutAPartFromMain(this.sign, tileEnergyCable.askForConnectedCapacity(BigInteger.ZERO, direction.getOpposite(), world));
+                        tileEnergyCable.notifyUpdateNumber(BigInteger.ZERO, direction.getOpposite());
+                        tileEnergyCable.notifyUpdateSign(sign, direction.getOpposite(), world);
+                    }
+                }
+            }
 
         }
 
+    }
+
+    private List<Direction> getCableDirectionList(Direction fromDirection) {
+        List<Direction> tempList = new ArrayList<>();
+
+        stateMap.forEach((direction, enumCableState) -> {
+            if (direction != fromDirection && enumCableState == EnumCableState.CABLE) tempList.add(direction);
+        });
+
+        return tempList;
     }
 }

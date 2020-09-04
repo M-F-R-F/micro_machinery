@@ -23,7 +23,7 @@ public class WorldFEContainer implements IEnergyStorage {
     }
 
     public static WorldFEContainer deserializeNBT(CompoundNBT nbt) {
-        return new WorldFEContainer(new BigInteger(nbt.getByteArray("min")), new BigInteger(nbt.getByteArray("max")), new BigInteger(nbt.getByteArray("current")));
+        return new WorldFEContainer(new BigInteger(nbt.getString("min")), new BigInteger(nbt.getString("max")), new BigInteger(nbt.getString("current")));
     }
 
     public BigInteger getMin() {
@@ -44,9 +44,9 @@ public class WorldFEContainer implements IEnergyStorage {
 
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();
-        compoundNBT.putByteArray("min", min.toByteArray());
-        compoundNBT.putByteArray("max", max.toByteArray());
-        compoundNBT.putByteArray("current", current.toByteArray());
+        compoundNBT.putString("min", min.toString());
+        compoundNBT.putString("max", max.toString());
+        compoundNBT.putString("current", current.toString());
         return compoundNBT;
     }
 
