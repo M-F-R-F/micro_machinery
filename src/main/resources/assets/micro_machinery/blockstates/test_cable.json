@@ -1,0 +1,23 @@
+{
+	"multipart": [
+		{   "apply": { "model": "micro_machinery:block/pipe/energy1_pipe_center" }},
+		{   "when": { "north_connect": "true" },
+			"apply": { "model": "micro_machinery:block/pipe/energy1_pipe_arm"}
+		},
+		{   "when": { "east_connect": "true" },
+			"apply": { "model": "micro_machinery:block/pipe/energy1_pipe_arm", "y": 90}
+		},
+		{   "when": { "south_connect": "true" },
+			"apply": { "model": "micro_machinery:block/pipe/energy1_pipe_arm", "y": 180}
+		},
+		{   "when": { "west_connect": "true" },
+			"apply": { "model": "micro_machinery:block/pipe/energy1_pipe_arm", "y": 270}
+		},
+		{   "when": { "up_connect": "true" },
+			"apply": { "model": "micro_machinery:block/pipe/energy1_pipe_arm", "x": 270}
+		},
+		{   "when": { "down_connect": "true" },
+			"apply": { "model": "micro_machinery:block/pipe/energy1_pipe_arm", "x": 90}
+		}
+	]
+}
