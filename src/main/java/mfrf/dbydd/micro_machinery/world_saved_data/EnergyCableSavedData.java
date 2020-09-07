@@ -11,10 +11,7 @@ import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class EnergyCableSavedData extends WorldSavedData {
@@ -38,7 +35,6 @@ public class EnergyCableSavedData extends WorldSavedData {
 
     @Override
     public void read(CompoundNBT nbt) {
-        integerWorldFEContainerMap.clear();
         INBT inbt = nbt.get("list");
         if (inbt instanceof ListNBT) {
             ListNBT list = (ListNBT) inbt;
@@ -52,8 +48,11 @@ public class EnergyCableSavedData extends WorldSavedData {
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         ListNBT listNBT = new ListNBT();
-        listNBT.addAll(PackedContainer.getPackedContainerListFromMap(integerWorldFEContainerMap).stream().map(PackedContainer::serializeNBT).collect(Collectors.toList()));
-        compound.put("list", listNBT);
+        List<CompoundNBT> collect = PackedContainer.getPackedContainerListFromMap(integerWorldFEContainerMap).stream().map(PackedContainer::serializeNBT).filter(Objects::nonNull).collect(Collectors.toList());
+        if(!collect.isEmpty()) {
+            listNBT.addAll(collect);
+            compound.put("list", listNBT);
+        }
         return compound;
     }
 
@@ -229,7 +228,7 @@ public class EnergyCableSavedData extends WorldSavedData {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putInt("sign", sign);
             compoundNBT.put("container", container.serializeNBT());
-            return null;
+            return compoundNBT;
         }
 
         public void setSign(int sign) {

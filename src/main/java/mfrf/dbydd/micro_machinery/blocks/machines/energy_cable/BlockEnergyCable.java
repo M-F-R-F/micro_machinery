@@ -91,7 +91,7 @@ public class BlockEnergyCable extends MMBlockBase {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        if(!worldIn.isRemote()) {
+        if (!worldIn.isRemote()) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof TileEnergyCable) {
                 TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
@@ -102,7 +102,7 @@ public class BlockEnergyCable extends MMBlockBase {
 
     @Override
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack) {
-        if(!worldIn.isRemote()) {
+        if (!worldIn.isRemote()) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof TileEnergyCable) {
                 TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
@@ -113,12 +113,43 @@ public class BlockEnergyCable extends MMBlockBase {
 
     @Override
     public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-        if(!world.isRemote()) {
-            TileEntity tileEntity = world.getTileEntity(pos);
-            if (tileEntity instanceof TileEnergyCable) {
-                TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-                tileEnergyCable.notifyStateUpdate(state, world.getDimension().getWorld());
+        if (!world.isRemote() && world instanceof World) {
+            boolean changed = false;
+            TileEntity tileEntityNeighbor = world.getTileEntity(neighbor);
+            Direction facingFromVector = Direction.getFacingFromVector(neighbor.getX() - pos.getX(), neighbor.getY() - pos.getY(), neighbor.getZ() - pos.getZ());
+            EnumProperty<EnumCableState> enumCableStateEnumProperty = DIRECTION_ENUM_PROPERTY_MAP.get(facingFromVector);
+
+            if (tileEntityNeighbor instanceof TileEnergyCable) {
+                if (state.get(enumCableStateEnumProperty) != EnumCableState.CABLE) {
+                    setStateNoUpdateNeighbor((World) world, pos, state.with(enumCableStateEnumProperty, EnumCableState.CABLE));
+                    changed = true;
+                }
+            } else if (tileEntityNeighbor != null) {
+                if (tileEntityNeighbor.getCapability(CapabilityEnergy.ENERGY, facingFromVector.getOpposite()).isPresent()) {
+                    if (state.get(enumCableStateEnumProperty) != EnumCableState.CONNECT) {
+                        setStateNoUpdateNeighbor((World) world, pos, state.with(enumCableStateEnumProperty, EnumCableState.CONNECT));
+                        changed = true;
+                    }
+                }
+            } else {
+                if (state.get(enumCableStateEnumProperty) != EnumCableState.EMPTY) {
+                    setStateNoUpdateNeighbor((World) world, pos, state.with(enumCableStateEnumProperty, EnumCableState.EMPTY));
+                    changed = true;
+                }
+            }
+
+            if (changed) {
+                TileEntity tileEntity = world.getTileEntity(pos);
+                if (tileEntity instanceof TileEnergyCable) {
+                    TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+                    tileEnergyCable.notifyStateUpdate(state, (World) world);
+                }
             }
         }
     }
+
+    private boolean setStateNoUpdateNeighbor(World world, BlockPos pos, BlockState state) {
+        return world.setBlockState(pos, state, 22);
+    }
+
 }

@@ -22,8 +22,8 @@ import java.util.Map;
 public class TileEnergyCable extends MMTileBase implements ITickable {
     private final Map<Direction, EnumCableState> stateMap = new HashMap<>();
     private EnumCableMaterial material = EnumCableMaterial.NULL;
-    private Integer sign = null;
-    private BigInteger number = null;
+    private Integer sign = 0;
+    private BigInteger number = BigInteger.ZERO;
 
     public TileEnergyCable() {
         super(Registered_Tileentitie_Types.TILE_ENERGY_CABLE.get());
@@ -32,7 +32,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.putString("material", material.toString());
-        stateMap.forEach((direction, enumCableState) -> compound.putString(direction.toString(), enumCableState.toString()));
+        stateMap.forEach((direction, enumCableState) -> compound.putString(direction.toString().toLowerCase() + "_state", enumCableState.toString()));
         compound.putInt("sign", sign);
         compound.putByteArray("number", number.toByteArray());
         return compound;
@@ -42,7 +42,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
     public void read(CompoundNBT compound) {
         material = EnumCableMaterial.fromName(compound.getString("material"));
         for (Direction direction : Direction.values()) {
-            String string = compound.getString(direction.toString());
+            String string = compound.getString(direction.toString().toLowerCase() + "_state");
             if (!string.isEmpty()) {
                 stateMap.put(direction, EnumCableState.valueOf(string));
             }
@@ -55,7 +55,6 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
     @Override
     public void tick() {
         if (!world.isRemote()) {
-
 
 
         }
@@ -112,7 +111,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
                     }
                 }
             }
-            markDirty2();
+            markDirty();
         }
 
     }
@@ -133,7 +132,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
                     tileEnergyCable.notifyUpdateNumber(number.add(BigInteger.ONE), direction.getOpposite());
                 }
             }
-            markDirty2();
+            markDirty();
         }
     }
 
@@ -176,7 +175,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
         }
 
 
-        markDirty2();
+        markDirty();
     }
 
     public void notifyStateUpdate(BlockState state, World world) {
@@ -190,12 +189,8 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
             }
         }
 
-        if (number == null) {
-            if (tempDirectionList.size() == 0) {
-
-                this.number = BigInteger.ZERO;
-
-            } else {
+        if (number.equals(BigInteger.ZERO)) {
+            if (tempDirectionList.size() != 0) {
                 for (Direction direction : tempDirectionList) {
                     TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
                     if (tileEntity instanceof TileEnergyCable) {
@@ -215,9 +210,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
                         }
                     }
                 }
-
             }
-            markDirty2();
         }
 
         if (material == EnumCableMaterial.NULL) {
@@ -257,7 +250,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable {
             }
         }
 
-        markDirty2();
+        markDirty();
     }
 
     public void notifyBreak(BlockState state, World world) {
