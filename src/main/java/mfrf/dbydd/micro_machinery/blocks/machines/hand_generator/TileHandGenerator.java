@@ -58,7 +58,8 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityEnergy.ENERGY && side == Direction.fromAngle(getBlockState().get(BlockHandGenerator.FACING).getHorizontalAngle() - 90)) {
+        Direction direction = Direction.fromAngle(getBlockState().get(BlockHandGenerator.FACING).getHorizontalAngle() + 90f);
+        if (cap == CapabilityEnergy.ENERGY && side == direction) {
             return LazyOptional.of(() -> container).cast();
         }
         return super.getCapability(cap, side);
