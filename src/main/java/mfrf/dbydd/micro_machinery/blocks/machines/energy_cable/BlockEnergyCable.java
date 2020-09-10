@@ -14,6 +14,8 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -32,6 +34,14 @@ public class BlockEnergyCable extends MMBlockBase {
     public static final EnumProperty<EnumCableState> NORTH_ISCONNECTED = EnumProperty.create("north_connect", EnumCableState.class);
     public static final EnumProperty<EnumCableState> WEST_ISCONNECTED = EnumProperty.create("west_connect", EnumCableState.class);
     public static final EnumProperty<EnumCableState> EAST_ISCONNECTED = EnumProperty.create("east_connect", EnumCableState.class);
+
+    public static final VoxelShape CENTER_AABB = Block.makeCuboidShape(5.5, 5.5, 5.5, 10.5, 10.5, 10.5);
+    public static final VoxelShape NORTH_AABB = Block.makeCuboidShape(6, 6, 0, 10, 10, 6);
+    public static final VoxelShape EAST_AABB = Block.makeCuboidShape(10, 6, 6, 16, 10, 10);
+    public static final VoxelShape SOUTH_AABB = Block.makeCuboidShape(6, 6, 10, 10, 10, 16);
+    public static final VoxelShape WEST_AABB = Block.makeCuboidShape(0, 6, 6, 6, 10, 10);
+    public static final VoxelShape UP_AABB = Block.makeCuboidShape(6, 10, 6, 10, 16, 10);
+    public static final VoxelShape DOWN_AABB = Block.makeCuboidShape(6, 0, 6, 10, 6, 10);
 
     public BlockEnergyCable(Properties properties, String name, EnumCableMaterial material) {
         super(properties, name);
@@ -152,4 +162,13 @@ public class BlockEnergyCable extends MMBlockBase {
         return world.setBlockState(pos, state, 22);
     }
 
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return CENTER_AABB;
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return CENTER_AABB;
+    }
 }
