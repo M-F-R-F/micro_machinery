@@ -71,7 +71,7 @@ public class IntegerContainer {
 
     public int minus(int value, boolean simulate) {
         int i = current - value;
-        if (simulate) {
+        if (!simulate) {
             if (i < min) {
                 int r = current - min;
                 current = min;

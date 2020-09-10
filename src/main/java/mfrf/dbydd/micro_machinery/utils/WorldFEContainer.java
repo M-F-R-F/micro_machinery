@@ -1,44 +1,43 @@
 package mfrf.dbydd.micro_machinery.utils;
 
+import com.google.common.primitives.UnsignedLong;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.energy.IEnergyStorage;
 
-import java.math.BigInteger;
-
 public class WorldFEContainer implements IEnergyStorage {
-    private BigInteger min;
-    private BigInteger max;
-    private BigInteger current;
+    private UnsignedLong min;
+    private UnsignedLong max;
+    private UnsignedLong current;
 
-    public WorldFEContainer(BigInteger min, BigInteger max) {
+    public WorldFEContainer(UnsignedLong min, UnsignedLong max) {
         this.min = min;
         this.max = max;
-        this.current = BigInteger.ZERO;
+        this.current = UnsignedLong.ZERO;
     }
 
-    public WorldFEContainer(BigInteger min, BigInteger max, BigInteger current) {
+    public WorldFEContainer(UnsignedLong min, UnsignedLong max, UnsignedLong current) {
         this.min = min;
         this.max = max;
         this.current = current;
     }
 
     public static WorldFEContainer deserializeNBT(CompoundNBT nbt) {
-        return new WorldFEContainer(new BigInteger(nbt.getString("min")), new BigInteger(nbt.getString("max")), new BigInteger(nbt.getString("current")));
+        return new WorldFEContainer(UnsignedLong.fromLongBits(nbt.getLong("min")),UnsignedLong.fromLongBits(nbt.getLong("max")), UnsignedLong.fromLongBits(nbt.getLong("current")));
     }
 
-    public BigInteger getMin() {
+    public UnsignedLong getMin() {
         return min;
     }
 
-    public void setMin(BigInteger min) {
+    public void setMin(UnsignedLong min) {
         this.min = min;
     }
 
-    public BigInteger getMax() {
+    public UnsignedLong getMax() {
         return max;
     }
 
-    public void setMax(BigInteger max) {
+    public void setMax(UnsignedLong max) {
         this.max = max;
     }
 
@@ -50,40 +49,40 @@ public class WorldFEContainer implements IEnergyStorage {
         return compoundNBT;
     }
 
-    public BigInteger add(BigInteger value, boolean simulate) {
-        BigInteger i = current.add(value);
+    public UnsignedLong add(UnsignedLong value, boolean simulate) {
+        UnsignedLong i = current.plus(value);
         if (!simulate) {
             if (max.compareTo(i) < 0) {
-                BigInteger r = max.subtract(current);
+                UnsignedLong r = max.minus(current);
                 current = max;
                 return r;
             } else {
-                current = current.add(value);
-                return BigInteger.ZERO;
+                current = current.plus(value);
+                return UnsignedLong.ZERO;
             }
         } else {
             if (max.compareTo(i) < 0) {
-                return max.subtract(current);
+                return max.minus(current);
             } else {
-                return BigInteger.ZERO;
+                return UnsignedLong.ZERO;
             }
         }
     }
 
-    public BigInteger minus(BigInteger value, boolean simulate) {
-        BigInteger i = current.subtract(value);
+    public UnsignedLong minus(UnsignedLong value, boolean simulate) {
+        UnsignedLong i = current.minus(value);
         if (simulate) {
             if (min.compareTo(i) > 0) {
-                BigInteger r = current.subtract(min);
+                UnsignedLong r = current.minus(min);
                 current = min;
                 return r;
             } else {
-                current = current.subtract(value);
+                current = current.minus(value);
                 return value;
             }
         } else {
             if (min.compareTo(i) > 0) {
-                return current.subtract(min);
+                return current.minus(min);
             } else {
                 return value;
             }
@@ -98,11 +97,11 @@ public class WorldFEContainer implements IEnergyStorage {
         return current.compareTo(min) == 0;
     }
 
-    public BigInteger getCurrent() {
+    public UnsignedLong getCurrent() {
         return current;
     }
 
-    public void setCurrent(BigInteger current) {
+    public void setCurrent(UnsignedLong current) {
         this.current = current;
     }
 
@@ -112,12 +111,12 @@ public class WorldFEContainer implements IEnergyStorage {
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        return add(new BigInteger(String.valueOf(maxReceive)), simulate).intValue();
+        return add(UnsignedLong.valueOf(maxReceive), simulate).intValue();
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        return minus(new BigInteger(String.valueOf(maxExtract)), simulate).intValue();
+        return minus(UnsignedLong.valueOf(maxExtract), simulate).intValue();
     }
 
     @Override
