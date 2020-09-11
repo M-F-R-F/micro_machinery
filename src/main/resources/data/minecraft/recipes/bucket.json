@@ -1,19 +1,9 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " a ",
-    "# #",
-    " # "
-  ],
-  "key": {
-    "#": {
-      "tag": "forge:plates/iron"
-    },
-    "a": {
-      "tag": "forge:wires/copper"
-    }
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:barrier"
   },
-  "result": {
-    "item": "minecraft:bucket"
-  }
+  "result": "minecraft:barrier",
+  "experience": 0,
+  "cookingtime": 0
 }
