@@ -5,7 +5,7 @@ import net.minecraft.util.IStringSerializable;
 public enum EnumCableMaterial implements IStringSerializable {
     TEST(Integer.MAX_VALUE, "test_material"),
     COPPER(256, "copper"),
-    NICkEL(1024, "nickel"),
+    NICKEL(1024, "nickel"),
     ALUMINUM(4096, "aluminum"),
     TUNGSTEN(16384, "tungsten"),
     COBALT(65536, "cobalt"),
@@ -36,7 +36,7 @@ public enum EnumCableMaterial implements IStringSerializable {
             case "copper":
                 return COPPER;
             case "nickel":
-                return NICkEL;
+                return NICKEL;
             case "aluminum":
                 return ALUMINUM;
             case "tungsten":
