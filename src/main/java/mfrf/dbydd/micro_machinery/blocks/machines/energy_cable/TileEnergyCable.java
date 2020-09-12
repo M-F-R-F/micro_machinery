@@ -201,6 +201,8 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
             }
         }
 
+        checkCorrectness(tempDirectionList, world, state);
+
         if (number.equals(UnsignedLong.ZERO)) {
             if (tempDirectionList.size() != 0) {
                 for (Direction direction : tempDirectionList) {
@@ -333,13 +335,13 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
         EnergyCableSavedData data = EnergyCableSavedData.get(world);
-        if(data.hasContainer(sign)) {
+        if (data.hasContainer(sign)) {
             if (maxReceive <= material.getTransfer()) {
                 return data.receiveEnergy(sign, maxReceive, simulate);
             } else {
                 return data.receiveEnergy(sign, material.getTransfer(), simulate);
             }
-        }else {
+        } else {
             return 0;
         }
     }
@@ -347,13 +349,13 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
         EnergyCableSavedData data = EnergyCableSavedData.get(world);
-        if(data.hasContainer(sign)) {
+        if (data.hasContainer(sign)) {
             if (maxExtract <= material.getTransfer()) {
                 return data.extractEnergy(sign, maxExtract, simulate);
             } else {
                 return data.extractEnergy(sign, material.getTransfer(), simulate);
             }
-        }else {
+        } else {
             return 0;
         }
     }
@@ -376,5 +378,13 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
     @Override
     public boolean canReceive() {
         return true;
+    }
+
+    private void checkCorrectness(List<Direction> list, World world, BlockState oldState) {
+        for (Direction direction : list) {
+            if (!(world.getBlockState(pos.offset(direction)).getBlock() instanceof BlockEnergyCable)) {
+                world.notifyBlockUpdate(pos, oldState, ((BlockEnergyCable) oldState.getBlock()).getState(world, pos), 6);
+            }
+        }
     }
 }

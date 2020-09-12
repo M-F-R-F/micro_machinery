@@ -23,10 +23,13 @@ public class RecipeHelper {
 
     public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
         if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
-            boolean itemEqual = stackInSlot1.isItemEqual(stackInSlot2);
+            boolean isSingle = false;
+            if(stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.isItemEqual(stackInSlot2)){
+                isSingle = true;
+            }
             List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
                 for (KlinItemToFluidRecipe klinItemToFluidRecipe : collect) {
-                    if (klinItemToFluidRecipe.isIssingle() == itemEqual) {
+                    if (klinItemToFluidRecipe.isIssingle() == isSingle) {
                         boolean issingle = klinItemToFluidRecipe.isIssingle();
                         if (issingle) {
                             if (testItemStackWithIngredient(new ItemStack(stackInSlot1.isEmpty() ? stackInSlot2.getItem() : stackInSlot1.getItem(), Math.min(stackInSlot1.getCount() + stackInSlot2.getCount(), 64)), klinItemToFluidRecipe.getInput(), klinItemToFluidRecipe.getCount())) {

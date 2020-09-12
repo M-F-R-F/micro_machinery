@@ -75,14 +75,13 @@ public class BlockEnergyCable extends MMBlockBase {
         return getState(context.getWorld(), context.getPos());
     }
 
-    private BlockState getState(World world, BlockPos pos) {
-        BlockState defaultState = this.getDefaultState();
+    public BlockState getState(World world, BlockPos pos) {
+        BlockState defaultState = getDefaultState();
         for (Direction direction : Direction.values()) {
             BlockPos offset = pos.offset(direction);
             BlockState neighborState = world.getBlockState(offset);
             if (neighborState.getBlock() instanceof BlockEnergyCable) {
                 defaultState = defaultState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CABLE);
-                world.setBlockState(offset, neighborState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction.getOpposite()), EnumCableState.CABLE));
             } else {
                 TileEntity tileEntity = world.getTileEntity(offset);
                 if (tileEntity != null && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) {
