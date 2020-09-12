@@ -5,6 +5,7 @@ import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
 import mfrf.dbydd.micro_machinery.enums.EnumCableState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -78,8 +79,10 @@ public class BlockEnergyCable extends MMBlockBase {
         BlockState defaultState = this.getDefaultState();
         for (Direction direction : Direction.values()) {
             BlockPos offset = pos.offset(direction);
-            if (world.getBlockState(offset).getBlock() instanceof BlockEnergyCable) {
+            BlockState neighborState = world.getBlockState(offset);
+            if (neighborState.getBlock() instanceof BlockEnergyCable) {
                 defaultState = defaultState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CABLE);
+                world.setBlockState(offset, neighborState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction.getOpposite()), EnumCableState.CABLE));
             } else {
                 TileEntity tileEntity = world.getTileEntity(offset);
                 if (tileEntity != null && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) {
@@ -115,9 +118,10 @@ public class BlockEnergyCable extends MMBlockBase {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof TileEnergyCable) {
                 TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-                tileEnergyCable.notifyStateUpdate(getState(worldIn, pos), worldIn);
+                tileEnergyCable.notifyStateUpdate(state, worldIn);
             }
         }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 
     @Override
@@ -129,6 +133,8 @@ public class BlockEnergyCable extends MMBlockBase {
                 tileEnergyCable.notifyBreak(state, worldIn);
             }
         }
+
+        super.onBlockHarvested(worldIn, pos, state, player);
     }
 
     @Override
@@ -139,7 +145,7 @@ public class BlockEnergyCable extends MMBlockBase {
             Direction facingFromVector = Direction.getFacingFromVector(neighbor.getX() - pos.getX(), neighbor.getY() - pos.getY(), neighbor.getZ() - pos.getZ());
             EnumProperty<EnumCableState> enumCableStateEnumProperty = DIRECTION_ENUM_PROPERTY_MAP.get(facingFromVector);
 
-            if (tileEntityNeighbor instanceof TileEnergyCable) {
+            if (world.getBlockState(neighbor).getBlock() instanceof BlockEnergyCable) {
                 if (state.get(enumCableStateEnumProperty) != EnumCableState.CABLE) {
                     setStateNoUpdateNeighbor((World) world, pos, state.with(enumCableStateEnumProperty, EnumCableState.CABLE));
                     changed = true;
@@ -166,10 +172,11 @@ public class BlockEnergyCable extends MMBlockBase {
                 }
             }
         }
+        super.onNeighborChange(state, world, pos, neighbor);
     }
 
     private boolean setStateNoUpdateNeighbor(World world, BlockPos pos, BlockState state) {
-        return world.setBlockState(pos, state, 22);
+        return world.setBlockState(pos, state, 6);
     }
 
     @Override

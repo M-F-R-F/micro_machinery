@@ -57,7 +57,9 @@ public class MMTileBase extends TileEntity {
             LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
             capability.ifPresent(iEnergyStorage -> {
                 if (iEnergyStorage.canReceive() && container.canExtract()) {
-                    container.receiveEnergy(iEnergyStorage.receiveEnergy(container.extractEnergy(container.getMaxEnergyStored(), false), false), false);
+                    int extractEnergy = container.extractEnergy(container.getMaxEnergyStored(), false);
+                    int receiveEnergy = iEnergyStorage.receiveEnergy(extractEnergy, false);
+                    container.receiveEnergy(extractEnergy - receiveEnergy, false);
                 }
             });
         }

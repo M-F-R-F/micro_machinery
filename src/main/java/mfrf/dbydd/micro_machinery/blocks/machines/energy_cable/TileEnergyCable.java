@@ -208,7 +208,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
                     if (tileEntity instanceof TileEnergyCable) {
                         UnsignedLong cableNumber = ((TileEnergyCable) tileEntity).number;
                         if (this.number == null || this.number.compareTo(cableNumber) > 0) {
-                            this.number = cableNumber;
+                            this.number = cableNumber.plus(UnsignedLong.ONE);
                         }
                     }
                 }
@@ -232,7 +232,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
         if (this.sign == 0) {
             if (tempDirectionList.isEmpty()) {
                 EnergyCableSavedData data = EnergyCableSavedData.get(world);
-                this.sign = data.createContainer(this.material.getTransfer(), 0, 0);
+                this.sign = data.createContainer(this.material.getTransfer(), 0);
             } else {
                 for (Direction direction : tempDirectionList) {
                     TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
@@ -280,7 +280,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
 
         if (!removeCablePartRemainValue.equals(UnsignedLong.ZERO)) {
 
-            if (this.number.compareTo(UnsignedLong.ZERO) == 0) {
+            if (this.number.compareTo(UnsignedLong.ZERO) == 0 && !tempDirectionList.isEmpty()) {
                 TileEntity tileEntity = world.getTileEntity(pos.offset(tempDirectionList.get(0)));
                 if (tileEntity instanceof TileEnergyCable) {
                     TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
@@ -304,6 +304,10 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
 
         }
 
+    }
+
+    public UnsignedLong getNumber() {
+        return number;
     }
 
     private List<Direction> getCableDirectionList(Direction fromDirection) {
@@ -333,7 +337,7 @@ public class TileEnergyCable extends MMTileBase implements ITickable, IEnergySto
             if (maxReceive <= material.getTransfer()) {
                 return data.receiveEnergy(sign, maxReceive, simulate);
             } else {
-                return EnergyCableSavedData.get(world).receiveEnergy(sign, material.getTransfer(), simulate);
+                return data.receiveEnergy(sign, material.getTransfer(), simulate);
             }
         }else {
             return 0;

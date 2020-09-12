@@ -49,7 +49,7 @@ public class EnergyCableSavedData extends WorldSavedData {
     public CompoundNBT write(CompoundNBT compound) {
         ListNBT listNBT = new ListNBT();
         List<CompoundNBT> collect = PackedContainer.getPackedContainerListFromMap(integerWorldFEContainerMap).stream().map(PackedContainer::serializeNBT).filter(Objects::nonNull).collect(Collectors.toList());
-        if(!collect.isEmpty()) {
+        if (!collect.isEmpty()) {
             collect.forEach(listNBT::add);
             compound.put("list", listNBT);
         }
@@ -72,8 +72,8 @@ public class EnergyCableSavedData extends WorldSavedData {
         return !(integerWorldFEContainerMap.get(sign) == null);
     }
 
-    public int createContainer(int maxFE, int currentFE, int minFE) {
-        WorldFEContainer container = new WorldFEContainer(UnsignedLong.valueOf(maxFE), UnsignedLong.valueOf(currentFE), UnsignedLong.valueOf(minFE));
+    public int createContainer(int maxFE, int currentFE) {
+        WorldFEContainer container = new WorldFEContainer(UnsignedLong.ZERO, UnsignedLong.valueOf(maxFE), UnsignedLong.valueOf(currentFE));
         Random random = new Random();
         while (true) {
             int i = random.nextInt();
@@ -91,19 +91,24 @@ public class EnergyCableSavedData extends WorldSavedData {
 
     public UnsignedLong removeCablePart(int sign, IntegerContainer container) {
         WorldFEContainer FEcontainer = integerWorldFEContainerMap.get(sign);
-        UnsignedLong subtractedMax = FEcontainer.getMax().minus(UnsignedLong.valueOf(container.getMax()));
-        if (subtractedMax.compareTo(UnsignedLong.ZERO) > 0) {
-            UnsignedLong subtractCurrent = FEcontainer.getCurrent().minus(UnsignedLong.valueOf(container.getCurrent()));
+        if (FEcontainer != null) {
+            UnsignedLong subtractedMax = FEcontainer.getMax().minus(UnsignedLong.valueOf(container.getMax()));
+            if (subtractedMax.compareTo(UnsignedLong.ZERO) > 0) {
+                if(!FEcontainer.getCurrent().equals(UnsignedLong.ZERO)) {
+                    UnsignedLong subtractCurrent = FEcontainer.minus(UnsignedLong.valueOf(container.getCurrent()), false);
+                    FEcontainer.setCurrent(subtractCurrent);
+                }
 
-            FEcontainer.setMax(subtractedMax);
-            FEcontainer.setCurrent(subtractCurrent);
-            markDirty();
-            return FEcontainer.getMax();
-        } else {
-            integerWorldFEContainerMap.remove(sign);
-            markDirty();
-            return UnsignedLong.ZERO;
+                FEcontainer.setMax(subtractedMax);
+                markDirty();
+                return FEcontainer.getMax();
+            } else {
+                integerWorldFEContainerMap.remove(sign);
+                markDirty();
+                return UnsignedLong.ZERO;
+            }
         }
+        return UnsignedLong.ZERO;
     }
 
     public void addCablePart(int sign, IntegerContainer container) {
