@@ -1,7 +1,7 @@
 ﻿{
   "type": "micro_machinery:klin_item_to_fluid",
   "isSingle": true,
-  "meltTime": 60,
+  "meltTime": 120,
   "output": {
     "fluidName": "micro_machinery:fluids/molten_tin",
     "amount": 160
