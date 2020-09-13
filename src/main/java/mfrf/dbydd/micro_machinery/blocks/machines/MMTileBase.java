@@ -1,7 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines;
 
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
-import mfrf.dbydd.micro_machinery.utils.WorldFEContainer;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -60,19 +59,6 @@ public class MMTileBase extends TileEntity {
                     int extractEnergy = container.extractEnergy(container.getMaxEnergyStored(), false);
                     int receiveEnergy = iEnergyStorage.receiveEnergy(extractEnergy, false);
                     container.receiveEnergy(extractEnergy - receiveEnergy, false);
-                }
-            });
-        }
-        return container;
-    }
-
-    protected WorldFEContainer pushEnergyToDirection(Direction direction, WorldFEContainer container, int transfer) {
-        TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
-        if (tileEntity != null) {
-            LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
-            capability.ifPresent(iEnergyStorage -> {
-                if (iEnergyStorage.canReceive() && container.canExtract()) {
-                    container.receiveEnergy(iEnergyStorage.receiveEnergy(container.extractEnergy(transfer, false), false), false);
                 }
             });
         }

@@ -112,7 +112,7 @@ public class IntegerContainer {
     }
 
     public boolean atMaxValue() {
-        return current == max;
+        return current >= max;
     }
 
     public boolean atMinValue() {

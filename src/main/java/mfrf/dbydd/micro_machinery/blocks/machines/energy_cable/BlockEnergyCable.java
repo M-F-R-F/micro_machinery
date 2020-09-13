@@ -124,19 +124,6 @@ public class BlockEnergyCable extends MMBlockBase {
     }
 
     @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (!worldIn.isRemote()) {
-            TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if (tileEntity instanceof TileEnergyCable) {
-                TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-                tileEnergyCable.notifyBreak(state, worldIn);
-            }
-        }
-
-        super.onBlockHarvested(worldIn, pos, state, player);
-    }
-
-    @Override
     public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
         if (!world.isRemote() && world instanceof World) {
             boolean changed = false;
@@ -167,7 +154,7 @@ public class BlockEnergyCable extends MMBlockBase {
                 TileEntity tileEntity = world.getTileEntity(pos);
                 if (tileEntity instanceof TileEnergyCable) {
                     TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-                    tileEnergyCable.notifyStateUpdate(getState((World) world, pos), (World) world);
+                    tileEnergyCable.notifyStateUpdate(state, (World) world);
                 }
             }
         }

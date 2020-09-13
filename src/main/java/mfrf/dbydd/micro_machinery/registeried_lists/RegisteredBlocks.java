@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell.BlockCreativeEnergyCell;
 import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.BlockEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.BlockAnvil;
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.BlockGenerator;
@@ -116,6 +117,7 @@ public class RegisteredBlocks {
     public static final Block STONE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(2.0f).harvestTool(ToolType.PICKAXE).harvestLevel(1), "stone_anvil", EnumAnvilType.STONE, 16);
     public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).harvestLevel(2), "bronze_anvil", EnumAnvilType.BRONZE, 16);
     public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(4.0f).harvestTool(ToolType.PICKAXE).harvestLevel(3), "pigiron_anvil", EnumAnvilType.PIGIRON, 12);
+    public static final Block CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell();
     //cable
     public static final Block TESTENERGY_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid(), "test_cable", EnumCableMaterial.TEST);
     public static final Block COPPER_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(1).harvestTool(ToolType.PICKAXE), "copper_cable", EnumCableMaterial.COPPER);
