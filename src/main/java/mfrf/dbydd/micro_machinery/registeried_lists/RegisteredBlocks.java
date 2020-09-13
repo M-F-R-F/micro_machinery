@@ -120,12 +120,11 @@ public class RegisteredBlocks {
     public static final Block CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell();
     //cable
     public static final Block TESTENERGY_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid(), "test_cable", EnumCableMaterial.TEST);
-    public static final Block COPPER_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(1).harvestTool(ToolType.PICKAXE), "copper_cable", EnumCableMaterial.COPPER);
-    public static final Block NICKEL_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE), "nickel_cable", EnumCableMaterial.NICKEL);
-    public static final Block ALUMINUM_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE), "aluminum_cable", EnumCableMaterial.ALUMINUM);
-    public static final Block TUNGSTEN_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE), "tungsten_cable", EnumCableMaterial.TUNGSTEN);
-    public static final Block COBALT_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE), "cobalt_cable", EnumCableMaterial.COBALT);
-
+    public static final Block COPPER_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(1).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "copper_cable", EnumCableMaterial.COPPER);
+    public static final Block NICKEL_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "nickel_cable", EnumCableMaterial.NICKEL);
+    public static final Block ALUMINUM_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "aluminum_cable", EnumCableMaterial.ALUMINUM);
+    public static final Block TUNGSTEN_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "tungsten_cable", EnumCableMaterial.TUNGSTEN);
+    public static final Block COBALT_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "cobalt_cable", EnumCableMaterial.COBALT);
     //pipe
 
     //fluid pipe
