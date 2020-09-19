@@ -26,7 +26,7 @@ public class MMItemBase extends Item {
      * registry food
      */
     public MMItemBase(Properties properties,String name, Food food) {
-        super(properties.food(food).group(Micro_Machinery.MMTAB));
+        super(properties.food(food));
         registeries.put(name, () -> this);
     }
 }
