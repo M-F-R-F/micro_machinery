@@ -1,202 +1,194 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.energy_cable;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
 import mfrf.dbydd.micro_machinery.enums.EnumCableState;
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
-import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, IEnergyStorage {
-    //    private final Map<Direction, EnumCableState> stateMap = new HashMap<>();
-    private EnumCableMaterial material = EnumCableMaterial.NULL;
-    private FEContainer container = new FEContainer(0, 0) {
-        @Override
-        public boolean canExtract() {
-            return !atMinValue();
-        }
-
-        @Override
-        public boolean canReceive() {
-            return !atMaxValue();
-        }
-    };
+    private int currentEnergy = 0;
 
     public TileEnergyCable() {
         super(Registered_Tileentitie_Types.TILE_ENERGY_CABLE.get());
     }
 
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap) {
-        if (cap == CapabilityEnergy.ENERGY)
-            return LazyOptional.of(() -> this).cast();
-        return super.getCapability(cap);
+    public int getCurrentEnergy() {
+        return currentEnergy;
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (cap == CapabilityEnergy.ENERGY)
-            return LazyOptional.of(() -> this).cast();
-        return super.getCapability(cap, side);
+    public void read(CompoundNBT compound) {
+        currentEnergy = compound.getInt("current_energy");
+        super.read(compound);
+    }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.putInt("current_energy", currentEnergy);
+        return super.write(compound);
     }
 
     @Override
     public void tick() {
         if (!world.isRemote()) {
-//            this.historyValue = container.getCurrent();
-            Map<Direction, EnumCableState> stateMap = getStateMap();
-            List<Direction> cableSides = stateMap.entrySet().stream().filter(directionEnumCableStateEntry -> directionEnumCableStateEntry.getValue() == EnumCableState.CABLE).map(Map.Entry::getKey).collect(Collectors.toList());
-            List<Direction> outPuts = stateMap.entrySet().stream().filter(directionEnumCableStateEntry -> directionEnumCableStateEntry.getValue() == EnumCableState.CONNECT).map(Map.Entry::getKey).collect(Collectors.toList());
-
-            solveDifferenceEquation(cableSides);
-
-            pushEnergy(outPuts);
+            solveCable();
+            solveOutput();
         }
     }
 
+    @Nonnull
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        compound.put("container", container.serializeNBT());
-        compound.putString("material", material.getName());
-//        for (Direction direction : Direction.values()) {
-//            compound.putString(direction.toString() + "_state", stateMap.get(direction).name());
-//        }
-        return super.write(compound);
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        if(cap == CapabilityEnergy.ENERGY){
+            return LazyOptional.of(()->this).cast();
+        }
+        return super.getCapability(cap);
     }
 
+    @Nonnull
     @Override
-    public void read(CompoundNBT compound) {
-        container.deserializeNBT(compound.getCompound("container"));
-        material = EnumCableMaterial.fromName(compound.getString("material"));
-//        stateMap.clear();
-//        for (Direction direction : Direction.values()) {
-//            stateMap.put(direction, EnumCableState.valueOf(compound.getString(direction.toString() + "_state")));
-//        }
-        super.read(compound);
-    }
-
-    public FEContainer getContainer() {
-        return container;
-    }
-
-    public EnumCableMaterial getMaterial() {
-        return material;
-    }
-
-    public void notifyStateUpdate(BlockState state, World world) {
-//        stateMap.clear();
-        if (this.material == EnumCableMaterial.NULL) {
-            this.material = state.get(BlockEnergyCable.CABLE_MATERIAL_ENUM_PROPERTY);
-            this.container.setMax(material.getTransfer());
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
+        if(cap == CapabilityEnergy.ENERGY){
+            return LazyOptional.of(()->this).cast();
         }
-
-//        for (Direction direction : Direction.values()) {
-//            stateMap.put(direction, state.get(BlockEnergyCable.DIRECTION_ENUM_PROPERTY_MAP.get(direction)));
-//        }
-
-        markDirty();
+        return super.getCapability(cap, side);
     }
 
-    private Map<Direction, EnumCableState> getStateMap() {
-        BlockState blockState = world.getBlockState(pos);
-        Map<Direction, EnumCableState> stateMap = new HashMap<>();
-        for (Direction value : Direction.values()) {
-            stateMap.put(value, blockState.get(BlockEnergyCable.DIRECTION_ENUM_PROPERTY_MAP.get(value)));
+    private ArrayList<Direction> getStateSide(EnumCableState state) {
+        ArrayList<Direction> list = new ArrayList<>();
+        BlockState blockState = getBlockState();
+        for (Direction direction : Direction.values()) {
+            if (blockState.get(BlockEnergyCable.DIRECTION_ENUM_PROPERTY_MAP.get(direction)) == state) {
+                list.add(direction);
+            }
         }
-        return stateMap;
+        return list;
     }
 
-    private void solveDifferenceEquation(List<Direction> list) {
-        if (!list.isEmpty() && !this.container.atMaxValue()) {
+    private void solveCable() {
+        ArrayList<Direction> cableSide = getStateSide(EnumCableState.CABLE);
+        if (!cableSide.isEmpty()) {
+            int i = currentEnergy / cableSide.size();
             int sum = 0;
-            for (Direction direction : list) {
-                TileEntity tileEntity = world.getTileEntity(pos);
+            for (Direction direction : cableSide) {
+                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
                 if (tileEntity instanceof TileEnergyCable) {
                     TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
-                    if(tileEnergyCable.getEnergyStored() >= tileEnergyCable.material.getTransfer()){
-                        //todo fuck it
-                        sum+=tileEnergyCable.material.getTransfer();
-                    }else {
-                        sum+=tileEnergyCable.getEnergyStored();
+                    int currentEnergy = tileEnergyCable.getCurrentEnergy();
+                    if (currentEnergy < this.currentEnergy) {
+                        int difference = (this.currentEnergy - currentEnergy)/2;
+                        sum += tileEnergyCable.receiveEnergy(Math.min(i, difference), false);
                     }
                 }
             }
-
-                this.container.add(sum / 6 - container.getCurrent(), false);
+            this.currentEnergy -= sum;
             markDirty();
         }
     }
 
-    private void pushEnergy(List<Direction> list) {
-        if (!list.isEmpty()) {
-
-            int energyEachDirection = container.getCurrent() / list.size();
-
-            int energyCost = list.stream().mapToInt(direction -> {
-                AtomicInteger returnValue = new AtomicInteger(0);
+    private void solveOutput() {
+        ArrayList<Direction> outputSide = getStateSide(EnumCableState.CONNECT);
+        if (!outputSide.isEmpty()) {
+            int size = outputSide.size();
+            int i = currentEnergy / size;
+            AtomicInteger sum = new AtomicInteger();
+            for (Direction direction : outputSide) {
                 TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
                 if (tileEntity != null) {
                     LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {
                         if (iEnergyStorage.canReceive()) {
-                            returnValue.set(iEnergyStorage.receiveEnergy(energyEachDirection, false));
+                            int difference = iEnergyStorage.getMaxEnergyStored() - iEnergyStorage.getEnergyStored();
+                            if (difference > 0) {
+                                sum.addAndGet(iEnergyStorage.receiveEnergy(Math.min(difference, i), false));
+                            }
                         }
                     });
                 }
-                return returnValue.get();
-            }).sum();
-
-            container.add(-energyCost, false);
+            }
+            currentEnergy -= sum.get();
             markDirty();
         }
     }
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        int receiveEnergy = container.receiveEnergy(maxReceive, simulate);
-        markDirty();
-        return receiveEnergy;
+        int transfer = getTransfer();
+        if (simulate) {
+            if (currentEnergy + maxReceive <= transfer) {
+                return maxReceive;
+            } else {
+                return transfer - currentEnergy;
+            }
+        } else {
+            if (currentEnergy + maxReceive <= transfer) {
+                currentEnergy += maxReceive;
+                markDirty();
+                return maxReceive;
+            } else {
+                int returnValue = transfer - currentEnergy;
+                currentEnergy = transfer;
+                markDirty();
+                return returnValue;
+            }
+        }
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        int extractEnergy = container.extractEnergy(maxExtract, simulate);
-        markDirty();
-        return extractEnergy;
+        if (simulate) {
+            if (currentEnergy - maxExtract >= 0) {
+                return maxExtract;
+            } else {
+                return currentEnergy;
+            }
+        } else {
+            if (currentEnergy - maxExtract >= 0) {
+                currentEnergy -= maxExtract;
+                markDirty();
+                return maxExtract;
+            } else {
+                int currentEnergy = this.currentEnergy;
+                this.currentEnergy = 0;
+                markDirty();
+                return currentEnergy;
+            }
+        }
     }
 
     @Override
     public int getEnergyStored() {
-        return container.getEnergyStored();
+        return currentEnergy;
     }
 
     @Override
     public int getMaxEnergyStored() {
-        return container.getMaxEnergyStored();
+        return getTransfer();
     }
 
     @Override
     public boolean canExtract() {
-        return container.canExtract();
+        return currentEnergy > 0;
     }
 
     @Override
     public boolean canReceive() {
-        return container.canReceive();
+        return currentEnergy < getTransfer();
+    }
+
+    private int getTransfer() {
+        return getBlockState().get(BlockEnergyCable.CABLE_MATERIAL_ENUM_PROPERTY).getTransfer();
     }
 }

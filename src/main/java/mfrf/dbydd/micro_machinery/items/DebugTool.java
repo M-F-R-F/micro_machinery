@@ -19,7 +19,7 @@ public class DebugTool extends MMItemBase {
         if (!world.isRemote()) {
             TileEntity tileEntity = world.getTileEntity(context.getPos());
             if(tileEntity instanceof TileEnergyCable){
-                context.getPlayer().sendMessage(new StringTextComponent("current:" + ((TileEnergyCable)tileEntity).getContainer().getCurrent()));
+                context.getPlayer().sendMessage(new StringTextComponent("current:" + ((TileEnergyCable)tileEntity).getEnergyStored()));
             }
         }
         return ActionResultType.SUCCESS;

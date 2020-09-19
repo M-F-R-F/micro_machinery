@@ -5,6 +5,7 @@ import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -30,6 +31,18 @@ public class TileCreativeEnergyCell extends MMTileBase implements ITickableTileE
             }
         }
 
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap) {
+        if(cap == CapabilityEnergy.ENERGY)return LazyOptional.of(()->this).cast();
+        return super.getCapability(cap);
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap,Direction side) {
+        if(cap == CapabilityEnergy.ENERGY)return LazyOptional.of(()->this).cast();
+        return super.getCapability(cap, side);
     }
 
     @Override
