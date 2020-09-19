@@ -93,7 +93,7 @@ public class RecipeHelper {
     }
 
     public static boolean testItemStackWithIngredient(ItemStack stack, Ingredient ingredient, int count) {
-        return ingredient.test(stack) && stack.getCount() > count;
+        return ingredient.test(stack) && stack.getCount() >= count;
     }
 
 }
