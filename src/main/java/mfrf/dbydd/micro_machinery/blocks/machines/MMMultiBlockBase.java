@@ -15,9 +15,11 @@ public abstract class MMMultiBlockBase extends MMBlockTileProviderBase {
     public static BooleanProperty IS_PLACEHOLDER = BooleanProperty.create("isPlaceHolder");
     public static List<Block> blockList = new ArrayList<>();
 
-    public MMMultiBlockBase(Properties properties, String name) {
+    public MMMultiBlockBase(Properties properties, String name, boolean addPlaceHolder) {
         super(properties, name);
-        blockList.add(this);
+        if(addPlaceHolder) {
+            blockList.add(this);
+        }
     }
 
     @Override

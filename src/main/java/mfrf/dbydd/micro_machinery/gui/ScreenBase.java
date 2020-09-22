@@ -1,10 +1,11 @@
 package mfrf.dbydd.micro_machinery.gui;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
@@ -77,7 +78,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         if ((mouthy - (guiTop + y)) <= barHeight && (mouthy - (guiTop + y)) >= 0 && (mouthx - (guiLeft + x)) <= barWidth && (mouthx - (guiLeft + x)) >= 0) {
             int current = container.getCurrent();
             int max = container.getMaxEnergyStored();
-            this.renderTooltip(current+"/"+max+" FE", mouthx, mouthy);
+            this.renderTooltip(current + "/" + max + " FE", mouthx, mouthy);
         }
     }
 
@@ -88,7 +89,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
 
     protected void renderModule(int beginX, int beginY, int u, int v, int texture_width, int texture_height) {
         this.minecraft.getTextureManager().bindTexture(MODULES);
-        blit(guiLeft+beginX, guiTop+beginY, u, v, texture_width, texture_height);
+        blit(guiLeft + beginX, guiTop + beginY, u, v, texture_width, texture_height);
     }
 
     protected void initBase() {
@@ -96,6 +97,25 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         this.minecraft.getTextureManager().bindTexture(TEXTURES);
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+    }
+
+    public void drawbutton(int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey, Button.IPressable onPress) {
+        addButton(new Button(x, y, width, height, buttontext,onPress) {
+            @Override
+            public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
+                RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+                minecraft.getTextureManager().bindTexture(TEXTURES);
+                int x = p_renderButton_1_ - this.x;
+                int y = p_renderButton_2_ - this.y;
+                if (this.visible) {
+                    if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
+                        blit(this.x + guiLeft, this.y + guiTop, holdtexturex, holdtexturey, this.width, this.height);
+                    } else {
+                        blit(this.x + guiLeft, this.y + guiTop, texturex, texturey, this.width, this.height);
+                    }
+                }
+            }
+        });
     }
 
 }
