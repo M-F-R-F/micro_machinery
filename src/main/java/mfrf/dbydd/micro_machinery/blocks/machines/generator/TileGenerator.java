@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 public class TileGenerator extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
     private FluidTank tank = new FluidTank(2000, (fluidStack) -> fluidStack.getFluid() == Fluids.WATER);
     private ItemStackHandler fuel_handler = new ItemStackHandler(1);
-    private FEContainer energyContainer = new FEContainer(0, 80000) {
+    private FEContainer energyContainer = new FEContainer(0, 40000) {
         @Override
         public boolean canExtract() {
             return true;
@@ -46,7 +46,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
 
         @Override
         public int self_add() {
-            int add = add(12, false);
+            int add = add(16, false);
             markDirty2();
             return add;
         }

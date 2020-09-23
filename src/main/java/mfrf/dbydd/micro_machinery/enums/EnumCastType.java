@@ -1,12 +1,12 @@
 package mfrf.dbydd.micro_machinery.enums;
 
 public enum EnumCastType {
-    INGOT, STICK, GEAR, SWORD;
+    INGOT, STICK, GEAR_BLANK, SWORD;
 
     public static String getString(EnumCastType type) {
         switch (type) {
-            case GEAR:
-                return "gear";
+            case GEAR_BLANK:
+                return "gear_blank";
             case INGOT:
                 return "ingot";
             case STICK:
@@ -19,8 +19,8 @@ public enum EnumCastType {
 
     public static EnumCastType fromString(String type) {
         switch (type) {
-            case "gear":
-                return GEAR;
+            case "gear_blank":
+                return GEAR_BLANK;
             case "ingot":
                 return INGOT;
             case "stick":

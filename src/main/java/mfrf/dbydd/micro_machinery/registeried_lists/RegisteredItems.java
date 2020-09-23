@@ -232,7 +232,7 @@ public class RegisteredItems {
     //casts
     public static final Item CAST_INGOT = new MMCastBase("cast_ingot", EnumCastType.INGOT);
     public static final Item CAST_STICK = new MMCastBase("cast_stick",EnumCastType.STICK);
-    public static final Item CAST_GEAR = new MMCastBase("cast_gear",EnumCastType.GEAR);
+    public static final Item CAST_GEAR_BLANK = new MMCastBase("cast_gear_blank",EnumCastType.GEAR_BLANK);
     public static final Item CAST_SWORD = new MMCastBase("cast_sword",EnumCastType.SWORD);
     //other
     public static final Item MONOCRYSTALLINE_SILICON = new MMItemBase("monocrystalline_silicon");
