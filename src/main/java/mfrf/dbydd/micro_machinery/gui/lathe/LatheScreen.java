@@ -8,7 +8,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class LatheScreen extends ScreenBase<LatheContainer> {
     public LatheScreen(LatheContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/lathe.png"),176 , 182);
+        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/lathe.png"), 176, 182);
     }
 
     @Override
@@ -19,7 +19,12 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
     @Override
     protected void init() {
         super.init();
-
+//        drawbutton();
+//        drawbutton();
+//        drawbutton();
+//        drawbutton();
+//        drawbutton();
+//        drawbutton();
         //todo
     }
 }

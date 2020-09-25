@@ -99,12 +99,15 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
+    /**
+     * textures of button should in module.png
+     */
     public void drawbutton(int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey, Button.IPressable onPress) {
         addButton(new Button(x, y, width, height, buttontext,onPress) {
             @Override
             public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
                 RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-                minecraft.getTextureManager().bindTexture(TEXTURES);
+                minecraft.getTextureManager().bindTexture(MODULES);
                 int x = p_renderButton_1_ - this.x;
                 int y = p_renderButton_2_ - this.y;
                 if (this.visible) {

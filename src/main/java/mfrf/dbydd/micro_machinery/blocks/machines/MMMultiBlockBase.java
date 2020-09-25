@@ -27,8 +27,8 @@ public abstract class MMMultiBlockBase extends MMBlockTileProviderBase {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(IS_PLACEHOLDER);
         super.fillStateContainer(builder);
+        builder.add(IS_PLACEHOLDER);
     }
 
 }
