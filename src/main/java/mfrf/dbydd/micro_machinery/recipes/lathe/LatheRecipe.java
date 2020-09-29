@@ -29,8 +29,6 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
 
     public boolean isActionEqual(ActionContainer container) {
         EvictingQueue<TileLathe.Action> actionQueue = container.getActionQueue();
-        TileLathe.Action[] actions = (TileLathe.Action[]) actionQueue.toArray();
-        //todo
         return false;
     }
 

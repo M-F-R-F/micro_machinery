@@ -19,7 +19,9 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
     @Override
     protected void init() {
         super.init();
-//        drawbutton();
+        drawbutton(65, 60, 14, 14, "", 214, 139, 214, 125, button -> {
+//            container.getLathe().getActionContainer().addStep(Action.);
+        });// 1
 //        drawbutton();
 //        drawbutton();
 //        drawbutton();

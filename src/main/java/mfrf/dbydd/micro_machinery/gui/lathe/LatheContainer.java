@@ -30,6 +30,10 @@ public class LatheContainer extends ContainerBase {
         drawInventory(8, 89, playerInventory);
     }
 
+    public TileLathe getLathe() {
+        return lathe;
+    }
+
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return lathe.isUsableByPlayer(playerIn);
