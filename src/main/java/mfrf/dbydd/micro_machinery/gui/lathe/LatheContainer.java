@@ -20,14 +20,14 @@ public class LatheContainer extends ContainerBase {
         super(Registered_ContainerTypes.LATHE_CONTAINER.get(), id);
         this.lathe = (TileLathe) world.getTileEntity(pos);
         ItemStackHandler itemHander = lathe.getItemHander();
-        this.addSlot(new SlotItemHandler(itemHander, 0, 32, 37));
-        this.addSlot(new SlotItemHandler(itemHander, 1, 149, 37) {
+        this.addSlot(new SlotItemHandler(itemHander, 0, 28, 54));
+        this.addSlot(new SlotItemHandler(itemHander, 1, 132, 54) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return false;
             }
         });
-        drawInventory(8, 89, playerInventory);
+        drawInventory(8, 100, playerInventory);
     }
 
     public TileLathe getLathe() {

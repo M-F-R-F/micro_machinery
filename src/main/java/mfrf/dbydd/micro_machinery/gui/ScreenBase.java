@@ -9,8 +9,10 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -103,19 +105,17 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
      * textures of button should in module.png
      */
     public void drawbutton(int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey, Button.IPressable onPress) {
-        addButton(new Button(x, y, width, height, buttontext,onPress) {
+        this.addButton(new Button(x, y, width, height, buttontext, button -> {}) {
             @Override
             public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
                 RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
                 minecraft.getTextureManager().bindTexture(MODULES);
-                int x = p_renderButton_1_ - this.x;
-                int y = p_renderButton_2_ - this.y;
-                if (this.visible) {
-                    if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
-                        blit(this.x + guiLeft, this.y + guiTop, holdtexturex, holdtexturey, this.width, this.height);
-                    } else {
-                        blit(this.x + guiLeft, this.y + guiTop, texturex, texturey, this.width, this.height);
-                    }
+                if (p_renderButton_1_ >= x + guiLeft && p_renderButton_1_ <= x + width + guiLeft && p_renderButton_2_ >= y + guiTop && p_renderButton_2_ <= y + height + guiTop) {
+                    active = true;
+                    blit(this.x + guiLeft, this.y + guiTop, holdtexturex, holdtexturey, this.width, this.height);
+                } else {
+                    active = false;
+                    blit(this.x + guiLeft, this.y + guiTop, texturex, texturey, this.width, this.height);
                 }
             }
         });

@@ -27,7 +27,8 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();
         for (int i = 0; i < 3; i++) {
-            compoundNBT.putString("action" + i, actionQueue.poll().name());
+            TileLathe.Action poll = actionQueue.poll();
+            compoundNBT.putString("action" + i, poll != null ? poll.name() : TileLathe.Action.EMPTY.name());
         }
         return compoundNBT;
     }

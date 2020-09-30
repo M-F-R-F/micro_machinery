@@ -24,7 +24,7 @@ public abstract class ContainerBase extends Container {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                this.addSlot(new Slot(inventory, 9 + i * 9 + j, 8 + x + j * 18, y + i * 18));
+                this.addSlot(new Slot(inventory, 9 + i * 9 + j, 8 + j * 18, y + i * 18));
             }
         }
     }

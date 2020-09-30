@@ -11,14 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MMMultiBlockBase extends MMBlockTileProviderBase {
-
-    public static BooleanProperty IS_PLACEHOLDER = BooleanProperty.create("isPlaceHolder");
-    public static List<Block> blockList = new ArrayList<>();
+    protected static final BooleanProperty IS_PLACEHOLDER = BooleanProperty.create("is_place_holder");
+    public static List<Block> PlaceHolderList = new ArrayList<>();
 
     public MMMultiBlockBase(Properties properties, String name, boolean addPlaceHolder) {
         super(properties, name);
-        if(addPlaceHolder) {
-            blockList.add(this);
+        if (addPlaceHolder) {
+            PlaceHolderList.add(this);
         }
     }
 
@@ -27,8 +26,8 @@ public abstract class MMMultiBlockBase extends MMBlockTileProviderBase {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
         builder.add(IS_PLACEHOLDER);
+        super.fillStateContainer(builder);
     }
 
 }
