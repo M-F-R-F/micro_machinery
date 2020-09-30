@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shaped",
     "pattern": [
       "b b",
-      " w ",
+      "   ",
       "b b"
     ],
     "key": {
@@ -14,6 +14,6 @@
       }
     },
     "result": {
-      "item": "micro_machinery:cast_gear"
+      "item": "micro_machinery:cast_gear_blank"
     }
   }
