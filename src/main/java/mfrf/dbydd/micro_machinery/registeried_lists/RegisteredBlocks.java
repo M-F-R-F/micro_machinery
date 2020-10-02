@@ -109,7 +109,6 @@ public class RegisteredBlocks {
     public static final Block SLAG_CONCRETE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "slag_concrete");
     public static final Block CLAY_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "clay_brick_block");
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "fire_brick_block");
-    //tile entity
     //machine
     public static final Block KLIN = new BlockKlin();
     public static final Block GENERATOR = new BlockGenerator();
@@ -118,7 +117,6 @@ public class RegisteredBlocks {
     public static final Block STONE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(2.0f).harvestTool(ToolType.PICKAXE).harvestLevel(1), "stone_anvil", EnumAnvilType.STONE, 16);
     public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).harvestLevel(2), "bronze_anvil", EnumAnvilType.BRONZE, 16);
     public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(4.0f).harvestTool(ToolType.PICKAXE).harvestLevel(3), "pigiron_anvil", EnumAnvilType.PIGIRON, 12);
-    public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(3).harvestTool(ToolType.PICKAXE), "lathe");
     public static final Block CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell();
     //cable
     public static final Block TESTENERGY_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid(), "test_cable", EnumCableMaterial.TEST);
@@ -130,6 +128,9 @@ public class RegisteredBlocks {
     //pipe
 
     //fluid pipe
+
+    //multiBlock
+    public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(3).harvestTool(ToolType.PICKAXE), "lathe");
 
     //indicator
     public static final Block INDICATOR = new MMBlockBase("indicator", true);

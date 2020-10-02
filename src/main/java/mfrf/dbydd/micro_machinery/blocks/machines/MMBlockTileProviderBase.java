@@ -19,6 +19,10 @@ public abstract class MMBlockTileProviderBase extends MMBlockBase {
         super(properties, name);
     }
 
+    public MMBlockTileProviderBase(Properties properties, String name,boolean autoRegistryItem) {
+        super(properties, name,autoRegistryItem);
+    }
+
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;

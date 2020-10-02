@@ -30,4 +30,10 @@ public class MMBlockBase extends Block {
         this.name = name;
         registeries_no_item.put(name, () -> this);
     }
+
+    public MMBlockBase(Properties properties, String name, boolean noitem) {
+        super(DEFAULT_PROPERTIES);
+        this.name = name;
+        registeries_no_item.put(name, () -> this);
+    }
 }

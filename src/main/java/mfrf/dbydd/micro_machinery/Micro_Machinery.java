@@ -1,10 +1,7 @@
 package mfrf.dbydd.micro_machinery;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import mfrf.dbydd.micro_machinery.items.MMAxeBase;
-import mfrf.dbydd.micro_machinery.items.MMHammerBase;
-import mfrf.dbydd.micro_machinery.items.MMItemBase;
-import mfrf.dbydd.micro_machinery.items.MMSwordBase;
+import mfrf.dbydd.micro_machinery.items.*;
 import mfrf.dbydd.micro_machinery.registeried_lists.strctures.Veins;
 import mfrf.dbydd.micro_machinery.worldgen.VeinFeature;
 import mfrf.dbydd.micro_machinery.registeried_lists.*;
@@ -45,6 +42,8 @@ public class Micro_Machinery {
         Micro_Machinery.RegisteryItems(MMAxeBase.registeries);
         Micro_Machinery.RegisteryBlocks(MMBlockBase.registeries);
         Micro_Machinery.RegisteryBlocksWithoutItem(MMBlockBase.registeries_no_item);
+
+        ITEM_REGISTER.register("lathe", LatheBlockItem::new);
     }
 
     public Micro_Machinery() {

@@ -15,13 +15,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockLathe extends MMMultiBlockBase {
 
     public BlockLathe(Properties properties, String name) {
-        super(properties, name, true);
+        super(properties, name, true,false);
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, false));
     }
 
@@ -46,10 +48,26 @@ public class BlockLathe extends MMMultiBlockBase {
     }
 
     @Override
+    public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
+        super.onPlayerDestroy(worldIn, pos, state);
+        Boolean isPlaceHolder = state.get(IS_PLACEHOLDER);
+        if(isPlaceHolder){
+            worldIn.destroyBlock(pos.offset(state.get(FACING).rotateY()), false);
+        }else {
+            worldIn.destroyBlock(pos.offset(state.get(FACING).rotateYCCW()), false);
+        }
+    }
+
+    @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
         Direction direction = state.get(FACING);
         worldIn.setBlockState(pos.offset(direction.rotateYCCW()), getDefaultState().with(FACING, direction).with(IS_PLACEHOLDER, true));
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        super.onReplaced(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
