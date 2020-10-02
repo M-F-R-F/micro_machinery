@@ -105,7 +105,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
      * textures of button should in module.png
      */
     public void drawbutton(int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey, Button.IPressable onPress) {
-        this.addButton(new Button(x, y, width, height, buttontext, button -> {}) {
+        this.addButton(new Button(x, y, width, height, buttontext, onPress) {
             @Override
             public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
                 RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
