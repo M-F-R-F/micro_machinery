@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "micro_machinery:crafting_shaped/cast_gear"
+      "micro_machinery:crafting_shaped/cast_gear_blank"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "micro_machinery:crafting_shaped/cast_gear"
+        "recipe": "micro_machinery:crafting_shaped/cast_gear_blank"
       }
     }
   },
