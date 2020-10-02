@@ -2,19 +2,19 @@
     "variants": 
     {
         "facing=north": {
-            "model": "micro_machinery:block/lathe"
-        },
-        "facing=east": {
             "model": "micro_machinery:block/lathe",
             "y": 90
         },
-        "facing=south": {
+        "facing=east": {
             "model": "micro_machinery:block/lathe",
             "y": 180
         },
-        "facing=west": {
+        "facing=south": {
             "model": "micro_machinery:block/lathe",
             "y": 270
+        },
+        "facing=west": {
+            "model": "micro_machinery:block/lathe"
         }
     }
 }
