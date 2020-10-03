@@ -2,6 +2,7 @@ package mfrf.dbydd.micro_machinery.blocks.machines.lathe;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
+import mfrf.dbydd.micro_machinery.utils.VoxelShapeUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -74,7 +75,6 @@ public class BlockLathe extends MMMultiBlockBase {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-
         return super.getShape(state, worldIn, pos, context);
     }
 
