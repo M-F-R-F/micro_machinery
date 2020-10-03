@@ -10,19 +10,19 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
 public class VoxelShapeUtil {
-    private static final RealMatrix matrixRotEast = new Array2DRowRealMatrix(new double[][]{
+    private static final RealMatrix MATRIX_ROT_EAST = new Array2DRowRealMatrix(new double[][]{
             {0, 0, 1, 0},
             {0, 1, 0, 0},
             {-1, 0, 0, 16},
             {0, 0, 0, 1}
     });
-    private static final RealMatrix matrixRotSouth = new Array2DRowRealMatrix(new double[][]{
+    private static final RealMatrix MATRIX_ROT_SOUTH = new Array2DRowRealMatrix(new double[][]{
             {-1, 0, 0, 16},
             {0, 1, 0, 0},
             {0, 0, -1, 16},
             {0, 0, 0, 1}
     });
-    private static final RealMatrix matrixRotWest = new Array2DRowRealMatrix(new double[][]{
+    private static final RealMatrix MATRIX_ROT_WEST = new Array2DRowRealMatrix(new double[][]{
             {0, 0, -1, 16},
             {0, 1, 0, 0},
             {1, 0, 0, 0},
@@ -43,11 +43,11 @@ public class VoxelShapeUtil {
         if (direction != Direction.UP && direction != Direction.DOWN) {
             switch (direction) {
                 case EAST:
-                    return rotate(matrixRotEast, shape);
+                    return rotate(MATRIX_ROT_EAST, shape);
                 case WEST:
-                    return rotate(matrixRotWest, shape);
+                    return rotate(MATRIX_ROT_WEST, shape);
                 case SOUTH:
-                    return rotate(matrixRotSouth, shape);
+                    return rotate(MATRIX_ROT_SOUTH, shape);
                 default:
                     return shape;
             }
