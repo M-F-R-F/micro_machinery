@@ -33,11 +33,11 @@ import javax.annotation.Nullable;
 
 public class BlockKlin extends MMBlockTileProviderBase {
     protected static final BooleanProperty BURNING = BooleanProperty.create("burning");
-    public static final VoxelShape klin1 = Block.makeCuboidShape(1, 0, 1, 15, 9, 15);
-    public static final VoxelShape klin2 = Block.makeCuboidShape(2, 9, 2, 14, 15, 14);
-    public static final VoxelShape klin3 = Block.makeCuboidShape(3, 15, 3, 13, 18, 13);
-    public static final VoxelShape klin4 = Block.makeCuboidShape(4, 18, 4, 12, 20, 12);
-    private static final VoxelShape klin = VoxelShapes.or(klin1, klin2, klin3, klin4);
+    public static final VoxelShape KLIN_SHAPE1 = Block.makeCuboidShape(1, 0, 1, 15, 9, 15);
+    public static final VoxelShape KLIN_SHAPE2 = Block.makeCuboidShape(2, 9, 2, 14, 15, 14);
+    public static final VoxelShape KLIN_SHAPE3 = Block.makeCuboidShape(3, 15, 3, 13, 18, 13);
+    public static final VoxelShape KLIN_SHAPE4 = Block.makeCuboidShape(4, 18, 4, 12, 20, 12);
+    private static final VoxelShape KLIN_SHAPE = VoxelShapes.or(KLIN_SHAPE1, KLIN_SHAPE2, KLIN_SHAPE3, KLIN_SHAPE4);
 
     public BlockKlin() {
         super(Properties.create(Material.IRON).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(2.0f), "klin");
@@ -97,11 +97,11 @@ public class BlockKlin extends MMBlockTileProviderBase {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return klin;
+        return KLIN_SHAPE;
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return klin;
+        return KLIN_SHAPE;
     }
 }

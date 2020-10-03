@@ -17,7 +17,7 @@ public class LatheBlockItem extends BlockItem {
     @Override
     protected boolean canPlace(BlockItemUseContext p_195944_1_, BlockState p_195944_2_) {
         boolean b = super.canPlace(p_195944_1_, p_195944_2_);
-        BlockState blockState = p_195944_1_.getWorld().getBlockState(p_195944_1_.getPos().offset(p_195944_1_.getPlacementHorizontalFacing().rotateYCCW()));
+        BlockState blockState = p_195944_1_.getWorld().getBlockState(p_195944_1_.getPos().offset(p_195944_1_.getPlacementHorizontalFacing().rotateY()));
         return  b && blockState.isReplaceable(p_195944_1_);
     }
 }
