@@ -81,7 +81,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
 
     @Override
     public Container createMenu(int sycID, PlayerInventory inventory, PlayerEntity player) {
-        return new LatheContainer(sycID, inventory, this.pos, this.world);
+        return new LatheContainer(sycID, inventory, this.pos, this.world, wasteMaterialValueConatiner.toIntArray());
     }
 
     public ActionContainer getActionContainer() {

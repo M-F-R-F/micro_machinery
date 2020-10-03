@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.utils;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.IIntArray;
 
 public class IntegerContainer {
     private int min;
@@ -123,8 +124,48 @@ public class IntegerContainer {
         return current;
     }
 
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
     public void resetValue() {
         this.current = min;
     }
 
+    public IIntArray toIntArray() {
+        return new IIntArray() {
+            @Override
+            public int get(int index) {
+                switch (index) {
+                    case 0:
+                        return min;
+                    case 1:
+                        return max;
+                    case 2:
+                        return current;
+                }
+                return 0;
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0:
+                        setMin(value);
+                        break;
+                    case 1:
+                        setMax(value);
+                        break;
+                    case 2:
+                        add(value,false);
+                        break;
+                }
+            }
+
+            @Override
+            public int size() {
+                return 3;
+            }
+        };
+    }
 }

@@ -9,10 +9,8 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -104,8 +102,10 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
     /**
      * textures of button should in module.png
      */
-    public void drawbutton(int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey, Button.IPressable onPress) {
+    public void drawButton(int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey, Button.IPressable onPress) {
         this.addButton(new Button(x, y, width, height, buttontext, onPress) {
+            private boolean clicked = false;
+
             @Override
             public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
                 RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -118,6 +118,13 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
                     blit(this.x + guiLeft, this.y + guiTop, texturex, texturey, this.width, this.height);
                 }
             }
+
+            @Override
+            public void onClick(double p_onClick_1_, double p_onClick_3_) {
+                clicked = true;
+                super.onClick(p_onClick_1_, p_onClick_3_);
+            }
+
         });
     }
 
