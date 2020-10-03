@@ -74,6 +74,7 @@ public class BlockLathe extends MMMultiBlockBase {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+
         return super.getShape(state, worldIn, pos, context);
     }
 

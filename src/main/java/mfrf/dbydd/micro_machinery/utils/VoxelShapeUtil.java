@@ -9,7 +9,7 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
-public class voxelShapeUtil {
+public class VoxelShapeUtil {
     private static final RealMatrix matrixRotEast = new Array2DRowRealMatrix(new double[][]{{0, 0, 1, 0}, {0, 1, 0, 0}, {-1, 0, 0, 16}});
     private static final RealMatrix matrixRotSouth = new Array2DRowRealMatrix(new double[][]{{-1, 0, 0, 16}, {0, 1, 0, 0}, {0, 0, -1, 16}});
     private static final RealMatrix matrixRotWest = new Array2DRowRealMatrix(new double[][]{{0, 0, -1, 16}, {0, 1, 0, 0}, {1, 0, 0, 0}});
