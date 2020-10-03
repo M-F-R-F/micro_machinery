@@ -157,7 +157,7 @@ public class IntegerContainer {
                         setMax(value);
                         break;
                     case 2:
-                        add(value,false);
+                        add(value, false);
                         break;
                 }
             }

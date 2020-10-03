@@ -21,7 +21,7 @@ public class RandomUtils {
         int size = map.size();
         int time = 0;
         for (Map.Entry<Double, Block> entry : map.entrySet()) {
-            sum += (Double) entry.getKey();
+            sum += entry.getKey();
             if (sum >= d || time == size) {
                 sum = 0.0d;
                 return entry.getValue().getDefaultState();
