@@ -35,7 +35,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 public class BlockGenerator extends MMBlockTileProviderBase {
-    public static final VoxelShape GENERATOR_SHAPE1 = Block.makeCuboidShape(0, 0, 0, 15, 4, 15);
+    public static final VoxelShape GENERATOR_SHAPE1 = Block.makeCuboidShape(0, 0, 0, 16, 4, 15);
     public static final VoxelShape GENERATOR_SHAPE2 = Block.makeCuboidShape(0, 4, 11, 16, 16, 15);
     public static final VoxelShape GENERATOR_SHAPE3 = Block.makeCuboidShape(2, 2, 15, 14, 14, 16);
     public static final VoxelShape GENERATOR_SHAPE4 = Block.makeCuboidShape(2, 4, 2, 14, 14, 11);
