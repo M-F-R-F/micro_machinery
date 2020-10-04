@@ -1,5 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.generator;
 
+import com.sun.org.apache.regexp.internal.RE;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.utils.VoxelShapeUtil;
 import net.minecraft.block.Block;
@@ -39,6 +40,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     public static final VoxelShape GENERATOR_SHAPE2 = Block.makeCuboidShape(0, 4, 11, 16, 16, 15);
     public static final VoxelShape GENERATOR_SHAPE3 = Block.makeCuboidShape(2, 2, 15, 14, 14, 16);
     public static final VoxelShape GENERATOR_SHAPE4 = Block.makeCuboidShape(2, 4, 2, 14, 14, 11);
+    public static final VoxelShape SHAPE = VoxelShapes.or(GENERATOR_SHAPE1, GENERATOR_SHAPE2,GENERATOR_SHAPE3,GENERATOR_SHAPE4);
     public static final BooleanProperty ISBURNING = BooleanProperty.create("isburning");
 
     public BlockGenerator() {
@@ -57,7 +59,8 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     }
 
     private VoxelShape makeShape(Direction direction){
-        return VoxelShapes.or(VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE1, direction), VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE2, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE3, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE4, direction));
+//        return VoxelShapes.or(VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE1, direction), VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE2, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE3, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE4, direction));
+        return VoxelShapeUtil.rotateDirection(SHAPE, direction);
     }
 
     public static void setIsburning(boolean isburning, World world, BlockPos pos) {
