@@ -48,15 +48,15 @@ public class BlockGenerator extends MMBlockTileProviderBase {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return conbinShape(state.get(FACING));
+        return makeShape(state.get(FACING));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return conbinShape(state.get(FACING));
+        return makeShape(state.get(FACING));
     }
 
-    private VoxelShape conbinShape(Direction direction){
+    private VoxelShape makeShape(Direction direction){
         return VoxelShapes.or(VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE1, direction), VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE2, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE3, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE4, direction));
     }
 
