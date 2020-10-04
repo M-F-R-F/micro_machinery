@@ -58,9 +58,7 @@ public class VoxelShapeUtil {
      * @return the VoxelShape that been transformed.
      */
     public static VoxelShape transformation(RealMatrix matrix, VoxelShape shape) {
-//        AxisAlignedBB boundingBox = shape.getBoundingBox();
         List<AxisAlignedBB> axisAlignedBBS = shape.toBoundingBoxList();
-//        ArrayList<VoxelShape> shapes = new ArrayList<>();
         RealMatrix realMatrix = matrix.add(OFFSET_MATRIX);
         VoxelShape returnValue = VoxelShapes.empty();
         for (AxisAlignedBB boundingBox : axisAlignedBBS) {
@@ -70,10 +68,8 @@ public class VoxelShapeUtil {
             RealVector beginPointTransitioned = realMatrix.operate(beginPoint);
             RealVector lastPointTransitioned = realMatrix.operate(lastPoint);
 
-//            shapes.add(Block.makeCuboidShape(beginPointTransitioned.getEntry(0), beginPointTransitioned.getEntry(1), beginPointTransitioned.getEntry(2), lastPointTransitioned.getEntry(0), lastPointTransitioned.getEntry(1), lastPointTransitioned.getEntry(2)));
             returnValue = VoxelShapes.or(returnValue, Block.makeCuboidShape(beginPointTransitioned.getEntry(0), beginPointTransitioned.getEntry(1), beginPointTransitioned.getEntry(2), lastPointTransitioned.getEntry(0), lastPointTransitioned.getEntry(1), lastPointTransitioned.getEntry(2)));
         }
-//        return shapes.size() == 1 ? shapes.get(0) : VoxelShapes.or(shapes.get(0), shapes.subList(1, shapes.size() - 1).toArray(new VoxelShape[shapes.size() - 1]));
         return returnValue;
     }
 
