@@ -27,12 +27,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockLathe extends MMMultiBlockBase {
 
-    public static final VoxelShape LATHE_SHAPE1 = Block.makeCuboidShape(0, 0, 0, 15, 4, 15);
-    public static final VoxelShape LATHE_SHAPE2 = Block.makeCuboidShape(0, 4, 11, 16, 16, 15);
-    public static final VoxelShape LATHE_SHAPE3 = Block.makeCuboidShape(2, 2, 15, 14, 14, 16);
-    public static final VoxelShape LATHE_SHAPE4 = Block.makeCuboidShape(2, 4, 2, 14, 14, 11);
-
-
     public BlockLathe(Properties properties, String name) {
         super(properties, name, true,false);
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, false));
