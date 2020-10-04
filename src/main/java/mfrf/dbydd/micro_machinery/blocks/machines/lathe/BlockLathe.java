@@ -3,6 +3,7 @@ package mfrf.dbydd.micro_machinery.blocks.machines.lathe;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.utils.VoxelShapeUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -24,6 +26,12 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockLathe extends MMMultiBlockBase {
+
+    public static final VoxelShape LATHE_SHAPE1 = Block.makeCuboidShape(0, 0, 0, 15, 4, 15);
+    public static final VoxelShape LATHE_SHAPE2 = Block.makeCuboidShape(0, 4, 11, 16, 16, 15);
+    public static final VoxelShape LATHE_SHAPE3 = Block.makeCuboidShape(2, 2, 15, 14, 14, 16);
+    public static final VoxelShape LATHE_SHAPE4 = Block.makeCuboidShape(2, 4, 2, 14, 14, 11);
+
 
     public BlockLathe(Properties properties, String name) {
         super(properties, name, true,false);
