@@ -26,6 +26,14 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockLathe extends MMMultiBlockBase {
+    public static final VoxelShape LATHE_SHAPE1 = Block.makeCuboidShape(2, 0, 0, 12, 16, 16);
+    public static final VoxelShape LATHE_SHAPE2 = Block.makeCuboidShape(-10, 0, 0, -15, 16, 16);
+    public static final VoxelShape LATHE_SHAPE3 = Block.makeCuboidShape(2, 10, 1, -10, 16, 16);
+    public static final VoxelShape LATHE_SHAPE4 = Block.makeCuboidShape(16, 16, 0, -16, 18, 16);
+    public static final VoxelShape LATHE_SHAPE5 = Block.makeCuboidShape(12, 1, 1, 15, 15, 15);
+    public static final VoxelShape LATHE_SHAPE6 = Block.makeCuboidShape(9, 18, 5, 15, 31, 11);
+    public static final VoxelShape LATHE_SHAPE7 = Block.makeCuboidShape(7, 18, 2, 14, 30, 14);
+    public static final VoxelShape LATHE_SHAPE8 = Block.makeCuboidShape(7, 18, 4, -13, 19, 12);
 
     public BlockLathe(Properties properties, String name) {
         super(properties, name, true,false);
@@ -76,13 +84,17 @@ public class BlockLathe extends MMMultiBlockBase {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return super.getShape(state, worldIn, pos, context);
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return makeShape(state.get(FACING));
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return super.getCollisionShape(state, worldIn, pos, context);
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return makeShape(state.get(FACING));
+    }
+
+    private VoxelShape makeShape(Direction direction){
+        return VoxelShapes.or(VoxelShapeUtil.rotateDirection(LATHE_SHAPE1, direction), VoxelShapeUtil.rotateDirection(LATHE_SHAPE2, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE3, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE4, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE5, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE6, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE7, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE8, direction));
     }
 
     @Override
