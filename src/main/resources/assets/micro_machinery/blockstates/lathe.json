@@ -2,16 +2,16 @@
     "variants": 
     {
         "facing=north,is_place_holder=false": {
-            "model": "micro_machinery:block/empty"
+            "model": "micro_machinery:block/lathe_empty"
         },
         "facing=east,is_place_holder=false": {
-            "model": "micro_machinery:block/empty"
+            "model": "micro_machinery:block/lathe_empty"
         },
         "facing=south,is_place_holder=false": {
-            "model": "micro_machinery:block/empty"
+            "model": "micro_machinery:block/lathe_empty"
         },
         "facing=west,is_place_holder=false": {
-            "model": "micro_machinery:block/empty"
+            "model": "micro_machinery:block/lathe_empty"
         },
         "facing=north,is_place_holder=true": {
             "model": "micro_machinery:block/lathe",

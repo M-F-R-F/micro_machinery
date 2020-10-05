@@ -130,7 +130,7 @@ public class RegisteredBlocks {
     //fluid pipe
 
     //multiBlock
-    public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().hardnessAndResistance(3).harvestTool(ToolType.PICKAXE), "lathe");
+    public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().harvestLevel(0).harvestTool(ToolType.PICKAXE).hardnessAndResistance(5.0f), "lathe");
 
     //indicator
     public static final Block INDICATOR = new MMBlockBase("indicator", true);
