@@ -1,19 +1,31 @@
 {
     "variants": 
     {
-        "facing=north": {
+        "facing=north,is_place_holder=false": {
+            "model": "micro_machinery:block/empty"
+        },
+        "facing=east,is_place_holder=false": {
+            "model": "micro_machinery:block/empty"
+        },
+        "facing=south,is_place_holder=false": {
+            "model": "micro_machinery:block/empty"
+        },
+        "facing=west,is_place_holder=false": {
+            "model": "micro_machinery:block/empty"
+        },
+        "facing=north,is_place_holder=true": {
             "model": "micro_machinery:block/lathe",
             "y": 90
         },
-        "facing=east": {
+        "facing=east,is_place_holder=true": {
             "model": "micro_machinery:block/lathe",
             "y": 180
         },
-        "facing=south": {
+        "facing=south,is_place_holder=true": {
             "model": "micro_machinery:block/lathe",
             "y": 270
         },
-        "facing=west": {
+        "facing=west,is_place_holder=true": {
             "model": "micro_machinery:block/lathe"
         }
     }

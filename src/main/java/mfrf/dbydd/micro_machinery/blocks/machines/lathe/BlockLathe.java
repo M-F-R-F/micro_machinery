@@ -85,12 +85,22 @@ public class BlockLathe extends MMMultiBlockBase {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return makeShape(state.get(FACING));
+        if (state.get(IS_PLACEHOLDER)){
+            return VoxelShapes.empty();
+        }
+        else{
+            return makeShape(state.get(FACING));
+        }
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return makeShape(state.get(FACING));
+        if (state.get(IS_PLACEHOLDER)){
+            return VoxelShapes.empty();
+        }
+        else{
+            return makeShape(state.get(FACING));
+        }
     }
 
     private VoxelShape makeShape(Direction direction){

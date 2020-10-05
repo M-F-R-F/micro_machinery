@@ -1,6 +1,5 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.generator;
 
-import com.sun.org.apache.regexp.internal.RE;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.utils.VoxelShapeUtil;
 import net.minecraft.block.Block;
