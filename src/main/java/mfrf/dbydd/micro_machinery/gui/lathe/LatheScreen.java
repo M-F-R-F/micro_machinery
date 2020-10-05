@@ -1,15 +1,20 @@
 package mfrf.dbydd.micro_machinery.gui.lathe;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
-import net.minecraft.client.gui.widget.button.Button;
+import mfrf.dbydd.micro_machinery.gui.elements.ButtonBase;
+import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncChannel;
+import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncPackage;
+import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
+import mfrf.dbydd.micro_machinery.utils.ActionContainer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class LatheScreen extends ScreenBase<LatheContainer> {
+
     public LatheScreen(LatheContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/lathe.png"), 176, 182);
     }
@@ -18,71 +23,100 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
     public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
         initBase();
         super.render(p_render_1_, p_render_2_, p_render_3_);
+        TileLathe lathe = container.getLathe();
+
+        renderActionsNeeded(lathe.checkRecipeType());
+        renderAction(lathe.getActionContainer());
+        renderDefaultEnergyBarWithTip(lathe.getFEContainer(), 8, 90, p_render_1_, p_render_2_);\
+
+        if (renderButtonToolTip != null) {
+            renderButtonToolTip.invoke();
+        }
     }
 
     @Override
     protected void init() {
         super.init();
-        drawButton(65, 46, 14, 14, "", 214, 126, 214, 112, button -> {
-//            container.getLathe().getActionContainer().addStep(TileLathe.Action.TURNING);
-//            container.getLathe().markDirty2();
-            container.getIntArray().set(2, TileLathe.Action.TURNING.getWasteValue());
-        });// turning
-//        drawButton(81, 46, 14, 14, "", 228, 126, 228, 112, button -> {
-//            container.getLathe().getActionContainer().addStep(TileLathe.Action.GRINDING);
-//            container.getLathe().markDirty2();
-//        });// grinding
-//        drawButton(97, 46, 14, 14, "", 242, 126, 242, 112, button -> {
-//            container.getLathe().getActionContainer().addStep(TileLathe.Action.PLANING);
-//            container.getLathe().markDirty2();
-//        });// planing
-//        drawButton(65, 62, 14, 14, "", 172, 126, 172, 112, button -> {
-//            container.getLathe().getActionContainer().addStep(TileLathe.Action.BORING);
-//            container.getLathe().markDirty2();
-//        });// boring
-//        drawButton(81, 62, 14, 14, "", 186, 126, 186, 112, button -> {
-//            container.getLathe().getActionContainer().addStep(TileLathe.Action.DRILLING);
-//            container.getLathe().markDirty2();
-//        });// drilling
-//        drawButton(97, 62, 14, 14, "", 200, 126, 200, 112, button -> {
-//            container.getLathe().getActionContainer().addStep(TileLathe.Action.MILLING);
-//            container.getLathe().markDirty2();
-//        });// milling
 
-//        addButton(new ActionButton(65,46,214,126,214,112,TileLathe.Action.TURNING));
+        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 46, 14, 14, "", "button.action.turning", 214, 126, 214, 112, button -> {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putString("action", TileLathe.Action.TURNING.name());
+            TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
+        }, this));
 
-        // TODO: 10/3/2020 add more button
+        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 46, 14, 14, "", "button.action.grinding", 228, 126, 228, 112, button -> {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putString("action", TileLathe.Action.GRINDING.name());
+            TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
+        }, this));
+
+        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 46, 14, 14, "", "button.action.planing", 242, 126, 242, 112, button -> {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putString("action", TileLathe.Action.PLANING.name());
+            TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
+        }, this));
+
+        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 62, 14, 14, "", "button.action.boring", 172, 126, 172, 112, button -> {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putString("action", TileLathe.Action.BORING.name());
+            TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
+        }, this));
+
+        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 62, 14, 14, "", "button.action.drilling", 186, 126, 186, 112, button -> {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putString("action", TileLathe.Action.DRILLING.name());
+            TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
+        }, this));
+
+        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 62, 14, 14, "", "button.action.milling", 200, 126, 200, 112, button -> {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putString("action", TileLathe.Action.MILLING.name());
+            TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
+        }, this));
     }
 
-//    public class ActionButton extends Button {
-//
-//        private static final int WIDTH = 14;
-//        private static final int HEIGHT = 14;
-//        private final int holdTextureY;
-//        private final int holdTextureX;
-//        private final int textureX;
-//        private final int textureY;
-//
-//        public ActionButton(int x, int y, int holdTextureX, int holdTextureY, int tectureX, int textureY, TileLathe.Action action) {
-//            super(x, y, WIDTH, HEIGHT, "", p_onPress_1_ -> {
-//                container.getIntArray().set(2, action.getWasteValue());
-//            });
-//            this.holdTextureX = holdTextureX;
-//            this.holdTextureY = holdTextureY;
-//            this.textureX = tectureX;
-//            this.textureY = textureY;
-//        }
-//
-//        @Override
-//        public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
-//            RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-//            minecraft.getTextureManager().bindTexture(MODULES);
-//            if (isFocused()) {
-//                blit(this.x + guiLeft, this.y + guiTop, holdTextureX, holdTextureY, this.WIDTH, this.height);
-//            } else {
-//                blit(this.x + guiLeft, this.y + guiTop, textureX, textureY, this.WIDTH, this.height);
-//            }
-//
-//        }
-//    }
+    private void renderActionsNeeded(LatheRecipe recipe) {
+        TileLathe.Action action1 = recipe.getAction1();
+        TileLathe.Action action2 = recipe.getAction2();
+        ActionToUV actionToUV1 = ActionToUV.get(action1);
+        ActionToUV actionToUV2 = ActionToUV.get(action2);
+
+        if (actionToUV1 != null) {
+            renderModule(81, 21, actionToUV1.u, actionToUV1.v, 14, 14);
+        }
+        if (actionToUV2 != null) {
+            renderModule(98, 21, actionToUV2.u, actionToUV2.v, 14, 14);
+        }
+    }
+
+    private void renderAction(ActionContainer container) {
+
+    }
+
+    private enum ActionToUV {
+        DRILLING(TileLathe.Action.DRILLING, 214, 153),
+        TURNING(TileLathe.Action.TURNING, 228, 153),
+        MILLING(TileLathe.Action.MILLING, 242, 153),
+        GRINDING(TileLathe.Action.GRINDING, 172, 153),
+        PLANING(TileLathe.Action.PLANING, 186, 153),
+        BORING(TileLathe.Action.BORING, 200, 153);
+
+        private final TileLathe.Action key;
+        private final int u;
+        private final int v;
+
+        ActionToUV(TileLathe.Action key, int u, int v) {
+            this.key = key;
+            this.u = u;
+            this.v = v;
+        }
+
+        public static ActionToUV get(TileLathe.Action action) {
+            for (ActionToUV value : values()) {
+                if (value.key == action) return value;
+            }
+            return null;
+        }
+    }
+
 }

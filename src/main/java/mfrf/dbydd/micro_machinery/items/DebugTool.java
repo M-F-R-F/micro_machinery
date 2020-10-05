@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.TileEnergyCable;
+import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -18,9 +19,8 @@ public class DebugTool extends MMItemBase {
         World world = context.getWorld();
         if (!world.isRemote()) {
             TileEntity tileEntity = world.getTileEntity(context.getPos());
-            if(tileEntity instanceof TileEnergyCable){
-                context.getPlayer().sendMessage(new StringTextComponent("current:" + ((TileEnergyCable)tileEntity).getEnergyStored()));
-            }
+            if(tileEntity instanceof TileLathe)
+                context.getPlayer().sendMessage(new StringTextComponent(((TileLathe)tileEntity).getActionContainer().getActionQueue().toString()));
         }
         return ActionResultType.SUCCESS;
     }

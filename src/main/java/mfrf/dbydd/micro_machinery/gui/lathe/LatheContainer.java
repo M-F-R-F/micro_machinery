@@ -16,12 +16,9 @@ import javax.annotation.Nonnull;
 
 public class LatheContainer extends ContainerBase {
     private final TileLathe lathe;
-    private IIntArray intArray;
 
-    public LatheContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world, IIntArray intArray) {
+    public LatheContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
         super(Registered_ContainerTypes.LATHE_CONTAINER.get(), id);
-        this.intArray = intArray;
-        trackIntArray(intArray);
         this.lathe = (TileLathe) world.getTileEntity(pos);
         ItemStackHandler itemHander = lathe.getItemHander();
         this.addSlot(new SlotItemHandler(itemHander, 0, 28, 54));
@@ -36,10 +33,6 @@ public class LatheContainer extends ContainerBase {
 
     public TileLathe getLathe() {
         return lathe;
-    }
-
-    public IIntArray getIntArray() {
-        return intArray;
     }
 
     @Override

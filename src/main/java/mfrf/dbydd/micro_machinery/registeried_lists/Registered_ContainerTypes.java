@@ -19,5 +19,5 @@ public class Registered_ContainerTypes {
 
     public static RegistryObject<ContainerType<KlinContainer>> KLINCONTAINER = CONTAINER_TYPE_REGISTER.register("klincontainer", () -> IForgeContainerType.create((windowId, inv, data) -> new KlinContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld(), new TileKlin.KlinProgressBarNumArray())));
     public static final RegistryObject<ContainerType<GeneratorContainer>> GENERATOR = CONTAINER_TYPE_REGISTER.register("generatorcontainer", ()->IForgeContainerType.create((windowId, inv, data) -> new GeneratorContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld(), new TileGenerator.GeneratorEnergyAndFuelIntArray())));
-    public static final RegistryObject<ContainerType<LatheContainer>> LATHE_CONTAINER = CONTAINER_TYPE_REGISTER.register("lathe", ()->IForgeContainerType.create((windowId, inv, data) -> new LatheContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld(), new IntegerContainer(0,100).toIntArray())));
+    public static final RegistryObject<ContainerType<LatheContainer>> LATHE_CONTAINER = CONTAINER_TYPE_REGISTER.register("lathe", ()->IForgeContainerType.create((windowId, inv, data) -> new LatheContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld())));
 }

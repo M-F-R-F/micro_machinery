@@ -41,6 +41,10 @@ public class MMTileBase extends TileEntity {
         this.read(tag);
     }
 
+    public void handleNetWorkSyncFromClient(CompoundNBT tag){
+
+    }
+
     public void markDirty2() {
         world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
         super.markDirty();

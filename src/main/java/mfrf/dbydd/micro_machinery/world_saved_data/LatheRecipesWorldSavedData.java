@@ -26,11 +26,11 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
         super(NAME);
         GEAR_Recipe = new LatheRecipe(itemStack -> {
             for (ResourceLocation tag : itemStack.getItem().getTags()) {
-                if (tag.getNamespace() == "forge") {
+                if (tag.getNamespace().equals("forge")) {
                     String path = tag.getPath();
-                    if (path.matches("^items/gearblanks/\\w+")) {
+                    if (path.matches("^gearblanks/\\w+")) {
                         String[] split = path.split("/");
-                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("items/gearblanks/", "items/gears/"))).getAllElements();
+                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("gearblanks/", "gears/"))).getAllElements();
                         return elements.size() == 0 ? ItemStack.EMPTY : new ItemStack((Item) elements.toArray()[0]);
                     }
                 }
@@ -40,11 +40,11 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
 
         STICK_Recipe = new LatheRecipe(itemStack -> {
             for (ResourceLocation tag : itemStack.getItem().getTags()) {
-                if (tag.getNamespace() == "forge") {
+                if (tag.getNamespace().equals("forge")) {
                     String path = tag.getPath();
-                    if (path.matches("^items/ingots/\\w+")) {
+                    if (path.matches("^ingots/\\w+")) {
                         String[] split = path.split("/");
-                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("items/ingots/", "items/sticks/"))).getAllElements();
+                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("ingots/", "sticks/"))).getAllElements();
                         return elements.size() == 0 ? ItemStack.EMPTY : new ItemStack((Item) elements.toArray()[0]);
                     }
                 }
@@ -54,11 +54,11 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
 
         SCREW_Recipe = new LatheRecipe(itemStack -> {
             for (ResourceLocation tag : itemStack.getItem().getTags()) {
-                if (tag.getNamespace() == "forge") {
+                if (tag.getNamespace().equals("forge")) {
                     String path = tag.getPath();
-                    if (path.matches("^items/sticks/\\w+")) {
+                    if (path.matches("^sticks/\\w+")) {
                         String[] split = path.split("/");
-                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("items/sticks/", "items/screws/"))).getAllElements();
+                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("sticks/", "screws/"))).getAllElements();
                         return elements.size() == 0 ? ItemStack.EMPTY : new ItemStack((Item) elements.toArray()[0]);
                     }
                 }
@@ -68,11 +68,11 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
 
         ROLL_Recipe = new LatheRecipe(itemStack -> {
             for (ResourceLocation tag : itemStack.getItem().getTags()) {
-                if (tag.getNamespace() == "forge") {
+                if (tag.getNamespace().equals("forge")) {
                     String path = tag.getPath();
-                    if (path.matches("^items/axles/\\w+")) {
+                    if (path.matches("^axles/\\w+")) {
                         String[] split = path.split("/");
-                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("items/axles/", "items/rolls/"))).getAllElements();
+                        Collection<Item> elements = new ItemTags.Wrapper(new ResourceLocation("forge", path.replace("axles/", "rolls/"))).getAllElements();
                         return elements.size() == 0 ? ItemStack.EMPTY : new ItemStack((Item) elements.toArray()[0]);
                     }
                 }
@@ -81,7 +81,7 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
         }, random);
     }
 
-    public static ItemStack getResult(World worldIn, ItemStack stack) {
+    public static LatheRecipe.SubRecipe getResult(World worldIn, ItemStack stack) {
         if (!(worldIn instanceof ServerWorld)) {
             throw new RuntimeException("Attempted to get the data from a client world. This is wrong.");
         }
@@ -102,7 +102,7 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
         if (worldSavedData.ROLL_Recipe.hasRecipe(stack)) {
             return worldSavedData.ROLL_Recipe.getResult(stack);
         }
-        return ItemStack.EMPTY;
+        return null;
     }
 
     public static LatheRecipe getRecipeType(World worldIn, ItemStack stack) {
@@ -145,4 +145,5 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
         compound.put("roll_recipe", ROLL_Recipe.serializeNBT());
         return compound;
     }
+
 }

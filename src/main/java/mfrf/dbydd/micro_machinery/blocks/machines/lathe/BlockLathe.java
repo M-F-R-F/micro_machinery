@@ -50,6 +50,11 @@ public class BlockLathe extends MMMultiBlockBase {
     }
 
     @Override
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1;
+    }
+
+    @Override
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack) {
         Boolean isPlaceHolder = state.get(IS_PLACEHOLDER);
         if(isPlaceHolder){

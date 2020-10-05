@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class ActionContainer implements INBTSerializable<CompoundNBT> {
-    EvictingQueue<TileLathe.Action> actionQueue;
+    private EvictingQueue<TileLathe.Action> actionQueue;
 
     public ActionContainer() {
         this.actionQueue = EvictingQueue.create(3);
@@ -23,6 +23,15 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
         return actionQueue;
     }
 
+    public boolean test(TileLathe.Action action1, TileLathe.Action action2) {
+        TileLathe.Action[] actions = actionQueue.toArray(new TileLathe.Action[3]);
+        return true;
+    }
+
+    public void reset() {
+        actionQueue.clear();
+    }
+
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();
@@ -35,6 +44,7 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
+        reset();
         for (int i = 0; i < 3; i++) {
             actionQueue.add(TileLathe.Action.valueOf(nbt.getString("action" + i)));
         }

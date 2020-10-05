@@ -3,9 +3,10 @@ package mfrf.dbydd.micro_machinery.gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.interfaces.NoArgumentVoidFunction;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
+import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
@@ -25,6 +26,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
     protected final ResourceLocation MODULES = new ResourceLocation(Micro_Machinery.NAME, "textures/gui/module.png");
     protected final ResourceLocation TEXTURES;
     private final T screenContainer;
+    public NoArgumentVoidFunction renderButtonToolTip = null;
 
     public ScreenBase(T screenContainer, PlayerInventory inv, ITextComponent titleIn, ResourceLocation TEXTURES, int textureWidth, int textureHeight) {
         super(screenContainer, inv, titleIn);
@@ -87,6 +89,11 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         blit(guiLeft + beginX, guiTop + beginY, 0, 0, texture_width, texture_height);
     }
 
+    protected void renderDefaultEnergyBarWithTip(FEContainer container, int beginX, int beginY, int mouseX, int mouseY) {
+        renderModule(beginX, beginY, 243, 70, 5, calculateBarPixel(container, 70));
+        renderEnergyBarTooltip(container, mouseX, mouseY, beginX, beginY, 5, 70);
+    }
+
     protected void renderModule(int beginX, int beginY, int u, int v, int texture_width, int texture_height) {
         this.minecraft.getTextureManager().bindTexture(MODULES);
         blit(guiLeft + beginX, guiTop + beginY, u, v, texture_width, texture_height);
@@ -99,33 +106,10 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
-    /**
-     * textures of button should in module.png
-     */
-    public void drawButton(int x, int y, int width, int height, String buttontext, int holdtexturex, int holdtexturey, int texturex, int texturey, Button.IPressable onPress) {
-        this.addButton(new Button(x, y, width, height, buttontext, onPress) {
-            private boolean clicked = false;
-
-            @Override
-            public void renderButton(int p_renderButton_1_, int p_renderButton_2_, float p_renderButton_3_) {
-                RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-                minecraft.getTextureManager().bindTexture(MODULES);
-                if (p_renderButton_1_ >= x + guiLeft && p_renderButton_1_ <= x + width + guiLeft && p_renderButton_2_ >= y + guiTop && p_renderButton_2_ <= y + height + guiTop) {
-                    active = true;
-                    blit(this.x + guiLeft, this.y + guiTop, holdtexturex, holdtexturey, this.width, this.height);
-                } else {
-                    active = false;
-                    blit(this.x + guiLeft, this.y + guiTop, texturex, texturey, this.width, this.height);
-                }
-            }
-
-            @Override
-            public void onClick(double p_onClick_1_, double p_onClick_3_) {
-                clicked = true;
-                super.onClick(p_onClick_1_, p_onClick_3_);
-            }
-
-        });
+    private int calculateBarPixel(IntegerContainer container, float pixel) {
+        int current = container.getCurrent();
+        int max = container.getMax();
+        return -Math.round(pixel * (float) current / (float) max);
     }
 
 }

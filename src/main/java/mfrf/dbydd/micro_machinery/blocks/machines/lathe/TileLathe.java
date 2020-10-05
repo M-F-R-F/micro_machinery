@@ -1,6 +1,5 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.lathe;
 
-import com.google.common.collect.EvictingQueue;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.lathe.LatheContainer;
 import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
@@ -10,6 +9,7 @@ import mfrf.dbydd.micro_machinery.utils.ActionContainer;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import mfrf.dbydd.micro_machinery.world_saved_data.LatheRecipesWorldSavedData;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -17,7 +17,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.Random;
@@ -39,6 +39,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     };
     private IntegerContainer wasteMaterialValueConatiner = new IntegerContainer(0, 100);
     private ItemStackHandler itemHander = new ItemStackHandler(2);
+    private LatheRecipe recipe = null;
 
     public TileLathe() {
         super(Registered_Tileentitie_Types.TILE_LATHE.get());
@@ -81,43 +82,64 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
 
     @Override
     public Container createMenu(int sycID, PlayerInventory inventory, PlayerEntity player) {
-        return new LatheContainer(sycID, inventory, this.pos, this.world, wasteMaterialValueConatiner.toIntArray());
+        return new LatheContainer(sycID, inventory, this.pos, this.world);
     }
 
     public ActionContainer getActionContainer() {
         return actionContainer;
     }
 
-    public boolean finishCraft() {
-        LatheRecipe recipeType = getRecipeType();
-        ItemStack recipe = getRecipe();
+    public void finishCraft() {
+        LatheRecipe recipeType = checkRecipeType();
+        ItemStack result = getRecipeResult();
         ItemStack stackInSlot = itemHander.getStackInSlot(RESULT_SLOT);
-        if (stackInSlot.isEmpty() || (stackInSlot.isItemEqual(recipe) && stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + recipe.getCount() && itemHander.getSlotLimit(RESULT_SLOT) >= stackInSlot.getCount() + recipe.getCount())) {
-            itemHander.getStackInSlot(INPUT_SLOT).shrink(1);
-            itemHander.insertItem(RESULT_SLOT, recipe, false);
-            markDirty2();
-            return true;
+        itemHander.getStackInSlot(INPUT_SLOT).shrink(1);
+        if (stackInSlot.isEmpty() || (stackInSlot.isItemEqual(result) && stackInSlot.getMaxStackSize() >= stackInSlot.getCount() + result.getCount() && itemHander.getSlotLimit(RESULT_SLOT) >= stackInSlot.getCount() + result.getCount())) {
+            itemHander.insertItem(RESULT_SLOT, result, false);
+            markDirty();
+        } else {
+            world.addEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1, pos.getZ(), result));
         }
-        return false;
     }
 
-    public ItemStack getRecipe() {
-        ItemStack stackInSlot = itemHander.getStackInSlot(INPUT_SLOT);
-        if (!stackInSlot.isEmpty()) {
-            ItemStack result = LatheRecipesWorldSavedData.getResult(world, stackInSlot);
-            if (!result.isEmpty()) {
-                return result;
+    public ItemStack getRecipeResult() {
+        LatheRecipe recipeType = checkRecipeType();
+        return recipeType == null ? ItemStack.EMPTY : recipeType.getResult(itemHander.getStackInSlot(INPUT_SLOT));
+    }
+
+    public LatheRecipe checkRecipeType() {
+            ItemStack stackInSlot = itemHander.getStackInSlot(INPUT_SLOT);
+            if (!stackInSlot.isEmpty()) {
+                return LatheRecipesWorldSavedData.getRecipeType(world, stackInSlot);
             }
-        }
-        return ItemStack.EMPTY;
+            return null;
+            //todo 重写
     }
 
-    public LatheRecipe getRecipeType() {
-        ItemStack stackInSlot = itemHander.getStackInSlot(INPUT_SLOT);
-        if (!stackInSlot.isEmpty()) {
-            return LatheRecipesWorldSavedData.getRecipeType(world, stackInSlot);
+    private void getAction(Action action) {
+        LatheRecipe recipeType = checkRecipeType();
+        if (recipeType != null) {
+            wasteMaterialValueConatiner.add(action.getWasteValue(), false);
+            actionContainer.addStep(action);
+            if (recipeType.getWasteValueNeeded() == wasteMaterialValueConatiner.getCurrent()) {
+                if (actionContainer.test(recipeType.getAction1(), recipeType.getAction2())) {
+                    finishCraft();
+                }
+            }
+            if (wasteMaterialValueConatiner.atMaxValue()) {
+                wasteMaterialValueConatiner.resetValue();
+                itemHander.getStackInSlot(0).shrink(1);
+                actionContainer.reset();
+            }
+            markDirty();
         }
-        return null;
+    }
+
+    @Override
+    public void handleNetWorkSyncFromClient(CompoundNBT tag) {
+        if (tag.contains("action", Constants.NBT.TAG_STRING)) {
+            getAction(Action.valueOf(tag.getString("action")));
+        }
     }
 
     public enum Action {
@@ -136,7 +158,13 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         }
 
         public static Action random(Random random) {
-            return Action.values()[random.nextInt(Action.values().length)];
+
+            Action value = Action.values()[random.nextInt(Action.values().length)];
+            while (value == EMPTY) {
+                value = Action.values()[random.nextInt(Action.values().length)];
+            }
+
+            return value;
         }
 
         public int getWasteValue() {
