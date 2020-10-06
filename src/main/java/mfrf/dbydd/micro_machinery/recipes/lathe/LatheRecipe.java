@@ -32,9 +32,12 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
         return false;
     }
 
-    public SubRecipe getResult(ItemStack stack) {
+    public SubRecipe getSubRecipe(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return new SubRecipe();
+        }
         ItemStack resultStack = recipe.apply(stack);
-        return new SubRecipe(resultStack, new ItemStack(stack.getItem()));
+        return new SubRecipe(resultStack, new ItemStack(stack.getItem()), action1, action2, wasteValueNeeded);
     }
 
     public int getWasteValueNeeded() {
@@ -65,15 +68,28 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
         this.action2 = TileLathe.Action.valueOf(compoundNBT.getString("action2"));
     }
 
-    public class SubRecipe implements INBTSerializable<CompoundNBT> {
-        private TileLathe.Action action2 = LatheRecipe.this.action1;
-        private TileLathe.Action action1 = LatheRecipe.this.action2;
+    public static class SubRecipe implements INBTSerializable<CompoundNBT> {
+        public static final SubRecipe EMPTY = new SubRecipe();
+        private TileLathe.Action action2;
+        private TileLathe.Action action1;
+        private int wasteValueNeed;
         private ItemStack result;
         private ItemStack input;
 
-        public SubRecipe(ItemStack result, ItemStack input) {
+        public SubRecipe(ItemStack result, ItemStack input, TileLathe.Action action1, TileLathe.Action action2, int wasteValueNeed) {
             this.result = result;
             this.input = input;
+            this.action1 = action1;
+            this.action2 = action2;
+            this.wasteValueNeed = wasteValueNeed;
+        }
+
+        public SubRecipe() {
+            action2 = TileLathe.Action.EMPTY;
+            action1 = TileLathe.Action.EMPTY;
+            wasteValueNeed = 0;
+            result = ItemStack.EMPTY;
+            input = ItemStack.EMPTY;
         }
 
         public TileLathe.Action getAction2() {
@@ -92,6 +108,10 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
             return input;
         }
 
+        public int getWasteValueNeed() {
+            return wasteValueNeed;
+        }
+
         @Override
         public CompoundNBT serializeNBT() {
             CompoundNBT compoundNBT = new CompoundNBT();
@@ -99,6 +119,7 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
             compoundNBT.put("result", result.serializeNBT());
             compoundNBT.putString("action1", action1.name());
             compoundNBT.putString("action2", action2.name());
+            compoundNBT.putInt("waste_value_need", wasteValueNeed);
             return compoundNBT;
         }
 
@@ -108,6 +129,31 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
             result = ItemStack.read(nbt.getCompound("result"));
             action1 = TileLathe.Action.valueOf(nbt.getString("action1"));
             action2 = TileLathe.Action.valueOf(nbt.getString("action2"));
+            wasteValueNeed = nbt.getInt("waste_value_need");
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            SubRecipe subRecipe = (SubRecipe) o;
+
+            if (getWasteValueNeed() != subRecipe.getWasteValueNeed()) return false;
+            if (getAction2() != subRecipe.getAction2()) return false;
+            if (getAction1() != subRecipe.getAction1()) return false;
+            if (!getResult().equals(subRecipe.getResult(), false)) return false;
+            return getInput().equals(subRecipe.getInput(), false);
+        }
+
+        @Override
+        public int hashCode() {
+            int result1 = getAction2().hashCode();
+            result1 = 31 * result1 + getAction1().hashCode();
+            result1 = 31 * result1 + getWasteValueNeed();
+            result1 = 31 * result1 + getResult().hashCode();
+            result1 = 31 * result1 + getInput().hashCode();
+            return result1;
         }
     }
 }

@@ -17,7 +17,7 @@ public class GeneratorScreen extends ScreenBase<GeneratorContainer> {
     @Override
     public void render(int mouseX, int mouseY, float partialTicks) {
         TileGenerator generator = container.getGenerator();
-        IIntArray intArray = container.getIntArray();
+//        IIntArray intArray = container.getIntArray();
         initBase();
         if(generator.isBurning()){
             renderModule(71,55, 40,14, 16,calculateBurnFireHeight());

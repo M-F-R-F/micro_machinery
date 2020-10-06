@@ -25,9 +25,11 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
         super.render(p_render_1_, p_render_2_, p_render_3_);
         TileLathe lathe = container.getLathe();
 
-        renderActionsNeeded(lathe.checkRecipeType());
+        renderActionsNeeded(lathe.getRecipe());
         renderAction(lathe.getActionContainer());
-        renderDefaultEnergyBarWithTip(lathe.getFEContainer(), 8, 90, p_render_1_, p_render_2_);\
+        renderDefaultEnergyBarWithTip(lathe.getFEContainer(), 8, 90, p_render_1_, p_render_2_);
+
+        renderHoveredToolTip(p_render_1_, p_render_2_);
 
         if (renderButtonToolTip != null) {
             renderButtonToolTip.invoke();
@@ -75,31 +77,47 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
         }, this));
     }
 
-    private void renderActionsNeeded(LatheRecipe recipe) {
+    private void renderActionsNeeded(LatheRecipe.SubRecipe recipe) {
         TileLathe.Action action1 = recipe.getAction1();
         TileLathe.Action action2 = recipe.getAction2();
         ActionToUV actionToUV1 = ActionToUV.get(action1);
         ActionToUV actionToUV2 = ActionToUV.get(action2);
 
         if (actionToUV1 != null) {
-            renderModule(81, 21, actionToUV1.u, actionToUV1.v, 14, 14);
+            renderModule(81, 8, actionToUV1.u, actionToUV1.v, 14, 14);
         }
+
         if (actionToUV2 != null) {
-            renderModule(98, 21, actionToUV2.u, actionToUV2.v, 14, 14);
+            renderModule(98, 8, actionToUV2.u, actionToUV2.v, 14, 14);
         }
+
     }
 
     private void renderAction(ActionContainer container) {
+        ActionToUV actionToUV1 = ActionToUV.get(container.getAction1());
+        ActionToUV actionToUV2 = ActionToUV.get(container.getAction2());
+        ActionToUV actionToUV3 = ActionToUV.get(container.getAction3());
 
+        if (actionToUV1 != null) {
+            renderModule(64, 28, actionToUV1.u, actionToUV1.v, 14, 14);
+        }
+
+        if (actionToUV2 != null) {
+            renderModule(84, 28, actionToUV2.u, actionToUV2.v, 14, 14);
+        }
+
+        if (actionToUV3 != null) {
+            renderModule(98, 28, actionToUV3.u, actionToUV3.v, 14, 14);
+        }
     }
 
     private enum ActionToUV {
-        DRILLING(TileLathe.Action.DRILLING, 214, 153),
-        TURNING(TileLathe.Action.TURNING, 228, 153),
-        MILLING(TileLathe.Action.MILLING, 242, 153),
-        GRINDING(TileLathe.Action.GRINDING, 172, 153),
-        PLANING(TileLathe.Action.PLANING, 186, 153),
-        BORING(TileLathe.Action.BORING, 200, 153);
+        DRILLING(TileLathe.Action.DRILLING, 214, 140),
+        TURNING(TileLathe.Action.TURNING, 228, 140),
+        MILLING(TileLathe.Action.MILLING, 242, 140),
+        GRINDING(TileLathe.Action.GRINDING, 172, 140),
+        PLANING(TileLathe.Action.PLANING, 186, 140),
+        BORING(TileLathe.Action.BORING, 200, 140);
 
         private final TileLathe.Action key;
         private final int u;
@@ -112,8 +130,10 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
         }
 
         public static ActionToUV get(TileLathe.Action action) {
-            for (ActionToUV value : values()) {
-                if (value.key == action) return value;
+            if (action != TileLathe.Action.EMPTY) {
+                for (ActionToUV value : values()) {
+                    if (value.key == action) return value;
+                }
             }
             return null;
         }

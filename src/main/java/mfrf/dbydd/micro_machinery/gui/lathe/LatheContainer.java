@@ -39,4 +39,9 @@ public class LatheContainer extends ContainerBase {
     public boolean canInteractWith(PlayerEntity playerIn) {
         return lathe.isUsableByPlayer(playerIn);
     }
+
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+        return ItemStack.EMPTY;
+    }
 }

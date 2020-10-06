@@ -10,9 +10,6 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
 
     public ActionContainer() {
         this.actionQueue = EvictingQueue.create(3);
-        for (int i = 0; i < 3; i++) {
-            actionQueue.add(TileLathe.Action.EMPTY);
-        }
     }
 
     public void addStep(TileLathe.Action action) {
@@ -24,8 +21,23 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
     }
 
     public boolean test(TileLathe.Action action1, TileLathe.Action action2) {
-        TileLathe.Action[] actions = actionQueue.toArray(new TileLathe.Action[3]);
-        return true;
+        return getAction2() == action1 && getAction3() == action2;
+    }
+
+    private TileLathe.Action[] getActionArray() {
+        return getActionQueue().toArray(new TileLathe.Action[3]);
+    }
+
+    public TileLathe.Action getAction1() {
+        return getActionArray()[0];
+    }
+
+    public TileLathe.Action getAction2() {
+        return getActionArray()[1];
+    }
+
+    public TileLathe.Action getAction3() {
+        return getActionArray()[2];
     }
 
     public void reset() {
@@ -44,9 +56,9 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        reset();
+//        reset();
         for (int i = 0; i < 3; i++) {
-            actionQueue.add(TileLathe.Action.valueOf(nbt.getString("action" + i)));
+            this.actionQueue.add(TileLathe.Action.valueOf(nbt.getString("action" + i)));
         }
     }
 }

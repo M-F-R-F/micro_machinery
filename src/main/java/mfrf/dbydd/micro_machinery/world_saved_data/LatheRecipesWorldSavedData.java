@@ -91,16 +91,16 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
         DimensionSavedDataManager storage = world.getSavedData();
         LatheRecipesWorldSavedData worldSavedData = storage.getOrCreate(() -> new LatheRecipesWorldSavedData(world.rand), NAME);
         if (worldSavedData.GEAR_Recipe.hasRecipe(stack)) {
-            return worldSavedData.GEAR_Recipe.getResult(stack);
+            return worldSavedData.GEAR_Recipe.getSubRecipe(stack);
         }
         if (worldSavedData.STICK_Recipe.hasRecipe(stack)) {
-            return worldSavedData.STICK_Recipe.getResult(stack);
+            return worldSavedData.STICK_Recipe.getSubRecipe(stack);
         }
         if (worldSavedData.SCREW_Recipe.hasRecipe(stack)) {
-            return worldSavedData.SCREW_Recipe.getResult(stack);
+            return worldSavedData.SCREW_Recipe.getSubRecipe(stack);
         }
         if (worldSavedData.ROLL_Recipe.hasRecipe(stack)) {
-            return worldSavedData.ROLL_Recipe.getResult(stack);
+            return worldSavedData.ROLL_Recipe.getSubRecipe(stack);
         }
         return null;
     }

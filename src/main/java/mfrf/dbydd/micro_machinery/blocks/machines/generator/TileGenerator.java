@@ -53,7 +53,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     };
     private IntegerContainer burnTimeContainer = new IntegerContainer(0, 0);
     private boolean isBurning = false;
-    private GeneratorEnergyAndFuelIntArray array = new GeneratorEnergyAndFuelIntArray();
+//    private GeneratorEnergyAndFuelIntArray array = new GeneratorEnergyAndFuelIntArray();
 
     public TileGenerator() {
         super(Registered_Tileentitie_Types.TILE_GENERATOR_TYPE.get());
@@ -173,7 +173,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     @Nullable
     @Override
     public Container createMenu(int sycID, PlayerInventory inventory, PlayerEntity player) {
-        return new GeneratorContainer(sycID, inventory, this.pos, this.world, array);
+        return new GeneratorContainer(sycID, inventory, this.pos, this.world);
     }
 
     public ItemStackHandler getFuelHandler() {

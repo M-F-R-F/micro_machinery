@@ -76,11 +76,11 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         }
     }
 
-    protected void renderEnergyBarTooltip(FEContainer container, int mouthx, int mouthy, int x, int y, int barWidth, int barHeight) {
-        if ((mouthy - (guiTop + y)) <= barHeight && (mouthy - (guiTop + y)) >= 0 && (mouthx - (guiLeft + x)) <= barWidth && (mouthx - (guiLeft + x)) >= 0) {
+    protected void renderEnergyBarTooltip(FEContainer container, int mouseX, int mouseY, int x, int y, int barWidth, int barHeight) {
+        if ((mouseY - (guiTop + y)) <= barHeight && (mouseY - (guiTop + y)) >= 0 && (mouseX - (guiLeft + x)) <= barWidth && (mouseX - (guiLeft + x)) >= 0) {
             int current = container.getCurrent();
             int max = container.getMaxEnergyStored();
-            this.renderTooltip(current + "/" + max + " FE", mouthx, mouthy);
+            this.renderTooltip(current + "/" + max + " FE", mouseX, mouseY);
         }
     }
 
@@ -91,7 +91,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
 
     protected void renderDefaultEnergyBarWithTip(FEContainer container, int beginX, int beginY, int mouseX, int mouseY) {
         renderModule(beginX, beginY, 243, 70, 5, calculateBarPixel(container, 70));
-        renderEnergyBarTooltip(container, mouseX, mouseY, beginX, beginY, 5, 70);
+        renderEnergyBarTooltip(container, mouseX, mouseY, beginX, beginY - 70, 5, 70);
     }
 
     protected void renderModule(int beginX, int beginY, int u, int v, int texture_width, int texture_height) {

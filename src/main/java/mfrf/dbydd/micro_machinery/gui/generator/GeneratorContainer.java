@@ -13,11 +13,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class GeneratorContainer extends ContainerBase {
-    private final IIntArray intArray;
     private final TileGenerator generator;
-    public GeneratorContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world, IIntArray intArray) {
+    public GeneratorContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
         super(Registered_ContainerTypes.GENERATOR.get(), id);
-        this.intArray = intArray;
         this.generator = (TileGenerator) world.getTileEntity(pos);
         ItemStackHandler itemHandler = generator.getFuelHandler();
         this.addSlot(new SlotItemHandler(itemHandler, 0, 47, 40));
@@ -26,10 +24,6 @@ public class GeneratorContainer extends ContainerBase {
 
     public TileGenerator getGenerator() {
         return generator;
-    }
-
-    public IIntArray getIntArray() {
-        return intArray;
     }
 
     @Override
