@@ -28,7 +28,7 @@ public class LatheContainer extends ContainerBase {
                 return false;
             }
         });
-        drawInventory(8, 100, playerInventory);
+        drawInventory(8, 101, playerInventory);
     }
 
     public TileLathe getLathe() {
