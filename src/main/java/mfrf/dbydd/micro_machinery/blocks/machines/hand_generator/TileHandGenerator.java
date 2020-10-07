@@ -28,7 +28,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
 
         @Override
         public int self_add() {
-            return add(4, false);
+            return add(16, false);
         }
     };
     private IntegerContainer progress = new IntegerContainer(0, 20);
