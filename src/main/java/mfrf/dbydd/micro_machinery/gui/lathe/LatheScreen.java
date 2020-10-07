@@ -28,7 +28,7 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
 
         renderActionsNeeded(lathe.getRecipe());
         renderAction(lathe.getActionContainer());
-        renderDefaultEnergyBarWithTip(lathe.getFEContainer(), 8, 90, p_render_1_, p_render_2_);
+        renderDefaultEnergyBarWithTip(lathe.getFEContainer(), 8, 91, p_render_1_, p_render_2_);
         renderWasteValueBar(lathe.getRecipe(), lathe.getWasteMaterialValueConatiner().getCurrent());
 
         renderHoveredToolTip(p_render_1_, p_render_2_);
@@ -42,37 +42,37 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
     protected void init() {
         super.init();
 
-        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 46, 14, 14, "", "button.action.turning", 214, 126, 214, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 47, 14, 14, "", "button.action.turning", 214, 126, 214, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.TURNING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 46, 14, 14, "", "button.action.grinding", 228, 126, 228, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 47, 14, 14, "", "button.action.grinding", 228, 126, 228, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.GRINDING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 46, 14, 14, "", "button.action.planing", 242, 126, 242, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 47, 14, 14, "", "button.action.planing", 242, 126, 242, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.PLANING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 62, 14, 14, "", "button.action.boring", 172, 126, 172, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 63, 14, 14, "", "button.action.boring", 172, 126, 172, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.BORING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 62, 14, 14, "", "button.action.drilling", 186, 126, 186, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 63, 14, 14, "", "button.action.drilling", 186, 126, 186, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.DRILLING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 62, 14, 14, "", "button.action.milling", 200, 126, 200, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 63, 14, 14, "", "button.action.milling", 200, 126, 200, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.MILLING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
@@ -114,8 +114,8 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
     }
 
     private void renderWasteValueBar(LatheRecipe.SubRecipe recipe, int current){
-        renderModule(35 + calculateWasteValueBar(recipe.getWasteValueNeed()),81, 167,130,5,5);
-        renderModule(35 + calculateWasteValueBar(current),92, 167,135,5,5);
+        renderModule(35 + calculateWasteValueBar(recipe.getWasteValueNeed()),84, 167,130,5,5);
+        renderModule(35 + calculateWasteValueBar(current),87, 167,135,5,5);
     }
 
     private int calculateWasteValueBar(float num) {
