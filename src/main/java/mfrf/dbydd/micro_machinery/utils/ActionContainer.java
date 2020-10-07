@@ -1,70 +1,68 @@
 package mfrf.dbydd.micro_machinery.utils;
 
-import com.google.common.collect.EvictingQueue;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class ActionContainer implements INBTSerializable<CompoundNBT> {
-    private EvictingQueue<TileLathe.Action> actionQueue;
+    private TileLathe.Action[] actionQueue = new TileLathe.Action[3];
+    private int count = 0;
 
-    public ActionContainer() {
-        this.actionQueue = EvictingQueue.create(3);
-    }
 
     public void addStep(TileLathe.Action action) {
-        actionQueue.add(action);
-    }
-
-    public EvictingQueue<TileLathe.Action> getActionQueue() {
-        return actionQueue;
+        if (count < 3) {
+            actionQueue[++count] = action;
+        } else {
+            TileLathe.Action[] actions = new TileLathe.Action[3];
+            actions[0] = actionQueue[1];
+            actions[1] = actionQueue[2];
+            actions[2] = action;
+            actionQueue = actions;
+        }
     }
 
     public boolean test(TileLathe.Action action1, TileLathe.Action action2) {
         return getAction2() == action1 && getAction3() == action2;
     }
 
-    private TileLathe.Action[] getActionArray() {
-        return getActionQueue().toArray(new TileLathe.Action[3]);
-    }
-
     public TileLathe.Action getAction1() {
-        return getActionArray()[0];
+        return actionQueue[0] == null ? TileLathe.Action.EMPTY : actionQueue[0];
     }
 
     public TileLathe.Action getAction2() {
-        return getActionArray()[1];
+        return actionQueue[1] == null ? TileLathe.Action.EMPTY : actionQueue[1];
     }
 
     public TileLathe.Action getAction3() {
-        return getActionArray()[2];
+        return actionQueue[2] == null ? TileLathe.Action.EMPTY : actionQueue[2];
     }
 
     public void reset() {
-        for (int i = 0;i<3;i++) {
-            actionQueue.add(TileLathe.Action.EMPTY);
-        }
+        count = 0;
+        actionQueue = new TileLathe.Action[3];
     }
 
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();
         for (int i = 0; i < 3; i++) {
-            TileLathe.Action poll = actionQueue.poll();
+            TileLathe.Action poll = actionQueue[i];
             if(poll != null) {
                 compoundNBT.putString("action" + i,poll.name());
             }
         }
+        compoundNBT.putInt("count", count);
         return compoundNBT;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        for (int i = 0; i < 3; i++) {
+        this.count = nbt.getInt("count");
+        for (int i = 0; i < count; i++) {
             String s = "action" + i;
-            if(nbt.contains(s)) {
-                this.actionQueue.add(TileLathe.Action.valueOf(nbt.getString(s)));
-            }
+//            if (nbt.contains(s)) {
+                this.actionQueue[i] = TileLathe.Action.valueOf(nbt.getString(s));
+//            }
         }
     }
 }

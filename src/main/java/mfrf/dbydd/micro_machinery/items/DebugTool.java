@@ -19,8 +19,8 @@ public class DebugTool extends MMItemBase {
         World world = context.getWorld();
         if (!world.isRemote()) {
             TileEntity tileEntity = world.getTileEntity(context.getPos());
-            if(tileEntity instanceof TileLathe)
-                context.getPlayer().sendMessage(new StringTextComponent(((TileLathe)tileEntity).getActionContainer().getActionQueue().toString()));
+//            if(tileEntity instanceof TileLathe)
+//                context.getPlayer().sendMessage(new StringTextComponent(((TileLathe)tileEntity).getActionContainer().getActionQueue().toString()));
         }
         return ActionResultType.SUCCESS;
     }

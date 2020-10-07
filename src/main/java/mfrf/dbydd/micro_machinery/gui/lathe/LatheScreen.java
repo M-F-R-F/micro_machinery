@@ -114,12 +114,8 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
     }
 
     private void renderWasteValueBar(LatheRecipe.SubRecipe recipe, int current){
-        renderModule(35 + calculateWasteValueBar(recipe.getWasteValueNeed()),81, 167,130,5,5);
-        renderModule(35 + calculateWasteValueBar(current),92, 167,135,5,5);
-    }
-
-    private int calculateWasteValueBar(float num) {
-        return Math.round(100f * (num / 100f));
+        renderModule(35 + recipe.getWasteValueNeed(),81, 167,130,5,5);
+        renderModule(35 + current,92, 167,135,5,5);
     }
 
     private enum ActionToUV {
