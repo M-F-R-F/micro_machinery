@@ -19,7 +19,7 @@ public class GeneratorContainer extends ContainerBase {
         this.generator = (TileGenerator) world.getTileEntity(pos);
         ItemStackHandler itemHandler = generator.getFuelHandler();
         this.addSlot(new SlotItemHandler(itemHandler, 0, 47, 40));
-        drawInventory(0, 95, playerInventory);
+        drawInventory(0, 96, playerInventory);
     }
 
     public TileGenerator getGenerator() {
