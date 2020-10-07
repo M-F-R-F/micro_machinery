@@ -394,5 +394,11 @@
   "advancement.micro_machinery.hand_generator": "He was tired out",
   "advancement.micro_machinery.hand_generator.desc": "make a hand generator",
   "advancement.micro_machinery.generator": "The water dries up!",
-  "advancement.micro_machinery.generator.desc": "make a generator"
+  "advancement.micro_machinery.generator.desc": "make a generator",
+  "button.action.turning":"Turing",
+  "button.action.grinding":"Grinding",
+  "button.action.planing":"Planing",
+  "button.action.boring":"Boring",
+  "button.action.drilling":"Drilling",
+  "button.action.milling":"Milling"
 }

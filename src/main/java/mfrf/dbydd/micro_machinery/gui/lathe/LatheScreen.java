@@ -42,37 +42,37 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
     protected void init() {
         super.init();
 
-        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 46, 14, 14, "", "button.action.turning", 214, 126, 214, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 47, 14, 14, "", "button.action.turning", 214, 126, 214, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.TURNING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 46, 14, 14, "", "button.action.grinding", 228, 126, 228, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 47, 14, 14, "", "button.action.grinding", 228, 126, 228, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.GRINDING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 46, 14, 14, "", "button.action.planing", 242, 126, 242, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 47, 14, 14, "", "button.action.planing", 242, 126, 242, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.PLANING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 62, 14, 14, "", "button.action.boring", 172, 126, 172, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 65, this.guiTop + 63, 14, 14, "", "button.action.boring", 172, 126, 172, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.BORING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 62, 14, 14, "", "button.action.drilling", 186, 126, 186, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 81, this.guiTop + 63, 14, 14, "", "button.action.drilling", 186, 126, 186, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.DRILLING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
         }, this));
 
-        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 62, 14, 14, "", "button.action.milling", 200, 126, 200, 112, button -> {
+        addButton(new ButtonBase(this.guiLeft + 97, this.guiTop + 63, 14, 14, "", "button.action.milling", 200, 126, 200, 112, button -> {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putString("action", TileLathe.Action.MILLING.name());
             TileClientToServerSyncChannel.INSTANCE.sendToServer(new TileClientToServerSyncPackage(compoundNBT, container.getLathe().getPos()));
