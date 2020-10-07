@@ -30,11 +30,17 @@ import java.util.Random;
 public class TileLathe extends MMTileBase implements INamedContainerProvider {
     public static final int INPUT_SLOT = 0;
     public static final int RESULT_SLOT = 1;
-    private ActionContainer actionContainer = new ActionContainer(){
+    private ActionContainer actionContainer = new ActionContainer() {
         @Override
         public void addStep(Action action) {
             super.addStep(action);
-        markDirty2();
+            markDirty2();
+        }
+
+        @Override
+        public void reset() {
+            super.reset();
+            markDirty2();
         }
     };
     private FEContainer FEContainer = new FEContainer(0, 25600) {
@@ -62,7 +68,13 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
             return i;
         }
     };
-    private IntegerContainer wasteMaterialValueConatiner = new IntegerContainer(0, 100);
+    private IntegerContainer wasteMaterialValueConatiner = new IntegerContainer(0, 100) {
+        @Override
+        public void resetValue() {
+            super.resetValue();
+            markDirty2();
+        }
+    };
     private LatheRecipe.SubRecipe recipe = new LatheRecipe.SubRecipe();
     private ItemStackHandler itemHander = new ItemStackHandler(2) {
         @Override
@@ -180,10 +192,16 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
                     this.recipe = subRecipeGet;
                     actionContainer.reset();
                     wasteMaterialValueConatiner.resetValue();
-                    markDirty();
+                    markDirty2();
                     return false;
                 }
-            } else return this.recipe == LatheRecipe.SubRecipe.EMPTY;
+            } else {
+                this.recipe = LatheRecipe.SubRecipe.EMPTY;
+                actionContainer.reset();
+                wasteMaterialValueConatiner.resetValue();
+                markDirty2();
+                return false;
+            }
         }
         return true;
     }

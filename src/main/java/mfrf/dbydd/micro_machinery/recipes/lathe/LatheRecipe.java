@@ -27,11 +27,6 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
         return !recipe.apply(stack).isEmpty();
     }
 
-    public boolean isActionEqual(ActionContainer container) {
-        EvictingQueue<TileLathe.Action> actionQueue = container.getActionQueue();
-        return false;
-    }
-
     public SubRecipe getSubRecipe(ItemStack stack) {
         if (stack.isEmpty()) {
             return new SubRecipe();
@@ -40,19 +35,6 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
         return new SubRecipe(resultStack, new ItemStack(stack.getItem()), action1, action2, wasteValueNeeded);
     }
 
-    public int getWasteValueNeeded() {
-        return wasteValueNeeded;
-    }
-
-    public TileLathe.Action getAction1() {
-        return action1;
-    }
-
-    public TileLathe.Action getAction2() {
-        return action2;
-    }
-
-    @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT compoundNBT = new CompoundNBT();
         compoundNBT.putInt("wasteValueNeeded", wasteValueNeeded);

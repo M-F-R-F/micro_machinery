@@ -41,7 +41,9 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
     }
 
     public void reset() {
-        actionQueue.clear();
+        for (int i = 0;i<3;i++) {
+            actionQueue.add(TileLathe.Action.EMPTY);
+        }
     }
 
     @Override
@@ -49,16 +51,20 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
         CompoundNBT compoundNBT = new CompoundNBT();
         for (int i = 0; i < 3; i++) {
             TileLathe.Action poll = actionQueue.poll();
-            compoundNBT.putString("action" + i, poll != null ? poll.name() : TileLathe.Action.EMPTY.name());
+            if(poll != null) {
+                compoundNBT.putString("action" + i,poll.name());
+            }
         }
         return compoundNBT;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-//        reset();
         for (int i = 0; i < 3; i++) {
-            this.actionQueue.add(TileLathe.Action.valueOf(nbt.getString("action" + i)));
+            String s = "action" + i;
+            if(nbt.contains(s)) {
+                this.actionQueue.add(TileLathe.Action.valueOf(nbt.getString(s)));
+            }
         }
     }
 }

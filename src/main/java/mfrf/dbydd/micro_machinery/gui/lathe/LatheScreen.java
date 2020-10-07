@@ -8,6 +8,7 @@ import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServer
 import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncPackage;
 import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
 import mfrf.dbydd.micro_machinery.utils.ActionContainer;
+import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +29,7 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
         renderActionsNeeded(lathe.getRecipe());
         renderAction(lathe.getActionContainer());
         renderDefaultEnergyBarWithTip(lathe.getFEContainer(), 8, 90, p_render_1_, p_render_2_);
+        renderWasteValueBar(lathe.getRecipe(), lathe.getWasteMaterialValueConatiner().getCurrent());
 
         renderHoveredToolTip(p_render_1_, p_render_2_);
 
@@ -103,7 +105,7 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
         }
 
         if (actionToUV2 != null) {
-            renderModule(84, 28, actionToUV2.u, actionToUV2.v, 14, 14);
+            renderModule(81, 28, actionToUV2.u, actionToUV2.v, 14, 14);
         }
 
         if (actionToUV3 != null) {
@@ -111,13 +113,22 @@ public class LatheScreen extends ScreenBase<LatheContainer> {
         }
     }
 
+    private void renderWasteValueBar(LatheRecipe.SubRecipe recipe, int current){
+        renderModule(35 + calculateWasteValueBar(recipe.getWasteValueNeed()),81, 167,130,5,5);
+        renderModule(35 + calculateWasteValueBar(current),92, 167,135,5,5);
+    }
+
+    private int calculateWasteValueBar(float num) {
+        return Math.round(100f * (num / 100f));
+    }
+
     private enum ActionToUV {
-        DRILLING(TileLathe.Action.DRILLING, 214, 140),
-        TURNING(TileLathe.Action.TURNING, 228, 140),
-        MILLING(TileLathe.Action.MILLING, 242, 140),
-        GRINDING(TileLathe.Action.GRINDING, 172, 140),
-        PLANING(TileLathe.Action.PLANING, 186, 140),
-        BORING(TileLathe.Action.BORING, 200, 140);
+        DRILLING(TileLathe.Action.DRILLING, 186, 140),
+        TURNING(TileLathe.Action.TURNING, 214, 140),
+        MILLING(TileLathe.Action.MILLING, 200, 140),
+        GRINDING(TileLathe.Action.GRINDING, 228, 140),
+        PLANING(TileLathe.Action.PLANING, 242, 140),
+        BORING(TileLathe.Action.BORING, 172, 140);
 
         private final TileLathe.Action key;
         private final int u;

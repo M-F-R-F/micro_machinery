@@ -14,6 +14,7 @@ import net.minecraft.world.storage.WorldSavedData;
 
 import java.util.Collection;
 import java.util.Random;
+import java.util.function.Function;
 
 public class LatheRecipesWorldSavedData extends WorldSavedData {
     public static final String NAME = "LatheRecipesWorldSavedData";
