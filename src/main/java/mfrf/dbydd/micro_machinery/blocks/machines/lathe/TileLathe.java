@@ -63,7 +63,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         }
     };
     private IntegerContainer wasteMaterialValueConatiner = new IntegerContainer(0, 100);
-    private LatheRecipe.SubRecipe recipe = new LatheRecipe.SubRecipe();
+    private LatheRecipe.SubRecipe recipe = LatheRecipe.SubRecipe.createEmptyRecipe();
     private ItemStackHandler itemHander = new ItemStackHandler(2) {
         @Override
         public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
@@ -153,7 +153,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     public void finishCraft() {
-        if (checkRecipeType()) {
+//        if (checkRecipeType()) {
             ItemStack result = getRecipeResult();
             ItemStack stackInSlot = itemHander.getStackInSlot(RESULT_SLOT);
             itemHander.getStackInSlot(INPUT_SLOT).shrink(1);
@@ -164,7 +164,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
             }
             resetEveryThing();
             markDirty2();
-        }
+//        }
     }
 
     public ItemStack getRecipeResult() {
@@ -180,7 +180,8 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
                 if (!subRecipeGet.equals(this.recipe)) {
                     resetEveryThing();
                     this.recipe = subRecipeGet;
-                    return false;
+                    markDirty2();
+                    return true;
                 }
             } else {
                 resetEveryThing();
@@ -191,7 +192,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     private void getAction(Action action) {
-        if (!recipe.equals(LatheRecipe.SubRecipe.EMPTY) && checkRecipeType() && FEContainer.getCurrent() >= 6400) {
+        if (checkRecipeType() && FEContainer.getCurrent() >= 6400) {
             FEContainer.add(-6400, false);
             wasteMaterialValueConatiner.add(action.getWasteValue(), false);
             actionContainer.addStep(action);
@@ -217,7 +218,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
 
     private void resetEveryThing() {
         wasteMaterialValueConatiner.resetValue();
-        recipe = LatheRecipe.SubRecipe.EMPTY;
+        recipe = LatheRecipe.SubRecipe.createEmptyRecipe();
         actionContainer.reset();
         markDirty2();
     }

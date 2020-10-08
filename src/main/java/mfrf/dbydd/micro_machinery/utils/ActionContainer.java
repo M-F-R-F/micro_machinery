@@ -60,9 +60,9 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
         this.count = nbt.getInt("count");
         for (int i = 0; i < count; i++) {
             String s = "action" + i;
-//            if (nbt.contains(s)) {
-                this.actionQueue[i] = TileLathe.Action.valueOf(nbt.getString(s));
-//            }
+            if (nbt.contains(s)) {
+              this.actionQueue[i] = TileLathe.Action.valueOf(nbt.getString(s));
+            }
         }
     }
 }

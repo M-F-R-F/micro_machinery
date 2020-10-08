@@ -1,8 +1,6 @@
 package mfrf.dbydd.micro_machinery.recipes.lathe;
 
-import com.google.common.collect.EvictingQueue;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
-import mfrf.dbydd.micro_machinery.utils.ActionContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -51,7 +49,6 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
     }
 
     public static class SubRecipe implements INBTSerializable<CompoundNBT> {
-        public static final SubRecipe EMPTY = new SubRecipe();
         private TileLathe.Action action2;
         private TileLathe.Action action1;
         private int wasteValueNeed;
@@ -136,6 +133,10 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
             result1 = 31 * result1 + getResult().hashCode();
             result1 = 31 * result1 + getInput().hashCode();
             return result1;
+        }
+
+        public static SubRecipe createEmptyRecipe() {
+            return new SubRecipe();
         }
     }
 }
