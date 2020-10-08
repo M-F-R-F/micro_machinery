@@ -253,6 +253,9 @@ public class RegisteredItems {
     public static final Item BRONZE_SWORD0 = new MMItemBase("bronze_sword0");
     public static final Item HSS_ADDITIVE = new MMItemBase("hss_additive");
     public static final Item SS_ADDITIVE = new MMItemBase("ss_additive");
+    public static final Item SPONGE_IRON = new MMItemBase("sponge_iron");
+    public static final Item HOT_IRON_INGOT = new MMItemBase("hot_iron_ingot");
+    public static final Item HOT_STEEL_INGOT = new MMItemBase("hot_steel_ingot");
 
     public static final Item TEST_UTIL = new DebugTool();
 
