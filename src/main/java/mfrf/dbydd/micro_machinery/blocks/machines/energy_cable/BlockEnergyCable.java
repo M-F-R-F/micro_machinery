@@ -139,7 +139,7 @@ public class BlockEnergyCable extends MMBlockBase {
     }
 
     private boolean setStateNoUpdateNeighbor(World world, BlockPos pos, BlockState state) {
-        return world.setBlockState(pos, state, 6);
+        return world.setBlockState(pos, state, 22);
     }
 
     @Override
