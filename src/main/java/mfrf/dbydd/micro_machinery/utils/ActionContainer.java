@@ -11,7 +11,7 @@ public class ActionContainer implements INBTSerializable<CompoundNBT> {
 
     public void addStep(TileLathe.Action action) {
         if (count < 3) {
-            actionQueue[++count] = action;
+            actionQueue[count++] = action;
         } else {
             TileLathe.Action[] actions = new TileLathe.Action[3];
             actions[0] = actionQueue[1];
