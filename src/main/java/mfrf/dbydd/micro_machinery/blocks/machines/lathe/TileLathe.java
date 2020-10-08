@@ -69,6 +69,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
             super.setStackInSlot(slot, stack);
             resetEveryThing();
+            checkRecipeType();
         }
 
         @Nonnull
