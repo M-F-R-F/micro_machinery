@@ -59,7 +59,7 @@ public class IntegerContainer {
                 return r;
             } else {
                 current += value;
-                return value;
+                return 0;
             }
         } else {
             if (i > max) {

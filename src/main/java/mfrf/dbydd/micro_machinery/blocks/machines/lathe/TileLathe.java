@@ -36,6 +36,12 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
             super.addStep(action);
             markDirty2();
         }
+
+        @Override
+        public void reset() {
+            super.reset();
+            markDirty2();
+        }
     };
     private FEContainer FEContainer = new FEContainer(0, 25600) {
         @Override
@@ -62,13 +68,18 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
             return i;
         }
     };
-    private IntegerContainer wasteMaterialValueConatiner = new IntegerContainer(0, 100);
-    private LatheRecipe.SubRecipe recipe = LatheRecipe.SubRecipe.createEmptyRecipe();
+    private IntegerContainer wasteMaterialValueConatiner = new IntegerContainer(0, 100) {
+        @Override
+        public void resetValue() {
+            super.resetValue();
+            markDirty2();
+        }
+    };
+    private LatheRecipe.SubRecipe recipe = new LatheRecipe.SubRecipe();
     private ItemStackHandler itemHander = new ItemStackHandler(2) {
         @Override
         public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
             super.setStackInSlot(slot, stack);
-            resetEveryThing();
             checkRecipeType();
         }
 
@@ -76,7 +87,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         @Override
         public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
             ItemStack itemStack = super.insertItem(slot, stack, simulate);
-            resetEveryThing();
+            checkRecipeType();
             return itemStack;
         }
 
@@ -154,7 +165,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     public void finishCraft() {
-//        if (checkRecipeType()) {
+        if (checkRecipeType()) {
             ItemStack result = getRecipeResult();
             ItemStack stackInSlot = itemHander.getStackInSlot(RESULT_SLOT);
             itemHander.getStackInSlot(INPUT_SLOT).shrink(1);
@@ -163,9 +174,8 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
             } else {
                 world.addEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1, pos.getZ(), result));
             }
-            resetEveryThing();
-            markDirty2();
-//        }
+            markDirty();
+        }
     }
 
     public ItemStack getRecipeResult() {
@@ -179,13 +189,17 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
             if (recipeType != null) {
                 LatheRecipe.SubRecipe subRecipeGet = recipeType.getSubRecipe(stackInSlot);
                 if (!subRecipeGet.equals(this.recipe)) {
-                    resetEveryThing();
                     this.recipe = subRecipeGet;
+                    actionContainer.reset();
+                    wasteMaterialValueConatiner.resetValue();
                     markDirty2();
-                    return true;
+                    return false;
                 }
             } else {
-                resetEveryThing();
+                this.recipe = LatheRecipe.SubRecipe.EMPTY;
+                actionContainer.reset();
+                wasteMaterialValueConatiner.resetValue();
+                markDirty2();
                 return false;
             }
         }
@@ -193,8 +207,8 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     private void getAction(Action action) {
-        if (checkRecipeType() && FEContainer.getCurrent() >= 6400) {
-            FEContainer.add(-6400, false);
+        checkRecipeType();
+        if (!recipe.equals(LatheRecipe.SubRecipe.EMPTY)) {
             wasteMaterialValueConatiner.add(action.getWasteValue(), false);
             actionContainer.addStep(action);
             if (recipe.getWasteValueNeed() == wasteMaterialValueConatiner.getCurrent()) {
@@ -203,9 +217,10 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
                 }
             }
             if (wasteMaterialValueConatiner.atMaxValue()) {
-                resetEveryThing();
+                wasteMaterialValueConatiner.resetValue();
                 itemHander.getStackInSlot(0).shrink(1);
-                markDirty2();
+                actionContainer.reset();
+                markDirty();
             }
         }
     }
@@ -215,13 +230,6 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         if (tag.contains("action", Constants.NBT.TAG_STRING)) {
             getAction(Action.valueOf(tag.getString("action")));
         }
-    }
-
-    private void resetEveryThing() {
-        wasteMaterialValueConatiner.resetValue();
-        recipe = LatheRecipe.SubRecipe.createEmptyRecipe();
-        actionContainer.reset();
-        markDirty2();
     }
 
     public enum Action {
