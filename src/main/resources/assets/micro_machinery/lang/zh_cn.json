@@ -394,5 +394,11 @@
   "advancement.micro_machinery.hand_generator": "苦力时代",
   "advancement.micro_machinery.hand_generator.desc": "建造一台手动发电机",
   "advancement.micro_machinery.generator": "水快干了！",
-  "advancement.micro_machinery.generator.desc": "建造一台火力发电机"
+  "advancement.micro_machinery.generator.desc": "建造一台火力发电机",
+  "button.action.turning":"车削",
+  "button.action.grinding":"磨削",
+  "button.action.planing":"刨削",
+  "button.action.boring":"镗孔",
+  "button.action.drilling":"钻削",
+  "button.action.milling":"铣削"
 }
