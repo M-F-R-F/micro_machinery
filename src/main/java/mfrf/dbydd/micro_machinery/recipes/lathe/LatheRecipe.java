@@ -49,6 +49,7 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
     }
 
     public static class SubRecipe implements INBTSerializable<CompoundNBT> {
+        public static final SubRecipe EMPTY = new SubRecipe();
         private TileLathe.Action action2;
         private TileLathe.Action action1;
         private int wasteValueNeed;
