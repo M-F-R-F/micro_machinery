@@ -9,6 +9,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenera
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator_Handler;
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.BlockLathe;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.BlockContainer;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
@@ -73,35 +74,35 @@ public class RegisteredBlocks {
     public static final Block CASING_3 = new MMBlockBase(HARD2.hardnessAndResistance(4.0f), "casing_3");
     public static final Block CASING_4 = new MMBlockBase(HARD3.hardnessAndResistance(5.0f), "casing_4");
     //discarded metal
-    public static final Block MOLTEN_COPPER_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_copper_discarded");
-    public static final Block MOLTEN_TIN_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_tin_discarded");
-    public static final Block MOLTEN_BRONZE_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_bronze_discarded");
-    public static final Block MOLTEN_STEEL_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_steel_discarded");
-    public static final Block MOLTEN_SS_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_ss_discarded");
-    public static final Block MOLTEN_TUNGSTEN_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_tungsten_discarded");
-    public static final Block MOLTEN_NICKEL_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_nickel_discarded");
-    public static final Block MOLTEN_INVAR_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_invar_discarded");
-    public static final Block MOLTEN_HSS_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_hss_discarded");
-    public static final Block MOLTEN_SILVER_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_silver_discarded");
-    public static final Block MOLTEN_GOLD_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_gold_discarded");
-    public static final Block MOLTEN_MANGANESE_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_manganese_discarded");
-    public static final Block MOLTEN_CHROMIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_chromium_discarded");
-    public static final Block MOLTEN_VANADIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_vanadium_discarded");
-    public static final Block MOLTEN_COBALT_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_cobalt_discarded");
-    public static final Block MOLTEN_TITANIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_titanium_discarded");
-    public static final Block MOLTEN_ALUMINUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_aluminum_discarded");
-    public static final Block MOLTEN_NCALLOY_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_ncalloy_discarded");
-    public static final Block MOLTEN_FERROCHROME_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_ferrochrome_discarded");
-    public static final Block MOLTEN_IRON_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f),"molten_iron_discarded");
+    public static final Block MOLTEN_COPPER_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_copper_discarded");
+    public static final Block MOLTEN_TIN_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_tin_discarded");
+    public static final Block MOLTEN_BRONZE_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_bronze_discarded");
+    public static final Block MOLTEN_STEEL_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_steel_discarded");
+    public static final Block MOLTEN_SS_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_ss_discarded");
+    public static final Block MOLTEN_TUNGSTEN_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_tungsten_discarded");
+    public static final Block MOLTEN_NICKEL_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_nickel_discarded");
+    public static final Block MOLTEN_INVAR_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_invar_discarded");
+    public static final Block MOLTEN_HSS_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_hss_discarded");
+    public static final Block MOLTEN_SILVER_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_silver_discarded");
+    public static final Block MOLTEN_GOLD_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_gold_discarded");
+    public static final Block MOLTEN_MANGANESE_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_manganese_discarded");
+    public static final Block MOLTEN_CHROMIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_chromium_discarded");
+    public static final Block MOLTEN_VANADIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_vanadium_discarded");
+    public static final Block MOLTEN_COBALT_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_cobalt_discarded");
+    public static final Block MOLTEN_TITANIUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_titanium_discarded");
+    public static final Block MOLTEN_ALUMINUM_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_aluminum_discarded");
+    public static final Block MOLTEN_NCALLOY_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_ncalloy_discarded");
+    public static final Block MOLTEN_FERROCHROME_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_ferrochrome_discarded");
+    public static final Block MOLTEN_IRON_DISCARDED = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "molten_iron_discarded");
     //modules
-    public static final Block MODULE_GENERATOR = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_generator");
-    public static final Block MODULE_HEAT_SINK = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_heat_sink");
-    public static final Block MODULE_PRESSURE_BEARING = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_pressure_bearing");
-    public static final Block MODULE_TRANSMISSION_1 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_1");
-    public static final Block MODULE_TRANSMISSION_2 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_2");
-    public static final Block MODULE_TRANSMISSION_3 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_3");
-    public static final Block MODULE_TRANSMISSION_4 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_4");
-    public static final Block MODULE_TRANSMISSION_5 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f),"module_transmission_5");
+    public static final Block MODULE_GENERATOR = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_generator");
+    public static final Block MODULE_HEAT_SINK = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_heat_sink");
+    public static final Block MODULE_PRESSURE_BEARING = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_pressure_bearing");
+    public static final Block MODULE_TRANSMISSION_1 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_transmission_1");
+    public static final Block MODULE_TRANSMISSION_2 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_transmission_2");
+    public static final Block MODULE_TRANSMISSION_3 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_transmission_3");
+    public static final Block MODULE_TRANSMISSION_4 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_transmission_4");
+    public static final Block MODULE_TRANSMISSION_5 = new MMBlockBase(HARD2.hardnessAndResistance(3.0f), "module_transmission_5");
     //other
     public static final Block PCM = new MMBlockBase(HARD1.hardnessAndResistance(2.5f), "pcm");
     public static final Block TANK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "tank_block");
@@ -131,6 +132,7 @@ public class RegisteredBlocks {
 
     //multiBlock
     public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().harvestLevel(0).harvestTool(ToolType.PICKAXE).hardnessAndResistance(5.0f), "lathe");
+    public static final Block PLACE_HOLDER = new BlockContainer();
 
     //indicator
     public static final Block INDICATOR = new MMBlockBase("indicator", true);
@@ -147,7 +149,9 @@ public class RegisteredBlocks {
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
     public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
-    /** ↓this is machine with multi_block */
+    /**
+     * ↓this is machine with multi_block
+     */
     public static final Block FORGING_PRESS = new MMBlockBase("forging_press", true);
     public static final Block REACTION_STILL = new MMBlockBase("reaction_still", true);
     public static final Block SPHERICAL_TANK = new MMBlockBase("spherical_tank", true);
