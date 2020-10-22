@@ -13,12 +13,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.Hand;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -34,10 +36,17 @@ public class ReadMultiBlockCommand implements Command<CommandSource> {
             if (clickedPos != null) {
                 if (clickedPos.contains("pos1") && clickedPos.contains("pos2") && clickedPos.contains("active_block")) {
                     JsonObject jsonObject = DebugTool.readMultiBlock(NBTUtil.readBlockPos(clickedPos.getCompound("pos1")), NBTUtil.readBlockPos(clickedPos.getCompound("pos2")), NBTUtil.readBlockPos(clickedPos.getCompound("active_block")), context.getSource().getWorld());
-                    LogManager.getLogger().info(jsonObject.toString());
+//                    LogManager.getLogger().info(jsonObject.toString());
+
+                            File file = new File("test" + File.separator + "inst.json");
+                            try {
+                                FileUtils.writeStringToFile(file, jsonObject.toString(), Charset.defaultCharset());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                    }
                 }
             }
-        }
         return 0;
     }
 }

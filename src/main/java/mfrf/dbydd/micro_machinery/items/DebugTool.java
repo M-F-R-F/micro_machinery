@@ -23,18 +23,31 @@ public class DebugTool extends MMItemBase {
     }
 
     public static JsonObject readMultiBlock(BlockPos pos1, BlockPos pos2, BlockPos activeBlockPos, World world) {
-        int offsetX = Math.abs(pos2.getX() - pos1.getX());
-        int offsetY = Math.abs(pos2.getY() - pos1.getY());
-        int offsetZ = Math.abs(pos2.getZ() - pos1.getZ());
+        BlockPos posLower;
+        BlockPos posHigher;
 
-        BlockState[][][] states = new BlockState[offsetX][offsetY][offsetZ];
+        if (pos1.getY() <= pos2.getY() && pos1.getX() <= pos2.getX() && pos1.getZ() <= pos2.getZ()) {
+            posLower = pos1;
+            posHigher = pos2;
+        } else {
+            posLower = pos2;
+            posHigher = pos1;
+        }
+
+        int offsetX = posHigher.getX() - posLower.getX();
+        int offsetY = posHigher.getY() - posLower.getY();
+        int offsetZ = posHigher.getZ() - posLower.getZ();
+
+        BlockPos relativeActivePos = activeBlockPos.add(-posLower.getX(), -posLower.getY(), -posLower.getZ());
+
+        BlockState[][][] states = new BlockState[Math.abs(offsetX)][Math.abs(offsetY)][Math.abs(offsetZ)];
         ArrayList<BlockPos> accessoryBlocks = new ArrayList<>();
 
         for (int i = 0; i < offsetX; i++) {
             for (int i1 = 0; i1 < offsetY; i1++) {
                 for (int i2 = 0; i2 < offsetZ; i2++) {
 
-                    BlockState blockState = world.getBlockState(pos1.add(i, i1, i2));
+                    BlockState blockState = world.getBlockState(posLower.add(i, i1, i2));
 
                     if (blockState.getBlock() instanceof IMultiBlockAccessory) {
                         accessoryBlocks.add(new BlockPos(i, i1, i2));
@@ -68,7 +81,7 @@ public class DebugTool extends MMItemBase {
 
         json.add("structure", jsonX);
         json.add("accessory", accessoryArray);
-        json.addProperty("activeBlock", NBTUtil.writeBlockPos(activeBlockPos).toString());
+        json.addProperty("activeBlock", NBTUtil.writeBlockPos(relativeActivePos).toString());
 
         return json;
     }
@@ -88,7 +101,7 @@ public class DebugTool extends MMItemBase {
 
             ItemStack heldItem = context.getPlayer().getHeldItem(Hand.OFF_HAND);
             if (!heldItem.isEmpty() && heldItem.getItem() == Items.STICK) {
-                clickedPos.put("active_block",NBTUtil.writeBlockPos(context.getPos()));
+                clickedPos.put("active_block", NBTUtil.writeBlockPos(context.getPos()));
             } else if (context.getPlayer().isSneaking()) {
                 clickedPos.put("pos1", NBTUtil.writeBlockPos(context.getPos()));
             } else {
