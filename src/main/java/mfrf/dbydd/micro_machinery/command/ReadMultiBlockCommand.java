@@ -6,17 +6,21 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import mfrf.dbydd.micro_machinery.items.DebugTool;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.Hand;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ReadMultiBlockCommand implements Command<CommandSource> {
     public static ReadMultiBlockCommand Instance = new ReadMultiBlockCommand();
@@ -30,35 +34,7 @@ public class ReadMultiBlockCommand implements Command<CommandSource> {
             if (clickedPos != null) {
                 if (clickedPos.contains("pos1") && clickedPos.contains("pos2") && clickedPos.contains("active_block")) {
                     JsonObject jsonObject = DebugTool.readMultiBlock(NBTUtil.readBlockPos(clickedPos.getCompound("pos1")), NBTUtil.readBlockPos(clickedPos.getCompound("pos2")), NBTUtil.readBlockPos(clickedPos.getCompound("active_block")), context.getSource().getWorld());
-                    File dataDirectory = context.getSource().getServer().getDataDirectory();
-                    if (dataDirectory.canWrite()) {
-                        jsonObject.toString();
-                        String json = new Gson().toJson(jsonObject);
-
-                        File target = null;
-                        try {
-                            target = new File(dataDirectory.getCanonicalPath() + "MMMultiBlock\\inst.json");
-                            if(!target.exists()){
-                                target.mkdirs();
-                                target.createNewFile();
-                            }else {
-                                target.delete();
-                                target.createNewFile();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        try (FileOutputStream fileOutputStream = new FileOutputStream(target)) {
-
-                            fileOutputStream.write(json.getBytes());
-
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    LogManager.getLogger().info(jsonObject.toString());
                 }
             }
         }
