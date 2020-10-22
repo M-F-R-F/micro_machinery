@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class DebugTool extends MMItemBase {
     }
 
     public static JsonObject readMultiBlock(BlockPos pos1, BlockPos pos2, BlockPos activeBlockPos, World world) {
-        int offsetX = pos2.getX() - pos1.getX();
-        int offsetY = pos2.getY() - pos1.getY();
-        int offsetZ = pos2.getZ() - pos1.getZ();
+        int offsetX = Math.abs(pos2.getX() - pos1.getX());
+        int offsetY = Math.abs(pos2.getY() - pos1.getY());
+        int offsetZ = Math.abs(pos2.getZ() - pos1.getZ());
 
         BlockState[][][] states = new BlockState[offsetX][offsetY][offsetZ];
         ArrayList<BlockPos> accessoryBlocks = new ArrayList<>();
@@ -95,6 +96,8 @@ public class DebugTool extends MMItemBase {
             }
 
             context.getItem().setTagInfo("clickedPos", clickedPos);
+
+            context.getPlayer().sendMessage(new StringTextComponent(clickedPos.toString()));
 
         }
         return ActionResultType.SUCCESS;

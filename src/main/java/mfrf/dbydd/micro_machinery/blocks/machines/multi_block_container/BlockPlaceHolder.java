@@ -4,6 +4,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,10 +20,10 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-public class BlockContainer extends MMMultiBlockBase {
+public class BlockPlaceHolder extends MMMultiBlockBase {
 
-    public BlockContainer() {
-        super(Properties.create(Material.IRON).harvestLevel(-1).hardnessAndResistance(-1), "multi_block_container", true, false);
+    public BlockPlaceHolder(String name) {
+        super(Properties.create(Material.IRON).harvestLevel(-1).hardnessAndResistance(-1), name, true, false);
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, true));
     }
 
@@ -37,7 +38,11 @@ public class BlockContainer extends MMMultiBlockBase {
             packedNBT.put("tile_packaged", tileEntity.write(new CompoundNBT()));
         }
 
-        world.setBlockState(pos, RegisteredBlocks.PLACE_HOLDER.getDefaultState());
+        if (blockState.getBlock() == Blocks.LEVER) {
+            world.setBlockState(pos, RegisteredBlocks.LEVER_PLACEHOLDER.getDefaultState());
+        } else {
+            world.setBlockState(pos, RegisteredBlocks.PLACE_HOLDER.getDefaultState());
+        }
         world.getTileEntity(pos).read(packedNBT);
         return packedNBT;
     }
@@ -46,7 +51,7 @@ public class BlockContainer extends MMMultiBlockBase {
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack) {
         player.addStat(Stats.BLOCK_MINED.get(this));
         player.addExhaustion(0.005F);
-        ((TilePlaceHolder) te).onBlockHarvest(worldIn, pos, player, state,stack);
+        ((TilePlaceHolder) te).onBlockHarvest(worldIn, pos, player, state, stack);
     }
 
     @Override
@@ -58,10 +63,10 @@ public class BlockContainer extends MMMultiBlockBase {
         return ActionResultType.SUCCESS;
     }
 
-    public void breakBlock(CompoundNBT packedNBT, World world, BlockPos pos){
+    public void breakBlock(CompoundNBT packedNBT, World world, BlockPos pos) {
         BlockState blockState = NBTUtil.readBlockState(packedNBT.getCompound("block_state_nbt"));
         world.setBlockState(pos, blockState);
-        if(packedNBT.contains("tile_packaged")){
+        if (packedNBT.contains("tile_packaged")) {
             world.getTileEntity(pos).read(packedNBT.getCompound("tile_packaged"));
         }
     }

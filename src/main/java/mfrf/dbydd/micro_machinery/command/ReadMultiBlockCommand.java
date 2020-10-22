@@ -1,5 +1,7 @@
 package mfrf.dbydd.micro_machinery.command;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -10,6 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.Hand;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ReadMultiBlockCommand implements Command<CommandSource> {
     public static ReadMultiBlockCommand Instance = new ReadMultiBlockCommand();
@@ -22,7 +29,36 @@ public class ReadMultiBlockCommand implements Command<CommandSource> {
             CompoundNBT clickedPos = heldItem.getChildTag("clickedPos");
             if (clickedPos != null) {
                 if (clickedPos.contains("pos1") && clickedPos.contains("pos2") && clickedPos.contains("active_block")) {
-                    DebugTool.readMultiBlock(NBTUtil.readBlockPos(clickedPos.getCompound("pos1")), NBTUtil.readBlockPos(clickedPos.getCompound("pos2")), NBTUtil.readBlockPos(clickedPos.getCompound("active_block")), context.getSource().getWorld());
+                    JsonObject jsonObject = DebugTool.readMultiBlock(NBTUtil.readBlockPos(clickedPos.getCompound("pos1")), NBTUtil.readBlockPos(clickedPos.getCompound("pos2")), NBTUtil.readBlockPos(clickedPos.getCompound("active_block")), context.getSource().getWorld());
+                    File dataDirectory = context.getSource().getServer().getDataDirectory();
+                    if (dataDirectory.canWrite()) {
+                        jsonObject.toString();
+                        String json = new Gson().toJson(jsonObject);
+
+                        File target = null;
+                        try {
+                            target = new File(dataDirectory.getCanonicalPath() + "MMMultiBlock\\inst.json");
+                            if(!target.exists()){
+                                target.mkdirs();
+                                target.createNewFile();
+                            }else {
+                                target.delete();
+                                target.createNewFile();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        try (FileOutputStream fileOutputStream = new FileOutputStream(target)) {
+
+                            fileOutputStream.write(json.getBytes());
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }

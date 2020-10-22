@@ -9,7 +9,8 @@ import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenera
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator_Handler;
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.BlockLathe;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.BlockContainer;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.BlockPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.LeverPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
@@ -132,7 +133,8 @@ public class RegisteredBlocks {
 
     //multiBlock
     public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().harvestLevel(0).harvestTool(ToolType.PICKAXE).hardnessAndResistance(5.0f), "lathe");
-    public static final Block PLACE_HOLDER = new BlockContainer();
+    public static final Block PLACE_HOLDER = new BlockPlaceHolder("multi_block_place_holder");
+    public static final Block LEVER_PLACEHOLDER = new LeverPlaceHolder();
 
     //indicator
     public static final Block INDICATOR = new MMBlockBase("indicator", true);

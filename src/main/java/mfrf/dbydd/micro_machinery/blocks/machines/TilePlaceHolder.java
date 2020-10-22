@@ -16,14 +16,23 @@ import net.minecraft.world.World;
 public class TilePlaceHolder extends MMTileBase {
     private BlockPos mainPartPos = null;
     private CompoundNBT packedNBT = null;
+
     public TilePlaceHolder() {
         super(Registered_Tileentitie_Types.TILE_PLACEHOLDER.get());
     }
 
+    public BlockPos getMainPartPos() {
+        return mainPartPos;
+    }
+
+    public CompoundNBT getPackedNBT() {
+        return packedNBT;
+    }
+
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        if(packedNBT != null){
-            compound.put("packed_nbt",packedNBT);
+        if (packedNBT != null) {
+            compound.put("packed_nbt", packedNBT);
         }
         if (mainPartPos != null) {
             compound.put("main_part_pos", NBTUtil.writeBlockPos(mainPartPos));
@@ -33,10 +42,10 @@ public class TilePlaceHolder extends MMTileBase {
 
     @Override
     public void read(CompoundNBT compound) {
-        if(compound.contains("packed_nbt")){
+        if (compound.contains("packed_nbt")) {
             packedNBT = compound.getCompound("packed_nbt");
         }
-        if(compound.contains("main_part_pos")){
+        if (compound.contains("main_part_pos")) {
             mainPartPos = NBTUtil.readBlockPos(compound.getCompound("main_part_pos"));
         }
         super.read(compound);
