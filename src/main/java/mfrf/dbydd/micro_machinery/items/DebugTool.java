@@ -14,6 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 
@@ -67,7 +68,7 @@ public class DebugTool extends MMItemBase {
             for (int y = 0; y < states[x].length; y++) {
                 JsonArray jsonZ = new JsonArray();
                 for (int z = 0; z < states[y].length; z++) {
-                    jsonZ.add(NBTUtil.writeBlockState(states[x][y][z]).toString());
+                    jsonZ.add(ForgeRegistries.BLOCKS.getKey(states[x][y][z].getBlock()).toString());
                 }
                 jsonY.add(jsonZ);
             }
@@ -76,7 +77,7 @@ public class DebugTool extends MMItemBase {
 
         JsonArray accessoryArray = new JsonArray();
         for (BlockPos accessoryBlock : accessoryBlocks) {
-            accessoryArray.add(NBTUtil.writeBlockPos(accessoryBlock).toString());
+            accessoryArray.add(NBTUtil.writeBlockPos(accessoryBlock.add(-posLower.getX(), -posLower.getY(), -posLower.getZ())).toString());
         }
 
         json.add("structure", jsonX);
