@@ -1,5 +1,8 @@
 package mfrf.dbydd.micro_machinery.interfaces;
 
-public interface IMultiBlockAccessory {
+import net.minecraft.block.Block;
 
+import java.util.ArrayList;
+
+public interface IMultiBlockAccessory {
 }

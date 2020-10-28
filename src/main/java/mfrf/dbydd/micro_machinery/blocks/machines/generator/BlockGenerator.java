@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.utils.VoxelShapeUtil;
+import mfrf.dbydd.micro_machinery.utils.MathUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -58,8 +58,8 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     }
 
     private VoxelShape makeShape(Direction direction){
-//        return VoxelShapes.or(VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE1, direction), VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE2, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE3, direction),VoxelShapeUtil.rotateDirection(GENERATOR_SHAPE4, direction));
-        return VoxelShapeUtil.rotateDirection(SHAPE, direction);
+//        return VoxelShapes.or(MathUtil.rotateDirection(GENERATOR_SHAPE1, direction), MathUtil.rotateDirection(GENERATOR_SHAPE2, direction),MathUtil.rotateDirection(GENERATOR_SHAPE3, direction),MathUtil.rotateDirection(GENERATOR_SHAPE4, direction));
+        return MathUtil.VoxelShapeRotateDirection(SHAPE, direction);
     }
 
     public static void setIsburning(boolean isburning, World world, BlockPos pos) {

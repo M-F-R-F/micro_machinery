@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.blocks.machines.lathe;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
-import mfrf.dbydd.micro_machinery.utils.VoxelShapeUtil;
+import mfrf.dbydd.micro_machinery.utils.MathUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +22,6 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BlockLathe extends MMMultiBlockBase {
@@ -112,11 +111,11 @@ public class BlockLathe extends MMMultiBlockBase {
     }
 
     private VoxelShape makeShape(Direction direction){
-        return VoxelShapes.or(VoxelShapeUtil.rotateDirection(LATHE_SHAPE1, direction), VoxelShapeUtil.rotateDirection(LATHE_SHAPE2, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE3, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE4, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE5, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE6, direction));
+        return VoxelShapes.or(MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE1, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE2, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE3, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE4, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE5, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE6, direction));
     }
 
     private VoxelShape holderShape(Direction direction){
-        return VoxelShapes.or(VoxelShapeUtil.rotateDirection(LATHE_SHAPE7, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE8, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE9, direction),VoxelShapeUtil.rotateDirection(LATHE_SHAPE10, direction));
+        return VoxelShapes.or(MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE7, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE8, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE9, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE10, direction));
     }
 
     @Override
