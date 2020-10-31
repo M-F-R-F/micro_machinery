@@ -40,7 +40,7 @@ public class ReadMultiBlockCommand implements Command<CommandSource> {
                     Direction direction = Direction.byIndex(activeBlock.getInt("direction"));
                     ServerWorld world = context.getSource().getWorld();
 
-                    JsonObject jsonObject = MathUtil.getNormalizedBlockPosBox(pos1, pos2, world, direction).convertToJson(pos);
+                    JsonObject jsonObject = MathUtil.getNormalizedBlockPosBox(pos1, pos2, world, direction,pos).convertToJson();
 
                     File file = new File("test" + File.separator + "inst.json");
                     try {

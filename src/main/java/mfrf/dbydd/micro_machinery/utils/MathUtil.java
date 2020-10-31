@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.utils;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.interfaces.IMultiBlockAccessory;
 import net.minecraft.block.Block;
@@ -9,6 +10,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.Direction;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -49,13 +52,13 @@ public class MathUtil {
             {1, 0, 0, 0},
             {0, 0, 0, 1}
     });
-    private static final RealMatrix MATRIX_ROT_NORTH = new Array2DRowRealMatrix(new double[][]{
+    private static final RealMatrix MATRIX_ROT_NORTH_IDENTITY = new Array2DRowRealMatrix(new double[][]{
             {1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 1, 0},
             {0, 0, 0, 1}
     });
-    private static final RealMatrix OFFSET_MATRIX = new Array2DRowRealMatrix(new double[][]{
+    private static final RealMatrix BLOCK_STATE_OFFSET_MATRIX = new Array2DRowRealMatrix(new double[][]{
             {0, 0, 0, 8},
             {0, 0, 0, 8},
             {0, 0, 0, 8},
@@ -63,24 +66,28 @@ public class MathUtil {
     });
 
     private static final RealMatrix MATRIX_ROT_WEST_TO_NORTH = new Array2DRowRealMatrix(new double[][]{
-            {0, 0, -1},
-            {0, 1, 0},
-            {1, 0, 0}
+            {0, 0, -1, 0},
+            {0, 1, 0, 0},
+            {1, 0, 0, 0},
+            {0, 0, 0, 1}
     });
     private static final RealMatrix MATRIX_ROT_SOUTH_TO_NORTH = new Array2DRowRealMatrix(new double[][]{
-            {-1, 0, 0},
-            {0, 1, 0},
-            {0, 0, -1}
+            {-1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, -1, 0},
+            {0, 0, 0, 1}
     });
     private static final RealMatrix MATRIX_ROT_EAST_TO_NORTH = new Array2DRowRealMatrix(new double[][]{
-            {0, 0, 1},
-            {0, 1, 0},
-            {-1, 0, 0}
+            {0, 0, 1, 0},
+            {0, 1, 0, 0},
+            {-1, 0, 0, 0},
+            {0, 0, 0, 1}
     });
-    private static final RealMatrix MATRIX_ROT_NORTH_TO_NORTH = new Array2DRowRealMatrix(new double[][]{
-            {1, 0, 0},
-            {0, 1, 0},
-            {0, 0, 1}
+    private static final RealMatrix MATRIX_ROT_NORTH_TO_NORTH_IDENTITY = new Array2DRowRealMatrix(new double[][]{
+            {1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, 1, 0},
+            {0, 0, 0, 1}
     });
 
     /**
@@ -91,7 +98,7 @@ public class MathUtil {
      */
     public static VoxelShape transformationVoxelShape(RealMatrix matrix, VoxelShape shape) {
         List<AxisAlignedBB> axisAlignedBBS = shape.toBoundingBoxList();
-        RealMatrix realMatrix = matrix.add(OFFSET_MATRIX);
+        RealMatrix realMatrix = matrix.add(BLOCK_STATE_OFFSET_MATRIX);
         VoxelShape returnValue = VoxelShapes.empty();
         for (AxisAlignedBB boundingBox : axisAlignedBBS) {
             RealVector beginPoint = new ArrayRealVector(new double[]{(boundingBox.minX * 16) - 8, boundingBox.minY * 16 - 8, (boundingBox.minZ * 16) - 8, 1});
@@ -120,36 +127,36 @@ public class MathUtil {
                 case SOUTH:
                     return transformationVoxelShape(MATRIX_ROT_SOUTH, shape);
                 default:
-                    return transformationVoxelShape(MATRIX_ROT_NORTH, shape);
+                    return transformationVoxelShape(MATRIX_ROT_NORTH_IDENTITY, shape);
             }
         }
         return shape;
     }
 
-    public static BlockPos normalizeBlockPos(BlockPos pos, Direction direction) {
-        ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ()});
+    public static BlockPos normalizeBlockPos(BlockPos pos, Direction direction, RealMatrix offsetMatrix) {
+        ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1}).subtract(offsetMatrix.getColumnVector(3));
         switch (direction) {
             case SOUTH: {
-                RealVector operated = MATRIX_ROT_SOUTH_TO_NORTH.operate(posVector);
+                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_SOUTH_TO_NORTH.add(offsetMatrix).operate(posVector));
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
             case WEST: {
-                RealVector operated = MATRIX_ROT_WEST_TO_NORTH.operate(posVector);
+                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_WEST_TO_NORTH.add(offsetMatrix).operate(posVector));
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
             case EAST: {
-                RealVector operated = MATRIX_ROT_EAST_TO_NORTH.operate(posVector);
+                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_EAST_TO_NORTH.add(offsetMatrix).operate(posVector));
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
             case NORTH: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH.operate(posVector);
+                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.add(offsetMatrix).operate(posVector));
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
         }
         return pos;
     }
 
-    public static MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction) {
+    public static MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction, BlockPos activePos) {
         int pos1X = pos1.getX();
         int pos1Y = pos1.getY();
         int pos1Z = pos1.getZ();
@@ -164,12 +171,19 @@ public class MathUtil {
         int offsetY = finalPos.getY() - beginPos.getY();
         int offsetZ = finalPos.getZ() - beginPos.getZ();
 
-        MultiBlockPosBox multiBlockPosBox = new MultiBlockPosBox(normalizeBlockPos(beginPos, direction), normalizeBlockPos(finalPos, direction));
+        MultiBlockPosBox multiBlockPosBox = new MultiBlockPosBox(new BlockPos(offsetX + 1, offsetY + 1, offsetZ + 1), normalizeBlockPos(new BlockPos(finalPos.getX() - activePos.getX(), finalPos.getY() - activePos.getY(), finalPos.getZ() - activePos.getZ()), direction, new Array2DRowRealMatrix(
+                new double[][]{
+                        {0, 0, 0, (offsetX) / 2.0},
+                        {0, 0, 0, (offsetY) / 2.0},
+                        {0, 0, 0, (offsetZ) / 2.0},
+                        {0, 0, 0, 0}
+                }
+        )));
 
-        for (int xOffset = 0; xOffset < offsetX; xOffset++) {
-            for (int yOffset = 0; yOffset < offsetY; yOffset++) {
-                for (int zOffset = 0; zOffset < offsetZ; zOffset++) {
-                    multiBlockPosBox.setBlock(world.getBlockState(beginPos.add(xOffset, yOffset, zOffset)).getBlock(), normalizeBlockPos(new BlockPos(xOffset, yOffset, zOffset), direction));
+        for (int xOffset = 0; xOffset <= offsetX; xOffset++) {
+            for (int yOffset = 0; yOffset <= offsetY; yOffset++) {
+                for (int zOffset = 0; zOffset <= offsetZ; zOffset++) {
+                    multiBlockPosBox.setBlock(world.getBlockState(beginPos.add(xOffset, yOffset, zOffset)).getBlock(), new BlockPos(xOffset, yOffset, zOffset));
                 }
             }
         }
@@ -184,69 +198,69 @@ public class MathUtil {
             VANILLA_ACCESSORIES.add(Blocks.LEVER);
         }
 
-        private final BlockPos beginPos;
-        private final BlockPos finalPos;
+        private final BlockPos size;
+        private final BlockPos activeBlock;
         private Block[][][] blocks;
-        private ArrayList<BlockPos> accessories;
+        private ArrayList<BlockPos> accessories = new ArrayList<>();
 
-        public MultiBlockPosBox(BlockPos beginPos, BlockPos finalPos) {
-            this.beginPos = beginPos;
-            this.finalPos = finalPos;
-            this.blocks = new Block[finalPos.getX() - beginPos.getX()][finalPos.getY() - beginPos.getY()][finalPos.getZ() - beginPos.getZ()];
+        public MultiBlockPosBox(BlockPos size, BlockPos activeBlock) {
+            this.size = size;
+            this.activeBlock = activeBlock;
+            this.blocks = new Block[size.getX()][size.getY()][size.getZ()];
+        }
+
+        private MultiBlockPosBox(BlockPos size, BlockPos activeBlock, Block[][][] blocks, ArrayList<BlockPos> accessories) {
+            this.size = size;
+            this.activeBlock = activeBlock;
+            this.blocks = blocks;
+            this.accessories = accessories;
+        }
+
+        public static MultiBlockPosBox readJson(JsonObject jsonObject) {
+            JsonObject structureSize = JSONUtils.getJsonObject(jsonObject, "size");
+            BlockPos size = new BlockPos(JSONUtils.getInt(structureSize, "x"), JSONUtils.getInt(structureSize, "y"), JSONUtils.getInt(structureSize, "z"));
+
+            BlockPos active_block = BlockPos.fromLong(jsonObject.get("active_block").getAsLong());
+
+            JsonArray accessoryList = JSONUtils.getJsonArray(jsonObject, "accessory_list");
+            ArrayList<BlockPos> accessoryArrayList = new ArrayList<>();
+            for (JsonElement jsonElement : accessoryList) {
+                accessoryArrayList.add(new BlockPos(BlockPos.fromLong(jsonElement.getAsLong())));
+            }
+
+            Block[][][] blocks = new Block[size.getX()][size.getY()][size.getZ()];
+            JsonObject block_structure_map = JSONUtils.getJsonObject(jsonObject, "block_structure_map");
+            for (int offsetY = 0; offsetY < size.getZ(); offsetY++) {
+                JsonObject yRow = block_structure_map.getAsJsonObject("y_row" + offsetY);
+                for (int offsetX = 0; offsetX < size.getX(); offsetX++) {
+                    JsonObject xCol = yRow.getAsJsonObject("x_col" + offsetX);
+                    for (int offsetZ = 0; offsetZ < size.getZ(); offsetZ++) {
+                        blocks[offsetX][offsetY][offsetZ] = ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(xCol.get("pos_at_" + offsetX + offsetY + offsetZ).getAsString()));
+                    }
+                }
+            }
+
+            return new MultiBlockPosBox(size, active_block, blocks, accessoryArrayList);
+
         }
 
         public void setBlock(Block block, BlockPos pos) {
-            BlockPos relativePos = new BlockPos(finalPos.getX() - pos.getX(), finalPos.getY() - pos.getY(), finalPos.getZ() - pos.getZ());
-            blocks[relativePos.getX()][relativePos.getY()][relativePos.getZ()] = block;
+            blocks[pos.getX()][pos.getY()][pos.getZ()] = block;
             if (block instanceof IMultiBlockAccessory || VANILLA_ACCESSORIES.contains(block)) {
-                accessories.add(relativePos);
+                accessories.add(pos);
             }
         }
 
-        public CompoundNBT convertToNbt() {
-            int xOffset = finalPos.getX() - beginPos.getX();
-            int yOffset = finalPos.getY() - beginPos.getY();
-            int zOffset = finalPos.getZ() - beginPos.getZ();
-            CompoundNBT compoundNBT = new CompoundNBT();
 
-            CompoundNBT blockPosMapY = new CompoundNBT();
-            for (int offsetY = 0; offsetY < yOffset; offsetY++) {
-                CompoundNBT blockPosMapX = new CompoundNBT();
-                for (int offsetX = 0; offsetX < xOffset; offsetX++) {
-                    CompoundNBT blockPosMapZ = new CompoundNBT();
-                    for (int offsetZ = 0; offsetZ < zOffset; offsetZ++) {
-                        blockPosMapZ.putString("pos_at_" + offsetX + offsetY + offsetZ, ForgeRegistries.BLOCKS.getKey(blocks[offsetX][offsetY][offsetZ]).toString());
-                    }
-                    blockPosMapX.put("x_col" + offsetX, blockPosMapZ);
-                }
-                blockPosMapY.put("y_row" + offsetY, blockPosMapX);
-            }
-
-            compoundNBT.put("block_structure_map", blockPosMapY);
-
-            ListNBT accessoryList = new ListNBT();
-            for (BlockPos accessory : accessories) {
-                accessoryList.add(NBTUtil.writeBlockPos(accessory));
-            }
-
-            compoundNBT.put("accessory_list", accessoryList);
-
-            return compoundNBT;
-        }
-
-        public JsonObject convertToJson(BlockPos activeBlock) {
-            int xOffset = finalPos.getX() - beginPos.getX();
-            int yOffset = finalPos.getY() - beginPos.getY();
-            int zOffset = finalPos.getZ() - beginPos.getZ();
-            BlockPos relativeActiveBlock = new BlockPos(finalPos.getX() - activeBlock.getX(), finalPos.getY() - activeBlock.getY(), finalPos.getZ() - activeBlock.getZ());
+        public JsonObject convertToJson() {
             JsonObject json = new JsonObject();
 
             JsonObject blockPosMapY = new JsonObject();
-            for (int offsetY = 0; offsetY < yOffset; offsetY++) {
+            for (int offsetY = 0; offsetY < size.getZ(); offsetY++) {
                 JsonObject blockPosMapX = new JsonObject();
-                for (int offsetX = 0; offsetX < xOffset; offsetX++) {
+                for (int offsetX = 0; offsetX < size.getX(); offsetX++) {
                     JsonObject blockPosMapZ = new JsonObject();
-                    for (int offsetZ = 0; offsetZ < zOffset; offsetZ++) {
+                    for (int offsetZ = 0; offsetZ < size.getZ(); offsetZ++) {
                         blockPosMapZ.addProperty("pos_at_" + offsetX + offsetY + offsetZ, ForgeRegistries.BLOCKS.getKey(blocks[offsetX][offsetY][offsetZ]).toString());
                     }
                     blockPosMapX.add("x_col" + offsetX, blockPosMapZ);
@@ -263,8 +277,47 @@ public class MathUtil {
 
             json.add("accessory_list", accessoryList);
 
-            json.addProperty("active_block",relativeActiveBlock.toLong());
+            JsonObject structureSize = new JsonObject();
+            int xSize = size.getX();
+            int ySize = size.getY();
+            int zSize = size.getZ();
+            structureSize.addProperty("x", xSize);
+            structureSize.addProperty("y", ySize);
+            structureSize.addProperty("z", zSize);
+            json.add("size", structureSize);
+
+
+            json.addProperty("active_block", activeBlock.toLong());
             return json;
+        }
+
+        public CompoundNBT convertToNbt() {
+            CompoundNBT compoundNBT = new CompoundNBT();
+
+            CompoundNBT blockPosMapY = new CompoundNBT();
+            for (int offsetY = 0; offsetY < size.getY(); offsetY++) {
+                CompoundNBT blockPosMapX = new CompoundNBT();
+                for (int offsetX = 0; offsetX < size.getX(); offsetX++) {
+                    CompoundNBT blockPosMapZ = new CompoundNBT();
+                    for (int offsetZ = 0; offsetZ < size.getZ(); offsetZ++) {
+                        blockPosMapZ.putString("pos_at_" + offsetX + offsetY + offsetZ, ForgeRegistries.BLOCKS.getKey(blocks[offsetX][offsetY][offsetZ]).toString());
+                    }
+                    blockPosMapX.put("x_col" + offsetX, blockPosMapZ);
+                }
+                blockPosMapY.put("y_row" + offsetY, blockPosMapX);
+            }
+
+            compoundNBT.put("block_structure_map", blockPosMapY);
+
+            ListNBT accessoryList = new ListNBT();
+            for (BlockPos accessory : accessories) {
+                accessoryList.add(NBTUtil.writeBlockPos(accessory));
+            }
+
+            compoundNBT.put("accessory_list", accessoryList);
+            compoundNBT.putLong("activeBlock", activeBlock.toLong());
+
+            return compoundNBT;
         }
     }
 }
