@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.recipes.Anvil;
+package mfrf.dbydd.micro_machinery.recipes.anvil;
 
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import com.google.gson.JsonObject;

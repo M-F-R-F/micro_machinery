@@ -3,7 +3,7 @@ package mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.items.MMHammerBase;
-import mfrf.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
+import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;

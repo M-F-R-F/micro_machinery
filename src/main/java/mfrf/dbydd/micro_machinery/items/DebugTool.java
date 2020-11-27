@@ -1,22 +1,15 @@
 package mfrf.dbydd.micro_machinery.items;
 
-import com.google.gson.JsonObject;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 
 public class DebugTool extends MMItemBase {
     public DebugTool() {
@@ -37,6 +30,11 @@ public class DebugTool extends MMItemBase {
             }
 
             ItemStack heldItem = context.getPlayer().getHeldItem(Hand.OFF_HAND);
+
+            if(!heldItem.isEmpty() && heldItem.getItem() == Items.APPLE){
+                context.getPlayer().sendMessage(new StringTextComponent(MultiBlockStructureMaps.getStructureMaps().toString()));
+            }
+
             if (!heldItem.isEmpty() && heldItem.getItem() == Items.STICK) {
                 CompoundNBT writeBlock = new CompoundNBT();
                 writeBlock.put("pos", NBTUtil.writeBlockPos(context.getPos()));

@@ -1,7 +1,10 @@
 package mfrf.dbydd.micro_machinery.command;
 
+import com.google.common.base.Charsets;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import mfrf.dbydd.micro_machinery.items.DebugTool;
@@ -42,9 +45,9 @@ public class ReadMultiBlockCommand implements Command<CommandSource> {
 
                     JsonObject jsonObject = MathUtil.getNormalizedBlockPosBox(pos1, pos2, world, direction,pos).convertToJson();
 
-                    File file = new File("test" + File.separator + "inst.json");
+                    File file = new File("test" + File.separator +heldItem.getDisplayName().getString() + ".json");
                     try {
-                        FileUtils.writeStringToFile(file, jsonObject.toString(), Charset.defaultCharset());
+                        FileUtils.writeStringToFile(file, jsonObject.toString(), Charsets.UTF_8);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

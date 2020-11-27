@@ -5,10 +5,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ToolItem;
+import net.minecraft.item.*;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -96,5 +94,11 @@ public class MMHammerBase extends ToolItem {
         if (canHarvestBlock(blockstate)) {
             worldIn.destroyBlock(position, true, entityLiving);
         }
+    }
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        return super.onItemUse(context);
+        //todo finish it
     }
 }

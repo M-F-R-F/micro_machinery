@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.recipes;
 
 
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
-import mfrf.dbydd.micro_machinery.recipes.Anvil.AnvilRecipe;
+import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;

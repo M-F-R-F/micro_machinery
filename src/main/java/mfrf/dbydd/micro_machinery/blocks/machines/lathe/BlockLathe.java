@@ -38,7 +38,7 @@ public class BlockLathe extends MMMultiBlockBase {
     public static final VoxelShape LATHE_SHAPE10 = Block.makeCuboidShape(16, 18, 4, 3, 19, 12);
 
     public BlockLathe(Properties properties, String name) {
-        super(properties, name, true,false);
+        super(properties, name, true, false, true, false);
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, false));
     }
 
@@ -59,9 +59,9 @@ public class BlockLathe extends MMMultiBlockBase {
     @Override
     public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack) {
         Boolean isPlaceHolder = state.get(IS_PLACEHOLDER);
-        if(isPlaceHolder){
+        if (isPlaceHolder) {
             worldIn.destroyBlock(pos.offset(state.get(FACING).rotateY()), false, player);
-        }else {
+        } else {
             worldIn.destroyBlock(pos.offset(state.get(FACING).rotateYCCW()), false, player);
         }
         super.harvestBlock(worldIn, player, pos, state, te, stack);
@@ -71,9 +71,9 @@ public class BlockLathe extends MMMultiBlockBase {
     public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
         super.onPlayerDestroy(worldIn, pos, state);
         Boolean isPlaceHolder = state.get(IS_PLACEHOLDER);
-        if(isPlaceHolder){
+        if (isPlaceHolder) {
             worldIn.destroyBlock(pos.offset(state.get(FACING).rotateY()), false);
-        }else {
+        } else {
             worldIn.destroyBlock(pos.offset(state.get(FACING).rotateYCCW()), false);
         }
     }
@@ -92,29 +92,27 @@ public class BlockLathe extends MMMultiBlockBase {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if (state.get(IS_PLACEHOLDER)){
+        if (state.get(IS_PLACEHOLDER)) {
             return holderShape(state.get(FACING));
-        }
-        else{
+        } else {
             return makeShape(state.get(FACING));
         }
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        if (state.get(IS_PLACEHOLDER)){
+        if (state.get(IS_PLACEHOLDER)) {
             return holderShape(state.get(FACING));
-        }
-        else{
+        } else {
             return makeShape(state.get(FACING));
         }
     }
 
-    private VoxelShape makeShape(Direction direction){
+    private VoxelShape makeShape(Direction direction) {
         return VoxelShapes.or(MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE1, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE2, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE3, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE4, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE5, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE6, direction));
     }
 
-    private VoxelShape holderShape(Direction direction){
+    private VoxelShape holderShape(Direction direction) {
         return VoxelShapes.or(MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE7, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE8, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE9, direction), MathUtil.VoxelShapeRotateDirection(LATHE_SHAPE10, direction));
     }
 
@@ -122,8 +120,8 @@ public class BlockLathe extends MMMultiBlockBase {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote()) {
             TileEntity tileEntity = worldIn.getTileEntity(state.get(IS_PLACEHOLDER) ? pos.offset(state.get(FACING).rotateY()) : pos);
-            if(tileEntity instanceof TileLathe) {
-                NetworkHooks.openGui((ServerPlayerEntity) player, (TileLathe)tileEntity, (PacketBuffer packerBuffer) -> {
+            if (tileEntity instanceof TileLathe) {
+                NetworkHooks.openGui((ServerPlayerEntity) player, (TileLathe) tileEntity, (PacketBuffer packerBuffer) -> {
                     packerBuffer.writeBlockPos(tileEntity.getPos());
                 });
             }

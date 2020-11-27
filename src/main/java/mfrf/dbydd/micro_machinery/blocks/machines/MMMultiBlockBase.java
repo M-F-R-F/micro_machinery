@@ -1,5 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines;
 
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.BooleanProperty;
@@ -12,12 +13,19 @@ import java.util.List;
 
 public abstract class MMMultiBlockBase extends MMBlockTileProviderBase {
     public static final BooleanProperty IS_PLACEHOLDER = BooleanProperty.create("is_place_holder");
-    public static List<Block> PlaceHolderList = new ArrayList<>();
+    public static List<Block> MAIN_PART_LIST = new ArrayList<>();
+    public static List<Block> PLACE_HOLDER_LIST = new ArrayList<>();
 
-    public MMMultiBlockBase(Properties properties, String name, boolean addPlaceHolder, boolean autoRegisterItem) {
+    public MMMultiBlockBase(Properties properties, String name, boolean isPlaceHolder, boolean isMainPart, boolean autoRegisterItem, boolean requireJSON) {
         super(properties, name, autoRegisterItem);
-        if (addPlaceHolder) {
-            PlaceHolderList.add(this);
+        if (isPlaceHolder) {
+            PLACE_HOLDER_LIST.add(this);
+        }
+        if (isMainPart) {
+            MAIN_PART_LIST.add(this);
+        }
+        if (requireJSON) {
+            MultiBlockStructureMaps.NAMES.add(name);
         }
     }
 
