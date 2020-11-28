@@ -38,7 +38,7 @@ public class BlockLathe extends MMMultiBlockBase {
     public static final VoxelShape LATHE_SHAPE10 = Block.makeCuboidShape(16, 18, 4, 3, 19, 12);
 
     public BlockLathe(Properties properties, String name) {
-        super(properties, name, true, false, true, false);
+        super(properties, name, true,  true, false);
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, false));
     }
 

@@ -1,5 +1,6 @@
 package mfrf.dbydd.micro_machinery.items;
 
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -11,6 +12,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -98,7 +100,20 @@ public class MMHammerBase extends ToolItem {
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
+        if (!context.getWorld().isRemote()) {
+            for (Map.Entry<String, MultiBlockStructureMaps.MultiBlockPosBox> stringMultiBlockPosBoxEntry : MultiBlockStructureMaps.getStructureMaps().entrySet()) {
+                if (stringMultiBlockPosBoxEntry.getValue().match(context.getPos(), context.getWorld(), context.getFace())) {
+                    context.getPlayer().sendMessage(new StringTextComponent("match:" + stringMultiBlockPosBoxEntry.getKey()));
+                    return ActionResultType.SUCCESS;
+                }
+            }
+        }
+
         return super.onItemUse(context);
-        //todo finish it
     }
+
+    public void placeStructure(BlockPos pos, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, World world, Direction direction) {
+        //todo place the structure,require rotate box first
+    }
+
 }

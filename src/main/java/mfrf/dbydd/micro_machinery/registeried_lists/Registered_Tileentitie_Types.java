@@ -10,6 +10,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.TileHandGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.TileBlastFurnace;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TerTestTile;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntityType;
@@ -30,4 +31,5 @@ public class Registered_Tileentitie_Types {
     public static final RegistryObject<TileEntityType<TileCreativeEnergyCell>> TILE_ENERGY_CELL = TILE_ENTITY_TYPE_REGISTER.register("energy_cell", ()->TileEntityType.Builder.create(TileCreativeEnergyCell::new, RegisteredBlocks.CREATIVE_ENERGY_CELL).build(null));
     public static final RegistryObject<TileEntityType<TileLathe>> TILE_LATHE = TILE_ENTITY_TYPE_REGISTER.register("lathe", ()->TileEntityType.Builder.create(TileLathe::new, RegisteredBlocks.LATHE).build(null));
     public static final RegistryObject<TileEntityType<TilePlaceHolder>> TILE_PLACEHOLDER = TILE_ENTITY_TYPE_REGISTER.register("place_holder", ()->TileEntityType.Builder.create(TilePlaceHolder::new, MMMultiBlockBase.PLACE_HOLDER_LIST.toArray(new Block[MMMultiBlockBase.PLACE_HOLDER_LIST.size()])).build(null));
+    public static final RegistryObject<TileEntityType<TileBlastFurnace>> TILE_BLAST_FURNACE = TILE_ENTITY_TYPE_REGISTER.register("blast_furnace", ()->TileEntityType.Builder.create(TileBlastFurnace::new, RegisteredBlocks.BLAST_FURNACE).build(null));
 }

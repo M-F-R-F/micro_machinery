@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 public class BlockPlaceHolder extends MMMultiBlockBase {
 
     public BlockPlaceHolder(String name) {
-        super(Properties.create(Material.IRON).harvestLevel(-1).hardnessAndResistance(-1), name, true, false, false, false);
+        super(Properties.create(Material.IRON).harvestLevel(-1).hardnessAndResistance(-1), name, true,  false, false);
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, true));
     }
 

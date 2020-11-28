@@ -11,6 +11,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.BlockLathe;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.LeverPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.BlockBlastFurnace;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
@@ -159,6 +160,11 @@ public class RegisteredBlocks {
     public static final Block SPHERICAL_TANK = new MMBlockBase("spherical_tank", true);
     public static final Block THERMAL_POWER_PLANT = new MMBlockBase("thermal_power_plant", true);
     public static final Block FLYWHEEL = new MMBlockBase("flywheel", true);
+
+    /**
+     * Multi Block main parts
+     */
+    public static final Block BLAST_FURNACE = new BlockBlastFurnace(Block.Properties.create(Material.ROCK));
 
 
     private RegisteredBlocks() {
