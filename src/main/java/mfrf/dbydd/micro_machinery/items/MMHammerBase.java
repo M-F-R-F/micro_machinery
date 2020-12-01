@@ -1,5 +1,11 @@
 package mfrf.dbydd.micro_machinery.items;
 
+import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.block_place_holder.BlockPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.dbydd.micro_machinery.utils.MathUtil;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -7,6 +13,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -102,8 +110,9 @@ public class MMHammerBase extends ToolItem {
     public ActionResultType onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote()) {
             for (Map.Entry<String, MultiBlockStructureMaps.MultiBlockPosBox> stringMultiBlockPosBoxEntry : MultiBlockStructureMaps.getStructureMaps().entrySet()) {
-                if (stringMultiBlockPosBoxEntry.getValue().match(context.getPos(), context.getWorld(), context.getFace())) {
+                if (stringMultiBlockPosBoxEntry.getValue().matchAll(context.getPos(), context.getWorld(), context.getFace())) {
                     context.getPlayer().sendMessage(new StringTextComponent("match:" + stringMultiBlockPosBoxEntry.getKey()));
+                    placeStructure(context.getPos(), stringMultiBlockPosBoxEntry.getValue(), context.getWorld(), context.getFace(), MMMultiBlockBase.MAIN_PART_LIST.get(stringMultiBlockPosBoxEntry.getKey()).getDefaultState());
                     return ActionResultType.SUCCESS;
                 }
             }
@@ -112,7 +121,33 @@ public class MMHammerBase extends ToolItem {
         return super.onItemUse(context);
     }
 
-    public void placeStructure(BlockPos pos, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, World world, Direction direction) {
+    public void placeStructure(BlockPos pos, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, World world, Direction direction, BlockState replaceMainPart) {
+        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = MathUtil.rotateBlockBox(blockPosBox, direction);
+//        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = blockPosBox;
+
+        TileEntity tileEntity = world.getTileEntity(pos);
+        CompoundNBT tileReplaced = new CompoundNBT();
+        if (tileEntity != null) {
+            tileEntity.write(tileReplaced);
+        }
+        world.setBlockState(pos, replaceMainPart, 22);
+        ((MMMultiBlockTileMainPartBase) world.getTileEntity(pos)).saveTileBeenReplaced(tileReplaced);
+        BlockPos activeBlockPos = multiBlockPosBox.getActiveBlockPos();
+
+        Block[][][] blocks = multiBlockPosBox.getBlocks();
+        for (int offsetX = 0; offsetX < blocks.length; offsetX++) {
+            for (int offsetY = 0; offsetY < blocks[offsetX].length; offsetY++) {
+                for (int offsetZ = 0; offsetZ < blocks[offsetX][offsetY].length; offsetZ++) {
+                    BlockPos posAt = multiBlockPosBox.getPosAt(new BlockPos(offsetX, offsetY, offsetZ));
+                    BlockPos blockPos = activeBlockPos.add(-posAt.getX(), -posAt.getY(), -posAt.getZ()).add(pos);
+                    CompoundNBT compoundNBT = BlockPlaceHolder.packageBlock(world, blockPos);
+
+                    world.setBlockState(blockPos, RegisteredBlocks.PLACE_HOLDER.getDefaultState());
+                    ((TilePlaceHolder) world.getTileEntity(blockPos)).setPackedNBT(compoundNBT);
+                    ((TilePlaceHolder) world.getTileEntity(blockPos)).setMainPartPos(pos);
+                }
+            }
+        }
         //todo place the structure,require rotate box first
     }
 

@@ -9,8 +9,8 @@ import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenera
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator_Handler;
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.BlockLathe;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.BlockPlaceHolder;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container.LeverPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.block_place_holder.BlockPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.block_place_holder.LeverPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.BlockBlastFurnace;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;

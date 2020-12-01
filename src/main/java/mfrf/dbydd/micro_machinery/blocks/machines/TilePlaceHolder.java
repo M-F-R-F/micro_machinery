@@ -51,6 +51,16 @@ public class TilePlaceHolder extends MMTileBase {
         super.read(compound);
     }
 
+    public void setMainPartPos(BlockPos mainPartPos) {
+        this.mainPartPos = mainPartPos;
+        markDirty();
+    }
+
+    public void setPackedNBT(CompoundNBT packedNBT) {
+        this.packedNBT = packedNBT;
+        markDirty();
+    }
+
     public ActionResultType onBlockActivated(World worldIn, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         return worldIn.getBlockState(mainPartPos).onBlockActivated(worldIn, player, handIn, hit);
     }

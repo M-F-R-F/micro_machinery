@@ -12,7 +12,9 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Require org.apache.commons.math3.
@@ -121,6 +123,12 @@ public class MathUtil {
         return shape;
     }
 
+    /**
+     * @param pos
+     * @param direction
+     * @param offsetMatrix size/2
+     * @return
+     */
     public static BlockPos rotateBlockPos(BlockPos pos, Direction direction, RealMatrix offsetMatrix) {
         ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1}).subtract(offsetMatrix.getColumnVector(3));
         switch (direction) {
@@ -144,7 +152,17 @@ public class MathUtil {
         return pos;
     }
 
+    public static RealMatrix getOffsetMatrix(BlockPos size) {
+        return new Array2DRowRealMatrix(new double[][]{
+                {size.getX() / 2.0, 0, 0, 0},
+                {0, size.getY() / 2.0, 0, 0},
+                {0, 0, size.getZ() / 2.0, 0},
+                {0, 0, 0, 1}
+        });
+    }
+
     public static MultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction, BlockPos activePos) {
+        //todo search accessories
         int pos1X = pos1.getX();
         int pos1Y = pos1.getY();
         int pos1Z = pos1.getZ();
@@ -176,6 +194,31 @@ public class MathUtil {
             }
         }
 
+        return multiBlockPosBox;
+    }
+
+    public static MultiBlockStructureMaps.MultiBlockPosBox rotateBlockBox(MultiBlockStructureMaps.MultiBlockPosBox box, Direction direction) {
+        RealMatrix offsetMatrix = getOffsetMatrix(box.getSize());
+        BlockPos size = box.getSize();
+        Block[][][] blocks = box.getBlocks();
+        BlockPos rotatedActivePosition = rotateBlockPos(box.getActiveBlockPos(), direction, offsetMatrix);
+        BlockPos rotatedSize = rotateBlockPos(box.getSize(), direction, MATRIX_ROT_NORTH_TO_NORTH_IDENTITY);
+
+        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = new MultiBlockStructureMaps.MultiBlockPosBox(rotatedSize, rotatedActivePosition);
+
+
+
+        for (int offsetX = 0; offsetX < size.getX(); offsetX++) {
+            for (int offsetY = 0; offsetY < size.getY(); offsetY++) {
+                for (int offsetZ = 0; offsetZ < size.getZ(); offsetZ++) {
+                    multiBlockPosBox.setBlock(blocks[offsetX][offsetY][offsetZ], rotateBlockPos(new BlockPos(offsetX, offsetY, offsetZ), direction, offsetMatrix));
+                }
+            }
+        }
+
+        ArrayList<BlockPos> accessories = box.getAccessories();
+        multiBlockPosBox.getAccessories().addAll(accessories.stream().map(pos -> rotateBlockPos(pos, direction, offsetMatrix)).collect(Collectors.toList()));
+//todo fixit
         return multiBlockPosBox;
     }
 

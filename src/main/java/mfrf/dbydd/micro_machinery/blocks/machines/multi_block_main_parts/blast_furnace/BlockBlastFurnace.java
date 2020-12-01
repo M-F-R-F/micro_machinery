@@ -17,6 +17,6 @@ public class BlockBlastFurnace extends MMMultiBlockBase {
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new BlastFurnaceTileEntity();
+        return new TileBlastFurnace();
     }
 }

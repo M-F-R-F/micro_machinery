@@ -102,8 +102,24 @@ public class MultiBlockStructureMaps {
 
         }
 
+        public Block[][][] getBlocks() {
+            return blocks;
+        }
+
+        public ArrayList<BlockPos> getAccessories() {
+            return accessories;
+        }
+
+        public BlockPos getSize() {
+            return size;
+        }
+
         public Block getActiveBlock() {
             return blocks[activeBlock.getX()][activeBlock.getY()][activeBlock.getZ()];
+        }
+
+        public BlockPos getActiveBlockPos() {
+            return activeBlock;
         }
 
         public void setBlock(Block block, BlockPos pos) {
@@ -183,7 +199,7 @@ public class MultiBlockStructureMaps {
         }
 
 
-        public boolean match(BlockPos pos, World world, Direction direction) {
+        public boolean matchAll(BlockPos pos, World world, Direction direction) {
             if (world.getBlockState(pos).getBlock() == getActiveBlock()) {
                 BlockPos rotatedBlockPos = MathUtil.rotateBlockPos(activeBlock, direction, MathUtil.MATRIX_ROT_NORTH_TO_NORTH_IDENTITY);
                 BlockPos rotatedSize = MathUtil.rotateBlockPos(size, direction, MathUtil.MATRIX_ROT_NORTH_TO_NORTH_IDENTITY);
@@ -191,9 +207,9 @@ public class MultiBlockStructureMaps {
                 int posOffsetX = pos.getX() - rotatedBlockPos.getX();
                 int posOffsetY = pos.getY() - rotatedBlockPos.getY();
                 int posOffsetZ = pos.getZ() - rotatedBlockPos.getZ();
-                int xHalfSize = (int) Math.round(rotatedSize.getX()%2 == 1?rotatedSize.getX() : (rotatedSize.getX() - 1) / 2.0);
-                int yHalfSize = (int) Math.round(rotatedSize.getY()%2 == 1?rotatedSize.getY() : (rotatedSize.getY() - 1) / 2.0);
-                int zHalfSize = (int) Math.round(rotatedSize.getZ()%2 == 1?rotatedSize.getZ() : (rotatedSize.getZ() - 1) / 2.0);
+                int xHalfSize = (int) Math.round(rotatedSize.getX() % 2 == 1 ? rotatedSize.getX() : (rotatedSize.getX() - 1) / 2.0);
+                int yHalfSize = (int) Math.round(rotatedSize.getY() % 2 == 1 ? rotatedSize.getY() : (rotatedSize.getY() - 1) / 2.0);
+                int zHalfSize = (int) Math.round(rotatedSize.getZ() % 2 == 1 ? rotatedSize.getZ() : (rotatedSize.getZ() - 1) / 2.0);
 
                 for (int xOffset1 = -rotatedSize.getX() + xHalfSize, xOffset2 = 0; xOffset1 < rotatedSize.getX(); xOffset1++, xOffset2++) {
                     for (int yOffset1 = -rotatedSize.getY() + yHalfSize, yOffset2 = 0; yOffset1 < rotatedSize.getY(); yOffset1++, yOffset2++) {
@@ -212,8 +228,8 @@ public class MultiBlockStructureMaps {
             return false;
         }
 
-//        public MultiBlockPosBox getRotatedBox(Direction direction){
-//
-//        }
+        public BlockPos getPosAt(BlockPos pos) {
+            return new BlockPos(size.getX() / 2.0 - pos.getX(), size.getY() / 2.0 - pos.getY(), size.getZ() / 2.0 - pos.getZ());
+        }
     }
 }

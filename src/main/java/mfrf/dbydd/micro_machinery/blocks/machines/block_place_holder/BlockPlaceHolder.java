@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_container;
+package mfrf.dbydd.micro_machinery.blocks.machines.block_place_holder;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
