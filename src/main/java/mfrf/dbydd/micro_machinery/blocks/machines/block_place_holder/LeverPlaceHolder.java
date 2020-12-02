@@ -40,7 +40,7 @@ public class LeverPlaceHolder extends BlockPlaceHolder {
             if(mainPartPos != null){
                 TileEntity mainPart = worldIn.getTileEntity(mainPartPos);
                 if(mainPart instanceof IMultiBlockRedStoneActiveable){
-                    ((IMultiBlockRedStoneActiveable) mainPart).onActived(actived);
+                    ((IMultiBlockRedStoneActiveable) mainPart).onActivated(actived);
                 }
             }
         }

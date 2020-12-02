@@ -1,6 +1,8 @@
 package mfrf.dbydd.micro_machinery.utils;
 
+import com.google.gson.JsonObject;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +16,6 @@ import org.apache.commons.math3.linear.RealVector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Require org.apache.commons.math3.
@@ -54,26 +55,34 @@ public class MathUtil {
             {0, 0, 0, 8},
             {0, 0, 0, 0}
     });
-
-    public static final RealMatrix MATRIX_ROT_WEST_TO_NORTH = new Array2DRowRealMatrix(new double[][]{
-            {0, 0, -1, 0},
-            {0, 1, 0, 0},
-            {1, 0, 0, 0},
-            {0, 0, 0, 1}
-    });
-    public static final RealMatrix MATRIX_ROT_SOUTH_TO_NORTH = new Array2DRowRealMatrix(new double[][]{
-            {-1, 0, 0, 0},
-            {0, 1, 0, 0},
-            {0, 0, -1, 0},
-            {0, 0, 0, 1}
-    });
-    public static final RealMatrix MATRIX_ROT_EAST_TO_NORTH = new Array2DRowRealMatrix(new double[][]{
+    /**
+     * Inverse of this matrix is MATRIX_ROT_NORTH_TO_WEST_270DEG.
+     */
+    public static final RealMatrix MATRIX_ROT_NORTH_TO_EAST_90DEG = new Array2DRowRealMatrix(new double[][]{
             {0, 0, 1, 0},
             {0, 1, 0, 0},
             {-1, 0, 0, 0},
             {0, 0, 0, 1}
     });
-    public static final RealMatrix MATRIX_ROT_NORTH_TO_NORTH_IDENTITY = new Array2DRowRealMatrix(new double[][]{
+    /**
+     * Inverse of this matrix is itself.
+     */
+    public static final RealMatrix MATRIX_ROT_NORTH_TO_SOUTH_180DEG = new Array2DRowRealMatrix(new double[][]{
+            {-1, 0, 0, 0},
+            {0, 1, 0, 0},
+            {0, 0, -1, 0},
+            {0, 0, 0, 1}
+    });
+    /**
+     * Inverse of this matrix is MATRIX_ROT_NORTH_TO_EAST_90DEG.
+     */
+    public static final RealMatrix MATRIX_ROT_NORTH_TO_WEST_270DEG = new Array2DRowRealMatrix(new double[][]{
+            {0, 0, -1, 0},
+            {0, 1, 0, 0},
+            {1, 0, 0, 0},
+            {0, 0, 0, 1}
+    });
+    public static final RealMatrix MATRIX_ROT_NORTH_TO_NORTH_IDENTITY_360DEG = new Array2DRowRealMatrix(new double[][]{
             {1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 1, 0},
@@ -123,42 +132,53 @@ public class MathUtil {
         return shape;
     }
 
-    /**
-     * @param pos
-     * @param direction
-     * @param offsetMatrix size/2
-     * @return
-     */
-    public static BlockPos rotateBlockPos(BlockPos pos, Direction direction, RealMatrix offsetMatrix) {
-        ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1}).subtract(offsetMatrix.getColumnVector(3));
+    public static BlockPos rotateBlockPosToDirection(BlockPos pos, Direction direction) {
+        ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1});
         switch (direction) {
-            case SOUTH: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_SOUTH_TO_NORTH.add(offsetMatrix).operate(posVector));
+            case NORTH: {
+                RealVector operated = MATRIX_ROT_NORTH_TO_SOUTH_180DEG.operate(posVector);
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
             case WEST: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_WEST_TO_NORTH.add(offsetMatrix).operate(posVector));
+                RealVector operated = MATRIX_ROT_NORTH_TO_WEST_270DEG.operate(posVector);
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
             case EAST: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_EAST_TO_NORTH.add(offsetMatrix).operate(posVector));
+                RealVector operated = MATRIX_ROT_NORTH_TO_EAST_90DEG.operate(posVector);
+                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+            }
+            case SOUTH: {
+                return pos;
+            }
+        }
+        return pos;
+    }
+
+    public static BlockPos rotateBlockPosToNorth(BlockPos pos, Direction direction) {
+        ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1});
+        switch (direction) {
+            case SOUTH: {
+                RealVector operated = MATRIX_ROT_NORTH_TO_SOUTH_180DEG.operate(posVector);
+                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+            }
+            case WEST: {
+                RealVector operated = MATRIX_ROT_NORTH_TO_EAST_90DEG.operate(posVector);
+                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+            }
+            case EAST: {
+                RealVector operated = MATRIX_ROT_NORTH_TO_WEST_270DEG.operate(posVector);
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
             case NORTH: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.operate(MATRIX_ROT_NORTH_TO_NORTH_IDENTITY.add(offsetMatrix).operate(posVector));
+                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY_360DEG.operate(posVector);
                 return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
             }
         }
         return pos;
     }
 
-    public static RealMatrix getOffsetMatrix(BlockPos size) {
-        return new Array2DRowRealMatrix(new double[][]{
-                {size.getX() / 2.0, 0, 0, 0},
-                {0, size.getY() / 2.0, 0, 0},
-                {0, 0, size.getZ() / 2.0, 0},
-                {0, 0, 0, 1}
-        });
+    public static BlockPos getOffsetPos(BlockPos pos, BlockPos center) {
+        return center.subtract(pos);
     }
 
     public static MultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction, BlockPos activePos) {
@@ -177,49 +197,45 @@ public class MathUtil {
         int offsetY = finalPos.getY() - beginPos.getY();
         int offsetZ = finalPos.getZ() - beginPos.getZ();
 
-        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = new MultiBlockStructureMaps.MultiBlockPosBox(new BlockPos(offsetX + 1, offsetY + 1, offsetZ + 1), rotateBlockPos(new BlockPos(finalPos.getX() - activePos.getX(), finalPos.getY() - activePos.getY(), finalPos.getZ() - activePos.getZ()), direction, new Array2DRowRealMatrix(
-                new double[][]{
-                        {0, 0, 0, (offsetX) / 2.0},
-                        {0, 0, 0, (offsetY) / 2.0},
-                        {0, 0, 0, (offsetZ) / 2.0},
-                        {0, 0, 0, 0}
-                }
-        )));
+        ArrayList<MultiBlockStructureMaps.MultiBlockPosBox.BlockNode> blockNodes = new ArrayList<>();
+        ArrayList<BlockPos> accessories = new ArrayList<>();
+
+
+        blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(new BlockPos(0, 0, 0), world.getBlockState(activePos).getBlock()));
 
         for (int xOffset = 0; xOffset <= offsetX; xOffset++) {
             for (int yOffset = 0; yOffset <= offsetY; yOffset++) {
                 for (int zOffset = 0; zOffset <= offsetZ; zOffset++) {
-                    multiBlockPosBox.setBlock(world.getBlockState(beginPos.add(xOffset, yOffset, zOffset)).getBlock(), new BlockPos(xOffset, yOffset, zOffset));
+
+                    BlockPos blockPos = beginPos.add(xOffset, yOffset, zOffset);
+                    Block block = world.getBlockState(blockPos).getBlock();
+
+                    if (block != Blocks.AIR) {
+                        BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
+                        blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
+                    }
+
+
+//                    if (MultiBlockStructureMaps.MultiBlockPosBox.VANILLA_ACCESSORIES.contains(block)) {
+//                        accessories.add(offsetPos);
+//                    }
+                    //todo accessories
+
                 }
             }
         }
 
-        return multiBlockPosBox;
+        return new MultiBlockStructureMaps.MultiBlockPosBox(blockNodes, accessories);
     }
 
-    public static MultiBlockStructureMaps.MultiBlockPosBox rotateBlockBox(MultiBlockStructureMaps.MultiBlockPosBox box, Direction direction) {
-        RealMatrix offsetMatrix = getOffsetMatrix(box.getSize());
-        BlockPos size = box.getSize();
-        Block[][][] blocks = box.getBlocks();
-        BlockPos rotatedActivePosition = rotateBlockPos(box.getActiveBlockPos(), direction, offsetMatrix);
-        BlockPos rotatedSize = rotateBlockPos(box.getSize(), direction, MATRIX_ROT_NORTH_TO_NORTH_IDENTITY);
+    public static void convertPosInToJsonObject(BlockPos pos, JsonObject jsonObject) {
+        jsonObject.addProperty("xOffset", pos.getX());
+        jsonObject.addProperty("yOffset", pos.getY());
+        jsonObject.addProperty("zOffset", pos.getZ());
+    }
 
-        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = new MultiBlockStructureMaps.MultiBlockPosBox(rotatedSize, rotatedActivePosition);
-
-
-
-        for (int offsetX = 0; offsetX < size.getX(); offsetX++) {
-            for (int offsetY = 0; offsetY < size.getY(); offsetY++) {
-                for (int offsetZ = 0; offsetZ < size.getZ(); offsetZ++) {
-                    multiBlockPosBox.setBlock(blocks[offsetX][offsetY][offsetZ], rotateBlockPos(new BlockPos(offsetX, offsetY, offsetZ), direction, offsetMatrix));
-                }
-            }
-        }
-
-        ArrayList<BlockPos> accessories = box.getAccessories();
-        multiBlockPosBox.getAccessories().addAll(accessories.stream().map(pos -> rotateBlockPos(pos, direction, offsetMatrix)).collect(Collectors.toList()));
-//todo fixit
-        return multiBlockPosBox;
+    public static BlockPos getPosFromJsonObject(JsonObject jsonObject) {
+        return new BlockPos(jsonObject.get("xOffset").getAsInt(), jsonObject.get("yOffset").getAsInt(), jsonObject.get("zOffset").getAsInt());
     }
 
 }

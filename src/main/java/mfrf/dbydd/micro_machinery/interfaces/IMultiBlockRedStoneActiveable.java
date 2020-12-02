@@ -4,6 +4,6 @@ import java.util.function.Consumer;
 
 public interface IMultiBlockRedStoneActiveable {
 
-    void onActived(boolean active);
+    void onActivated(boolean active);
 
 }

@@ -110,9 +110,11 @@ public class MMHammerBase extends ToolItem {
     public ActionResultType onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote()) {
             for (Map.Entry<String, MultiBlockStructureMaps.MultiBlockPosBox> stringMultiBlockPosBoxEntry : MultiBlockStructureMaps.getStructureMaps().entrySet()) {
-                if (stringMultiBlockPosBoxEntry.getValue().matchAll(context.getPos(), context.getWorld(), context.getFace())) {
+                Direction face = context.getFace();
+                if (stringMultiBlockPosBoxEntry.getValue().rotateTo(context.getFace()).matchAll(context.getPos(), context.getWorld())) {
                     context.getPlayer().sendMessage(new StringTextComponent("match:" + stringMultiBlockPosBoxEntry.getKey()));
-                    placeStructure(context.getPos(), stringMultiBlockPosBoxEntry.getValue(), context.getWorld(), context.getFace(), MMMultiBlockBase.MAIN_PART_LIST.get(stringMultiBlockPosBoxEntry.getKey()).getDefaultState());
+//                    placeStructure(context.getPos(), stringMultiBlockPosBoxEntry.getValue(), context.getWorld(), context.getFace(), MMMultiBlockBase.MAIN_PART_LIST.get(stringMultiBlockPosBoxEntry.getKey()).getDefaultState());
+                    //todo finish it
                     return ActionResultType.SUCCESS;
                 }
             }
@@ -121,34 +123,34 @@ public class MMHammerBase extends ToolItem {
         return super.onItemUse(context);
     }
 
-    public void placeStructure(BlockPos pos, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, World world, Direction direction, BlockState replaceMainPart) {
-        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = MathUtil.rotateBlockBox(blockPosBox, direction);
-//        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = blockPosBox;
-
-        TileEntity tileEntity = world.getTileEntity(pos);
-        CompoundNBT tileReplaced = new CompoundNBT();
-        if (tileEntity != null) {
-            tileEntity.write(tileReplaced);
-        }
-        world.setBlockState(pos, replaceMainPart, 22);
-        ((MMMultiBlockTileMainPartBase) world.getTileEntity(pos)).saveTileBeenReplaced(tileReplaced);
-        BlockPos activeBlockPos = multiBlockPosBox.getActiveBlockPos();
-
-        Block[][][] blocks = multiBlockPosBox.getBlocks();
-        for (int offsetX = 0; offsetX < blocks.length; offsetX++) {
-            for (int offsetY = 0; offsetY < blocks[offsetX].length; offsetY++) {
-                for (int offsetZ = 0; offsetZ < blocks[offsetX][offsetY].length; offsetZ++) {
-                    BlockPos posAt = multiBlockPosBox.getPosAt(new BlockPos(offsetX, offsetY, offsetZ));
-                    BlockPos blockPos = activeBlockPos.add(-posAt.getX(), -posAt.getY(), -posAt.getZ()).add(pos);
-                    CompoundNBT compoundNBT = BlockPlaceHolder.packageBlock(world, blockPos);
-
-                    world.setBlockState(blockPos, RegisteredBlocks.PLACE_HOLDER.getDefaultState());
-                    ((TilePlaceHolder) world.getTileEntity(blockPos)).setPackedNBT(compoundNBT);
-                    ((TilePlaceHolder) world.getTileEntity(blockPos)).setMainPartPos(pos);
-                }
-            }
-        }
-        //todo place the structure,require rotate box first
-    }
+//    public void placeStructure(BlockPos pos, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, World world, Direction direction, BlockState replaceMainPart) {
+//        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = MathUtil.rotateBlockBox(blockPosBox, direction);
+////        MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = blockPosBox;
+//
+//        TileEntity tileEntity = world.getTileEntity(pos);
+//        CompoundNBT tileReplaced = new CompoundNBT();
+//        if (tileEntity != null) {
+//            tileEntity.write(tileReplaced);
+//        }
+//        world.setBlockState(pos, replaceMainPart, 22);
+//        ((MMMultiBlockTileMainPartBase) world.getTileEntity(pos)).saveTileBeenReplaced(tileReplaced);
+//        BlockPos activeBlockPos = multiBlockPosBox.getActiveBlockPos();
+//
+//        Block[][][] blocks = multiBlockPosBox.getBlocks();
+//        for (int offsetX = 0; offsetX < blocks.length; offsetX++) {
+//            for (int offsetY = 0; offsetY < blocks[offsetX].length; offsetY++) {
+//                for (int offsetZ = 0; offsetZ < blocks[offsetX][offsetY].length; offsetZ++) {
+//                    BlockPos posAt = multiBlockPosBox.getPosAt(new BlockPos(offsetX, offsetY, offsetZ));
+//                    BlockPos blockPos = activeBlockPos.add(-posAt.getX(), -posAt.getY(), -posAt.getZ()).add(pos);
+//                    CompoundNBT compoundNBT = BlockPlaceHolder.packageBlock(world, blockPos);
+//
+//                    world.setBlockState(blockPos, RegisteredBlocks.PLACE_HOLDER.getDefaultState());
+//                    ((TilePlaceHolder) world.getTileEntity(blockPos)).setPackedNBT(compoundNBT);
+//                    ((TilePlaceHolder) world.getTileEntity(blockPos)).setMainPartPos(pos);
+//                }
+//            }
+//        }
+//        //todo place the structure,require rotate box first
+//    }
 
 }

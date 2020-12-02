@@ -1,62 +1,35 @@
 {
-  "block_structure_map": {
-    "y_row0": {
-      "x_col0": {
-        "pos_at_000": "micro_machinery:clay_brick_block",
-        "pos_at_001": "micro_machinery:clay_brick_block",
-        "pos_at_002": "micro_machinery:clay_brick_block"
-      },
-      "x_col1": {
-        "pos_at_100": "micro_machinery:clay_brick_block",
-        "pos_at_101": "micro_machinery:clay_brick_block",
-        "pos_at_102": "micro_machinery:clay_brick_block"
-      },
-      "x_col2": {
-        "pos_at_200": "micro_machinery:clay_brick_block",
-        "pos_at_201": "micro_machinery:clay_brick_block",
-        "pos_at_202": "micro_machinery:clay_brick_block"
-      }
+  "block_node_list": [
+    {
+      "xOffset": 0,
+      "yOffset": 0,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
     },
-    "y_row1": {
-      "x_col0": {
-        "pos_at_010": "micro_machinery:clay_brick_block",
-        "pos_at_011": "micro_machinery:clay_brick_block",
-        "pos_at_012": "micro_machinery:clay_brick_block"
-      },
-      "x_col1": {
-        "pos_at_110": "micro_machinery:clay_brick_block",
-        "pos_at_111": "micro_machinery:clay_brick_block",
-        "pos_at_112": "micro_machinery:clay_brick_block"
-      },
-      "x_col2": {
-        "pos_at_210": "micro_machinery:clay_brick_block",
-        "pos_at_211": "micro_machinery:clay_brick_block",
-        "pos_at_212": "micro_machinery:clay_brick_block"
-      }
+    {
+      "xOffset": 0,
+      "yOffset": 1,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
     },
-    "y_row2": {
-      "x_col0": {
-        "pos_at_020": "micro_machinery:clay_brick_block",
-        "pos_at_021": "micro_machinery:clay_brick_block",
-        "pos_at_022": "micro_machinery:clay_brick_block"
-      },
-      "x_col1": {
-        "pos_at_120": "micro_machinery:clay_brick_block",
-        "pos_at_121": "micro_machinery:clay_brick_block",
-        "pos_at_122": "micro_machinery:clay_brick_block"
-      },
-      "x_col2": {
-        "pos_at_220": "micro_machinery:clay_brick_block",
-        "pos_at_221": "micro_machinery:clay_brick_block",
-        "pos_at_222": "micro_machinery:clay_brick_block"
-      }
+    {
+      "xOffset": 0,
+      "yOffset": 0,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": 1,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": 0,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
     }
-  },
-  "accessory_list": [],
-  "size": {
-    "x": 3,
-    "y": 3,
-    "z": 3
-  },
-  "active_block": 274877915137
+  ],
+  "accessory_list": []
 }
