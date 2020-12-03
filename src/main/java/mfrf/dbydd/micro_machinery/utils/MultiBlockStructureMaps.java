@@ -46,10 +46,10 @@ public class MultiBlockStructureMaps {
     }
 
     public static class MultiBlockPosBox {
-        public static final ArrayList<Block> VANILLA_ACCESSORIES = new ArrayList<>();
+        public static final ArrayList<Block> ACCESSORIES = new ArrayList<>();//temporary
 
         static {
-            VANILLA_ACCESSORIES.add(Blocks.LEVER);
+            ACCESSORIES.add(Blocks.LEVER);
         }
 
         private ArrayList<BlockNode> blockNodes;
@@ -80,6 +80,14 @@ public class MultiBlockStructureMaps {
 
         }
 
+        public ArrayList<BlockNode> getBlockNodes() {
+            return blockNodes;
+        }
+
+        public ArrayList<BlockPos> getAccessories() {
+            return accessories;
+        }
+
         public JsonObject convertToJson() {
             JsonObject json = new JsonObject();
             JsonArray blockNodeList = new JsonArray();
@@ -88,46 +96,17 @@ public class MultiBlockStructureMaps {
             for (BlockNode blockNode : this.blockNodes) {
                 blockNodeList.add(blockNode.toJsonObject());
             }
-            json.add("block_node_list",blockNodeList);
+            json.add("block_node_list", blockNodeList);
 
             for (BlockPos accessory : accessories) {
                 JsonObject jsonObject = new JsonObject();
                 MathUtil.convertPosInToJsonObject(accessory, jsonObject);
                 accessoryList.add(jsonObject);
             }
-            json.add("accessory_list",accessoryList);
+            json.add("accessory_list", accessoryList);
 
             return json;
         }
-
-//        public CompoundNBT convertToNbt() {
-//            CompoundNBT compoundNBT = new CompoundNBT();
-//
-//            CompoundNBT blockPosMapY = new CompoundNBT();
-//            for (int offsetY = 0; offsetY < size.getY(); offsetY++) {
-//                CompoundNBT blockPosMapX = new CompoundNBT();
-//                for (int offsetX = 0; offsetX < size.getX(); offsetX++) {
-//                    CompoundNBT blockPosMapZ = new CompoundNBT();
-//                    for (int offsetZ = 0; offsetZ < size.getZ(); offsetZ++) {
-//                        blockPosMapZ.putString("pos_at_" + offsetX + offsetY + offsetZ, ForgeRegistries.BLOCKS.getKey(blocks[offsetX][offsetY][offsetZ]).toString());
-//                    }
-//                    blockPosMapX.put("x_col" + offsetX, blockPosMapZ);
-//                }
-//                blockPosMapY.put("y_row" + offsetY, blockPosMapX);
-//            }
-//
-//            compoundNBT.put("block_structure_map", blockPosMapY);
-//
-//            ListNBT accessoryList = new ListNBT();
-//            for (BlockPos accessory : accessories) {
-//                accessoryList.add(NBTUtil.writeBlockPos(accessory));
-//            }
-//
-//            compoundNBT.put("accessory_list", accessoryList);
-//            compoundNBT.putLong("activeBlock", activeBlock.toLong());
-//
-//            return compoundNBT;
-//        }
 
         public boolean matchAll(BlockPos pos, World world) {
 
@@ -143,21 +122,25 @@ public class MultiBlockStructureMaps {
             ArrayList<BlockNode> blockNodes = new ArrayList<>();
             ArrayList<BlockPos> accessories = new ArrayList<>();
 
-            for (BlockNode blockNode : this.blockNodes) {
-                blockNodes.add(new BlockNode(MathUtil.rotateBlockPosToDirection(blockNode.pos, direction), blockNode.block));
-            }
-
             for (BlockPos accessory : this.accessories) {
                 accessories.add(MathUtil.rotateBlockPosToDirection(accessory, direction));
+            }
+            for (BlockNode blockNode : this.blockNodes) {
+                BlockPos blockPos = MathUtil.rotateBlockPosToDirection(blockNode.pos, direction);
+                if (accessories.contains(blockPos)) {
+                    AccessoryNode accessoryNode = (AccessoryNode) blockNode;
+                    blockNodes.add(new AccessoryNode(blockPos, accessoryNode.getBlock(), Direction.byHorizontalIndex(accessoryNode.direction.getHorizontalIndex() + direction.getHorizontalIndex()), accessoryNode.index));
+                } else {
+                    blockNodes.add(new BlockNode(blockPos, blockNode.block));
+                }
             }
 
             return new MultiBlockPosBox(blockNodes, accessories);
         }
 
         public static class BlockNode {
-            BlockPos pos;
-            Block block;
-
+            private final BlockPos pos;
+            private final Block block;
 
             public BlockNode(BlockPos pos, Block block) {
                 this.pos = pos;
@@ -165,7 +148,19 @@ public class MultiBlockStructureMaps {
             }
 
             public static BlockNode fromJsonObject(JsonObject jsonObject) {
-                return new BlockNode(MathUtil.getPosFromJsonObject(jsonObject), ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(jsonObject.get("block").getAsString())));
+                if (jsonObject.has("index")) {
+                    return new AccessoryNode(MathUtil.getPosFromJsonObject(jsonObject), ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(jsonObject.get("block").getAsString())), Direction.byHorizontalIndex(jsonObject.get("direction").getAsInt()), jsonObject.get("index").getAsInt());
+                } else {
+                    return new BlockNode(MathUtil.getPosFromJsonObject(jsonObject), ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(jsonObject.get("block").getAsString())));
+                }
+            }
+
+            public BlockPos getPos() {
+                return pos;
+            }
+
+            public Block getBlock() {
+                return block;
             }
 
             public JsonObject toJsonObject() {
@@ -177,6 +172,27 @@ public class MultiBlockStructureMaps {
                 return jsonObject;
             }
 
+        }
+
+        public static class AccessoryNode extends BlockNode {
+
+            private final int index;
+            private final Direction direction;
+
+            public AccessoryNode(BlockPos pos, Block block, Direction direction, int index) {
+                super(pos, block);
+                this.direction = direction;
+                this.index = index;
+            }
+
+            @Override
+            public JsonObject toJsonObject() {
+                JsonObject jsonObject = super.toJsonObject();
+                jsonObject.addProperty("index", index);
+                jsonObject.addProperty("direction", direction.getHorizontalIndex());
+
+                return jsonObject;
+            }
         }
 
     }

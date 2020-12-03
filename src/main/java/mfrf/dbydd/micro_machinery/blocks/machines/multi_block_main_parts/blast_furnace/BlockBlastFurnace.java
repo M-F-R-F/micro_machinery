@@ -6,6 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 
 public class BlockBlastFurnace extends MMMultiBlockBase {
+
     public BlockBlastFurnace(Properties properties) {
         super(properties, "blast_furnace", false, false, true);
     }

@@ -1,10 +1,11 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.dbydd.micro_machinery.interfaces.IMultiBlockMainPart;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 
-public class MMMultiBlockTileMainPartBase extends MMTileBase {
+public abstract class MMMultiBlockTileMainPartBase extends MMTileBase implements IMultiBlockMainPart {
     private CompoundNBT compoundNBTTileReplaced = null;
 
     public MMMultiBlockTileMainPartBase(TileEntityType<?> tileEntityTypeIn) {
