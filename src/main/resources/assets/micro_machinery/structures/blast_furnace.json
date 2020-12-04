@@ -1,8 +1,116 @@
 {
   "block_node_list": [
     {
+      "xOffset": -1,
+      "yOffset": 1,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 0,
+      "yOffset": 1,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": 1,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": 0,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
       "xOffset": 0,
       "yOffset": 0,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": 0,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": -1,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 0,
+      "yOffset": -1,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": -1,
+      "zOffset": 2,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": 1,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 0,
+      "yOffset": 1,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": 1,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": 0,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 0,
+      "yOffset": 0,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": 0,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": -1,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 0,
+      "yOffset": -1,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": -1,
+      "zOffset": 1,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": 1,
       "zOffset": 0,
       "block": "micro_machinery:clay_brick_block"
     },
@@ -13,13 +121,7 @@
       "block": "micro_machinery:clay_brick_block"
     },
     {
-      "xOffset": 0,
-      "yOffset": 0,
-      "zOffset": 0,
-      "block": "micro_machinery:clay_brick_block"
-    },
-    {
-      "xOffset": -1,
+      "xOffset": 1,
       "yOffset": 1,
       "zOffset": 0,
       "block": "micro_machinery:clay_brick_block"
@@ -27,6 +129,36 @@
     {
       "xOffset": -1,
       "yOffset": 0,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 0,
+      "yOffset": 0,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": 0,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": -1,
+      "yOffset": -1,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 0,
+      "yOffset": -1,
+      "zOffset": 0,
+      "block": "micro_machinery:clay_brick_block"
+    },
+    {
+      "xOffset": 1,
+      "yOffset": -1,
       "zOffset": 0,
       "block": "micro_machinery:clay_brick_block"
     }

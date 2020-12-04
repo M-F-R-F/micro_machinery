@@ -20,8 +20,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import java.util.function.Consumer;
-
 public class BlockPlaceHolder extends MMMultiBlockBase {
 
     public BlockPlaceHolder(String name) {
@@ -29,7 +27,7 @@ public class BlockPlaceHolder extends MMMultiBlockBase {
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, true));
     }
 
-    public static Consumer<World> packageBlock(World world, BlockPos pos, BlockPos mainPart) {
+    public static BlockPos packageBlock(World world, BlockPos pos, BlockPos mainPart) {
         CompoundNBT packedNBT = new CompoundNBT();
 
         BlockState blockState = world.getBlockState(pos);
@@ -50,13 +48,14 @@ public class BlockPlaceHolder extends MMMultiBlockBase {
         placeHolder.setPackedNBT(packedNBT);
         placeHolder.setMainPartPos(mainPart);
 
-        return (world1) -> {
-            CompoundNBT compoundNBT = ((TilePlaceHolder) world1.getTileEntity(pos)).getPackedNBT();
-            world1.setBlockState(pos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")));
-            if (compoundNBT.contains("tile_packaged")) {
-                world.getTileEntity(pos).read(compoundNBT.getCompound("tile_packaged"));
-            }
-        };
+//        return (Consumer<World> & Serializable) (world1) -> {
+//            CompoundNBT compoundNBT = ((TilePlaceHolder) world1.getTileEntity(pos)).getPackedNBT();
+//            world1.setBlockState(pos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")));
+//            if (compoundNBT.contains("tile_packaged")) {
+//                world.getTileEntity(pos).read(compoundNBT.getCompound("tile_packaged"));
+//            }
+//        };
+        return pos;
     }
 
     @Override

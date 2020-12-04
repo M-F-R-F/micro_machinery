@@ -7,11 +7,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.io.Serializable;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public interface IMultiBlockMainPart {
-    void addDelegate(Consumer< World> function);
+
+    void addDelegate(BlockPos pos);
 
     void onBreak(World worldIn, BlockPos pos, PlayerEntity player, BlockState state, ItemStack stack);
 }

@@ -111,10 +111,11 @@ public class MultiBlockStructureMaps {
         public boolean matchAll(BlockPos pos, World world) {
 
             for (BlockNode blockNode : blockNodes) {
-                if (world.getBlockState(pos.add(blockNode.pos)).getBlock() != blockNode.block)
+                BlockPos blockPos = pos.add(blockNode.pos);
+//                world.setBlockState(blockPos, Blocks.GLASS.getDefaultState(),3);
+                if (world.getBlockState(blockPos).getBlock() != blockNode.block)
                     return false;
             }
-
             return true;
         }
 

@@ -193,34 +193,31 @@ public class MathUtil {
         BlockPos beginPos = new BlockPos(Math.min(pos1X, pos2X), Math.min(pos1Y, pos2Y), Math.min(pos1Z, pos2Z));
         BlockPos finalPos = new BlockPos(Math.max(pos1X, pos2X), Math.max(pos1Y, pos2Y), Math.max(pos1Z, pos2Z));
 
-        int offsetX = finalPos.getX() - beginPos.getX();
-        int offsetY = finalPos.getY() - beginPos.getY();
-        int offsetZ = finalPos.getZ() - beginPos.getZ();
+        int differenceX = finalPos.getX() - beginPos.getX();
+        int differenceY = finalPos.getY() - beginPos.getY();
+        int differenceZ = finalPos.getZ() - beginPos.getZ();
 
         ArrayList<MultiBlockStructureMaps.MultiBlockPosBox.BlockNode> blockNodes = new ArrayList<>();
         ArrayList<BlockPos> accessories = new ArrayList<>();
 
-
-        blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(new BlockPos(0, 0, 0), world.getBlockState(activePos).getBlock()));
-
-        for (int xOffset = 0; xOffset <= offsetX; xOffset++) {
-            for (int yOffset = 0; yOffset <= offsetY; yOffset++) {
-                for (int zOffset = 0; zOffset <= offsetZ; zOffset++) {
+        for (int xOffset = 0; xOffset <= differenceX; xOffset++) {
+            for (int yOffset = 0; yOffset <= differenceY; yOffset++) {
+                for (int zOffset = 0; zOffset <= differenceZ; zOffset++) {
 
                     BlockPos blockPos = beginPos.add(xOffset, yOffset, zOffset);
-                    Block block = world.getBlockState(blockPos).getBlock();
 
-                    if (block != Blocks.AIR) {
-                        BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
-                        blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
-                    }
+                        Block block = world.getBlockState(blockPos).getBlock();
+
+                        if (block != Blocks.AIR) {
+                            BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
+                            blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
+                        }
 
 
 //                    if (MultiBlockStructureMaps.MultiBlockPosBox.VANILLA_ACCESSORIES.contains(block)) {
 //                        accessories.add(offsetPos);
 //                    }
-                    //todo accessories
-
+                        //todo accessories
                 }
             }
         }
