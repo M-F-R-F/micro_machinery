@@ -20,6 +20,12 @@ public class IntegerContainer {
         this.current = current;
     }
 
+    public IntegerContainer() {
+        this.min = -1;
+        this.max = -1;
+        this.current = -1;
+    }
+
     public int getMin() {
         return min;
     }
@@ -168,4 +174,5 @@ public class IntegerContainer {
             }
         };
     }
+
 }
