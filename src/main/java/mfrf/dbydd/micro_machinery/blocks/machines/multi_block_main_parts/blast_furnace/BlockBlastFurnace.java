@@ -10,17 +10,15 @@ import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
 
 public class BlockBlastFurnace extends MMMultiBlockBase {
-    public static BooleanProperty IS_BURNING = BooleanProperty.create("is_burning");
 
     public BlockBlastFurnace(Properties properties) {
         super(properties, "blast_furnace", false, false, true);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(IS_BURNING, false));
+        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
-        builder.add(IS_BURNING);
     }
 
     @Override
