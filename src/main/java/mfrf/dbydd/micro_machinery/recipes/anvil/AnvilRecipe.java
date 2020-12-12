@@ -52,7 +52,7 @@ public class AnvilRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public boolean canFit(int width, int height) {
-        return true;
+        return false;
     }
 
     @Override

@@ -53,7 +53,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
 
     public TileKlin() {
-        super(Registered_Tileentitie_Types.KLIN_TYPE.get());
+        super(Registered_Tileentitie_Types.TILE_KLIN_TYPE.get());
     }
 
     public boolean isBurning() {

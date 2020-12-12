@@ -8,6 +8,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
@@ -19,8 +20,8 @@ public abstract class MMBlockTileProviderBase extends MMBlockBase {
         super(properties, name);
     }
 
-    public MMBlockTileProviderBase(Properties properties, String name,boolean autoRegistryItem) {
-        super(properties, name,autoRegistryItem);
+    public MMBlockTileProviderBase(Properties properties, String name, boolean noItem) {
+        super(properties, name, noItem);
     }
 
     @Override
@@ -42,5 +43,9 @@ public abstract class MMBlockTileProviderBase extends MMBlockBase {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+    }
+
+    protected BlockState getStateToRegistry(){
+        return this.stateContainer.getBaseState().with(FACING, Direction.NORTH);
     }
 }
