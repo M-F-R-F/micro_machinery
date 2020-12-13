@@ -10,12 +10,16 @@ public abstract class FEContainer extends IntegerContainer implements IEnergySto
 
     @Override
     public int receiveEnergy(int maxReceive, boolean simulate) {
-        return add(maxReceive, simulate);
+        if (canReceive()) {
+            return add(maxReceive, simulate);
+        } else return 0;
     }
 
     @Override
     public int extractEnergy(int maxExtract, boolean simulate) {
-        return minus(maxExtract, simulate);
+        if (canExtract()) {
+            return minus(maxExtract, simulate);
+        } else return 0;
     }
 
     @Override

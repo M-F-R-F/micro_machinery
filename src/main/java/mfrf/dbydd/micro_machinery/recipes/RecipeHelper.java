@@ -3,6 +3,7 @@ package mfrf.dbydd.micro_machinery.recipes;
 
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
+import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
@@ -24,24 +25,24 @@ public class RecipeHelper {
     public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
         if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
             boolean isSingle = false;
-            if(stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.isItemEqual(stackInSlot2)){
+            if (stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.isItemEqual(stackInSlot2)) {
                 isSingle = true;
             }
             List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
-                for (KlinItemToFluidRecipe klinItemToFluidRecipe : collect) {
-                    if (klinItemToFluidRecipe.isIssingle() == isSingle) {
-                        boolean issingle = klinItemToFluidRecipe.isIssingle();
-                        if (issingle) {
-                            if (testItemStackWithIngredient(new ItemStack(stackInSlot1.isEmpty() ? stackInSlot2.getItem() : stackInSlot1.getItem(), Math.min(stackInSlot1.getCount() + stackInSlot2.getCount(), 64)), klinItemToFluidRecipe.getInput(), klinItemToFluidRecipe.getCount())) {
-                                return klinItemToFluidRecipe;
-                            }
-                        } else {
-                            if ((testItemStackWithIngredient(stackInSlot1, klinItemToFluidRecipe.getInput1(), klinItemToFluidRecipe.getCount1()) || testItemStackWithIngredient(stackInSlot2, klinItemToFluidRecipe.getInput1(), klinItemToFluidRecipe.getCount1())) && (testItemStackWithIngredient(stackInSlot1, klinItemToFluidRecipe.getInput2(), klinItemToFluidRecipe.getCount2()) || testItemStackWithIngredient(stackInSlot2, klinItemToFluidRecipe.getInput2(), klinItemToFluidRecipe.getCount2()))) {
-                                return klinItemToFluidRecipe;
-                            }
+            for (KlinItemToFluidRecipe klinItemToFluidRecipe : collect) {
+                if (klinItemToFluidRecipe.isIssingle() == isSingle) {
+                    boolean issingle = klinItemToFluidRecipe.isIssingle();
+                    if (issingle) {
+                        if (testItemStackWithIngredient(new ItemStack(stackInSlot1.isEmpty() ? stackInSlot2.getItem() : stackInSlot1.getItem(), Math.min(stackInSlot1.getCount() + stackInSlot2.getCount(), 64)), klinItemToFluidRecipe.getInput(), klinItemToFluidRecipe.getCount())) {
+                            return klinItemToFluidRecipe;
+                        }
+                    } else {
+                        if ((testItemStackWithIngredient(stackInSlot1, klinItemToFluidRecipe.getInput1(), klinItemToFluidRecipe.getCount1()) || testItemStackWithIngredient(stackInSlot2, klinItemToFluidRecipe.getInput1(), klinItemToFluidRecipe.getCount1())) && (testItemStackWithIngredient(stackInSlot1, klinItemToFluidRecipe.getInput2(), klinItemToFluidRecipe.getCount2()) || testItemStackWithIngredient(stackInSlot2, klinItemToFluidRecipe.getInput2(), klinItemToFluidRecipe.getCount2()))) {
+                            return klinItemToFluidRecipe;
                         }
                     }
                 }
+            }
         }
         return null;
     }
@@ -63,6 +64,16 @@ public class RecipeHelper {
         List<AnvilRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE);
         for (AnvilRecipe recipe : recipeListByType) {
             if (recipe.getInput().test(input)) {
+                return recipe;
+            }
+        }
+        return null;
+    }
+
+    public static EtcherRecipe getEtcherRecipe(ItemStack input, RecipeManager manager) {
+        List<EtcherRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.ETCHER_RECIPE_RECIPE_TYPE);
+        for (EtcherRecipe recipe : recipeListByType) {
+            if (recipe.getInput().test(input) && recipe.getCountInput() <= input.getCount()) {
                 return recipe;
             }
         }

@@ -34,6 +34,26 @@ public class EtcherRecipe implements IRecipe<RecipeWrapper> {
         this.id = id;
     }
 
+    public int getFePerTick() {
+        return fePerTick;
+    }
+
+    public int getFeNeed() {
+        return feNeed;
+    }
+
+    public Ingredient getInput() {
+        return input;
+    }
+
+    public ItemStack getOutput() {
+        return output;
+    }
+
+    public int getCountInput() {
+        return countInput;
+    }
+
     @Override
     public boolean matches(RecipeWrapper inv, World worldIn) {
         return false;
