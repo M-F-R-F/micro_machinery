@@ -113,6 +113,7 @@ public class RegisteredBlocks {
     public static final Block SLAG_CONCRETE = new MMBlockBase(HARD1.hardnessAndResistance(1.5f), "slag_concrete");
     public static final Block CLAY_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "clay_brick_block");
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "fire_brick_block");
+    public static final Block BELLOW = new MMBlockBase(HARD1.hardnessAndResistance(2.0f).harvestTool(ToolType.AXE), "bellow");
     //machine
     public static final Block KLIN = new BlockKlin();
     public static final Block GENERATOR = new BlockGenerator();
@@ -153,7 +154,10 @@ public class RegisteredBlocks {
     public static final Block LIGHT_RED = new MMBlockBase("light_red", true);
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
     public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
+    public static final Block BELLOW_RIGHT = new MMBlockBase("bellow_right", true);
+    public static final Block BELLOW_LEFT = new MMBlockBase("bellow_left", true);
     public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
+
     /**
      * ↓this is machine with multi_block
      */

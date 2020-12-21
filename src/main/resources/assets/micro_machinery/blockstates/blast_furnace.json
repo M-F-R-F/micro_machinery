@@ -1,0 +1,19 @@
+{
+    "variants": {
+    "facing=west": {
+      "model": "micro_machinery:block/blast_furnace"
+    },
+    "facing=north": {
+      "model": "micro_machinery:block/blast_furnace",
+      "y": 90
+    },
+    "facing=east": {
+      "model": "micro_machinery:block/blast_furnace",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "micro_machinery:block/blast_furnace",
+      "y": 270
+    }
+  }
+}
