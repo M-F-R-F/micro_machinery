@@ -15,5 +15,5 @@ public interface IMultiBlockMainPart {
 
     void addDelegate(BlockPos pos);
 
-    void onBreak(World worldIn, BlockPos pos, PlayerEntity player, BlockState state, ItemStack stack);
+    void onBreak(World worldIn, BlockPos pos, PlayerEntity player, BlockState state);
 }

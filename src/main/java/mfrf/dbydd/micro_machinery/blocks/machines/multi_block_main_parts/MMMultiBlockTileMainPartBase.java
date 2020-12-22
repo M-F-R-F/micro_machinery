@@ -74,7 +74,7 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase implements
     }
 
     @Override
-    public void onBreak(World worldIn, BlockPos pos, PlayerEntity player, BlockState state, ItemStack stack) {
+    public void onBreak(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
         for (BlockPos blockPos : blockPlaceHolderList) {
             CompoundNBT compoundNBT = ((TilePlaceHolder) world.getTileEntity(blockPos)).getPackedNBT();
             world.setBlockState(blockPos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")));

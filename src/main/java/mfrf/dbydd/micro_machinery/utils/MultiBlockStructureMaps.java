@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -112,10 +113,11 @@ public class MultiBlockStructureMaps {
 
             for (BlockNode blockNode : blockNodes) {
                 BlockPos blockPos = pos.add(blockNode.pos);
-//                world.setBlockState(blockPos, Blocks.GLASS.getDefaultState(),3);
+//                world.setBlockState(blockPos, RegisteredBlocks.FIRE_BRICK_BLOCK.getDefaultState());
                 if (world.getBlockState(blockPos).getBlock() != blockNode.block)
                     return false;
             }
+//            return false;
             return true;
         }
 

@@ -59,10 +59,10 @@ public class BlockPlaceHolder extends MMMultiBlockBase {
     }
 
     @Override
-    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, TileEntity te, ItemStack stack) {
-        player.addStat(Stats.BLOCK_MINED.get(this));
-        player.addExhaustion(0.005F);
-        ((TilePlaceHolder) te).onBlockHarvest(worldIn, pos, player, state, stack);
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBlockHarvested(worldIn, pos, state, player);
+        TileEntity te = worldIn.getTileEntity(pos);
+        ((TilePlaceHolder) te).onBlockHarvest(worldIn, pos, player, state);
     }
 
     @Override
