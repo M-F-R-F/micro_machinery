@@ -2,14 +2,16 @@ package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.block_place_holder.BlockPlaceHolder;
-import mfrf.dbydd.micro_machinery.interfaces.IMultiBlockMainPart;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
+import mfrf.dbydd.micro_machinery.utils.NBTUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -121,8 +123,10 @@ public class MMHammerBase extends ToolItem {
 
     public void placeStructure(BlockPos pos, World world, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, String name, Direction direction) {
 
+        CompoundNBT blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
         world.setBlockState(pos, MMMultiBlockBase.MAIN_PART_LIST.get(name).getDefaultState().with(MMMultiBlockBase.FACING, direction));
-        IMultiBlockMainPart mainPart = (IMultiBlockMainPart) world.getTileEntity(pos);
+        MMMultiBlockTileMainPartBase mainPartBase = (MMMultiBlockTileMainPartBase) world.getTileEntity(pos);
+        mainPartBase.saveBlockBeenReplaced(blockPackNBT);
 
         for (MultiBlockStructureMaps.MultiBlockPosBox.BlockNode blockNode : blockPosBox.getBlockNodes()) {
             BlockPos blockNodePos = blockNode.getPos();
@@ -131,7 +135,7 @@ public class MMHammerBase extends ToolItem {
 //todo check bug
                 if (!blockPosBox.getAccessories().contains(blockNodePos)) {
 
-                    mainPart.addDelegate(BlockPlaceHolder.packageBlock(world, posInProgress, pos));
+                    mainPartBase.addDelegate(BlockPlaceHolder.packageBlock(world, posInProgress, pos));
 
                 } else {
 

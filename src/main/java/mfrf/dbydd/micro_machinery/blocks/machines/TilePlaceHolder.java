@@ -1,10 +1,9 @@
 package mfrf.dbydd.micro_machinery.blocks.machines;
 
-import mfrf.dbydd.micro_machinery.interfaces.IMultiBlockMainPart;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ActionResultType;
@@ -66,7 +65,7 @@ public class TilePlaceHolder extends MMTileBase {
     }
 
     public void onBlockHarvest(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
-        IMultiBlockMainPart tileEntity = (IMultiBlockMainPart) worldIn.getTileEntity(mainPartPos);
+        MMMultiBlockTileMainPartBase tileEntity = (MMMultiBlockTileMainPartBase) worldIn.getTileEntity(mainPartPos);
         tileEntity.onBreak(worldIn, pos, player, state);
         //todo nbt fix
     }

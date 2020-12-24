@@ -2,22 +2,21 @@ package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
-import mfrf.dbydd.micro_machinery.interfaces.IMultiBlockMainPart;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
-public abstract class MMMultiBlockTileMainPartBase extends MMTileBase implements IMultiBlockMainPart {
-    protected CompoundNBT compoundNBTTileReplaced = null;
+public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
+    protected CompoundNBT compoundBlockReplaced = null;
     protected ArrayList<BlockPos> blockPlaceHolderList = null;
 
     public MMMultiBlockTileMainPartBase(TileEntityType<?> tileEntityTypeIn) {
@@ -26,8 +25,8 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase implements
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        if (compoundNBTTileReplaced != null) {
-            compound.put("tile_replaced", compoundNBTTileReplaced);
+        if (compoundBlockReplaced != null) {
+            compound.put("tile_replaced", compoundBlockReplaced);
         }
         if (blockPlaceHolderList != null) {
             ListNBT listNBT = new ListNBT();
@@ -48,7 +47,7 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase implements
     public void read(CompoundNBT compound) {
         super.read(compound);
         if (compound.contains("tile_replaced")) {
-            compoundNBTTileReplaced = compound.getCompound("tile_replaced");
+            compoundBlockReplaced = compound.getCompound("tile_replaced");
         }
         if (compound.contains("block_place_holders")) {
             ListNBT block_place_holders = (ListNBT) compound.get("block_place_holders");
@@ -64,7 +63,6 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase implements
 
     }
 
-    @Override
     public void addDelegate(BlockPos pos) {
         if (blockPlaceHolderList == null) {
             blockPlaceHolderList = new ArrayList<>();
@@ -73,18 +71,27 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase implements
         markDirty();
     }
 
-    @Override
     public void onBreak(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
-        for (BlockPos blockPos : blockPlaceHolderList) {
-            CompoundNBT compoundNBT = ((TilePlaceHolder) world.getTileEntity(blockPos)).getPackedNBT();
-            world.setBlockState(blockPos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")));
-            if (compoundNBT.contains("tile_packaged")) {
-                world.getTileEntity(blockPos).read(compoundNBT.getCompound("tile_packaged"));
+        if (!worldIn.isRemote()) {
+            for (BlockPos blockPos : blockPlaceHolderList) {
+                TileEntity tileEntity = world.getTileEntity(blockPos);
+                if (tileEntity instanceof TilePlaceHolder) {
+                    CompoundNBT compoundNBT = ((TilePlaceHolder) tileEntity).getPackedNBT();
+                    world.setBlockState(blockPos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")));
+                    if (compoundNBT.contains("tile_packaged")) {
+                        world.getTileEntity(blockPos).read(compoundNBT.getCompound("tile_packaged"));
+                    }
+                }
+            }
+
+            worldIn.setBlockState(this.pos,NBTUtil.readBlockState(compoundBlockReplaced.getCompound("block_state_nbt")));
+            if (compoundBlockReplaced.contains("tile_packaged")) {
+                world.getTileEntity(this.pos).read(compoundBlockReplaced.getCompound("tile_packaged"));
             }
         }
     }
 
-    public void saveTileBeenReplaced(CompoundNBT compoundNBT) {
-        compoundNBTTileReplaced = compoundNBT;
+    public void saveBlockBeenReplaced(CompoundNBT compoundNBT) {
+        compoundBlockReplaced = compoundNBT;
     }
 }
