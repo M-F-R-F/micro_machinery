@@ -7,10 +7,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class TilePlaceHolder extends MMTileBase {
     private BlockPos mainPartPos = null;
@@ -24,8 +30,30 @@ public class TilePlaceHolder extends MMTileBase {
         return mainPartPos;
     }
 
+    public void setMainPartPos(BlockPos mainPartPos) {
+        this.mainPartPos = mainPartPos;
+        markDirty();
+    }
+
     public CompoundNBT getPackedNBT() {
         return packedNBT;
+    }
+
+    public void setPackedNBT(CompoundNBT packedNBT) {
+        this.packedNBT = packedNBT;
+        markDirty();
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+        return world.getTileEntity(mainPartPos).getCapability(cap);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        return world.getTileEntity(mainPartPos).getCapability(cap, side);
     }
 
     @Override
@@ -48,16 +76,6 @@ public class TilePlaceHolder extends MMTileBase {
             mainPartPos = NBTUtil.readBlockPos(compound.getCompound("main_part_pos"));
         }
         super.read(compound);
-    }
-
-    public void setMainPartPos(BlockPos mainPartPos) {
-        this.mainPartPos = mainPartPos;
-        markDirty();
-    }
-
-    public void setPackedNBT(CompoundNBT packedNBT) {
-        this.packedNBT = packedNBT;
-        markDirty();
     }
 
     public ActionResultType onBlockActivated(World worldIn, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
