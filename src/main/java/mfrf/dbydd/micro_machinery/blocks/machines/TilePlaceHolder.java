@@ -67,6 +67,5 @@ public class TilePlaceHolder extends MMTileBase {
     public void onBlockHarvest(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
         MMMultiBlockTileMainPartBase tileEntity = (MMMultiBlockTileMainPartBase) worldIn.getTileEntity(mainPartPos);
         tileEntity.onBreak(worldIn, pos, player, state);
-        //todo nbt fix
     }
 }

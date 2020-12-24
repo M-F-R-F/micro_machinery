@@ -110,7 +110,6 @@ public class MMHammerBase extends ToolItem {
                 Direction face = context.getFace();
                 MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = stringMultiBlockPosBoxEntry.getValue().rotateTo(context.getFace().getOpposite());
                 if (multiBlockPosBox.matchAll(context.getPos(), context.getWorld())) {
-                    context.getPlayer().sendMessage(new StringTextComponent("match:" + stringMultiBlockPosBoxEntry.getKey()));
                     placeStructure(context.getPos(), context.getWorld(), multiBlockPosBox, stringMultiBlockPosBoxEntry.getKey(), face);
                     //todo finish it
                     return ActionResultType.SUCCESS;
