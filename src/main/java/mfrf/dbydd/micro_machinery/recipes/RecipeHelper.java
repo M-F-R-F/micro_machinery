@@ -3,6 +3,7 @@ package mfrf.dbydd.micro_machinery.recipes;
 
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
+import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
@@ -75,6 +76,16 @@ public class RecipeHelper {
         for (EtcherRecipe recipe : recipeListByType) {
             if (recipe.getInput().test(input) && recipe.getCountInput() <= input.getCount()) {
                 return recipe;
+            }
+        }
+        return null;
+    }
+
+    public static BlastFurnaceRecipe getBlastFurnaceRecipe(ItemStack input, RecipeManager manager) {
+        List<BlastFurnaceRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.BLAST_FURNACE_RECIPE_RECIPE_TYPE);
+        for (BlastFurnaceRecipe blastFurnaceRecipe : recipeListByType) {
+            if (blastFurnaceRecipe.getInput().test(input)) {
+                return blastFurnaceRecipe;
             }
         }
         return null;

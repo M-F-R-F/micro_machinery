@@ -81,7 +81,7 @@ public class EtcherRecipe implements IRecipe<RecipeWrapper> {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return new Serializer();
+        return RegisteredRecipeSerializers.ETCHER_RECIPE.get();
     }
 
     @Override
