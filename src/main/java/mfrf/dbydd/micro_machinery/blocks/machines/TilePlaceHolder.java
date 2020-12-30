@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -24,6 +25,10 @@ public class TilePlaceHolder extends MMTileBase {
 
     public TilePlaceHolder() {
         super(Registered_Tileentitie_Types.TILE_PLACEHOLDER.get());
+    }
+
+    public TilePlaceHolder(TileEntityType<?> tileEntityTypeIn) {
+        super(tileEntityTypeIn);
     }
 
     public BlockPos getMainPartPos() {
@@ -85,5 +90,18 @@ public class TilePlaceHolder extends MMTileBase {
     public void onBlockHarvest(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
         MMMultiBlockTileMainPartBase tileEntity = (MMMultiBlockTileMainPartBase) worldIn.getTileEntity(mainPartPos);
         tileEntity.onBreak(worldIn, pos, player, state);
+    }
+
+    protected MMMultiBlockTileMainPartBase getMainPart() {
+        if (mainPartPos != null) {
+            MMMultiBlockTileMainPartBase tileEntity = (MMMultiBlockTileMainPartBase) world.getTileEntity(mainPartPos);
+            return tileEntity;
+        }
+        return null;
+    }
+
+    protected <T> LazyOptional<T> getMainPartCapability(@Nonnull Capability<T> cap) {
+        MMMultiBlockTileMainPartBase mainPart = getMainPart();
+        return mainPart == null ? LazyOptional.empty() : mainPart.getCapability(cap);
     }
 }

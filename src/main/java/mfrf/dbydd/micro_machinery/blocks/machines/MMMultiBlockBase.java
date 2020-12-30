@@ -16,17 +16,17 @@ import java.util.Map;
 public abstract class MMMultiBlockBase extends MMBlockTileProviderBase {
     public static final BooleanProperty IS_PLACEHOLDER = BooleanProperty.create("is_place_holder");
     public static List<Block> PLACE_HOLDER_LIST = new ArrayList<>();
-    public static Map<String,Block> MAIN_PART_LIST = new HashMap<>();
+    public static Map<String, Block> MAIN_PART_LIST = new HashMap<>();
 
     //I think I messed up :(
-    public MMMultiBlockBase(Properties properties, String name, boolean isPlaceHolder, boolean autoRegisterItem, boolean requireJSON) {
+    public MMMultiBlockBase(Properties properties, String name, boolean isPlaceHolder, boolean autoRegisterItem, boolean isMainPart) {
         super(properties, name, autoRegisterItem);
         if (isPlaceHolder) {
             PLACE_HOLDER_LIST.add(this);
         }
-        if (requireJSON) {
+        if (isMainPart) {
             MultiBlockStructureMaps.NAMES.add(name);
-            MAIN_PART_LIST.put(name,this);
+            MAIN_PART_LIST.put(name, this);
         }
     }
 

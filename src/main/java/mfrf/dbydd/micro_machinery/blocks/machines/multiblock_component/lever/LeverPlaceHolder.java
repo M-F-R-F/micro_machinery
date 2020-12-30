@@ -1,6 +1,7 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.block_place_holder;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.lever;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.interfaces.IMultiBlockRedStoneActiveable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

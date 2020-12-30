@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.block_place_holder.BlockPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.NBTUtil;
@@ -17,7 +17,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
