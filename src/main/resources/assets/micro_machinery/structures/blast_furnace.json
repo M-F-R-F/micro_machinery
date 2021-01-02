@@ -76,7 +76,7 @@
       "xOffset": -1,
       "yOffset": 0,
       "zOffset": 1,
-      "block": "micro_machinery:bellow"
+      "block": "micro_machinery:fire_brick_block"
     },
     {
       "xOffset": 0,
@@ -88,13 +88,13 @@
       "xOffset": 1,
       "yOffset": 0,
       "zOffset": 1,
-      "block": "micro_machinery:bellow"
+      "block": "micro_machinery:fire_brick_block"
     },
     {
       "xOffset": -1,
       "yOffset": -1,
       "zOffset": 1,
-      "block": "micro_machinery:fire_brick_block"
+      "block": "micro_machinery:bellow"
     },
     {
       "xOffset": 0,
@@ -106,7 +106,7 @@
       "xOffset": 1,
       "yOffset": -1,
       "zOffset": 1,
-      "block": "micro_machinery:fire_brick_block"
+      "block": "micro_machinery:bellow"
     },
     {
       "xOffset": -1,
