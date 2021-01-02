@@ -161,7 +161,7 @@ public class RegisteredBlocks {
     public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
 
     /**
-     * ↓this is machine with multi_block
+     * this is machine with multi_block
      */
     public static final Block FORGING_PRESS = new MMBlockBase("forging_press", true);
     public static final Block REACTION_STILL = new MMBlockBase("reaction_still", true);
