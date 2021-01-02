@@ -113,11 +113,9 @@ public class MultiBlockStructureMaps {
 
             for (BlockNode blockNode : blockNodes) {
                 BlockPos blockPos = pos.add(blockNode.pos);
-//                world.setBlockState(blockPos, RegisteredBlocks.FIRE_BRICK_BLOCK.getDefaultState());
                 if (world.getBlockState(blockPos).getBlock() != blockNode.block)
                     return false;
             }
-//            return false;
             return true;
         }
 

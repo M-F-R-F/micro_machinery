@@ -47,26 +47,18 @@ public class BlockPlaceHolder extends MMMultiBlockBase {
         TilePlaceHolder placeHolder = (TilePlaceHolder) world.getTileEntity(pos);
         placeHolder.setPackedNBT(packedNBT);
         placeHolder.setMainPartPos(mainPart);
-
-//        return (Consumer<World> & Serializable) (world1) -> {
-//            CompoundNBT compoundNBT = ((TilePlaceHolder) world1.getTileEntity(pos)).getPackedNBT();
-//            world1.setBlockState(pos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")));
-//            if (compoundNBT.contains("tile_packaged")) {
-//                world.getTileEntity(pos).read(compoundNBT.getCompound("tile_packaged"));
-//            }
-//        };
         return pos;
     }
 
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBlockHarvested(worldIn, pos, state, player);
         TileEntity te = worldIn.getTileEntity(pos);
         ((TilePlaceHolder) te).onBlockHarvest(worldIn, pos, player, state);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+            Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote()) {
             return ((TilePlaceHolder) worldIn.getTileEntity(pos)).onBlockActivated(worldIn, player, handIn, hit);
 

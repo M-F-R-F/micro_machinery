@@ -41,7 +41,7 @@ public class MMTileBase extends TileEntity {
         this.read(tag);
     }
 
-    public void handleNetWorkSyncFromClient(CompoundNBT tag){
+    public void handleNetWorkSyncFromClient(CompoundNBT tag) {
 
     }
 
@@ -69,11 +69,16 @@ public class MMTileBase extends TileEntity {
         return container;
     }
 
-    protected Direction getBackDirection(){
+    protected Direction getBackDirection() {
+        Direction facingDirection = getFacingDirection();
+        return facingDirection == null ? null : facingDirection.getOpposite();
+    }
+
+    protected Direction getFacingDirection() {
         BlockState blockState = world.getBlockState(pos);
-        if(blockState.getBlock() instanceof MMBlockTileProviderBase){
+        if (blockState.getBlock() instanceof MMBlockTileProviderBase) {
             Direction direction = blockState.get(MMBlockTileProviderBase.FACING);
-            return direction.getOpposite();
+            return direction;
         }
 
         return null;

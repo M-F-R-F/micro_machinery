@@ -2,22 +2,21 @@ package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps.MultiBlockPosBox;
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps.MultiBlockPosBox.BlockNode;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-
 public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
     protected CompoundNBT compoundBlockReplaced = null;
-    protected ArrayList<BlockPos> blockPlaceHolderList = null;
+    protected boolean breaking = false;
 
     public MMMultiBlockTileMainPartBase(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -28,18 +27,6 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
         if (compoundBlockReplaced != null) {
             compound.put("tile_replaced", compoundBlockReplaced);
         }
-        if (blockPlaceHolderList != null) {
-            ListNBT listNBT = new ListNBT();
-            for (BlockPos blockPos : blockPlaceHolderList) {
-                CompoundNBT compoundNBT = new CompoundNBT();
-                compoundNBT.putInt("x", blockPos.getX());
-                compoundNBT.putInt("y", blockPos.getY());
-                compoundNBT.putInt("z", blockPos.getZ());
-
-                listNBT.add(compound);
-            }
-            compound.put("block_place_holders", listNBT);
-        }
         return super.write(compound);
     }
 
@@ -49,44 +36,36 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
         if (compound.contains("tile_replaced")) {
             compoundBlockReplaced = compound.getCompound("tile_replaced");
         }
-        if (compound.contains("block_place_holders")) {
-            ListNBT block_place_holders = (ListNBT) compound.get("block_place_holders");
-            for (INBT block_place_holder : block_place_holders) {
-                CompoundNBT blockPlaceHolder = (CompoundNBT) block_place_holder;
-                if (blockPlaceHolderList == null) {
-                    blockPlaceHolderList = new ArrayList<>();
-                }
-
-                blockPlaceHolderList.add(new BlockPos(blockPlaceHolder.getInt("x"), blockPlaceHolder.getInt("y"), blockPlaceHolder.getInt("z")));
-            }
-        }
 
     }
 
-    public void addDelegate(BlockPos pos) {
-        if (blockPlaceHolderList == null) {
-            blockPlaceHolderList = new ArrayList<>();
-        }
-        blockPlaceHolderList.add(pos);
-        markDirty();
-    }
+    protected abstract MultiBlockStructureMaps.MultiBlockPosBox getMap();
 
     public void onBreak(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
         if (!worldIn.isRemote()) {
-            for (BlockPos blockPos : blockPlaceHolderList) {
-                TileEntity tileEntity = world.getTileEntity(blockPos);
-                if (tileEntity instanceof TilePlaceHolder) {
-                    CompoundNBT compoundNBT = ((TilePlaceHolder) tileEntity).getPackedNBT();
-                    world.setBlockState(blockPos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")));
-                    if (compoundNBT.contains("tile_packaged")) {
-                        world.getTileEntity(blockPos).read(compoundNBT.getCompound("tile_packaged"));
+            if (!breaking) {
+                breaking = true;
+
+                MultiBlockPosBox map = getMap();
+
+                for (BlockNode blocknode : map.getBlockNodes()) {
+                    BlockPos blockPos = this.pos.add(blocknode.getPos());
+                    TileEntity tileEntity = world.getTileEntity(blockPos);
+                    if (tileEntity instanceof TilePlaceHolder) {
+                        CompoundNBT compoundNBT = ((TilePlaceHolder) tileEntity).getPackedNBT();
+                        world.setBlockState(blockPos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")), 3);
+                        if (compoundNBT.contains("tile_packaged")) {
+                            world.getTileEntity(blockPos).read(compoundNBT.getCompound("tile_packaged"));
+                        }
                     }
                 }
-            }
 
-            worldIn.setBlockState(this.pos,NBTUtil.readBlockState(compoundBlockReplaced.getCompound("block_state_nbt")));
-            if (compoundBlockReplaced.contains("tile_packaged")) {
-                world.getTileEntity(this.pos).read(compoundBlockReplaced.getCompound("tile_packaged"));
+                worldIn.setBlockState(this.pos, NBTUtil.readBlockState(compoundBlockReplaced.getCompound("block_state_nbt")));
+                if (compoundBlockReplaced.contains("tile_packaged")) {
+                    world.getTileEntity(this.pos).read(compoundBlockReplaced.getCompound("tile_packaged"));
+                }
+
+                worldIn.getBlockState(pos).getBlock().onBlockHarvested(worldIn, pos, state, player);
             }
         }
     }

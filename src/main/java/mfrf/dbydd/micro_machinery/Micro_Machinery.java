@@ -29,7 +29,8 @@ public class Micro_Machinery {
     public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, NAME);
     public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, NAME);
     public static final DeferredRegister<Fluid> FLUID_REGISTER = DeferredRegister.create(ForgeRegistries.FLUIDS, NAME);
-    public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, NAME);
+    public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister
+            .create(ForgeRegistries.FEATURES, NAME);
     public static final ItemGroup MMTAB = new MMTab();
     private static final Logger logger = LogManager.getLogger(MOD_ID);
 
@@ -54,8 +55,8 @@ public class Micro_Machinery {
         Registered_Tileentitie_Types.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         Registered_ContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         RegisteredRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
-        logger.info(MOD_ID+" Loaded.");
-        logger.info("Mixin Version: "+ MixinBootstrap.VERSION);
+        logger.info(MOD_ID + " Loaded.");
+        logger.info("Mixin Version: " + MixinBootstrap.VERSION);
     }
 
     public static void RegisteryItems(Map<String, Supplier<Item>> map) {
@@ -67,7 +68,8 @@ public class Micro_Machinery {
     public static void RegisteryBlocks(Map<String, Supplier<Block>> map) {
         for (Map.Entry<String, Supplier<Block>> entry : map.entrySet()) {
             BLOCK_REGISTER.register(entry.getKey(), entry.getValue());
-            ITEM_REGISTER.register(entry.getKey(), () -> new BlockItem(entry.getValue().get(), new Item.Properties().group(MMTAB)));
+            ITEM_REGISTER.register(entry.getKey(),
+                    () -> new BlockItem(entry.getValue().get(), new Item.Properties().group(MMTAB)));
         }
     }
 

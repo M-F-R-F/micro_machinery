@@ -6,6 +6,8 @@ import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
+import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps.MultiBlockPosBox;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -91,7 +93,8 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
                     }
                 }
             } else {
-                BlastFurnaceRecipe blastFurnaceRecipe = RecipeHelper.getBlastFurnaceRecipe(itemHandler.getStackInSlot(0), world.getRecipeManager());
+                BlastFurnaceRecipe blastFurnaceRecipe = RecipeHelper
+                        .getBlastFurnaceRecipe(itemHandler.getStackInSlot(0), world.getRecipeManager());
                 if (blastFurnaceRecipe != null) {
                     itemHandler.extractItem(0, blastFurnaceRecipe.getInput().getCount(), false);
                     output = blastFurnaceRecipe.getOutput();
@@ -112,7 +115,13 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
             heatHandler.setCurrent(burnTime);
             markDirty();
             return true;
-        } else return false;
+        } else
+            return false;
+    }
+
+    @Override
+    protected MultiBlockPosBox getMap() {
+        return MultiBlockStructureMaps.getStructureMaps().get("blast_furnace").rotateTo(getBackDirection());
     }
 
 }

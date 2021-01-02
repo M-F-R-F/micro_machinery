@@ -94,8 +94,7 @@ public class TilePlaceHolder extends MMTileBase {
 
     protected MMMultiBlockTileMainPartBase getMainPart() {
         if (mainPartPos != null) {
-            MMMultiBlockTileMainPartBase tileEntity = (MMMultiBlockTileMainPartBase) world.getTileEntity(mainPartPos);
-            return tileEntity;
+            return (MMMultiBlockTileMainPartBase) world.getTileEntity(mainPartPos);
         }
         return null;
     }

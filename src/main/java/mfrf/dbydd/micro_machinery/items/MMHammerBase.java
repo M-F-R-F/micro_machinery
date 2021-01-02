@@ -1,8 +1,8 @@
 package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.NBTUtil;
 import net.minecraft.block.Block;
@@ -133,7 +133,7 @@ public class MMHammerBase extends ToolItem {
 //todo check bug
                 if (!blockPosBox.getAccessories().contains(blockNodePos)) {
 
-                    mainPartBase.addDelegate(BlockPlaceHolder.packageBlock(world, posInProgress, pos));
+                    BlockPlaceHolder.packageBlock(world, posInProgress, pos);
 
                 } else {
 

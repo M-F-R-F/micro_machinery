@@ -25,6 +25,8 @@ public class RenderTypes {
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.PIGIRON_ANVIL, RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.GRAPHITE_CRUCIBLE, RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.LATHE, RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteredBlocks.PLACE_HOLDER,RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(RegisteredBlocks.LEVER_PLACEHOLDER,RenderType.getTranslucent());
     }
 
     @SubscribeEvent
