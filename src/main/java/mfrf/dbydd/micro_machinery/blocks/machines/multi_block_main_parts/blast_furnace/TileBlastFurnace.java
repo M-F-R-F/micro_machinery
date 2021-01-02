@@ -15,6 +15,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -122,6 +123,14 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     @Override
     protected MultiBlockPosBox getMap() {
         return MultiBlockStructureMaps.getStructureMaps().get("blast_furnace").rotateTo(getBackDirection());
+    }
+
+    public boolean isWorking() {
+        return !heatHandler.atMinValue() && !progressContainer.atMinValue();
+    }
+
+    public Direction getFacingDirection(){
+        return super.getFacingDirection();
     }
 
 }

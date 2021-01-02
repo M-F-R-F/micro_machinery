@@ -75,6 +75,22 @@ public class BlockPlaceHolder extends MMMultiBlockBase {
     }
 
     @Override
+    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1;
+    }
+
+    @Override
+    public boolean isVariableOpacity() {
+        return true;
+    }
+
+    @Override
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1f;
+    }
+
+
+    @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TilePlaceHolder();
     }
