@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
@@ -110,10 +111,11 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
 
     private boolean extractFuel() {
         ItemStack stackInSlot = itemHandler.getStackInSlot(1);
-        int burnTime = stackInSlot.getBurnTime();
+        int burnTime = stackInSlot.getItem() == Items.CHARCOAL ? 200 : 0;
         if (burnTime != 0) {
             heatHandler.setMax(burnTime);
             heatHandler.setCurrent(burnTime);
+            itemHandler.extractItem(1, 1, false);
             markDirty();
             return true;
         } else
@@ -129,7 +131,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
         return !heatHandler.atMinValue() && !progressContainer.atMinValue();
     }
 
-    public Direction getFacingDirection(){
+    public Direction getFacingDirection() {
         return super.getFacingDirection();
     }
 
