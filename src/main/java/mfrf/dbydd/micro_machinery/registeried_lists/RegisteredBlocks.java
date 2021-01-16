@@ -175,6 +175,7 @@ public class RegisteredBlocks {
     public static final Block BLAST_FURNACE = new BlockBlastFurnace(Block.Properties.create(Material.ROCK));
 
 
+
     private RegisteredBlocks() {
     }
 
