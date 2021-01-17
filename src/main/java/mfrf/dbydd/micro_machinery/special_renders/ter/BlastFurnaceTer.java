@@ -16,9 +16,9 @@ public class BlastFurnaceTer extends MMTERBase<TileBlastFurnace> {
 
     @Override
     public void render(TileBlastFurnace blastFurnace, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
+        float scaleValue = blastFurnace.isWorking() ?(float) Math.abs(Math.cos(blastFurnace.getWorld().getGameTime() / 8.0f)) / 2.0f + 0.5f : 1;
 //        if (blastFurnace.isWorking()) {
         Direction facingDirection = blastFurnace.getFacingDirection();
-        float scaleValue = (float) Math.abs(Math.cos(blastFurnace.getWorld().getGameTime() / 8.0f)) / 2.0f + 0.5f;
 
 //==========================left================================================
         matrixStackIn.push();

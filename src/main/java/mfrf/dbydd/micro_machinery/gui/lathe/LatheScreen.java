@@ -8,7 +8,6 @@ import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServer
 import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncPackage;
 import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
 import mfrf.dbydd.micro_machinery.utils.ActionContainer;
-import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;

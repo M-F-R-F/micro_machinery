@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
+import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
@@ -55,7 +56,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
 
     @Override
     public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-        return null;
+        return new BlastFurnaceContainer(p_createMenu_1_, p_createMenu_2_, this.pos, this.world);
     }
 
     @Override
@@ -127,6 +128,18 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
         return MultiBlockStructureMaps.getStructureMaps().get("blast_furnace").rotateTo(getBackDirection());
     }
 
+    public ItemStackHandler getItemHandler() {
+        return itemHandler;
+    }
+
+    public IntegerContainer getProgressContainer() {
+        return progressContainer;
+    }
+
+    public IntegerContainer getHeatHandler() {
+        return heatHandler;
+    }
+
     public boolean isWorking() {
         return !heatHandler.atMinValue() && !progressContainer.atMinValue();
     }
@@ -135,4 +148,17 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
         return super.getFacingDirection();
     }
 
+    public enum slot {
+        INPUT(0), FUEL(1), OUTPUT(2);
+
+        private final int num;
+
+        slot(int num) {
+            this.num = num;
+        }
+
+        public int getNum() {
+            return num;
+        }
+    }
 }

@@ -106,7 +106,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         blit(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
-    private int calculateBarPixel(IntegerContainer container, float pixel) {
+    protected int calculateBarPixel(IntegerContainer container, float pixel) {
         int current = container.getCurrent();
         int max = container.getMax();
         return -Math.round(pixel * (float) current / (float) max);

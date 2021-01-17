@@ -84,7 +84,8 @@ public class TilePlaceHolder extends MMTileBase {
     }
 
     public ActionResultType onBlockActivated(World worldIn, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        return worldIn.getBlockState(mainPartPos).onBlockActivated(worldIn, player, handIn, hit);
+        BlockState blockState = worldIn.getBlockState(mainPartPos);
+        return blockState.getBlock().onBlockActivated(blockState, worldIn, mainPartPos, player, handIn, hit);
     }
 
     public void onBlockHarvest(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
