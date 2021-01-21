@@ -2,6 +2,7 @@ package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell.BlockCreativeEnergyCell;
+import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.BlockElectrolysis;
 import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.BlockEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.etcher.BlockEtcher;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.BlockAnvil;
@@ -125,6 +126,7 @@ public class RegisteredBlocks {
     public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(4.0f).harvestTool(ToolType.PICKAXE).harvestLevel(3), "pigiron_anvil", EnumAnvilType.PIGIRON, 12);
     public static final Block CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell();
     public static final Block BLOCK_ETCHER = new BlockEtcher();
+    public static final Block ELECTROLYSIS = new BlockElectrolysis();
     //cable
     public static final Block TESTENERGY_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid(), "test_cable", EnumCableMaterial.TEST);
     public static final Block COPPER_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(1).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "copper_cable", EnumCableMaterial.COPPER);

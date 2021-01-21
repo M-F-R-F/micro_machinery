@@ -4,6 +4,7 @@ import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell.TileCreativeEnergyCell;
+import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.TileElectrolysis;
 import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.TileEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.etcher.TileEtcher;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.TileAnvil;
@@ -36,4 +37,5 @@ public class Registered_Tileentitie_Types {
     public static final RegistryObject<TileEntityType<TileBlastFurnace>> TILE_BLAST_FURNACE = TILE_ENTITY_TYPE_REGISTER.register("blast_furnace", () -> TileEntityType.Builder.create(TileBlastFurnace::new, RegisteredBlocks.BLAST_FURNACE).build(null));
     public static final RegistryObject<TileEntityType<TileEtcher>> TILE_ETCHER = TILE_ENTITY_TYPE_REGISTER.register("etcher", () -> TileEntityType.Builder.create(TileEtcher::new, RegisteredBlocks.BLOCK_ETCHER).build(null));
     public static final RegistryObject<TileEntityType<TileEnergyInterface>> TILE_ENERGY_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("energy_interface", () -> TileEntityType.Builder.create(TileEnergyInterface::new, RegisteredBlocks.ENERGY_INTERFACE).build(null));
+    public static final RegistryObject<TileEntityType<TileElectrolysis>> TILE_ELECTROLYSIS = TILE_ENTITY_TYPE_REGISTER.register("electrolysis", () -> TileEntityType.Builder.create(TileElectrolysis::new, RegisteredBlocks.ELECTROLYSIS).build(null));
 }

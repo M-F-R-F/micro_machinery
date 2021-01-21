@@ -107,7 +107,7 @@ public class IntegerContainer {
         return current;
     }
 
-    public int self_substract() {
+    public int selfSubtract() {
         current--;
         if (current > max) {
             current = max;

@@ -69,7 +69,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
         if (!world.isRemote()) {
 
             if (!heatHandler.atMinValue()) {
-                heatHandler.self_substract();
+                heatHandler.selfSubtract();
                 markDirty();
             }
 
@@ -78,7 +78,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
                 if (heatHandler.atMinValue()) {
                     boolean b = extractFuel();
                     if (b) {
-                        heatHandler.self_substract();
+                        heatHandler.selfSubtract();
                         progressContainer.self_add();
                         markDirty();
                     }
