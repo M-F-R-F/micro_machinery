@@ -4,6 +4,7 @@ package mfrf.dbydd.micro_machinery.recipes;
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
+import mfrf.dbydd.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
 import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
@@ -86,6 +87,16 @@ public class RecipeHelper {
         for (BlastFurnaceRecipe blastFurnaceRecipe : recipeListByType) {
             if (blastFurnaceRecipe.getInput().test(input)) {
                 return blastFurnaceRecipe;
+            }
+        }
+        return null;
+    }
+
+    public static ElectrolysisRecipe getElectrolysisRecipe(ItemStack input, RecipeManager manager) {
+        List<ElectrolysisRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE);
+        for (ElectrolysisRecipe electrolysisRecipe : recipeListByType) {
+            if (electrolysisRecipe.getInput().test(input)) {
+                return electrolysisRecipe;
             }
         }
         return null;
