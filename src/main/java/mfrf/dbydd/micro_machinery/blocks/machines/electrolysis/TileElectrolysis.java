@@ -2,6 +2,8 @@ package mfrf.dbydd.micro_machinery.blocks.machines.electrolysis;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisContainer;
+import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
+import mfrf.dbydd.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
@@ -28,6 +30,18 @@ import javax.annotation.Nullable;
 public class TileElectrolysis extends MMTileBase implements ITickableTileEntity, IItemHandler, INamedContainerProvider {
     private FEContainer energy = new FEContainer(0, 120000) {
         @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            markDirty2();
+            return super.extractEnergy(maxExtract, simulate);
+        }
+
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            markDirty2();
+            return super.receiveEnergy(maxReceive, simulate);
+        }
+
+        @Override
         public boolean canExtract() {
             return false;
         }
@@ -44,10 +58,27 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     };
     private ItemStackHandler items = new ItemStackHandler(2);
     private IntegerContainer progress;
+    private ItemStack result = ItemStack.EMPTY;
     private boolean isWorking = false;
 
     public TileElectrolysis() {
         super(Registered_Tileentitie_Types.TILE_ELECTROLYSIS.get());
+    }
+
+    public FEContainer getEnergy() {
+        return energy;
+    }
+
+    public ItemStackHandler getItems() {
+        return items;
+    }
+
+    public IntegerContainer getProgress() {
+        return progress;
+    }
+
+    public boolean isWorking() {
+        return isWorking;
     }
 
     @Nonnull
@@ -67,6 +98,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
             progress = new IntegerContainer();
             progress.deserializeNBT(compound.getCompound("progress"));
         }
+        result = ItemStack.read(compound.getCompound("result"));
         super.read(compound);
     }
 
@@ -79,13 +111,38 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
         if (progress != null) {
             write.put("progress", progress.serializeNBT());
         }
+        write.put("result", result.serializeNBT());
         return write;
     }
 
     @Override
     public void tick() {
         if (!world.isRemote()) {
-
+            if (isWorking) {
+                if (!progress.atMaxValue()) {
+                    if (energy.getCurrent() >= 1024) {
+                        energy.selfSubtract();
+                        progress.self_add();
+                        markDirty2();
+                    }
+                } else {
+                    if (items.insertItem(Slot.OUTPUT.index, result, true) == ItemStack.EMPTY) {
+                        items.insertItem(Slot.OUTPUT.index, result, false);
+                        result = ItemStack.EMPTY;
+                        progress.resetValue();
+                        isWorking = false;
+                        markDirty2();
+                    }
+                }
+            } else {
+                ElectrolysisRecipe electrolysisRecipe = RecipeHelper.getElectrolysisRecipe(items.getStackInSlot(Slot.INPUT.index), world.getRecipeManager());
+                if (electrolysisRecipe != null) {
+                    result = electrolysisRecipe.getOutput();
+                    progress = new IntegerContainer(0, electrolysisRecipe.getTime());
+                    isWorking = true;
+                    markDirty2();
+                }
+            }
         }
     }
 
@@ -146,6 +203,10 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
 
         Slot(int index) {
             this.index = index;
+        }
+
+        public int getIndex() {
+            return index;
         }
     }
 }
