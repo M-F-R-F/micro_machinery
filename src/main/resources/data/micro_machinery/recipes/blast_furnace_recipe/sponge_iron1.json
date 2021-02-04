@@ -2,7 +2,7 @@
   "type": "micro_machinery:blast_furnace_recipe",
   "input_stack": {
     "input": {
-      "tag": "micro_machinery:crushed_iron"
+      "item": "micro_machinery:crushed_iron"
     },
     "count": 1
   },
