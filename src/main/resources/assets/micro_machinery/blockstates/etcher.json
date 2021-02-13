@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "micro_machinery:block/etcher"
+    },
+    "facing=south": {
+      "model": "micro_machinery:block/etcher",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "micro_machinery:block/etcher",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "micro_machinery:block/etcher",
+      "y": 270
+    }
+  }
+}

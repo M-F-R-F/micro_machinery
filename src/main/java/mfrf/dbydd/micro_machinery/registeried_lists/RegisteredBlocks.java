@@ -161,6 +161,7 @@ public class RegisteredBlocks {
     public static final Block BELLOW_RIGHT = new MMBlockBase("bellow_right", true);
     public static final Block BELLOW_LEFT = new MMBlockBase("bellow_left", true);
     public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
+    public static final Block ETCHER_1 = new MMBlockBase("etcher_1", true);
 
     /**
      * this is machine with multi_block
