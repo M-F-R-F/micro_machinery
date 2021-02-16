@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 
 public class EtcherRecipe implements IRecipe<RecipeWrapper> {
     private final int fePerTick;
-    private final int feNeed;
+    private final int time;
     private final Ingredient input;
     private final ItemStack output;
     private final int countInput;
@@ -27,7 +27,7 @@ public class EtcherRecipe implements IRecipe<RecipeWrapper> {
 
     public EtcherRecipe(int fePerTick, int feNeed, Ingredient input, ItemStack output, int countInput, ResourceLocation id) {
         this.fePerTick = fePerTick;
-        this.feNeed = feNeed;
+        this.time = feNeed;
         this.input = input;
         this.output = output;
         this.countInput = countInput;
@@ -38,8 +38,8 @@ public class EtcherRecipe implements IRecipe<RecipeWrapper> {
         return fePerTick;
     }
 
-    public int getFeNeed() {
-        return feNeed;
+    public int getTime() {
+        return time;
     }
 
     public Ingredient getInput() {
@@ -102,7 +102,7 @@ public class EtcherRecipe implements IRecipe<RecipeWrapper> {
             int countInput = JSONUtils.getInt(input, "count");
 
             int fePerTick = JSONUtils.getInt(json, "fe_per_tick");
-            int feNeed = JSONUtils.getInt(json, "fe_need");
+            int feNeed = JSONUtils.getInt(json, "time");
             return new EtcherRecipe(fePerTick, feNeed, inputIngredient, new ItemStack(itemOutput, countOutput), countInput, recipeId);
         }
 
@@ -121,7 +121,7 @@ public class EtcherRecipe implements IRecipe<RecipeWrapper> {
         @Override
         public void write(PacketBuffer buffer, EtcherRecipe recipe) {
             buffer.writeInt(recipe.fePerTick);
-            buffer.writeInt(recipe.feNeed);
+            buffer.writeInt(recipe.time);
             recipe.input.write(buffer);
             buffer.writeInt(recipe.countInput);
             buffer.writeItemStack(recipe.output);

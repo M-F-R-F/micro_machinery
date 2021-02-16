@@ -6,14 +6,17 @@ import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -31,12 +34,27 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
             return true;
         }
     };
-    private ItemStackHandler input = new ItemStackHandler(1);
-    private ItemStackHandler output = new ItemStackHandler(1);
     private ItemStack recipeInProgress = null;
     private IntegerContainer progress = new IntegerContainer();
+    private IntegerContainer plugProgress = new IntegerContainer(0, 100);
     private int feNeedPerTick = 0;
-    private boolean working = false;
+    private State state = State.WAITING;
+    private ItemStackHandler slot = new ItemStackHandler(1) {
+        @Override
+        public int getSlotLimit(int slot) {
+            return 1;
+        }
+
+        @Nonnull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            if (state != State.WAITING) {
+                return ItemStack.EMPTY;
+            } else {
+                return super.extractItem(slot, amount, simulate);
+            }
+        }
+    };
 
     public TileEtcher() {
         super(Registered_Tileentitie_Types.TILE_ETCHER.get());
@@ -45,12 +63,12 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
+        state = State.valueOf(compound.getString("state"));
         feContainer.deserializeNBT(compound.getCompound("energy"));
-        input.deserializeNBT(compound.getCompound("input"));
-        input.deserializeNBT(compound.getCompound("output"));
+        slot.deserializeNBT(compound.getCompound("slot"));
         progress.deserializeNBT(compound.getCompound("progress"));
-        working = compound.getBoolean("working");
         feNeedPerTick = compound.getInt("fe_need_per_tick");
+        plugProgress.deserializeNBT(compound.getCompound("eject_progress"));
         if (compound.contains("recipe")) {
             recipeInProgress = ItemStack.read(compound.getCompound("recipe"));
         }
@@ -58,12 +76,12 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
+        compound.putString("state", state.name());
         compound.put("energy", feContainer.serializeNBT());
-        compound.put("input", input.serializeNBT());
-        compound.put("output", input.serializeNBT());
+        compound.put("output", slot.serializeNBT());
         compound.put("progress", progress.serializeNBT());
-        compound.putBoolean("working", working);
         compound.putInt("fe_need_per_tick", feNeedPerTick);
+        compound.put("eject_progress", plugProgress.serializeNBT());
         if (recipeInProgress != null) {
             compound.put("recipe", recipeInProgress.write(new CompoundNBT()));
         }
@@ -74,7 +92,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return LazyOptional.of(() -> output).cast();
+            return LazyOptional.of(() -> slot).cast();
         }
 
         return LazyOptional.empty();
@@ -93,39 +111,79 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
     public void tick() {
         if (!world.isRemote()) {
 
-            if (working) {
+            if (state == State.WORKING) {
                 if (progress.atMaxValue()) {
-                    if (output.insertItem(0, recipeInProgress, true).isEmpty()) {
-                        output.insertItem(0, recipeInProgress, false);
-                        recipeInProgress = null;
-                        working = false;
+                    EtcherRecipe currentRecipe = getCurrentRecipe();
+                    if (currentRecipe != null) {
+                        slot.setStackInSlot(0, currentRecipe.getOutput());
                         feNeedPerTick = 0;
-                        progress = new IntegerContainer();
-                        markDirty();
+                        progress.resetValue();
+                        state = State.EJECTING;
+                        plugProgress.self_add();
+                    } else {
+                        state = State.FINISHED;
                     }
+                    markDirty2();
                 } else {
                     if (feContainer.getCurrent() >= feNeedPerTick) {
-                        progress.add(feContainer.minus(feNeedPerTick, false), false);
-                        markDirty();
+                        feContainer.extractEnergy(feNeedPerTick, false);
+                        progress.self_add();
+                        markDirty2();
                     }
                 }
-            } else {
+
+            } else if (state == State.WAITING) {
                 EtcherRecipe currentRecipe = getCurrentRecipe();
                 if (currentRecipe != null) {
-                    this.input.extractItem(0, currentRecipe.getCountInput(), false);
-                    this.progress = new IntegerContainer(0, currentRecipe.getFeNeed());
-                    this.feNeedPerTick = currentRecipe.getFePerTick();
-                    this.working = true;
-                    this.recipeInProgress = currentRecipe.getOutput();
-                    markDirty();
+                    progress.setMax(currentRecipe.getTime());
+                    feNeedPerTick = currentRecipe.getFePerTick();
+                    state = State.WORKING;
+                    markDirty2();
                 }
-
+            } else {
+                plugProgress.self_add();
             }
 
+            if (plugProgress.atMaxValue()) {
+                if (state == State.PLUGGING) {
+                    state = State.WORKING;
+                } else {
+                    state = State.FINISHED;
+                }
+                plugProgress.resetValue();
+            }
         }
     }
 
     private EtcherRecipe getCurrentRecipe() {
-        return RecipeHelper.getEtcherRecipe(input.getStackInSlot(0), world.getRecipeManager());
+        return RecipeHelper.getEtcherRecipe(slot.getStackInSlot(0), world.getRecipeManager());
+    }
+
+    public void onBlockActivated(PlayerEntity player, Hand handIn) {
+        ItemStack heldItem = player.getHeldItem(handIn);
+        if (heldItem.isEmpty()) {
+            if (this.state == State.FINISHED) {
+                ItemHandlerHelper.giveItemToPlayer(player, slot.getStackInSlot(0));
+                slot.setStackInSlot(0, ItemStack.EMPTY);
+                this.state = State.WAITING;
+                markDirty2();
+            }
+        } else {
+            if (this.state == State.WAITING) {
+                slot.insertItem(0, new ItemStack(heldItem.getItem()), false);
+                heldItem.shrink(1);
+                if (getCurrentRecipe() != null) {
+                    this.state = State.PLUGGING;
+                } else {
+                    this.state = State.FINISHED;
+                }
+                plugProgress.self_add();
+                markDirty2();
+            }
+        }
+    }
+
+    private enum State {
+        WAITING, PLUGGING, EJECTING, WORKING, FINISHED;
     }
 }

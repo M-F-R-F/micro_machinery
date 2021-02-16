@@ -1,10 +1,7 @@
 package mfrf.dbydd.micro_machinery.event;
 
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
-import mfrf.dbydd.micro_machinery.special_renders.ter.AnvilTer;
-import mfrf.dbydd.micro_machinery.special_renders.ter.BlastFurnaceTer;
-import mfrf.dbydd.micro_machinery.special_renders.ter.HandGeneratorTer;
-import mfrf.dbydd.micro_machinery.special_renders.ter.TestBlockTer;
+import mfrf.dbydd.micro_machinery.special_renders.ter.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +16,7 @@ public class TerBindEventHandler {
         ClientRegistry.bindTileEntityRenderer(Registered_Tileentitie_Types.TILE_BLAST_FURNACE.get(), BlastFurnaceTer::new);
         ClientRegistry.bindTileEntityRenderer(Registered_Tileentitie_Types.TILE_HAND_GENERATOR.get(), HandGeneratorTer::new);
         ClientRegistry.bindTileEntityRenderer(Registered_Tileentitie_Types.TILE_ANVIL_TYPE.get(), AnvilTer::new);
+        ClientRegistry.bindTileEntityRenderer(Registered_Tileentitie_Types.TILE_ETCHER.get(), EtcherTer::new);
     }
 
 }
