@@ -2,14 +2,14 @@
   "type": "micro_machinery:etcher_recipe",
   "output": {
     "item": "minecraft:bone_meal",
-    "count": "3"
+    "count": 3
   },
   "input": {
     "ingredient": {
-      "item" : "minecraft:bone"
+      "item": "minecraft:bone"
     },
-    "count": "1"
+    "count": 1
   },
-  "fe_per_tick": "1",
-  "time": "40"
+  "fe_per_tick": 1,
+  "time": 40
 }

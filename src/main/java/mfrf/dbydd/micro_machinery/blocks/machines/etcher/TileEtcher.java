@@ -1,5 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.etcher;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
@@ -38,6 +39,15 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
     private IntegerContainer progress = new IntegerContainer();
     private IntegerContainer plugProgress = new IntegerContainer(0, 100);
     private int feNeedPerTick = 0;
+
+    public IntegerContainer getPlugProgress() {
+        return plugProgress;
+    }
+
+    public State getState() {
+        return state;
+    }
+
     private State state = State.WAITING;
     private ItemStackHandler slot = new ItemStackHandler(1) {
         @Override
@@ -45,15 +55,15 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
             return 1;
         }
 
-        @Nonnull
-        @Override
-        public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            if (state != State.WAITING) {
-                return ItemStack.EMPTY;
-            } else {
-                return super.extractItem(slot, amount, simulate);
-            }
-        }
+//        @Nonnull
+//        @Override
+//        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+//            if (state != State.WAITING) {
+//                return ItemStack.EMPTY;
+//            } else {
+//                return super.extractItem(slot, amount, simulate);
+//            }
+//        }
     };
 
     public TileEtcher() {
@@ -107,6 +117,10 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
         return super.getCapability(cap, side);
     }
 
+    public ItemStack getCurrentItemStackInSlot() {
+        return slot.getStackInSlot(0);
+    }
+
     @Override
     public void tick() {
         if (!world.isRemote()) {
@@ -132,7 +146,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
                     }
                 }
 
-            } else if (state == State.WAITING) {
+            } else if (state == State.SEARCHING) {
                 EtcherRecipe currentRecipe = getCurrentRecipe();
                 if (currentRecipe != null) {
                     progress.setMax(currentRecipe.getTime());
@@ -142,15 +156,21 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
                 }
             } else {
                 plugProgress.self_add();
+                markDirty2();
             }
 
             if (plugProgress.atMaxValue()) {
                 if (state == State.PLUGGING) {
-                    state = State.WORKING;
+                    if (recipeInProgress != null)
+                        state = State.WORKING;
+                    else {
+                        state = State.SEARCHING;
+                    }
                 } else {
                     state = State.FINISHED;
                 }
                 plugProgress.resetValue();
+                markDirty2();
             }
         }
     }
@@ -183,7 +203,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
         }
     }
 
-    private enum State {
-        WAITING, PLUGGING, EJECTING, WORKING, FINISHED;
+    public enum State {
+        WAITING, PLUGGING, EJECTING, SEARCHING, WORKING, FINISHED;
     }
 }
