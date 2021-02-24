@@ -55,15 +55,15 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
             return 1;
         }
 
-//        @Nonnull
-//        @Override
-//        public ItemStack extractItem(int slot, int amount, boolean simulate) {
-//            if (state != State.WAITING) {
-//                return ItemStack.EMPTY;
-//            } else {
-//                return super.extractItem(slot, amount, simulate);
-//            }
-//        }
+        @Nonnull
+        @Override
+        public ItemStack extractItem(int slot, int amount, boolean simulate) {
+            if (state == State.FINISHED || state == State.WAITING) {
+                return super.extractItem(slot, amount, simulate);
+            } else {
+                return ItemStack.EMPTY;
+            }
+        }
     };
 
     public TileEtcher() {

@@ -20,6 +20,8 @@ import java.util.List;
 /**
  * Require org.apache.commons.math3.
  * Of course you can use other libs,just need a bit of change.
+ * note : these matrix is a shit mountain,coordinates of minecraft is too complex.....
+ * don't touch these matrix that from line 30 to line 92......
  */
 public class MathUtil {
     /**
@@ -206,18 +208,18 @@ public class MathUtil {
 
                     BlockPos blockPos = beginPos.add(xOffset, yOffset, zOffset);
 
-                        Block block = world.getBlockState(blockPos).getBlock();
+                    Block block = world.getBlockState(blockPos).getBlock();
 
-                        if (block != Blocks.AIR) {
-                            BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
-                            blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
-                        }
+                    if (block != Blocks.AIR) {
+                        BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
+                        blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
+                    }
 
 
 //                    if (MultiBlockStructureMaps.MultiBlockPosBox.VANILLA_ACCESSORIES.contains(block)) {
 //                        accessories.add(offsetPos);
 //                    }
-                        //todo accessories
+                    //todo accessories
                 }
             }
         }
@@ -234,5 +236,4 @@ public class MathUtil {
     public static BlockPos getPosFromJsonObject(JsonObject jsonObject) {
         return new BlockPos(jsonObject.get("xOffset").getAsInt(), jsonObject.get("yOffset").getAsInt(), jsonObject.get("zOffset").getAsInt());
     }
-
 }
