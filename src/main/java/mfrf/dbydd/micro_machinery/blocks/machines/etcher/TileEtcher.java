@@ -7,6 +7,7 @@ import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import mfrf.dbydd.micro_machinery.utils.ItemContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -58,8 +59,11 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
         @Nonnull
         @Override
         public ItemStack extractItem(int slot, int amount, boolean simulate) {
-            if (state == State.FINISHED || state == State.WAITING) {
-                return super.extractItem(slot, amount, simulate);
+            if (state == State.FINISHED) {
+                ItemStack itemStack = super.extractItem(slot, amount, simulate);
+                state = State.WAITING;
+                markDirty2();
+                return itemStack;
             } else {
                 return ItemStack.EMPTY;
             }
@@ -88,7 +92,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
     public CompoundNBT write(CompoundNBT compound) {
         compound.putString("state", state.name());
         compound.put("energy", feContainer.serializeNBT());
-        compound.put("output", slot.serializeNBT());
+        compound.put("slot", slot.serializeNBT());
         compound.put("progress", progress.serializeNBT());
         compound.putInt("fe_need_per_tick", feNeedPerTick);
         compound.put("eject_progress", plugProgress.serializeNBT());
@@ -114,64 +118,75 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
         if (side == getBlockState().get(BlockEtcher.FACING).getOpposite() && cap == CapabilityEnergy.ENERGY) {
             return LazyOptional.of(() -> feContainer).cast();
         }
+        if (side == getBlockState().get(BlockEtcher.FACING).rotateY() && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return LazyOptional.of(() -> new ItemContainer(slot, false, true)).cast();
+        }
+        if (side == getBlockState().get(BlockEtcher.FACING).rotateYCCW() && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return LazyOptional.of(() -> new ItemContainer(slot, true, false)).cast();
+        }
         return super.getCapability(cap, side);
     }
 
-    public ItemStack getCurrentItemStackInSlot() {
-        return slot.getStackInSlot(0);
+    public ItemStackHandler getSlot() {
+        return slot;
     }
 
     @Override
     public void tick() {
         if (!world.isRemote()) {
 
-            if (state == State.WORKING) {
-                if (progress.atMaxValue()) {
-                    EtcherRecipe currentRecipe = getCurrentRecipe();
-                    if (currentRecipe != null) {
-                        slot.setStackInSlot(0, currentRecipe.getOutput());
-                        feNeedPerTick = 0;
-                        progress.resetValue();
-                        state = State.EJECTING;
-                        plugProgress.self_add();
+            switch (state) {
+
+
+                case PLUGGING:
+                case EJECTING:
+                    if (plugProgress.atMaxValue()) {
+                        this.state = state == State.PLUGGING ? State.SEARCHING : State.FINISHED;
+                        plugProgress.resetValue();
                     } else {
-                        state = State.FINISHED;
+                        plugProgress.self_add();
                     }
                     markDirty2();
-                } else {
-                    if (feContainer.getCurrent() >= feNeedPerTick) {
-                        feContainer.extractEnergy(feNeedPerTick, false);
-                        progress.self_add();
-                        markDirty2();
-                    }
-                }
+                    break;
 
-            } else if (state == State.SEARCHING) {
-                EtcherRecipe currentRecipe = getCurrentRecipe();
-                if (currentRecipe != null) {
-                    progress.setMax(currentRecipe.getTime());
-                    feNeedPerTick = currentRecipe.getFePerTick();
-                    state = State.WORKING;
-                    markDirty2();
-                }
-            } else {
-                plugProgress.self_add();
-                markDirty2();
-            }
 
-            if (plugProgress.atMaxValue()) {
-                if (state == State.PLUGGING) {
-                    if (recipeInProgress != null)
+                case SEARCHING: {
+                    EtcherRecipe currentRecipe = getCurrentRecipe();
+
+                    if (currentRecipe != null) {
                         state = State.WORKING;
-                    else {
-                        state = State.SEARCHING;
+                        progress.setMax(currentRecipe.getTime());
+                        feNeedPerTick = currentRecipe.getFePerTick();
+                        recipeInProgress = currentRecipe.getRecipeOutput();
+                    } else {
+                        state = State.EJECTING;
                     }
-                } else {
-                    state = State.FINISHED;
+                    markDirty2();
+                    break;
                 }
-                plugProgress.resetValue();
-                markDirty2();
+
+                case WORKING: {
+
+                    if (progress.atMaxValue()) {
+
+                        slot.setStackInSlot(0, recipeInProgress);
+                        state = State.EJECTING;
+                        markDirty2();
+
+                    } else {
+
+                        if (feContainer.getCurrent() >= feNeedPerTick) {
+                            feContainer.extractEnergy(feNeedPerTick, false);
+                            progress.self_add();
+                            markDirty2();
+                        }
+
+                    }
+                    break;
+
+                }
             }
+
         }
     }
 
@@ -192,12 +207,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
             if (this.state == State.WAITING) {
                 slot.insertItem(0, new ItemStack(heldItem.getItem()), false);
                 heldItem.shrink(1);
-                if (getCurrentRecipe() != null) {
-                    this.state = State.PLUGGING;
-                } else {
-                    this.state = State.FINISHED;
-                }
-                plugProgress.self_add();
+                this.state = State.PLUGGING;
                 markDirty2();
             }
         }
