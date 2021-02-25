@@ -119,10 +119,10 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
             return LazyOptional.of(() -> feContainer).cast();
         }
         if (side == getBlockState().get(BlockEtcher.FACING).rotateY() && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return LazyOptional.of(() -> new ItemContainer(slot, false, true)).cast();
+            return LazyOptional.of(() -> new ItemContainer(slot, true, false)).cast();
         }
         if (side == getBlockState().get(BlockEtcher.FACING).rotateYCCW() && cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return LazyOptional.of(() -> new ItemContainer(slot, true, false)).cast();
+            return LazyOptional.of(() -> new ItemContainer(slot, false, true)).cast();
         }
         return super.getCapability(cap, side);
     }
