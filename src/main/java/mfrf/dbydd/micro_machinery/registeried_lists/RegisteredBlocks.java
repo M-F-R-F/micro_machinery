@@ -152,8 +152,6 @@ public class RegisteredBlocks {
     public static final Block FLUID_INDICATOR = new MMBlockBase("fluid_indicator", true);
     public static final Block REV_INDICATOR = new MMBlockBase("rev_indicator", true);
 
-    public static final Block PUSHROD = new MMBlockBase("pushrod", true);
-
     public static final Block LIGHT_GREEN = new MMBlockBase("light_green", true);
     public static final Block LIGHT_RED = new MMBlockBase("light_red", true);
     public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
@@ -162,6 +160,7 @@ public class RegisteredBlocks {
     public static final Block BELLOW_LEFT = new MMBlockBase("bellow_left", true);
     public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
     public static final Block ETCHER_1 = new MMBlockBase("etcher_1", true);
+    public static final Block PUMP_1 = new MMBlockBase("pump_1", true);
 
     /**
      * this is machine with multi_block

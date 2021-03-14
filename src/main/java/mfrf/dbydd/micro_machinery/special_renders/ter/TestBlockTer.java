@@ -21,6 +21,9 @@ public class TestBlockTer extends TileEntityRenderer<TerTestTile> {
         matrixStackIn.push();
         matrixStackIn.translate(1, 0, 0);
         blockRenderer.renderBlock(RegisteredBlocks.LIGHT_FLICKER.getDefaultState(), matrixStackIn,bufferIn , 0x00F0_00F0, combinedOverlayIn,EmptyModelData.INSTANCE);
+        blockRenderer.renderBlock(RegisteredBlocks.LIGHT_GREEN.getDefaultState(), matrixStackIn,bufferIn , 0x00F0_00F0, combinedOverlayIn,EmptyModelData.INSTANCE);
+        blockRenderer.renderBlock(RegisteredBlocks.LIGHT_RED.getDefaultState(), matrixStackIn,bufferIn , 0x00F0_00F0, combinedOverlayIn,EmptyModelData.INSTANCE);
+        blockRenderer.renderBlock(RegisteredBlocks.PUMP_1.getDefaultState(), matrixStackIn,bufferIn , 0x00F0_00F0, combinedOverlayIn,EmptyModelData.INSTANCE);
         matrixStackIn.pop();
     }
 }
