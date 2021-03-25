@@ -146,7 +146,6 @@ public class RegisteredBlocks {
 
     //indicator
     public static final Block INDICATOR = new MMBlockBase("indicator", true);
-    public static final Block ENERGY_INDICATOR = new MMBlockBase("energy_indicator", true);
     public static final Block WATER_INDICATOR = new MMBlockBase("water_indicator", true);
     public static final Block TEMPERATURE_INDICATOR = new MMBlockBase("temperature_indicator", true);
     public static final Block FLUID_INDICATOR = new MMBlockBase("fluid_indicator", true);
@@ -161,6 +160,7 @@ public class RegisteredBlocks {
     public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
     public static final Block ETCHER_1 = new MMBlockBase("etcher_1", true);
     public static final Block PUMP_1 = new MMBlockBase("pump_1", true);
+    public static final Block FORGING_PRESS_1 = new MMBlockBase("pump_1", true);
 
     /**
      * this is machine with multi_block

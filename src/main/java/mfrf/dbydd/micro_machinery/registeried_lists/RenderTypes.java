@@ -15,7 +15,6 @@ public class RenderTypes {
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.KLIN, RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.STALINITE, RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.STEEL_SCAFFOLDING, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.ENERGY_INDICATOR,RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.WATER_INDICATOR,RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.FLUID_INDICATOR,RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(RegisteredBlocks.TEMPERATURE_INDICATOR,RenderType.getTranslucent());
