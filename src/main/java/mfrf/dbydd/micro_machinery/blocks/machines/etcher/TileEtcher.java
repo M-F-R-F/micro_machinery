@@ -1,10 +1,9 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.etcher;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import mfrf.dbydd.micro_machinery.utils.ItemContainer;
@@ -71,7 +70,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
     };
 
     public TileEtcher() {
-        super(Registered_Tileentitie_Types.TILE_ETCHER.get());
+        super(RegisteredTileEntityTypes.TILE_ETCHER.get());
     }
 
     @Override

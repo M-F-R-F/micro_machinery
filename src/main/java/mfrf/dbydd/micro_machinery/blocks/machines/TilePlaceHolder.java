@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -24,7 +24,7 @@ public class TilePlaceHolder extends MMTileBase {
     private CompoundNBT packedNBT = null;
 
     public TilePlaceHolder() {
-        super(Registered_Tileentitie_Types.TILE_PLACEHOLDER.get());
+        super(RegisteredTileEntityTypes.TILE_PLACEHOLDER.get());
     }
 
     public TilePlaceHolder(TileEntityType<?> tileEntityTypeIn) {

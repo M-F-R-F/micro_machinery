@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.gui.lathe;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_ContainerTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -17,7 +17,7 @@ public class LatheContainer extends ContainerBase {
     private final TileLathe lathe;
 
     public LatheContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
-        super(Registered_ContainerTypes.LATHE_CONTAINER.get(), id);
+        super(RegisteredContainerTypes.LATHE_CONTAINER.get(), id);
         this.lathe = (TileLathe) world.getTileEntity(pos);
         ItemStackHandler itemHander = lathe.getItemHander();
         this.addSlot(new SlotItemHandler(itemHander, 0, 28, 54));

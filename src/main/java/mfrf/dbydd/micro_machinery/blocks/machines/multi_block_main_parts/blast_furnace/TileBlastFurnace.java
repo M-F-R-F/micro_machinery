@@ -5,7 +5,7 @@ import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps.MultiBlockPosBox;
@@ -29,7 +29,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     private ItemStack output = ItemStack.EMPTY;
 
     public TileBlastFurnace() {
-        super(Registered_Tileentitie_Types.TILE_BLAST_FURNACE.get());
+        super(RegisteredTileEntityTypes.TILE_BLAST_FURNACE.get());
     }
 
     @Override

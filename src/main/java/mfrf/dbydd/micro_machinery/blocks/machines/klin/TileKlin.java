@@ -6,7 +6,7 @@ import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -53,7 +53,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
 
     public TileKlin() {
-        super(Registered_Tileentitie_Types.TILE_KLIN_TYPE.get());
+        super(RegisteredTileEntityTypes.TILE_KLIN_TYPE.get());
     }
 
     public boolean isBurning() {

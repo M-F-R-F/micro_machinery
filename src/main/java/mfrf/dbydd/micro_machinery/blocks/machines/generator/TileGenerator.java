@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.blocks.machines.generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorContainer;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerEntity;
@@ -56,7 +56,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
 //    private GeneratorEnergyAndFuelIntArray array = new GeneratorEnergyAndFuelIntArray();
 
     public TileGenerator() {
-        super(Registered_Tileentitie_Types.TILE_GENERATOR_TYPE.get());
+        super(RegisteredTileEntityTypes.TILE_GENERATOR_TYPE.get());
     }
 
     public boolean isBurning() {

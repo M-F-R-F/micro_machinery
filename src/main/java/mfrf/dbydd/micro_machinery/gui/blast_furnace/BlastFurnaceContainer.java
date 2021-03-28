@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.gui.blast_furnace;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.TileBlastFurnace;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_ContainerTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public class BlastFurnaceContainer extends ContainerBase {
     private final TileBlastFurnace furnace;
     public BlastFurnaceContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
-        super(Registered_ContainerTypes.BLAST_FURNACE_CONTAINER.get(), id);
+        super(RegisteredContainerTypes.BLAST_FURNACE_CONTAINER.get(), id);
         this.furnace = (TileBlastFurnace) world.getTileEntity(pos);
         ItemStackHandler itemHandler = furnace.getItemHandler();
         this.addSlot(new SlotItemHandler(itemHandler,TileBlastFurnace.slot.FUEL.getNum(),56,53));

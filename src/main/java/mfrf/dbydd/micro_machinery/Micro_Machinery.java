@@ -52,8 +52,8 @@ public class Micro_Machinery {
         BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FLUID_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         FEATURE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
-        Registered_Tileentitie_Types.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
-        Registered_ContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        RegisteredTileEntityTypes.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        RegisteredContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         RegisteredRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         logger.info(MOD_ID + " Loaded.");
         logger.info("Mixin Version: " + MixinBootstrap.VERSION);
