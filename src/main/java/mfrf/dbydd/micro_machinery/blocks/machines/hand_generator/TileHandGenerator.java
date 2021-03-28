@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.hand_generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,7 +34,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
     private IntegerContainer progress = new IntegerContainer(0, 20);
 
     public TileHandGenerator() {
-        super(Registered_Tileentitie_Types.TILE_HAND_GENERATOR.get());
+        super(RegisteredTileEntityTypes.TILE_HAND_GENERATOR.get());
     }
 
     public IntegerContainer getProgress() {

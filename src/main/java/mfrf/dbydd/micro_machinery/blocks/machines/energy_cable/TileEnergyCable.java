@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.blocks.machines.energy_cable;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumCableState;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -21,7 +21,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
     private int currentEnergy = 0;
 
     public TileEnergyCable() {
-        super(Registered_Tileentitie_Types.TILE_ENERGY_CABLE.get());
+        super(RegisteredTileEntityTypes.TILE_ENERGY_CABLE.get());
     }
 
     public int getCurrentEnergy() {

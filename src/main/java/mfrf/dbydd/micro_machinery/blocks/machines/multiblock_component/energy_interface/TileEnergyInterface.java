@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.energy_interface;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -20,7 +20,7 @@ public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStora
     public boolean canExtract;
 
     public TileEnergyInterface() {
-        super(Registered_Tileentitie_Types.TILE_ENERGY_INTERFACE.get());
+        super(RegisteredTileEntityTypes.TILE_ENERGY_INTERFACE.get());
     }
 
     @Override

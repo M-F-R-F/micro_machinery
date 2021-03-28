@@ -5,7 +5,7 @@ import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.items.MMHammerBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,11 +26,11 @@ public class TileAnvil extends MMTileBase {
     private ItemStackHandler itemStackHandler = new ItemStackHandler(1);
     private EnumAnvilType rank = null;
     public TileAnvil() {
-        super(Registered_Tileentitie_Types.TILE_ANVIL_TYPE.get());
+        super(RegisteredTileEntityTypes.TILE_ANVIL_TYPE.get());
     }
 
     public TileAnvil(EnumAnvilType rank) {
-        super(Registered_Tileentitie_Types.TILE_ANVIL_TYPE.get());
+        super(RegisteredTileEntityTypes.TILE_ANVIL_TYPE.get());
         this.rank = rank;
     }
 

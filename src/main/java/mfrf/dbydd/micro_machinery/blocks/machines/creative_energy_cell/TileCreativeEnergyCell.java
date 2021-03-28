@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -12,7 +12,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileCreativeEnergyCell extends MMTileBase implements ITickableTileEntity, IEnergyStorage {
     public TileCreativeEnergyCell() {
-        super(Registered_Tileentitie_Types.TILE_ENERGY_CELL.get());
+        super(RegisteredTileEntityTypes.TILE_ENERGY_CELL.get());
     }
 
     @Override

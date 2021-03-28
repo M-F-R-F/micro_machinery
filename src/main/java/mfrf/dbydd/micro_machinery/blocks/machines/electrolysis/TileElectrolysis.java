@@ -4,7 +4,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerEntity;
@@ -62,7 +62,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     private boolean isWorking = false;
 
     public TileElectrolysis() {
-        super(Registered_Tileentitie_Types.TILE_ELECTROLYSIS.get());
+        super(RegisteredTileEntityTypes.TILE_ELECTROLYSIS.get());
     }
 
     public FEContainer getEnergy() {

@@ -4,7 +4,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.lathe.LatheContainer;
 import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.Registered_Tileentitie_Types;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.ActionContainer;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
@@ -90,7 +90,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     };
 
     public TileLathe() {
-        super(Registered_Tileentitie_Types.TILE_LATHE.get());
+        super(RegisteredTileEntityTypes.TILE_LATHE.get());
     }
 
     public mfrf.dbydd.micro_machinery.utils.FEContainer getFEContainer() {

@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.recipes;
 
 
+import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
@@ -15,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -127,6 +129,12 @@ public class RecipeHelper {
 
     public static boolean testItemStackWithIngredient(ItemStack stack, Ingredient ingredient, int count) {
         return ingredient.test(stack) && stack.getCount() >= count;
+    }
+
+    public static ItemStack getItemStackFormJsonObject(JsonObject object) {
+        Item itemOutput = JSONUtils.getItem(object, "item");
+        int countOutput = JSONUtils.getInt(object, "count");
+        return new ItemStack(itemOutput, countOutput);
     }
 
 }
