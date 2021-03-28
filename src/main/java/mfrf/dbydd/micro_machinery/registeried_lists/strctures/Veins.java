@@ -1,5 +1,6 @@
 package mfrf.dbydd.micro_machinery.registeried_lists.strctures;
 
+import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.dbydd.micro_machinery.worldgen.Predicates;
 import mfrf.dbydd.micro_machinery.worldgen.VeinFeatureConfig;
@@ -31,27 +32,27 @@ public class Veins {
     public static final Map<Double, Block> NetherOreNolanite = new HashMap<>();
     public static final Map<Double, Block> EndOreTunstite = new HashMap<>();
 
-    public static final VeinGenerationsRegisterEventHandler copper = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.01, 0.2, 8, 3, 3, 3, 3, 62, OreCopper, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler tin = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.008, 0.2, 7, 2, 5, 3, 32, 80, OreTin, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler iron = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.0075, 0.2, 8, 4, 3, 3, 3, 80, OreIron, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler gold = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.004, 0.2, 6, 3, 3, 3, 3, 32, OreGold, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler coal = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.012, 0.2, 10, 5, 3, 3, 3, 120, OreCoal, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler ilmenite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.006, 0.2, 6, 3, 3, 3, 3, 32, OreIlmenite, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler silver = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.005, 0.2, 6, 3, 3, 3, 3, 48, OreSilver, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler pyrolusite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.004, 0.2, 6, 2, 4, 3, 16, 80, OrePyrolusite, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler chromite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.005, 0.2, 7, 3, 3, 3, 3, 62, OreChromite, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler bauxite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.007, 0.2, 6, 1, 4, 3, 32, 80, OreBauxite, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler nickel = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.0055, 0.2, 8, 3, 3, 3, 3, 62, OreNickel, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler nolanite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.005, 0.2, 6, 3, 3, 3, 3, 48, OreNolanite, Predicates.OVERWORLD));
-    public static final VeinGenerationsRegisterEventHandler ferromanganese = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.0005, 0.2, 6, 3, 3, 3, 3, 48, OreFerroManganese, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler copper = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_COPPER_VEIN.get(), 0.2, 8, 3, 3, 3, 3, 62, OreCopper, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler tin = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_TIN_VEIN.get(), 0.2, 7, 2, 5, 3, 32, 80, OreTin, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler iron = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_IRON_VEIN.get(), 0.2, 8, 4, 3, 3, 3, 80, OreIron, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler gold = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_GOLD_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 32, OreGold, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler coal = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_COAL_VEIN.get(), 0.2, 10, 5, 3, 3, 3, 120, OreCoal, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler ilmenite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_ILMENITE_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 32, OreIlmenite, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler silver = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_SILVER_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 48, OreSilver, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler pyrolusite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_PYROLUSITE_VEIN.get(), 0.2, 6, 2, 4, 3, 16, 80, OrePyrolusite, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler chromite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_CHROMITE_VEIN.get(), 0.2, 7, 3, 3, 3, 3, 62, OreChromite, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler bauxite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_BAUXITE_VEIN.get(), 0.2, 6, 1, 4, 3, 32, 80, OreBauxite, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler nickel = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_NICKEL_VEIN.get(), 0.2, 8, 3, 3, 3, 3, 62, OreNickel, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler nolanite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_NOLANITE_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 48, OreNolanite, Predicates.OVERWORLD));
+    public static final VeinGenerationsRegisterEventHandler ferromanganese = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_FERROMANGANESE_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 48, OreFerroManganese, Predicates.OVERWORLD));
 
-    public static final VeinGenerationsRegisterEventHandler netherpyrolusite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.05, 0.2, 6, 3, 3, 3, 60, 120, NetherOrePyrolusite, Predicates.NETHER));
-    public static final VeinGenerationsRegisterEventHandler nethergraphite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.05, 0.2, 6, 3, 3, 3, 3, 48, NetherOreGraphite, Predicates.NETHER));
-    public static final VeinGenerationsRegisterEventHandler netherbauxite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.05, 0.2, 6, 3, 3, 3, 48, 120, NetherOreBauxite, Predicates.NETHER));
-    public static final VeinGenerationsRegisterEventHandler netherferromanganese = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.05, 0.2, 6, 3, 3, 3, 3, 120, NetherOreFerroManganese, Predicates.NETHER));
-    public static final VeinGenerationsRegisterEventHandler nethernolanite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.05, 0.2, 6, 3, 3, 3, 3, 120, NetherOreNolanite, Predicates.NETHER));
+    public static final VeinGenerationsRegisterEventHandler netherpyrolusite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_NETHERPYROLUSITE_VEIN.get(), 0.2, 6, 3, 3, 3, 60, 120, NetherOrePyrolusite, Predicates.NETHER));
+    public static final VeinGenerationsRegisterEventHandler nethergraphite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_NETHERGRAPHITE_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 48, NetherOreGraphite, Predicates.NETHER));
+    public static final VeinGenerationsRegisterEventHandler netherbauxite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_NETHERBAUXITE_VEIN.get(), 0.2, 6, 3, 3, 3, 48, 120, NetherOreBauxite, Predicates.NETHER));
+    public static final VeinGenerationsRegisterEventHandler netherferromanganese = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_NETHERFERROMANGANESE_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 120, NetherOreFerroManganese, Predicates.NETHER));
+    public static final VeinGenerationsRegisterEventHandler nethernolanite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_NETHERNOLANITE_VEIN.get(), 0.2, 6, 3, 3, 3, 3, 120, NetherOreNolanite, Predicates.NETHER));
 
-    public static final VeinGenerationsRegisterEventHandler tunstite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(0.075, 0.04, 8, 5, 3, 3, 3, 62, EndOreTunstite, Predicates.END));
+    public static final VeinGenerationsRegisterEventHandler tunstite = new VeinGenerationsRegisterEventHandler(new VeinFeatureConfig(Config.GENERATE_CHANCE_OF_TUNSTITE_VEIN.get(), 0.04, 8, 5, 3, 3, 3, 62, EndOreTunstite, Predicates.END));
 
     static{
         OreCopper.put(0.8d, RegisteredBlocks.ORECOPPER);
