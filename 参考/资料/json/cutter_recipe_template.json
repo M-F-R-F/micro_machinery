@@ -1,0 +1,14 @@
+{
+  "type": "micro_machinery:cutter_recipe",
+  "input_stack": {
+    "input": {
+      "tag": "value"
+    },
+    "count": 123123
+  },
+  "output" : {
+    "item" : "value",
+    "count" : "value"
+  },
+  "tick_use" : 123123
+}
