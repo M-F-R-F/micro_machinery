@@ -1,17 +1,14 @@
 package mfrf.dbydd.micro_machinery.recipes.cutter;
 
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.blocks.machines.cutter.TileCutter;
 import mfrf.dbydd.micro_machinery.recipes.IngredientStack;
 import mfrf.dbydd.micro_machinery.recipes.RecipeBase;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -48,7 +45,7 @@ public class CutterRecipe extends RecipeBase {
 
     @Override
     public IRecipeType<?> getType() {
-        return RegisteredRecipeSerializers.Type.CUTTER_RECIPE;
+        return RegisteredRecipeSerializers.Type.CUTTER_RECIPE_TYPE;
     }
 
     public static class Searlize extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CutterRecipe> {

@@ -1,5 +1,6 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
+import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.enums.EnumCastType;
 import mfrf.dbydd.micro_machinery.enums.EnumToolTier;
@@ -231,9 +232,9 @@ public class RegisteredItems {
     public static final Item ORE_TUNSTITE_CONCENTRATE = new MMItemBase("ore_tunstite_concentrate");
     //casts
     public static final Item CAST_INGOT = new MMCastBase("cast_ingot", EnumCastType.INGOT);
-    public static final Item CAST_STICK = new MMCastBase("cast_stick",EnumCastType.STICK);
-    public static final Item CAST_GEAR_BLANK = new MMCastBase("cast_gear_blank",EnumCastType.GEAR_BLANK);
-    public static final Item CAST_SWORD = new MMCastBase("cast_sword",EnumCastType.SWORD);
+    public static final Item CAST_STICK = new MMCastBase("cast_stick", EnumCastType.STICK);
+    public static final Item CAST_GEAR_BLANK = new MMCastBase("cast_gear_blank", EnumCastType.GEAR_BLANK);
+    public static final Item CAST_SWORD = new MMCastBase("cast_sword", EnumCastType.SWORD);
     //other
     public static final Item MONOCRYSTALLINE_SILICON = new MMItemBase("monocrystalline_silicon");
     public static final Item WAFER = new MMItemBase("wafer");
@@ -246,8 +247,8 @@ public class RegisteredItems {
     public static final Item CLAY_BRICK = new MMItemBase("clay_brick");
     public static final Item FIRE_BRICK = new MMItemBase("fire_brick");
     public static final Item PLASMA_GENERATOR = new MMItemBase("plasma_generator");
-    public static final Item DSB = new MMItemBase("dsb");
-    public static final Item HSB = new MMItemBase("hsb");
+    public static final Item DSB = new SawBladeBase("dsb", Config.DSB_EFFICIENCY);
+    public static final Item HSB = new SawBladeBase("hsb", Config.HSB_EFFICIENCY);
     public static final Item BRICK_POWDER = new MMItemBase("brick_powder");
     public static final Item CLAY_MIXED_WITH_CLINKER = new MMItemBase("clay_mixed_with_clinker");
     public static final Item BRONZE_SWORD0 = new MMItemBase("bronze_sword0");

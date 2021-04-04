@@ -73,7 +73,7 @@ public class TileAnvil extends MMTileBase {
                 } else {
                     Item item = heldItem.getItem();
                     if (item instanceof MMHammerBase) {
-                        forgeTime.self_add();
+                        forgeTime.selfAdd();
                         heldItem.damageItem(1, player, playerEntity -> {});
                         worldIn.playSound(player, pos, rank.getSound(), SoundCategory.PLAYERS, 1.0F, 1.0F);
                         if (forgeTime.atMaxValue()) {

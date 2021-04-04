@@ -96,7 +96,7 @@ public class IntegerContainer {
         }
     }
 
-    public int self_add() {
+    public int selfAdd() {
         current++;
         if (current > max) {
             current = max;

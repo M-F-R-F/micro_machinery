@@ -4,17 +4,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
+import java.util.function.Predicate;
 
 public class ItemContainer implements IItemHandler {
 
     private final IItemHandler itemHandler;
     private final boolean canExtract;
     private final boolean canInsert;
+    private Predicate<ItemStack> predicate = itemStack -> true;
 
     public ItemContainer(IItemHandler handler, boolean canInsert, boolean canExtract) {
         this.itemHandler = handler;
         this.canInsert = canInsert;
         this.canExtract = canExtract;
+    }
+
+    public ItemContainer(IItemHandler handler, boolean canInsert, boolean canExtract, Predicate<ItemStack> predicate) {
+        this.itemHandler = handler;
+        this.canInsert = canInsert;
+        this.canExtract = canExtract;
+        this.predicate = predicate;
     }
 
     @Override
@@ -31,7 +40,7 @@ public class ItemContainer implements IItemHandler {
     @Nonnull
     @Override
     public ItemStack insertItem(int i, @Nonnull ItemStack itemStack, boolean b) {
-        if (canInsert) {
+        if (canInsert && predicate.test(itemStack)) {
             return itemHandler.insertItem(i, itemStack, b);
         }
         return itemStack;

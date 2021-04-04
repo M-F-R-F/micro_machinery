@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
+import mfrf.dbydd.micro_machinery.recipes.cutter.CutterRecipe;
 import mfrf.dbydd.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
 import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
@@ -99,6 +100,16 @@ public class RecipeHelper {
         for (ElectrolysisRecipe electrolysisRecipe : recipeListByType) {
             if (electrolysisRecipe.getInput().test(input)) {
                 return electrolysisRecipe;
+            }
+        }
+        return null;
+    }
+
+    public static CutterRecipe getCutterRecipe(ItemStack input, RecipeManager manager) {
+        List<CutterRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.CUTTER_RECIPE_TYPE);
+        for (CutterRecipe cutterRecipe : recipeListByType) {
+            if (cutterRecipe.getInput().test(input)) {
+                return cutterRecipe;
             }
         }
         return null;

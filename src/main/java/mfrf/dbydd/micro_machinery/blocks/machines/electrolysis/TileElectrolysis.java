@@ -122,7 +122,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
                 if (!progress.atMaxValue()) {
                     if (energy.getCurrent() >= 1024) {
                         energy.selfSubtract();
-                        progress.self_add();
+                        progress.selfAdd();
                         markDirty2();
                     }
                 } else {

@@ -36,6 +36,6 @@ public class RegisteredRecipeSerializers {
         public static final IRecipeType<EtcherRecipe> ETCHER_RECIPE_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "etcher_recipe");
         public static final IRecipeType<BlastFurnaceRecipe> BLAST_FURNACE_RECIPE_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "blast_furnace_recipe");
         public static final IRecipeType<ElectrolysisRecipe> ELECTROLYSIS_RECIPE_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "electrolysis_recipe");
-        public static final IRecipeType<CutterRecipe> CUTTER_RECIPE = IRecipeType.register(Micro_Machinery.NAME + "cutter_recipe");
+        public static final IRecipeType<CutterRecipe> CUTTER_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "cutter_recipe");
     }
 }

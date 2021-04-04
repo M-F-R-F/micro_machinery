@@ -27,7 +27,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
         }
 
         @Override
-        public int self_add() {
+        public int selfAdd() {
             return add(16, false);
         }
     };
@@ -67,10 +67,10 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
 
     public void OnActivated(Direction outPutDirection) {
         if (!world.isRemote() && progress.atMinValue()) {
-            container.self_add();
+            container.selfAdd();
             if (outPutDirection != null) {
                 container = pushEnergyToDirection(outPutDirection, container);
-                progress.self_add();
+                progress.selfAdd();
                 markDirty2();
             }
             markDirty2();
@@ -81,7 +81,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
     public void tick() {
         if (!world.isRemote()) {
             if (!progress.atMinValue()) {
-                progress.self_add();
+                progress.selfAdd();
                 markDirty2();
             }
 

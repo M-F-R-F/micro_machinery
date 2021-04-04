@@ -45,7 +45,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
         }
 
         @Override
-        public int self_add() {
+        public int selfAdd() {
             int add = add(16, false);
             markDirty2();
             return add;
@@ -116,10 +116,10 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     public void tick() {
         if (!world.isRemote()) {
             if (isBurning) {
-                burnTimeContainer.self_add();
+                burnTimeContainer.selfAdd();
                 tank.drain(1, IFluidHandler.FluidAction.EXECUTE);
                 if (!tank.isEmpty()) {
-                    energyContainer.self_add();
+                    energyContainer.selfAdd();
                 }
                 markDirty2();
             } else {

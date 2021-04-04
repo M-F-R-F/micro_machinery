@@ -79,11 +79,11 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
                     boolean b = extractFuel();
                     if (b) {
                         heatHandler.selfSubtract();
-                        progressContainer.self_add();
+                        progressContainer.selfAdd();
                         markDirty();
                     }
                 } else {
-                    progressContainer.self_add();
+                    progressContainer.selfAdd();
                     markDirty();
                 }
 

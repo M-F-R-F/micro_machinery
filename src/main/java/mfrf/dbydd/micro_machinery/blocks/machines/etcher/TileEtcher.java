@@ -143,7 +143,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
                         this.state = state == State.PLUGGING ? State.SEARCHING : State.FINISHED;
                         plugProgress.resetValue();
                     } else {
-                        plugProgress.self_add();
+                        plugProgress.selfAdd();
                     }
                     markDirty2();
                     break;
@@ -176,7 +176,7 @@ public class TileEtcher extends MMTileBase implements ITickableTileEntity {
 
                         if (feContainer.getCurrent() >= feNeedPerTick) {
                             feContainer.extractEnergy(feNeedPerTick, false);
-                            progress.self_add();
+                            progress.selfAdd();
                             markDirty2();
                         }
 
