@@ -1,0 +1,14 @@
+{
+  "type": "micro_machinery:electrolysis_recipe",
+  "input_stack": {
+    "input": {
+      "item": "micro_machinery:slag_vanadium"
+    },
+    "count": 1
+  },
+  "output": {
+    "item": "micro_machinery:refined_slag_vanadium",
+    "count": 1
+  },
+  "time": 160
+}

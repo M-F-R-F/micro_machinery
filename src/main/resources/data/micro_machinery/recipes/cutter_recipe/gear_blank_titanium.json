@@ -1,0 +1,14 @@
+{
+  "type": "micro_machinery:cutter_recipe",
+  "input_stack": {
+    "input": {
+      "tag": "forge:circle_casting/titanium"
+    },
+    "count": 1
+  },
+  "output" : {
+    "item" : "micro_machinery:gear_blank_titanium",
+    "count" : 2
+  },
+  "tick_use" : 280
+}

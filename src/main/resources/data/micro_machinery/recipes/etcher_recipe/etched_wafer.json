@@ -1,0 +1,15 @@
+{
+  "type": "micro_machinery:etcher_recipe",
+  "output": {
+    "item": "micro_machinery:etched_wafer",
+    "count": 1
+  },
+  "input": {
+    "ingredient": {
+      "item": "micro_machinery:wafer"
+    },
+    "count": 1
+  },
+  "fe_per_tick": 4000,
+  "time": 600
+}
