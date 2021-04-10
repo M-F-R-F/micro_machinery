@@ -39,6 +39,7 @@ public class RegisteredItems {
     public static final Item PROSPECTOR = new ToolProspector();
     //drill
     public static final Item LASER_DRILL = new MMItemBase("laser_drill");
+
     //ingot
     public static final Item INGOT_COPPER = new MMItemBase("ingot_copper");
     public static final Item INGOT_TIN = new MMItemBase("ingot_tin");
@@ -257,6 +258,12 @@ public class RegisteredItems {
     public static final Item SPONGE_IRON = new MMItemBase("sponge_iron");
     public static final Item HOT_IRON_INGOT = new MMItemBase("hot_iron_ingot");
     public static final Item HOT_STEEL_INGOT = new MMItemBase("hot_steel_ingot");
+    public static final Item FLYING_WHEEL_1 = new MMItemBase("flying_wheel_1");
+    public static final Item FLYING_WHEEL_2 = new MMItemBase("flying_wheel_2");
+    public static final Item FLYING_WHEEL_3 = new MMItemBase("flying_wheel_3");
+
+    //battery
+    public static final Item FLYWHEEL_BATTERY = new MMItemBase("flywheel_battery");
 
     public static final Item TEST_UTIL = new DebugTool();
 

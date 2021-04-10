@@ -1,6 +1,0 @@
-# Blender MTL File: 'forging_press.blend'
-# Material Count: 1
-
-newmtl m_0
-
-map_Kd micro_machinery:obj/forging_press

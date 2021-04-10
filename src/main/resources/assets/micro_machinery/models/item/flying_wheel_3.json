@@ -1,0 +1,30 @@
+{
+  "loader": "forge:obj",
+  "model": "micro_machinery:models/block/obj/flying_wheel_3.obj",
+  "flip-v": true,
+  "display": {
+		"thirdperson_righthand": {
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"thirdperson_lefthand": {
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"firstperson_righthand": {
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"firstperson_lefthand": {
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"ground": {
+			"scale": [0.2, 0.2, 0.2]
+		},
+		"gui": {
+			"rotation": [36, -35, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"fixed": {
+			"rotation": [90, 0, 0],
+			"scale": [0.2, 0.2, 0.2]
+		}
+	}
+}
