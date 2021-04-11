@@ -2,7 +2,7 @@
   "type": "micro_machinery:cutter_recipe",
   "input_stack": {
     "input": {
-      "tag": "forge:circle_casting/tungstensteel"
+      "tag": "forge:circle_castings/tungstensteel"
     },
     "count": 1
   },

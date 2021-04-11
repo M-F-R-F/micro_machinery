@@ -2,7 +2,7 @@
   "type": "micro_machinery:cutter_recipe",
   "input_stack": {
     "input": {
-      "tag": "forge:circle_casting/gold"
+      "tag": "forge:circle_castings/gold"
     },
     "count": 1
   },

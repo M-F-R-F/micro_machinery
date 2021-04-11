@@ -2,7 +2,7 @@
   "type": "micro_machinery:cutter_recipe",
   "input_stack": {
     "input": {
-      "tag": "forge:circle_casting/invar"
+      "tag": "forge:circle_castings/invar"
     },
     "count": 1
   },
