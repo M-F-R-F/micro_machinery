@@ -2,7 +2,7 @@
   "parent": "micro_machinery:block/cutter",
   "textures": {
     "0": "micro_machinery:blocks/cutter",
-	"1": "micro_machinery:blocks/cutter_on",
+	  "1": "micro_machinery:blocks/cutter_on",
     "particle": "micro_machinery:blocks/cutter"
   }
 }
