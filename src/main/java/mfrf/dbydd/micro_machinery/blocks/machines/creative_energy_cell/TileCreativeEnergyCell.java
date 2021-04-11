@@ -23,8 +23,9 @@ public class TileCreativeEnergyCell extends MMTileBase implements ITickableTileE
                 if (tileEntity != null) {
                     LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {
-                        if(iEnergyStorage.canReceive()){
-                            iEnergyStorage.receiveEnergy(Integer.MAX_VALUE, false);
+                        if (iEnergyStorage.canReceive()) {
+                            int i = iEnergyStorage.receiveEnergy(Integer.MAX_VALUE / 2, true);
+                            iEnergyStorage.receiveEnergy(i, false);
                         }
                     });
                 }
@@ -35,13 +36,13 @@ public class TileCreativeEnergyCell extends MMTileBase implements ITickableTileE
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap) {
-        if(cap == CapabilityEnergy.ENERGY)return LazyOptional.of(()->this).cast();
+        if (cap == CapabilityEnergy.ENERGY) return LazyOptional.of(() -> this).cast();
         return super.getCapability(cap);
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap,Direction side) {
-        if(cap == CapabilityEnergy.ENERGY)return LazyOptional.of(()->this).cast();
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+        if (cap == CapabilityEnergy.ENERGY) return LazyOptional.of(() -> this).cast();
         return super.getCapability(cap, side);
     }
 

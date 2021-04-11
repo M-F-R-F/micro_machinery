@@ -52,7 +52,7 @@ public class CutterRecipe extends RecipeBase {
 
         @Override
         public CutterRecipe read(ResourceLocation resourceLocation, JsonObject jsonObject) {
-            IngredientStack input = IngredientStack.ReadFromJson(jsonObject.getAsJsonObject("input"));
+            IngredientStack input = IngredientStack.ReadFromJson(jsonObject.getAsJsonObject("input_stack"));
             ItemStack output = RecipeHelper.getItemStackFormJsonObject(jsonObject.getAsJsonObject("output"));
             int tick_use = jsonObject.get("tick_use").getAsInt();
             return new CutterRecipe(resourceLocation, input, output, tick_use);

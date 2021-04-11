@@ -1,16 +1,23 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.cutter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.dbydd.micro_machinery.gui.cutter.CutterContainer;
 import mfrf.dbydd.micro_machinery.items.SawBladeBase;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.cutter.CutterRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -21,7 +28,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileCutter extends MMTileBase implements ITickableTileEntity, IItemHandler {
+public class TileCutter extends MMTileBase implements ITickableTileEntity, IItemHandler, INamedContainerProvider {
     private ItemStackHandler sawBladeHandler = new ItemStackHandler(1);
     private ItemStackHandler itemHandler = new ItemStackHandler(2);
     private IntegerContainer progress = new IntegerContainer();
@@ -45,6 +52,26 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
 
     public TileCutter() {
         super(RegisteredTileEntityTypes.TILE_CUTTER.get());
+    }
+
+    public ItemStackHandler getSawBladeHandler() {
+        return sawBladeHandler;
+    }
+
+    public ItemStackHandler getItemHandler() {
+        return itemHandler;
+    }
+
+    public IntegerContainer getProgress() {
+        return progress;
+    }
+
+    public FEContainer getEnergyContainer() {
+        return energyContainer;
+    }
+
+    public boolean working(){
+        return !getProgress().atMinValue() && result != ItemStack.EMPTY;
     }
 
     @Override
@@ -76,12 +103,13 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
         if (!world.isRemote()) {
             if (!result.isEmpty()) {
 
-                if (progress.atMaxValue()) {
+                if (progress.atMaxValue() && result == ItemStack.EMPTY) {
 
                     if (itemHandler.insertItem(1, result, true).isEmpty()) {
                         itemHandler.insertItem(1, result, false);
                         result = ItemStack.EMPTY;
                         progress.resetValue();
+                        world.setBlockState(pos, world.getBlockState(pos).with(BlockCutter.WORKING, false));
                     } else {
                         progress.selfSubtract();
                     }
@@ -101,6 +129,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
                 if (cutterRecipe != null) {
                     progress.setMax(((int) (cutterRecipe.getTickUse() * ((SawBladeBase) sawBladeHandler.getStackInSlot(0).getItem()).getCombinedSawEfficiency().get())));
                     result = cutterRecipe.getOutput();
+                    world.setBlockState(pos, world.getBlockState(pos).with(BlockCutter.WORKING, true));
                     markDirty();
                     //todo gui
                 }
@@ -156,5 +185,16 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
     @Override
     public boolean isItemValid(int i, @Nonnull ItemStack itemStack) {
         return itemHandler.isItemValid(i, itemStack);
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return new TranslationTextComponent("cutter_gui");
+    }
+
+    @Nullable
+    @Override
+    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+        return new CutterContainer(i, playerInventory, this.pos, this.world);
     }
 }
