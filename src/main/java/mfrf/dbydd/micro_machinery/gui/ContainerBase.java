@@ -5,6 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -29,4 +30,8 @@ public abstract class ContainerBase extends Container {
         }
     }
 
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity p_82846_1_, int p_82846_2_) {
+     return ItemStack.EMPTY;
+    }
 }

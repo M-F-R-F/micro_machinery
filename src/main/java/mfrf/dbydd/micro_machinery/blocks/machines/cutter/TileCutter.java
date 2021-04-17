@@ -48,6 +48,18 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
         public int selfSubtract() {
             return minus(128, true) == 128 ? minus(128, false) : 0;
         }
+
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            markDirty2();
+            return super.receiveEnergy(maxReceive, simulate);
+        }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            markDirty2();
+            return super.extractEnergy(maxExtract, simulate);
+        }
     };
 
     public TileCutter() {
@@ -103,7 +115,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
         if (!world.isRemote()) {
             if (!result.isEmpty()) {
 
-                if (progress.atMaxValue() && result == ItemStack.EMPTY) {
+                if (progress.atMaxValue()) {
 
                     if (itemHandler.insertItem(1, result, true).isEmpty()) {
                         itemHandler.insertItem(1, result, false);
@@ -114,12 +126,12 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
                         progress.selfSubtract();
                     }
 
-                    markDirty();
+                    markDirty2();
                 } else {
 
                     if (energyContainer.selfSubtract() == 128) {
                         progress.selfAdd();
-                        markDirty();
+                        markDirty2();
                     }
 
                 }
@@ -128,7 +140,8 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
                 CutterRecipe cutterRecipe = RecipeHelper.getCutterRecipe(itemHandler.getStackInSlot(0), world.getRecipeManager());
                 if (cutterRecipe != null) {
                     progress.setMax(((int) (cutterRecipe.getTickUse() * ((SawBladeBase) sawBladeHandler.getStackInSlot(0).getItem()).getCombinedSawEfficiency().get())));
-                    result = cutterRecipe.getOutput();
+                    result = cutterRecipe.getOutput().copy();
+                    itemHandler.getStackInSlot(0).shrink(cutterRecipe.getInput().getCount());
                     world.setBlockState(pos, world.getBlockState(pos).with(BlockCutter.WORKING, true));
                     markDirty();
                     //todo gui

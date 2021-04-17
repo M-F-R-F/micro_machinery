@@ -5,6 +5,7 @@ import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
@@ -29,5 +30,10 @@ public class ElectrolysisContainer extends ContainerBase {
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return this.electrolysis.isUsableByPlayer(playerIn);
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity p_82846_1_, int p_82846_2_) {
+        return ItemStack.EMPTY;
     }
 }

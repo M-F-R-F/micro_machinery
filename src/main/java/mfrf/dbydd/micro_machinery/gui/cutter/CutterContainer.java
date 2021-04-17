@@ -21,7 +21,7 @@ public class CutterContainer extends ContainerBase {
         super(RegisteredContainerTypes.CUTTER_CONTAINER.get(), id);
         this.tileEntity = (TileCutter) world.getTileEntity(pos);
         ItemStackHandler itemHandler = tileEntity.getItemHandler();
-        this.addSlot(new SlotItemHandler(itemHandler, 0, 47, 70));
+        this.addSlot(new SlotItemHandler(itemHandler, 0, 47, 40));
         this.addSlot(new SlotItemHandler(itemHandler, 1, 101, 40));
         this.addSlot(new SlotItemHandler(tileEntity.getSawBladeHandler(), 0, 125, 40) {
             @Override
@@ -39,5 +39,10 @@ public class CutterContainer extends ContainerBase {
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return tileEntity.isUsableByPlayer(playerIn);
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity p_82846_1_, int p_82846_2_) {
+        return ItemStack.EMPTY;
     }
 }
