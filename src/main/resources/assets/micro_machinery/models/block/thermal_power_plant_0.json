@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/thermal_power_plant_0.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/thermal_power_plant"
+	},
+	"flip-v": true
+}
