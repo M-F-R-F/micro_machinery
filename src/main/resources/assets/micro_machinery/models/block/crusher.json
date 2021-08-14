@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/crusher.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/crusher"
+	},
+	"flip-v": true
+}
