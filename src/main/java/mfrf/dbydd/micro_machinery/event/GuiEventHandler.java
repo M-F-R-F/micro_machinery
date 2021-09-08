@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.event;
 
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceScreen;
+import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeScreen;
 import mfrf.dbydd.micro_machinery.gui.cutter.CutterScreen;
 import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisScreen;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorScreen;
@@ -24,6 +25,7 @@ public class GuiEventHandler {
         ScreenManager.registerFactory(RegisteredContainerTypes.BLAST_FURNACE_CONTAINER.get(), BlastFurnaceScreen::new);
         ScreenManager.registerFactory(RegisteredContainerTypes.ELECTROLYSIS_CONTAINER.get(), ElectrolysisScreen::new);
         ScreenManager.registerFactory(RegisteredContainerTypes.CUTTER_CONTAINER.get(), CutterScreen::new);
+        ScreenManager.registerFactory(RegisteredContainerTypes.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
     }
 
     @SubscribeEvent

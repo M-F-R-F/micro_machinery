@@ -3,6 +3,7 @@ package mfrf.dbydd.micro_machinery.registeried_lists;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.centrifuge.TileCentrifuge;
 import mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell.TileCreativeEnergyCell;
 import mfrf.dbydd.micro_machinery.blocks.machines.cutter.TileCutter;
 import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.TileElectrolysis;
@@ -40,4 +41,5 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TileEnergyInterface>> TILE_ENERGY_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("energy_interface", () -> TileEntityType.Builder.create(TileEnergyInterface::new, RegisteredBlocks.ENERGY_INTERFACE).build(null));
     public static final RegistryObject<TileEntityType<TileElectrolysis>> TILE_ELECTROLYSIS = TILE_ENTITY_TYPE_REGISTER.register("electrolysis", () -> TileEntityType.Builder.create(TileElectrolysis::new, RegisteredBlocks.ELECTROLYSIS).build(null));
     public static final RegistryObject<TileEntityType<TileCutter>> TILE_CUTTER = TILE_ENTITY_TYPE_REGISTER.register("cutter", () -> TileEntityType.Builder.create(TileCutter::new, RegisteredBlocks.CUTTER).build(null));
+    public static final RegistryObject<TileEntityType<TileCentrifuge>> TILE_CENTRIFUGE = TILE_ENTITY_TYPE_REGISTER.register("centrifuge",()->TileEntityType.Builder.create(TileCentrifuge::new,RegisteredBlocks.CENTRIFUGE).build(null));
 }

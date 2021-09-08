@@ -4,6 +4,7 @@ import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
+import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeContainer;
 import mfrf.dbydd.micro_machinery.gui.cutter.CutterContainer;
 import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisContainer;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorContainer;
@@ -26,4 +27,5 @@ public class RegisteredContainerTypes {
     public static final RegistryObject<ContainerType<BlastFurnaceContainer>> BLAST_FURNACE_CONTAINER = CONTAINER_TYPE_REGISTER.register("blast_furnace_container", () -> IForgeContainerType.create((windowId, inv, data) -> new BlastFurnaceContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld())));
     public static final RegistryObject<ContainerType<ElectrolysisContainer>> ELECTROLYSIS_CONTAINER = CONTAINER_TYPE_REGISTER.register("electrolysis_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new ElectrolysisContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
     public static final RegistryObject<ContainerType<CutterContainer>> CUTTER_CONTAINER = CONTAINER_TYPE_REGISTER.register("cutter_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new CutterContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
+    public static final RegistryObject<ContainerType<CentrifugeContainer>> CENTRIFUGE_CONTAINER = CONTAINER_TYPE_REGISTER.register("centrifuge_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new CentrifugeContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
 }
