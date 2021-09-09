@@ -10,10 +10,15 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
@@ -26,6 +31,18 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
         @Override
         public boolean canReceive() {
             return true;
+        }
+
+        @Override
+        public int selfSubtract() {
+            int current = getCurrent();
+            if (current >= 128) {
+                minus(128, false);
+                markDirty();
+                return current;
+            } else {
+                return -1;
+            }
         }
     };
     public ItemStackHandler input = new ItemStackHandler(1);
@@ -57,6 +74,15 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
         output.deserializeNBT(nbt.getCompound("output"));
     }
 
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityEnergy.ENERGY && isBackDirection(side)) {
+            return LazyOptional.of(() -> feContainer).cast();
+        }
+
+        return super.getCapability(cap, side);
+    }
 
     @Override
     public ITextComponent getDisplayName() {

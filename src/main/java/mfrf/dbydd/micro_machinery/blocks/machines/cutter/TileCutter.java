@@ -1,4 +1,4 @@
-﻿package mfrf.dbydd.micro_machinery.blocks.machines.cutter;
+package mfrf.dbydd.micro_machinery.blocks.machines.cutter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.cutter.CutterContainer;

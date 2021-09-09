@@ -22,7 +22,7 @@ public class CentrifugeContainer extends ContainerBase {
         this.addSlot(new SlotItemHandler(tileCentrifuge.input, 0, 80, 18) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
-                return false;
+                return true;
             }
         });
         this.addSlot(new SlotItemHandler(tileCentrifuge.output, 0, 56, 59) {
