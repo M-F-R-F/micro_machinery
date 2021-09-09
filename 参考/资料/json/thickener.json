@@ -1,0 +1,24 @@
+{
+    "type": "micro_machinery:thickener_recipe",
+    "input_stack": {
+      "input": {
+        "tag": "value"
+      },
+      "count": 123123
+    },
+    "output" : {
+    "output1": {
+      "item": "value",
+      "count": "value"
+    },
+    "output2": {
+      "item": "value",
+      "count": "value"
+    },
+    "output3": {
+      "item": "value",
+      "count": "value",
+      "probability":100
+    }},
+    "cook_time" : 123123
+  }

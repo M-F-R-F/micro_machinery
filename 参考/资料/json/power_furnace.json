@@ -1,0 +1,17 @@
+﻿{
+  "type": "micro_machinery:power_furnace_recipe",
+  "isSingle": false,
+  "temperature": "value",
+  "input": [{
+    "item": "value",
+      "count": "value"
+  },{
+    "item": "value",
+      "count": "value"
+  }],
+  "output": {
+    "fluidName": "value",
+    "amount": "value"
+    },
+  "heat":"value"
+}

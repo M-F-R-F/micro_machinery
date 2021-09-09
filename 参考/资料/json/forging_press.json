@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:forging_press_recipe",
+    "input_stack": {
+      "input": {
+        "tag": "value"
+      },
+      "count": 123123
+    },
+    "output" : {
+      "item" : "value",
+      "count" : "value"
+    },
+    "cook_time" : 123123
+  }
