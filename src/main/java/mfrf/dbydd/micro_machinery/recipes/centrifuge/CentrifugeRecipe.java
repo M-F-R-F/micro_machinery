@@ -8,6 +8,7 @@ import mfrf.dbydd.micro_machinery.recipes.RecipeBase;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import mfrf.dbydd.micro_machinery.utils.RandomUtils;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -23,6 +24,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class CentrifugeRecipe extends RecipeBase {
     private final IngredientStack input;
@@ -34,6 +36,21 @@ public class CentrifugeRecipe extends RecipeBase {
         this.input = input;
         this.rollList = rollList;
         this.time = time;
+    }
+
+    public Map<Item, Integer> getOutputs(Random random) {
+//        ArrayList<ItemStack> itemStacks = new ArrayList<>();
+        HashMap<Item, Integer> ret = new HashMap<>();
+        for (RandomUtils.RollListI<ItemStack> itemStackRollListI : rollList) {
+            ItemStack roll = itemStackRollListI.roll(random);
+            Item item = roll.getItem();
+            if (ret.containsKey(item)) {
+                ret.put(item, roll.getCount() + ret.get(item));
+            } else {
+                ret.put(item, roll.getCount());
+            }
+        }
+        return ret;
     }
 
     @Override

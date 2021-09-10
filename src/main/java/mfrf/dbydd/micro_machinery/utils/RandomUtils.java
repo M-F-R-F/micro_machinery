@@ -78,6 +78,9 @@ public class RandomUtils {
         }
 
         public T roll(Random random) {
+            if (list.size() == 1) {
+                return list.values().stream().findAny().get();
+            }
             int i = random.nextInt(bound);
             return list.entrySet().stream().filter(rangeITEntry -> rangeITEntry.getKey().inRange(i)).findAny().get().getValue();
         }
