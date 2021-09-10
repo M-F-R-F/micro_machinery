@@ -1,29 +1,28 @@
 {
-    "type": "micro_machinery:centrifuge_recipe",
-    "input_stack": {
-      "input": {
-        "item" : "micro_machinery:slag",
-        "count" : 1
-      }
+  "type": "micro_machinery:centrifuge_recipe",
+  "input_stack": {
+    "input": {
+      "item": "micro_machinery:slag"
     },
-    "output" : {
-      "item" : [
-        {"tag": "forge:dusts/iron","probability":7},
-        {"tag": "forge:dusts/copper","probability":5},
-        {"tag": "forge:dusts/tin","probability":5},
-        {"tag": "forge:dusts/nickel","probability":3},
-        {"tag": "forge:dusts/silver","probability":1},
-        {"tag": "forge:dusts/gold","probability":1},
-        {"tag": "forge:dusts/tungsten","probability":1},
-        {"tag": "forge:dusts/manganese","probability":1},
-        {"tag": "forge:dusts/chromium","probability":1},
-        {"tag": "forge:dusts/cobalt","probability":1},
-        {"tag": "forge:dusts/titanium","probability":2},
-        {"tag": "forge:dusts/aluminum","probability":3},
-        {"tag": "forge:dusts/carbon","probability":25},
-        {"tag": "forge:sand","probability":44}
-      ],
-      "count" : 1
-    },
-    "cook_time" : 123123
-  }
+    "count": 1
+  },
+  "output": [
+    [
+      { "count": 1, "item": "forge:dusts/iron", "probability": 7 },
+      { "count": 1, "item": "forge:dusts/copper", "probability": 5 },
+      { "count": 1, "item": "forge:dusts/tin", "probability": 5 },
+      { "count": 1, "item": "forge:dusts/nickel", "probability": 3 },
+      { "count": 1, "item": "forge:dusts/silver", "probability": 1 },
+      { "count": 1, "item": "forge:dusts/gold", "probability": 1 },
+      { "count": 1, "item": "forge:dusts/tungsten", "probability": 1 },
+      { "count": 1, "item": "forge:dusts/manganese", "probability": 1 },
+      { "count": 1, "item": "forge:dusts/chromium", "probability": 1 },
+      { "count": 1, "item": "forge:dusts/cobalt", "probability": 1 },
+      { "count": 1, "item": "forge:dusts/titanium", "probability": 2 },
+      { "count": 1, "item": "forge:dusts/aluminum", "probability": 3 },
+      { "count": 1, "item": "forge:dusts/carbon", "probability": 25 },
+      { "count": 1, "item": "forge:sand", "probability": 44 }
+    ]
+  ],
+  "time": 123123
+}

@@ -3,7 +3,9 @@ package mfrf.dbydd.micro_machinery.utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.nbt.CompoundNBT;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -34,5 +36,51 @@ public class RandomUtils {
         return org.apache.commons.lang3.RandomUtils.nextInt();
     }
 
+    public static class RangeI {
+        private final int left;
+        private final int right;
+
+        public RangeI(int left, int right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        public RangeI(CompoundNBT nbt) {
+            left = nbt.getInt("l");
+            right = nbt.getInt("r");
+        }
+
+        public boolean inRange(int i) {
+            return left <= i && i < right;
+        }
+
+        public CompoundNBT toNbt() {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putInt("l", left);
+            compoundNBT.putInt("r", right);
+            return compoundNBT;
+        }
+    }
+
+    public static class RollListI<T> {
+        public HashMap<RangeI, T> list = new HashMap<>();
+        public int bound = 0;
+
+        public RollListI(Map<T, Integer> roll_list) {
+            for (Map.Entry<T, Integer> tIntegerEntry : roll_list.entrySet()) {
+                list.put(new RangeI(bound, bound += tIntegerEntry.getValue()), tIntegerEntry.getKey());
+            }
+        }
+
+        public RollListI(HashMap<RangeI, T> list, int bound) {
+            this.list = list;
+            this.bound = bound;
+        }
+
+        public T roll(Random random) {
+            int i = random.nextInt(bound);
+            return list.entrySet().stream().filter(rangeITEntry -> rangeITEntry.getKey().inRange(i)).findAny().get().getValue();
+        }
+    }
 }
 

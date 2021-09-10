@@ -40,7 +40,7 @@ public class CutterRecipe extends RecipeBase {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return new Searlize();
+        return new Searlizer();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CutterRecipe extends RecipeBase {
         return RegisteredRecipeSerializers.Type.CUTTER_RECIPE_TYPE;
     }
 
-    public static class Searlize extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CutterRecipe> {
+    public static class Searlizer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CutterRecipe> {
 
         @Override
         public CutterRecipe read(ResourceLocation resourceLocation, JsonObject jsonObject) {
