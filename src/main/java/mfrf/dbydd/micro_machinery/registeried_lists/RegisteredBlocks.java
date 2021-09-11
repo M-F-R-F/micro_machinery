@@ -7,6 +7,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.cutter.BlockCutter;
 import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.BlockElectrolysis;
 import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.BlockEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.etcher.BlockEtcher;
+import mfrf.dbydd.micro_machinery.blocks.machines.fluidpipe.FluidPipeDemoBlock;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.BlockAnvil;
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.BlockGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator;
@@ -141,6 +142,7 @@ public class RegisteredBlocks {
     //pipe
 
     //fluid pipe
+    public static final Block FLUIDPIPE_DEMO = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"fluidpipe_demo");
 
     //multiBlock
     public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().harvestLevel(0).harvestTool(ToolType.PICKAXE).hardnessAndResistance(5.0f), "lathe");

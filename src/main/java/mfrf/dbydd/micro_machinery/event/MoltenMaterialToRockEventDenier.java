@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.event;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;

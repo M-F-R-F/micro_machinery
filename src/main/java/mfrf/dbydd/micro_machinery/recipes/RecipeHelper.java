@@ -5,15 +5,18 @@ import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
+import mfrf.dbydd.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
 import mfrf.dbydd.micro_machinery.recipes.cutter.CutterRecipe;
 import mfrf.dbydd.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
 import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
+import mfrf.dbydd.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
@@ -115,6 +118,25 @@ public class RecipeHelper {
         return null;
     }
 
+    public static CentrifugeRecipe getCentrifugeRecipe(ItemStack input, RecipeManager manager) {
+        List<CentrifugeRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.CENTRIFUGE_RECIPE_TYPE);
+        for (CentrifugeRecipe centrifugeRecipe : recipeListByType) {
+            if (centrifugeRecipe.getInput().test(input)) {
+                return centrifugeRecipe;
+            }
+        }
+        return null;
+    }
+
+    public static FluidCrashRecipe getFluidCrashRecipe(FluidStack a,FluidStack b,RecipeManager manager){
+        List<FluidCrashRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE);
+        for (FluidCrashRecipe fluidCrashRecipe : recipeListByType) {
+            if((fluidCrashRecipe.fluidA == a.getFluid().getRegistryName() && fluidCrashRecipe.fluidB == b.getFluid().getRegistryName()) || (fluidCrashRecipe.fluidB == a.getFluid().getRegistryName() && fluidCrashRecipe.fluidA == b.getFluid().getRegistryName())){
+                return fluidCrashRecipe;
+            }
+        }
+        return null;
+    }
 
     public static boolean isStackABiggerThanStackB(ItemStack stackA, ItemStack stackB) {
         return (stackA.getItem() == stackB.getItem()) && (stackA.getCount() >= stackB.getCount());
@@ -134,7 +156,7 @@ public class RecipeHelper {
         return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(name));
     }
 
-    public static <cast> List<cast> getRecipeListByType(RecipeManager manager, IRecipeType<?> type) {
+    public static <cast extends IRecipe<?>> List<cast> getRecipeListByType(RecipeManager manager, IRecipeType<cast> type) {
         return manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).map(iRecipe -> (cast) iRecipe).collect(Collectors.toList());
     }
 

@@ -40,7 +40,7 @@ public class CutterRecipe extends RecipeBase {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return new Searlizer();
+        return RegisteredRecipeSerializers.CUTTER_RECIPE.get();
     }
 
     @Override

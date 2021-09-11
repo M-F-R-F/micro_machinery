@@ -53,6 +53,14 @@ public class CentrifugeRecipe extends RecipeBase {
         return ret;
     }
 
+    public IngredientStack getInput() {
+        return input;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
     @Override
     public IRecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.CENTRIFUGE_RECIPE.get();
