@@ -140,7 +140,9 @@ public class RegisteredBlocks {
     public static final Block TUNGSTEN_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "tungsten_cable", EnumCableMaterial.TUNGSTEN);
     public static final Block COBALT_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "cobalt_cable", EnumCableMaterial.COBALT);
     //pipe
-
+    public static final Block CONVEYER_BELT_1 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_1",EnumConveyerBeltMaterial.BASIC);
+    public static final Block CONVEYER_BELT_2 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_2",EnumConveyerBeltMaterial.ADVANCED);
+    public static final Block CONVEYER_BELT_3 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_3",EnumConveyerBeltMaterial.ELITE);
     //fluid pipe
     public static final Block FLUIDPIPE_DEMO = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"fluidpipe_demo");
 

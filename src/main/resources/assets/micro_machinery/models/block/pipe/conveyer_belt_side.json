@@ -1,0 +1,19 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "micro_machinery:items/conveyer_belt",
+		"particle": "micro_machinery:items/conveyer_belt"
+	},
+	"elements": [
+		{
+			"from": [3, 0, 2],
+			"to": [13, 8, 3],
+			"faces": {
+				"north": {"uv": [3.25, 0.25, 5.75, 2.25], "texture": "#0"},
+				"south": {"uv": [3.25, 0.25, 5.75, 2.25], "texture": "#0"},
+				"up": {"uv": [3.25, 0, 5.75, 0.25], "texture": "#0"},
+				"down": {"uv": [3.25, 2, 5.75, 2.25], "texture": "#0"}
+			}
+		}
+	]
+}

@@ -1,0 +1,75 @@
+{
+	"variants": {
+		"facing=east,lift=none": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_core2",
+		  "y": 90
+		},
+		"facing=south,lift=none": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_core2",
+		  "y": 180
+		},
+		"facing=west,lift=none": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_core2",
+		  "y": 270
+		},
+		"facing=north,lift=none": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_core2"
+		},
+		"facing=east,lift=up": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_up2"
+		},
+		"facing=south,lift=up": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_up2",
+		  "y": 90
+		},
+		"facing=west,lift=up": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_up2",
+		  "y": 180
+		},
+		"facing=north,lift=up": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_up2",
+		  "y": 270
+		},
+		"facing=east,lift=down": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_down2",
+		  "y": 180
+		},
+		"facing=south,lift=down": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_down2",
+		  "y": 270
+		},
+		"facing=west,lift=down": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_down2"
+		},
+		"facing=north,lift=down": {
+		  "model": "micro_machinery:block/pipe/conveyer_belt_down2",
+		  "y": 90
+		}
+	  },
+	"multipart": [
+		{   "when": { "north_connect": "true","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect", "y": 180}
+		},
+		{   "when": { "east_connect": "true","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect", "y": 270}
+		},
+		{   "when": { "south_connect": "true","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect"}
+		},
+		{   "when": { "west_connect": "true","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect", "y": 90}
+		},
+		{   "when": { "north_connect": "false","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_side", "y": 180}
+		},
+		{   "when": { "east_connect": "false","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_side", "y": 270}
+		},
+		{   "when": { "south_connect": "false","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_side"}
+		},
+		{   "when": { "west_connect": "false","lift":"none"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_side", "y": 90}
+		}
+	]
+}
