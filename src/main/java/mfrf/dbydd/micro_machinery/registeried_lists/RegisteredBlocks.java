@@ -145,7 +145,9 @@ public class RegisteredBlocks {
     public static final Block CONVEYER_BELT_3 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_3",EnumConveyerBeltMaterial.ELITE);
     //fluid pipe
     public static final Block FLUIDPIPE_DEMO = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"fluidpipe_demo");
-
+    public static final Block PIPE_1 = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"pipe_1");
+    public static final Block PIPE_2 = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"pipe_2");
+    public static final Block PIPE_3 = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"pipe_3");
     //multiBlock
     public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().harvestLevel(0).harvestTool(ToolType.PICKAXE).hardnessAndResistance(5.0f), "lathe");
     public static final Block PLACE_HOLDER = new BlockPlaceHolder("multi_block_place_holder");

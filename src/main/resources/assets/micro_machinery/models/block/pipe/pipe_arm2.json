@@ -1,0 +1,33 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "micro_machinery:blocks/pipes/pipe",
+		"particle": "micro_machinery:blocks/pipes/pipe"
+	},
+	"elements": [
+		{
+			"name": "arm",
+			"from": [4.25, 4.25, 15.5],
+			"to": [11.75, 11.75, 16],
+			"faces": {
+				"east": {"uv": [5, 0, 5.25, 4], "texture": "#0"},
+				"south": {"uv": [0, 2, 2, 4], "texture": "#0"},
+				"west": {"uv": [5, 0, 5.25, 4], "texture": "#0"},
+				"up": {"uv": [5, 0, 5.25, 4], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [5, 0, 5.25, 4], "rotation": 90, "texture": "#0"}
+			}
+		},
+		{
+			"name": "arm",
+			"from": [4, 4, 13],
+			"to": [12, 12, 15.5],
+			"faces": {
+				"east": {"uv": [3.75, 0, 5, 4], "texture": "#0"},
+				"south": {"uv": [0, 2, 2, 4], "texture": "#0"},
+				"west": {"uv": [3.75, 0, 5, 4], "texture": "#0"},
+				"up": {"uv": [3.75, 0, 5, 4], "rotation": 90, "texture": "#0"},
+				"down": {"uv": [3.75, 0, 5, 4], "rotation": 90, "texture": "#0"}
+			}
+		}
+	]
+}

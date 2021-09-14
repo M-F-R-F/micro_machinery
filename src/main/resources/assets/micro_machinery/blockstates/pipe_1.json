@@ -1,0 +1,41 @@
+{
+	"multipart": [
+		{   "apply": { "model": "micro_machinery:block/pipe/pipe_1" }},
+		{   "when": { "north_connect": "pipe" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_arm1"}
+		},
+		{   "when": { "east_connect": "pipe" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_arm1", "y": 90}
+		},
+		{   "when": { "south_connect": "pipe" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_arm1", "y": 180}
+		},
+		{   "when": { "west_connect": "pipe" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_arm1", "y": 270}
+		},
+		{   "when": { "up_connect": "pipe" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_arm1", "x": 270}
+		},
+		{   "when": { "down_connect": "pipe" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_arm1", "x": 90}
+		},
+		{   "when": { "north_connect": "connect" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_connect1"}
+		},
+		{   "when": { "east_connect": "connect" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_connect1", "y": 90}
+		},
+		{   "when": { "south_connect": "connect" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_connect1", "y": 180}
+		},
+		{   "when": { "west_connect": "connect" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_connect1", "y": 270}
+		},
+		{   "when": { "up_connect": "connect" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_connect1", "x": 270}
+		},
+		{   "when": { "down_connect": "connect" },
+			"apply": { "model": "micro_machinery:block/pipe/pipe_connect1", "x": 90}
+		}
+	]
+}
