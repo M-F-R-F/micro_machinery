@@ -23,11 +23,10 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FluidPipeDemoBlock extends MMBlockBase {
+public class FluidPipeBlock extends MMBlockBase {
     //todo clear blockItem by shift+rightClick
     public static final Map<Direction, VoxelShape> DIRECTION_VOXEL_SHAPE_MAP = new HashMap<>();
     public static final Map<Direction, EnumProperty<EnumFluidPipeState>> DIRECTION_ENUM_PROPERTY_MAP = new HashMap<>();
-    //    public static final EnumProperty<EnumCableMaterial> CABLE_MATERIAL_ENUM_PROPERTY = EnumProperty.create("material", EnumCableMaterial.class);
     public static final EnumProperty<EnumFluidPipeState> UP_ISCONNECTED = EnumProperty.create("up_connect", EnumFluidPipeState.class);
     public static final EnumProperty<EnumFluidPipeState> DOWN_ISCONNECTED = EnumProperty.create("down_connect", EnumFluidPipeState.class);
     public static final EnumProperty<EnumFluidPipeState> SOUTH_ISCONNECTED = EnumProperty.create("south_connect", EnumFluidPipeState.class);
@@ -44,7 +43,7 @@ public class FluidPipeDemoBlock extends MMBlockBase {
     public static final VoxelShape UP_SHAPE = Block.makeCuboidShape(6, 10, 6, 10, 16, 10);
     public static final VoxelShape DOWN_SHAPE = Block.makeCuboidShape(6, 0, 6, 10, 6, 10);
 
-    public FluidPipeDemoBlock(Properties properties, String name) {
+    public FluidPipeBlock(Properties properties, String name) {
         super(properties, name);
         DIRECTION_ENUM_PROPERTY_MAP.put(Direction.UP, UP_ISCONNECTED);
         DIRECTION_ENUM_PROPERTY_MAP.put(Direction.DOWN, DOWN_ISCONNECTED);
@@ -78,7 +77,7 @@ public class FluidPipeDemoBlock extends MMBlockBase {
         for (Direction direction : Direction.values()) {
             BlockPos offset = pos.offset(direction);
             BlockState neighborState = world.getBlockState(offset);
-            if (neighborState.getBlock() instanceof FluidPipeDemoBlock) {
+            if (neighborState.getBlock() instanceof FluidPipeBlock) {
                 defaultState = defaultState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_TRUE);
             } else {
                 TileEntity tileEntity = world.getTileEntity(offset);
@@ -107,7 +106,7 @@ public class FluidPipeDemoBlock extends MMBlockBase {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new FluidPipeDemoTile();
+        return new FluidPipeTile();
     }
 
     @Override
@@ -119,7 +118,7 @@ public class FluidPipeDemoBlock extends MMBlockBase {
             EnumFluidPipeState currentValue = state.get(enumPipeStateEnumProperty);
 
             if (!(currentValue == EnumFluidPipeState.CLOSE || currentValue == EnumFluidPipeState.OPEN)) {
-                if (world.getBlockState(neighbor).getBlock() instanceof FluidPipeDemoBlock) {
+                if (world.getBlockState(neighbor).getBlock() instanceof FluidPipeBlock) {
                     if (currentValue != EnumFluidPipeState.AUTO_TRUE) {
                         setStateNoUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
                     }

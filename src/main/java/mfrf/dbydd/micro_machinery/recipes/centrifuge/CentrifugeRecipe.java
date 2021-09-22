@@ -1,4 +1,4 @@
-﻿package mfrf.dbydd.micro_machinery.recipes.centrifuge;
+package mfrf.dbydd.micro_machinery.recipes.centrifuge;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

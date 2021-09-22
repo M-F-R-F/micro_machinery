@@ -9,11 +9,13 @@ public enum EnumFluidPipeState implements IStringSerializable {
     public String getName() {
         switch (this) {
             case OPEN:
-            case AUTO_TRUE:
                 return "open";
+            case AUTO_TRUE:
+                return "auto_true";
             case CLOSE:
-            case AUTO_FALSE:
                 return "close";
+            case AUTO_FALSE:
+                return "auto_false";
         }
         return "close";
     }

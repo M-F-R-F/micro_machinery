@@ -7,7 +7,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.cutter.BlockCutter;
 import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.BlockElectrolysis;
 import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.BlockEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.etcher.BlockEtcher;
-import mfrf.dbydd.micro_machinery.blocks.machines.fluidpipe.FluidPipeDemoBlock;
+import mfrf.dbydd.micro_machinery.blocks.machines.fluidpipe.FluidPipeBlock;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.BlockAnvil;
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.BlockGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator;
@@ -131,7 +131,7 @@ public class RegisteredBlocks {
     public static final Block BLOCK_ETCHER = new BlockEtcher();
     public static final Block ELECTROLYSIS = new BlockElectrolysis();
     public static final Block CUTTER = new BlockCutter();
-    public static final Block CENTRIFUGE = new BlockCentrifuge(Block.Properties.create(Material.IRON),"centrifuge");
+    public static final Block CENTRIFUGE = new BlockCentrifuge(Block.Properties.create(Material.IRON), "centrifuge");
     //cable
     public static final Block TESTENERGY_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid(), "test_cable", EnumCableMaterial.TEST);
     public static final Block COPPER_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(1).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "copper_cable", EnumCableMaterial.COPPER);
@@ -140,14 +140,15 @@ public class RegisteredBlocks {
     public static final Block TUNGSTEN_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "tungsten_cable", EnumCableMaterial.TUNGSTEN);
     public static final Block COBALT_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "cobalt_cable", EnumCableMaterial.COBALT);
     //pipe
-    public static final Block CONVEYER_BELT_1 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_1",EnumConveyerBeltMaterial.BASIC);
-    public static final Block CONVEYER_BELT_2 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_2",EnumConveyerBeltMaterial.ADVANCED);
-    public static final Block CONVEYER_BELT_3 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_3",EnumConveyerBeltMaterial.ELITE);
+    //todo converyerBelt
+//    public static final Block CONVEYER_BELT_1 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_1",EnumConveyerBeltMaterial.BASIC);
+//    public static final Block CONVEYER_BELT_2 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_2",EnumConveyerBeltMaterial.ADVANCED);
+//    public static final Block CONVEYER_BELT_3 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_3",EnumConveyerBeltMaterial.ELITE);
+
     //fluid pipe
-    public static final Block FLUIDPIPE_DEMO = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"fluidpipe_demo");
-    public static final Block PIPE_1 = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"pipe_1");
-    public static final Block PIPE_2 = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"pipe_2");
-    public static final Block PIPE_3 = new FluidPipeDemoBlock(Block.Properties.create(Material.IRON),"pipe_3");
+    public static final Block PIPE_INVAR = new FluidPipeBlock(Block.Properties.create(Material.IRON), "pipe_invar");
+    public static final Block PIPE_STAINLESS_STEEL = new FluidPipeBlock(Block.Properties.create(Material.IRON), "pipe_stainless_steel");
+    public static final Block PIPE_TUNGSTEN_STEEL = new FluidPipeBlock(Block.Properties.create(Material.IRON), "pipe_tungsten_steel");
     //multiBlock
     public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().harvestLevel(0).harvestTool(ToolType.PICKAXE).hardnessAndResistance(5.0f), "lathe");
     public static final Block PLACE_HOLDER = new BlockPlaceHolder("multi_block_place_holder");
@@ -185,7 +186,6 @@ public class RegisteredBlocks {
      * Multi Block main parts
      */
     public static final Block BLAST_FURNACE = new BlockBlastFurnace(Block.Properties.create(Material.ROCK));
-
 
 
     private RegisteredBlocks() {

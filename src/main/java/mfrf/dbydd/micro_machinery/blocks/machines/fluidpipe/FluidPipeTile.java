@@ -6,6 +6,7 @@ import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -26,7 +27,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FluidPipeDemoTile extends MMTileBase implements ITickableTileEntity {
+public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
     private FluidTank fluidTank = new FluidTank(12000) {
         @Override
         protected void onContentsChanged() {
@@ -34,8 +35,9 @@ public class FluidPipeDemoTile extends MMTileBase implements ITickableTileEntity
         }
     };
     private ItemStackHandler blockItemContainer = new ItemStackHandler(1);
+    private int material = -1;
 
-    public FluidPipeDemoTile() {
+    public FluidPipeTile() {
         super(RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get());
     }
 
@@ -44,6 +46,9 @@ public class FluidPipeDemoTile extends MMTileBase implements ITickableTileEntity
         super.read(compound);
         fluidTank.readFromNBT(compound.getCompound("fluid"));
         blockItemContainer.deserializeNBT(compound.getCompound("block_item"));
+        if (compound.contains("material")) {
+            material = compound.getInt("material");
+        }
     }
 
     @Override
@@ -51,21 +56,41 @@ public class FluidPipeDemoTile extends MMTileBase implements ITickableTileEntity
         CompoundNBT write = super.write(compound);
         compound.put("fluid", fluidTank.writeToNBT(new CompoundNBT()));
         write.put("block_item", blockItemContainer.serializeNBT());
+        if (material != -1) {
+            write.putInt("material", material);
+        }
         return write;
     }
 
+    public int getMaterial() {
+        if (material == -1) {
+            Block block = getBlockState().getBlock();
+            if (block == RegisteredBlocks.PIPE_INVAR) {
+                material = 1000;
+            }
+            if (block == RegisteredBlocks.PIPE_STAINLESS_STEEL) {
+                material = 4000;
+            }
+            if (block == RegisteredBlocks.PIPE_TUNGSTEN_STEEL) {
+                material = 8000;
+            }
+            markDirty();
+        }
+        return material;
+    }
+
     public boolean blocked() {
-        return getBlockState().get(FluidPipeDemoBlock.BLOCKED);
+        return getBlockState().get(FluidPipeBlock.BLOCKED);
     }
 
     public void block(ItemStack blocker) {
         this.blockItemContainer.setStackInSlot(0, blocker);
-        world.setBlockState(pos, getBlockState().with(FluidPipeDemoBlock.BLOCKED, true), 49);
+        world.setBlockState(pos, getBlockState().with(FluidPipeBlock.BLOCKED, true), 49);
         markDirty();
     }
 
     public ItemStack unBlock() {
-        world.setBlockState(pos, getBlockState().with(FluidPipeDemoBlock.BLOCKED, false), 49);
+        world.setBlockState(pos, getBlockState().with(FluidPipeBlock.BLOCKED, false), 49);
         ItemStack copy = this.blockItemContainer.getStackInSlot(0).copy();
         this.blockItemContainer.setStackInSlot(0, ItemStack.EMPTY);
         markDirty();
@@ -81,7 +106,7 @@ public class FluidPipeDemoTile extends MMTileBase implements ITickableTileEntity
         if (blocked()) {
             TileEntity offset = world.getTileEntity(pos.offset(direction));
             if (offset != null && offset.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
-                FluidPipeDemoTile destPipe = (FluidPipeDemoTile) offset;
+                FluidPipeTile destPipe = (FluidPipeTile) offset;
                 if (!destPipe.blocked() && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
                     destPipe.block(this.unBlock());
                 }
@@ -123,97 +148,96 @@ public class FluidPipeDemoTile extends MMTileBase implements ITickableTileEntity
                                 generateTrash = true;
                                 generateCount = 1;
                             }
-                            } else {
+                        } else {
                             if (this.blockItemContainer.getStackInSlot(0).isItemEqual(fluidCrashRecipe.generate) && blockItemContainer.getStackInSlot(0).getCount() + fluidCrashRecipe.generate.getCount() <= fluidCrashRecipe.generate.getMaxStackSize()) {
                                 thisUse = generateCount * fluidCrashRecipe.fluidBUsage;
                                 receivedUse = fluidCrashRecipe.fluidAUsage * generateCount;
                             }
                         }
-                        }
-
-                        thisAmount -= thisUse;
-                        receiveAmount -= receivedUse;
-
-                        if (thisAmount == 0 && receiveAmount != 0) {
-                            this.fluidTank.setFluid(new FluidStack(receiveFluid, receiveAmount));
-                        } else {
-                            this.fluidTank.setFluid(new FluidStack(thisFluid, thisAmount));
-                        }
-
-                        if (!generateTrash) {
-                            block(new ItemStack(fluidCrashRecipe.generate.getItem(), Math.min(fluidCrashRecipe.generate.getCount() * generateCount, 64)));
-                        }
-
                     }
 
-                    if (generateTrash) {
-                        block(new ItemStack(fluidCrashRecipe.generate.getItem(), 1));
+                    thisAmount -= thisUse;
+                    receiveAmount -= receivedUse;
+
+                    if (thisAmount == 0 && receiveAmount != 0) {
+                        this.fluidTank.setFluid(new FluidStack(receiveFluid, receiveAmount));
+                    } else {
+                        this.fluidTank.setFluid(new FluidStack(thisFluid, thisAmount));
+                    }
+
+                    if (!generateTrash) {
+                        block(new ItemStack(fluidCrashRecipe.generate.getItem(), Math.min(fluidCrashRecipe.generate.getCount() * generateCount, 64)));
                     }
 
                 }
-                markDirty();
-                return receiveAmount;
+
+                if (generateTrash) {
+                    block(new ItemStack(fluidCrashRecipe.generate.getItem(), 1));
+                }
+
+            }
+            markDirty();
+            return receiveAmount;
+        }
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
+            if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN) {
+                return LazyOptional.of(() -> fluidTank).cast();
             }
         }
+        return super.getCapability(cap, side);
+    }
 
-        @Nonnull
-        @Override
-        public <T > LazyOptional < T > getCapability(@Nonnull Capability < T > cap, @Nullable Direction side) {
-            if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-                EnumFluidPipeState enumFluidPipeState = ((FluidPipeDemoBlock) RegisteredBlocks.FLUIDPIPE_DEMO).getState(world, pos).get(FluidPipeDemoBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
+    @Override
+    public void tick() {
+        if (!world.isRemote() && !blocked()) {
+            ArrayList<Direction> pipeDirections = new ArrayList<>();
+            AtomicInteger pipeFluidSum = new AtomicInteger();
+
+            for (Direction side : Direction.values()) {
+                EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
                 if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN) {
-                    return LazyOptional.of(() -> fluidTank).cast();
-                }
-            }
-            return super.getCapability(cap, side);
-        }
+                    BlockPos offset = pos.offset(side);
+                    TileEntity tileEntity = world.getTileEntity(offset);
 
-        @Override
-        public void tick () {
-            if (!world.isRemote() && !blocked()) {
-                ArrayList<Direction> pipeDirections = new ArrayList<>();
-                AtomicInteger pipeFluidSum = new AtomicInteger();
-
-                for (Direction side : Direction.values()) {
-                    EnumFluidPipeState enumFluidPipeState = ((FluidPipeDemoBlock) RegisteredBlocks.FLUIDPIPE_DEMO).getState(world, pos).get(FluidPipeDemoBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
-                    if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN) {
-                        BlockPos offset = pos.offset(side);
-                        TileEntity tileEntity = world.getTileEntity(offset);
-
-                        tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(
-                                iFluidHandler -> {
-                                    //if is pipe, check
-                                    if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
-                                        pipeDirections.add(side);
-                                        int amount = iFluidHandler.getFluidInTank(0).getAmount();
-                                        if (amount - this.fluidTank.getFluidAmount() < -1)
-                                            pipeFluidSum.addAndGet(this.fluidTank.getFluidAmount() - amount);
-                                    } else {
-                                        int fill = iFluidHandler.fill(this.fluidTank.getFluid(), IFluidHandler.FluidAction.SIMULATE);
-                                        iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                                        markDirty();
-                                    }
-
+                    tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(
+                            iFluidHandler -> {
+                                //if is pipe, check
+                                if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+                                    pipeDirections.add(side);
+                                    int amount = iFluidHandler.getFluidInTank(0).getAmount();
+                                    if (amount - this.fluidTank.getFluidAmount() < -1)
+                                        pipeFluidSum.addAndGet(this.fluidTank.getFluidAmount() - amount);
+                                } else {
+                                    int fill = iFluidHandler.fill(this.fluidTank.drain(getMaterial(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
+                                    iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                                    markDirty();
                                 }
-                                //todo push blockItem
-                        );
-                    }
-                }
 
-                //do average and some interesting
-                int remain = pipeFluidSum.get() % pipeDirections.size();
-                int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
-                for (Direction direction : pipeDirections) {
-                    FluidPipeDemoTile pipeDemoTile = (FluidPipeDemoTile) world.getTileEntity(this.pos.offset(direction));
-                    int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
-                    fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
-                    markDirty();
+                            }
+                    );
                 }
-
             }
-        }
 
-        private void pushBlocker (Direction direction,int currentPressure){
+            //do average and some interesting
+            if (pipeFluidSum.get() > getMaterial()) {
+                pipeFluidSum.set(getMaterial());
+            }
+            int remain = pipeFluidSum.get() % pipeDirections.size();
+            int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
+            for (Direction direction : pipeDirections) {
+                FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getTileEntity(this.pos.offset(direction));
+                int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
+                fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
+                markDirty();
+            }
 
         }
     }
+
+}

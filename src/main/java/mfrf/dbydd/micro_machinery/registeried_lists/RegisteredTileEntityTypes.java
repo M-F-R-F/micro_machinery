@@ -9,7 +9,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.cutter.TileCutter;
 import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.TileElectrolysis;
 import mfrf.dbydd.micro_machinery.blocks.machines.energy_cable.TileEnergyCable;
 import mfrf.dbydd.micro_machinery.blocks.machines.etcher.TileEtcher;
-import mfrf.dbydd.micro_machinery.blocks.machines.fluidpipe.FluidPipeDemoTile;
+import mfrf.dbydd.micro_machinery.blocks.machines.fluidpipe.FluidPipeTile;
 import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.TileAnvil;
 import mfrf.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.TileHandGenerator;
@@ -43,5 +43,5 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TileElectrolysis>> TILE_ELECTROLYSIS = TILE_ENTITY_TYPE_REGISTER.register("electrolysis", () -> TileEntityType.Builder.create(TileElectrolysis::new, RegisteredBlocks.ELECTROLYSIS).build(null));
     public static final RegistryObject<TileEntityType<TileCutter>> TILE_CUTTER = TILE_ENTITY_TYPE_REGISTER.register("cutter", () -> TileEntityType.Builder.create(TileCutter::new, RegisteredBlocks.CUTTER).build(null));
     public static final RegistryObject<TileEntityType<TileCentrifuge>> TILE_CENTRIFUGE = TILE_ENTITY_TYPE_REGISTER.register("centrifuge",()->TileEntityType.Builder.create(TileCentrifuge::new,RegisteredBlocks.CENTRIFUGE).build(null));
-    public static final RegistryObject<TileEntityType<FluidPipeDemoTile>> TILE_FLUID_PIPE_DEMO = TILE_ENTITY_TYPE_REGISTER.register("fluid_pipe",()->TileEntityType.Builder.create(FluidPipeDemoTile::new,RegisteredBlocks.FLUIDPIPE_DEMO).build(null));
+    public static final RegistryObject<TileEntityType<FluidPipeTile>> TILE_FLUID_PIPE_DEMO = TILE_ENTITY_TYPE_REGISTER.register("fluid_pipe",()->TileEntityType.Builder.create(FluidPipeTile::new,RegisteredBlocks.PIPE_INVAR,RegisteredBlocks.PIPE_STAINLESS_STEEL,RegisteredBlocks.PIPE_TUNGSTEN_STEEL).build(null));
 }
