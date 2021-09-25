@@ -1,0 +1,12 @@
+{
+    "type": "micro_machinery:weld_recipe",
+      "input": {
+        "tag" : "forge:plates/stainlesssteel",
+        "count" : 4
+      },
+    "output" : {
+      "item" : "micro_machinery:pipe_2",
+      "count" : 1
+    },
+    "cook_time" : 60
+  }

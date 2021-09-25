@@ -1,0 +1,32 @@
+{
+    "type": "micro_machinery:weld_recipe",
+      "input": [{
+        "item" : "micro_machinery:casing_4",
+        "count" : 1
+      },
+      {
+        "tag" : "forge:gears/tungstensteel",
+        "count" : 4
+      },
+      {
+        "tag" : "forge:gears/titanium",
+        "count" : 4
+      },
+      {
+        "item" : "micro_machinery:motor_5",
+        "count" : 2
+      },
+      {
+        "tag" : "forge:axles/titanium",
+        "count" : 1
+      },
+      {
+        "tag" : "forge:rolls/highspeedsteel",
+        "count" : 1
+      }],
+    "output" : {
+      "item" : "micro_machinery:module_transmission_5",
+      "count" : 1
+    },
+    "cook_time" : 320
+  }

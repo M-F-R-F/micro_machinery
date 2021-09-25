@@ -1,0 +1,20 @@
+{
+    "type": "micro_machinery:weld_recipe",
+      "input": [{
+        "tag" : "forge:plates/invar",
+        "count" : 4
+      },
+      {
+        "tag" : "forge:wires/aluminum",
+        "count" : 4
+      },
+      {
+        "tag" : "forge:sticks/gold",
+        "count" : 1
+      }],
+    "output" : {
+      "item" : "micro_machinery:motor_3",
+      "count" : 1
+    },
+    "cook_time" : 160
+  }

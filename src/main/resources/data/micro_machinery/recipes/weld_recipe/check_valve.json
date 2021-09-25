@@ -1,0 +1,20 @@
+{
+    "type": "micro_machinery:weld_recipe",
+      "input": [{
+        "tag" : "forge:plates/steel",
+        "count" : 6
+      },
+      {
+        "tag" : "forge:sticks/bronze",
+        "count" : 1
+      },
+      {
+        "tag" : "forge:gems/lapis",
+        "count" : 1
+      }],
+    "output" : {
+      "item" : "micro_machinery:check_valve",
+      "count" : 1
+    },
+    "cook_time" : 160
+  }
