@@ -1,0 +1,23 @@
+{
+    "type": "micro_machinery:centrifuge_recipe",
+    "input_stack": {
+      "input": {
+        "item": "micro_machinery:ss_additive"
+      },
+      "count": 3
+    },
+    "output" : [
+    {
+      "item" : "micro_machinery:dust_nickel",
+      "count" : 1
+    },
+    {
+      "item" : "micro_machinery:dust_chromium",
+      "count" : 1
+    },
+    {
+      "item" : "micro_machinery:dust_manganese",
+      "count" : 1
+    }],
+    "cook_time" : 120
+  }

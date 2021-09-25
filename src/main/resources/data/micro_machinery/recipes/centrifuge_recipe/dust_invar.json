@@ -1,0 +1,18 @@
+{
+    "type": "micro_machinery:centrifuge_recipe",
+    "input_stack": {
+      "input": {
+        "tag": "forge:dusts/invar"
+      },
+      "count": 4
+    },
+    "output" : [{
+      "item" : "micro_machinery:dust_iron",
+      "count" : 3
+    },
+    {
+      "item" : "micro_machinery:dust_nickel",
+      "count" : 1
+    }],
+    "cook_time" : 180
+  }

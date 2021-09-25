@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:atomization_recipe",
+    "input_stack": {
+      "input": {
+        "fluidName": "micro_machinery:fluids/molten_ncalloy",
+        "amount": 144
+      }
+    },
+    "output" : {
+      "item" : "micro_machinery:dust_ncalloy",
+      "count" : 1
+    },
+    "cook_time" : 180
+  }
