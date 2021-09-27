@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:forging_press_recipe",
+    "input_stack": {
+      "input": {
+        "tag": "forge:plates/nicochrome"
+      },
+      "count": 4
+    },
+    "output" : {
+      "item" : "micro_machinery:conveyer_belt_3",
+      "count" : 1
+    },
+    "cook_time" : 160
+  }

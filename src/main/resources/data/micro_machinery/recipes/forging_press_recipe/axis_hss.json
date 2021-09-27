@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:forging_press_recipe",
+    "input_stack": {
+      "input": {
+        "tag": "forge:circle_castings/highspeedsteel"
+      },
+      "count": 1
+    },
+    "output" : {
+      "item" : "micro_machinery:axis_hss",
+      "count" : 1
+    },
+    "cook_time" : 160
+  }

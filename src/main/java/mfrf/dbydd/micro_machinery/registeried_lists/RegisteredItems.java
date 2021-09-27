@@ -110,6 +110,7 @@ public class RegisteredItems {
     public static final Item CIRCLE_CASTING_SS = new MMItemBase("circle_casting_ss");
     public static final Item CIRCLE_CASTING_TUNGSTEN_STEEL = new MMItemBase("circle_casting_tungsten_steel");
     public static final Item CIRCLE_CASTING_TITANIUM = new MMItemBase("circle_casting_titanium");
+    public static final Item CIRCLE_CASTING_HSS = new MMItemBase("circle_casting_hss");
     //plate
     public static final Item PLATE_COPPER = new MMItemBase("plate_copper");
     public static final Item PLATE_TIN = new MMItemBase("plate_tin");
@@ -171,7 +172,6 @@ public class RegisteredItems {
     public static final Item AXIS_STEEL = new MMItemBase("axis_steel");
     public static final Item AXIS_TITANIUM = new MMItemBase("axis_titanium");
     public static final Item AXIS_IRON = new MMItemBase("axis_iron");
-    public static final Item AXIS_CHROMIUM = new MMItemBase("axis_chromium");
     public static final Item AXIS_COBALT = new MMItemBase("axis_cobalt");
     //gear blank
     public static final Item GEAR_BLANK_BRONZE = new MMItemBase("gear_blank_bronze");

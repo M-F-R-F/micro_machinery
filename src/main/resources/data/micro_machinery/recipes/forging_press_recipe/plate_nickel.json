@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:forging_press_recipe",
+    "input_stack": {
+      "input": {
+        "tag": "forge:ingots/nickel"
+      },
+      "count": 4
+    },
+    "output" : {
+      "item" : "micro_machinery:plate_nickel",
+      "count" : 4
+    },
+    "cook_time" : 160
+  }
