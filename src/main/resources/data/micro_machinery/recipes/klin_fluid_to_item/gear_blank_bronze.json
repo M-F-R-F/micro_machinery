@@ -4,7 +4,7 @@
     "castType": "gear_blank",
     "input": {
         "fluidName": "micro_machinery:fluids/molten_bronze",
-        "amount": 640
+        "amount": 720
     },
     "output": {
         "isTag": false,

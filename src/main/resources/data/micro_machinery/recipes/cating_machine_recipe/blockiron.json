@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:cating_machine_recipe",
+    "castType": "block",
+    "input_stack": {
+      "input": {
+        "fluidName": "micro_machinery:fluids/molten_iron",
+        "amount": 1440}
+    },
+    "output" : {
+      "item" : "minecraft:iron_block",
+      "count" : 1
+    },
+    "cook_time" : 600
+  }

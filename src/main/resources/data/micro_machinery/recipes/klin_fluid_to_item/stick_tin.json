@@ -4,7 +4,7 @@
     "castType": "stick",
     "input": {
         "fluidName": "micro_machinery:fluids/molten_tin",
-        "amount": 80
+        "amount": 90
     },
     "output": {
         "isTag": false,

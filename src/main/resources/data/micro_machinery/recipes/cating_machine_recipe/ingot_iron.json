@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:cating_machine_recipe",
+    "castType": "ingot",
+    "input_stack": {
+      "input": {
+        "fluidName": "micro_machinery:fluids/molten_iron",
+        "amount": 160}
+    },
+    "output" : {
+      "item" : "minecraft:iron_ingot",
+      "count" : 1
+    },
+    "cook_time" : 60
+  }

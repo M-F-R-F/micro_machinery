@@ -2,13 +2,13 @@
     "type": "micro_machinery:forging_press_recipe",
     "input_stack": {
       "input": {
-        "tag": "forge:ingots/copper"
+        "tag": "forge:storage_blocks/tungstensteel"
       },
-      "count": 8
+      "count": 1
     },
     "output" : {
-      "item" : "micro_machinery:plate_copper",
-      "count" : 8
+      "item" : "micro_machinery:circle_casting_tungsten_steel",
+      "count" : 1
     },
     "cook_time" : 160
   }

@@ -4,7 +4,7 @@
     "castType": "sword",
     "input": {
         "fluidName": "micro_machinery:fluids/molten_bronze",
-        "amount": 320
+        "amount": 360
     },
     "output": {
         "isTag": false,
