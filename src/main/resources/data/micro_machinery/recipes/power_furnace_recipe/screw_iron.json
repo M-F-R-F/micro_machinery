@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1800,
+ "input": [{
+   "tag": "forge:screws/iron",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_iron",
+   "amount": 36}],
+ "heat":20}

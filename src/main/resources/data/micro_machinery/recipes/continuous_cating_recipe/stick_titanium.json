@@ -1,0 +1,14 @@
+{
+   "type": "micro_machinery:continuous_cating_recipe",
+   "castType": "stick",
+   "input_stack": {
+     "input": {
+       "fluidName": "micro_machinery:fluids/molten_titanium",
+       "amount": 150}
+   },
+   "output" : {
+     "item" : "micro_machinery:stick_titanium",
+     "count" : 2
+   },
+   "cook_time" : 20
+ }

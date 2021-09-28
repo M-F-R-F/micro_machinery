@@ -1,0 +1,15 @@
+{
+    "type": "micro_machinery:crystal_growing_furnace_recipe",
+    "castType":"graphite",
+    "input_stack": {
+      "input": {
+        "tag": "forge:dusts/carbon"
+      },
+      "count": 32
+    },
+    "output" :{
+      "item" : "micro_machinery:ingot_graphite",
+      "count" : 2
+    },
+    "cook_time" : 3600
+  }

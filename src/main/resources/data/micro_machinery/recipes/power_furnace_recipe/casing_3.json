@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1570,
+ "input": [{
+   "item": "micro_machinery:casing_3",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_ss",
+   "amount": 1248}],
+ "heat":320}

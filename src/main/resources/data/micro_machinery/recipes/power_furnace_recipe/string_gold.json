@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1337,
+ "input": [{
+   "tag": "forge:wires/gold",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_gold",
+   "amount": 72}],
+ "heat":20}

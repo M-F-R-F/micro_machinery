@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:continuous_cating_recipe",
+    "castType": "pipe",
+    "input_stack": {
+      "input": {
+        "fluidName": "micro_machinery:fluids/molten_invar",
+        "amount": 600}
+    },
+    "output" : {
+      "item" : "micro_machinery:pipe_1",
+      "count" : 1
+    },
+    "cook_time" : 80
+  }

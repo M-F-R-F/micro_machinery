@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1356,
+ "input": [{
+   "tag": "forge:dusts/steel",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_steel",
+   "amount": 144}],
+ "heat":80}

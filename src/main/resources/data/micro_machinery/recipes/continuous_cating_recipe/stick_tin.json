@@ -1,0 +1,14 @@
+{
+   "type": "micro_machinery:continuous_cating_recipe",
+   "castType": "stick",
+   "input_stack": {
+     "input": {
+       "fluidName": "micro_machinery:fluids/molten_tin",
+       "amount": 150}
+   },
+   "output" : {
+     "item" : "micro_machinery:stick_tin",
+     "count" : 2
+   },
+   "cook_time" : 20
+ }

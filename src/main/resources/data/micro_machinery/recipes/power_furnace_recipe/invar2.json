@@ -1,0 +1,17 @@
+﻿{
+  "type": "micro_machinery:power_furnace_recipe",
+  "isSingle": false,
+  "temperature": 1800,
+  "input": [{
+    "tag": "forge:storage_blocks/iron",
+      "count": 2
+  },{
+    "tag": "forge:storage_blocks/nickel",
+      "count": 1
+  }],
+  "output": {
+    "fluidName": "micro_machinery:fluids/steel",
+    "amount": 3888
+    },
+  "heat":640
+}

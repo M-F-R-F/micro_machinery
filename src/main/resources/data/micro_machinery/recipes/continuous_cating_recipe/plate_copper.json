@@ -1,0 +1,14 @@
+{
+   "type": "micro_machinery:continuous_cating_recipe",
+   "castType": "plate",
+   "input_stack": {
+     "input": {
+       "fluidName": "micro_machinery:fluids/molten_copper",
+       "amount": 150}
+   },
+   "output" : {
+     "item" : "micro_machinery:plate_copper",
+     "count" : 1
+   },
+   "cook_time" : 20
+ }

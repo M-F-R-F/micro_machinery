@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 2130,
+ "input": [{
+   "tag": "forge:storage_blocks/chromium",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_chromium",
+   "amount": 1296}],
+ "heat":960}

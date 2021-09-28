@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1726,
+ "input": [{
+   "item": "micro_machinery:coilnickel",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_nickel",
+   "amount": 576}],
+ "heat":320}

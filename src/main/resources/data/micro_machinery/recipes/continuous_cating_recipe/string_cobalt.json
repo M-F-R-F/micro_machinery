@@ -1,0 +1,14 @@
+{
+   "type": "micro_machinery:continuous_cating_recipe",
+   "castType": "wire",
+   "input_stack": {
+     "input": {
+       "fluidName": "micro_machinery:fluids/molten_cobalt",
+       "amount": 150}
+   },
+   "output" : {
+     "item" : "micro_machinery:string_cobalt",
+     "count" : 2
+   },
+   "cook_time" : 20
+ }

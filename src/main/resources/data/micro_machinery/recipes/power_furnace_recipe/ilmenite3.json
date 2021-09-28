@@ -1,0 +1,13 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1941,
+ "input": [{
+   "item": "micro_machinery:ore_ilmenite_concentrate",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_iron",
+   "amount": 160},
+   {"item":"micro_machinery:slag_titanium",
+     "count":1,
+     "probability":0.5}],
+ "heat":160}
