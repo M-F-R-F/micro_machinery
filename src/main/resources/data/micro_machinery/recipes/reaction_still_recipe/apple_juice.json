@@ -11,5 +11,5 @@
     "output" : [
     {"fluidName": "micro_machinery:fluids/apple_juice",
       "amount": 500}],
-    "cook_time" : 120
+    "time": 120
   }

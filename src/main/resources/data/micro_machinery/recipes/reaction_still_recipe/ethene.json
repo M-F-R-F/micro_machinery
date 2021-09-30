@@ -11,5 +11,5 @@
     "output" : [
     {"fluidName": "micro_machinery:fluids/ethene",
       "amount": 100}],
-    "cook_time" : 720
+    "time": 720
   }

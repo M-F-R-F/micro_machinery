@@ -1,18 +1,24 @@
 {
-    "type": "micro_machinery:centrifuge_recipe",
-    "input_stack": {
-      "input": {
-        "tag": "forge:dusts/tungsten_steel"
-      },
-      "count": 5
+  "type": "micro_machinery:centrifuge_recipe",
+  "input_stack": {
+    "input": {
+      "tag": "forge:dusts/tungsten_steel"
     },
-    "output" : [{
-      "item" : "micro_machinery:dust_tungsten",
-      "count" : 4
-    },
-    {
-      "item" : "micro_machinery:dust_cobalt",
-      "count" : 1
-    }],
-    "cook_time" : 240
-  }
+    "count": 5
+  },
+  "output": [
+    [
+      {
+        "item": "micro_machinery:dust_tungsten",
+        "count": 4
+      }
+    ],
+    [
+      {
+        "item": "micro_machinery:dust_cobalt",
+        "count": 1
+      }
+    ]
+  ],
+  "time": 240
+}

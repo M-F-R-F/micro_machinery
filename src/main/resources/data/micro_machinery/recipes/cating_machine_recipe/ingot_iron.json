@@ -10,5 +10,5 @@
       "item" : "minecraft:iron_ingot",
       "count" : 1
     },
-    "cook_time" : 60
+    "time": 60
   }

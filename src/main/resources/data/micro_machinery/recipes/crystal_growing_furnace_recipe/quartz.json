@@ -11,5 +11,5 @@
       "item" : "minecraft:quartz",
       "count" : 64
     },
-    "cook_time" : 1200
+    "time": 1200
   }

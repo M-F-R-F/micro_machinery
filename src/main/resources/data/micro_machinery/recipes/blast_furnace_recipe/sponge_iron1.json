@@ -10,5 +10,5 @@
     "item" : "micro_machinery:sponge_iron",
     "count" : 1
   },
-  "cook_time" : 800
+  "time": 800
 }

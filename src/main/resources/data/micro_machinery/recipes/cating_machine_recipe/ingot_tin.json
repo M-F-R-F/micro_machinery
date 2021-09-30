@@ -10,5 +10,5 @@
       "item" : "micro_machinery:ingot_tin",
       "count" : 1
     },
-    "cook_time" : 30
+    "time": 30
   }

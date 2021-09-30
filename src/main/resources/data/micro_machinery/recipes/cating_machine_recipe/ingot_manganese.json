@@ -10,5 +10,5 @@
       "item" : "micro_machinery:ingot_manganese",
       "count" : 1
     },
-    "cook_time" : 60
+    "time": 60
   }

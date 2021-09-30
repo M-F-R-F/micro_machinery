@@ -1,18 +1,24 @@
 {
-    "type": "micro_machinery:centrifuge_recipe",
-    "input_stack": {
-      "input": {
-        "item": "micro_machinery:slag_cobalt"
-      },
-      "count": 1
+  "type": "micro_machinery:centrifuge_recipe",
+  "input_stack": {
+    "input": {
+      "item": "micro_machinery:slag_cobalt"
     },
-    "output" : [{
-      "item" : "micro_machinery:refined_slag_cobalt",
-      "count" : 1
-    },
-    {
-      "item" : "micro_machinery:slag",
-      "count" : 1
-    }],
-    "cook_time" : 120
-  }
+    "count": 1
+  },
+  "output": [
+    [
+      {
+        "item": "micro_machinery:refined_slag_cobalt",
+        "count": 1
+      }
+    ],
+    [
+      {
+        "item": "micro_machinery:slag",
+        "count": 1
+      }
+    ]
+  ],
+  "time": 120
+}

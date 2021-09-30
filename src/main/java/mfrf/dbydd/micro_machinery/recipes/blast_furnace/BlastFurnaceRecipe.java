@@ -57,7 +57,7 @@ public class BlastFurnaceRecipe extends RecipeBase {
             JsonObject output = json.getAsJsonObject("output");
             Item item = JSONUtils.getItem(output, "item");
             int count = JSONUtils.getInt(output, "count");
-            int cook_time = json.get("cook_time").getAsInt();
+            int cook_time = json.get("time").getAsInt();
             return new BlastFurnaceRecipe(ingredientStack, new ItemStack(item, count), cook_time, recipeId);
         }
 

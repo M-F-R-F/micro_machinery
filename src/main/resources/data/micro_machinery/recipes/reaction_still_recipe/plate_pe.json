@@ -11,5 +11,5 @@
     "output" : [
     {"item": "micro_machinery:plate_pe",
       "count": 1}],
-    "cook_time" : 100
+    "time": 100
   }

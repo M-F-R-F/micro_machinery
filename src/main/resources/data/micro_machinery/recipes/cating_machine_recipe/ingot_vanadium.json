@@ -10,5 +10,5 @@
       "item" : "micro_machinery:ingot_vanadium",
       "count" : 1
     },
-    "cook_time" : 80
+    "time": 80
   }

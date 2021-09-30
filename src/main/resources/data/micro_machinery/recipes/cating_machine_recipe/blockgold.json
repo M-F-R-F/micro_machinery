@@ -10,5 +10,5 @@
       "item" : "minecraft:gold_block",
       "count" : 1
     },
-    "cook_time" : 300
+    "time": 300
   }

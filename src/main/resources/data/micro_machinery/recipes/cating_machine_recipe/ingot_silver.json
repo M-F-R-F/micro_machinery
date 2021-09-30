@@ -10,5 +10,5 @@
       "item" : "micro_machinery:ingot_silver",
       "count" : 1
     },
-    "cook_time" : 40
+    "time": 40
   }

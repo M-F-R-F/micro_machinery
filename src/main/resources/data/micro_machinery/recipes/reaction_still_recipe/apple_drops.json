@@ -11,5 +11,5 @@
     "output" : [
     {"item": "micro_machinery:apple_drops",
       "count": 1}],
-    "cook_time" : 160
+    "time": 160
   }

@@ -82,12 +82,15 @@ public class CentrifugeRecipe extends RecipeBase {
             ArrayList<RandomUtils.RollListI<ItemStack>> outputs = new ArrayList<>();
 
             for (JsonElement jsonElement : output) {
-                JsonArray slot = (JsonArray) jsonElement;
+                JsonArray slot = jsonElement.getAsJsonArray();
 
                 HashMap<ItemStack, Integer> roll_list = new HashMap<>();
                 for (JsonElement element : slot) {
                     JsonObject jsonObject = (JsonObject) element;
-                    int probability = jsonObject.get("probability").getAsInt();
+                    int probability = 100;
+                    if (jsonObject.has("probability")) {
+                        probability = jsonObject.get("probability").getAsInt();
+                    }
                     ItemStack stack = RecipeHelper.getItemStackFormJsonObject(jsonObject);
                     roll_list.put(stack, probability);
                 }
