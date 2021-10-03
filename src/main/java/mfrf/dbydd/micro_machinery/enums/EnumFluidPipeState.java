@@ -3,7 +3,7 @@ package mfrf.dbydd.micro_machinery.enums;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumFluidPipeState implements IStringSerializable {
-    OPEN, AUTO_TRUE, AUTO_FALSE, CLOSE;
+    OPEN, AUTO_TRUE, AUTO_FALSE, CLOSE, AUTO_CONNECTED;
 
     @Override
     public String getName() {
@@ -16,6 +16,8 @@ public enum EnumFluidPipeState implements IStringSerializable {
                 return "close";
             case AUTO_FALSE:
                 return "auto_false";
+            case AUTO_CONNECTED:
+                return "auto_connected";
         }
         return "close";
     }

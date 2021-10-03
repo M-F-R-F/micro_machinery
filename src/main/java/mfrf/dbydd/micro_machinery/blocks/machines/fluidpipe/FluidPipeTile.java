@@ -201,7 +201,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
 
             for (Direction side : Direction.values()) {
                 EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
-                if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN) {
+                if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN || enumFluidPipeState == EnumFluidPipeState.AUTO_CONNECTED) {
                     BlockPos offset = pos.offset(side);
                     TileEntity tileEntity = world.getTileEntity(offset);
 

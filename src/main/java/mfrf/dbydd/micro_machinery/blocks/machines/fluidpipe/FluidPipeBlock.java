@@ -58,7 +58,7 @@ public class FluidPipeBlock extends MMBlockBase {
         DIRECTION_VOXEL_SHAPE_MAP.put(Direction.WEST, WEST_SHAPE);
         DIRECTION_VOXEL_SHAPE_MAP.put(Direction.EAST, EAST_SHAPE);
         this.setDefaultState(this.stateContainer.getBaseState().with(UP_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(DOWN_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(SOUTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE
-        ).with(NORTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(WEST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(EAST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(BLOCKED,false));
+        ).with(NORTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(WEST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(EAST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(BLOCKED, false));
     }
 
     @Override
@@ -124,8 +124,8 @@ public class FluidPipeBlock extends MMBlockBase {
                     }
                 } else if (tileEntityNeighbor != null) {
                     if (tileEntityNeighbor.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facingFromVector.getOpposite()).isPresent()) {
-                        if (currentValue != EnumFluidPipeState.AUTO_TRUE) {
-                            setStateNoUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
+                        if (currentValue != EnumFluidPipeState.AUTO_CONNECTED) {
+                            setStateNoUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_CONNECTED));
                         }
                     }
                 } else {
