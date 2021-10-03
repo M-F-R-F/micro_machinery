@@ -1,16 +1,40 @@
 {
 	"multipart": [
-		{   "apply": { "model": "micro_machinery:block/pipe/pipe_2" }},
-		{   "when": { "north_connect": "pipe" },
-			"apply": { "model": "micro_machinery:block/pipe/pipe_arm2"}
+		{
+			"apply": {
+				"model": "micro_machinery:block/pipe/pipe_stainless_steel"
+			}
 		},
-		{   "when": { "east_connect": "pipe" },
-			"apply": { "model": "micro_machinery:block/pipe/pipe_arm2", "y": 90}
+		{
+			"when": {
+				"north_connect": "pipe"
+			},
+			"apply": {
+				"model": "micro_machinery:block/pipe/pipe_arm2"
+			}
 		},
-		{   "when": { "south_connect": "pipe" },
-			"apply": { "model": "micro_machinery:block/pipe/pipe_arm2", "y": 180}
+		{
+			"when": {
+				"east_connect": "pipe"
+			},
+			"apply": {
+				"model": "micro_machinery:block/pipe/pipe_arm2",
+				"y": 90
+			}
 		},
-		{   "when": { "west_connect": "pipe" },
+		{
+			"when": {
+				"south_connect": "pipe"
+			},
+			"apply": {
+				"model": "micro_machinery:block/pipe/pipe_arm2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"west_connect": "pipe"
+			},
 			"apply": { "model": "micro_machinery:block/pipe/pipe_arm2", "y": 270}
 		},
 		{   "when": { "up_connect": "pipe" },

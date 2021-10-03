@@ -7,7 +7,7 @@
         "amount": 600}
     },
     "output" : {
-      "item" : "micro_machinery:pipe_2",
+      "item" : "micro_machinery:pipe_stainless_steel",
       "count" : 1
     },
     "time": 80

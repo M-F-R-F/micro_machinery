@@ -1,5 +1,5 @@
 {
-	"parent": "micro_machinery:block/pipe/pipe_1",
+	"parent": "micro_machinery:block/pipe/pipe_invar",
 	"display": {
 		"thirdperson": {
 			"rotation": [ 10, -45, 170 ],

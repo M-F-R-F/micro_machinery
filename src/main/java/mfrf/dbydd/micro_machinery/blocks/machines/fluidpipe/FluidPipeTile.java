@@ -184,7 +184,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && side != null) {
             EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
             if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN) {
                 return LazyOptional.of(() -> fluidTank).cast();
@@ -205,7 +205,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                     BlockPos offset = pos.offset(side);
                     TileEntity tileEntity = world.getTileEntity(offset);
 
-                    tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(
+                    tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
                             iFluidHandler -> {
                                 //if is pipe, check
                                 if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
@@ -224,19 +224,21 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                 }
             }
 
-            //do average and some interesting
-            if (pipeFluidSum.get() > getMaterial()) {
-                pipeFluidSum.set(getMaterial());
-            }
-            int remain = pipeFluidSum.get() % pipeDirections.size();
-            int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
-            for (Direction direction : pipeDirections) {
-                FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getTileEntity(this.pos.offset(direction));
-                int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
-                fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
-                markDirty();
-            }
+            if (!pipeDirections.isEmpty()) {
+                //do average and some interesting
+                if (pipeFluidSum.get() > getMaterial()) {
+                    pipeFluidSum.set(getMaterial());
+                }
+                int remain = pipeFluidSum.get() % pipeDirections.size();
+                int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
+                for (Direction direction : pipeDirections) {
+                    FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getTileEntity(this.pos.offset(direction));
+                    int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
+                    fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
+                    markDirty();
+                }
 
+            }
         }
     }
 
