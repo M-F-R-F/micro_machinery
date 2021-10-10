@@ -1,32 +1,17 @@
 {
   "variants": 
   {
-      "facing=north,is_under=false": {
+      "facing=north": {
           "model": "micro_machinery:block/centrifuge"
       },
-      "facing=east,is_under=false": {
+      "facing=east": {
           "model": "micro_machinery:block/centrifuge"
       },
-      "facing=south,is_under=false": {
+      "facing=south": {
           "model": "micro_machinery:block/centrifuge"
       },
-      "facing=west,is_under=false": {
+      "facing=west": {
           "model": "micro_machinery:block/centrifuge"
-      },
-      "facing=north,is_under=true": {
-          "model": "micro_machinery:block/centrifuge_under",
-          "y": 90
-      },
-      "facing=east,is_under=true": {
-          "model": "micro_machinery:block/centrifuge_under",
-          "y": 180
-      },
-      "facing=south,is_under=true": {
-          "model": "micro_machinery:block/centrifuge_under",
-          "y": 270
-      },
-      "facing=west,is_under=true": {
-          "model": "micro_machinery:block/centrifuge_under"
       }
   }
 }
