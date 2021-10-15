@@ -5,13 +5,16 @@
           "model": "micro_machinery:block/centrifuge"
       },
       "facing=east": {
-          "model": "micro_machinery:block/centrifuge"
+          "model": "micro_machinery:block/centrifuge",
+        "y": 90
       },
       "facing=south": {
-          "model": "micro_machinery:block/centrifuge"
+          "model": "micro_machinery:block/centrifuge",
+        "y": 180
       },
       "facing=west": {
-          "model": "micro_machinery:block/centrifuge"
+          "model": "micro_machinery:block/centrifuge",
+        "y": 270
       }
   }
 }
