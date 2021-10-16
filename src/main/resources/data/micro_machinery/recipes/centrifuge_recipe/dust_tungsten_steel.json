@@ -2,7 +2,7 @@
   "type": "micro_machinery:centrifuge_recipe",
   "input_stack": {
     "input": {
-      "tag": "forge:dusts/tungsten_steel"
+      "tag": "forge:dusts/tungstensteel"
     },
     "count": 5
   },
