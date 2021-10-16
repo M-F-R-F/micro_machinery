@@ -205,22 +205,24 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                     BlockPos offset = pos.offset(side);
                     TileEntity tileEntity = world.getTileEntity(offset);
 
-                    tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
-                            iFluidHandler -> {
-                                //if is pipe, check
-                                if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
-                                    pipeDirections.add(side);
-                                    int amount = iFluidHandler.getFluidInTank(0).getAmount();
-                                    if (amount - this.fluidTank.getFluidAmount() < -1)
-                                        pipeFluidSum.addAndGet(this.fluidTank.getFluidAmount() - amount);
-                                } else {
-                                    int fill = iFluidHandler.fill(this.fluidTank.drain(getMaterial(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
-                                    iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                                    markDirty();
-                                }
+                    if (tileEntity != null) {
+                        tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
+                                iFluidHandler -> {
+                                    //if is pipe, check
+                                    if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+                                        pipeDirections.add(side);
+                                        int amount = iFluidHandler.getFluidInTank(0).getAmount();
+                                        if (amount - this.fluidTank.getFluidAmount() < -1)
+                                            pipeFluidSum.addAndGet(this.fluidTank.getFluidAmount() - amount);
+                                    } else {
+                                        int fill = iFluidHandler.fill(this.fluidTank.drain(getMaterial(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
+                                        iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                                        markDirty();
+                                    }
 
-                            }
-                    );
+                                }
+                        );
+                    }
                 }
             }
 

@@ -4,7 +4,9 @@ import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
 import mfrf.dbydd.micro_machinery.enums.EnumFluidPipeState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
@@ -45,18 +47,6 @@ public class FluidPipeBlock extends MMBlockBase {
 
     public FluidPipeBlock(Properties properties, String name) {
         super(properties, name);
-        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.UP, UP_ISCONNECTED);
-        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.DOWN, DOWN_ISCONNECTED);
-        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.SOUTH, SOUTH_ISCONNECTED);
-        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.NORTH, NORTH_ISCONNECTED);
-        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.WEST, WEST_ISCONNECTED);
-        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.EAST, EAST_ISCONNECTED);
-        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.UP, UP_SHAPE);
-        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.DOWN, DOWN_SHAPE);
-        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.SOUTH, SOUTH_SHAPE);
-        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.NORTH, NORTH_SHAPE);
-        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.WEST, WEST_SHAPE);
-        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.EAST, EAST_SHAPE);
         this.setDefaultState(this.stateContainer.getBaseState().with(UP_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(DOWN_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(SOUTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE
         ).with(NORTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(WEST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(EAST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).with(BLOCKED, false));
     }
@@ -82,7 +72,7 @@ public class FluidPipeBlock extends MMBlockBase {
             } else {
                 TileEntity tileEntity = world.getTileEntity(offset);
                 if (tileEntity != null && tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction.getOpposite()).isPresent()) {
-                    defaultState = defaultState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_TRUE);
+                    defaultState = defaultState.with(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_CONNECTED);
                 }
             }
         }
@@ -91,6 +81,8 @@ public class FluidPipeBlock extends MMBlockBase {
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        //todo 管道等级
+        //todo 重写
 //        builder.add(CABLE_MATERIAL_ENUM_PROPERTY);
         builder.add(UP_ISCONNECTED);
         builder.add(DOWN_ISCONNECTED);
@@ -99,6 +91,19 @@ public class FluidPipeBlock extends MMBlockBase {
         builder.add(WEST_ISCONNECTED);
         builder.add(EAST_ISCONNECTED);
         builder.add(BLOCKED);
+
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.UP, UP_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.DOWN, DOWN_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.SOUTH, SOUTH_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.NORTH, NORTH_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.WEST, WEST_ISCONNECTED);
+        DIRECTION_ENUM_PROPERTY_MAP.put(Direction.EAST, EAST_ISCONNECTED);
+        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.UP, UP_SHAPE);
+        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.DOWN, DOWN_SHAPE);
+        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.SOUTH, SOUTH_SHAPE);
+        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.NORTH, NORTH_SHAPE);
+        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.WEST, WEST_SHAPE);
+        DIRECTION_VOXEL_SHAPE_MAP.put(Direction.EAST, EAST_SHAPE);
         super.fillStateContainer(builder);
     }
 
@@ -120,17 +125,18 @@ public class FluidPipeBlock extends MMBlockBase {
             if (!(currentValue == EnumFluidPipeState.CLOSE || currentValue == EnumFluidPipeState.OPEN)) {
                 if (world.getBlockState(neighbor).getBlock() instanceof FluidPipeBlock) {
                     if (currentValue != EnumFluidPipeState.AUTO_TRUE) {
-                        setStateNoUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
+                        setStateAndUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
+//                        ((World) world).setBlockState(pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
                     }
                 } else if (tileEntityNeighbor != null) {
                     if (tileEntityNeighbor.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facingFromVector.getOpposite()).isPresent()) {
                         if (currentValue != EnumFluidPipeState.AUTO_CONNECTED) {
-                            setStateNoUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_CONNECTED));
+                            setStateAndUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_CONNECTED));
                         }
                     }
                 } else {
                     if (currentValue != EnumFluidPipeState.AUTO_FALSE) {
-                        setStateNoUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_FALSE));
+                        setStateAndUpdateNeighbor((World) world, pos, state.with(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_FALSE));
                     }
                 }
             }
@@ -139,8 +145,15 @@ public class FluidPipeBlock extends MMBlockBase {
         super.onNeighborChange(state, world, pos, neighbor);
     }
 
-    private boolean setStateNoUpdateNeighbor(World world, BlockPos pos, BlockState state) {
-        return world.setBlockState(pos, state, 22);
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        worldIn.notifyNeighborsOfStateChange(pos, state.getBlock());
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    }
+
+    private boolean setStateAndUpdateNeighbor(World world, BlockPos pos, BlockState state) {
+        boolean b = world.setBlockState(pos, state, 22);
+        return b;
     }
 
     @Override
