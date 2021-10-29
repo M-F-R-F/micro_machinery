@@ -147,7 +147,7 @@ public class FluidPipeBlock extends MMBlockBase {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        worldIn.notifyNeighborsOfStateChange(pos, state.getBlock());
+//        worldIn.notifyNeighborsOfStateChange(pos, state.getBlock());
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
 

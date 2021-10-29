@@ -51,8 +51,8 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if(cap == CapabilityEnergy.ENERGY){
-            return LazyOptional.of(()->this).cast();
+        if (cap == CapabilityEnergy.ENERGY) {
+            return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(cap);
     }
@@ -60,8 +60,8 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if(cap == CapabilityEnergy.ENERGY){
-            return LazyOptional.of(()->this).cast();
+        if (cap == CapabilityEnergy.ENERGY) {
+            return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(cap, side);
     }
@@ -88,7 +88,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
                     TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
                     int currentEnergy = tileEnergyCable.getCurrentEnergy();
                     if (currentEnergy < this.currentEnergy) {
-                        int difference = (this.currentEnergy - currentEnergy)/2;
+                        int difference = (this.currentEnergy - currentEnergy) / 2;
                         sum += tileEnergyCable.receiveEnergy(Math.min(i, difference), false);
                     }
                 }

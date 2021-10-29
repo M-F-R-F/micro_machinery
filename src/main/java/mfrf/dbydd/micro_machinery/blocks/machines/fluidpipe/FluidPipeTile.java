@@ -1,5 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.fluidpipe;
 
+import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumFluidPipeState;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
@@ -7,6 +8,7 @@ import mfrf.dbydd.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -195,53 +197,70 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
 
     @Override
     public void tick() {
-        if (!world.isRemote() && !blocked()) {
-            ArrayList<Direction> pipeDirections = new ArrayList<>();
-            AtomicInteger pipeFluidSum = new AtomicInteger();
+        if (!world.isRemote()) {
+            if (!blocked()) {
+                ArrayList<Direction> pipeDirections = new ArrayList<>();
+                AtomicInteger pipeFluidSum = new AtomicInteger();
 
-            for (Direction side : Direction.values()) {
-                EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
-                if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN || enumFluidPipeState == EnumFluidPipeState.AUTO_CONNECTED) {
-                    BlockPos offset = pos.offset(side);
-                    TileEntity tileEntity = world.getTileEntity(offset);
+                for (Direction side : Direction.values()) {
+                    EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
+                    if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN || enumFluidPipeState == EnumFluidPipeState.AUTO_CONNECTED) {
+                        BlockPos offset = pos.offset(side);
+                        TileEntity tileEntity = world.getTileEntity(offset);
 
-                    if (tileEntity != null) {
-                        tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
-                                iFluidHandler -> {
-                                    //if is pipe, check
-                                    if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
-                                        pipeDirections.add(side);
-                                        int amount = iFluidHandler.getFluidInTank(0).getAmount();
-                                        if (amount - this.fluidTank.getFluidAmount() < -1)
-                                            pipeFluidSum.addAndGet(this.fluidTank.getFluidAmount() - amount);
-                                    } else {
-                                        int fill = iFluidHandler.fill(this.fluidTank.drain(getMaterial(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
-                                        iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                                        markDirty();
+                        if (tileEntity != null) {
+                            tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
+                                    iFluidHandler -> {
+                                        //if is pipe, check
+                                        if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+                                            pipeDirections.add(side);
+                                            int amount = iFluidHandler.getFluidInTank(0).getAmount();
+                                            if (amount - this.fluidTank.getFluidAmount() < -1)
+                                                pipeFluidSum.addAndGet(this.fluidTank.getFluidAmount() - amount);
+                                        } else {
+                                            int fill = iFluidHandler.fill(this.fluidTank.drain(getMaterial(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
+                                            iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                                            markDirty();
+                                        }
+
                                     }
-
-                                }
-                        );
+                            );
+                        }
                     }
                 }
+
+                if (!pipeDirections.isEmpty()) {
+                    //do average and some interesting
+                    if (pipeFluidSum.get() > getMaterial()) {
+                        pipeFluidSum.set(getMaterial());
+                    }
+                    int remain = pipeFluidSum.get() % pipeDirections.size();
+                    int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
+                    for (Direction direction : pipeDirections) {
+                        FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getTileEntity(this.pos.offset(direction));
+                        int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
+                        fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
+                        markDirty();
+                    }
+                }
+
             }
-
-            if (!pipeDirections.isEmpty()) {
-                //do average and some interesting
-                if (pipeFluidSum.get() > getMaterial()) {
-                    pipeFluidSum.set(getMaterial());
-                }
-                int remain = pipeFluidSum.get() % pipeDirections.size();
-                int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
-                for (Direction direction : pipeDirections) {
-                    FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getTileEntity(this.pos.offset(direction));
-                    int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
-                    fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
-                    markDirty();
-                }
-
+            if (world.getGameTime() % Config.HIGH_FREQUENCY_BLOCK_ACTIVE_UPDATE_CYCLE.get() == 0) {
+                checkPipeState();
             }
         }
     }
+
+    public void checkPipeState() {
+        for (Direction value : Direction.values()) {
+            BlockPos offset = pos.offset(value);
+            BlockState blockState = world.getBlockState(offset);
+            if (blockState.getBlock() instanceof FluidPipeBlock) {
+                FluidPipeBlock block = (FluidPipeBlock) blockState.getBlock();
+                world.setBlockState(pos, block.getState(world, pos), 18);
+            }
+        }
+    }
+
 
 }
