@@ -17,6 +17,9 @@ public class CentrifugeScreen extends ScreenBase<CentrifugeContainer> {
         initBase();
         super.render(p_render_1_, p_render_2_, p_render_3_);
 
+        int i = calculateBarPixel(container.tileCentrifuge.progress, 30);
+        renderModule(73, 42, 176, 0, i, 5);
+        renderDefaultEnergyBarWithTip(container.tileCentrifuge.feContainer, 157, 16, p_render_1_, p_render_2_);
         renderHoveredToolTip(p_render_1_, p_render_2_);
     }
 

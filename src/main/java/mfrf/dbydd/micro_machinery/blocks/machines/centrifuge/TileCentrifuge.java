@@ -62,7 +62,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
     };
     public ItemStackHandler input = new ItemStackHandler(1);
     public ItemStackHandler output = new ItemStackHandler(5);
-    private IntegerContainer progress = new IntegerContainer();
+    public IntegerContainer progress = new IntegerContainer();
     public boolean isWorking = false;
     private ResourceLocation recipe = null;
 

@@ -10,6 +10,7 @@ import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -83,6 +84,20 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
 
     public boolean blocked() {
         return getBlockState().get(FluidPipeBlock.BLOCKED);
+    }
+
+    //todo 做到这里
+    public boolean ejectToOpenSide(Direction direction, FluidStack ejectStack) {
+        BlockPos offset = pos.offset(direction);
+        BlockState blockStateToReplace = world.getBlockState(pos);
+        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(world, offset, ejectStack)) {
+            if (blockStateToReplace.isReplaceable(ejectStack.getFluid()) && blockStateToReplace.getFluidState().getFluid() == Fluids.EMPTY) {
+                BlockState blockState = ejectStack.getFluid().getDefaultState().getBlockState();
+                world.setBlockState(offset, blockState);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void block(ItemStack blocker) {
@@ -195,6 +210,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
         return super.getCapability(cap, side);
     }
 
+    //todo 喷射液体和物品
     @Override
     public void tick() {
         if (!world.isRemote()) {
