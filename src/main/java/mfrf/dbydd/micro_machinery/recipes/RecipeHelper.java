@@ -128,10 +128,10 @@ public class RecipeHelper {
         return null;
     }
 
-    public static FluidCrashRecipe getFluidCrashRecipe(FluidStack a,FluidStack b,RecipeManager manager){
+    public static FluidCrashRecipe getFluidCrashRecipe(FluidStack a, FluidStack b, RecipeManager manager) {
         List<FluidCrashRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE);
         for (FluidCrashRecipe fluidCrashRecipe : recipeListByType) {
-            if((fluidCrashRecipe.fluidA == a.getFluid().getRegistryName() && fluidCrashRecipe.fluidB == b.getFluid().getRegistryName()) || (fluidCrashRecipe.fluidB == a.getFluid().getRegistryName() && fluidCrashRecipe.fluidA == b.getFluid().getRegistryName())){
+            if ((fluidCrashRecipe.fluidA == a.getFluid().getRegistryName() && fluidCrashRecipe.fluidB == b.getFluid().getRegistryName()) || (fluidCrashRecipe.fluidB == a.getFluid().getRegistryName() && fluidCrashRecipe.fluidA == b.getFluid().getRegistryName())) {
                 return fluidCrashRecipe;
             }
         }
@@ -168,6 +168,14 @@ public class RecipeHelper {
         Item itemOutput = JSONUtils.getItem(object, "item");
         int countOutput = JSONUtils.getInt(object, "count");
         return new ItemStack(itemOutput, countOutput);
+    }
+
+    public static ResourceLocation getFluidNameFromJsonObject(JsonObject object) {
+        return ResourceLocation.tryCreate(object.get("fluid_name").getAsString());
+    }
+
+    public static int getFluidAmountFromJsonObject(JsonObject object) {
+        return object.get("amount").getAsInt();
     }
 
 }

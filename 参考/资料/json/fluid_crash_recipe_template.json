@@ -1,11 +1,11 @@
 {
   "type": "micro_machinery:fluid_crash_recipe",
   "fluidA": {
-    "fluidName": "",
+    "fluid_name": "",
     "amount": 144
   },
   "fluidB": {
-    "fluidName": "",
+    "fluid_name": "",
     "amount": 144
   },
   "result": {

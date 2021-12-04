@@ -57,7 +57,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
         }
     };
     private ItemStackHandler items = new ItemStackHandler(2);
-    private IntegerContainer progress;
+    private IntegerContainer progress = new IntegerContainer();
     private ItemStack result = ItemStack.EMPTY;
     private boolean isWorking = false;
 

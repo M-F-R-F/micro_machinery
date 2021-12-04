@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -18,38 +19,40 @@ public class CentrifugeContainer extends ContainerBase {
     public CentrifugeContainer(int windowId, PlayerInventory inv, BlockPos readBlockPos, World world) {
         super(RegisteredContainerTypes.CENTRIFUGE_CONTAINER.get(), windowId);
         tileCentrifuge = ((TileCentrifuge) world.getTileEntity(readBlockPos));
+        final ItemStackHandler input = tileCentrifuge.getInput();
+        final ItemStackHandler output = tileCentrifuge.getOutput();
 
-        this.addSlot(new SlotItemHandler(tileCentrifuge.input, 0, 80, 18) {
+        this.addSlot(new SlotItemHandler(input, 0, 80, 18) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return true;
             }
         });
-        this.addSlot(new SlotItemHandler(tileCentrifuge.output, 0, 56, 59) {
+        this.addSlot(new SlotItemHandler(output, 0, 56, 59) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return false;
             }
         });
-        this.addSlot(new SlotItemHandler(tileCentrifuge.output, 1, 80, 59) {
+        this.addSlot(new SlotItemHandler(output, 1, 80, 59) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return false;
             }
         });
-        this.addSlot(new SlotItemHandler(tileCentrifuge.output, 2, 104, 59) {
+        this.addSlot(new SlotItemHandler(output, 2, 104, 59) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return false;
             }
         });
-        this.addSlot(new SlotItemHandler(tileCentrifuge.output, 3, 68, 80) {
+        this.addSlot(new SlotItemHandler(output, 3, 68, 80) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return false;
             }
         });
-        this.addSlot(new SlotItemHandler(tileCentrifuge.output, 4, 92, 80) {
+        this.addSlot(new SlotItemHandler(output, 4, 92, 80) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return false;

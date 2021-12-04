@@ -52,9 +52,9 @@ public class FluidCrashRecipe extends RecipeBase {
             JsonObject result = json.get("result").getAsJsonObject();
 
             return new FluidCrashRecipe(recipeId,
-                    ResourceLocation.tryCreate(fluidA.get("fluidName").getAsString()),
+                    ResourceLocation.tryCreate(fluidA.get("fluid_name").getAsString()),
                     fluidA.get("amount").getAsInt(),
-                    ResourceLocation.tryCreate(fluidB.get("fluidName").getAsString()),
+                    ResourceLocation.tryCreate(fluidB.get("fluid_name").getAsString()),
                     fluidB.get("amount").getAsInt(),
                     RecipeHelper.getItemStackFormJsonObject(result)
             );

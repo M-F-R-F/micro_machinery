@@ -2,6 +2,7 @@ package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
+import mfrf.dbydd.micro_machinery.recipes.automization.AtomizationRecipe;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
 import mfrf.dbydd.micro_machinery.recipes.cutter.CutterRecipe;
@@ -27,7 +28,8 @@ public class RegisteredRecipeSerializers {
     public static final RegistryObject<IRecipeSerializer<ElectrolysisRecipe>> ELECTROLYSIS_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("electrolysis_recipe", ElectrolysisRecipe.Serializer::new);
     public static final RegistryObject<IRecipeSerializer<CutterRecipe>> CUTTER_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("cutter_recipe", CutterRecipe.Searlizer::new);
     public static final RegistryObject<IRecipeSerializer<CentrifugeRecipe>> CENTRIFUGE_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("centrifuge_recipe", CentrifugeRecipe.Serializer::new);
-    public static final RegistryObject<IRecipeSerializer<FluidCrashRecipe>> FLUID_CRASH_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("fluid_crash_recipe",FluidCrashRecipe.Serializer::new);
+    public static final RegistryObject<IRecipeSerializer<FluidCrashRecipe>> FLUID_CRASH_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("fluid_crash_recipe", FluidCrashRecipe.Serializer::new);
+    public static final RegistryObject<IRecipeSerializer<AtomizationRecipe>> ATOMIZATION_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("atomization_recipe", AtomizationRecipe.Serializer::new);
 
     public static void init() {
 
@@ -42,6 +44,7 @@ public class RegisteredRecipeSerializers {
         public static final IRecipeType<ElectrolysisRecipe> ELECTROLYSIS_RECIPE_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "electrolysis_recipe");
         public static final IRecipeType<CutterRecipe> CUTTER_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "cutter_recipe");
         public static final IRecipeType<CentrifugeRecipe> CENTRIFUGE_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "centrifuge_recipe");
-        public static final IRecipeType<FluidCrashRecipe> FLUID_CRASH_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME+"fluid_crash_recipe");
+        public static final IRecipeType<FluidCrashRecipe> FLUID_CRASH_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "fluid_crash_recipe");
+        public static final IRecipeType<AtomizationRecipe> ATOMIZATION_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "atomization_recipe");
     }
 }

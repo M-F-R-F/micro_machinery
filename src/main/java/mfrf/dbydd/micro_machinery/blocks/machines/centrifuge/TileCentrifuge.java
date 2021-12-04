@@ -33,10 +33,22 @@ import java.util.Map;
 import java.util.Optional;
 
 public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
-    public FEContainer feContainer = new FEContainer(0, 40000) {
+    private FEContainer feContainer = new FEContainer(0, 40000) {
         @Override
         public boolean canExtract() {
             return false;
+        }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            markDirty2();
+            return super.extractEnergy(maxExtract, simulate);
+        }
+
+        @Override
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            markDirty2();
+            return super.receiveEnergy(maxReceive, simulate);
         }
 
         @Override
@@ -60,10 +72,10 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
             }
         }
     };
-    public ItemStackHandler input = new ItemStackHandler(1);
-    public ItemStackHandler output = new ItemStackHandler(5);
-    public IntegerContainer progress = new IntegerContainer();
-    public boolean isWorking = false;
+    private ItemStackHandler input = new ItemStackHandler(1);
+    private ItemStackHandler output = new ItemStackHandler(5);
+    private IntegerContainer progress = new IntegerContainer();
+    private boolean isWorking = false;
     private ResourceLocation recipe = null;
 
     public TileCentrifuge() {
@@ -79,6 +91,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
                 if (feContainer.getCurrent() > 128) {
                     feContainer.selfSubtract();
                     progress.selfAdd();
+                    markDirty2();
                 }
 
                 if (progress.atMaxValue()) {
@@ -92,6 +105,12 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
                         }
 
                         insertResultNoResponse(outputs);
+
+                        isWorking = false;
+                        progress.resetValue();
+                        this.recipe = null;
+                        markDirty2();
+
                     });
                 }
             } else {
@@ -127,6 +146,26 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
         }
         markDirty2();
 
+    }
+
+    public FEContainer getFeContainer() {
+        return feContainer;
+    }
+
+    public IntegerContainer getProgress() {
+        return progress;
+    }
+
+    public boolean isWorking() {
+        return isWorking;
+    }
+
+    public ItemStackHandler getOutput() {
+        return output;
+    }
+
+    public ItemStackHandler getInput() {
+        return input;
     }
 
     @Override
