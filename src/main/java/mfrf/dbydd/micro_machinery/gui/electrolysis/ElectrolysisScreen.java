@@ -20,7 +20,7 @@ public class ElectrolysisScreen extends ScreenBase<ElectrolysisContainer> {
 
         FEContainer energy = container.getElectrolysis().getEnergy();
         if (container.getElectrolysis().isWorking())
-            renderModule(70, 35, 16, 0, calculateBarPixel(container.getElectrolysis().getProgress(), 24), 16);
+            renderModule(70, 35, 16, 0, -calculateBarPixel(container.getElectrolysis().getProgress(), 24), 16);
         renderDefaultEnergyBarWithTip(container.getElectrolysis().getEnergy(), 152, 78, p_render_1_, p_render_2_);
         renderHoveredToolTip(p_render_1_, p_render_2_);
     }
