@@ -18,7 +18,7 @@ public class CentrifugeContainer extends ContainerBase {
 
     public CentrifugeContainer(int windowId, PlayerInventory inv, BlockPos readBlockPos, World world) {
         super(RegisteredContainerTypes.CENTRIFUGE_CONTAINER.get(), windowId);
-        tileCentrifuge = ((TileCentrifuge) world.getTileEntity(readBlockPos));
+        this.tileCentrifuge = ((TileCentrifuge) world.getTileEntity(readBlockPos));
         final ItemStackHandler input = tileCentrifuge.getInput();
         final ItemStackHandler output = tileCentrifuge.getOutput();
 
@@ -62,8 +62,17 @@ public class CentrifugeContainer extends ContainerBase {
         drawInventory(8, 105, inv);
     }
 
+    public TileCentrifuge getTileCentrifuge() {
+        return tileCentrifuge;
+    }
+
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return tileCentrifuge.isUsableByPlayer(playerIn);
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(PlayerEntity p_82846_1_, int p_82846_2_) {
+        return ItemStack.EMPTY;
     }
 }

@@ -24,7 +24,6 @@ public class CutterScreen extends ScreenBase<CutterContainer> {
             renderModule(72,40,92,0,16,i);
         }
         renderDefaultEnergyBarWithTip(tileEntity.getEnergyContainer(),157,83,p_render_1_,p_render_2_);
-
         renderHoveredToolTip(p_render_1_,p_render_2_);
     }
 }

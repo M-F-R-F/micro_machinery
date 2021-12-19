@@ -58,7 +58,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
 
         @Override
         public void setChanged() {
-            markDirty2();
+//            markDirty2();
         }
 
         @Override
@@ -169,7 +169,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
+    public CompoundNBT write(CompoundNBT compound) {
         CompoundNBT compoundNBT = super.serializeNBT();
         compoundNBT.put("fe_container", feContainer.serializeNBT());
         compoundNBT.put("input", input.serializeNBT());
@@ -183,7 +183,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void read(CompoundNBT nbt) {
         super.deserializeNBT(nbt);
         feContainer.deserializeNBT(nbt.getCompound("fe_container"));
         input.deserializeNBT(nbt.getCompound("input"));

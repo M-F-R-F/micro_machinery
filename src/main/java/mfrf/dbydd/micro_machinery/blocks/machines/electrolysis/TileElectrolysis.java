@@ -117,7 +117,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+//        if (!world.isRemote()) {
             if (isWorking) {
                 if (!progress.atMaxValue()) {
                     if (energy.getCurrent() >= 1024) {
@@ -143,7 +143,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
                     markDirty2();
                 }
             }
-        }
+//        }
     }
 
     @Override
