@@ -83,6 +83,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
         super.read(compound);
         tank.readFromNBT(compound);
         feContainer.deserializeNBT(compound.getCompound("fe_container"));
+        cd.deserializeNBT(compound.getCompound("cd"));
     }
 
     @Override
@@ -90,6 +91,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
         super.write(compound);
         tank.writeToNBT(compound);
         compound.put("fe_container", feContainer.serializeNBT());
+        compound.put("cd", cd.serializeNBT());
         return compound;
     }
 
