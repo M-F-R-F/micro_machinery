@@ -2,7 +2,7 @@ package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
-import mfrf.dbydd.micro_machinery.recipes.automization.AtomizationRecipe;
+import mfrf.dbydd.micro_machinery.recipes.atomization.AtomizationRecipe;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
 import mfrf.dbydd.micro_machinery.recipes.cutter.CutterRecipe;

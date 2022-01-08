@@ -84,9 +84,15 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
         }
     }
 
-    protected void renderTankGauage(int beginX, int beginY, int texture_width, int texture_height) {
+    protected void renderTankGauge(int beginX, int beginY, int texture_width, int texture_height) {
         this.minecraft.getTextureManager().bindTexture(MODULES);
         blit(guiLeft + beginX, guiTop + beginY, 0, 0, texture_width, texture_height);
+    }
+
+    protected void renderTankWithGaugeAndToolTip(IFluidTank tank, int mouthX, int mouthY, int x, int y, int width, int height) {
+        renderFluidTank(tank, x, y, width, height);
+        renderTankGauge(x, y, width, height);
+        renderFluidTankTooltip(tank, mouthX, mouthY, x, y, width, height);
     }
 
     protected void renderDefaultEnergyBarWithTip(FEContainer container, int beginX, int beginY, int mouseX, int mouseY) {

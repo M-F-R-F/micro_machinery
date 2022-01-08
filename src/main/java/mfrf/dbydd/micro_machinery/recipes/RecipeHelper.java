@@ -4,6 +4,7 @@ package mfrf.dbydd.micro_machinery.recipes;
 import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
+import mfrf.dbydd.micro_machinery.recipes.atomization.AtomizationRecipe;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
 import mfrf.dbydd.micro_machinery.recipes.cutter.CutterRecipe;
@@ -13,6 +14,7 @@ import mfrf.dbydd.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
+import mfrf.dbydd.micro_machinery.utils.RecipeFluidStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -138,6 +140,15 @@ public class RecipeHelper {
         return null;
     }
 
+    public static AtomizationRecipe getAtomizationRecipe(FluidStack stack, RecipeManager manager) {
+        List<AtomizationRecipe> recipeListByType = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.ATOMIZATION_RECIPE_TYPE);
+        for (AtomizationRecipe atomizationRecipe : recipeListByType) {
+            if (atomizationRecipe.input.test(stack))
+                return atomizationRecipe;
+        }
+        return null;
+    }
+
     public static boolean isStackABiggerThanStackB(ItemStack stackA, ItemStack stackB) {
         return (stackA.getItem() == stackB.getItem()) && (stackA.getCount() >= stackB.getCount());
     }
@@ -176,6 +187,10 @@ public class RecipeHelper {
 
     public static int getFluidAmountFromJsonObject(JsonObject object) {
         return object.get("amount").getAsInt();
+    }
+
+    public static RecipeFluidStack getFluidStackFromJsonObject(JsonObject object) {
+        return new RecipeFluidStack(getFluidNameFromJsonObject(object), getFluidAmountFromJsonObject(object));
     }
 
 }

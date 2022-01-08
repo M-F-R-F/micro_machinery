@@ -26,7 +26,7 @@ public class KlinScreen extends ScreenBase<KlinContainer> {
             renderModule(82, 29, 56, 12, 14, calcBurnProgressBarHeight());
         }
         renderFluidTank(klin.getFluidHandler(), 152, 63, 16, 60);
-        renderTankGauage(152, 3, 16, 60);
+        renderTankGauge(152, 3, 16, 60);
         renderFluidTankTooltip(klin.getFluidHandler(), mouseX, mouseY, 152, 3, 16, 60);
         renderHoveredToolTip(mouseX, mouseY);
     }

@@ -32,6 +32,7 @@ public class Config {
     public static ForgeConfigSpec.DoubleValue HSB_EFFICIENCY;
     public static ForgeConfigSpec.BooleanValue MINIMUM_WATER_LIMIT;
     public static ForgeConfigSpec.IntValue HIGH_FREQUENCY_BLOCK_ACTIVE_UPDATE_CYCLE;
+    public static ForgeConfigSpec.IntValue ATOMIZATION_FLUID_CONTAINER;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -67,6 +68,7 @@ public class Config {
         DSB_EFFICIENCY = builder.comment("Diamond Saw Blade efficiency(0.2-5)").defineInRange("dsb", 1.0d, 0.2d, 5.0d);
         HSB_EFFICIENCY = builder.comment("flywheel energy storage efficiency(0.2-5)").defineInRange("hsb", 1.0d, 0.2d, 5.0d);
         MINIMUM_WATER_LIMIT = builder.comment("open or stop thermal power plant's minimum water limit").define("minimum_water_limit", true);
+        ATOMIZATION_FLUID_CONTAINER = builder.comment("max fluid amount that atomization could contain").defineInRange("atomization_fluid_amount", 144, 144, 129600);
         builder.pop();
 
         builder.comment("technical", "this part is some technical options").push("technical");

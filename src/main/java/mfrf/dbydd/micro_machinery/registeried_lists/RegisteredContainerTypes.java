@@ -1,8 +1,8 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
+import mfrf.dbydd.micro_machinery.gui.atomization.AtomizationContainer;
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
 import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeContainer;
 import mfrf.dbydd.micro_machinery.gui.cutter.CutterContainer;
@@ -10,7 +10,6 @@ import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisContainer;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorContainer;
 import mfrf.dbydd.micro_machinery.gui.klin.KlinContainer;
 import mfrf.dbydd.micro_machinery.gui.lathe.LatheContainer;
-import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -28,4 +27,5 @@ public class RegisteredContainerTypes {
     public static final RegistryObject<ContainerType<ElectrolysisContainer>> ELECTROLYSIS_CONTAINER = CONTAINER_TYPE_REGISTER.register("electrolysis_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new ElectrolysisContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
     public static final RegistryObject<ContainerType<CutterContainer>> CUTTER_CONTAINER = CONTAINER_TYPE_REGISTER.register("cutter_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new CutterContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
     public static final RegistryObject<ContainerType<CentrifugeContainer>> CENTRIFUGE_CONTAINER = CONTAINER_TYPE_REGISTER.register("centrifuge_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new CentrifugeContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
+    public static final RegistryObject<ContainerType<AtomizationContainer>> ATOMIZATION_CONTAINER = CONTAINER_TYPE_REGISTER.register("atomization_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new AtomizationContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
 }

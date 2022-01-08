@@ -5,7 +5,6 @@ import mfrf.dbydd.micro_machinery.blocks.machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.IIntArray;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
@@ -24,9 +23,9 @@ public class GeneratorScreen extends ScreenBase<GeneratorContainer> {
         }
         renderModule(157,83, 243,70, 5,calculateEnergyBarHeight());
         super.render(mouseX, mouseY, partialTicks);
-        renderFluidTank(generator.getTank(), 17,75, 16,60);
-        renderTankGauage(17,15,16,60);
-        renderFluidTankTooltip(generator.getTank(),mouseX, mouseY, 17,15, 16,60);
+        renderFluidTank(generator.getTank(), 17, 75, 16, 60);
+        renderTankGauge(17, 15, 16, 60);
+        renderFluidTankTooltip(generator.getTank(), mouseX, mouseY, 17, 15, 16, 60);
         renderEnergyBarTooltip(generator.getEnergyContainer(), mouseX, mouseY, 157,13,5,70);
         renderHoveredToolTip(mouseX, mouseY);
     }
