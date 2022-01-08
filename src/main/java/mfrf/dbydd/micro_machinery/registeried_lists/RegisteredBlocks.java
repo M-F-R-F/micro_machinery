@@ -17,8 +17,9 @@ import mfrf.dbydd.micro_machinery.blocks.machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.BlockLathe;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.BlockBlastFurnace;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.energy_interface.BlockEnergyInterface;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.energy_interface.BlockHolderEnergyInterface;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.lever.LeverPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.pump.BlockPump;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
@@ -155,7 +156,7 @@ public class RegisteredBlocks {
     public static final Block LATHE = new BlockLathe(Block.Properties.create(Material.IRON).notSolid().harvestLevel(0).harvestTool(ToolType.PICKAXE).hardnessAndResistance(5.0f), "lathe");
     public static final Block PLACE_HOLDER = new BlockPlaceHolder("multi_block_place_holder");
     public static final Block LEVER_PLACEHOLDER = new LeverPlaceHolder();
-    public static final Block ENERGY_INTERFACE = new BlockEnergyInterface();
+    public static final Block ENERGY_INTERFACE = new BlockHolderEnergyInterface();
 
     //indicator
     public static final Block INDICATOR = new MMBlockBase("indicator", true);
@@ -188,6 +189,7 @@ public class RegisteredBlocks {
      * Multi Block main parts
      */
     public static final Block BLAST_FURNACE = new BlockBlastFurnace(Block.Properties.create(Material.ROCK));
+    public static final Block PUMP = new BlockPump(Block.Properties.create(Material.IRON));
 
 
     private RegisteredBlocks() {

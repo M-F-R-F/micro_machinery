@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.atomization.TileAtomization;
 import mfrf.dbydd.micro_machinery.blocks.machines.centrifuge.TileCentrifuge;
@@ -18,6 +18,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.TileBlastFurnace;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.energy_interface.TileEnergyInterface;
+import mfrf.dbydd.micro_machinery.blocks.machines.pump.TilePump;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TerTestTile;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntityType;
@@ -37,7 +38,7 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TileEnergyCable>> TILE_ENERGY_CABLE = TILE_ENTITY_TYPE_REGISTER.register("energy_cable", () -> TileEntityType.Builder.create(TileEnergyCable::new, RegisteredBlocks.ALUMINUM_CABLE, RegisteredBlocks.COBALT_CABLE, RegisteredBlocks.COPPER_CABLE, RegisteredBlocks.NICKEL_CABLE, RegisteredBlocks.TUNGSTEN_CABLE).build(null));
     public static final RegistryObject<TileEntityType<TileCreativeEnergyCell>> TILE_ENERGY_CELL = TILE_ENTITY_TYPE_REGISTER.register("energy_cell", () -> TileEntityType.Builder.create(TileCreativeEnergyCell::new, RegisteredBlocks.CREATIVE_ENERGY_CELL).build(null));
     public static final RegistryObject<TileEntityType<TileLathe>> TILE_LATHE = TILE_ENTITY_TYPE_REGISTER.register("lathe", () -> TileEntityType.Builder.create(TileLathe::new, RegisteredBlocks.LATHE).build(null));
-    public static final RegistryObject<TileEntityType<TilePlaceHolder>> TILE_PLACEHOLDER = TILE_ENTITY_TYPE_REGISTER.register("place_holder", () -> TileEntityType.Builder.create(TilePlaceHolder::new, MMMultiBlockBase.PLACE_HOLDER_LIST.toArray(new Block[MMMultiBlockBase.PLACE_HOLDER_LIST.size()])).build(null));
+    public static final RegistryObject<TileEntityType<TilePlaceHolder>> TILE_PLACEHOLDER = TILE_ENTITY_TYPE_REGISTER.register("place_holder", () -> TileEntityType.Builder.create(TilePlaceHolder::new, MMMultiBlockHolderBase.PLACE_HOLDER_LIST.toArray(new Block[MMMultiBlockHolderBase.PLACE_HOLDER_LIST.size()])).build(null));
     public static final RegistryObject<TileEntityType<TileBlastFurnace>> TILE_BLAST_FURNACE = TILE_ENTITY_TYPE_REGISTER.register("blast_furnace", () -> TileEntityType.Builder.create(TileBlastFurnace::new, RegisteredBlocks.BLAST_FURNACE).build(null));
     public static final RegistryObject<TileEntityType<TileEtcher>> TILE_ETCHER = TILE_ENTITY_TYPE_REGISTER.register("etcher", () -> TileEntityType.Builder.create(TileEtcher::new, RegisteredBlocks.BLOCK_ETCHER).build(null));
     public static final RegistryObject<TileEntityType<TileEnergyInterface>> TILE_ENERGY_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("energy_interface", () -> TileEntityType.Builder.create(TileEnergyInterface::new, RegisteredBlocks.ENERGY_INTERFACE).build(null));
@@ -46,4 +47,5 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TileCentrifuge>> TILE_CENTRIFUGE = TILE_ENTITY_TYPE_REGISTER.register("centrifuge", () -> TileEntityType.Builder.create(TileCentrifuge::new, RegisteredBlocks.CENTRIFUGE).build(null));
     public static final RegistryObject<TileEntityType<FluidPipeTile>> TILE_FLUID_PIPE_DEMO = TILE_ENTITY_TYPE_REGISTER.register("fluid_pipe", () -> TileEntityType.Builder.create(FluidPipeTile::new, RegisteredBlocks.PIPE_INVAR, RegisteredBlocks.PIPE_STAINLESS_STEEL, RegisteredBlocks.PIPE_TUNGSTEN_STEEL).build(null));
     public static final RegistryObject<TileEntityType<TileAtomization>> TILE_ATOMIZATION = TILE_ENTITY_TYPE_REGISTER.register("atomization", () -> TileEntityType.Builder.create(TileAtomization::new, RegisteredBlocks.ATOMIZATION).build(null));
+    public static final RegistryObject<TileEntityType<TilePump>> TILE_PUMP = TILE_ENTITY_TYPE_REGISTER.register("atomization", () -> TileEntityType.Builder.create(TilePump::new, RegisteredBlocks.PUMP).build(null));
 }

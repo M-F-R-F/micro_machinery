@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
@@ -122,7 +122,7 @@ public class MMHammerBase extends ToolItem {
     public void placeStructure(BlockPos pos, World world, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, String name, Direction direction) {
 
         CompoundNBT blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
-        world.setBlockState(pos, MMMultiBlockBase.MAIN_PART_LIST.get(name).getDefaultState().with(MMMultiBlockBase.FACING, direction));
+        world.setBlockState(pos, MMMultiBlockHolderBase.MAIN_PART_LIST.get(name).getDefaultState().with(MMMultiBlockHolderBase.FACING, direction));
         MMMultiBlockTileMainPartBase mainPartBase = (MMMultiBlockTileMainPartBase) world.getTileEntity(pos);
         mainPartBase.saveBlockBeenReplaced(blockPackNBT);
 

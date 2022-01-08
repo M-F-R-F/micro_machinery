@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.lathe;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.utils.MathUtil;
 import net.minecraft.block.Block;
@@ -24,7 +24,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class BlockLathe extends MMMultiBlockBase {
+public class BlockLathe extends MMMultiBlockHolderBase {
     public static final VoxelShape LATHE_SHAPE1 = Block.makeCuboidShape(2, 0, 0, 12, 16, 16);
     public static final VoxelShape LATHE_SHAPE2 = Block.makeCuboidShape(16, 16, 0, 0, 18, 16);
     public static final VoxelShape LATHE_SHAPE3 = Block.makeCuboidShape(12, 1, 1, 15, 15, 15);
@@ -38,7 +38,7 @@ public class BlockLathe extends MMMultiBlockBase {
     public static final VoxelShape LATHE_SHAPE10 = Block.makeCuboidShape(16, 18, 4, 3, 19, 12);
 
     public BlockLathe(Properties properties, String name) {
-        super(properties, name, true,  true, false);
+        super(properties, name, true, true, false);
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, false));
     }
 
@@ -86,11 +86,6 @@ public class BlockLathe extends MMMultiBlockBase {
     }
 
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        super.onReplaced(state, worldIn, pos, newState, isMoving);
-    }
-
-    @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         if (state.get(IS_PLACEHOLDER)) {
             return holderShape(state.get(FACING));
@@ -127,5 +122,13 @@ public class BlockLathe extends MMMultiBlockBase {
             }
         }
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public BlockPos getMainPartPos(BlockState state, BlockPos currentPos) {
+        if (state.get(IS_PLACEHOLDER)) {
+            return currentPos.offset(state.get(FACING).rotateY());
+        }
+        return super.getMainPartPos(state, currentPos);
     }
 }

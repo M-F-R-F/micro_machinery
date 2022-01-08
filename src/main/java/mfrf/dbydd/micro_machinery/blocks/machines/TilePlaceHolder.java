@@ -18,9 +18,10 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class TilePlaceHolder extends MMTileBase {
-    private BlockPos mainPartPos = null;
+    private Optional<BlockPos> mainPartPos = Optional.empty();
     private CompoundNBT packedNBT = null;
 
     public TilePlaceHolder() {
@@ -32,11 +33,16 @@ public class TilePlaceHolder extends MMTileBase {
     }
 
     public BlockPos getMainPartPos() {
-        return mainPartPos;
+        return mainPartPos.orElseGet(() -> {
+            BlockState blockState = world.getBlockState(pos);
+            this.mainPartPos = Optional.ofNullable(((MMMultiBlockHolderBase) blockState.getBlock()).getMainPartPos(blockState, pos));
+            markDirty();
+            return mainPartPos.get();
+        });
     }
 
     public void setMainPartPos(BlockPos mainPartPos) {
-        this.mainPartPos = mainPartPos;
+        this.mainPartPos = Optional.of(mainPartPos);
         markDirty();
     }
 
@@ -52,13 +58,13 @@ public class TilePlaceHolder extends MMTileBase {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        return world.getTileEntity(mainPartPos).getCapability(cap);
+        return world.getTileEntity(mainPartPos.get()).getCapability(cap);
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return world.getTileEntity(mainPartPos).getCapability(cap, side);
+        return world.getTileEntity(mainPartPos.get()).getCapability(cap, side);
     }
 
     @Override
@@ -67,7 +73,7 @@ public class TilePlaceHolder extends MMTileBase {
             compound.put("packed_nbt", packedNBT);
         }
         if (mainPartPos != null) {
-            compound.put("main_part_pos", NBTUtil.writeBlockPos(mainPartPos));
+            compound.put("main_part_pos", NBTUtil.writeBlockPos(mainPartPos.get()));
         }
         return super.write(compound);
     }
@@ -78,24 +84,24 @@ public class TilePlaceHolder extends MMTileBase {
             packedNBT = compound.getCompound("packed_nbt");
         }
         if (compound.contains("main_part_pos")) {
-            mainPartPos = NBTUtil.readBlockPos(compound.getCompound("main_part_pos"));
+            mainPartPos = Optional.of(NBTUtil.readBlockPos(compound.getCompound("main_part_pos")));
         }
         super.read(compound);
     }
 
     public ActionResultType onBlockActivated(World worldIn, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        BlockState blockState = worldIn.getBlockState(mainPartPos);
-        return blockState.getBlock().onBlockActivated(blockState, worldIn, mainPartPos, player, handIn, hit);
+        BlockState blockState = worldIn.getBlockState(mainPartPos.get());
+        return blockState.getBlock().onBlockActivated(blockState, worldIn, mainPartPos.get(), player, handIn, hit);
     }
 
     public void onBlockHarvest(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
-        MMMultiBlockTileMainPartBase tileEntity = (MMMultiBlockTileMainPartBase) worldIn.getTileEntity(mainPartPos);
+        MMMultiBlockTileMainPartBase tileEntity = (MMMultiBlockTileMainPartBase) worldIn.getTileEntity(mainPartPos.get());
         tileEntity.onBreak(worldIn, pos, player, state);
     }
 
     protected MMMultiBlockTileMainPartBase getMainPart() {
         if (mainPartPos != null) {
-            return (MMMultiBlockTileMainPartBase) world.getTileEntity(mainPartPos);
+            return (MMMultiBlockTileMainPartBase) world.getTileEntity(mainPartPos.get());
         }
         return null;
     }

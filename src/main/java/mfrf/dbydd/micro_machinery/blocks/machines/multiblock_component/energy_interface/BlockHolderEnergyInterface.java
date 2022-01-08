@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.energy_interface;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -9,11 +9,11 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 
-public class BlockEnergyInterface extends MMMultiBlockBase {
+public class BlockHolderEnergyInterface extends MMMultiBlockHolderBase {
     public static BooleanProperty CAN_INPUT = BooleanProperty.create("can_input");
     public static BooleanProperty CAN_OUTPUT = BooleanProperty.create("can_output");
 
-    public BlockEnergyInterface() {
+    public BlockHolderEnergyInterface() {
         super(Block.Properties.create(Material.IRON), "energy_interface", true, false, false);
     }
 
