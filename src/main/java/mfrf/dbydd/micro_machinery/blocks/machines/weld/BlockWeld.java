@@ -1,18 +1,20 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell;
+﻿package mfrf.dbydd.micro_machinery.blocks.machines.weld;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 
-public class BlockCreativeEnergyCell extends MMBlockTileProviderBase {
+import javax.annotation.Nullable;
 
-    public BlockCreativeEnergyCell(Properties properties) {
-        super(properties, "creative_energy_cell");
+public class BlockWeld extends MMBlockTileProviderBase {
+    public BlockWeld(Properties properties) {
+        super(properties, "weld");
     }
 
+    @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TileCreativeEnergyCell();
+        return new TileWeld();
     }
 }

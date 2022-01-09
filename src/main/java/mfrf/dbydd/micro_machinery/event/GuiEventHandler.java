@@ -8,6 +8,7 @@ import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisScreen;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorScreen;
 import mfrf.dbydd.micro_machinery.gui.klin.KlinScreen;
 import mfrf.dbydd.micro_machinery.gui.lathe.LatheScreen;
+import mfrf.dbydd.micro_machinery.gui.weld.WeldScreen;
 import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncChannel;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.client.gui.ScreenManager;
@@ -28,6 +29,7 @@ public class GuiEventHandler {
         ScreenManager.registerFactory(RegisteredContainerTypes.CUTTER_CONTAINER.get(), CutterScreen::new);
         ScreenManager.registerFactory(RegisteredContainerTypes.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
         ScreenManager.registerFactory(RegisteredContainerTypes.ATOMIZATION_CONTAINER.get(), AtomizationScreen::new);
+        ScreenManager.registerFactory(RegisteredContainerTypes.WELD_CONTAINER.get(), WeldScreen::new);
     }
 
     @SubscribeEvent

@@ -18,7 +18,10 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements INamedContainerProvider, ITickableTileEntity {
@@ -126,6 +129,16 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     @Override
     protected MultiBlockPosBox getMap() {
         return MultiBlockStructureMaps.getStructureMaps().get("blast_furnace").rotateTo(getBackDirection());
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side, BlockPos pos) {
+        return this.getCapability(cap, side);
+    }
+
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, BlockPos pos) {
+        return getCapability(cap);
     }
 
     public ItemStackHandler getItemHandler() {

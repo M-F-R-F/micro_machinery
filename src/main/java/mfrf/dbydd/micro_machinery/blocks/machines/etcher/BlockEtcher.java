@@ -2,7 +2,6 @@ package mfrf.dbydd.micro_machinery.blocks.machines.etcher;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -16,8 +15,8 @@ import javax.annotation.Nullable;
 
 public class BlockEtcher extends MMBlockTileProviderBase {
 
-    public BlockEtcher() {
-        super(Properties.create(Material.IRON), "etcher");
+    public BlockEtcher(Properties properties) {
+        super(properties, "etcher");
         this.setDefaultState(getStateToRegistry());
     }
 

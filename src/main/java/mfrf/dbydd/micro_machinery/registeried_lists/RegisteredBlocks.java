@@ -21,6 +21,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.energy_in
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.lever.LeverPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.pump.BlockPump;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
+import mfrf.dbydd.micro_machinery.blocks.machines.weld.BlockWeld;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
 import net.minecraft.block.Block;
@@ -122,19 +123,20 @@ public class RegisteredBlocks {
     public static final Block FIRE_BRICK_BLOCK = new MMBlockBase(HARD1.hardnessAndResistance(2.0f), "fire_brick_block");
     public static final Block BELLOW = new MMBlockBase(HARD1.hardnessAndResistance(2.0f).harvestTool(ToolType.AXE), "bellow");
     //machine
-    public static final Block KLIN = new BlockKlin();
-    public static final Block GENERATOR = new BlockGenerator();
-    public static final Block HAND_GENERATOR = new BlockHandGenerator();
+    public static final Block KLIN = new BlockKlin(Block.Properties.create(Material.IRON).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(2.0f));
+    public static final Block GENERATOR = new BlockGenerator(Block.Properties.create(Material.IRON).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(3.0f));
+    public static final Block HAND_GENERATOR = new BlockHandGenerator(Block.Properties.create(Material.IRON).hardnessAndResistance(3).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1));
     public static final Block TESTBLOCK = new TestBlock(Block.Properties.create(Material.ROCK), "testblock");
     public static final Block STONE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(2.0f).harvestTool(ToolType.PICKAXE).harvestLevel(1), "stone_anvil", EnumAnvilType.STONE, 16);
     public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).harvestLevel(2), "bronze_anvil", EnumAnvilType.BRONZE, 16);
     public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(4.0f).harvestTool(ToolType.PICKAXE).harvestLevel(3), "pigiron_anvil", EnumAnvilType.PIGIRON, 12);
-    public static final Block CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell();
-    public static final Block BLOCK_ETCHER = new BlockEtcher();
-    public static final Block ELECTROLYSIS = new BlockElectrolysis();
-    public static final Block CUTTER = new BlockCutter();
+    public static final Block CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell(Block.Properties.create(Material.IRON));
+    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.create(Material.IRON));
+    public static final Block ELECTROLYSIS = new BlockElectrolysis(Block.Properties.create(Material.IRON));
+    public static final Block CUTTER = new BlockCutter(Block.Properties.create(Material.IRON));
     public static final Block CENTRIFUGE = new BlockCentrifuge(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "centrifuge");
     public static final Block ATOMIZATION = new BlockAtomization(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "atomization");
+    public static final Block WELD = new BlockWeld(Block.Properties.create(Material.IRON));
     //cable
     public static final Block TESTENERGY_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid(), "test_cable", EnumCableMaterial.TEST);
     public static final Block COPPER_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(1).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "copper_cable", EnumCableMaterial.COPPER);

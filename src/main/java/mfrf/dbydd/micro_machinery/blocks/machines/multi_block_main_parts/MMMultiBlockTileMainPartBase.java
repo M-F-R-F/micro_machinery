@@ -11,8 +11,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 
 public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
     protected CompoundNBT compoundBlockReplaced = null;
@@ -73,4 +76,8 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
     public void saveBlockBeenReplaced(CompoundNBT compoundNBT) {
         compoundBlockReplaced = compoundNBT;
     }
+
+    public abstract <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side, BlockPos pos);
+
+    public abstract <T> LazyOptional<T> getCapability(Capability<T> cap, BlockPos pos);
 }

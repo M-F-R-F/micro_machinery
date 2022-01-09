@@ -4,7 +4,6 @@ import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -24,7 +23,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -39,8 +37,8 @@ public class BlockKlin extends MMBlockTileProviderBase {
     public static final VoxelShape KLIN_SHAPE4 = Block.makeCuboidShape(4, 18, 4, 12, 20, 12);
     private static final VoxelShape KLIN_SHAPE = VoxelShapes.or(KLIN_SHAPE1, KLIN_SHAPE2, KLIN_SHAPE3, KLIN_SHAPE4);
 
-    public BlockKlin() {
-        super(Properties.create(Material.IRON).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(2.0f), "klin");
+    public BlockKlin(Properties properties) {
+        super(properties, "klin");
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(BURNING, false));
     }
 

@@ -58,13 +58,13 @@ public class TilePlaceHolder extends MMTileBase {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        return world.getTileEntity(mainPartPos.get()).getCapability(cap);
+        return ((MMMultiBlockTileMainPartBase) world.getTileEntity(mainPartPos.get())).getCapability(cap, pos);
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return world.getTileEntity(mainPartPos.get()).getCapability(cap, side);
+        return ((MMMultiBlockTileMainPartBase) world.getTileEntity(mainPartPos.get())).getCapability(cap, side, pos);
     }
 
     @Override

@@ -4,7 +4,6 @@ import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.utils.MathUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluids;
@@ -25,7 +24,6 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -39,11 +37,11 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     public static final VoxelShape GENERATOR_SHAPE2 = Block.makeCuboidShape(0, 4, 11, 16, 16, 15);
     public static final VoxelShape GENERATOR_SHAPE3 = Block.makeCuboidShape(2, 2, 15, 14, 14, 16);
     public static final VoxelShape GENERATOR_SHAPE4 = Block.makeCuboidShape(2, 4, 2, 14, 14, 11);
-    public static final VoxelShape SHAPE = VoxelShapes.or(GENERATOR_SHAPE1, GENERATOR_SHAPE2,GENERATOR_SHAPE3,GENERATOR_SHAPE4);
+    public static final VoxelShape SHAPE = VoxelShapes.or(GENERATOR_SHAPE1, GENERATOR_SHAPE2, GENERATOR_SHAPE3, GENERATOR_SHAPE4);
     public static final BooleanProperty ISBURNING = BooleanProperty.create("isburning");
 
-    public BlockGenerator() {
-        super(Properties.create(Material.IRON).notSolid().harvestTool(ToolType.PICKAXE).harvestLevel(1).hardnessAndResistance(3.0f), "generator");
+    public BlockGenerator(Properties properties) {
+        super(properties, "generator");
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ISBURNING, false));
     }
 

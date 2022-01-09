@@ -10,6 +10,7 @@ import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisContainer;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorContainer;
 import mfrf.dbydd.micro_machinery.gui.klin.KlinContainer;
 import mfrf.dbydd.micro_machinery.gui.lathe.LatheContainer;
+import mfrf.dbydd.micro_machinery.gui.weld.WeldContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -28,4 +29,5 @@ public class RegisteredContainerTypes {
     public static final RegistryObject<ContainerType<CutterContainer>> CUTTER_CONTAINER = CONTAINER_TYPE_REGISTER.register("cutter_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new CutterContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
     public static final RegistryObject<ContainerType<CentrifugeContainer>> CENTRIFUGE_CONTAINER = CONTAINER_TYPE_REGISTER.register("centrifuge_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new CentrifugeContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
     public static final RegistryObject<ContainerType<AtomizationContainer>> ATOMIZATION_CONTAINER = CONTAINER_TYPE_REGISTER.register("atomization_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new AtomizationContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
+    public static final RegistryObject<ContainerType<WeldContainer>> WELD_CONTAINER = CONTAINER_TYPE_REGISTER.register("weld_container", () -> IForgeContainerType.create(((windowId, inv, data) -> new WeldContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld()))));
 }

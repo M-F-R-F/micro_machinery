@@ -16,9 +16,14 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class TilePump extends MMTileBase implements ITickableTileEntity {
     private FluidTank tank = new FluidTank(2000);
@@ -95,4 +100,15 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
         return compound;
     }
 
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (side == getBackDirection().getOpposite()) {
+            return LazyOptional.of(() -> tank).cast();
+        }
+        if (side == Direction.UP) {
+            return LazyOptional.of(() -> feContainer).cast();
+        }
+        return super.getCapability(cap, side);
+    }
 }

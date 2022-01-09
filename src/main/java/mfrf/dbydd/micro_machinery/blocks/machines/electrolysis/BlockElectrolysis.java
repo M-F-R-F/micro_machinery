@@ -1,9 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.electrolysis;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -19,8 +17,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 public class BlockElectrolysis extends MMBlockTileProviderBase {
-    public BlockElectrolysis() {
-        super(Block.Properties.create(Material.IRON), "electrolysis");
+    public BlockElectrolysis(Properties properties) {
+        super(properties, "electrolysis");
         this.setDefaultState(getStateToRegistry());
     }
 

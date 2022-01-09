@@ -1,10 +1,8 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.cutter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.TileElectrolysis;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -24,8 +22,8 @@ import javax.annotation.Nullable;
 public class BlockCutter extends MMBlockTileProviderBase {
     public static BooleanProperty WORKING = BooleanProperty.create("working");
 
-    public BlockCutter() {
-        super(Properties.create(Material.IRON), "cutter");
+    public BlockCutter(Properties properties) {
+        super(properties, "cutter");
         setDefaultState(getStateToRegistry().with(WORKING, false));
     }
 
