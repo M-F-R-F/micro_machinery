@@ -1,4 +1,4 @@
-﻿package mfrf.dbydd.micro_machinery.blocks.machines.pump;
+package mfrf.dbydd.micro_machinery.blocks.machines.pump;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;

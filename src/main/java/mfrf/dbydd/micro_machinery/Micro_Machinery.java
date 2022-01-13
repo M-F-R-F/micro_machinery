@@ -1,10 +1,15 @@
 package mfrf.dbydd.micro_machinery;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import mfrf.dbydd.micro_machinery.items.*;
+import mfrf.dbydd.micro_machinery.items.MMAxeBase;
+import mfrf.dbydd.micro_machinery.items.MMHammerBase;
+import mfrf.dbydd.micro_machinery.items.MMItemBase;
+import mfrf.dbydd.micro_machinery.items.MMSwordBase;
+import mfrf.dbydd.micro_machinery.items.blockitems.LatheBlockItem;
+import mfrf.dbydd.micro_machinery.items.blockitems.PumpBlockItem;
+import mfrf.dbydd.micro_machinery.registeried_lists.*;
 import mfrf.dbydd.micro_machinery.registeried_lists.strctures.Veins;
 import mfrf.dbydd.micro_machinery.worldgen.VeinFeature;
-import mfrf.dbydd.micro_machinery.registeried_lists.*;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
@@ -47,6 +52,7 @@ public class Micro_Machinery {
         Micro_Machinery.RegisteryBlocksWithoutItem(MMBlockBase.registeries_no_item);
 
         ITEM_REGISTER.register("lathe", LatheBlockItem::new);
+        ITEM_REGISTER.register("pump", PumpBlockItem::new);
     }
 
     public Micro_Machinery() {

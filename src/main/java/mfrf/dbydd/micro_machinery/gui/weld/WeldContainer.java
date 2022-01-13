@@ -17,7 +17,7 @@ public class WeldContainer extends ContainerBase {
     private final TileWeld weld;
 
     public WeldContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
-        super(RegisteredContainerTypes.LATHE_CONTAINER.get(), id);
+        super(RegisteredContainerTypes.WELD_CONTAINER.get(), id);
         this.weld = (TileWeld) world.getTileEntity(pos);
         ItemStackHandler input = weld.getInput();
         ItemStackHandler output = weld.getOutput();
@@ -27,13 +27,13 @@ public class WeldContainer extends ContainerBase {
         this.addSlot(new SlotItemHandler(input, 3, 26, 50));
         this.addSlot(new SlotItemHandler(input, 4, 44, 50));
         this.addSlot(new SlotItemHandler(input, 5, 62, 50));
-        this.addSlot(new SlotItemHandler(output, 0, 114, 38) {
+        this.addSlot(new SlotItemHandler(output, 0, 116, 40) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
                 return false;
             }
         });
-        drawInventory(8, 101, playerInventory);
+        drawInventory(8, 96, playerInventory);
     }
 
     public TileWeld getWeld() {

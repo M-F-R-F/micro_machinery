@@ -48,6 +48,6 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TileCentrifuge>> TILE_CENTRIFUGE = TILE_ENTITY_TYPE_REGISTER.register("centrifuge", () -> TileEntityType.Builder.create(TileCentrifuge::new, RegisteredBlocks.CENTRIFUGE).build(null));
     public static final RegistryObject<TileEntityType<FluidPipeTile>> TILE_FLUID_PIPE_DEMO = TILE_ENTITY_TYPE_REGISTER.register("fluid_pipe", () -> TileEntityType.Builder.create(FluidPipeTile::new, RegisteredBlocks.PIPE_INVAR, RegisteredBlocks.PIPE_STAINLESS_STEEL, RegisteredBlocks.PIPE_TUNGSTEN_STEEL).build(null));
     public static final RegistryObject<TileEntityType<TileAtomization>> TILE_ATOMIZATION = TILE_ENTITY_TYPE_REGISTER.register("atomization", () -> TileEntityType.Builder.create(TileAtomization::new, RegisteredBlocks.ATOMIZATION).build(null));
-    public static final RegistryObject<TileEntityType<TilePump>> TILE_PUMP = TILE_ENTITY_TYPE_REGISTER.register("atomization", () -> TileEntityType.Builder.create(TilePump::new, RegisteredBlocks.PUMP).build(null));
+    public static final RegistryObject<TileEntityType<TilePump>> TILE_PUMP = TILE_ENTITY_TYPE_REGISTER.register("pump", () -> TileEntityType.Builder.create(TilePump::new, RegisteredBlocks.PUMP).build(null));
     public static final RegistryObject<TileEntityType<TileWeld>> TILE_WELD = TILE_ENTITY_TYPE_REGISTER.register("weld", () -> TileEntityType.Builder.create(TileWeld::new, RegisteredBlocks.WELD).build(null));
 }

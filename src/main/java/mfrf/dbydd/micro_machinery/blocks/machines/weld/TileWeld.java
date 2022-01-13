@@ -1,6 +1,9 @@
-﻿package mfrf.dbydd.micro_machinery.blocks.machines.weld;
+package mfrf.dbydd.micro_machinery.blocks.machines.weld;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.dbydd.micro_machinery.gui.weld.WeldContainer;
+import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
+import mfrf.dbydd.micro_machinery.recipes.weld.WeldRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
@@ -8,13 +11,19 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
@@ -33,11 +42,27 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
         }
 
         @Override
-        public int selfSubtract() {
-            return this.minus(80, false);
+        public int receiveEnergy(int maxReceive, boolean simulate) {
+            markDirty();
+            return super.receiveEnergy(maxReceive, simulate);
         }
+
+        @Override
+        public int extractEnergy(int maxExtract, boolean simulate) {
+            markDirty();
+            return super.extractEnergy(maxExtract, simulate);
+        }
+
+        @Override
+        public int selfSubtract() {
+            int minus = this.minus(80, false);
+            markDirty();
+            return minus;
+        }
+
     };
-    private ResourceLocation recipe = null;
+    private ItemStack result = ItemStack.EMPTY;
+    private boolean isWorking = false;
 
 
     public TileWeld() {
@@ -48,19 +73,48 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
     public void tick() {
         if (!world.isRemote()) {
 
+            if (isWorking) {
+                progress.selfAdd();
+                markDirty();
+            } else {
+                RecipeHelper.weldRecipeAndShrinkItemStacks weldRecipeAndShrinkItemStacks = RecipeHelper.getWeldRecipe(world.getRecipeManager(), input);
+                if (weldRecipeAndShrinkItemStacks != null) {
+                    WeldRecipe weldRecipe = weldRecipeAndShrinkItemStacks.weldRecipe;
+                    int[] shrinkCounts = weldRecipeAndShrinkItemStacks.shrinkCounts;
+                    progress.setMax(weldRecipe.getTime());
+                    isWorking = true;
+                    result = weldRecipe.getOutput();
+                    for (int i = 0; i < shrinkCounts.length; i++) {
+                        input.extractItem(i, shrinkCounts[i], false);
+                    }
+                    markDirty();
+                }
+            }
+
+            if (progress.atMaxValue()) {
+                if (output.insertItem(0, result, true).isEmpty()) ;
+                output.insertItem(0, result, false);
+                result = ItemStack.EMPTY;
+                progress.resetValue();
+                isWorking = false;
+                markDirty();
+            }
+
+
         }
     }
 
     @Override
     public void read(CompoundNBT compound) {
+        super.read(compound);
         input.deserializeNBT(compound.getCompound("input"));
         output.deserializeNBT(compound.getCompound("output"));
         progress.deserializeNBT(compound.getCompound("progress"));
         feContainer.deserializeNBT(compound.getCompound("fe_container"));
-        if (compound.contains("recipe")) {
-            recipe = ResourceLocation.tryCreate(compound.getString("recipe"));
+        isWorking = compound.getBoolean("is_working");
+        if (compound.contains("result")) {
+            result = ItemStack.read(compound.getCompound("result"));
         }
-        super.read(compound);
     }
 
     @Override
@@ -70,8 +124,9 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
         write.put("output", output.serializeNBT());
         write.put("progress", progress.serializeNBT());
         write.put("fe_container", feContainer.serializeNBT());
-        if (recipe != null) {
-            write.putString("recipe", recipe.toString());
+        write.putBoolean("is_working", isWorking);
+        if (result.isEmpty()) {
+            write.put("result", result.serializeNBT());
         }
         return write;
     }
@@ -84,6 +139,35 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
         return output;
     }
 
+    public IntegerContainer getProgress() {
+        return progress;
+    }
+
+    public FEContainer getFeContainer() {
+        return feContainer;
+    }
+
+    public boolean isWorking() {
+        return isWorking;
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityEnergy.ENERGY && side == getBackDirection()) {
+            return LazyOptional.of(() -> feContainer).cast();
+        }
+
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == Direction.UP) {
+            return LazyOptional.of(() -> input).cast();
+        }
+
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == Direction.DOWN) {
+            return LazyOptional.of(() -> output).cast();
+        }
+        return super.getCapability(cap, side);
+    }
+
     @Override
     public ITextComponent getDisplayName() {
         return new TranslationTextComponent("gui.name.weld");
@@ -92,6 +176,6 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
     @Nullable
     @Override
     public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
-        return null;
+        return new WeldContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 }

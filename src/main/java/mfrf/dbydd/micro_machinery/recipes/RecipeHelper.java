@@ -13,6 +13,7 @@ import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
+import mfrf.dbydd.micro_machinery.recipes.weld.WeldRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import mfrf.dbydd.micro_machinery.utils.RecipeFluidStack;
 import net.minecraft.fluid.Fluid;
@@ -25,8 +26,11 @@ import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -147,7 +151,42 @@ public class RecipeHelper {
                 return atomizationRecipe;
         }
         return null;
+
     }
+
+    public static weldRecipeAndShrinkItemStacks getWeldRecipe(RecipeManager recipeManager, ItemStackHandler input) {
+        int slots = input.getSlots();
+        ArrayList<ItemStack> inputStacks = new ArrayList<>(slots);
+        for (int i = 0; i < slots; i++) {
+            inputStacks.add(input.getStackInSlot(i));
+        }
+
+        if (inputStacks.stream().allMatch(ItemStack::isEmpty))
+            return null;
+
+        List<WeldRecipe> recipeListByType = getRecipeListByType(recipeManager, RegisteredRecipeSerializers.Type.WELD_RECIPE_TYPE);
+        for (WeldRecipe weldRecipe : recipeListByType) {
+            LinkedList<IngredientStack> inputs = weldRecipe.getInputs();
+            int[] shrinkItemStacks = new int[inputs.size()];
+
+            for (int matchIndex = 0; matchIndex < slots; matchIndex++) {
+                ItemStack itemStack = inputStacks.get(matchIndex);
+                for (IngredientStack ingredientStack : inputs) {
+                    if (ingredientStack.test(itemStack)) {
+                        shrinkItemStacks[matchIndex] = ingredientStack.getCount();
+                        inputs.remove(matchIndex);
+                    }
+                }
+            }
+
+            if (inputs.isEmpty()) {
+                return new weldRecipeAndShrinkItemStacks(weldRecipe, shrinkItemStacks);
+            }
+
+        }
+        return null;
+    }
+
 
     public static boolean isStackABiggerThanStackB(ItemStack stackA, ItemStack stackB) {
         return (stackA.getItem() == stackB.getItem()) && (stackA.getCount() >= stackB.getCount());
@@ -193,5 +232,14 @@ public class RecipeHelper {
         return new RecipeFluidStack(getFluidNameFromJsonObject(object), getFluidAmountFromJsonObject(object));
     }
 
+    public static class weldRecipeAndShrinkItemStacks {
+        public final WeldRecipe weldRecipe;
+        public final int[] shrinkCounts;
+
+        weldRecipeAndShrinkItemStacks(WeldRecipe weldRecipe, int[] shrinkCounts) {
+            this.weldRecipe = weldRecipe;
+            this.shrinkCounts = shrinkCounts;
+        }
+    }
 }
 

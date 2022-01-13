@@ -11,6 +11,7 @@ import mfrf.dbydd.micro_machinery.recipes.etcher.EtcherRecipe;
 import mfrf.dbydd.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
+import mfrf.dbydd.micro_machinery.recipes.weld.WeldRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fml.RegistryObject;
@@ -30,6 +31,7 @@ public class RegisteredRecipeSerializers {
     public static final RegistryObject<IRecipeSerializer<CentrifugeRecipe>> CENTRIFUGE_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("centrifuge_recipe", CentrifugeRecipe.Serializer::new);
     public static final RegistryObject<IRecipeSerializer<FluidCrashRecipe>> FLUID_CRASH_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("fluid_crash_recipe", FluidCrashRecipe.Serializer::new);
     public static final RegistryObject<IRecipeSerializer<AtomizationRecipe>> ATOMIZATION_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("atomization_recipe", AtomizationRecipe.Serializer::new);
+    public static final RegistryObject<IRecipeSerializer<WeldRecipe>> WELD_RECIPE = RECIPE_SERIALIZERS_REGISTER.register("weld_recipe", WeldRecipe.Serializer::new);
 
     public static void init() {
 
@@ -46,5 +48,6 @@ public class RegisteredRecipeSerializers {
         public static final IRecipeType<CentrifugeRecipe> CENTRIFUGE_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "centrifuge_recipe");
         public static final IRecipeType<FluidCrashRecipe> FLUID_CRASH_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "fluid_crash_recipe");
         public static final IRecipeType<AtomizationRecipe> ATOMIZATION_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "atomization_recipe");
+        public static final IRecipeType<WeldRecipe> WELD_RECIPE_TYPE = IRecipeType.register(Micro_Machinery.NAME + "weld_recipe");
     }
 }

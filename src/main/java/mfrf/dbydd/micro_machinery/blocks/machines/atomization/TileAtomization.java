@@ -57,11 +57,6 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
         }
 
         @Override
-        public void setChanged() {
-//            markDirty2();
-        }
-
-        @Override
         public int selfSubtract() {
             int current = getCurrent();
             if (current >= 256) {

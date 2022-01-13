@@ -1,4 +1,4 @@
-﻿package mfrf.dbydd.micro_machinery.blocks.machines.pump;
+package mfrf.dbydd.micro_machinery.blocks.machines.pump;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
@@ -12,6 +12,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
@@ -19,6 +20,7 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
@@ -71,6 +73,18 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
                                 Fluid pickupFluid = extractTargetBlock.pickupFluid(world, extractPos, extractTarget);
                                 tank.fill(new FluidStack(pickupFluid, 1000), IFluidHandler.FluidAction.EXECUTE);
                             }
+                        }
+                    }
+
+
+                    if (!tank.isEmpty()) {
+                        TileEntity tileEntity = world.getTileEntity(pos.offset(getBackDirection().getOpposite()));
+                        if (tileEntity != null) {
+                            LazyOptional<IFluidHandler> capability = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, getBackDirection());
+                            capability.ifPresent(iFluidHandler -> {
+                                tank.drain(iFluidHandler.fill(tank.drain(tank.getFluidAmount(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
+                                markDirty();
+                            });
                         }
                     }
 

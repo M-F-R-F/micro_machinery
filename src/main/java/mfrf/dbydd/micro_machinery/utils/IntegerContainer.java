@@ -32,7 +32,6 @@ public class IntegerContainer {
 
     public void setMin(int min) {
         this.min = min;
-        setChanged();
     }
 
     public int getMax() {
@@ -41,7 +40,6 @@ public class IntegerContainer {
 
     public void setMax(int max) {
         this.max = max;
-        setChanged();
     }
 
     public CompoundNBT serializeNBT() {
@@ -64,11 +62,9 @@ public class IntegerContainer {
             if (i > max) {
                 int r = max - current;
                 current = max;
-                setChanged();
                 return r;
             } else {
                 current += value;
-                setChanged();
                 return value;
             }
         } else {
@@ -86,11 +82,9 @@ public class IntegerContainer {
             if (i < min) {
                 int r = current - min;
                 current = min;
-                setChanged();
                 return r;
             } else {
                 current -= value;
-                setChanged();
                 return value;
             }
         } else {
@@ -110,7 +104,6 @@ public class IntegerContainer {
         if (current < min) {
             current = min;
         }
-        setChanged();
         return current;
     }
 
@@ -122,7 +115,6 @@ public class IntegerContainer {
         if (current < min) {
             current = min;
         }
-        setChanged();
         return current;
     }
 
@@ -140,12 +132,10 @@ public class IntegerContainer {
 
     public void setCurrent(int current) {
         this.current = current;
-        setChanged();
     }
 
     public void resetValue() {
         this.current = min;
-        setChanged();
     }
 
     public IIntArray toIntArray() {
@@ -183,10 +173,6 @@ public class IntegerContainer {
                 return 3;
             }
         };
-    }
-
-    public void setChanged() {
-
     }
 
 }

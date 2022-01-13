@@ -1,50 +1,46 @@
 {
-    "type": "micro_machinery:weld_recipe",
-    "input_stack": {
-      "input": [{
-        "item" : "value",
-        "count" : "value"
+  "type": "micro_machinery:weld_recipe",
+  "input": [
+    {
+      "input": {
+        "tag": "value"
       },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      },
-      {
-        "item" : "value",
-        "count" : "value"
-      }]
+      "count": "value"
     },
-    "output" : {
-      "item" : "value",
-      "count" : "value"
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
     },
-    "cook_time" : 123123
-  }
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    }
+  ],
+  "output": {
+    "item": "value",
+    "count": "value"
+  },
+  "time": 123123
+}
