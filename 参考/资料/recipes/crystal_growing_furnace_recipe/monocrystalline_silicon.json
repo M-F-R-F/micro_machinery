@@ -1,10 +1,9 @@
 {
     "type": "micro_machinery:crystal_growing_furnace_recipe",
     "castType":"silicon",
-    "input_stack": {
+ 
       "input": {
-        "tag": "forge:dusts/silicon"
-      },
+        "tag": "forge:dusts/silicon",
       "count": 64
     },
     "output" :{

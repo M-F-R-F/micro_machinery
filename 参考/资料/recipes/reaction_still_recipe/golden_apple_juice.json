@@ -1,13 +1,11 @@
 {
     "type": "micro_machinery:cating_machine_recipe",
-    "input_stack": {
       "input": [
         {"fluidName": "micro_machinery:fluids/apple_juice",
           "amount": 100},
         {"item" : "minecraft:gold_ingot",
           "count" : 1}
-      ]
-    },
+      ],
     "output" : [
     {"fluidName": "micro_machinery:fluids/golden_apple_juice",
       "amount": 100}],

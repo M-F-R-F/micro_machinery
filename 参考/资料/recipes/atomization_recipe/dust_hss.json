@@ -1,11 +1,9 @@
 {
     "type": "micro_machinery:atomization_recipe",
-    "input_stack": {
       "input": {
         "fluidName": "micro_machinery:fluids/molten_hss",
         "amount": 144
-      }
-    },
+      },
     "output" : {
       "item" : "micro_machinery:dust_hss",
       "count" : 1

@@ -1,10 +1,9 @@
 {
    "type": "micro_machinery:continuous_cating_recipe",
    "castType": "plate",
-   "input_stack": {
      "input": {
        "fluidName": "micro_machinery:fluids/molten_steel",
-       "amount": 150}
+       "amount": 150
    },
    "output" : {
      "item" : "micro_machinery:plate_steel",

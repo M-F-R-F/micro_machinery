@@ -1,13 +1,12 @@
 {
     "type": "micro_machinery:cating_machine_recipe",
-    "input_stack": {
+
       "input": [
         {"fluidName": "minecraft:water",
           "amount": 500},
         {"item" : "minecraft:apple",
           "count" : 4}
-      ]
-    },
+      ],
     "output" : [
     {"fluidName": "micro_machinery:fluids/apple_juice",
       "amount": 500}],

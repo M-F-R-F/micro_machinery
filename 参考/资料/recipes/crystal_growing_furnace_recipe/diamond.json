@@ -1,10 +1,8 @@
 {
     "type": "micro_machinery:crystal_growing_furnace_recipe",
     "castType":"diamond",
-    "input_stack": {
       "input": {
-        "tag": "forge:dusts/carbon"
-      },
+        "tag": "forge:dusts/carbon",
       "count": 64
     },
     "output" :{

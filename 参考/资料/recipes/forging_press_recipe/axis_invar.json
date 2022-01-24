@@ -1,9 +1,9 @@
 {
     "type": "micro_machinery:forging_press_recipe",
-    "input_stack": {
+
       "input": {
         "tag": "forge:circle_castings/invar"
-      },
+      ,
       "count": 1
     },
     "output" : {

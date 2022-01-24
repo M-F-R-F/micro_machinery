@@ -1,10 +1,10 @@
 {
     "type": "micro_machinery:cating_machine_recipe",
     "castType": "block",
-    "input_stack": {
+
       "input": {
         "fluidName": "micro_machinery:fluids/molten_invar",
-        "amount": 1440}
+        "amount": 1440
     },
     "output" : {
       "item" : "micro_machinery:blockinvar",

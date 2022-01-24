@@ -1,9 +1,7 @@
 {
     "type": "micro_machinery:forging_press_recipe",
-    "input_stack": {
-      "input": {
-        "tag": "forge:circle_castings/bronze"
-      },
+    "input": {
+      "tag": "forge:circle_castings/bronze",
       "count": 1
     },
     "output" : {
