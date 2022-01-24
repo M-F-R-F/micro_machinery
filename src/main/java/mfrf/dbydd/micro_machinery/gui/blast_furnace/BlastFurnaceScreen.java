@@ -16,13 +16,13 @@ public class BlastFurnaceScreen extends ScreenBase<BlastFurnaceContainer> {
         initBase();
         super.render(p_render_1_, p_render_2_, p_render_3_);
 
-        int progressPixel = calculateBarPixel(container.getFurnace().getProgressContainer(), 22);
-        int fuelPixel = calculateBarPixel(container.getFurnace().getHeatHandler(), 16);
-
-        renderModule(57,36 - fuelPixel,41,16 + fuelPixel,15,16 + fuelPixel);
-        renderModule(80,35,17,0,22 + progressPixel,16);
-
-        renderHoveredToolTip(p_render_1_,p_render_2_);
+        if (container.getFurnace().burning()) {
+            renderModule(56, 50, 40, 14, 16, calculateBarPixel(container.getFurnace().getHeatHandler(), 16));
+        }
+        if (container.getFurnace().isWorking()) {
+            renderModule(79, 35, 16, 0, -calculateBarPixel(container.getFurnace().getProgressContainer(), 25), 16);
+        }
+        renderHoveredToolTip(p_render_1_, p_render_2_);
     }
 
 }

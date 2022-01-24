@@ -29,6 +29,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     private ItemStackHandler itemHandler = new ItemStackHandler(3);
     private IntegerContainer progressContainer = new IntegerContainer();
     private IntegerContainer heatHandler = new IntegerContainer();
+    private boolean burning = false;
     private ItemStack output = ItemStack.EMPTY;
 
     public TileBlastFurnace() {
@@ -37,6 +38,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
+        compound.putBoolean("is_burning", burning);
         compound.put("items", itemHandler.serializeNBT());
         compound.put("progress", progressContainer.serializeNBT());
         compound.put("heat", heatHandler.serializeNBT());
@@ -49,6 +51,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
+        burning = compound.getBoolean("is_burning");
         itemHandler.deserializeNBT(compound.getCompound("items"));
         progressContainer.deserializeNBT(compound.getCompound("progress"));
         heatHandler.deserializeNBT(compound.getCompound("heat"));
@@ -79,16 +82,16 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
             if (!progressContainer.atMinValue() && output != ItemStack.EMPTY) {
 
                 if (heatHandler.atMinValue()) {
-                    boolean b = extractFuel();
-                    if (b) {
+                    burning = extractFuel();
+                    if (burning) {
                         heatHandler.selfSubtract();
                         progressContainer.selfAdd();
-                        markDirty();
                     }
+                    markDirty();
                 } else {
                     progressContainer.selfAdd();
-                    markDirty();
                 }
+                markDirty();
 
                 if (progressContainer.atMaxValue()) {
                     if (itemHandler.insertItem(2, output, true) == ItemStack.EMPTY) {
@@ -159,6 +162,10 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
 
     public Direction getFacingDirection() {
         return super.getFacingDirection();
+    }
+
+    public boolean burning() {
+        return burning;
     }
 
     public enum slot {

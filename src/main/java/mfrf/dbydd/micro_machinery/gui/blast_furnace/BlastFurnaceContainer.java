@@ -14,13 +14,15 @@ import net.minecraftforge.items.SlotItemHandler;
 import javax.annotation.Nonnull;
 
 public class BlastFurnaceContainer extends ContainerBase {
-    private final TileBlastFurnace furnace;
+    private TileBlastFurnace furnace;
+
     public BlastFurnaceContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
         super(RegisteredContainerTypes.BLAST_FURNACE_CONTAINER.get(), id);
         this.furnace = (TileBlastFurnace) world.getTileEntity(pos);
+
         ItemStackHandler itemHandler = furnace.getItemHandler();
-        this.addSlot(new SlotItemHandler(itemHandler,TileBlastFurnace.slot.FUEL.getNum(),56,53));
-        this.addSlot(new SlotItemHandler(itemHandler,TileBlastFurnace.slot.INPUT.getNum(),56,17));
+        this.addSlot(new SlotItemHandler(itemHandler, TileBlastFurnace.slot.FUEL.getNum(), 56, 53));
+        this.addSlot(new SlotItemHandler(itemHandler, TileBlastFurnace.slot.INPUT.getNum(), 56, 17));
         this.addSlot(new SlotItemHandler(itemHandler, TileBlastFurnace.slot.OUTPUT.getNum(), 116, 35) {
             @Override
             public boolean isItemValid(@Nonnull ItemStack stack) {
