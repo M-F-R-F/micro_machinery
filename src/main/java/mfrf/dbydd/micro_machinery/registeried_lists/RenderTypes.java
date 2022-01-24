@@ -12,18 +12,18 @@ public class RenderTypes {
 
     @SubscribeEvent
     public static void onRenderTypeSetup(FMLClientSetupEvent event) {
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.KLIN, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.STALINITE, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.STEEL_SCAFFOLDING, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.WATER_INDICATOR,RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.FLUID_INDICATOR,RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.TEMPERATURE_INDICATOR,RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.REV_INDICATOR,RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.BRONZE_ANVIL, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.STONE_ANVIL, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.PIGIRON_ANVIL, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.GRAPHITE_CRUCIBLE, RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(RegisteredBlocks.LATHE, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.KLIN, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.STALINITE, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.STEEL_SCAFFOLDING, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.WATER_INDICATOR, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.FLUID_INDICATOR, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.TEMPERATURE_INDICATOR, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.REV_INDICATOR, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.BRONZE_ANVIL, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.STONE_ANVIL, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.PIGIRON_ANVIL, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.GRAPHITE_CRUCIBLE, RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.LATHE, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(RegisteredBlocks.PLACE_HOLDER, RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(RegisteredBlocks.LEVER_PLACEHOLDER, RenderType.getTranslucent());
     }
