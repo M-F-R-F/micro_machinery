@@ -2,10 +2,10 @@
   "type": "micro_machinery:forge_anvil_recipe",
   "tier": 1,
   "input": {
-    "tag": "forge:ingots/iron"
+    "item": "micro_machinery:sponge_iron"
   },
   "output": {
     "count": 1,
-    "item": "micro_machinery:sponge_iron"
+    "item": "minecraft:iron_ingot"
   }
 }

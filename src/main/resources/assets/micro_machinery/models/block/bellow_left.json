@@ -3,8 +3,8 @@
 	"ambientocclusion": false,
 	"texture_size": [128, 128],
 	"textures": {
-		"0": "micro_machinery:blocks/blast_furnace",
-		"particle": "micro_machinery:blocks/blast_furnace"
+		"0": "micro_machinery:obj/blast_furnace",
+		"particle": "micro_machinery:obj/blast_furnace"
 	},
 	"elements": [
 		{

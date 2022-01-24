@@ -13,7 +13,7 @@
         "item": "minecraft:flint"
       },
       "c": {
-        "tag": "forge:dusts/carbon"
+        "item": "minecraft:clay_ball"
       }
     },
     "result": {
