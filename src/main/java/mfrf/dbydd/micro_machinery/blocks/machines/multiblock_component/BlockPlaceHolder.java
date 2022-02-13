@@ -74,10 +74,15 @@ public class BlockPlaceHolder extends MMMultiBlockHolderBase {
 
     @Override
     public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return 1;
+        return worldIn.getMaxLightLevel();
     }
 
-//    @Override
+    @Override
+    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return 1f;
+    }
+
+    //    @Override
 //    public boolean isVariableOpacity() {
 //        return true;
 //    }

@@ -1,6 +1,5 @@
 package mfrf.dbydd.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.TileElectrolysis;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -12,7 +11,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.energy.CapabilityEnergy;
 
 import java.util.function.Consumer;
 
@@ -59,13 +57,13 @@ public class DebugTool extends MMItemBase {
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
-        if (!world.isRemote()) {
-            readTileEntity(context, world, tileEntity -> {
-                TileElectrolysis tileEntity1 = (TileElectrolysis) tileEntity;
-                context.getPlayer().sendMessage(new StringTextComponent(tileEntity1.getEnergy().serializeNBT().toString()));
-            });
-        }
+//        World world = context.getWorld();
+//        if (!world.isRemote()) {
+//            BlockState blockState = world.getBlockState(context.getPos());
+//            if (blockState.getBlock() == RegisteredBlocks.BLAST_FURNACE) {
+//                world.setBlockState(blockState.with(BlockBlastFurnace.))
+//            }
+//        }
         return ActionResultType.SUCCESS;
     }
 }

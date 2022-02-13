@@ -168,6 +168,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
         return burning;
     }
 
+
     public enum slot {
         INPUT(0), FUEL(1), OUTPUT(2);
 

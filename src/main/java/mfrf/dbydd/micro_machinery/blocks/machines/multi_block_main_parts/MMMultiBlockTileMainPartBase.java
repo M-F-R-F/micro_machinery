@@ -73,6 +73,10 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
         }
     }
 
+//    public void onAccessoryUse(BlockPos worldPos, BlockPos relativePosWithOutDirection, World world) {
+//
+//    }
+
     public void saveBlockBeenReplaced(CompoundNBT compoundNBT) {
         compoundBlockReplaced = compoundNBT;
     }

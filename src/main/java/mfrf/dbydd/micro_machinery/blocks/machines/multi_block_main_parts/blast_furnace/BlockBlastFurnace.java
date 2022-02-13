@@ -22,17 +22,12 @@ public class BlockBlastFurnace extends MMMultiBlockHolderBase {
 
     public BlockBlastFurnace(Properties properties) {
         super(properties, "blast_furnace", false, false, true);
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+        this.setDefaultState(getDefaultState().with(FACING, Direction.NORTH).with(IS_PLACEHOLDER, false));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
-    }
-
-    @Override
-    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return 0f;
     }
 
     @Override
@@ -49,7 +44,7 @@ public class BlockBlastFurnace extends MMMultiBlockHolderBase {
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote()) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
-            if(tileEntity instanceof TileBlastFurnace) {
+            if (tileEntity instanceof TileBlastFurnace) {
                 TileBlastFurnace blastFurnace = (TileBlastFurnace) tileEntity;
                 NetworkHooks.openGui((ServerPlayerEntity) player, blastFurnace, (PacketBuffer packerBuffer) -> {
                     packerBuffer.writeBlockPos(blastFurnace.getPos());
@@ -58,4 +53,10 @@ public class BlockBlastFurnace extends MMMultiBlockHolderBase {
         }
         return ActionResultType.SUCCESS;
     }
+
+    @Override
+    public boolean isViewBlocking(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return true;
+    }
+
 }
