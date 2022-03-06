@@ -1,5 +1,7 @@
 {
-	"variants": {
-		"": {"model": "micro_machinery:block/multi_block_place_holder"}
-	}
+  "variants": {
+    "": {
+      "model": "micro_machinery:block/multi_block_place_holder"
+    }
+  }
 }

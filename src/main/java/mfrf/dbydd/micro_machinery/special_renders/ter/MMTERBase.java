@@ -19,6 +19,7 @@ public abstract class MMTERBase<T extends TileEntity> extends TileEntityRenderer
     protected static BlockRendererDispatcher blockRenderer = Minecraft.getInstance().getBlockRendererDispatcher();
     protected static ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
     protected static int MAX_LIGHT = 0x00F0_00F0;
+    protected static int MIN_LIGHT = 0x00F0_0000;
 
     public MMTERBase(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);

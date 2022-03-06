@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockMainPartBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,11 +14,13 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class BlockBlastFurnace extends MMMultiBlockHolderBase {
+public class BlockBlastFurnace extends MMMultiBlockMainPartBase {
 
     public BlockBlastFurnace(Properties properties) {
         super(properties, "blast_furnace", false, false, true);
@@ -55,8 +57,7 @@ public class BlockBlastFurnace extends MMMultiBlockHolderBase {
     }
 
     @Override
-    public boolean isViewBlocking(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return true;
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return super.getShape(state, worldIn, pos, context);
     }
-
 }

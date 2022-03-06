@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.special_renders.ter;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockMainPartBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.TileBlastFurnace;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -71,6 +72,9 @@ public class BlastFurnaceTer extends MMTERBase<TileBlastFurnace> {
 
 //==========================model================================================
 
+        matrixStackIn.push();
+        blockRenderer.renderBlock(blastFurnace.getBlockState().with(MMMultiBlockMainPartBase.MODEL_PLACEHOLDER, true), matrixStackIn, bufferIn, combinedLightIn - 1, combinedOverlayIn, EmptyModelData.INSTANCE);
+        matrixStackIn.pop();
 
 //==========================model================================================
 

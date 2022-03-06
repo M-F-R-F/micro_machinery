@@ -1,18 +1,33 @@
 {
-    "variants": {
-    "facing=south": {
+  "variants": {
+    "facing=south,model_place_holder=true": {
       "model": "micro_machinery:block/blast_furnace"
     },
-    "facing=west": {
+    "facing=west,model_place_holder=true": {
       "model": "micro_machinery:block/blast_furnace",
       "y": 90
     },
-    "facing=north": {
+    "facing=north,model_place_holder=true": {
       "model": "micro_machinery:block/blast_furnace",
       "y": 180
     },
-    "facing=east": {
+    "facing=east,model_place_holder=true": {
       "model": "micro_machinery:block/blast_furnace",
+      "y": 270
+    },
+    "facing=south,model_place_holder=false": {
+      "model": "micro_machinery:block/multi_block_place_holder"
+    },
+    "facing=west,model_place_holder=false": {
+      "model": "micro_machinery:block/multi_block_place_holder",
+      "y": 90
+    },
+    "facing=north,model_place_holder=false": {
+      "model": "micro_machinery:block/multi_block_place_holder",
+      "y": 180
+    },
+    "facing=east,model_place_holder=false": {
+      "model": "micro_machinery:block/multi_block_place_holder",
       "y": 270
     }
   }

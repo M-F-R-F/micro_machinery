@@ -26,6 +26,7 @@ public class RenderTypes {
         RenderTypeLookup.setRenderLayer(RegisteredBlocks.LATHE, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(RegisteredBlocks.LEVER_PLACEHOLDER, RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(RegisteredBlocks.PLACE_HOLDER, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(RegisteredBlocks.BLAST_FURNACE, RenderType.getTranslucent());
     }
 
     @SubscribeEvent
