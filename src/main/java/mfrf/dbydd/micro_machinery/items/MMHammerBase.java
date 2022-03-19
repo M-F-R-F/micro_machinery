@@ -3,6 +3,7 @@ package mfrf.dbydd.micro_machinery.items;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockUtilPlaceHolder;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.NBTUtil;
 import net.minecraft.block.Block;
@@ -19,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -126,6 +128,8 @@ public class MMHammerBase extends ToolItem {
         MMMultiBlockTileMainPartBase mainPartBase = (MMMultiBlockTileMainPartBase) world.getTileEntity(pos);
         mainPartBase.saveBlockBeenReplaced(blockPackNBT);
 
+        ArrayList<nodeToBeProcess> posToBeLink = new ArrayList<>();
+
         for (MultiBlockStructureMaps.MultiBlockPosBox.BlockNode blockNode : blockPosBox.getBlockNodes()) {
             BlockPos blockNodePos = blockNode.getPos();
             if (!(blockNodePos.getX() == 0 && blockNodePos.getY() == 0 && blockNodePos.getZ() == 0)) {
@@ -136,9 +140,26 @@ public class MMHammerBase extends ToolItem {
                     BlockPlaceHolder.packageBlock(world, posInProgress, pos);
 
                 } else {
-
+                    MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode node = (MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode) blockNode;
+                    posToBeLink.add(new nodeToBeProcess(pos, node.getArg1(), node.getArg2()));
                 }
             }
+        }
+
+        for (nodeToBeProcess nodeToBeProcess : posToBeLink) {
+            ((BlockUtilPlaceHolder) world.getBlockState(nodeToBeProcess.pos).getBlock()).LinkToMainPart(pos, world, nodeToBeProcess.arg1, nodeToBeProcess.arg2);
+        }
+    }
+
+    class nodeToBeProcess {
+        final BlockPos pos;
+        final int arg1;
+        final int arg2;
+
+        nodeToBeProcess(BlockPos pos, int arg1, int arg2) {
+            this.pos = pos;
+            this.arg1 = arg1;
+            this.arg2 = arg2;
         }
     }
 
