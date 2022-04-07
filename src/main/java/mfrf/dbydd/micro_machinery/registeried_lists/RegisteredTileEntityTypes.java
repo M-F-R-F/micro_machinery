@@ -17,6 +17,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.TileHandGenerat
 import mfrf.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.blast_furnace.TileBlastFurnace;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.huge_container.TileHugeContainer;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.energy_interface.TileEnergyInterface;
 import mfrf.dbydd.micro_machinery.blocks.machines.pump.TilePump;
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TerTestTile;
@@ -42,7 +43,7 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TilePlaceHolder>> TILE_PLACEHOLDER = TILE_ENTITY_TYPE_REGISTER.register("place_holder", () -> TileEntityType.Builder.create(TilePlaceHolder::new, MMMultiBlockHolderBase.PLACE_HOLDER_LIST.toArray(new Block[MMMultiBlockHolderBase.PLACE_HOLDER_LIST.size()])).build(null));
     public static final RegistryObject<TileEntityType<TileBlastFurnace>> TILE_BLAST_FURNACE = TILE_ENTITY_TYPE_REGISTER.register("blast_furnace", () -> TileEntityType.Builder.create(TileBlastFurnace::new, RegisteredBlocks.BLAST_FURNACE).build(null));
     public static final RegistryObject<TileEntityType<TileEtcher>> TILE_ETCHER = TILE_ENTITY_TYPE_REGISTER.register("etcher", () -> TileEntityType.Builder.create(TileEtcher::new, RegisteredBlocks.BLOCK_ETCHER).build(null));
-    public static final RegistryObject<TileEntityType<TileEnergyInterface>> TILE_ENERGY_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("energy_interface", () -> TileEntityType.Builder.create(TileEnergyInterface::new, RegisteredBlocks.ENERGY_INTERFACE).build(null));
+    public static final RegistryObject<TileEntityType<TileEnergyInterface>> TILE_ENERGY_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("energy_interface", () -> TileEntityType.Builder.create(TileEnergyInterface::new, RegisteredBlocks.ENERGY_INTERFACE_INPUT, RegisteredBlocks.ENERGY_INTERFACE_OUTPUT).build(null));
     public static final RegistryObject<TileEntityType<TileElectrolysis>> TILE_ELECTROLYSIS = TILE_ENTITY_TYPE_REGISTER.register("electrolysis", () -> TileEntityType.Builder.create(TileElectrolysis::new, RegisteredBlocks.ELECTROLYSIS).build(null));
     public static final RegistryObject<TileEntityType<TileCutter>> TILE_CUTTER = TILE_ENTITY_TYPE_REGISTER.register("cutter", () -> TileEntityType.Builder.create(TileCutter::new, RegisteredBlocks.CUTTER).build(null));
     public static final RegistryObject<TileEntityType<TileCentrifuge>> TILE_CENTRIFUGE = TILE_ENTITY_TYPE_REGISTER.register("centrifuge", () -> TileEntityType.Builder.create(TileCentrifuge::new, RegisteredBlocks.CENTRIFUGE).build(null));
@@ -50,4 +51,5 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TileAtomization>> TILE_ATOMIZATION = TILE_ENTITY_TYPE_REGISTER.register("atomization", () -> TileEntityType.Builder.create(TileAtomization::new, RegisteredBlocks.ATOMIZATION).build(null));
     public static final RegistryObject<TileEntityType<TilePump>> TILE_PUMP = TILE_ENTITY_TYPE_REGISTER.register("pump", () -> TileEntityType.Builder.create(TilePump::new, RegisteredBlocks.PUMP).build(null));
     public static final RegistryObject<TileEntityType<TileWeld>> TILE_WELD = TILE_ENTITY_TYPE_REGISTER.register("weld", () -> TileEntityType.Builder.create(TileWeld::new, RegisteredBlocks.WELD).build(null));
+    public static final RegistryObject<TileEntityType<TileHugeContainer>> TILE_HUGE_CONTAINER = TILE_ENTITY_TYPE_REGISTER.register("huge_container", () -> TileEntityType.Builder.create(TileHugeContainer::new, RegisteredBlocks.HUGE_CONTAINER).build(null));
 }

@@ -141,25 +141,27 @@ public class MMHammerBase extends ToolItem {
 
                 } else {
                     MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode node = (MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode) blockNode;
-                    posToBeLink.add(new nodeToBeProcess(pos, node.getArg1(), node.getArg2()));
+                    posToBeLink.add(new nodeToBeProcess(pos, node.getArg1(), node.getArg2(), node.getArg3()));
                 }
             }
         }
 
         for (nodeToBeProcess nodeToBeProcess : posToBeLink) {
-            ((BlockUtilPlaceHolder) world.getBlockState(nodeToBeProcess.pos).getBlock()).LinkToMainPart(pos, world, nodeToBeProcess.arg1, nodeToBeProcess.arg2);
+            ((BlockUtilPlaceHolder) world.getBlockState(nodeToBeProcess.pos).getBlock()).LinkToMainPart(pos, world, nodeToBeProcess.arg1, nodeToBeProcess.arg2, nodeToBeProcess.arg3);
         }
     }
 
     class nodeToBeProcess {
-        final BlockPos pos;
-        final int arg1;
-        final int arg2;
+        private final BlockPos pos;
+        private final int arg1;
+        private final int arg2;
+        private final String arg3;
 
-        nodeToBeProcess(BlockPos pos, int arg1, int arg2) {
+        nodeToBeProcess(BlockPos pos, int arg1, int arg2, String arg3) {
             this.pos = pos;
             this.arg1 = arg1;
             this.arg2 = arg2;
+            this.arg3 = arg3;
         }
     }
 

@@ -3,8 +3,6 @@ package mfrf.dbydd.micro_machinery.command;
 import com.google.common.base.Charsets;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.Command;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import mfrf.dbydd.micro_machinery.items.DebugTool;
@@ -22,7 +20,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 public class ReadMultiBlockCommand implements Command<CommandSource> {
     public static ReadMultiBlockCommand Instance = new ReadMultiBlockCommand();

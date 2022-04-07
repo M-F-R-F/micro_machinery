@@ -40,7 +40,7 @@ public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStora
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityEnergy.ENERGY && side == world.getBlockState(pos).get(BlockHolderEnergyInterface.FACING)) {
+        if (cap == CapabilityEnergy.ENERGY && side == world.getBlockState(pos).get(BlockHolderEnergyInterfaceInput.FACING)) {
             return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(cap, side);
@@ -133,7 +133,7 @@ public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStora
     }
 
     private LazyOptional<IEnergyStorage> getFacingEnergyCapability() {
-        TileEntity tileEntity = world.getTileEntity(pos.offset(world.getBlockState(pos).get(BlockHolderEnergyInterface.FACING)));
+        TileEntity tileEntity = world.getTileEntity(pos.offset(world.getBlockState(pos).get(BlockHolderEnergyInterfaceInput.FACING)));
         if (tileEntity != null) {
             return tileEntity.getCapability(CapabilityEnergy.ENERGY);
         }

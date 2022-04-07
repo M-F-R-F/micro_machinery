@@ -216,7 +216,7 @@ public class MathUtil {
                     if (block != Blocks.AIR) {
                         BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
                         if (block instanceof BlockUtilPlaceHolder) {
-                            MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode(offsetPos, block, blockState.get(BlockUtilPlaceHolder.FACING), -1, -1);
+                            MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode(offsetPos, block, blockState.get(BlockUtilPlaceHolder.FACING), -1, -1, "place_holder");
                             accessories.add(accessoryNode);
                             blockNodes.add(accessoryNode);
                         } else {

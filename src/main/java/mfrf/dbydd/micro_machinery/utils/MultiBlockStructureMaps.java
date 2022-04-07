@@ -28,7 +28,6 @@ public class MultiBlockStructureMaps {
 
     private static void ReadStructure() {
         STRUCTURE_MAPS = new HashMap<>();
-        NAMES.add("blast_furnace");
         try {
             for (String name : NAMES) {
                 IResource resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(Micro_Machinery.NAME, "structures/" + name + ".json"));
@@ -171,20 +170,23 @@ public class MultiBlockStructureMaps {
             private final Direction direction;
             private final int arg1;
             private final int arg2;
+            private final String arg3;
 
 
-            public AccessoryNode(BlockPos pos, Block block, Direction direction, int arg1, int arg2) {
+            public AccessoryNode(BlockPos pos, Block block, Direction direction, int arg1, int arg2, String arg3) {
                 super(pos, block);
                 this.direction = direction;
                 this.arg1 = arg1;
                 this.arg2 = arg2;
+                this.arg3 = arg3;
             }
 
-            public AccessoryNode(BlockNode node, Direction direction, int arg1, int arg2) {
+            public AccessoryNode(BlockNode node, Direction direction, int arg1, int arg2, String arg3) {
                 super(node.pos, node.block);
                 this.direction = direction;
                 this.arg1 = arg1;
                 this.arg2 = arg2;
+                this.arg3 = arg3;
             }
 
             @Override
@@ -193,6 +195,7 @@ public class MultiBlockStructureMaps {
                 jsonObject.addProperty("direction", direction.getHorizontalIndex());
                 jsonObject.addProperty("arg1", arg1);
                 jsonObject.addProperty("arg2", arg2);
+                jsonObject.addProperty("arg3", arg3);
 
                 return jsonObject;
             }
@@ -202,7 +205,8 @@ public class MultiBlockStructureMaps {
                 Direction direction = Direction.byHorizontalIndex(jsonObject.get("direction").getAsInt());
                 int arg1 = jsonObject.get("arg1").getAsInt();
                 int arg2 = jsonObject.get("arg2").getAsInt();
-                return new AccessoryNode(BlockNode.fromJsonObject(jsonObject), direction, arg1, arg2);
+                String arg3 = jsonObject.get("arg3").getAsString();
+                return new AccessoryNode(BlockNode.fromJsonObject(jsonObject), direction, arg1, arg2, arg3);
             }
 
             public void rotateToDirection(Direction direction) {
@@ -210,7 +214,7 @@ public class MultiBlockStructureMaps {
             }
 
             public AccessoryNode rotateToDirectionAndReturnValue(Direction direction) {
-                return new AccessoryNode(super.rotateToDirectionAndReturnValue(direction), direction, arg1, arg2);
+                return new AccessoryNode(super.rotateToDirectionAndReturnValue(direction), direction, arg1, arg2, arg3);
             }
 
             public Direction getDirection() {
@@ -223,6 +227,10 @@ public class MultiBlockStructureMaps {
 
             public int getArg2() {
                 return arg2;
+            }
+
+            public String getArg3() {
+                return arg3;
             }
 
             public boolean test(BlockState blockState) {

@@ -123,7 +123,7 @@ public class IntegerContainer {
     }
 
     public boolean atMinValue() {
-        return current == min;
+        return current <= min;
     }
 
     public int getCurrent() {
@@ -136,6 +136,14 @@ public class IntegerContainer {
 
     public void resetValue() {
         this.current = min;
+    }
+
+    public int getRemainSpace() {
+        return max - current;
+    }
+
+    public int getUsableCount() {
+        return current - min;
     }
 
     public IIntArray toIntArray() {

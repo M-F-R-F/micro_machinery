@@ -57,13 +57,10 @@ public class DebugTool extends MMItemBase {
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
-//        World world = context.getWorld();
-//        if (!world.isRemote()) {
-//            BlockState blockState = world.getBlockState(context.getPos());
-//            if (blockState.getBlock() == RegisteredBlocks.BLAST_FURNACE) {
-//                world.setBlockState(blockState.with(BlockBlastFurnace.))
-//            }
-//        }
+        World world = context.getWorld();
+        if (!world.isRemote()) {
+            readMultiBlock(context);
+        }
         return ActionResultType.SUCCESS;
     }
 }

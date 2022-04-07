@@ -25,6 +25,10 @@ public class BlockPlaceHolder extends MMMultiBlockHolderBase {
         setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, true));
     }
 
+    public BlockPlaceHolder(Properties properties, String name, boolean addToPlaceHolderList, boolean haveBlockItem, boolean addToStructureMaps) {
+        super(properties, name, addToPlaceHolderList, haveBlockItem, addToStructureMaps);
+    }
+
     public static BlockPos packageBlock(World world, BlockPos pos, BlockPos mainPart) {
         CompoundNBT packedNBT = new CompoundNBT();
 
