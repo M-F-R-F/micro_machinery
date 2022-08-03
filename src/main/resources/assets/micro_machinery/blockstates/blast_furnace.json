@@ -30,5 +30,6 @@
       "model": "micro_machinery:block/multi_block_place_holder",
       "y": 270
     }
-  }
+  },
+  "model_place_holder": true
 }

@@ -48,9 +48,9 @@ public class BlockHugeContainer extends MMMultiBlockMainPartBase {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof TileHugeContainer) {
                 TileHugeContainer blastFurnace = (TileHugeContainer) tileEntity;
-                NetworkHooks.openGui((ServerPlayerEntity) player, blastFurnace, (PacketBuffer packerBuffer) -> {
-                    packerBuffer.writeBlockPos(blastFurnace.getPos());
-                });
+//                NetworkHooks.openGui((ServerPlayerEntity) player, blastFurnace, (PacketBuffer packerBuffer) -> {
+//                    packerBuffer.writeBlockPos(blastFurnace.getPos());
+//                });
             }
         }
         return ActionResultType.SUCCESS;
