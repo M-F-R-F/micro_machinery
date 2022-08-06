@@ -1,5 +1,5 @@
 {
-	"parent": "micro_machinery:block/pipe/pipe_tungsten_steel",
+	"parent": "micro_machinery:block/pipe/pipe_stainless_steel_shell",
 	"display": {
 		"thirdperson": {
 			"rotation": [ 10, -45, 170 ],
