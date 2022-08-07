@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.conveyor_belt;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import mfrf.dbydd.micro_machinery.enums.EnumConveyorVerticalState;
+import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.EnumProperty;
@@ -15,8 +15,8 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class BlockConveyorBelt extends MMBlockBase {
-    public static EnumProperty<EnumConveyorVerticalState> CONVEYOR_VERTICAL_STATE = EnumProperty.create("vertical_state",EnumConveyorVerticalState.class);
-    public static EnumProperty<Direction> CONVEYOR_HORIZONTAL_DIRECTION_STATE = EnumProperty.create("horizontal_direction",Direction.class, Direction.Plane.HORIZONTAL::test);
+    public static EnumProperty<Direction> CONVEYOR_HORIZONTAL_DIRECTION_STATE = EnumProperty.create("horizontal_direction", Direction.class, Direction.Plane.HORIZONTAL::test);
+    public static EnumProperty<EnumConveyorConnectState> CONNECT_STATE = EnumProperty.create("connect_state", EnumConveyorConnectState.class);
     private final Supplier<Pair<Integer, Integer>> propertiesSupplier;
 
     public BlockConveyorBelt(Properties properties, String name, Supplier<Pair<Integer, Integer>> speed_group) {
@@ -28,7 +28,7 @@ public class BlockConveyorBelt extends MMBlockBase {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add(CONVEYOR_HORIZONTAL_DIRECTION_STATE);
-        builder.add(CONVEYOR_VERTICAL_STATE);
+        builder.add(CONNECT_STATE);
     }
 
     @Nullable

@@ -6,10 +6,10 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class UnlimitedItemContainer implements IItemHandler {
+public class ModifiedtemContainer implements IItemHandler {
     private Slot[] slots;
 
-    public UnlimitedItemContainer(int size, IntegerContainer slotSize) {
+    public ModifiedtemContainer(int size, IntegerContainer slotSize) {
         this.slots = new Slot[size];
         for (int i = 0; i < size; i++) {
             slots[i] = new Slot(slotSize);
@@ -70,7 +70,7 @@ public class UnlimitedItemContainer implements IItemHandler {
          * @param stackToInsert stack to insert
          * @return same as ItemHandler, the remains.
          */
-        ItemStack insert(ItemStack stackToInsert, boolean simulate) {
+        public ItemStack insert(ItemStack stackToInsert, boolean simulate) {
             ItemStack currentStack = ItemStack.read(itemStack);
             ItemStack copied = stackToInsert.copy();
             copied.setCount(1);
@@ -101,7 +101,7 @@ public class UnlimitedItemContainer implements IItemHandler {
          * @param count count that expect to be extract
          * @return actual extracted
          */
-        ItemStack extract(int count, boolean simulate) {
+        public ItemStack extract(int count, boolean simulate) {
             ItemStack currentStack = ItemStack.read(itemStack);
             if (!currentStack.isEmpty()) {
                 ItemStack copy = currentStack.copy();
