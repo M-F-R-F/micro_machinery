@@ -79,20 +79,20 @@ public class Config {
         HSB_EFFICIENCY = builder.comment("flywheel energy storage efficiency(0.2-5)").defineInRange("hsb", 1.0d, 0.2d, 5.0d);
         MINIMUM_WATER_LIMIT = builder.comment("open or stop thermal power plant's minimum water limit").define("minimum_water_limit", true);
         ATOMIZATION_FLUID_CONTAINER = builder.comment("max fluid amount that atomization could contain").defineInRange("atomization_fluid_amount", 144, 144, 129600);
-        CONVEY_BELT_1_TRANSMIT_SPEED = builder.comment("how many ticks that a stack will be transfered from one side to other side by conveyor belt (tier 1)").defineInRange("conveytor_belt_transmit_speed_tier_1", 30, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_1_TRANSMIT_STACK_SIZE = builder.comment("how many items can be moved in one extract progress on conveyor belt (tier 1)").defineInRange("conveyor_belt_transmit_stack_size_tier_1", 16, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_1_EXTRACT_INTERVAL = builder.comment("how many ticks that the conveyor belt will try to extract item (tier 1)").defineInRange("conveyor_belt_extract_interval", 30, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_2_TRANSMIT_SPEED = builder.comment("how many ticks that a stack will be transfered from one side to other side by conveyor belt (tier 2)").defineInRange("conveytor_belt_transmit_speed_tier_2", 30, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_2_TRANSMIT_STACK_SIZE = builder.comment("how many items can be moved in one extract progress on conveyor belt (tier 2)").defineInRange("conveyor_belt_transmit_stack_size_tier_2", 16, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_2_EXTRACT_INTERVAL = builder.comment("how many ticks that the conveyor belt will try to extract item (tier 2)").defineInRange("conveyor_belt_extract_interval", 30, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_3_TRANSMIT_SPEED = builder.comment("how many ticks that a stack will be transfered from one side to other side by conveyor belt (tier 3)").defineInRange("conveytor_belt_transmit_speed_tier_3", 30, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_1_TRANSMIT_SPEED = builder.comment("how many ticks that a stack will be transfered from one side to other side by conveyor belt (tier 1)").defineInRange("conveytor_belt_transmit_speed_tier_1", 40, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_1_TRANSMIT_STACK_SIZE = builder.comment("how many items can be moved in one extract progress on conveyor belt (tier 1)").defineInRange("conveyor_belt_transmit_stack_size_tier_1", 1, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_1_EXTRACT_INTERVAL = builder.comment("how many ticks that the conveyor belt will try to extract item (tier 1)").defineInRange("conveyor_belt_extract_interval", 20, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_2_TRANSMIT_SPEED = builder.comment("how many ticks that a stack will be transfered from one side to other side by conveyor belt (tier 2)").defineInRange("conveytor_belt_transmit_speed_tier_2", 20, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_2_TRANSMIT_STACK_SIZE = builder.comment("how many items can be moved in one extract progress on conveyor belt (tier 2)").defineInRange("conveyor_belt_transmit_stack_size_tier_2", 4, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_2_EXTRACT_INTERVAL = builder.comment("how many ticks that the conveyor belt will try to extract item (tier 2)").defineInRange("conveyor_belt_extract_interval", 10, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_3_TRANSMIT_SPEED = builder.comment("how many ticks that a stack will be transfered from one side to other side by conveyor belt (tier 3)").defineInRange("conveytor_belt_transmit_speed_tier_3", 10, 1, Integer.MAX_VALUE);
         CONVEY_BELT_3_TRANSMIT_STACK_SIZE = builder.comment("how many items can be moved in one extract progress on conveyor belt (tier 3)").defineInRange("conveyor_belt_transmit_stack_size_tier_3", 16, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_3_EXTRACT_INTERVAL = builder.comment("how many ticks that the conveyor belt will try to extract item (tier 3)").defineInRange("conveyor_belt_extract_interval", 30, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_3_EXTRACT_INTERVAL = builder.comment("how many ticks that the conveyor belt will try to extract item (tier 3)").defineInRange("conveyor_belt_extract_interval", 10, 1, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("technical", "this part is some technical options").push("technical");
         HIGH_FREQUENCY_BLOCK_ACTIVE_UPDATE_CYCLE = builder.comment("Some block require update active and periodically, which may cause high performance use.", "This argument controls the cycle tick of update", "include: fluid pipe").defineInRange("high_frequency_block_update_cycle", 35, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_STACK_SIZE_LIMIT = builder.comment("this config defines how many stacks can hold by single ConveyBelt").defineInRange("convey_belt_stack_size_limit", 4, 1, Integer.MAX_VALUE);
+        CONVEY_BELT_STACK_SIZE_LIMIT = builder.comment("this config defines how many stacks can hold by single ConveyBelt").defineInRange("convey_belt_stack_size_limit", 64, 1, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("other settings", "this part defines some other things").push("other");
