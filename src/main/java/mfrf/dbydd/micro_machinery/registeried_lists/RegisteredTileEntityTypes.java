@@ -5,6 +5,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.atomization.TileAtomization;
 import mfrf.dbydd.micro_machinery.blocks.machines.centrifuge.TileCentrifuge;
+import mfrf.dbydd.micro_machinery.blocks.machines.conveyor_belt.TileConveyBelt;
 import mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell.TileCreativeEnergyCell;
 import mfrf.dbydd.micro_machinery.blocks.machines.cutter.TileCutter;
 import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.TileElectrolysis;
@@ -52,4 +53,5 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TilePump>> TILE_PUMP = TILE_ENTITY_TYPE_REGISTER.register("pump", () -> TileEntityType.Builder.create(TilePump::new, RegisteredBlocks.PUMP).build(null));
     public static final RegistryObject<TileEntityType<TileWeld>> TILE_WELD = TILE_ENTITY_TYPE_REGISTER.register("weld", () -> TileEntityType.Builder.create(TileWeld::new, RegisteredBlocks.WELD).build(null));
     public static final RegistryObject<TileEntityType<TileHugeContainer>> TILE_HUGE_CONTAINER = TILE_ENTITY_TYPE_REGISTER.register("huge_container", () -> TileEntityType.Builder.create(TileHugeContainer::new, RegisteredBlocks.HUGE_CONTAINER).build(null));
+    public static final RegistryObject<TileEntityType<TileConveyBelt>> TILE_CONVEY_BELT = TILE_ENTITY_TYPE_REGISTER.register("convey_belt", () -> TileEntityType.Builder.create(TileConveyBelt::new, RegisteredBlocks.CONVEYER_BELT_1, RegisteredBlocks.CONVEYER_BELT_2, RegisteredBlocks.CONVEYER_BELT_3).build(null));
 }

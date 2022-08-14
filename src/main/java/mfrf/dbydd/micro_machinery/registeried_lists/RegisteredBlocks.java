@@ -1,8 +1,10 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
+import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.atomization.BlockAtomization;
 import mfrf.dbydd.micro_machinery.blocks.machines.centrifuge.BlockCentrifuge;
+import mfrf.dbydd.micro_machinery.blocks.machines.conveyor_belt.BlockConveyorBelt;
 import mfrf.dbydd.micro_machinery.blocks.machines.creative_energy_cell.BlockCreativeEnergyCell;
 import mfrf.dbydd.micro_machinery.blocks.machines.cutter.BlockCutter;
 import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.BlockElectrolysis;
@@ -26,6 +28,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.blocks.machines.weld.BlockWeld;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
+import mfrf.dbydd.micro_machinery.utils.TriFields;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
@@ -148,9 +151,9 @@ public class RegisteredBlocks {
     public static final Block COBALT_CABLE = new BlockEnergyCable(Block.Properties.create(Material.IRON).notSolid().harvestLevel(3).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "cobalt_cable", EnumCableMaterial.COBALT);
     //pipe
     //todo converyerBelt
-//    public static final Block CONVEYER_BELT_1 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_1",EnumConveyerBeltMaterial.BASIC);
-//    public static final Block CONVEYER_BELT_2 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_2",EnumConveyerBeltMaterial.ADVANCED);
-//    public static final Block CONVEYER_BELT_3 = new BlockConveyerBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyer_belt_3",EnumConveyerBeltMaterial.ELITE);
+    public static final Block CONVEYER_BELT_1 = new BlockConveyorBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyor_belt_1", TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get));
+    public static final Block CONVEYER_BELT_2 = new BlockConveyorBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyor_belt_2", TriFields.of(Config.CONVEY_BELT_2_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_2_TRANSMIT_SPEED::get, Config.CONVEY_BELT_2_TRANSMIT_STACK_SIZE::get));
+    public static final Block CONVEYER_BELT_3 = new BlockConveyorBelt(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(2.0f), "conveyor_belt_3", TriFields.of(Config.CONVEY_BELT_3_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_3_TRANSMIT_SPEED::get, Config.CONVEY_BELT_3_TRANSMIT_STACK_SIZE::get));
 
     //fluid pipe
     public static final Block PIPE_INVAR = new FluidPipeBlock(Block.Properties.create(Material.IRON), "pipe_invar");

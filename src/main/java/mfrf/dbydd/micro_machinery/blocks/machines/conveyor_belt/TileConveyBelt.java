@@ -1,12 +1,14 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.conveyor_belt;
 
 import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.ConfigurableItemSlot;
 import mfrf.dbydd.micro_machinery.utils.ItemContainer;
 import net.minecraft.block.BlockState;
+import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,8 +23,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class TileConveyBelt extends TileEntity implements ITickableTileEntity {
     private ConfigurableItemSlot slot = new ConfigurableItemSlot();
 
-    public TileConveyBelt(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public TileConveyBelt() {
+        super(RegisteredTileEntityTypes.TILE_CONVEY_BELT.get());
     }
 
 
@@ -54,9 +56,10 @@ public class TileConveyBelt extends TileEntity implements ITickableTileEntity {
             BlockPos targetPos = pos.offset(direction);
             BlockPos fromPos = pos.offset(direction.getOpposite());
             AtomicBoolean eject = new AtomicBoolean(true);
+            BlockPos upTarget = targetPos.up();
             switch (enumConveyorConnectState) {
                 case VERTICAL_CONNECTED_UP: {
-                    targetPos = targetPos.up();
+                    targetPos = upTarget;
                     eject.set(false);
                     break;
                 }
@@ -79,10 +82,22 @@ public class TileConveyBelt extends TileEntity implements ITickableTileEntity {
                                 poppedStack.consumed.accept(ItemHandlerHelper.insertItem(iItemHandler, poppedStack.stack.copy(), false));
                                 eject.set(false);
                                 markDirty();
-                                //todo input, eject,checkBug
                             }
                         }
                 );
+            }
+
+            TileEntity fromEntity = world.getTileEntity(fromPos);
+            if (fromEntity != null && fromEntity.getType() != RegisteredTileEntityTypes.TILE_CONVEY_BELT.get()) {
+                fromEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).ifPresent(iItemHandler -> {
+                    //todo input & configs
+                });
+            }
+
+            if (eject.get() && slot.containItem()) {
+                ConfigurableItemSlot.poppedStack poppedStack = slot.tryPopOneStack();
+                InventoryHelper.spawnItemStack(world, upTarget.getX(), upTarget.getY(), upTarget.getZ(), poppedStack.stack.copy());
+                poppedStack.consumed.accept(ItemStack.EMPTY);
             }
         }
     }

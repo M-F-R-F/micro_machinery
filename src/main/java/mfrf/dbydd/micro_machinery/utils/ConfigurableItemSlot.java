@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -14,28 +15,38 @@ import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<ListNBT> {
+public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<CompoundNBT> {
 
     private LinkedList<ItemStack> stacks = new LinkedList<>();
+    private int max_stack_size = 64;
 
     public boolean isEmpty() {
         return stacks.isEmpty();
     }
 
+    public boolean containItem() {
+        return !stacks.isEmpty();
+    }
+
     @Override
-    public ListNBT serializeNBT() {
+    public CompoundNBT serializeNBT() {
+        CompoundNBT compoundNBT = new CompoundNBT();
         ListNBT stacksNBT = new ListNBT();
         for (ItemStack stack : stacks) {
             stacksNBT.add(stack.serializeNBT());
         }
-        return stacksNBT;
+        compoundNBT.put("stacks", stacksNBT);
+        compoundNBT.putInt("max_stack_size", max_stack_size);
+        return compoundNBT;
     }
 
     @Override
-    public void deserializeNBT(ListNBT nbt) {
-        for (INBT inbt : nbt) {
-            stacks.add(ItemStack.read(((CompoundNBT) inbt)));
+    public void deserializeNBT(CompoundNBT nbt) {
+        ListNBT stacks = nbt.getList("stacks", Constants.NBT.TAG_COMPOUND);
+        for (INBT inbt : stacks) {
+            this.stacks.add(ItemStack.read(((CompoundNBT) inbt)));
         }
+        max_stack_size = nbt.getInt("max_stack_size");
     }
 
     @Override
@@ -54,14 +65,14 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<List
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
         ItemStack stackInSlot = getStackInSlot(slot);
         if (ItemHandlerHelper.canItemStacksStack(stack, stackInSlot)) {
-            int insertSpace = stackInSlot.getMaxStackSize() - stackInSlot.getCount();
+            int insertSpace = Integer.min(stackInSlot.getMaxStackSize(), max_stack_size) - stackInSlot.getCount();
             int remain = Math.max(stack.getCount() - insertSpace, 0);
             ItemStack returnV = stack.copy();
             returnV.setCount(remain);
 
             if (!simulate) {
                 ItemStack inserted = stackInSlot.copy();
-                inserted.setCount(remain < 0 ? stack.getMaxStackSize() : stack.getCount() + stackInSlot.getCount());
+                inserted.setCount(remain < 0 ? Integer.min(stack.getMaxStackSize(), max_stack_size) : stack.getCount() + stackInSlot.getCount());
                 stacks.set(slot, inserted);
             }
             return returnV;
@@ -86,7 +97,7 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<List
 
     @Override
     public int getSlotLimit(int slot) {
-        return stacks.get(slot).getMaxStackSize();
+        return Math.min(stacks.get(slot).getMaxStackSize(), max_stack_size);
     }
 
     @Override
