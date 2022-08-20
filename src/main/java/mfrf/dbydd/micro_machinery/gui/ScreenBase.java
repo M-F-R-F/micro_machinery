@@ -3,7 +3,7 @@ package mfrf.dbydd.micro_machinery.gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.interfaces.NoArgumentVoidFunction;
+import mfrf.dbydd.micro_machinery.interfaces.Consumer;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -26,7 +26,7 @@ public class ScreenBase<T extends Container> extends ContainerScreen<T> {
     protected final ResourceLocation MODULES = new ResourceLocation(Micro_Machinery.NAME, "textures/gui/module.png");
     protected final ResourceLocation TEXTURES;
     private final T screenContainer;
-    public NoArgumentVoidFunction renderButtonToolTip = null;
+    public Consumer renderButtonToolTip = null;
 
     public ScreenBase(T screenContainer, PlayerInventory inv, ITextComponent titleIn, ResourceLocation TEXTURES, int textureWidth, int textureHeight) {
         super(screenContainer, inv, titleIn);

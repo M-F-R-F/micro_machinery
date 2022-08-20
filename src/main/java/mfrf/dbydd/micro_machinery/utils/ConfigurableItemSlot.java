@@ -18,7 +18,11 @@ import java.util.function.Consumer;
 public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<CompoundNBT> {
 
     private LinkedList<ItemStack> stacks = new LinkedList<>();
-    private int max_stack_size = 64;
+    private int max_stack_size;
+
+    public ConfigurableItemSlot(int max_stack_size) {
+        this.max_stack_size = max_stack_size;
+    }
 
     public boolean isEmpty() {
         return stacks.isEmpty();
@@ -126,4 +130,13 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<Comp
             this.stack = stack;
         }
     }
+
+    public boolean atLimit() {
+        return getSlots() >= Config.CONVEY_BELT_STACK_SIZE_LIMIT.get();
+    }
+
+    public int spaceRemain() {
+        return atLimit() ? 0 : Config.CONVEY_BELT_STACK_SIZE_LIMIT.get() - getSlots();
+    }
+
 }

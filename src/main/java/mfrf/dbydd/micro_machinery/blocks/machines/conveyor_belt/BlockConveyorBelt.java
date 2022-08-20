@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 public class BlockConveyorBelt extends MMBlockBase {
     public static EnumProperty<Direction> CONVEYOR_HORIZONTAL_DIRECTION_STATE = EnumProperty.create("horizontal_direction", Direction.class, Direction.Plane.HORIZONTAL::test);
     public static EnumProperty<EnumConveyorConnectState> CONNECT_STATE = EnumProperty.create("connect_state", EnumConveyorConnectState.class);
-    private final TriFields<Integer, Integer, Integer> properties_speed_stack_interval_supplier;
+    public final TriFields<Integer, Integer, Integer> properties_speed_stack_interval_supplier;
 
     public BlockConveyorBelt(Properties properties, String name, TriFields<Integer, Integer, Integer> speed_stack_interval) {
         super(properties, name);
