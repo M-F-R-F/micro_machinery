@@ -94,7 +94,7 @@ public class Config {
         builder.comment("technical", "this part is some technical options").push("technical");
         HIGH_FREQUENCY_BLOCK_ACTIVE_UPDATE_CYCLE = builder.comment("Some block require update active and periodically, which may cause high performance use.", "This argument controls the cycle tick of update", "include: fluid pipe").defineInRange("high_frequency_block_update_cycle", 35, 1, Integer.MAX_VALUE);
         CONVEY_BELT_STACK_SIZE_LIMIT = builder.comment("this entry defines how many stacks can hold by single ConveyBelt").defineInRange("convey_belt_stack_size_limit", 64, 1, Integer.MAX_VALUE);
-        CONVEY_BELT_TRY_TO_EXTRACT_ITEM_ENTITY_INTERVAL = builder.comment("this entry defines how frequency Conveyor belt will try to extract item entities on it.").defineInRange("conveyor_belt_try_to_extract_item_entity_frequency", 40, 1, Integer.MAX_VALUE);
+//        CONVEY_BELT_TRY_TO_EXTRACT_ITEM_ENTITY_INTERVAL = builder.comment("this entry defines how frequency Conveyor belt will try to extract item entities on it.").defineInRange("conveyor_belt_try_to_extract_item_entity_frequency", 40, 1, Integer.MAX_VALUE);
         builder.pop();
 
         builder.comment("other settings", "this part defines some other things").push("other");

@@ -1,7 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.conveyor_belt;
 
 import com.google.common.collect.Lists;
-import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
@@ -11,14 +10,11 @@ import mfrf.dbydd.micro_machinery.utils.TickRegularTimerPartialSerializeAbleFact
 import mfrf.dbydd.micro_machinery.utils.TriFields;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.Capability;
@@ -167,33 +163,33 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
                                     }
                                 },
                                 //======================================================
-                                extractItemInterval),
-                        new TickRegularTimerPartialSerializeAbleFactory<>(
-                                tileConveyBelt -> {
-                                    if (!tileConveyBelt.slot.atLimit()) {
-                                        AxisAlignedBB boundingBox = COLLECTION_AREA_SHAPE.getBoundingBox();
-                                        outside:
-                                        for (ItemEntity itemEntity : tileConveyBelt.getWorld().getEntitiesWithinAABB(ItemEntity.class, boundingBox.offset(tileConveyBelt.pos.getX(), tileConveyBelt.pos.getY(), tileConveyBelt.pos.getZ()), EntityPredicates.IS_ALIVE)
-                                                .stream().limit(tileConveyBelt.slot.spaceRemain()).limit(tileConveyBelt.slot.spaceRemain()).collect(Collectors.toList())) {
-                                            ItemStack item = itemEntity.getItem();
-                                            ItemStack insert = item.copy();
-                                            while (!insert.isEmpty()) {
-                                                insert = ItemHandlerHelper.insertItem(tileConveyBelt.slot, insert, false);
-                                                if (tileConveyBelt.slot.atLimit()) {
-                                                    ItemStack remain = item.copy();
-                                                    remain.setCount(insert.getCount());
-                                                    itemEntity.setItem(remain);
-                                                    break outside;
-                                                }
-                                            }
-                                            itemEntity.remove();
-
-                                        }
-                                        tileConveyBelt.markDirty();
-                                    }
-                                },
-                                Config.CONVEY_BELT_TRY_TO_EXTRACT_ITEM_ENTITY_INTERVAL.get()
-                        )
+                                extractItemInterval)
+//                        new TickRegularTimerPartialSerializeAbleFactory<>(
+//                                tileConveyBelt -> {
+//                                    if (!tileConveyBelt.slot.atLimit()) {
+//                                        AxisAlignedBB boundingBox = COLLECTION_AREA_SHAPE.getBoundingBox();
+//                                        outside:
+//                                        for (ItemEntity itemEntity : tileConveyBelt.getWorld().getEntitiesWithinAABB(ItemEntity.class, boundingBox.offset(tileConveyBelt.pos.getX(), tileConveyBelt.pos.getY(), tileConveyBelt.pos.getZ()), EntityPredicates.IS_ALIVE)
+//                                                .stream().limit(tileConveyBelt.slot.spaceRemain()).limit(tileConveyBelt.slot.spaceRemain()).collect(Collectors.toList())) {
+//                                            ItemStack item = itemEntity.getItem();
+//                                            ItemStack insert = item.copy();
+//                                            while (!insert.isEmpty()) {
+//                                                insert = ItemHandlerHelper.insertItem(tileConveyBelt.slot, insert, false);
+//                                                if (tileConveyBelt.slot.atLimit()) {
+//                                                    ItemStack remain = item.copy();
+//                                                    remain.setCount(insert.getCount());
+//                                                    itemEntity.setItem(remain);
+//                                                    break outside;
+//                                                }
+//                                            }
+//                                            itemEntity.remove();
+//
+//                                        }
+//                                        tileConveyBelt.markDirty();
+//                                    }
+//                                },
+//                                Config.CONVEY_BELT_TRY_TO_EXTRACT_ITEM_ENTITY_INTERVAL.get()
+//                        )
                 ));
             }
             return cache.get(block).stream().map(TickRegularTimerPartialSerializeAbleFactory::build).collect(Collectors.toList());
