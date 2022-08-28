@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockUtilPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockAccessoryPlaceHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MultiBlockStructureMaps {
 
@@ -48,9 +49,9 @@ public class MultiBlockStructureMaps {
     public static class MultiBlockPosBox {
 
         private ArrayList<BlockNode> blockNodes;
-        private ArrayList<AccessoryNode> accessories;
+        private HashMap<String, AccessoryNode> accessories;
 
-        MultiBlockPosBox(ArrayList<BlockNode> blockNodes, ArrayList<AccessoryNode> accessories) {
+        MultiBlockPosBox(ArrayList<BlockNode> blockNodes, HashMap<String, AccessoryNode> accessories) {
             this.blockNodes = blockNodes;
             this.accessories = accessories;
         }
@@ -59,14 +60,14 @@ public class MultiBlockStructureMaps {
 
             JsonArray blockNodeList = JSONUtils.getJsonArray(jsonObject, "block_node_list");
 
-            ArrayList<AccessoryNode> accessoryArrayList = new ArrayList<>();
+            HashMap<String, AccessoryNode> accessoryArrayList = new HashMap<>();
             ArrayList<BlockNode> blockNodes = new ArrayList<>();
 
 
             for (JsonElement jsonElement : blockNodeList) {
                 JsonObject object = jsonElement.getAsJsonObject();
-                if (object.has("direction")) {
-                    accessoryArrayList.add(AccessoryNode.fromJsonObject(object));
+                if (object.has("name")) {
+                    accessoryArrayList.put(object.get("name").getAsString(), AccessoryNode.fromJsonObject(object.getAsJsonObject("object")));
                 }
                 blockNodes.add(BlockNode.fromJsonObject(object));
             }
@@ -79,7 +80,7 @@ public class MultiBlockStructureMaps {
             return blockNodes;
         }
 
-        public ArrayList<AccessoryNode> getAccessories() {
+        public HashMap<String, AccessoryNode> getAccessories() {
             return accessories;
         }
 
@@ -115,10 +116,10 @@ public class MultiBlockStructureMaps {
 
         public MultiBlockStructureMaps.MultiBlockPosBox rotateTo(Direction direction) {
             ArrayList<BlockNode> blockNodes = new ArrayList<>();
-            ArrayList<AccessoryNode> accessories = new ArrayList<>();
+            HashMap<String, AccessoryNode> accessories = new HashMap<>();
 
-            for (AccessoryNode accessory : this.accessories) {
-                accessories.add(accessory.rotateToDirectionAndReturnValue(direction));
+            for (Map.Entry<String, AccessoryNode> accessory : this.accessories.entrySet()) {
+                accessories.put(accessory.getKey(), accessory.getValue().rotateToDirectionAndReturnValue(direction));
             }
             for (BlockNode blockNode : this.blockNodes) {
                 blockNodes.add(blockNode.rotateToDirectionAndReturnValue(direction));
@@ -168,12 +169,12 @@ public class MultiBlockStructureMaps {
         public static class AccessoryNode extends BlockNode {
 
             private final Direction direction;
-            private final int arg1;
-            private final int arg2;
+            private final String arg1;
+            private final String arg2;
             private final String arg3;
 
 
-            public AccessoryNode(BlockPos pos, Block block, Direction direction, int arg1, int arg2, String arg3) {
+            public AccessoryNode(BlockPos pos, Block block, Direction direction, String arg1, String arg2, String arg3) {
                 super(pos, block);
                 this.direction = direction;
                 this.arg1 = arg1;
@@ -181,7 +182,7 @@ public class MultiBlockStructureMaps {
                 this.arg3 = arg3;
             }
 
-            public AccessoryNode(BlockNode node, Direction direction, int arg1, int arg2, String arg3) {
+            public AccessoryNode(BlockNode node, Direction direction, String arg1, String arg2, String arg3) {
                 super(node.pos, node.block);
                 this.direction = direction;
                 this.arg1 = arg1;
@@ -203,8 +204,8 @@ public class MultiBlockStructureMaps {
             public static AccessoryNode fromJsonObject(JsonObject jsonObject) {
 
                 Direction direction = Direction.byHorizontalIndex(jsonObject.get("direction").getAsInt());
-                int arg1 = jsonObject.get("arg1").getAsInt();
-                int arg2 = jsonObject.get("arg2").getAsInt();
+                String arg1 = jsonObject.get("arg1").getAsString();
+                String arg2 = jsonObject.get("arg2").getAsString();
                 String arg3 = jsonObject.get("arg3").getAsString();
                 return new AccessoryNode(BlockNode.fromJsonObject(jsonObject), direction, arg1, arg2, arg3);
             }
@@ -221,11 +222,11 @@ public class MultiBlockStructureMaps {
                 return direction;
             }
 
-            public int getArg1() {
+            public String getArg1() {
                 return arg1;
             }
 
-            public int getArg2() {
+            public String getArg2() {
                 return arg2;
             }
 
@@ -234,7 +235,7 @@ public class MultiBlockStructureMaps {
             }
 
             public boolean test(BlockState blockState) {
-                return blockState.getBlock() == block && blockState.get(BlockUtilPlaceHolder.FACING) == direction;
+                return blockState.getBlock() == block && blockState.get(BlockAccessoryPlaceHolder.FACING) == direction;
             }
         }
 

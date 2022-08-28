@@ -2,8 +2,8 @@ package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockAccessoryPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockUtilPlaceHolder;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.NBTUtil;
 import net.minecraft.block.Block;
@@ -135,7 +135,7 @@ public class MMHammerBase extends ToolItem {
             if (!(blockNodePos.getX() == 0 && blockNodePos.getY() == 0 && blockNodePos.getZ() == 0)) {
                 BlockPos posInProgress = pos.add(blockNodePos);
 //todo check bug
-                if (!blockPosBox.getAccessories().contains(blockNodePos)) {
+                if (!blockPosBox.getAccessories().values().stream().anyMatch(access -> access.getPos().equals(blockNodePos))) {
 
                     BlockPlaceHolder.packageBlock(world, posInProgress, pos);
 
@@ -147,17 +147,17 @@ public class MMHammerBase extends ToolItem {
         }
 
         for (nodeToBeProcess nodeToBeProcess : posToBeLink) {
-            ((BlockUtilPlaceHolder) world.getBlockState(nodeToBeProcess.pos).getBlock()).LinkToMainPart(pos, world, nodeToBeProcess.arg1, nodeToBeProcess.arg2, nodeToBeProcess.arg3);
+            ((BlockAccessoryPlaceHolder) world.getBlockState(nodeToBeProcess.pos).getBlock()).LinkToMainPart(pos, world, nodeToBeProcess.arg1, nodeToBeProcess.arg2, nodeToBeProcess.arg3);
         }
     }
 
     class nodeToBeProcess {
         private final BlockPos pos;
-        private final int arg1;
-        private final int arg2;
+        private final String arg1;
+        private final String arg2;
         private final String arg3;
 
-        nodeToBeProcess(BlockPos pos, int arg1, int arg2, String arg3) {
+        nodeToBeProcess(BlockPos pos, String arg1, String arg2, String arg3) {
             this.pos = pos;
             this.arg1 = arg1;
             this.arg2 = arg2;

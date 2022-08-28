@@ -1,7 +1,10 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.huge_container;
 
+import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.utils.HugeItemContainer;
+import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps.MultiBlockPosBox;
 import net.minecraft.nbt.CompoundNBT;
@@ -11,7 +14,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
 public class TileHugeContainer extends MMMultiBlockTileMainPartBase {
-//todo finish it
+    private HugeItemContainer container = new HugeItemContainer(Config.HUGE_CONTAINER_SLOT.get(), new IntegerContainer(0, Config.HUGE_CONTAINER_SLOT_STACK.get()));
 
     public TileHugeContainer() {
         super(RegisteredTileEntityTypes.TILE_HUGE_CONTAINER.get());

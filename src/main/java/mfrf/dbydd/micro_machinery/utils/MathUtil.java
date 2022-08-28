@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.utils;
 
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockUtilPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockAccessoryPlaceHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -17,6 +17,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -186,7 +187,6 @@ public class MathUtil {
     }
 
     public static MultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction, BlockPos activePos) {
-        //todo search accessories
         int pos1X = pos1.getX();
         int pos1Y = pos1.getY();
         int pos1Z = pos1.getZ();
@@ -202,7 +202,7 @@ public class MathUtil {
         int differenceZ = finalPos.getZ() - beginPos.getZ();
 
         ArrayList<MultiBlockStructureMaps.MultiBlockPosBox.BlockNode> blockNodes = new ArrayList<>();
-        ArrayList<MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode> accessories = new ArrayList<>();
+        HashMap<String, MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode> accessories = new HashMap<>();
 
         for (int xOffset = 0; xOffset <= differenceX; xOffset++) {
             for (int yOffset = 0; yOffset <= differenceY; yOffset++) {
@@ -215,9 +215,9 @@ public class MathUtil {
 
                     if (block != Blocks.AIR) {
                         BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
-                        if (block instanceof BlockUtilPlaceHolder) {
-                            MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode(offsetPos, block, blockState.get(BlockUtilPlaceHolder.FACING), -1, -1, "place_holder");
-                            accessories.add(accessoryNode);
+                        if (block instanceof BlockAccessoryPlaceHolder) {
+                            MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode(offsetPos, block, blockState.get(BlockAccessoryPlaceHolder.FACING), -1, -1, "place_holder");
+                            accessories.put("accessory$" + xOffset + "$" + yOffset + "$" + zOffset, accessoryNode);
                             blockNodes.add(accessoryNode);
                         } else {
                             blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));

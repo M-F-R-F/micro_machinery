@@ -98,12 +98,12 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
 
 
                                         switch (argumentsCollection.enumConveyorConnectState) {
-                                            case VERTICAL_CONNECTED_UP: {
+                                            case UP: {
                                                 argumentsCollection.targetPos = argumentsCollection.upTarget;
                                                 eject.set(false);
                                                 break;
                                             }
-                                            case VERTICAL_CONNECTED_DOWN: {
+                                            case DOWN: {
                                                 argumentsCollection.targetPos = argumentsCollection.targetPos.down();
                                                 eject.set(false);
                                                 break;
@@ -164,32 +164,6 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
                                 },
                                 //======================================================
                                 extractItemInterval)
-//                        new TickRegularTimerPartialSerializeAbleFactory<>(
-//                                tileConveyBelt -> {
-//                                    if (!tileConveyBelt.slot.atLimit()) {
-//                                        AxisAlignedBB boundingBox = COLLECTION_AREA_SHAPE.getBoundingBox();
-//                                        outside:
-//                                        for (ItemEntity itemEntity : tileConveyBelt.getWorld().getEntitiesWithinAABB(ItemEntity.class, boundingBox.offset(tileConveyBelt.pos.getX(), tileConveyBelt.pos.getY(), tileConveyBelt.pos.getZ()), EntityPredicates.IS_ALIVE)
-//                                                .stream().limit(tileConveyBelt.slot.spaceRemain()).limit(tileConveyBelt.slot.spaceRemain()).collect(Collectors.toList())) {
-//                                            ItemStack item = itemEntity.getItem();
-//                                            ItemStack insert = item.copy();
-//                                            while (!insert.isEmpty()) {
-//                                                insert = ItemHandlerHelper.insertItem(tileConveyBelt.slot, insert, false);
-//                                                if (tileConveyBelt.slot.atLimit()) {
-//                                                    ItemStack remain = item.copy();
-//                                                    remain.setCount(insert.getCount());
-//                                                    itemEntity.setItem(remain);
-//                                                    break outside;
-//                                                }
-//                                            }
-//                                            itemEntity.remove();
-//
-//                                        }
-//                                        tileConveyBelt.markDirty();
-//                                    }
-//                                },
-//                                Config.CONVEY_BELT_TRY_TO_EXTRACT_ITEM_ENTITY_INTERVAL.get()
-//                        )
                 ));
             }
             return cache.get(block).stream().map(TickRegularTimerPartialSerializeAbleFactory::build).collect(Collectors.toList());
@@ -213,7 +187,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
 
             public ArgumentsCollection(TileConveyBelt tileConveyBelt) {
                 blockState = tileConveyBelt.getBlockState();
-                enumConveyorConnectState = blockState.get(BlockConveyorBelt.CONNECT_STATE);
+                enumConveyorConnectState = blockState.get(BlockConveyorBelt.LIFT);
                 direction = blockState.get(BlockConveyorBelt.CONVEYOR_HORIZONTAL_DIRECTION_STATE);
                 targetPos = tileConveyBelt.pos.offset(direction);
                 fromPos = tileConveyBelt.pos.offset(direction.getOpposite());

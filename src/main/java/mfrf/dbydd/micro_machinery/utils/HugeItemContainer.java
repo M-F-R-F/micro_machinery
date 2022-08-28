@@ -2,17 +2,19 @@ package mfrf.dbydd.micro_machinery.utils;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ModifiedtemContainer implements IItemHandler {
+public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT> {
     private Slot[] slots;
 
-    public ModifiedtemContainer(int size, IntegerContainer slotSize) {
+    public HugeItemContainer(int size, IntegerContainer slotStackSize) {
         this.slots = new Slot[size];
         for (int i = 0; i < size; i++) {
-            slots[i] = new Slot(slotSize);
+            slots[i] = new Slot(slotStackSize);
         }
     }
 
@@ -52,10 +54,30 @@ public class ModifiedtemContainer implements IItemHandler {
         return insertItem(slot, stack, true).equals(stack);
     }
 
+    @Override
+    public ListNBT serializeNBT() {
+        ListNBT inbts = new ListNBT();
+        for (Slot slot : slots) {
+            inbts.add(slot.serializeNBT());
+        }
+        return inbts;
+    }
 
-    private class Slot {
-        private CompoundNBT itemStack;
-        private IntegerContainer size;
+    @Override
+    public void deserializeNBT(ListNBT nbt) {
+        int size = nbt.size();
+        if (slots.length < size) {
+            slots = new Slot[size];
+        }
+        for (int i = 0; i < size; i++) {
+            slots[i] = new Slot(nbt.getCompound(i));
+        }
+    }
+
+
+    private class Slot implements INBTSerializable<CompoundNBT> {
+        private CompoundNBT itemStack = new CompoundNBT();
+        private IntegerContainer size = new IntegerContainer();
 
         public Slot(ItemStack itemStack, IntegerContainer size) {
             this.itemStack = itemStack.getTag();
@@ -63,7 +85,12 @@ public class ModifiedtemContainer implements IItemHandler {
         }
 
         public Slot(IntegerContainer size) {
+            this.size = size;
             itemStack = ItemStack.EMPTY.getTag();
+        }
+
+        public Slot(CompoundNBT nbt) {
+            this.deserializeNBT(nbt);
         }
 
         /**
@@ -124,6 +151,20 @@ public class ModifiedtemContainer implements IItemHandler {
 
         public IntegerContainer getSize() {
             return size;
+        }
+
+        @Override
+        public CompoundNBT serializeNBT() {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.put("item", itemStack);
+            compoundNBT.put("integer_container", size.serializeNBT());
+            return compoundNBT;
+        }
+
+        @Override
+        public void deserializeNBT(CompoundNBT nbt) {
+            itemStack = nbt.getCompound("item");
+            size.deserializeNBT(nbt);
         }
     }
 }

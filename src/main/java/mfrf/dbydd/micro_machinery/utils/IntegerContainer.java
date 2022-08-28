@@ -50,10 +50,11 @@ public class IntegerContainer {
         return compoundNBT;
     }
 
+    //in purpose of change config
     public void deserializeNBT(CompoundNBT nbt) {
         this.current = nbt.getInt("current");
-        this.max = nbt.getInt("max");
-        this.min = nbt.getInt("min");
+        this.max = Math.max(nbt.getInt("max"), max);
+        this.min = Math.min(nbt.getInt("min"), min);
     }
 
     public int add(int value, boolean simulate) {
