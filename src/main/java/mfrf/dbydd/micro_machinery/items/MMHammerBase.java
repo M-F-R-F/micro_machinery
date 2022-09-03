@@ -1,10 +1,10 @@
 package mfrf.dbydd.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMMultiBlockHolderBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_main_parts.MMMultiBlockTileMainPartBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockAccessoryPlaceHolder;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockPlaceHolder;
-import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockPlaceHolder;
+import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.NBTUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -107,9 +107,9 @@ public class MMHammerBase extends ToolItem {
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote()) {
-            for (Map.Entry<String, MultiBlockStructureMaps.MultiBlockPosBox> stringMultiBlockPosBoxEntry : MultiBlockStructureMaps.getStructureMaps().entrySet()) {
+            for (Map.Entry<String, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox> stringMultiBlockPosBoxEntry : DeprecatedMultiBlockStructureMaps.getStructureMaps().entrySet()) {
                 Direction face = context.getFace();
-                MultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = stringMultiBlockPosBoxEntry.getValue().rotateTo(context.getFace().getOpposite());
+                DeprecatedMultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = stringMultiBlockPosBoxEntry.getValue().rotateTo(context.getFace().getOpposite());
                 if (multiBlockPosBox.matchAll(context.getPos(), context.getWorld())) {
                     placeStructure(context.getPos(), context.getWorld(), multiBlockPosBox, stringMultiBlockPosBoxEntry.getKey(), face);
                     //todo finish it
@@ -121,7 +121,7 @@ public class MMHammerBase extends ToolItem {
         return super.onItemUse(context);
     }
 
-    public void placeStructure(BlockPos pos, World world, MultiBlockStructureMaps.MultiBlockPosBox blockPosBox, String name, Direction direction) {
+    public void placeStructure(BlockPos pos, World world, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox blockPosBox, String name, Direction direction) {
 
         CompoundNBT blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
         world.setBlockState(pos, MMMultiBlockHolderBase.MAIN_PART_LIST.get(name).getDefaultState().with(MMMultiBlockHolderBase.FACING, direction));
@@ -130,7 +130,7 @@ public class MMHammerBase extends ToolItem {
 
         ArrayList<nodeToBeProcess> posToBeLink = new ArrayList<>();
 
-        for (MultiBlockStructureMaps.MultiBlockPosBox.BlockNode blockNode : blockPosBox.getBlockNodes()) {
+        for (DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode blockNode : blockPosBox.getBlockNodes()) {
             BlockPos blockNodePos = blockNode.getPos();
             if (!(blockNodePos.getX() == 0 && blockNodePos.getY() == 0 && blockNodePos.getZ() == 0)) {
                 BlockPos posInProgress = pos.add(blockNodePos);
@@ -140,7 +140,7 @@ public class MMHammerBase extends ToolItem {
                     BlockPlaceHolder.packageBlock(world, posInProgress, pos);
 
                 } else {
-                    MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode node = (MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode) blockNode;
+                    DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode node = (DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode) blockNode;
                     posToBeLink.add(new nodeToBeProcess(pos, node.getArg1(), node.getArg2(), node.getArg3()));
                 }
             }

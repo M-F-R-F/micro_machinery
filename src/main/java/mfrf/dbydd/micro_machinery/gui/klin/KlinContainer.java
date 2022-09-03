@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.gui.klin;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.items.MMCastBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;

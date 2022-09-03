@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.klin.TileKlin;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.gui.atomization.AtomizationContainer;
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
 import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeContainer;

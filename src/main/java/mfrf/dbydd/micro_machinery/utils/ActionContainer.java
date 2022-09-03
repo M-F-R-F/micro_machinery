@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.utils;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 

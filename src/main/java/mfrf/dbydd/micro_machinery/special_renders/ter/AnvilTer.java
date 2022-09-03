@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.special_renders.ter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.forge_anvil.TileAnvil;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.forge_anvil.TileAnvil;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;

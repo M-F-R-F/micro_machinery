@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.gui.lathe;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.lathe.TileLathe;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import mfrf.dbydd.micro_machinery.gui.elements.ButtonBase;
 import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncChannel;

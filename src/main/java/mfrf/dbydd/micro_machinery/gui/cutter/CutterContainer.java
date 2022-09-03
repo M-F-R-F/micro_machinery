@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.gui.cutter;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.cutter.TileCutter;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.cutter.TileCutter;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.items.SawBladeBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;

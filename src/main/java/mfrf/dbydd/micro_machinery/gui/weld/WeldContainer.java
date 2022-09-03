@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.gui.weld;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.weld.TileWeld;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.weld.TileWeld;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;

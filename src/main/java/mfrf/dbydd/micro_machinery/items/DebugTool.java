@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.utils.MultiBlockStructureMaps;
+import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
@@ -29,7 +29,7 @@ public class DebugTool extends MMItemBase {
         ItemStack heldItem = context.getPlayer().getHeldItem(Hand.OFF_HAND);
 
         if (!heldItem.isEmpty() && heldItem.getItem() == Items.APPLE) {
-            context.getPlayer().sendMessage(new StringTextComponent(MultiBlockStructureMaps.getStructureMaps().toString()));
+            context.getPlayer().sendMessage(new StringTextComponent(DeprecatedMultiBlockStructureMaps.getStructureMaps().toString()));
         }
 
         if (!heldItem.isEmpty() && heldItem.getItem() == Items.STICK) {

@@ -1,8 +1,8 @@
 package mfrf.dbydd.micro_machinery.special_renders.ter;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import mfrf.dbydd.micro_machinery.blocks.machines.etcher.BlockEtcher;
-import mfrf.dbydd.micro_machinery.blocks.machines.etcher.TileEtcher;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.etcher.BlockEtcher;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.etcher.TileEtcher;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

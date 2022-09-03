@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.special_renders.ter;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.BlockHandGenerator;
-import mfrf.dbydd.micro_machinery.blocks.machines.hand_generator.TileHandGenerator;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.BlockHandGenerator;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.TileHandGenerator;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;

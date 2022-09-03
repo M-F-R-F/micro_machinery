@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.gui.electrolysis;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.electrolysis.TileElectrolysis;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.electrolysis.TileElectrolysis;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;

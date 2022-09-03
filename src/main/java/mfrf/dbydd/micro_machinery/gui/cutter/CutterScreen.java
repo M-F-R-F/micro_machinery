@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.gui.cutter;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.cutter.TileCutter;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.cutter.TileCutter;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerInventory;

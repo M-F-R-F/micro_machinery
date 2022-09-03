@@ -1,7 +1,7 @@
 package mfrf.dbydd.micro_machinery.gui.atomization;
 
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.atomization.TileAtomization;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;

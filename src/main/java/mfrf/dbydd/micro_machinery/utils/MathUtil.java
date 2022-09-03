@@ -1,13 +1,14 @@
 package mfrf.dbydd.micro_machinery.utils;
 
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_component.BlockAccessoryPlaceHolder;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.World;
@@ -137,7 +138,7 @@ public class MathUtil {
         return shape;
     }
 
-    public static BlockPos rotateBlockPosToDirection(BlockPos pos, Direction direction) {
+    public static Vec3i rotateBlockPosToDirection(Vec3i pos, Direction direction) {
         ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1});
         switch (direction) {
             case NORTH: {
@@ -186,7 +187,7 @@ public class MathUtil {
         return center.subtract(pos);
     }
 
-    public static MultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction, BlockPos activePos) {
+    public static DeprecatedMultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction, BlockPos activePos) {
         int pos1X = pos1.getX();
         int pos1Y = pos1.getY();
         int pos1Z = pos1.getZ();
@@ -201,8 +202,8 @@ public class MathUtil {
         int differenceY = finalPos.getY() - beginPos.getY();
         int differenceZ = finalPos.getZ() - beginPos.getZ();
 
-        ArrayList<MultiBlockStructureMaps.MultiBlockPosBox.BlockNode> blockNodes = new ArrayList<>();
-        HashMap<String, MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode> accessories = new HashMap<>();
+        ArrayList<DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode> blockNodes = new ArrayList<>();
+        HashMap<String, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode> accessories = new HashMap<>();
 
         for (int xOffset = 0; xOffset <= differenceX; xOffset++) {
             for (int yOffset = 0; yOffset <= differenceY; yOffset++) {
@@ -216,11 +217,11 @@ public class MathUtil {
                     if (block != Blocks.AIR) {
                         BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
                         if (block instanceof BlockAccessoryPlaceHolder) {
-                            MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new MultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode(offsetPos, block, blockState.get(BlockAccessoryPlaceHolder.FACING), -1, -1, "place_holder");
+                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode(offsetPos, block, blockState.get(BlockAccessoryPlaceHolder.FACING), "", "", "place_holder");
                             accessories.put("accessory$" + xOffset + "$" + yOffset + "$" + zOffset, accessoryNode);
                             blockNodes.add(accessoryNode);
                         } else {
-                            blockNodes.add(new MultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
+                            blockNodes.add(new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
                         }
                     }
 
@@ -228,10 +229,10 @@ public class MathUtil {
             }
         }
 
-        return new MultiBlockStructureMaps.MultiBlockPosBox(blockNodes, accessories);
+        return new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox(blockNodes, accessories);
     }
 
-    public static void convertPosInToJsonObject(BlockPos pos, JsonObject jsonObject) {
+    public static void convertPosInToJsonObject(Vec3i pos, JsonObject jsonObject) {
         jsonObject.addProperty("xOffset", pos.getX());
         jsonObject.addProperty("yOffset", pos.getY());
         jsonObject.addProperty("zOffset", pos.getZ());

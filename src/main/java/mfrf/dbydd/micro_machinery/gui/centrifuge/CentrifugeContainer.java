@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.gui.centrifuge;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.centrifuge.TileCentrifuge;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge.TileCentrifuge;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.entity.player.PlayerEntity;
