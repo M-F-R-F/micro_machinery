@@ -166,23 +166,15 @@ public class RegisteredBlocks {
     public static final Block ENERGY_INTERFACE_INPUT = new BlockHolderEnergyInterfaceInput();
     public static final Block ENERGY_INTERFACE_OUTPUT = new BlockHolderEnergyInterfaceOutput();
 
-    //indicator
-    public static final Block INDICATOR = new MMBlockBase("indicator", true);
-    public static final Block WATER_INDICATOR = new MMBlockBase("water_indicator", true);
-    public static final Block TEMPERATURE_INDICATOR = new MMBlockBase("temperature_indicator", true);
-    public static final Block FLUID_INDICATOR = new MMBlockBase("fluid_indicator", true);
-    public static final Block REV_INDICATOR = new MMBlockBase("rev_indicator", true);
-
-    public static final Block LIGHT_GREEN = new MMBlockBase("light_green", true);
-    public static final Block LIGHT_RED = new MMBlockBase("light_red", true);
-    public static final Block LIGHT_BLACK = new MMBlockBase("light_black", true);
-    public static final Block LIGHT_FLICKER = new MMBlockBase("light_flicker", true);
     public static final Block BELLOW_RIGHT = new MMBlockBase("bellow_right", true);
     public static final Block BELLOW_LEFT = new MMBlockBase("bellow_left", true);
     public static final Block HAND_GENERATOR_1 = new BlockHandGenerator_Handler();
     public static final Block ETCHER_1 = new MMBlockBase("etcher_1", true);
     public static final Block PUMP_1 = new MMBlockBase("pump_1", true);
-    public static final Block FORGING_PRESS_1 = new MMBlockBase("pump_1", true);
+    public static final Block FORGING_PRESS_1 = new MMBlockBase("forging_press_1", true);
+    public static final Block CRUSHER_1 = new MMBlockBase("crusher_1", true);
+    public static final Block CATING_MACHINE_1 = new MMBlockBase("cating_machine_1", true);
+    public static final Block THICKENER_1 = new MMBlockBase("thickener_1", true);
 
     /**
      * this is machine with multi_block
