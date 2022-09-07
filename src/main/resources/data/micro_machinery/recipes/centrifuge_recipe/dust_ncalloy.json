@@ -10,19 +10,13 @@
     [
       {
         "item": "micro_machinery:dust_iron",
-        "count": 2
+        "count": 3
       }
     ],
     [
       {
         "item": "micro_machinery:dust_nickel",
         "count": 2
-      }
-    ],
-    [
-      {
-        "item": "micro_machinery:dust_chromium",
-        "count": 1
       }
     ]
   ],

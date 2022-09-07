@@ -239,11 +239,9 @@ public class RegisteredItems {
     //other
     public static final Item MONOCRYSTALLINE_SILICON = new MMItemBase("monocrystalline_silicon");
     public static final Item WAFER = new MMItemBase("wafer");
-    public static final Item ETCHED_WAFER = new MMItemBase("etched_wafer");
     public static final Item I7_8700K = new MMItemBase("i7_8700k");
-    public static final Item PCB = new MMItemBase("pcb");
-    public static final Item CAPACITOR = new MMItemBase("capacitor");
-    public static final Item RESISTOR = new MMItemBase("resistor");
+    public static final Item COMPONENT_BASIC = new MMItemBase("component_basic");
+    public static final Item COMPONENT_ADVANCED = new MMItemBase("component_advanced");
     public static final Item LASER = new MMItemBase("laser");
     public static final Item CLAY_BRICK = new MMItemBase("clay_brick");
     public static final Item FIRE_BRICK = new MMItemBase("fire_brick");

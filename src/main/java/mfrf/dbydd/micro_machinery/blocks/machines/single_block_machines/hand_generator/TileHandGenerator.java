@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileHandGenerator extends MMTileBase implements ITickableTileEntity {
-    private FEContainer container = new FEContainer(0, 16) {
+    private FEContainer container = new FEContainer(0, 40) {
         @Override
         public boolean canExtract() {
             return true;
@@ -28,10 +28,10 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
 
         @Override
         public int selfAdd() {
-            return add(16, false);
+            return add(40, false);
         }
     };
-    private IntegerContainer progress = new IntegerContainer(0, 20);
+    private IntegerContainer progress = new IntegerContainer(0, 40);
 
     public TileHandGenerator() {
         super(RegisteredTileEntityTypes.TILE_HAND_GENERATOR.get());
@@ -86,7 +86,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
             }
 
             if (progress.atMaxValue()) {
-                progress = new IntegerContainer(0, 20);
+                progress = new IntegerContainer(0, 40);
                 markDirty2();
             }
         }

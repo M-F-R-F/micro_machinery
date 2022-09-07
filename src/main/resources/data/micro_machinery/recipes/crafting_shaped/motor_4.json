@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "cwc",
+    " w ",
     "vbv",
-    "cwc"
+    "cvc"
   ],
   "key": {
     "w": {
-      "tag": "forge:wires/tungsten"
+      "item": "minecraft:dust_redstone"
     },
     "b": {
-      "tag": "forge:sticks/titanium"
+      "item": "micro_machinery:motor_3"
     },
     "c": {
-      "tag": "forge:plates/chromium"
+      "item": "minecraft:quartz"
     },
     "v": {
-      "tag": "forge:wires/gold"
+      "item": "minecraft:ender_pearl"
     }
   },
   "result": {
