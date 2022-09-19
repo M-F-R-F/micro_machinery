@@ -24,6 +24,11 @@ public abstract class MMTileMultiBlockComponentInterface extends TileEntity {
     }
 
 
-    public abstract void linkTo(BlockPos pos, World world);
+    public void linkTo(BlockPos pos, World world) {
+        mainPart = pos;
+//        MMTileMultiBlockPart tileEntity = (MMTileMultiBlockPart) world.getTileEntity(pos);
+        markDirty();
+    }
+
 
 }

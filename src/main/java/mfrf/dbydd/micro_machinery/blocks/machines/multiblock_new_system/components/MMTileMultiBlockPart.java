@@ -1,15 +1,15 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components;
 
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 
 public class MMTileMultiBlockPart extends TileEntity {
     private CompoundNBT packed = new CompoundNBT();
 
 
-    public MMTileMultiBlockPart(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public MMTileMultiBlockPart() {
+        super(RegisteredTileEntityTypes.MULTI_BLOCK_PART.get());
     }
 
     @Override

@@ -2,20 +2,6 @@ package mfrf.dbydd.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization.BlockAtomization;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge.BlockCentrifuge;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell.BlockCreativeEnergyCell;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.cutter.BlockCutter;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.electrolysis.BlockElectrolysis;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.energy_cable.BlockEnergyCable;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.etcher.BlockEtcher;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.fluidpipe.FluidPipeBlock;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.forge_anvil.BlockAnvil;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator.BlockGenerator;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.BlockHandGenerator;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.BlockHandGenerator_Handler;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.BlockLathe;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.blast_furnace.BlockBlastFurnace;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.huge_container.BlockHugeContainer;
@@ -24,8 +10,23 @@ import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multibl
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface.BlockHolderEnergyInterfaceOutput;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.lever.LeverPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.pump.BlockPump;
-import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io.BlockRedstoneInterface;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization.BlockAtomization;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge.BlockCentrifuge;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell.BlockCreativeEnergyCell;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.cutter.BlockCutter;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.electrolysis.BlockElectrolysis;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.energy_cable.BlockEnergyCable;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.fluidpipe.FluidPipeBlock;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.forge_anvil.BlockAnvil;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator.BlockGenerator;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.BlockHandGenerator;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.BlockHandGenerator_Handler;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin.BlockKlin;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.weld.BlockWeld;
+import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TestBlock;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
 import mfrf.dbydd.micro_machinery.utils.TriFields;
@@ -136,7 +137,7 @@ public class RegisteredBlocks {
     public static final Block BRONZE_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(3.0f).harvestTool(ToolType.PICKAXE).harvestLevel(2), "bronze_anvil", EnumAnvilType.BRONZE, 16);
     public static final Block PIGIRON_ANVIL = new BlockAnvil(Block.Properties.create(Material.ANVIL).notSolid().hardnessAndResistance(4.0f).harvestTool(ToolType.PICKAXE).harvestLevel(3), "pigiron_anvil", EnumAnvilType.PIGIRON, 12);
     public static final Block CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell(Block.Properties.create(Material.IRON));
-    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.create(Material.IRON));
+    //    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.create(Material.IRON));
     public static final Block ELECTROLYSIS = new BlockElectrolysis(Block.Properties.create(Material.IRON));
     public static final Block CUTTER = new BlockCutter(Block.Properties.create(Material.IRON));
     public static final Block CENTRIFUGE = new BlockCentrifuge(Block.Properties.create(Material.IRON).notSolid().harvestLevel(2).harvestTool(ToolType.PICKAXE).hardnessAndResistance(3.0f), "centrifuge");
@@ -192,6 +193,14 @@ public class RegisteredBlocks {
     public static final Block PUMP = new BlockPump(Block.Properties.create(Material.IRON));
     public static final Block HUGE_CONTAINER = new BlockHugeContainer(Block.Properties.create(Material.IRON));
 
+
+    /**
+     * new system of multi block
+     * todo fill data
+     */
+
+    public static final MMBlockMultiBlockPart MULTIBLOCK_PART = new MMBlockMultiBlockPart(Block.Properties.create(Material.IRON).harvestLevel(-1).hardnessAndResistance(-1), "part", true);
+    public static final BlockRedstoneInterface REDSTONE_INTERFACE = new BlockRedstoneInterface(Block.Properties.create(Material.IRON), "redstone_interface");
 
     private RegisteredBlocks() {
     }

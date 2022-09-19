@@ -4,9 +4,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.Micro_Machinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IResource;
@@ -130,14 +130,16 @@ public class MultiblockStructureMaps {
             MMBlockMainPartBase.MAP.get(id).pack(world, center, direction);
 
             mapWithDirections.get(direction).entrySet().stream()
-                    .filter(vec3iBlockEntry -> vec3iBlockEntry.getKey().equals(Vec3i.NULL_VECTOR))
                     .forEach(vec3iBlockEntry -> {
-                        BlockPos currentPos = center.add(vec3iBlockEntry.getKey());
-                        if (!(world.getBlockState(currentPos).getBlock() instanceof MMBlockMultiBlockComponentInterface)) {
-                            MMBlockMultiBlockPart
-                        } else {
-                            MMBlockMultiBlockComponentInterface blockComponentInterface = (MMBlockMultiBlockComponentInterface) world.getBlockState(currentPos).getBlock();
-                            blockComponentInterface.link(center, world, currentPos);
+                        if (!vec3iBlockEntry.getKey().equals(Vec3i.NULL_VECTOR)) {
+
+                            BlockPos currentPos = center.add(vec3iBlockEntry.getKey());
+                            if (!(world.getBlockState(currentPos).getBlock() instanceof MMBlockMultiBlockComponentInterface)) {
+                                RegisteredBlocks.MULTIBLOCK_PART.pack(world, currentPos, direction);
+                            } else {
+                                MMBlockMultiBlockComponentInterface blockComponentInterface = (MMBlockMultiBlockComponentInterface) world.getBlockState(currentPos).getBlock();
+                                blockComponentInterface.link(center, world, currentPos);
+                            }
                         }
                     });
         }

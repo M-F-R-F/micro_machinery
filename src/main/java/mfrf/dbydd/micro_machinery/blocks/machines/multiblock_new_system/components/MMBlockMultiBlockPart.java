@@ -1,6 +1,6 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components;
 
-import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class MMBlockMultiBlockPart extends MMBlockBase {
+public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
 
     public MMBlockMultiBlockPart(Properties properties, String name, boolean noItem) {
         super(properties, name, noItem);

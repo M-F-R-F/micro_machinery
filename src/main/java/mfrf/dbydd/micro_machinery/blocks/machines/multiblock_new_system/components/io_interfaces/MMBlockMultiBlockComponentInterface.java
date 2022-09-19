@@ -12,7 +12,7 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
     public static BooleanProperty CONSTRUCTED = BooleanProperty.create("constructed");
 
     public MMBlockMultiBlockComponentInterface(Properties properties, String name) {
-        super(properties, name);
+        super(properties, name, false);
         this.setDefaultState(getStateToRegistry());
     }
 
@@ -33,5 +33,8 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
     }
 
 
-    protected abstract void linkTo(BlockPos mainPart, World accessor, BlockPos currentPos);
+    protected void linkTo(BlockPos mainPart, World accessor, BlockPos currentPos) {
+        MMTileMultiBlockComponentInterface tileEntity = (MMTileMultiBlockComponentInterface) accessor.getTileEntity(currentPos);
+        tileEntity.linkTo(mainPart, accessor);
+    }
 }
