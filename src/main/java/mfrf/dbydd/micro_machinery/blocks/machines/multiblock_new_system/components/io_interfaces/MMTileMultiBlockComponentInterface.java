@@ -1,6 +1,9 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
 
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMTileMultiBlockPart;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
@@ -16,17 +19,24 @@ public abstract class MMTileMultiBlockComponentInterface extends TileEntity {
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
+        if (compound.contains("main")) {
+            mainPart = NBTUtil.readBlockPos(compound.getCompound("main"));
+        }
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        return super.write(compound);
+        CompoundNBT write = super.write(compound);
+        if (mainPart != null) {
+            write.put("main", NBTUtil.writeBlockPos(mainPart));
+        }
+        return write;
     }
 
 
     public void linkTo(BlockPos pos, World world) {
         mainPart = pos;
-//        MMTileMultiBlockPart tileEntity = (MMTileMultiBlockPart) world.getTileEntity(pos);
+        ((MMTileMainPartBase) world.getTileEntity(mainPart)).linkComponent(this.pos);
         markDirty();
     }
 

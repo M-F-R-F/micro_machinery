@@ -127,7 +127,7 @@ public class MultiblockStructureMaps {
         }
 
         public void construct(Direction direction, World world, BlockPos center, String id) {
-            MMBlockMainPartBase.MAP.get(id).pack(world, center, direction);
+            MMBlockMainPartBase.MAP.get(id).pack(world, center, direction, center);
 
             mapWithDirections.get(direction).entrySet().stream()
                     .forEach(vec3iBlockEntry -> {
@@ -135,7 +135,7 @@ public class MultiblockStructureMaps {
 
                             BlockPos currentPos = center.add(vec3iBlockEntry.getKey());
                             if (!(world.getBlockState(currentPos).getBlock() instanceof MMBlockMultiBlockComponentInterface)) {
-                                RegisteredBlocks.MULTIBLOCK_PART.pack(world, currentPos, direction);
+                                RegisteredBlocks.MULTIBLOCK_PART.pack(world, currentPos, direction, center);
                             } else {
                                 MMBlockMultiBlockComponentInterface blockComponentInterface = (MMBlockMultiBlockComponentInterface) world.getBlockState(currentPos).getBlock();
                                 blockComponentInterface.link(center, world, currentPos);
