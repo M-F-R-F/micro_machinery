@@ -53,15 +53,15 @@ public class MMTileMultiBlockPart extends TileEntity {
         markDirty();
     }
 
+    public CompoundNBT getPacked() {
+        return packed;
+    }
+
     public ActionResultType onBlockActivated(World worldIn, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         return null;
     }
 
     public void onBlockHarvest(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
-        ((MMTileMainPartBase) worldIn.getTileEntity(mainPart)).onBlockHarvest(worldIn, mainPart, player, state);
-    }
-
-    public void onUnpack() {
-
+        ((MMTileMainPartBase) worldIn.getTileEntity(mainPart)).onBlockHarvest(worldIn, pos, player, state);
     }
 }

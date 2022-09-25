@@ -138,7 +138,7 @@ public class MultiblockStructureMaps {
                                 RegisteredBlocks.MULTIBLOCK_PART.pack(world, currentPos, direction, center);
                             } else {
                                 MMBlockMultiBlockComponentInterface blockComponentInterface = (MMBlockMultiBlockComponentInterface) world.getBlockState(currentPos).getBlock();
-                                blockComponentInterface.link(center, world, currentPos);
+                                blockComponentInterface.link(center, world, vec3iBlockEntry.getKey(), currentPos);
                             }
                         }
                     });

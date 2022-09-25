@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTileProviderBase {
@@ -27,14 +28,14 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
         return super.getStateToRegistry().with(CONSTRUCTED, false);
     }
 
-    public void link(BlockPos mainPart, World accessor, BlockPos current) {
+    public void link(BlockPos mainPart, World accessor, Vec3i key, BlockPos current) {
         accessor.setBlockState(current, accessor.getBlockState(current).with(CONSTRUCTED, true));
-        linkTo(current, accessor, current);
+        linkTo(mainPart, accessor, current, key);
     }
 
 
-    protected void linkTo(BlockPos mainPart, World accessor, BlockPos currentPos) {
+    protected void linkTo(BlockPos mainPart, World accessor, BlockPos currentPos, Vec3i key) {
         MMTileMultiBlockComponentInterface tileEntity = (MMTileMultiBlockComponentInterface) accessor.getTileEntity(currentPos);
-        tileEntity.linkTo(mainPart, accessor);
+        tileEntity.linkTo(mainPart, accessor, key);
     }
 }

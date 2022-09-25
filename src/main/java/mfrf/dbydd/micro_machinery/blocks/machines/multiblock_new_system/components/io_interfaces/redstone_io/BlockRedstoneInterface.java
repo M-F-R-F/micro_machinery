@@ -19,8 +19,11 @@ public class BlockRedstoneInterface extends MMBlockMultiBlockComponentInterface 
     }
 
 
-    public void charged(int power) {
-        //todo capability, function invoke
-    }
-
+//    @Override
+//    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+//        if (!worldIn.isRemote()) {
+//            int power = worldIn.getRedstonePowerFromNeighbors(pos);
+//            ((TileRedstoneInterface) worldIn.getTileEntity(pos)).powerChange(power);
+//        }
+//    }
 }

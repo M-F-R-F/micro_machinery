@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public class NBTUtil {
@@ -20,6 +21,18 @@ public class NBTUtil {
         }
 
         return packedNBT;
+    }
+
+    public static CompoundNBT writeVEC3I(Vec3i vec) {
+        CompoundNBT compoundNBT = new CompoundNBT();
+        compoundNBT.putInt("x", vec.getX());
+        compoundNBT.putInt("y", vec.getY());
+        compoundNBT.putInt("z", vec.getZ());
+        return compoundNBT;
+    }
+
+    public static Vec3i readVEC3I(CompoundNBT nbt) {
+        return new Vec3i(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
     }
 
 }
