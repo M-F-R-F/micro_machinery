@@ -7,6 +7,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import mfrf.dbydd.micro_machinery.items.DebugTool;
 import mfrf.dbydd.micro_machinery.utils.MathUtil;
+import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -36,20 +37,25 @@ public class ReadMultiBlockCommand implements Command<CommandSource> {
                     CompoundNBT activeBlock = clickedPos.getCompound("active_block");
                     BlockPos pos1 = NBTUtil.readBlockPos(clickedPos.getCompound("pos1"));
                     BlockPos pos2 = NBTUtil.readBlockPos(clickedPos.getCompound("pos2"));
-                    BlockPos pos = NBTUtil.readBlockPos(activeBlock.getCompound("pos"));
+                    BlockPos center = NBTUtil.readBlockPos(activeBlock.getCompound("pos"));
                     Direction direction = Direction.byIndex(activeBlock.getInt("direction"));
                     ServerWorld world = context.getSource().getWorld();
 
-                    JsonObject jsonObject = MathUtil.getNormalizedBlockPosBox(pos1, pos2, world, direction,pos).convertToJson();
+//                    JsonObject jsonObject = MathUtil.getNormalizedBlockPosBox(pos1, pos2, world, direction,center).convertToJson();
+                    String id = heldItem.getDisplayName().getString();
+                    MultiblockStructureMaps.StructureMap structureMap = MultiblockStructureMaps.create(world, pos1, pos2, center);
 
-                    File file = new File("test" + File.separator +heldItem.getDisplayName().getString() + ".json");
+                    File file = new File("test" + File.separator + id + ".json");
                     try {
-                        FileUtils.writeStringToFile(file, jsonObject.toString(), Charsets.UTF_8);
+//                        FileUtils.writeStringToFile(file, jsonObject.toString(), Charsets.UTF_8);
+                        FileUtils.writeStringToFile(file, structureMap.toJson(id).toString(), Charsets.UTF_8);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
+
+
         }
         return 0;
     }

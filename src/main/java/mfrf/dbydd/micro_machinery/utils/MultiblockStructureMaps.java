@@ -8,12 +8,15 @@ import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.componen
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IResource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -37,6 +40,7 @@ public class MultiblockStructureMaps {
                 JsonObject jsonObject = JSONUtils.fromJson(new InputStreamReader(resource.getInputStream()));
 
                 String identifier = JSONUtils.getString(jsonObject, "identifier");
+                structures.put(identifier, new StructureMap(jsonObject));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,6 +81,7 @@ public class MultiblockStructureMaps {
         }
 
         //default direction is north;
+        //todo toJson
         public static HashMap<Vec3i, Block> readJson(JsonObject object) {
             HashMap<Vec3i, Block> blockPosBlockHashMap = new HashMap<>();
 
@@ -92,6 +97,25 @@ public class MultiblockStructureMaps {
                         block);
             }
             return blockPosBlockHashMap;
+        }
+
+        public JsonObject toJson(String id) {
+            HashMap<Vec3i, Block> map = mapWithDirections.get(Direction.NORTH);
+            JsonObject jsonObject = new JsonObject();
+
+            JsonArray jsonElements = new JsonArray();
+            map.forEach((vec3i, block) -> {
+                JsonObject blockNode = new JsonObject();
+                blockNode.addProperty("block", block.getRegistryName().toString());
+                blockNode.addProperty("xO", vec3i.getX());
+                blockNode.addProperty("yO", vec3i.getY());
+                blockNode.addProperty("zO", vec3i.getZ());
+                jsonElements.add(blockNode);
+            });
+
+            jsonObject.addProperty("identifier", id);
+            jsonObject.add("blocks", jsonElements);
+            return jsonObject;
         }
 
         private static HashMap<Vec3i, Block> rotateTo(Direction direction, final HashMap<Vec3i, Block> from) {
@@ -145,5 +169,25 @@ public class MultiblockStructureMaps {
         }
     }
 
+    public static StructureMap create(World world, BlockPos pos1, BlockPos pos2, BlockPos center) {
+        HashMap<Vec3i, Block> map = new HashMap<>();
+        int xMax = Math.max(pos1.getX(), pos2.getX());
+        int yMin = Math.max(pos1.getY(), pos2.getY());
+        int zMax = Math.max(pos1.getZ(), pos2.getZ());
+        int xMin = Math.min(pos1.getX(), pos2.getX());
+        int yMax = Math.min(pos1.getY(), pos2.getY());
+        int zMin = Math.min(pos1.getZ(), pos2.getZ());
 
+        for (int x = xMin; x < xMax; x++) {
+            for (int y = yMin; y < yMax; y++) {
+                for (int z = zMin; z < zMax; z++) {
+                    BlockState blockState = world.getBlockState(new BlockPos(x, y, z));
+                    if (!blockState.isAir()) {
+                        map.put(new Vec3i(x - center.getX(), y - center.getY(), z - center.getZ()), blockState.getBlock());
+                    }
+                }
+            }
+        }
+        return new StructureMap(map);
+    }
 }

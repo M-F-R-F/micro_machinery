@@ -8,5 +8,9 @@ public class TileRedstoneInterface extends MMTileMultiBlockComponentInterface {
         super(RegisteredTileEntityTypes.REDSTONE_INTERFACE.get());
     }
 
+    public int getLevel() {
+        return world.getRedstonePowerFromNeighbors(pos);
+    }
+
 
 }

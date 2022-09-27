@@ -19,7 +19,7 @@ public class DebugTool extends MMItemBase {
         super("debug_tool");
     }
 
-    private static void readMultiBlock(ItemUseContext context) {
+    private static void readMultiBlockOld(ItemUseContext context) {
         CompoundNBT clickedPos = context.getItem().getChildTag("clickedPos");
 
         if (clickedPos == null) {
@@ -59,7 +59,7 @@ public class DebugTool extends MMItemBase {
     public ActionResultType onItemUse(ItemUseContext context) {
         World world = context.getWorld();
         if (!world.isRemote()) {
-            readMultiBlock(context);
+            readMultiBlockOld(context);
         }
         return ActionResultType.SUCCESS;
     }
