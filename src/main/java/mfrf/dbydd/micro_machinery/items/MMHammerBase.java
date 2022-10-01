@@ -111,7 +111,7 @@ public class MMHammerBase extends ToolItem {
                 Direction face = context.getFace();
                 DeprecatedMultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = stringMultiBlockPosBoxEntry.getValue().rotateTo(context.getFace().getOpposite());
                 if (multiBlockPosBox.matchAll(context.getPos(), context.getWorld())) {
-                    placeStructure(context.getPos(), context.getWorld(), multiBlockPosBox, stringMultiBlockPosBoxEntry.getKey(), face);
+                    placeStructureDeprecated(context.getPos(), context.getWorld(), multiBlockPosBox, stringMultiBlockPosBoxEntry.getKey(), face);
                     //todo finish it
                     return ActionResultType.SUCCESS;
                 }
@@ -121,7 +121,7 @@ public class MMHammerBase extends ToolItem {
         return super.onItemUse(context);
     }
 
-    public void placeStructure(BlockPos pos, World world, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox blockPosBox, String name, Direction direction) {
+    public void placeStructureDeprecated(BlockPos pos, World world, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox blockPosBox, String name, Direction direction) {
 
         CompoundNBT blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
         world.setBlockState(pos, MMMultiBlockHolderBase.MAIN_PART_LIST.get(name).getDefaultState().with(MMMultiBlockHolderBase.FACING, direction));
@@ -131,7 +131,7 @@ public class MMHammerBase extends ToolItem {
         ArrayList<nodeToBeProcess> posToBeLink = new ArrayList<>();
 
         for (DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode blockNode : blockPosBox.getBlockNodes()) {
-            BlockPos blockNodePos = blockNode.getPos();
+            BlockPos blockNodePos = new BlockPos(blockNode.getPos());
             if (!(blockNodePos.getX() == 0 && blockNodePos.getY() == 0 && blockNodePos.getZ() == 0)) {
                 BlockPos posInProgress = pos.add(blockNodePos);
 //todo check bug

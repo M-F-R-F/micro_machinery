@@ -1,62 +1,73 @@
 package mfrf.dbydd.micro_machinery.utils;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import com.google.gson.*;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IResource;
+import net.minecraft.client.resources.JsonReloadListener;
+import net.minecraft.profiler.IProfiler;
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class MultiblockStructureMaps {
+public class MultiblockStructureMaps extends JsonReloadListener {
+    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static HashMap<String, StructureMap> structures = null;
 
-    private void readStructures() {
-        structures = new HashMap<>();
-        try {
-            List<IResource> resources = Minecraft.getInstance().getResourceManager().getAllResources(new ResourceLocation(Micro_Machinery.NAME, "structures/new_system/"));
-            for (IResource resource : resources) {
-                JsonObject jsonObject = JSONUtils.fromJson(new InputStreamReader(resource.getInputStream()));
-
-                String identifier = JSONUtils.getString(jsonObject, "identifier");
-                structures.put(identifier, new StructureMap(jsonObject));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public MultiblockStructureMaps() {
+        super(GSON, "structures/new_system");
     }
 
-    private HashMap<String, StructureMap> getStructures() {
-        if (structures == null) {
-            readStructures();
+//    private static void readStructures() {
+//        structures = new HashMap<>();
+//        try {
+//            List<IResource> resources = Minecraft.getInstance().getIntegratedServer().getResourceManager().getAllResources(new ResourceLocation(Micro_Machinery.NAME, "structures/new_system/"));
+//            for (IResource resource : resources) {
+//                JsonObject jsonObject = JSONUtils.fromJson(new InputStreamReader(resource.getInputStream()));
+//
+//                String identifier = JSONUtils.getString(jsonObject, "identifier");
+//                structures.put(identifier, new StructureMap(jsonObject));
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
+    @Override
+    protected void apply(Map<ResourceLocation, JsonObject> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+        //todo damn, fixit
+        structures = new HashMap<>();
+        for (Map.Entry<ResourceLocation, JsonObject> resourceLocationJsonObjectEntry : objectIn.entrySet()) {
+
+            JsonObject jsonObject = resourceLocationJsonObjectEntry.getValue();
+
+            String identifier = JSONUtils.getString(jsonObject, "identifier");
+            structures.put(identifier, new StructureMap(jsonObject));
         }
+    }
+
+    public static HashMap<String, StructureMap> getStructures() {
+////        if (structures == null) {
+//        readStructures();
+////        }
         return structures;
     }
 
     @Nullable
-    public Pair<String, StructureMap> findStructure(World world, BlockPos pos) {
+    public static Pair<String, StructureMap> findStructure(World world, BlockPos pos) {
         Block center = world.getBlockState(pos).getBlock();
         for (Map.Entry<String, StructureMap> stringStructureMapEntry : getStructures().entrySet()) {
             HashMap<Vec3i, Block> vec3iBlockHashMap = stringStructureMapEntry.getValue().checkAllDirection(world, pos, center);
@@ -172,15 +183,16 @@ public class MultiblockStructureMaps {
     public static StructureMap create(World world, BlockPos pos1, BlockPos pos2, BlockPos center) {
         HashMap<Vec3i, Block> map = new HashMap<>();
         int xMax = Math.max(pos1.getX(), pos2.getX());
-        int yMin = Math.max(pos1.getY(), pos2.getY());
+        int yMax = Math.max(pos1.getY(), pos2.getY());
         int zMax = Math.max(pos1.getZ(), pos2.getZ());
+
         int xMin = Math.min(pos1.getX(), pos2.getX());
-        int yMax = Math.min(pos1.getY(), pos2.getY());
+        int yMin = Math.min(pos1.getY(), pos2.getY());
         int zMin = Math.min(pos1.getZ(), pos2.getZ());
 
-        for (int x = xMin; x < xMax; x++) {
-            for (int y = yMin; y < yMax; y++) {
-                for (int z = zMin; z < zMax; z++) {
+        for (int x = xMin; x <= xMax; x++) {
+            for (int y = yMin; y <= yMax; y++) {
+                for (int z = zMin; z <= zMax; z++) {
                     BlockState blockState = world.getBlockState(new BlockPos(x, y, z));
                     if (!blockState.isAir()) {
                         map.put(new Vec3i(x - center.getX(), y - center.getY(), z - center.getZ()), blockState.getBlock());

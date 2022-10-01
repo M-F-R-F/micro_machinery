@@ -1,6 +1,7 @@
 package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
+import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
@@ -12,6 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
 import java.util.function.Consumer;
 
 public class DebugTool extends MMItemBase {
@@ -59,7 +61,8 @@ public class DebugTool extends MMItemBase {
     public ActionResultType onItemUse(ItemUseContext context) {
         World world = context.getWorld();
         if (!world.isRemote()) {
-            readMultiBlockOld(context);
+//            readMultiBlockOld(context);
+            HashMap<String, MultiblockStructureMaps.StructureMap> structures = MultiblockStructureMaps.getStructures();
         }
         return ActionResultType.SUCCESS;
     }

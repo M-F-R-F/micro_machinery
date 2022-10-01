@@ -188,7 +188,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
             public ArgumentsCollection(TileConveyBelt tileConveyBelt) {
                 blockState = tileConveyBelt.getBlockState();
                 enumConveyorConnectState = blockState.get(BlockConveyorBelt.LIFT);
-                direction = blockState.get(BlockConveyorBelt.CONVEYOR_HORIZONTAL_DIRECTION_STATE);
+                direction = blockState.get(BlockConveyorBelt.FACING);
                 targetPos = tileConveyBelt.pos.offset(direction);
                 fromPos = tileConveyBelt.pos.offset(direction.getOpposite());
                 upTarget = targetPos.up();
