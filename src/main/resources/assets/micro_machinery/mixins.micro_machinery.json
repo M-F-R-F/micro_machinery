@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "mixins.micro_machinery.refmap.json",
   "mixins": [
-    "MixinDefaultBiomeFeatures"
+    "MixinDefaultBiomeFeatures",
+    "MixinMinecraftServer"
   ],
   "minVersion": "0.8"
 }

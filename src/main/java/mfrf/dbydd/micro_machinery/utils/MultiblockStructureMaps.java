@@ -25,30 +25,18 @@ import java.util.Map;
 public class MultiblockStructureMaps extends JsonReloadListener {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static HashMap<String, StructureMap> structures = null;
+    private static HashMap<String, MMBlockMainPartBase> structure_main_block_maps = new HashMap<>();
 
     public MultiblockStructureMaps() {
         super(GSON, "structures/new_system");
     }
 
-//    private static void readStructures() {
-//        structures = new HashMap<>();
-//        try {
-//            List<IResource> resources = Minecraft.getInstance().getIntegratedServer().getResourceManager().getAllResources(new ResourceLocation(Micro_Machinery.NAME, "structures/new_system/"));
-//            for (IResource resource : resources) {
-//                JsonObject jsonObject = JSONUtils.fromJson(new InputStreamReader(resource.getInputStream()));
-//
-//                String identifier = JSONUtils.getString(jsonObject, "identifier");
-//                structures.put(identifier, new StructureMap(jsonObject));
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    public static void combine(String name, MMBlockMainPartBase block) {
+        structure_main_block_maps.put(name, block);
+    }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonObject> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-        //todo damn, fixit
         structures = new HashMap<>();
         for (Map.Entry<ResourceLocation, JsonObject> resourceLocationJsonObjectEntry : objectIn.entrySet()) {
 
@@ -60,9 +48,6 @@ public class MultiblockStructureMaps extends JsonReloadListener {
     }
 
     public static HashMap<String, StructureMap> getStructures() {
-////        if (structures == null) {
-//        readStructures();
-////        }
         return structures;
     }
 
@@ -78,6 +63,9 @@ public class MultiblockStructureMaps extends JsonReloadListener {
         return null;
     }
 
+    public static MMBlockMainPartBase getMainPart(String id) {
+        return structure_main_block_maps.get(id);
+    }
 
     public static class StructureMap {
         private final HashMap<Direction, HashMap<Vec3i, Block>> mapWithDirections = new HashMap<>(4);
