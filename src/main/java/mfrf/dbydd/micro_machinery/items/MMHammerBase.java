@@ -2,9 +2,9 @@ package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
+import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.NBTUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,48 +108,71 @@ public class MMHammerBase extends ToolItem {
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote()) {
-            for (Map.Entry<String, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox> stringMultiBlockPosBoxEntry : DeprecatedMultiBlockStructureMaps.getStructureMaps().entrySet()) {
-                Direction face = context.getFace();
-                DeprecatedMultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = stringMultiBlockPosBoxEntry.getValue().rotateTo(context.getFace().getOpposite());
-                if (multiBlockPosBox.matchAll(context.getPos(), context.getWorld())) {
-                    placeStructureDeprecated(context.getPos(), context.getWorld(), multiBlockPosBox, stringMultiBlockPosBoxEntry.getKey(), face);
-                    //todo finish it
-                    return ActionResultType.SUCCESS;
-                }
+            boolean success = readOldStructures(context);
+            if (!success) {
+                success = readNewStructures(context);
+            }
+
+            if (success) {
+                return ActionResultType.SUCCESS;
             }
         }
 
         return super.onItemUse(context);
     }
 
-    public void placeStructureDeprecated(BlockPos pos, World world, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox blockPosBox, String name, Direction direction) {
+    private boolean readOldStructures(ItemUseContext context) {
+        for (Map.Entry<String, DeprecatedMultiBlockStructureMaps.MultiBlockPosBox> stringMultiBlockPosBoxEntry : DeprecatedMultiBlockStructureMaps.getStructureMaps().entrySet()) {
+            Direction face = context.getFace();
+            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox multiBlockPosBox = stringMultiBlockPosBoxEntry.getValue().rotateTo(context.getFace().getOpposite());
+            if (multiBlockPosBox.matchAll(context.getPos(), context.getWorld())) {
+                BlockPos pos = context.getPos();
+                World world = context.getWorld();
 
-        CompoundNBT blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
-        world.setBlockState(pos, MMMultiBlockHolderBase.MAIN_PART_LIST.get(name).getDefaultState().with(MMMultiBlockHolderBase.FACING, direction));
-        MMMultiBlockTileMainPartBase mainPartBase = (MMMultiBlockTileMainPartBase) world.getTileEntity(pos);
-        mainPartBase.saveBlockBeenReplaced(blockPackNBT);
+                CompoundNBT blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
+                world.setBlockState(pos, MMMultiBlockHolderBase.MAIN_PART_LIST.get(stringMultiBlockPosBoxEntry.getKey()).getDefaultState().with(MMMultiBlockHolderBase.FACING, face));
+                MMMultiBlockTileMainPartBase mainPartBase = (MMMultiBlockTileMainPartBase) world.getTileEntity(pos);
+                mainPartBase.saveBlockBeenReplaced(blockPackNBT);
 
-        ArrayList<nodeToBeProcess> posToBeLink = new ArrayList<>();
+                ArrayList<nodeToBeProcess> posToBeLink = new ArrayList<>();
 
-        for (DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode blockNode : blockPosBox.getBlockNodes()) {
-            BlockPos blockNodePos = new BlockPos(blockNode.getPos());
-            if (!(blockNodePos.getX() == 0 && blockNodePos.getY() == 0 && blockNodePos.getZ() == 0)) {
-                BlockPos posInProgress = pos.add(blockNodePos);
-//todo check bug
-                if (!blockPosBox.getAccessories().values().stream().anyMatch(access -> access.getPos().equals(blockNodePos))) {
+                for (DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode blockNode : multiBlockPosBox.getBlockNodes()) {
+                    BlockPos blockNodePos = new BlockPos(blockNode.getPos());
+                    if (!(blockNodePos.getX() == 0 && blockNodePos.getY() == 0 && blockNodePos.getZ() == 0)) {
+                        BlockPos posInProgress = pos.add(blockNodePos);
+                        if (!multiBlockPosBox.getAccessories().values().stream().anyMatch(access -> access.getPos().equals(blockNodePos))) {
 
-                    BlockPlaceHolder.packageBlock(world, posInProgress, pos);
+                            BlockPlaceHolder.packageBlock(world, posInProgress, pos);
 
-                } else {
-                    DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode node = (DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode) blockNode;
-                    posToBeLink.add(new nodeToBeProcess(pos, node.getArg1(), node.getArg2(), node.getArg3()));
+                        } else {
+                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode node = (DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode) blockNode;
+                            posToBeLink.add(new nodeToBeProcess(pos, node.getArg1(), node.getArg2(), node.getArg3()));
+                        }
+                    }
                 }
+
+                //there is no accessories in old structures
+//                for (nodeToBeProcess nodeToBeProcess : posToBeLink) {
+//                    ((BlockAccessoryPlaceHolder) world.getBlockState(nodeToBeProcess.pos).getBlock()).LinkToMainPart(pos, world, nodeToBeProcess.arg1, nodeToBeProcess.arg2, nodeToBeProcess.arg3);
+//                }
+                return true;
             }
         }
+        return false;
+    }
 
-        for (nodeToBeProcess nodeToBeProcess : posToBeLink) {
-            ((BlockAccessoryPlaceHolder) world.getBlockState(nodeToBeProcess.pos).getBlock()).LinkToMainPart(pos, world, nodeToBeProcess.arg1, nodeToBeProcess.arg2, nodeToBeProcess.arg3);
+    private boolean readNewStructures(ItemUseContext context) {
+        World world = context.getWorld();
+        BlockPos pos = context.getPos();
+        Triple<String, MultiblockStructureMaps.StructureMap, Direction> packedData = MultiblockStructureMaps.findStructure(world, pos);
+        if (packedData != null) {
+            String id = packedData.getLeft();
+            MultiblockStructureMaps.StructureMap map = packedData.getMiddle();
+            Direction direction = packedData.getRight();
+            map.construct(direction, world, pos, id);
+            return true;
         }
+        return false;
     }
 
     class nodeToBeProcess {

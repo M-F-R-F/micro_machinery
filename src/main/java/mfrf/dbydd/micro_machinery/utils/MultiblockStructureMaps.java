@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -52,12 +52,12 @@ public class MultiblockStructureMaps extends JsonReloadListener {
     }
 
     @Nullable
-    public static Pair<String, StructureMap> findStructure(World world, BlockPos pos) {
+    public static Triple<String, StructureMap, Direction> findStructure(World world, BlockPos pos) {
         Block center = world.getBlockState(pos).getBlock();
         for (Map.Entry<String, StructureMap> stringStructureMapEntry : getStructures().entrySet()) {
-            HashMap<Vec3i, Block> vec3iBlockHashMap = stringStructureMapEntry.getValue().checkAllDirection(world, pos, center);
-            if (vec3iBlockHashMap != null) {
-                return Pair.of(stringStructureMapEntry.getKey(), stringStructureMapEntry.getValue());
+            Direction direction = stringStructureMapEntry.getValue().checkAllDirection(world, pos, center);
+            if (direction != null) {
+                return Triple.of(stringStructureMapEntry.getKey(), stringStructureMapEntry.getValue(), direction);
             }
         }
         return null;
@@ -126,7 +126,7 @@ public class MultiblockStructureMaps extends JsonReloadListener {
         }
 
         @Nullable
-        public HashMap<Vec3i, Block> checkAllDirection(World world, BlockPos center, Block centerBlock) {
+        private Direction checkAllDirection(World world, BlockPos center, Block centerBlock) {
             if (centerBlock != mapWithDirections.get(Direction.NORTH).get(Vec3i.NULL_VECTOR)) {
                 return null;
             }
@@ -134,7 +134,7 @@ public class MultiblockStructureMaps extends JsonReloadListener {
                 HashMap<Vec3i, Block> vec3iBlockHashMap = mapWithDirections.get(direction);
 
                 if (check(world, center, vec3iBlockHashMap)) {
-                    return vec3iBlockHashMap;
+                    return direction;
                 }
             }
             return null;
