@@ -12,6 +12,8 @@ import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multibl
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.pump.BlockPump;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io.BlockRedstoneInterface;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.test.TestMainPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization.BlockAtomization;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge.BlockCentrifuge;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
@@ -201,6 +203,8 @@ public class RegisteredBlocks {
 
     public static final MMBlockMultiBlockPart MULTIBLOCK_PART = new MMBlockMultiBlockPart(Block.Properties.create(Material.IRON).harvestLevel(-1).hardnessAndResistance(-1), "part", true);
     public static final BlockRedstoneInterface REDSTONE_INTERFACE = new BlockRedstoneInterface(Block.Properties.create(Material.IRON), "redstone_interface");
+
+    public static final MMBlockMainPartBase TEST = new TestMainPart();
 
     private RegisteredBlocks() {
     }

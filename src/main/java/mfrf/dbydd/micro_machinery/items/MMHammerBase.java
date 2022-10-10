@@ -113,12 +113,8 @@ public class MMHammerBase extends ToolItem {
                 success = readNewStructures(context);
             }
 
-            if (success) {
-                return ActionResultType.SUCCESS;
-            }
         }
-
-        return super.onItemUse(context);
+        return ActionResultType.SUCCESS;
     }
 
     private boolean readOldStructures(ItemUseContext context) {

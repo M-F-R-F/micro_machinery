@@ -36,14 +36,14 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
             MMBlockMultiBlockPart.unpack(worldIn, poss);
         }
 
-        onUnpack(worldIn, pos);
+        releaseDataOnUnpack(worldIn, pos);
 
     }
 
     /**
      * function:release data, example:items
      */
-    protected abstract void onUnpack(World world, BlockPos breakPos);
+    protected abstract void releaseDataOnUnpack(World world, BlockPos breakPos);
 
 
     @Override

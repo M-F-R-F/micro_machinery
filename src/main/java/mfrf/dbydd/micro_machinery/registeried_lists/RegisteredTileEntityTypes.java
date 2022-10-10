@@ -10,6 +10,7 @@ import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multibl
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.pump.TilePump;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMTileMultiBlockPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io.TileRedstoneInterface;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.test.TestTileMainPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge.TileCentrifuge;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt.TileConveyBelt;
@@ -57,4 +58,6 @@ public class RegisteredTileEntityTypes {
     public static final RegistryObject<TileEntityType<TileConveyBelt>> TILE_CONVEY_BELT = TILE_ENTITY_TYPE_REGISTER.register("convey_belt", () -> TileEntityType.Builder.create(TileConveyBelt::new, RegisteredBlocks.CONVEYER_BELT_1, RegisteredBlocks.CONVEYER_BELT_2, RegisteredBlocks.CONVEYER_BELT_3).build(null));
     public static final RegistryObject<TileEntityType<MMTileMultiBlockPart>> MULTI_BLOCK_PART = TILE_ENTITY_TYPE_REGISTER.register("part", () -> TileEntityType.Builder.create(MMTileMultiBlockPart::new, RegisteredBlocks.MULTIBLOCK_PART).build(null));
     public static final RegistryObject<TileEntityType<TileRedstoneInterface>> REDSTONE_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("redstone_interface", () -> TileEntityType.Builder.create(TileRedstoneInterface::new, RegisteredBlocks.REDSTONE_INTERFACE).build(null));
+
+    public static final RegistryObject<TileEntityType<TestTileMainPart>> TEST = TILE_ENTITY_TYPE_REGISTER.register("test", () -> TileEntityType.Builder.create(TestTileMainPart::new, RegisteredBlocks.TEST).build(null));
 }
