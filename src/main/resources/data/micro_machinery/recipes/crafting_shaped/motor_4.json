@@ -7,7 +7,7 @@
   ],
   "key": {
     "w": {
-      "item": "minecraft:dust_redstone"
+      "item": "minecraft:redstone"
     },
     "b": {
       "item": "micro_machinery:motor_3"
