@@ -80,7 +80,6 @@ public class MultiblockStructureMaps extends JsonReloadListener {
         }
 
         //default direction is north;
-        //todo toJson
         public static HashMap<Vec3i, Block> readJson(JsonObject object) {
             HashMap<Vec3i, Block> blockPosBlockHashMap = new HashMap<>();
 

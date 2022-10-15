@@ -6,12 +6,15 @@ import mfrf.dbydd.micro_machinery.utils.TriFields;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -34,6 +37,30 @@ public class BlockConveyorBelt extends MMBlockBase {
     }
 
     //todo determine state while place
+
+
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        boolean sneaking = context.getPlayer().isSneaking();
+        boolean isAirBorne = context.getPlayer().isAirBorne;
+        Direction clickedFace = context.getFace();
+        boolean isHorizontal = Direction.Plane.HORIZONTAL.test(clickedFace);
+        Direction horizontalFacing = context.getPlacementHorizontalFacing();
+        boolean revert = sneaking && (isAirBorne && !isHorizontal);
+        World world = context.getWorld();
+        BlockPos pos = context.getPos();
+        BlockPos offset = pos.offset(horizontalFacing);
+        if (world.getBlockState(offset).getBlock() instanceof BlockConveyorBelt) {
+            return getDefaultState().with(FACING, horizontalFacing).with(LIFT, EnumConveyorConnectState.CONNECTED);
+        } else if (world.getBlockState(offset.up()).getBlock() instanceof BlockConveyorBelt) {
+            return getDefaultState().with(FACING, horizontalFacing).with(LIFT, EnumConveyorConnectState.UP);
+        } else if (world.getBlockState(offset.down()).getBlock() instanceof BlockConveyorBelt) {
+            return getDefaultState().with(FACING, horizontalFacing).with(LIFT, EnumConveyorConnectState.DOWN);
+        } else if (revert) {
+            return getDefaultState().with(FACING, horizontalFacing.getOpposite()).with(LIFT, EnumConveyorConnectState.CONNECTED);
+        } else return getDefaultState();
+    }
 
     @Nullable
     @Override
