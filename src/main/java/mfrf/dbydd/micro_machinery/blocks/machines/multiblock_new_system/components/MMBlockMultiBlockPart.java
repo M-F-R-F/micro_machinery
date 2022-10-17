@@ -60,8 +60,10 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
 
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        TileEntity te = worldIn.getTileEntity(pos);
-        ((MMTileMultiBlockPart) te).onBlockHarvest(worldIn, pos, player, state);
+        if (!worldIn.isRemote()) {
+            TileEntity te = worldIn.getTileEntity(pos);
+            ((MMTileMultiBlockPart) te).onBlockHarvest(worldIn, pos, player, state);
+        }
     }
 
     @Override

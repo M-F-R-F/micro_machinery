@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Deprecated
+//todo migrate to data system
 public class DeprecatedMultiBlockStructureMaps {
 
     public static ArrayList<String> NAMES = new ArrayList<>();

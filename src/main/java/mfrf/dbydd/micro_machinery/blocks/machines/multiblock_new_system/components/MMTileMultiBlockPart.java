@@ -58,9 +58,10 @@ public class MMTileMultiBlockPart extends TileEntity {
     }
 
     public ActionResultType onBlockActivated(World worldIn, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        return null;
+        return ActionResultType.SUCCESS;
     }
 
+    //todo check
     public void onBlockHarvest(World worldIn, BlockPos pos, PlayerEntity player, BlockState state) {
         ((MMTileMainPartBase) worldIn.getTileEntity(mainPart)).onBlockHarvest(worldIn, pos, player, state);
     }

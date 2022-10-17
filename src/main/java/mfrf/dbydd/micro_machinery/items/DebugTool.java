@@ -1,7 +1,9 @@
 package mfrf.dbydd.micro_machinery.items;
 
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
+import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMTileMultiBlockPart;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
-import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
@@ -10,10 +12,10 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
-import java.util.HashMap;
 import java.util.function.Consumer;
 
 public class DebugTool extends MMItemBase {
@@ -62,7 +64,19 @@ public class DebugTool extends MMItemBase {
         World world = context.getWorld();
         if (!world.isRemote()) {
 //            readMultiBlockOld(context);
-            HashMap<String, MultiblockStructureMaps.StructureMap> structures = MultiblockStructureMaps.getStructures();
+//            HashMap<String, MultiblockStructureMaps.StructureMap> structures = MultiblockStructureMaps.getStructures();
+            BlockPos pos = context.getPos();
+            BlockState blockState = world.getBlockState(pos);
+            if (blockState.getBlock() instanceof MMBlockMultiBlockPart) {
+                MMTileMultiBlockPart tileEntity = (MMTileMultiBlockPart) world.getTileEntity(pos);
+//                context.getPlayer().sendMessage(new StringTextComponent(tileEntity.getPacked().toString()));
+                try {
+                    context.getPlayer().sendMessage(new StringTextComponent(
+                            tileEntity.getClass().getField("mainPart").toString()
+                    ));
+                } catch (NoSuchFieldException e) {
+                }
+            }
         }
         return ActionResultType.SUCCESS;
     }

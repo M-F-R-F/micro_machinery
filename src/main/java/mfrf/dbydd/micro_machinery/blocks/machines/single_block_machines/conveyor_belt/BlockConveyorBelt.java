@@ -59,7 +59,19 @@ public class BlockConveyorBelt extends MMBlockBase {
             return getDefaultState().with(FACING, horizontalFacing).with(LIFT, EnumConveyorConnectState.DOWN);
         } else if (revert) {
             return getDefaultState().with(FACING, horizontalFacing.getOpposite()).with(LIFT, EnumConveyorConnectState.CONNECTED);
-        } else return getDefaultState();
+        } else {
+            for (Direction value : Direction.Plane.HORIZONTAL) {
+                BlockState blockState = world.getBlockState(pos.offset(value));
+                if (!(blockState.getBlock() instanceof BlockConveyorBelt)) {
+                    for (Direction vertical : Direction.Plane.VERTICAL) {
+                        return getDefaultState().with(FACING, blockState.get(FACING)).with(LIFT, EnumConveyorConnectState.thonk(vertical));
+                    }
+                } else {
+                    return getDefaultState().with(FACING, blockState.get(FACING)).with(LIFT, EnumConveyorConnectState.CONNECTED);
+                }
+            }
+            return getDefaultState();
+        }
     }
 
     @Nullable
