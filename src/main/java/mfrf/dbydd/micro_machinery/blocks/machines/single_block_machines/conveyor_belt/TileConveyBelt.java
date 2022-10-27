@@ -1,199 +1,211 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
 
-import com.google.common.collect.Lists;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import mfrf.dbydd.micro_machinery.utils.ConfigurableItemSlot;
-import mfrf.dbydd.micro_machinery.utils.ItemContainer;
-import mfrf.dbydd.micro_machinery.utils.TickRegularTimerPartialSerializeAbleFactory;
-import mfrf.dbydd.micro_machinery.utils.TriFields;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
-    static VoxelShape INSIDE_BOWL_SHAPE = Block.makeCuboidShape(2.0D, 11.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-    static VoxelShape COLLECTION_AREA_SHAPE = INSIDE_BOWL_SHAPE;
-
-    private List<TickRegularTimerPartialSerializeAbleFactory<TileConveyBelt>.TickRegularTimerPartialSerializeAble> timers = AttributeUtil.getTimers(this);
-    private ConfigurableItemSlot slot = new ConfigurableItemSlot(AttributeUtil.getMaxStackItemCount(this));
-    private ItemStack inTransfer = ItemStack.EMPTY;
 
     public TileConveyBelt() {
         super(RegisteredTileEntityTypes.TILE_CONVEY_BELT.get());
     }
 
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (side == null) {
-            return getCapability(cap);
-        }
-        switch (side) {
-            case UP: {
-                return LazyOptional.of(() -> new ItemContainer(slot, true, false)).cast();
-            }
-            case DOWN: {
-                return LazyOptional.of(() -> new ItemContainer(slot, false, true)).cast();
-            }
-            default: {
-                return LazyOptional.of(() -> new ItemContainer(slot, true, true)).cast();
-            }
-        }
-    }
+//    @Nonnull
+//    @Override
+//    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+//
+//    }
 
     @Override
     public void tick() {
-        if (!slot.isEmpty()) {
-
-            if (inTransfer.isEmpty()) {
-                ConfigurableItemSlot.poppedStack poppedStack = slot.tryPopOneStack();
-                inTransfer = poppedStack.stack.copy();
-                poppedStack.consumed.accept(ItemStack.EMPTY);
-                markDirty();
-            }
-        }
-
-        timers.forEach(tickRegularTimerPartialSerializeAble -> tickRegularTimerPartialSerializeAble.tick(this));
     }
 
 
     static class AttributeUtil {
-        private static HashMap<Block, List<TickRegularTimerPartialSerializeAbleFactory<TileConveyBelt>>> cache = new HashMap<>();
-        private static HashMap<Block, Integer> cache2 = new HashMap<>();
 
-        public static List<TickRegularTimerPartialSerializeAbleFactory<TileConveyBelt>.TickRegularTimerPartialSerializeAble> getTimers(TileConveyBelt identifier) {
-            BlockConveyorBelt block = (BlockConveyorBelt) identifier.getBlockState().getBlock();
-            if (!cache.containsKey(block)) {
-                TriFields<Integer, Integer, Integer> properties_speed_stack_interval_supplier = block.properties_speed_stack_interval_supplier;
-                Integer speed = properties_speed_stack_interval_supplier.a.get();
-                Integer stackItemCountToConvey = properties_speed_stack_interval_supplier.b.get();
-                Integer extractItemInterval = properties_speed_stack_interval_supplier.c.get();
-                cache.put(block, Lists.newArrayList(
-                        new TickRegularTimerPartialSerializeAbleFactory<>(
-                                //================================ convey item stack or eject them========================================
-                                (tileConveyBelt) -> {
-                                    if (!tileConveyBelt.inTransfer.isEmpty()) {
-                                        ArgumentsCollection argumentsCollection = new ArgumentsCollection(tileConveyBelt);
-                                        AtomicBoolean eject = new AtomicBoolean(true);
+        public class StackArray implements INBTSerializable<CompoundNBT>, IItemHandler {
+            private LinkedList<Stack> stacks = new LinkedList<>();
+            private int max = 0;
 
-
-                                        switch (argumentsCollection.enumConveyorConnectState) {
-                                            case UP: {
-                                                argumentsCollection.targetPos = argumentsCollection.upTarget;
-                                                eject.set(false);
-                                                break;
-                                            }
-                                            case DOWN: {
-                                                argumentsCollection.targetPos = argumentsCollection.targetPos.down();
-                                                eject.set(false);
-                                                break;
-                                            }
-                                            case CONNECTED: {
-                                                eject.set(false);
-                                            }
-                                        }
-
-
-                                        TileEntity targetEntity = tileConveyBelt.world.getTileEntity(argumentsCollection.targetPos);
-                                        if (targetEntity != null) {
-                                            targetEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, argumentsCollection.direction.getOpposite()).ifPresent(
-                                                    iItemHandler -> {
-                                                        tileConveyBelt.inTransfer = ItemHandlerHelper.insertItem(iItemHandler, tileConveyBelt.inTransfer, false);
-                                                        eject.set(false);
-                                                    }
-                                            );
-                                        }
-
-
-                                        if (eject.get()) {
-                                            InventoryHelper.spawnItemStack(tileConveyBelt.world, argumentsCollection.upTarget.getX(), argumentsCollection.upTarget.getY(), argumentsCollection.upTarget.getZ(), tileConveyBelt.inTransfer.copy());
-                                            tileConveyBelt.inTransfer = ItemStack.EMPTY;
-                                        }
-
-                                        tileConveyBelt.markDirty();
-                                    }
-                                },
-                                //======================================================
-                                speed),
-                        new TickRegularTimerPartialSerializeAbleFactory<>(
-                                //================================extract item stack========================================
-                                tileConveyBelt -> {
-                                    if (!tileConveyBelt.slot.atLimit()) {
-                                        ArgumentsCollection argumentsCollection = new ArgumentsCollection(tileConveyBelt);
-                                        TileEntity fromEntity = tileConveyBelt.world.getTileEntity(argumentsCollection.fromPos);
-                                        if (fromEntity != null && fromEntity.getType() != RegisteredTileEntityTypes.TILE_CONVEY_BELT.get()) {
-                                            fromEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, argumentsCollection.direction.getOpposite())
-                                                    .ifPresent(iItemHandler -> {
-                                                        for (int i = 0; i < iItemHandler.getSlots(); i++) {
-                                                            ItemStack stackInSlot = iItemHandler.getStackInSlot(i);
-                                                            if (!stackInSlot.isEmpty()) {
-                                                                ItemStack copy = stackInSlot.copy();
-                                                                int extracted = Math.min(stackInSlot.getCount(), stackItemCountToConvey);
-                                                                copy.setCount(extracted);
-                                                                stackInSlot.shrink(extracted);
-
-                                                                ItemHandlerHelper.insertItem(tileConveyBelt.slot, copy, false);
-                                                                break;
-                                                            }
-                                                        }
-
-                                                    });
-                                        }
-                                        tileConveyBelt.markDirty();
-                                    }
-                                },
-                                //======================================================
-                                extractItemInterval)
-                ));
-            }
-            return cache.get(block).stream().map(TickRegularTimerPartialSerializeAbleFactory::build).collect(Collectors.toList());
-        }
-
-        public static int getMaxStackItemCount(TileConveyBelt identifier) {
-            BlockConveyorBelt block = (BlockConveyorBelt) identifier.getBlockState().getBlock();
-            if (!cache2.containsKey(block)) {
-                cache2.put(block, block.properties_speed_stack_interval_supplier.b.get());
-            }
-            return cache2.get(block);
-        }
-
-        static class ArgumentsCollection {
-            public BlockState blockState;
-            public EnumConveyorConnectState enumConveyorConnectState;
-            public Direction direction;
-            public BlockPos targetPos;
-            public BlockPos fromPos;
-            public BlockPos upTarget;
-
-            public ArgumentsCollection(TileConveyBelt tileConveyBelt) {
-                blockState = tileConveyBelt.getBlockState();
-                enumConveyorConnectState = blockState.get(BlockConveyorBelt.LIFT);
-                direction = blockState.get(BlockConveyorBelt.FACING);
-                targetPos = tileConveyBelt.pos.offset(direction);
-                fromPos = tileConveyBelt.pos.offset(direction.getOpposite());
-                upTarget = targetPos.up();
+            public StackArray(int max) {
+                this.max = max;
             }
 
+            @Override
+            public CompoundNBT serializeNBT() {
+                CompoundNBT compoundNBT = new CompoundNBT();
+                compoundNBT.putInt("max", max);
+
+                ListNBT listNBT = new ListNBT();
+                stacks.forEach(s -> listNBT.add(s.serializeNBT()));
+                compoundNBT.put("stacks", listNBT);
+                return compoundNBT;
+            }
+
+            @Override
+            public void deserializeNBT(CompoundNBT nbt) {
+                max = nbt.getInt("max");
+                for (INBT inbt : nbt.getList("stacks", Constants.NBT.TAG_COMPOUND)) {
+                    Stack stack = new Stack();
+                    stack.deserializeNBT((CompoundNBT) inbt);
+                    stacks.add(stack);
+                }
+
+            }
+
+            public List<ItemStack> popAll(long current, int condition) {
+                List<Stack> collect = stacks.stream().filter(stack -> stack.olderThan(current, condition)).collect(Collectors.toList());
+                stacks.removeAll(collect);
+                return collect.stream().map(Stack::getStack).collect(Collectors.toList());
+            }
+
+            public ItemStack popOne(long current, int condition) {
+                Optional<Stack> first = stacks.stream().filter(stack -> stack.olderThan(current, condition)).findFirst();
+                AtomicReference<ItemStack> ret = new AtomicReference<>(ItemStack.EMPTY);
+                first.ifPresent(stack -> {
+                    stacks.remove(stack);
+                    ret.set(stack.stack);
+                });
+                return ret.get();
+            }
+
+
+            @Override
+            public int getSlots() {
+                return Math.max(max, stacks.size());
+            }
+
+            @Nonnull
+            @Override
+            public ItemStack getStackInSlot(int slot) {
+                return stacks.get(slot).stack;
+            }
+
+            //todo consider time.
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+                if (stacks.size() >= max || slot >= max)
+                    return stack;
+                ItemStack in = stack.copy();
+                Stack stackSaved;
+
+                if (stacks.get(slot) != null) {
+                    stackSaved = stacks.get(slot);
+                } else {
+                    stackSaved = new Stack();
+                    stacks.set(slot, stackSaved);
+                }
+
+                int maxStackSize = stackSaved.stack.getMaxStackSize();
+                int count = stackSaved.stack.getCount();
+
+                if (!stackSaved.stack.isItemEqual(stack) || count >= maxStackSize) {
+                    return stack;
+                }
+
+                int space = maxStackSize - count;
+                int remain = stack.getCount() - space;
+                if (simulate) {
+                    if (remain > 0) {
+                        stackSaved.stack.setCount(maxStackSize);
+                    } else {
+                        stackSaved.stack.setCount(count + stack.getCount());
+                    }
+                }
+
+                return new ItemStack(stack.getItem(), remain);
+            }
+
+            @Nonnull
+            @Override
+            public ItemStack extractItem(int slot, int amount, boolean simulate) {
+                Stack stack = stacks.get(slot);
+                if (stack == null) {
+                    return ItemStack.EMPTY;
+                }
+                int count = stack.stack.getCount();
+                int remain = Math.max(count - amount, 0);
+                int extracted = count - remain;
+                if (simulate) {
+                    if (remain == 0) {
+                        stacks.remove(slot);
+                    } else {
+                        stack.stack.setCount(remain);
+                    }
+                }
+
+                return new ItemStack(stack.stack.getItem(), extracted);
+            }
+
+            @Override
+            public int getSlotLimit(int slot) {
+                Stack stack = stacks.get(slot);
+                if (stack != null) {
+                    return stack.stack.getMaxStackSize();
+                } else {
+                    return 64;
+                }
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return true;
+            }
+
+            public class Stack implements INBTSerializable<CompoundNBT> {
+                private ItemStack stack = ItemStack.EMPTY;
+                private long inTime = 0;
+
+                public Stack(ItemStack stack) {
+                    this.stack = stack;
+                }
+
+                public Stack() {
+                }
+
+                public ItemStack getStack() {
+                    return stack;
+                }
+
+                public void setStack(ItemStack stack) {
+                    this.stack = stack;
+                }
+
+                public boolean olderThan(long current, int condition) {
+                    return (current - inTime) < condition;
+                }
+
+                @Override
+                public CompoundNBT serializeNBT() {
+                    CompoundNBT compoundNBT = new CompoundNBT();
+                    CompoundNBT stack = this.stack.serializeNBT();
+                    compoundNBT.put("stack", stack);
+                    compoundNBT.putLong("intime", inTime);
+                    return compoundNBT;
+                }
+
+                @Override
+                public void deserializeNBT(CompoundNBT nbt) {
+                    stack = ItemStack.read(nbt.getCompound("stack"));
+                    inTime = nbt.getLong("intime");
+                }
+            }
         }
 
     }

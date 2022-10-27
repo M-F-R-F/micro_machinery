@@ -265,8 +265,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
 
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-        boolean itemValid = itemhandler.isItemValid(slot, stack);
-        return itemValid;
+        return itemhandler.isItemValid(slot, stack);
     }
 
     @Override

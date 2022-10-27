@@ -51,7 +51,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT
 
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-        return insertItem(slot, stack, true).equals(stack);
+        return true;
     }
 
     @Override
