@@ -44,6 +44,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
 
             AtomicBoolean succeed = new AtomicBoolean(false);
             for (int i = 1; i <= ((BlockConveyorBelt) getBlockState().getBlock()).properties_speed_stack_interval_supplier.c.get(); i++) {
+                boolean flag = true;
 
                 Direction direction = Direction.byHorizontalIndex(i + lastPopDirection);
                 TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
@@ -60,8 +61,9 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
                     tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).ifPresent(iItemHandler ->
                             eject(callbackSlot, succeed, iItemHandler)
                     );
+                    flag = false;
                 }
-                if (succeed.get()) {
+                if (succeed.get() && flag) {
                     lastPopDirection += i;
                     break;
                 }
