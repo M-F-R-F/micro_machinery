@@ -5,7 +5,6 @@ import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.dbydd.micro_machinery.utils.TriFields;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
@@ -36,13 +35,11 @@ public class BlockConveyorBelt extends MMBlockBase {
     }
 
     //todo determine state while place
-
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-
-    }
+//    @Nullable
+//    @Override
+//    public BlockState getStateForPlacement(BlockItemUseContext context) {
+//
+//    }
 
     @Nullable
     @Override
