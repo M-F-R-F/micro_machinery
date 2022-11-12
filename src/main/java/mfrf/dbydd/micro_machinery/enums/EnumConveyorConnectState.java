@@ -3,7 +3,7 @@ package mfrf.dbydd.micro_machinery.enums;
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumConveyorConnectState implements IStringSerializable {
-    IN("in"), OUT("out"), BLOCKED("blocked"), UP_IN("up_in"), UP_OUT("up_out");
+    CONNECTED("connected"), BLOCKED("blocked"), UP("up"), DOWN("down");
 
 
     private final String name;

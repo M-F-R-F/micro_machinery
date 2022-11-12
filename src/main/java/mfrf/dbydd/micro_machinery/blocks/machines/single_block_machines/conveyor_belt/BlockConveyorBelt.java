@@ -8,38 +8,37 @@ import net.minecraft.block.BlockState;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
 public class BlockConveyorBelt extends MMBlockBase {
-    public static EnumProperty<EnumConveyorConnectState> NORTH_STATE = EnumProperty.create("north", EnumConveyorConnectState.class);
-    public static EnumProperty<EnumConveyorConnectState> SOUTH_STATE = EnumProperty.create("south", EnumConveyorConnectState.class);
-    public static EnumProperty<EnumConveyorConnectState> EAST_STATE = EnumProperty.create("west", EnumConveyorConnectState.class);
-    public static EnumProperty<EnumConveyorConnectState> WEST_STATE = EnumProperty.create("east", EnumConveyorConnectState.class);
+    public static EnumProperty<EnumConveyorConnectState> IN_STATE = EnumProperty.create("in_state", EnumConveyorConnectState.class);
+    public static EnumProperty<Direction> IN_DIRECTION = EnumProperty.create("in_direction", Direction.class, Direction.Plane.HORIZONTAL);
+    public static EnumProperty<EnumConveyorConnectState> OUT_STATE = EnumProperty.create("out_state", EnumConveyorConnectState.class);
+    public static EnumProperty<Direction> OUT_DIRECTION = EnumProperty.create("out_direction", Direction.class, Direction.Plane.HORIZONTAL);
+
     public final TriFields<Integer, Integer, Integer> properties_speed_stack_interval_supplier;
 
     public BlockConveyorBelt(Properties properties, String name, TriFields<Integer, Integer, Integer> speed_stack_interval) {
         super(properties, name);
         this.properties_speed_stack_interval_supplier = speed_stack_interval;
-        this.setDefaultState(this.stateContainer.getBaseState().with(NORTH_STATE, EnumConveyorConnectState.IN));
+        this.setDefaultState(
+                this.stateContainer.getBaseState()
+                        .with(IN_STATE, EnumConveyorConnectState.CONNECTED).with(IN_DIRECTION, Direction.NORTH)
+                        .with(OUT_STATE, EnumConveyorConnectState.CONNECTED).with(OUT_DIRECTION, Direction.SOUTH)
+        );
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
-        builder.add(NORTH_STATE);
-        builder.add(SOUTH_STATE);
-        builder.add(WEST_STATE);
-        builder.add(EAST_STATE);
+        builder.add(IN_STATE);
+        builder.add(IN_DIRECTION);
+        builder.add(OUT_DIRECTION);
+        builder.add(OUT_STATE);
     }
-
-    //todo determine state while place
-//    @Nullable
-//    @Override
-//    public BlockState getStateForPlacement(BlockItemUseContext context) {
-//
-//    }
 
     @Nullable
     @Override
