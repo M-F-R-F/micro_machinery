@@ -8,7 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
@@ -24,26 +23,6 @@ public class BlockConveyorBelt extends MMBlockBase {
         super(properties, name);
         this.properties_speed_stack_interval_supplier = speed_stack_interval;
         this.setDefaultState(this.stateContainer.getBaseState().with(NORTH_STATE, EnumConveyorConnectState.IN));
-    }
-
-
-    public static EnumProperty<EnumConveyorConnectState> getStateProperty(Direction direction) {
-        switch (direction) {
-            case NORTH: {
-                return NORTH_STATE;
-            }
-            case SOUTH: {
-                return SOUTH_STATE;
-            }
-            case EAST: {
-                return EAST_STATE;
-            }
-            case WEST: {
-                return WEST_STATE;
-            }
-            default:
-                return NORTH_STATE;
-        }
     }
 
     @Override

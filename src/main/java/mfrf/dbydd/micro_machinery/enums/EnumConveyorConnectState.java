@@ -16,12 +16,4 @@ public enum EnumConveyorConnectState implements IStringSerializable {
     public String getName() {
         return name;
     }
-
-    public static boolean isIn(EnumConveyorConnectState state) {
-        return state == IN || state == UP_IN;
-    }
-
-    public static boolean isOut(EnumConveyorConnectState state) {
-        return state == OUT || state == UP_OUT;
-    }
 }

@@ -22,14 +22,10 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
     public AttributeUtil.StackArray array;
@@ -43,33 +39,27 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
 
     @Override
     public void tick() {
-        Stream<Direction> stream = Arrays.stream(Direction.values());
-        List<Direction> in = stream.filter(d -> EnumConveyorConnectState.isIn(getBlockState().get(BlockConveyorBelt.getStateProperty(d)))).collect(Collectors.toList());
-        List<Direction> out = stream.filter(d -> EnumConveyorConnectState.isOut(getBlockState().get(BlockConveyorBelt.getStateProperty(d)))).collect(Collectors.toList());
-
-        //eject
-        if (array.tick() && !out.isEmpty()) {
-
+        if (array.tick()) {
             AttributeUtil.StackArray.CallbackSlot callbackSlot = array.popOne();
 
             AtomicBoolean succeed = new AtomicBoolean(false);
             for (int i = 1; i <= ((BlockConveyorBelt) getBlockState().getBlock()).properties_speed_stack_interval_supplier.c.get(); i++) {
                 boolean flag = true;
 
-                Direction direction = out.get((i + lastPopDirection) % out.size());
+                Direction direction = Direction.byHorizontalIndex(i + lastPopDirection);
                 TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
 
                 LazyOptional<IItemHandler> capability = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite());
                 if (!succeed.get() || capability.isPresent()) {
                     capability.ifPresent(iItemHandler -> {
-                        behavior(callbackSlot, succeed, iItemHandler);
+                        eject(callbackSlot, succeed, iItemHandler);
                     });
                 } else {
                     direction = Direction.byHorizontalIndex(lastPopDirection);
                     tileEntity = world.getTileEntity(pos.offset(direction));
                     //todo maybe fine?
                     tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).ifPresent(iItemHandler ->
-                            behavior(callbackSlot, succeed, iItemHandler)
+                            eject(callbackSlot, succeed, iItemHandler)
                     );
                     flag = false;
                 }
@@ -79,22 +69,9 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
                 }
             }
         }
-
-        if (array.notFull()) {
-            for (Direction direction : Direction.Plane.HORIZONTAL) {
-                EnumConveyorConnectState connectState = getBlockState().get(BlockConveyorBelt.getStateProperty(direction));
-                if (EnumConveyorConnectState.isIn(connectState)) {
-
-                }
-            }
-        }
     }
 
-    public LinkedList<AttributeUtil.StackArray.Stack> getStacks() {
-        return array.stacks;
-    }
-
-    private void behavior(AttributeUtil.StackArray.CallbackSlot callbackSlot, AtomicBoolean succeed, IItemHandler iItemHandler) {
+    private void eject(AttributeUtil.StackArray.CallbackSlot callbackSlot, AtomicBoolean succeed, IItemHandler iItemHandler) {
         ItemStack condition = ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.held, true);
         if (condition.isEmpty()) {
             ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.func(), false);
@@ -109,11 +86,25 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (Direction.Plane.HORIZONTAL.test(side)) {
-            return LazyOptional.of(() -> determine(getBlockState().get(BlockConveyorBelt.getStateProperty(side)))).cast();
-        } else {
-            return LazyOptional.of(() -> array).cast();
+        switch (side) {
+            case WEST: {
+                return LazyOptional.of(() -> determine(getBlockState().get(BlockConveyorBelt.WEST_STATE))).cast();
+            }
+            case EAST: {
+                return LazyOptional.of(() -> determine(getBlockState().get(BlockConveyorBelt.EAST_STATE))).cast();
+            }
+            case SOUTH: {
+                return LazyOptional.of(() -> determine(getBlockState().get(BlockConveyorBelt.SOUTH_STATE))).cast();
+            }
+            case NORTH: {
+                return LazyOptional.of(() -> determine(getBlockState().get(BlockConveyorBelt.NORTH_STATE))).cast();
+            }
+            case UP:
+            case DOWN: {
+                return LazyOptional.of(() -> array).cast();
+            }
         }
+        return LazyOptional.empty();
     }
 
     ItemContainer determine(EnumConveyorConnectState state) {
@@ -156,10 +147,6 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
 
             public StackArray() {
 
-            }
-
-            public boolean notFull() {
-                return stacks.size() < max;
             }
 
             @Override
