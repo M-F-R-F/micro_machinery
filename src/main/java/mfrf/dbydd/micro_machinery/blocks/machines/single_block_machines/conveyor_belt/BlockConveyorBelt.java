@@ -16,9 +16,9 @@ import javax.annotation.Nullable;
 
 public class BlockConveyorBelt extends MMBlockTileProviderBase {
     public static EnumProperty<EnumConveyorConnectState> OUT_STATE = EnumProperty.create("out_state", EnumConveyorConnectState.class);
-    public static BooleanProperty LEFT_STATE = BooleanProperty.create("left");
-    public static BooleanProperty RIGHT_STATE = BooleanProperty.create("right");
-    public static BooleanProperty BACK_STATE = BooleanProperty.create("back");
+    public static BooleanProperty LEFT_STATE = BooleanProperty.create("left_state");
+    public static BooleanProperty RIGHT_STATE = BooleanProperty.create("right_state");
+    public static BooleanProperty BACK_STATE = BooleanProperty.create("back_state");
 
     public final TriFields<Integer, Integer, Integer> properties_speed_stack_interval_supplier;
 

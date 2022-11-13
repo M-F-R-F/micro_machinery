@@ -1,8 +1,8 @@
 {
 	"credit": "Made by hqyzsy",
 	"textures": {
-		"0": "micro_machinery:传送带/conveyor_belt_1",
-		"particle": "micro_machinery:传送带/conveyor_belt_1"
+		"0": "micro_machinery:blocks/pipes/conveyor_belt_1",
+		"particle": "micro_machinery:blocks/pipes/conveyor_belt_1"
 	},
 	"elements": [
 		{
