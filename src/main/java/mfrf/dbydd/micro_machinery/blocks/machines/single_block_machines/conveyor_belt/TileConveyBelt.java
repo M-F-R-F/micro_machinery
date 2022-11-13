@@ -35,69 +35,69 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
 
     public TileConveyBelt() {
         super(RegisteredTileEntityTypes.TILE_CONVEY_BELT.get());
-        BlockConveyorBelt conveyorBelt = (BlockConveyorBelt) getBlockState().getBlock();
-        array = new StackArray(conveyorBelt.properties_speed_stack_interval_supplier.b.get(), conveyorBelt.properties_speed_stack_interval_supplier.a.get());
+//        BlockConveyorBelt conveyorBelt = (BlockConveyorBelt) getBlockState().getBlock();
+//        array = new StackArray(conveyorBelt.properties_speed_stack_interval_supplier.b.get(), conveyorBelt.properties_speed_stack_interval_supplier.a.get());
     }
 
     @Override
     public void tick() {
-        //todo remake
-        if (!world.isRemote()) {
-            List<StackArray.CallbackSlot> popped = array.popAll();
-
-            Direction out = getBlockState().get(BlockConveyorBelt.FACING);
-            EnumConveyorConnectState out_state = getBlockState().get(BlockConveyorBelt.OUT_STATE);
-            if (!popped.isEmpty()) {
-                boolean toConveyorBeltOnly = false;
-                BlockPos out_pos = getPos().offset(out);
-                TileEntity downT = world.getTileEntity(out_pos.down());
-                TileEntity upT = world.getTileEntity(out_pos.up());
-                BlockState downS = null;
-                BlockState upS = null;
-                if (downT instanceof TileConveyBelt) {
-                    downS = downT.getBlockState();
-                }
-                if (upT instanceof TileConveyBelt) {
-                    upS = upT.getBlockState();
-                }
-
-                if (out_state == EnumConveyorConnectState.DOWN) {
-                    out_pos = out_pos.down();
-                    if (downS != null && downS.get(BlockConveyorBelt.FACING) == out && downS.get(BlockConveyorBelt.BACK_STATE) && downS.get(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
-                        toConveyorBeltOnly = true;
-                    }
-                } else if (out_state == EnumConveyorConnectState.UP) {
-                    out_pos = out_pos.up();
-                    if (upS != null && upS.get(BlockConveyorBelt.FACING) == out && upS.get(BlockConveyorBelt.BACK_STATE) && upS.get(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
-                        toConveyorBeltOnly = true;
-                    }
-                }
-                TileEntity tileEntity = world.getTileEntity(out_pos);
-
-                if (toConveyorBeltOnly) {
-                    TileConveyBelt conveyBelt = (TileConveyBelt) tileEntity;
-                    if (conveyBelt.array.notFull()) {
-                        conveyBelt.array.receive(popped);
-                        conveyBelt.markDirty();
-                    }
-                } else {
-                    tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, out.getOpposite()).ifPresent(iItemHandler -> {
-                        for (StackArray.CallbackSlot callbackSlot : popped) {
-
-                            ItemStack outS = ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.func(), false);
-                            if (!outS.isEmpty()) {
-                                ItemEntity itemEntity = new ItemEntity(world, this.pos.getX(), this.pos.getY() + 0.6, this.pos.getZ(), outS);
-                                itemEntity.setDefaultPickupDelay();
-                                world.addEntity(itemEntity);
-                            }
-
-                        }
-                    });
-                }
-            }
-            array.tick();
-            markDirty();
-        }
+//        //todo remake
+//        if (!world.isRemote()) {
+//            List<StackArray.CallbackSlot> popped = array.popAll();
+//
+//            Direction out = getBlockState().get(BlockConveyorBelt.FACING);
+//            EnumConveyorConnectState out_state = getBlockState().get(BlockConveyorBelt.OUT_STATE);
+//            if (!popped.isEmpty()) {
+//                boolean toConveyorBeltOnly = false;
+//                BlockPos out_pos = getPos().offset(out);
+//                TileEntity downT = world.getTileEntity(out_pos.down());
+//                TileEntity upT = world.getTileEntity(out_pos.up());
+//                BlockState downS = null;
+//                BlockState upS = null;
+//                if (downT instanceof TileConveyBelt) {
+//                    downS = downT.getBlockState();
+//                }
+//                if (upT instanceof TileConveyBelt) {
+//                    upS = upT.getBlockState();
+//                }
+//
+//                if (out_state == EnumConveyorConnectState.DOWN) {
+//                    out_pos = out_pos.down();
+//                    if (downS != null && downS.get(BlockConveyorBelt.FACING) == out && downS.get(BlockConveyorBelt.BACK_STATE) && downS.get(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
+//                        toConveyorBeltOnly = true;
+//                    }
+//                } else if (out_state == EnumConveyorConnectState.UP) {
+//                    out_pos = out_pos.up();
+//                    if (upS != null && upS.get(BlockConveyorBelt.FACING) == out && upS.get(BlockConveyorBelt.BACK_STATE) && upS.get(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
+//                        toConveyorBeltOnly = true;
+//                    }
+//                }
+//                TileEntity tileEntity = world.getTileEntity(out_pos);
+//
+//                if (toConveyorBeltOnly) {
+//                    TileConveyBelt conveyBelt = (TileConveyBelt) tileEntity;
+//                    if (conveyBelt.array.notFull()) {
+//                        conveyBelt.array.receive(popped);
+//                        conveyBelt.markDirty();
+//                    }
+//                } else {
+//                    tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, out.getOpposite()).ifPresent(iItemHandler -> {
+//                        for (StackArray.CallbackSlot callbackSlot : popped) {
+//
+//                            ItemStack outS = ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.func(), false);
+//                            if (!outS.isEmpty()) {
+//                                ItemEntity itemEntity = new ItemEntity(world, this.pos.getX(), this.pos.getY() + 0.6, this.pos.getZ(), outS);
+//                                itemEntity.setDefaultPickupDelay();
+//                                world.addEntity(itemEntity);
+//                            }
+//
+//                        }
+//                    });
+//                }
+//            }
+//            array.tick();
+//            markDirty();
+//        }
     }
 
     @Nonnull

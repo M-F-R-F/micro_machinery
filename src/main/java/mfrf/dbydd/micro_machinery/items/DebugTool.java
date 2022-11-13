@@ -2,6 +2,8 @@ package mfrf.dbydd.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMTileMultiBlockPart;
+import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
+import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
@@ -11,6 +13,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
@@ -63,19 +66,38 @@ public class DebugTool extends MMItemBase {
     public ActionResultType onItemUse(ItemUseContext context) {
         World world = context.getWorld();
         if (!world.isRemote()) {
-//            readMultiBlockOld(context);
-//            HashMap<String, MultiblockStructureMaps.StructureMap> structures = MultiblockStructureMaps.getStructures();
-            BlockPos pos = context.getPos();
-            BlockState blockState = world.getBlockState(pos);
-            if (blockState.getBlock() instanceof MMBlockMultiBlockPart) {
-                MMTileMultiBlockPart tileEntity = (MMTileMultiBlockPart) world.getTileEntity(pos);
-//                context.getPlayer().sendMessage(new StringTextComponent(tileEntity.getPacked().toString()));
-                try {
-                    context.getPlayer().sendMessage(new StringTextComponent(
-                            tileEntity.getClass().getField("mainPart").toString()
-                    ));
-                } catch (NoSuchFieldException e) {
-                }
+////            readMultiBlockOld(context);
+////            HashMap<String, MultiblockStructureMaps.StructureMap> structures = MultiblockStructureMaps.getStructures();
+//            BlockPos pos = context.getPos();
+//            BlockState blockState = world.getBlockState(pos);
+//            if (blockState.getBlock() instanceof MMBlockMultiBlockPart) {
+//                MMTileMultiBlockPart tileEntity = (MMTileMultiBlockPart) world.getTileEntity(pos);
+////                context.getPlayer().sendMessage(new StringTextComponent(tileEntity.getPacked().toString()));
+//                try {
+//                    context.getPlayer().sendMessage(new StringTextComponent(
+//                            tileEntity.getClass().getField("mainPart").toString()
+//                    ));
+//                } catch (NoSuchFieldException e) {
+//                }
+//            }
+
+            // 获取点击的那一格的blockstate
+            BlockState blockState = world.getBlockState(context.getPos());
+
+            //确认是传送带方块
+            if (blockState.getBlock() instanceof BlockConveyorBelt) {
+
+                world.setBlockState(context.getPos(),
+                        blockState
+                                .with(BlockConveyorBelt.FACING, Direction.SOUTH)
+                                .with(BlockConveyorBelt.OUT_STATE, EnumConveyorConnectState.CONNECTED)
+                                .with(BlockConveyorBelt.BACK_STATE, true)
+                                .with(BlockConveyorBelt.LEFT_STATE, true)
+                                .with(BlockConveyorBelt.RIGHT_STATE, true)
+                        // 以上五项就是对应的五个property,括号中左边的参数是索引，右边的是值
+                        //想要看不同的blockstate只要赋值就行
+                );
+
             }
         }
         return ActionResultType.SUCCESS;

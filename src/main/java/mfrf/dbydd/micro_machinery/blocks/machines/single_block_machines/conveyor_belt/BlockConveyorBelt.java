@@ -15,7 +15,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nullable;
 
 public class BlockConveyorBelt extends MMBlockTileProviderBase {
-    public static EnumProperty<EnumConveyorConnectState> OUT_STATE = EnumProperty.create("in_state", EnumConveyorConnectState.class);
+    public static EnumProperty<EnumConveyorConnectState> OUT_STATE = EnumProperty.create("out_state", EnumConveyorConnectState.class);
     public static BooleanProperty LEFT_STATE = BooleanProperty.create("left");
     public static BooleanProperty RIGHT_STATE = BooleanProperty.create("right");
     public static BooleanProperty BACK_STATE = BooleanProperty.create("back");
