@@ -1,26 +1,18 @@
 package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import mfrf.dbydd.micro_machinery.utils.ItemContainer;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
-    public StackArray array;
+//    public StackArray array;
     private int interval = 0;
 
     public TileConveyBelt() {
@@ -103,23 +95,23 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        BlockState blockState = getBlockState();
-        Direction direction = blockState.get(BlockConveyorBelt.FACING);
-        if (side == Direction.UP || side == Direction.DOWN) {
-            return LazyOptional.of(() -> array).cast();
-        } else if (side == direction) {
-            return LazyOptional.of(() -> new ItemContainer(array, false, true)).cast();
-        }
-
-        if (direction.getOpposite() == side) {
-            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.BACK_STATE), false)).cast();
-        }
-        if (direction.rotateY() == side) {
-            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.RIGHT_STATE), false)).cast();
-        }
-        if (direction.rotateYCCW() == side) {
-            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.LEFT_STATE), false)).cast();
-        }
+//        BlockState blockState = getBlockState();
+//        Direction direction = blockState.get(BlockConveyorBelt.FACING);
+//        if (side == Direction.UP || side == Direction.DOWN) {
+//            return LazyOptional.of(() -> array).cast();
+//        } else if (side == direction) {
+//            return LazyOptional.of(() -> new ItemContainer(array, false, true)).cast();
+//        }
+//
+//        if (direction.getOpposite() == side) {
+//            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.BACK_STATE), false)).cast();
+//        }
+//        if (direction.rotateY() == side) {
+//            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.RIGHT_STATE), false)).cast();
+//        }
+//        if (direction.rotateYCCW() == side) {
+//            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.LEFT_STATE), false)).cast();
+//        }
         return LazyOptional.empty();
     }
 
@@ -127,14 +119,14 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
     @Override
     public void read(CompoundNBT compound) {
         super.read(compound);
-        array.deserializeNBT(compound.getCompound("array"));
+//        array.deserializeNBT(compound.getCompound("array"));
         interval = compound.getInt("interval");
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         CompoundNBT write = super.write(compound);
-        write.put("array", array.serializeNBT());
+//        write.put("array", array.serializeNBT());
         write.putInt("interval", interval);
         return write;
     }
