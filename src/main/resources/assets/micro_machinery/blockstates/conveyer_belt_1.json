@@ -50,32 +50,29 @@
 		}
 	  },
 	"multipart": [
-		{   "when": { "left_state": "connect"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect1", "y": 90}
+		{   "when": { "left_state": "true"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect", "y": 90}
 		},
-		{   "when": { "back_state": "connect"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect1"}
+		{   "when": { "back_state": "true"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect"}
 		},
-		{   "when": { "right_connect": "connect"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect1", "y": 270}
+		{   "when": { "right_state": "true"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_connect", "y": 270}
 		},
-		{   "when": { "left_state": "blocked"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_blocked", "y": 90}
-		},
-		{   "when": { "back_state": "blocked"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_blocked"}
-		},
-		{   "when": { "right_connect": "blocked"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_blocked", "y": 270}
-		},
-		{   "when": { "left_state": "null"},
+		{   "when": { "left_state": "false"},
 			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_null", "y": 90}
 		},
-		{   "when": { "back_state": "null"},
+		{   "when": { "back_state": "false"},
 			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_null"}
 		},
-		{   "when": { "right_connect": "null"},
+		{   "when": { "right_state": "false"},
 			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_null", "y": 270}
+		},
+		{   "when": { "out_state": "blocked"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_blocked0"}
+		},
+		{   "when": { "out_state": "connect"},
+			"apply": { "model": "micro_machinery:block/pipe/conveyer_belt_blocked"}
 		}
 	]
 }
