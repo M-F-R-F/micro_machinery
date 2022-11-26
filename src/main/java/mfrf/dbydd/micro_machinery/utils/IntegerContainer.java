@@ -98,7 +98,7 @@ public class IntegerContainer {
     }
 
     public int selfAdd() {
-        current++;
+        current += selfAddValue();
         if (current > max) {
             current = max;
         }
@@ -108,8 +108,12 @@ public class IntegerContainer {
         return current;
     }
 
+    protected int selfAddValue() {
+        return 1;
+    }
+
     public int selfSubtract() {
-        current--;
+        current -= selfSubtractValue();
         if (current > max) {
             current = max;
         }
@@ -117,6 +121,10 @@ public class IntegerContainer {
             current = min;
         }
         return current;
+    }
+
+    protected int selfSubtractValue() {
+        return 1;
     }
 
     public boolean atMaxValue() {

@@ -1,11 +1,15 @@
 package mfrf.dbydd.micro_machinery.utils;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+
+import java.util.function.Consumer;
 
 public class NBTUtil {
 
@@ -33,6 +37,14 @@ public class NBTUtil {
 
     public static Vec3i readVEC3I(CompoundNBT nbt) {
         return new Vec3i(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
+    }
+
+    public static INBT getOrCreateItemTag(ItemStack stack, String subName, Consumer<CompoundNBT> defaultV) {
+        CompoundNBT orCreateTag = stack.getOrCreateTag();
+        if (!orCreateTag.contains(subName)) {
+            defaultV.accept(orCreateTag);
+        }
+        return orCreateTag.get(subName);
     }
 
 }

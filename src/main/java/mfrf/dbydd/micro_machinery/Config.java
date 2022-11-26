@@ -45,6 +45,8 @@ public class Config {
     public static ForgeConfigSpec.IntValue CONVEY_BELT_3_TRANSMIT_SPEED;
     public static ForgeConfigSpec.IntValue HUGE_CONTAINER_SLOT;
     public static ForgeConfigSpec.IntValue HUGE_CONTAINER_SLOT_STACK;
+    public static ForgeConfigSpec.IntValue LASER_DRILL_ENERGY_CAP;
+    public static ForgeConfigSpec.IntValue LASER_DRILL_ENERGY_CONSUME;
 
     static {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
@@ -102,6 +104,8 @@ public class Config {
         builder.comment("other settings", "this part defines some other things").push("other");
         APPLE_JUICE_TIME = builder.comment("duration of apple juice(0.1-10)").defineInRange("apple_juice", 1.0d, 0.1d, 10.0d);
         LASER_DRILL_DAMAGE = builder.comment("laser drill damage(0-#)").defineInRange("laser_drill_damage", 7, 0, Integer.MAX_VALUE);
+        LASER_DRILL_ENERGY_CAP = builder.comment("laser drill energy cap(0-#)").defineInRange("laser_drill_energy", 131072, 0, Integer.MAX_VALUE);
+        LASER_DRILL_ENERGY_CONSUME = builder.comment("laser drill energy consume(0-#)").defineInRange("laser_drill_energy_consume", 2, 0, Integer.MAX_VALUE);
         builder.pop();
 
         CONFIG = builder.build();

@@ -136,7 +136,7 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
                             BlockState facingState = world.getBlockState(facingPos);
                             TileEntity facingTile = world.getTileEntity(facingPos);
                             //todo determine state
-                            if (facingState.getBlock() instanceof BlockConveyorBelt && facingState.get(FACING) == direction.getOpposite() || (facingTile != null && facingTile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()))) {
+                            if (facingState.getBlock() instanceof BlockConveyorBelt && facingState.get(FACING) == direction.getOpposite() || (facingTile != null && facingTile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).isPresent())) {
                                 switch (i) {
                                     case 1:
                                         left = true;
@@ -154,18 +154,18 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
 
                     }
                 }
-                EnumConveyorConnectState outState;
-                if (up) {
-                    outState = EnumConveyorConnectState.UP;
-                } else if (down) {
-                    outState = EnumConveyorConnectState.DOWN;
-                } else if (connect) {
-                    outState = EnumConveyorConnectState.CONNECTED;
-                } else {
-                    outState = EnumConveyorConnectState.NULL;
-                }
-                return getDefaultState().with(FACING, facing).with(OUT_STATE, outState).with(LEFT_STATE, left).with(RIGHT_STATE, right).with(BACK_STATE, back);
             }
+            EnumConveyorConnectState outState;
+            if (up) {
+                outState = EnumConveyorConnectState.UP;
+            } else if (down) {
+                outState = EnumConveyorConnectState.DOWN;
+            } else if (connect) {
+                outState = EnumConveyorConnectState.CONNECTED;
+            } else {
+                outState = EnumConveyorConnectState.NULL;
+            }
+            return getDefaultState().with(FACING, facing).with(OUT_STATE, outState).with(LEFT_STATE, left).with(RIGHT_STATE, right).with(BACK_STATE, back);
         }
 
         return super.getStateForPlacement(context);
