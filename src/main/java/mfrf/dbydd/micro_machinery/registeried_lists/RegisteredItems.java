@@ -38,7 +38,7 @@ public class RegisteredItems {
     //prospector
     public static final Item PROSPECTOR = new ToolProspector();
     //drill
-    public static final Item LASER_DRILL = new MMItemBase("laser_drill");
+    public static final Item LASER_DRILL = new ItemLaserDrill("laser_drill");
 
     //ingot
     public static final Item INGOT_COPPER = new MMItemBase("ingot_copper");
