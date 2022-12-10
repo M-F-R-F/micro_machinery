@@ -259,6 +259,7 @@ public class RegisteredItems {
     public static final Item FLYING_WHEEL_1 = new MMItemBase("flying_wheel_1");
     public static final Item FLYING_WHEEL_2 = new MMItemBase("flying_wheel_2");
     public static final Item FLYING_WHEEL_3 = new MMItemBase("flying_wheel_3");
+    public static final Item ADAPTER_CARD = new MMItemBase("adapter_card");
     public static final Item PIPE_BLOCKAGE = new MMItemBase("pipe_blockage");
 
     //battery
