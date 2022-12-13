@@ -91,30 +91,32 @@ public class ItemLaserDrill extends MMItemBase {
 
 
 //todo complete mine
-            }
-        } else {
-            for (double d = 0; d < dist; d += 0.2) {
-                Vec3d playerPositionVec = player.getPositionVec();
-                Vec3d partPos = playerPositionVec.add(hitVec.scale(d));
-                Vec3d speed = hitVec.scale(2.5);
-                world.addParticle(ParticleTypes.FLAME, partPos.x, partPos.y, partPos.z, speed.x, speed.y, speed.z);
-                double[] randPosOffs = random.doubles(30, 0.1, 0.3).toArray();
-                double[] randSpeedOffsets = random.doubles(30, 0, 0.5).toArray();
-                for (int i = 0; i < 10; i++) {
-                    world.addParticle(
-                            ParticleTypes.FLAME,
-                            true,
-                            partPos.x + randPosOffs[random.nextInt(30)],
-                            partPos.y + randPosOffs[random.nextInt(30)],
-                            partPos.z + randPosOffs[random.nextInt(30)],
-                            speed.x + randSpeedOffsets[random.nextInt(30)],
-                            speed.y + randSpeedOffsets[random.nextInt(30)],
-                            speed.z + randSpeedOffsets[random.nextInt(30)]);
+                for (double d = 0; d < dist; d += 0.2) {
+                    Vec3d playerPositionVec = player.getPositionVec();
+                    Vec3d partPos = playerPositionVec.add(hitVec.scale(d));
+                    Vec3d speed = hitVec.scale(0.1);
+                    world.addParticle(ParticleTypes.FLAME, partPos.x, partPos.y, partPos.z, speed.x, speed.y, speed.z);
+                    double[] randPosOffs = random.doubles(30, 0.1, 0.3).toArray();
+                    double[] randSpeedOffsets = random.doubles(30, 0, 0.5).toArray();
+                    for (int i = 0; i < 10; i++) {
+                        world.addParticle(
+                                ParticleTypes.FLAME,
+                                partPos.x + randPosOffs[random.nextInt(30)],
+                                partPos.y + 2 + randPosOffs[random.nextInt(30)],
+                                partPos.z + randPosOffs[random.nextInt(30)],
+//                            speed.x + randSpeedOffsets[random.nextInt(30)],
+//                            speed.y + randSpeedOffsets[random.nextInt(30)],
+//                            speed.z + randSpeedOffsets[random.nextInt(30)]
+                                0, 0, 0
+                        );
+                    }
                 }
             }
+        } else {
         }
         return super.onItemUse(context);
     }
+
 
     private double lookatEntity(PlayerEntity player, Entity entity, Double max) {
         Vec3d vec3d = player.getLook(1.0F).normalize();

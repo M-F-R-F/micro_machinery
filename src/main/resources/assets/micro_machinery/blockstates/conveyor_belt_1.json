@@ -1,78 +1,1234 @@
 {
-	"variants": {
-
-		"facing=north": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_core1"
-		},
-		"facing=east": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_core1",
-		  "y": 90
-		},
-		"facing=south": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_core1",
-		  "y": 180
-		},
-		"facing=west": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_core1",
-		  "y": 270
-		},
-
-		"facing=north,out_state=up": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_up1"
-		},
-		"facing=east,out_state=up": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_up1",
-		  "y": 90
-		},
-		"facing=south,out_state=up": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_up1",
-		  "y": 180
-		},
-		"facing=west,out_state=up": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_up1",
-		  "y": 270
-		},
-
-		"facing=north,out_state=down": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_down1"
-		},
-		"facing=east,out_state=down": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_down1",
-		  "y": 90
-		},
-		"facing=south,out_state=down": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_down1",
-		  "y": 180
-		},
-		"facing=west,out_state=down": {
-		  "model": "micro_machinery:block/pipe/conveyor_belt_down1",
-		  "y": 270
-		}
-	  },
-	"multipart": [
-		{   "when": { "left_state": "true"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_connect", "y": 90}
-		},
-		{   "when": { "back_state": "true"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_connect"}
-		},
-		{   "when": { "right_state": "true"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_connect", "y": 270}
-		},
-		{   "when": { "left_state": "false"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_null", "y": 90}
-		},
-		{   "when": { "back_state": "false"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_null"}
-		},
-		{   "when": { "right_state": "false"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_null", "y": 270}
-		},
-		{   "when": { "out_state": "blocked"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_blocked0"}
-		},
-		{   "when": { "out_state": "connected"},
-			"apply": { "model": "micro_machinery:block/pipe/conveyor_belt_blocked"}
-		}
-	]
+  "variants": {
+    "multipart": [
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "north"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 0
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 0
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null"
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "east"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 90
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 90
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "south"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 180
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 180
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "west"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 270
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 270
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "null",
+          "facing": "north"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 0
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_null",
+            "y": 180
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null"
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "null",
+          "facing": "east"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 90
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_null",
+            "y": 270
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "null",
+          "facing": "south"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 180
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_null",
+            "y": 0
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "null",
+          "facing": "west"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 270
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_null",
+            "y": 90
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "blocked",
+          "facing": "north"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 0
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked0",
+            "y": 0
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null"
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "blocked",
+          "facing": "east"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 90
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked0",
+            "y": 90
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "blocked",
+          "facing": "south"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 180
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked0",
+            "y": 180
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "blocked",
+          "facing": "west"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 270
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked0",
+            "y": 270
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "north"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 0
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 0
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null"
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "east"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 90
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 90
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "south"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 180
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 180
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 90
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 90
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "connected",
+          "facing": "west"
+        },
+        "apply": [
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_core1",
+            "y": 270
+          },
+          {
+            "model": "micro_machinery:block/pipe/conveyor_belt_blocked",
+            "y": 270
+          },
+          [
+            {
+              "when": {
+                "left_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "true"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_connect",
+                "y": 180
+              }
+            },
+            {
+              "when": {
+                "left_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 0
+              }
+            },
+            {
+              "when": {
+                "back_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 270
+              }
+            },
+            {
+              "when": {
+                "right_state": "false"
+              },
+              "apply": {
+                "model": "micro_machinery:block/pipe/conveyor_belt_null",
+                "y": 180
+              }
+            }
+          ]
+        ]
+      },
+      {
+        "when": {
+          "out_state": "up",
+          "facing": "north"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_up1",
+          "y": 0
+        }
+      },
+      {
+        "when": {
+          "out_state": "up",
+          "facing": "east"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_up1",
+          "y": 90
+        }
+      },
+      {
+        "when": {
+          "out_state": "up",
+          "facing": "south"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_up1",
+          "y": 180
+        }
+      },
+      {
+        "when": {
+          "out_state": "up",
+          "facing": "west"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_up1",
+          "y": 270
+        }
+      },
+      {
+        "when": {
+          "out_state": "down",
+          "facing": "north"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_down1",
+          "y": 0
+        }
+      },
+      {
+        "when": {
+          "out_state": "down",
+          "facing": "east"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_down1",
+          "y": 90
+        }
+      },
+      {
+        "when": {
+          "out_state": "down",
+          "facing": "south"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_down1",
+          "y": 180
+        }
+      },
+      {
+        "when": {
+          "out_state": "down",
+          "facing": "west"
+        },
+        "apply": {
+          "model": "micro_machinery:block/pipe/conveyor_belt_down1",
+          "y": 270
+        }
+      }
+    ]
+  }
 }
