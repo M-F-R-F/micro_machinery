@@ -107,14 +107,15 @@ public class ItemLaserDrill extends MMItemBase {
 //                            speed.x + randSpeedOffsets[random.nextInt(30)],
 //                            speed.y + randSpeedOffsets[random.nextInt(30)],
 //                            speed.z + randSpeedOffsets[random.nextInt(30)]
-                                0, 0, 0
+                                0, 0.5, 0
+                                //todo check particle
                         );
                     }
                 }
             }
         } else {
         }
-        return super.onItemUse(context);
+        return ActionResultType.SUCCESS;
     }
 
 

@@ -10,8 +10,8 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 public abstract class MMTileMultiBlockComponentInterface extends TileEntity {
-    private BlockPos mainPart = null;
-    private Vec3i key = Vec3i.NULL_VECTOR;
+    protected BlockPos mainPart = null;
+    protected Vec3i key = Vec3i.NULL_VECTOR;
 
     public MMTileMultiBlockComponentInterface(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);

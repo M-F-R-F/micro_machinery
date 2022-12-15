@@ -96,4 +96,6 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
     public void linkComponent(BlockPos pos, Vec3i key) {
         componentPoss.put(key, pos);
     }
+
+    public abstract void redstoneSignalChange(int changed, Vec3i key);
 }
