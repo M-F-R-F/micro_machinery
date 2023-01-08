@@ -1,0 +1,19 @@
+﻿{
+  "type": "micro_machinery:klin_item_to_fluid",
+  "isSingle": false,
+  "meltTime": 200,
+  "output": {
+    "fluidName": "micro_machinery:fluids/molten_bronze",
+    "amount": 576
+  },
+  "input": {
+    "input1": {
+      "tag": "forge:ingots/copper",
+      "count": 3
+    },
+    "input2": {
+      "tag": "forge:ingots/tin",
+      "count": 1
+    }
+  }
+}

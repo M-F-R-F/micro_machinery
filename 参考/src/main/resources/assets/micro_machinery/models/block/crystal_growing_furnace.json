@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/crystal_growing_furnace.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/crystal_growing_furnace"
+	},
+	"flip-v": true
+}

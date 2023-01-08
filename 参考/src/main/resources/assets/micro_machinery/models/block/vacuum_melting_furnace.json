@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/vacuum_melting_furnace.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/vacuum_melting_furnace"
+	},
+	"flip-v": true
+}

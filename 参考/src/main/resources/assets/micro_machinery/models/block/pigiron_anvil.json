@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/pigiron_anvil.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/pigiron_anvil"
+	},
+	"flip-v": true
+}

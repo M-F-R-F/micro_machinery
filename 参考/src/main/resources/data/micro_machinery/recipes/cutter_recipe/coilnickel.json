@@ -1,0 +1,14 @@
+{
+  "type": "micro_machinery:cutter_recipe",
+  "input_stack": {
+    "input": {
+      "item": "micro_machinery:coilnickel"
+    },
+    "count": 1
+  },
+  "output" : {
+    "item" : "micro_machinery:string_nickel",
+    "count" : 8
+  },
+  "tick_use" : 180
+}

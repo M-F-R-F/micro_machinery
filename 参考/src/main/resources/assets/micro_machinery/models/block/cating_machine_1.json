@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/cating_machine_1.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/cating_machine"
+	},
+	"flip-v": true
+}

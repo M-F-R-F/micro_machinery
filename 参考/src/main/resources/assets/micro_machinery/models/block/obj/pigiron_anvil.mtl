@@ -1,0 +1,6 @@
+# Model created by "hqyzsy"
+# www.blender.org
+
+newmtl Material
+
+map_Kd micro_machinery:obj/pigiron_anvil

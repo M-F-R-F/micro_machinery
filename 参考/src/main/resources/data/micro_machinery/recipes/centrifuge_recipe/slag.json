@@ -1,0 +1,28 @@
+{
+  "type": "micro_machinery:centrifuge_recipe",
+  "input_stack": {
+    "input": {
+      "item": "micro_machinery:slag"
+    },
+    "count": 1
+  },
+  "output": [
+    [
+      { "count": 1, "item": "micro_machinery:dust_iron", "probability": 7 },
+      { "count": 1, "item": "micro_machinery:dust_copper", "probability": 5 },
+      { "count": 1, "item": "micro_machinery:dust_tin", "probability": 5 },
+      { "count": 1, "item": "micro_machinery:dust_nickel", "probability": 3 },
+      { "count": 1, "item": "micro_machinery:dust_silver", "probability": 1 },
+      { "count": 1, "item": "micro_machinery:dust_gold", "probability": 1 },
+      { "count": 1, "item": "micro_machinery:dust_tungsten", "probability": 1 },
+      { "count": 1, "item": "micro_machinery:dust_manganese", "probability": 1 },
+      { "count": 1, "item": "micro_machinery:dust_chromium", "probability": 1 },
+      { "count": 1, "item": "micro_machinery:dust_cobalt", "probability": 1 },
+      { "count": 1, "item": "micro_machinery:dust_titanium", "probability": 2 },
+      { "count": 1, "item": "micro_machinery:dust_aluminum", "probability": 3 },
+      { "count": 1, "item": "micro_machinery:dust_carbon", "probability": 25 },
+      { "count": 1, "item": "minecraft:sand", "probability": 44 }
+    ]
+  ],
+  "time": 100
+}
