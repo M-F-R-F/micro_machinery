@@ -1,8 +1,0 @@
-{
-	"loader": "forge:obj",
-	"model": "micro_machinery:models/block/obj/continuous_cating.obj",
-	"textures": {
-		"particle": "micro_machinery:obj/continuous_cating"
-	},
-	"flip-v": true
-}

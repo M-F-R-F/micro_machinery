@@ -1,7 +1,0 @@
-{
-  "parent": "micro_machinery:block/pipe/pipe_connect",
-  "textures": {
-    "0": "micro_machinery:blocks/pipes/energy5_pipe",
-    "particle": "micro_machinery:blocks/pipes/energy5_pipe"
-  }
-}
