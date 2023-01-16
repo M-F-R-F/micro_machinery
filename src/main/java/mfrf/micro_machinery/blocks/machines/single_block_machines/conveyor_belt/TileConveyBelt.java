@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
@@ -7,9 +7,9 @@ import mfrf.dbydd.micro_machinery.utils.ItemContainer;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -78,7 +78,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
                     TileConveyBelt conveyBelt = (TileConveyBelt) tileEntity;
                     if (conveyBelt.array.notFull()) {
                         conveyBelt.array.receive(popped);
-                        conveyBelt.setChanged();
+                        conveyBelt.markDirty();
                     }
                 } else {
                     tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, out.getOpposite()).ifPresent(iItemHandler -> {
@@ -96,7 +96,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
                 }
             }
             array.tick();
-            setChanged();
+            markDirty();
         }
     }
 
@@ -125,21 +125,21 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
 
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
 //        array.deserializeNBT(compound.getCompound("array"));
         interval = compound.getInt("interval");
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT write = super.write(compound);
 //        write.put("array", array.serializeNBT());
         write.putInt("interval", interval);
         return write;
     }
 
-    public static class StackArray implements INBTSerializable<CompoundTag>, IItemHandler {
+    public static class StackArray implements INBTSerializable<CompoundNBT>, IItemHandler {
         private LinkedList<Stack> stacks = new LinkedList<>();
         private Supplier<Integer> max = () -> 0;
         private Supplier<Integer> time;
@@ -158,23 +158,23 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
         }
 
         @Override
-        public CompoundTag serializeNBT() {
-            CompoundTag CompoundTag = new CompoundTag();
-            CompoundTag.putInt("max", max.get());
+        public CompoundNBT serializeNBT() {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putInt("max", max.get());
 
-            ListTag listNBT = new ListTag();
+            ListNBT listNBT = new ListNBT();
             stacks.forEach(s -> listNBT.add(s.serializeNBT()));
-            CompoundTag.put("stacks", listNBT);
-            return CompoundTag;
+            compoundNBT.put("stacks", listNBT);
+            return compoundNBT;
         }
 
         @Override
-        public void deserializeNBT(CompoundTag nbt) {
+        public void deserializeNBT(CompoundNBT nbt) {
             int maxI = nbt.getInt("max");
             max = () -> maxI;
             for (INBT inbt : nbt.getList("stacks", Constants.NBT.TAG_COMPOUND)) {
                 Stack stack = new Stack();
-                stack.deserializeNBT((CompoundTag) inbt);
+                stack.deserializeNBT((CompoundNBT) inbt);
                 stacks.add(stack);
             }
 
@@ -298,7 +298,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
             return true;
         }
 
-        public class Stack implements INBTSerializable<CompoundTag> {
+        public class Stack implements INBTSerializable<CompoundNBT> {
             private ItemStack stack = ItemStack.EMPTY;
             private int time = 0;
 
@@ -332,17 +332,17 @@ public class TileConveyBelt extends MMTileBase implements ITickableTileEntity {
             }
 
             @Override
-            public CompoundTag serializeNBT() {
-                CompoundTag CompoundTag = new CompoundTag();
-                CompoundTag stack = this.stack.serializeNBT();
-                CompoundTag.put("stack", stack);
-                CompoundTag.putInt("time", time);
-                return CompoundTag;
+            public CompoundNBT serializeNBT() {
+                CompoundNBT compoundNBT = new CompoundNBT();
+                CompoundNBT stack = this.stack.serializeNBT();
+                compoundNBT.put("stack", stack);
+                compoundNBT.putInt("time", time);
+                return compoundNBT;
             }
 
             @Override
-            public void deserializeNBT(CompoundTag nbt) {
-                stack = ItemStack.of(nbt.getCompound("stack"));
+            public void deserializeNBT(CompoundNBT nbt) {
+                stack = ItemStack.read(nbt.getCompound("stack"));
                 time = nbt.getInt("time");
             }
         }

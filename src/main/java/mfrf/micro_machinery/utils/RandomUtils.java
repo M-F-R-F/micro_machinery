@@ -1,9 +1,9 @@
-package mfrf.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +45,7 @@ public class RandomUtils {
             this.right = right;
         }
 
-        public RangeI(CompoundTag nbt) {
+        public RangeI(CompoundNBT nbt) {
             left = nbt.getInt("l");
             right = nbt.getInt("r");
         }
@@ -54,11 +54,11 @@ public class RandomUtils {
             return left <= i && i < right;
         }
 
-        public CompoundTag toNbt() {
-            CompoundTag CompoundTag = new CompoundTag();
-            CompoundTag.putInt("l", left);
-            CompoundTag.putInt("r", right);
-            return CompoundTag;
+        public CompoundNBT toNbt() {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.putInt("l", left);
+            compoundNBT.putInt("r", right);
+            return compoundNBT;
         }
     }
 

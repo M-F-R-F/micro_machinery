@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.huge_container;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.huge_container;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
@@ -7,7 +7,7 @@ import mfrf.dbydd.micro_machinery.utils.HugeItemContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps.MultiBlockPosBox;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,13 +21,13 @@ public class TileHugeContainer extends MMMultiBlockTileMainPartBase {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
 
         return super.write(compound);
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
 
     }

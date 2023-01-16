@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.blast_furnace;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.blast_furnace;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
@@ -15,7 +15,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -37,26 +37,26 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.putBoolean("is_burning", burning);
         compound.put("items", itemHandler.serializeNBT());
         compound.put("progress", progressContainer.serializeNBT());
         compound.put("heat", heatHandler.serializeNBT());
         if (output != ItemStack.EMPTY) {
-            compound.put("output", output.write(new CompoundTag()));
+            compound.put("output", output.write(new CompoundNBT()));
         }
         return super.write(compound);
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         burning = compound.getBoolean("is_burning");
         itemHandler.deserializeNBT(compound.getCompound("items"));
         progressContainer.deserializeNBT(compound.getCompound("progress"));
         heatHandler.deserializeNBT(compound.getCompound("heat"));
         if (compound.contains("output")) {
-            output = ItemStack.of(compound.getCompound("output"));
+            output = ItemStack.read(compound.getCompound("output"));
         }
     }
 
@@ -76,7 +76,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
 
             if (!heatHandler.atMinValue()) {
                 heatHandler.selfSubtract();
-                setChanged();
+                markDirty();
             }
 
             if (!progressContainer.atMinValue() && output != ItemStack.EMPTY) {
@@ -87,18 +87,18 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
                         heatHandler.selfSubtract();
                         progressContainer.selfAdd();
                     }
-                    setChanged();
+                    markDirty();
                 } else {
                     progressContainer.selfAdd();
                 }
-                setChanged();
+                markDirty();
 
                 if (progressContainer.atMaxValue()) {
                     if (itemHandler.insertItem(2, output, true) == ItemStack.EMPTY) {
                         itemHandler.insertItem(2, output, false);
                         output = ItemStack.EMPTY;
                         progressContainer.resetValue();
-                        setChanged();
+                        markDirty();
                     }
                 }
             } else {
@@ -109,7 +109,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
                     output = blastFurnaceRecipe.getOutput();
                     progressContainer.setCurrent(0);
                     progressContainer.setMax(blastFurnaceRecipe.getCookTime());
-                    setChanged();
+                    markDirty();
                 }
             }
 
@@ -123,7 +123,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
             heatHandler.setMax(burnTime);
             heatHandler.setCurrent(burnTime);
             itemHandler.extractItem(1, 1, false);
-            setChanged();
+            markDirty();
             return true;
         } else
             return false;

@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
 import net.minecraft.block.Block;

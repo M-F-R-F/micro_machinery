@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.utils;
 
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;

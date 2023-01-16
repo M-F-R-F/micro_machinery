@@ -1,14 +1,14 @@
-package mfrf.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.utils;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag> {
+public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT> {
     private Slot[] slots;
 
     public HugeItemContainer(int size, IntegerContainer slotStackSize) {
@@ -27,7 +27,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
     @Override
     public ItemStack getStackInSlot(int slot) {
         Slot slotInstance = slots[slot];
-        ItemStack itemStack = ItemStack.of(slotInstance.itemStack);
+        ItemStack itemStack = ItemStack.read(slotInstance.itemStack);
         itemStack.setCount(slotInstance.size.getCurrent());
         return itemStack;
     }
@@ -55,8 +55,8 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
     }
 
     @Override
-    public ListTag serializeNBT() {
-        ListTag inbts = new ListTag();
+    public ListNBT serializeNBT() {
+        ListNBT inbts = new ListNBT();
         for (Slot slot : slots) {
             inbts.add(slot.serializeNBT());
         }
@@ -64,7 +64,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
     }
 
     @Override
-    public void deserializeNBT(ListTag nbt) {
+    public void deserializeNBT(ListNBT nbt) {
         int size = nbt.size();
         if (slots.length < size) {
             slots = new Slot[size];
@@ -75,8 +75,8 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
     }
 
 
-    private class Slot implements INBTSerializable<CompoundTag> {
-        private CompoundTag itemStack = new CompoundTag();
+    private class Slot implements INBTSerializable<CompoundNBT> {
+        private CompoundNBT itemStack = new CompoundNBT();
         private IntegerContainer size = new IntegerContainer();
 
         public Slot(ItemStack itemStack, IntegerContainer size) {
@@ -89,7 +89,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
             itemStack = ItemStack.EMPTY.getTag();
         }
 
-        public Slot(CompoundTag nbt) {
+        public Slot(CompoundNBT nbt) {
             this.deserializeNBT(nbt);
         }
 
@@ -98,7 +98,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
          * @return same as ItemHandler, the remains.
          */
         public ItemStack insert(ItemStack stackToInsert, boolean simulate) {
-            ItemStack currentStack = ItemStack.of(itemStack);
+            ItemStack currentStack = ItemStack.read(itemStack);
             ItemStack copied = stackToInsert.copy();
             copied.setCount(1);
             if (currentStack.isEmpty()) {
@@ -129,7 +129,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
          * @return actual extracted
          */
         public ItemStack extract(int count, boolean simulate) {
-            ItemStack currentStack = ItemStack.of(itemStack);
+            ItemStack currentStack = ItemStack.read(itemStack);
             if (!currentStack.isEmpty()) {
                 ItemStack copy = currentStack.copy();
                 int minus = size.minus(count, simulate);
@@ -145,7 +145,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
             return ItemStack.EMPTY;
         }
 
-        public CompoundTag getItemStack() {
+        public CompoundNBT getItemStack() {
             return itemStack;
         }
 
@@ -154,15 +154,15 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
         }
 
         @Override
-        public CompoundTag serializeNBT() {
-            CompoundTag CompoundTag = new CompoundTag();
-            CompoundTag.put("item", itemStack);
-            CompoundTag.put("integer_container", size.serializeNBT());
-            return CompoundTag;
+        public CompoundNBT serializeNBT() {
+            CompoundNBT compoundNBT = new CompoundNBT();
+            compoundNBT.put("item", itemStack);
+            compoundNBT.put("integer_container", size.serializeNBT());
+            return compoundNBT;
         }
 
         @Override
-        public void deserializeNBT(CompoundTag nbt) {
+        public void deserializeNBT(CompoundNBT nbt) {
             itemStack = nbt.getCompound("item");
             size.deserializeNBT(nbt);
         }

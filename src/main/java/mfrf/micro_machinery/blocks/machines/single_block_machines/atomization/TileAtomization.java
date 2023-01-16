@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.atomization;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -41,13 +41,13 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.extractEnergy(maxExtract, simulate);
         }
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.receiveEnergy(maxReceive, simulate);
         }
 
@@ -85,7 +85,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
 
                 if (feContainer.selfSubtract() != -1) {
                     progress.selfAdd();
-                    setChanged();
+                    markDirty();
                 }
 
                 if (progress.atMaxValue()) {
@@ -100,7 +100,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
                         } else {
                             progress.selfSubtract();
                         }
-                        setChanged();
+                        markDirty();
                     });
                 }
             } else {
@@ -111,7 +111,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
                         this.progress.setMax(atomizationRecipe.time);
                         this.isWorking = true;
                         this.recipe = atomizationRecipe.getId();
-                        setChanged();
+                        markDirty();
                     }
                 }
             }
@@ -140,21 +140,21 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag CompoundTag = super.write(compound);
-        CompoundTag.put("fe_container", feContainer.serializeNBT());
-        CompoundTag.put("input", input.writeToNBT(new CompoundTag()));
-        CompoundTag.put("output", output.serializeNBT());
-        CompoundTag.putBoolean("is_working", isWorking);
-        CompoundTag.put("progress", progress.serializeNBT());
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT compoundNBT = super.write(compound);
+        compoundNBT.put("fe_container", feContainer.serializeNBT());
+        compoundNBT.put("input", input.writeToNBT(new CompoundNBT()));
+        compoundNBT.put("output", output.serializeNBT());
+        compoundNBT.putBoolean("is_working", isWorking);
+        compoundNBT.put("progress", progress.serializeNBT());
         if (recipe != null) {
-            CompoundTag.putString("recipe", recipe.toString());
+            compoundNBT.putString("recipe", recipe.toString());
         }
-        return CompoundTag;
+        return compoundNBT;
     }
 
     @Override
-    public void read(CompoundTag nbt) {
+    public void read(CompoundNBT nbt) {
         super.read(nbt);
         feContainer.deserializeNBT(nbt.getCompound("fe_container"));
         input.readFromNBT(nbt.getCompound("input"));

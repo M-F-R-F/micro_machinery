@@ -1,23 +1,20 @@
-package mfrf.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.utils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import mfrf.dbydd.micro_machinery.Micro_Machinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
-import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.util.JsonUtils;
+import net.minecraft.resources.IResource;
+import net.minecraft.util.Direction;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
@@ -37,10 +34,8 @@ public class DeprecatedMultiBlockStructureMaps {
         STRUCTURE_MAPS = new HashMap<>();
         try {
             for (String name : NAMES) {
-                Resource resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(MicroMachinery.MODID, "structures/old_system/" + name + ".json"));
-                InputStreamReader inputStreamReader = new InputStreamReader(resource.getInputStream());
-                JsonObject asJsonObject = JsonParser.parseReader(inputStreamReader).getAsJsonObject();
-                STRUCTURE_MAPS.put(name, MultiBlockPosBox.readJson(asJsonObject));
+                IResource resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(Micro_Machinery.NAME, "structures/old_system/" + name + ".json"));
+                STRUCTURE_MAPS.put(name, MultiBlockPosBox.readJson(JSONUtils.fromJson(new InputStreamReader(resource.getInputStream()))));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,7 +61,7 @@ public class DeprecatedMultiBlockStructureMaps {
 
         public static MultiBlockPosBox readJson(JsonObject jsonObject) {
 
-            JsonArray blockNodeList = JsonUtils.getJsonArray(jsonObject, "block_node_list");
+            JsonArray blockNodeList = JSONUtils.getJsonArray(jsonObject, "block_node_list");
 
             HashMap<String, AccessoryNode> accessoryArrayList = new HashMap<>();
             ArrayList<BlockNode> blockNodes = new ArrayList<>();
@@ -105,10 +100,10 @@ public class DeprecatedMultiBlockStructureMaps {
             return json;
         }
 
-        public boolean matchAll(BlockPos pos, Level world) {
+        public boolean matchAll(BlockPos pos, World world) {
 
             for (BlockNode blockNode : blockNodes) {
-                BlockPos blockPos = pos.offset(blockNode.pos);
+                BlockPos blockPos = pos.add(blockNode.pos);
                 if (blockNode instanceof AccessoryNode) {
                     AccessoryNode node = (AccessoryNode) blockNode;
                     if (!node.test(world.getBlockState(blockPos))) {
@@ -122,7 +117,7 @@ public class DeprecatedMultiBlockStructureMaps {
             return true;
         }
 
-        public MultiBlockPosBox rotateTo(Direction direction) {
+        public DeprecatedMultiBlockStructureMaps.MultiBlockPosBox rotateTo(Direction direction) {
             ArrayList<BlockNode> blockNodes = new ArrayList<>();
             HashMap<String, AccessoryNode> accessories = new HashMap<>();
 
@@ -146,7 +141,7 @@ public class DeprecatedMultiBlockStructureMaps {
             }
 
             public static BlockNode fromJsonObject(JsonObject jsonObject) {
-                return new BlockNode(MathUtil.getPosFromJsonObject(jsonObject), ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryParse(jsonObject.get("block").getAsString())));
+                return new BlockNode(MathUtil.getPosFromJsonObject(jsonObject), ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(jsonObject.get("block").getAsString())));
             }
 
             public Vec3i getPos() {
@@ -243,7 +238,7 @@ public class DeprecatedMultiBlockStructureMaps {
             }
 
             public boolean test(BlockState blockState) {
-                return blockState.getBlock() == block && blockState.getValue(BlockAccessoryPlaceHolder.FACING) == direction;
+                return blockState.getBlock() == block && blockState.get(BlockAccessoryPlaceHolder.FACING) == direction;
             }
         }
 

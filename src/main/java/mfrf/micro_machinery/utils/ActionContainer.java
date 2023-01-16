@@ -1,10 +1,10 @@
-package mfrf.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.utils;
 
-import mfrf.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
-import net.minecraft.nbt.CompoundTag;
+import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class ActionContainer implements INBTSerializable<CompoundTag> {
+public class ActionContainer implements INBTSerializable<CompoundNBT> {
     private TileLathe.Action[] actionQueue = new TileLathe.Action[3];
     private int count = 0;
 
@@ -43,20 +43,20 @@ public class ActionContainer implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag CompoundTag = new CompoundTag();
+    public CompoundNBT serializeNBT() {
+        CompoundNBT compoundNBT = new CompoundNBT();
         for (int i = 0; i < 3; i++) {
             TileLathe.Action poll = actionQueue[i];
             if(poll != null) {
-                CompoundTag.putString("action" + i,poll.name());
+                compoundNBT.putString("action" + i,poll.name());
             }
         }
-        CompoundTag.putInt("count", count);
-        return CompoundTag;
+        compoundNBT.putInt("count", count);
+        return compoundNBT;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
         this.count = nbt.getInt("count");
         for (int i = 0; i < count; i++) {
             String s = "action" + i;

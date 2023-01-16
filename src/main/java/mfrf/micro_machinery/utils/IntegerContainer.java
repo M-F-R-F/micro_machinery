@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.utils;
 
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.IIntArray;
 
 public class IntegerContainer {
@@ -42,16 +42,16 @@ public class IntegerContainer {
         this.max = max;
     }
 
-    public CompoundTag serializeNBT() {
-        CompoundTag CompoundTag = new CompoundTag();
-        CompoundTag.putInt("min", min);
-        CompoundTag.putInt("max", max);
-        CompoundTag.putInt("current", current);
-        return CompoundTag;
+    public CompoundNBT serializeNBT() {
+        CompoundNBT compoundNBT = new CompoundNBT();
+        compoundNBT.putInt("min", min);
+        compoundNBT.putInt("max", max);
+        compoundNBT.putInt("current", current);
+        return compoundNBT;
     }
 
     //in purpose of change config
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
         this.current = nbt.getInt("current");
         this.max = Math.max(nbt.getInt("max"), max);
         this.min = Math.min(nbt.getInt("min"), min);
@@ -155,41 +155,41 @@ public class IntegerContainer {
         return current - min;
     }
 
-//    public IIntArray toIntArray() {
-//        return new IIntArray() {
-//            @Override
-//            public int get(int index) {
-//                switch (index) {
-//                    case 0:
-//                        return min;
-//                    case 1:
-//                        return max;
-//                    case 2:
-//                        return current;
-//                }
-//                return 0;
-//            }
-//
-//            @Override
-//            public void set(int index, int value) {
-//                switch (index) {
-//                    case 0:
-//                        setMin(value);
-//                        break;
-//                    case 1:
-//                        setMax(value);
-//                        break;
-//                    case 2:
-//                        add(value, false);
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public int size() {
-//                return 3;
-//            }
-//        };
-//    }
+    public IIntArray toIntArray() {
+        return new IIntArray() {
+            @Override
+            public int get(int index) {
+                switch (index) {
+                    case 0:
+                        return min;
+                    case 1:
+                        return max;
+                    case 2:
+                        return current;
+                }
+                return 0;
+            }
+
+            @Override
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0:
+                        setMin(value);
+                        break;
+                    case 1:
+                        setMax(value);
+                        break;
+                    case 2:
+                        add(value, false);
+                        break;
+                }
+            }
+
+            @Override
+            public int size() {
+                return 3;
+            }
+        };
+    }
 
 }

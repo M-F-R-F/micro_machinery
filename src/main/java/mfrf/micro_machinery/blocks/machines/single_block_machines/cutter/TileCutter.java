@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.cutter;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.cutter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.cutter.CutterContainer;
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
@@ -51,13 +51,13 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.receiveEnergy(maxReceive, simulate);
         }
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.extractEnergy(maxExtract, simulate);
         }
     };
@@ -87,26 +87,26 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
     }
 
     @Override
-    public CompoundTag write(CompoundTag CompoundTag) {
-        CompoundTag.put("saw_blade", sawBladeHandler.serializeNBT());
-        CompoundTag.put("item_handler", itemHandler.serializeNBT());
-        CompoundTag.put("progress", progress.serializeNBT());
-        CompoundTag.put("energy", energyContainer.serializeNBT());
+    public CompoundNBT write(CompoundNBT compoundNBT) {
+        compoundNBT.put("saw_blade", sawBladeHandler.serializeNBT());
+        compoundNBT.put("item_handler", itemHandler.serializeNBT());
+        compoundNBT.put("progress", progress.serializeNBT());
+        compoundNBT.put("energy", energyContainer.serializeNBT());
         if (!result.isEmpty()) {
-            CompoundTag.put("result", result.serializeNBT());
+            compoundNBT.put("result", result.serializeNBT());
         }
-        return super.write(CompoundTag);
+        return super.write(compoundNBT);
     }
 
     @Override
-    public void read(CompoundTag CompoundTag) {
-        super.read(CompoundTag);
-        sawBladeHandler.deserializeNBT(CompoundTag.getCompound("saw_blade"));
-        itemHandler.deserializeNBT(CompoundTag.getCompound("item_handler"));
-        progress.deserializeNBT(CompoundTag.getCompound("progress"));
-        energyContainer.deserializeNBT(CompoundTag.getCompound("energy"));
-        if (CompoundTag.contains("result")) {
-            result = ItemStack.of(CompoundTag.getCompound("result"));
+    public void read(CompoundNBT compoundNBT) {
+        super.read(compoundNBT);
+        sawBladeHandler.deserializeNBT(compoundNBT.getCompound("saw_blade"));
+        itemHandler.deserializeNBT(compoundNBT.getCompound("item_handler"));
+        progress.deserializeNBT(compoundNBT.getCompound("progress"));
+        energyContainer.deserializeNBT(compoundNBT.getCompound("energy"));
+        if (compoundNBT.contains("result")) {
+            result = ItemStack.read(compoundNBT.getCompound("result"));
         }
     }
 
@@ -126,12 +126,12 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
                         progress.selfSubtract();
                     }
 
-                    setChanged2();
+                    markDirty2();
                 } else {
 
                     if (energyContainer.selfSubtract() == 128) {
                         progress.selfAdd();
-                        setChanged2();
+                        markDirty2();
                     }
 
                 }
@@ -143,7 +143,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
                     result = cutterRecipe.getOutput().copy();
                     itemHandler.getStackInSlot(0).shrink(cutterRecipe.getInput().getCount());
                     world.setBlockState(pos, world.getBlockState(pos).with(BlockCutter.WORKING, true));
-                    setChanged();
+                    markDirty();
                     //todo gui
                 }
             }

@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.electrolysis;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.electrolysis;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisContainer;
@@ -12,7 +12,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
@@ -31,13 +31,13 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     private FEContainer energy = new FEContainer(0, 120000) {
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.extractEnergy(maxExtract, simulate);
         }
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.receiveEnergy(maxReceive, simulate);
         }
 
@@ -90,7 +90,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         items.deserializeNBT(compound.getCompound("item"));
         energy.deserializeNBT(compound.getCompound("energy"));
         isWorking = compound.getBoolean("is_working");
@@ -98,13 +98,13 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
             progress = new IntegerContainer();
             progress.deserializeNBT(compound.getCompound("progress"));
         }
-        result = ItemStack.of(compound.getCompound("result"));
+        result = ItemStack.read(compound.getCompound("result"));
         super.read(compound);
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT write = super.write(compound);
         write.put("item", items.serializeNBT());
         write.put("energy", energy.serializeNBT());
         write.putBoolean("is_working", isWorking);
@@ -123,7 +123,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
                     if (energy.getCurrent() >= 1024) {
                         energy.selfSubtract();
                         progress.selfAdd();
-                        setChanged2();
+                        markDirty2();
                     }
                 } else {
                     if (items.insertItem(Slot.OUTPUT.index, result, true) == ItemStack.EMPTY) {
@@ -131,7 +131,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
                         result = ItemStack.EMPTY;
                         progress.resetValue();
                         isWorking = false;
-                        setChanged2();
+                        markDirty2();
                     }
                 }
             } else {
@@ -140,7 +140,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
                     result = electrolysisRecipe.getOutput();
                     progress = new IntegerContainer(0, electrolysisRecipe.getTime());
                     isWorking = true;
-                    setChanged2();
+                    markDirty2();
                 }
             }
 //        }
@@ -162,7 +162,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
         if (slot == Slot.OUTPUT.index) return stack;
         ItemStack itemStack = items.insertItem(slot, stack, simulate);
-        setChanged();
+        markDirty();
         return itemStack;
     }
 
@@ -171,7 +171,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (slot == Slot.INPUT.index) return ItemStack.EMPTY;
         ItemStack itemStack = items.extractItem(slot, amount, simulate);
-        setChanged();
+        markDirty();
         return itemStack;
     }
 

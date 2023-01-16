@@ -1,9 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.weld;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.weld;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;
-import net.minecraft.core.BlockPos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -14,8 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -43,10 +39,5 @@ public class BlockWeld extends MMBlockTileProviderBase {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new TileWeld();
-    }
-
-    @Override
-    public @org.jetbrains.annotations.Nullable BlockEntity newBlockEntity(BlockPos p_153215_, BlockState p_153216_) {
-        return null;
     }
 }

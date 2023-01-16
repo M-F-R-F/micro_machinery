@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.weld;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.weld;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.weld.WeldContainer;
@@ -12,7 +12,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
@@ -43,20 +43,20 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            setChanged();
+            markDirty();
             return super.receiveEnergy(maxReceive, simulate);
         }
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
-            setChanged();
+            markDirty();
             return super.extractEnergy(maxExtract, simulate);
         }
 
         @Override
         public int selfSubtract() {
             int minus = this.minus(80, false);
-            setChanged();
+            markDirty();
             return minus;
         }
 
@@ -75,7 +75,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
 
             if (isWorking) {
                 progress.selfAdd();
-                setChanged();
+                markDirty();
             } else {
                 RecipeHelper.weldRecipeAndShrinkItemStacks weldRecipeAndShrinkItemStacks = RecipeHelper.getWeldRecipe(world.getRecipeManager(), input);
                 if (weldRecipeAndShrinkItemStacks != null) {
@@ -87,7 +87,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
                     for (int i = 0; i < shrinkCounts.length; i++) {
                         input.extractItem(i, shrinkCounts[i], false);
                     }
-                    setChanged();
+                    markDirty();
                 }
             }
 
@@ -97,7 +97,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
                 result = ItemStack.EMPTY;
                 progress.resetValue();
                 isWorking = false;
-                setChanged();
+                markDirty();
             }
 
 
@@ -105,7 +105,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         input.deserializeNBT(compound.getCompound("input"));
         output.deserializeNBT(compound.getCompound("output"));
@@ -113,13 +113,13 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
         feContainer.deserializeNBT(compound.getCompound("fe_container"));
         isWorking = compound.getBoolean("is_working");
         if (compound.contains("result")) {
-            result = ItemStack.of(compound.getCompound("result"));
+            result = ItemStack.read(compound.getCompound("result"));
         }
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT write = super.write(compound);
         write.put("input", input.serializeNBT());
         write.put("output", output.serializeNBT());
         write.put("progress", progress.serializeNBT());

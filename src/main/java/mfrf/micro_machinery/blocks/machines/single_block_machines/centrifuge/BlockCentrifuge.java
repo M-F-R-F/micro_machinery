@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;

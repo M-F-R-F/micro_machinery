@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.klin;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.klin.KlinContainer;
@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -80,7 +80,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         this.fluidHandler.readFromNBT(compound.getCompound("fluidhandler"));
         this.itemhandler.deserializeNBT(compound.getCompound("itemhandler"));
         this.result = FluidStack.loadFluidStackFromNBT(compound.getCompound("result"));
@@ -96,10 +96,10 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.put("fluidhandler", fluidHandler.writeToNBT(new CompoundTag()));
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.put("fluidhandler", fluidHandler.writeToNBT(new CompoundNBT()));
         compound.put("itemhandler", itemhandler.serializeNBT());
-        compound.put("result", result.writeToNBT(new CompoundTag()));
+        compound.put("result", result.writeToNBT(new CompoundNBT()));
         compound.putInt("melttime", meltTime);
         compound.putInt("currentmeltime", currentMeltTime);
         compound.putInt("currentburntime", currentBurnTime);
@@ -169,24 +169,24 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                 if (issmelting()) {
                     currentMeltTime++;
                     if (currentMeltTime >= meltTime) {
-                        if (fluidHandler.fill(result, FluidAction.SIMULATE) == result.getAmount()) {
-                            this.fluidHandler.fill(result, FluidAction.EXECUTE);
+                        if (fluidHandler.fill(result, IFluidHandler.FluidAction.SIMULATE) == result.getAmount()) {
+                            this.fluidHandler.fill(result, IFluidHandler.FluidAction.EXECUTE);
                             result = FluidStack.EMPTY;
                             currentMeltTime = 0;
-                            setChanged2();
+                            markDirty2();
                         } else {
                             currentMeltTime--;
-                            setChanged2();
+                            markDirty2();
                         }
-                        setChanged2();
+                        markDirty2();
                     }
                 } else {
                     KlinItemToFluidRecipe recipeinsmelting = tryToGetRecipe();
-                    if (recipeinsmelting != null && fluidHandler.fill(recipeinsmelting.getOutputfluidstack(), FluidAction.SIMULATE) == recipeinsmelting.getOutputfluidstack().getAmount()) {
+                    if (recipeinsmelting != null && fluidHandler.fill(recipeinsmelting.getOutputfluidstack(), IFluidHandler.FluidAction.SIMULATE) == recipeinsmelting.getOutputfluidstack().getAmount()) {
                         this.result = recipeinsmelting.getOutputfluidstack();
                         this.meltTime = recipeinsmelting.getMelttime();
                         extractMaterial(recipeinsmelting);
-                        setChanged2();
+                        markDirty2();
                     }
                 }
                 if (currentBurnTime >= maxBurnTime) {
@@ -194,13 +194,13 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                     maxBurnTime = 0;
                     isBurning = false;
                     BlockKlin.setState(isBurning, world, this.getPos());
-                    setChanged2();
+                    markDirty2();
                 }
             } else {
                 if (tryToGetRecipe() != null) {
                     tryToExtractFuel(this.itemhandler, 2);
                 }
-                setChanged2();
+                markDirty2();
             }
 
             if (recipe == null) {
@@ -209,22 +209,22 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
                     if (recipe != null) {
                         pouringCoolDown = recipe.getCooldown();
                     }
-                    setChanged2();
+                    markDirty2();
                 }
             } else if (currentcooldown < pouringCoolDown && this.isBurning()) {
                 currentcooldown++;
-                setChanged2();
+                markDirty2();
             } else {
                 if (RecipeHelper.canInsert(itemhandler.getStackInSlot(3), recipe.getOutput())) {
                     insertResult(3, recipe.getOutput());
-                    fluidHandler.drain(recipe.getInputfluid(), FluidAction.EXECUTE);
+                    fluidHandler.drain(recipe.getInputfluid(), IFluidHandler.FluidAction.EXECUTE);
                     currentcooldown = 0;
                     pouringCoolDown = 0;
                     recipe = null;
-                    setChanged2();
+                    markDirty2();
                 } else {
                     currentcooldown--;
-                    setChanged2();
+                    markDirty2();
                 }
             }
         }
@@ -245,7 +245,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     @Override
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
         ItemStack itemStack = itemhandler.insertItem(slot, stack, simulate);
-        setChanged2();
+        markDirty2();
         return itemStack;
     }
 
@@ -253,7 +253,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         ItemStack itemStack = itemhandler.extractItem(slot, amount, simulate);
-        setChanged2();
+        markDirty2();
         return itemStack;
     }
 
@@ -292,7 +292,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     @Override
     public int fill(FluidStack resource, FluidAction action) {
         int fill = fluidHandler.fill(resource, action);
-        setChanged2();
+        markDirty2();
         return fill;
     }
 
@@ -300,7 +300,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     @Override
     public FluidStack drain(FluidStack resource, FluidAction action) {
         FluidStack drain = fluidHandler.drain(resource, action);
-        setChanged2();
+        markDirty2();
         return drain;
     }
 
@@ -308,7 +308,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     @Override
     public FluidStack drain(int maxDrain, FluidAction action) {
         FluidStack drain = fluidHandler.drain(maxDrain, action);
-        setChanged2();
+        markDirty2();
         return drain;
     }
 

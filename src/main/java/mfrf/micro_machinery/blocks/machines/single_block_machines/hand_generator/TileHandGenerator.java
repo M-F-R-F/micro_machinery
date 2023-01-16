@@ -1,10 +1,10 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.hand_generator;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -42,14 +42,14 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         container.deserializeNBT(compound.getCompound("energy_container"));
         progress.deserializeNBT(compound.getCompound("progress"));
         super.read(compound);
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.put("energy_container", container.serializeNBT());
         compound.put("progress", progress.serializeNBT());
         return super.write(compound);
@@ -71,9 +71,9 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
             if (outPutDirection != null) {
                 container = pushEnergyToDirection(outPutDirection, container);
                 progress.selfAdd();
-                setChanged2();
+                markDirty2();
             }
-            setChanged2();
+            markDirty2();
         }
     }
 
@@ -82,12 +82,12 @@ public class TileHandGenerator extends MMTileBase implements ITickableTileEntity
         if (!world.isRemote()) {
             if (!progress.atMinValue()) {
                 progress.selfAdd();
-                setChanged2();
+                markDirty2();
             }
 
             if (progress.atMaxValue()) {
                 progress = new IntegerContainer(0, 40);
-                setChanged2();
+                markDirty2();
             }
         }
     }

@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;

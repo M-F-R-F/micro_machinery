@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.TilePlaceHolder;
@@ -7,7 +7,7 @@ import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps.MultiB
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -18,7 +18,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
 public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
-    protected CompoundTag compoundBlockReplaced = null;
+    protected CompoundNBT compoundBlockReplaced = null;
     protected boolean breaking = false;
 
     public MMMultiBlockTileMainPartBase(TileEntityType<?> tileEntityTypeIn) {
@@ -26,7 +26,7 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         if (compoundBlockReplaced != null) {
             compound.put("tile_replaced", compoundBlockReplaced);
         }
@@ -34,7 +34,7 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         if (compound.contains("tile_replaced")) {
             compoundBlockReplaced = compound.getCompound("tile_replaced");
@@ -55,10 +55,10 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
                     BlockPos blockPos = this.pos.add(blocknode.getPos());
                     TileEntity tileEntity = world.getTileEntity(blockPos);
                     if (tileEntity instanceof TilePlaceHolder) {
-                        CompoundTag CompoundTag = ((TilePlaceHolder) tileEntity).getPackedNBT();
-                        world.setBlockState(blockPos, NBTUtil.readBlockState(CompoundTag.getCompound("block_state_nbt")), 3);
-                        if (CompoundTag.contains("tile_packaged")) {
-                            world.getTileEntity(blockPos).read(CompoundTag.getCompound("tile_packaged"));
+                        CompoundNBT compoundNBT = ((TilePlaceHolder) tileEntity).getPackedNBT();
+                        world.setBlockState(blockPos, NBTUtil.readBlockState(compoundNBT.getCompound("block_state_nbt")), 3);
+                        if (compoundNBT.contains("tile_packaged")) {
+                            world.getTileEntity(blockPos).read(compoundNBT.getCompound("tile_packaged"));
                         }
                     }
                 }
@@ -77,8 +77,8 @@ public abstract class MMMultiBlockTileMainPartBase extends MMTileBase {
 //
 //    }
 
-    public void saveBlockBeenReplaced(CompoundTag CompoundTag) {
-        compoundBlockReplaced = CompoundTag;
+    public void saveBlockBeenReplaced(CompoundNBT compoundNBT) {
+        compoundBlockReplaced = compoundNBT;
     }
 
     public abstract <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side, BlockPos pos);

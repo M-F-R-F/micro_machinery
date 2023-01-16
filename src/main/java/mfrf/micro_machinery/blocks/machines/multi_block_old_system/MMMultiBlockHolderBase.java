@@ -1,8 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.BooleanProperty;

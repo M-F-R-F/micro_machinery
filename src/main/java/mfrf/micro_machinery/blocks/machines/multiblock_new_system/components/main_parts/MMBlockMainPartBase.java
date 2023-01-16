@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import net.minecraft.block.BlockState;

@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.generator;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.utils.MathUtil;
@@ -83,7 +83,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
                         int fill = iFluidHandler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.SIMULATE);
                         if (fill != 0) {
                             iFluidHandler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE);
-                            tileGenerator.setChanged2();
+                            tileGenerator.markDirty2();
                             if (!player.isCreative()) {
                                 player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
                             }

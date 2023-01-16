@@ -1,11 +1,11 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public class TilePlaceHolder extends MMTileBase {
     private Optional<BlockPos> mainPartPos = Optional.empty();
-    private CompoundTag packedNBT = null;
+    private CompoundNBT packedNBT = null;
 
     public TilePlaceHolder() {
         super(RegisteredTileEntityTypes.TILE_PLACEHOLDER.get());
@@ -37,23 +37,23 @@ public class TilePlaceHolder extends MMTileBase {
         return mainPartPos.orElseGet(() -> {
             BlockState blockState = world.getBlockState(pos);
             this.mainPartPos = Optional.ofNullable(((MMMultiBlockHolderBase) blockState.getBlock()).getMainPartPos(blockState, pos));
-            setChanged();
+            markDirty();
             return mainPartPos.get();
         });
     }
 
     public void setMainPartPos(BlockPos mainPartPos) {
         this.mainPartPos = Optional.of(mainPartPos);
-        setChanged();
+        markDirty();
     }
 
-    public CompoundTag getPackedNBT() {
+    public CompoundNBT getPackedNBT() {
         return packedNBT;
     }
 
-    public void setPackedNBT(CompoundTag packedNBT) {
+    public void setPackedNBT(CompoundNBT packedNBT) {
         this.packedNBT = packedNBT;
-        setChanged();
+        markDirty();
     }
 
     @Nonnull
@@ -69,7 +69,7 @@ public class TilePlaceHolder extends MMTileBase {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         if (packedNBT != null) {
             compound.put("packed_nbt", packedNBT);
         }
@@ -80,7 +80,7 @@ public class TilePlaceHolder extends MMTileBase {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         if (compound.contains("packed_nbt")) {
             packedNBT = compound.getCompound("packed_nbt");
         }

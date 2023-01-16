@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
 import net.minecraft.block.BlockState;
@@ -20,7 +20,7 @@ public class BlockHolderEnergyInterfaceOutput extends BlockAccessoryPlaceHolder 
         TileEnergyInterface tileEnergyInterface = new TileEnergyInterface();
         tileEnergyInterface.canExtract = true;
         tileEnergyInterface.canReceive = false;
-        tileEnergyInterface.setChanged();
+        tileEnergyInterface.markDirty();
         return tileEnergyInterface;
     }
 

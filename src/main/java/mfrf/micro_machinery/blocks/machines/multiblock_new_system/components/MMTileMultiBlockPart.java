@@ -1,10 +1,10 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 public class MMTileMultiBlockPart extends TileEntity {
-    private CompoundTag packed = new CompoundTag();
+    private CompoundNBT packed = new CompoundNBT();
     private BlockPos mainPart = null;
 
 
@@ -28,7 +28,7 @@ public class MMTileMultiBlockPart extends TileEntity {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         packed = compound.getCompound("packed");
         if (compound.contains("main")) {
@@ -37,8 +37,8 @@ public class MMTileMultiBlockPart extends TileEntity {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT write = super.write(compound);
         write.put("packed", packed);
         if (mainPart != null) {
             write.put("main", NBTUtil.writeBlockPos(mainPart));
@@ -46,14 +46,14 @@ public class MMTileMultiBlockPart extends TileEntity {
         return write;
     }
 
-    public void setPacked(CompoundTag nbt, BlockPos mainPart) {
+    public void setPacked(CompoundNBT nbt, BlockPos mainPart) {
         packed = nbt;
         this.mainPart = mainPart;
         ((MMTileMainPartBase) world.getTileEntity(mainPart)).link(this.pos);
-        setChanged();
+        markDirty();
     }
 
-    public CompoundTag getPacked() {
+    public CompoundNBT getPacked() {
         return packed;
     }
 

@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.energy_cable;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
 import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;

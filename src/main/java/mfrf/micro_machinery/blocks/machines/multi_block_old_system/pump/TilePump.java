@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.pump;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.pump;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
@@ -10,7 +10,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -83,7 +83,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
                             LazyOptional<IFluidHandler> capability = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, getBackDirection());
                             capability.ifPresent(iFluidHandler -> {
                                 tank.drain(iFluidHandler.fill(tank.drain(tank.getFluidAmount(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                                setChanged();
+                                markDirty();
                             });
                         }
                     }
@@ -98,7 +98,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         tank.readFromNBT(compound);
         feContainer.deserializeNBT(compound.getCompound("fe_container"));
@@ -106,7 +106,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
         tank.writeToNBT(compound);
         compound.put("fe_container", feContainer.serializeNBT());

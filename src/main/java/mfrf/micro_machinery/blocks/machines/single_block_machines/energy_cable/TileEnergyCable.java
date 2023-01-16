@@ -1,10 +1,10 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.energy_cable;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumCableState;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -29,13 +29,13 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         currentEnergy = compound.getInt("current_energy");
         super.read(compound);
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.putInt("current_energy", currentEnergy);
         return super.write(compound);
     }
@@ -94,7 +94,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
                 }
             }
             this.currentEnergy -= sum;
-            setChanged();
+            markDirty();
         }
     }
 
@@ -119,7 +119,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
                 }
             }
             currentEnergy -= sum.get();
-            setChanged();
+            markDirty();
         }
     }
 
@@ -135,12 +135,12 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
         } else {
             if (currentEnergy + maxReceive <= transfer) {
                 currentEnergy += maxReceive;
-                setChanged();
+                markDirty();
                 return maxReceive;
             } else {
                 int returnValue = transfer - currentEnergy;
                 currentEnergy = transfer;
-                setChanged();
+                markDirty();
                 return returnValue;
             }
         }
@@ -157,12 +157,12 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
         } else {
             if (currentEnergy - maxExtract >= 0) {
                 currentEnergy -= maxExtract;
-                setChanged();
+                markDirty();
                 return maxExtract;
             } else {
                 int currentEnergy = this.currentEnergy;
                 this.currentEnergy = 0;
-                setChanged();
+                markDirty();
                 return currentEnergy;
             }
         }

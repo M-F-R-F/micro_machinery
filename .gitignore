@@ -26,3 +26,7 @@ forge*changelog.txt
 /logs/debug.log
 /logs/latest.log
 /.vscode/
+
+#custom
+gradle.properties
+.gitignore

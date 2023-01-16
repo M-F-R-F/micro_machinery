@@ -1,7 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -18,7 +18,7 @@ public abstract class MMTileMultiBlockComponentInterface extends TileEntity {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         if (compound.contains("main")) {
             mainPart = NBTUtil.readBlockPos(compound.getCompound("main"));
@@ -27,8 +27,8 @@ public abstract class MMTileMultiBlockComponentInterface extends TileEntity {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT write = super.write(compound);
         if (mainPart != null) {
             write.put("main", NBTUtil.writeBlockPos(mainPart));
         }
@@ -41,13 +41,13 @@ public abstract class MMTileMultiBlockComponentInterface extends TileEntity {
         this.key = key;
         mainPart = pos;
         ((MMTileMainPartBase) world.getTileEntity(mainPart)).linkComponent(this.pos, key);
-        setChanged();
+        markDirty();
     }
 
     public void unLink() {
         mainPart = null;
         key = Vec3i.NULL_VECTOR;
-        setChanged();
+        markDirty();
     }
 
 

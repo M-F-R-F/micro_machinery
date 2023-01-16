@@ -1,15 +1,13 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.core.BlockPos;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTileProviderBase {
     public static BooleanProperty CONSTRUCTED = BooleanProperty.create("constructed");

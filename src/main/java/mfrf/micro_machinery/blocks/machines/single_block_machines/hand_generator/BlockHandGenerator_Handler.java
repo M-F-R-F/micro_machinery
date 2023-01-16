@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.hand_generator;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator;
 
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
 import net.minecraft.block.Block;

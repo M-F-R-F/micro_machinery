@@ -1,8 +1,8 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -24,14 +24,14 @@ public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStora
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         canReceive = compound.getBoolean("can_receive");
         canExtract = compound.getBoolean("can_extract");
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.putBoolean("can_receive", canReceive);
         compound.putBoolean("can_extract", canExtract);
         return super.write(compound);
@@ -126,7 +126,7 @@ public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStora
                 getFacingEnergyCapability().ifPresent(iEnergyStorage -> {
                     int i = iEnergyStorage.receiveEnergy(getEnergyStored(), true);
                     iEnergyStorage.receiveEnergy(extractEnergy(i, false), false);
-                    setChanged();
+                    markDirty();
                 });
             }
         }

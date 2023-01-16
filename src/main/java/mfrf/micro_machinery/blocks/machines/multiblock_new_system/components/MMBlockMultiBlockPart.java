@@ -1,9 +1,9 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -26,9 +26,9 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
     public BlockState pack(World world, BlockPos pos, Direction direction, BlockPos mainPart) {
         BlockState replace = getDefaultState();
 
-        CompoundTag reserved = new CompoundTag();
+        CompoundNBT reserved = new CompoundNBT();
 
-        CompoundTag blockNBT = NBTUtil.writeBlockState(world.getBlockState(pos));
+        CompoundNBT blockNBT = NBTUtil.writeBlockState(world.getBlockState(pos));
         reserved.put("block", blockNBT);
 
         TileEntity tileEntity = world.getTileEntity(pos);
@@ -43,7 +43,7 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
 
     public static void unpack(World world, BlockPos pos) {
         MMTileMultiBlockPart thisTile = (MMTileMultiBlockPart) world.getTileEntity(pos);
-        CompoundTag packedNBT = thisTile.getPacked();
+        CompoundNBT packedNBT = thisTile.getPacked();
         BlockState block = NBTUtil.readBlockState(packedNBT.getCompound("block"));
         world.setBlockState(pos, block);
         if (packedNBT.contains("tile")) {

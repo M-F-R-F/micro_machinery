@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.block.BlockState;

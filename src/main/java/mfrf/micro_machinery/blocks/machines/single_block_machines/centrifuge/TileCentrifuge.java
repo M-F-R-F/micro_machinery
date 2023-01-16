@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeContainer;
@@ -14,7 +14,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -41,13 +41,13 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.extractEnergy(maxExtract, simulate);
         }
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            setChanged2();
+            markDirty2();
             return super.receiveEnergy(maxReceive, simulate);
         }
 
@@ -85,7 +85,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
 
                 if (feContainer.selfSubtract() != -1) {
                     progress.selfAdd();
-                    setChanged();
+                    markDirty();
                 }
 
                 if (progress.atMaxValue()) {
@@ -103,7 +103,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
                         isWorking = false;
                         progress.resetValue();
                         this.recipe = null;
-                        setChanged();
+                        markDirty();
 
                     });
                 }
@@ -117,7 +117,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
                         this.progress.setMax(centrifugeRecipe.getTime());
                         this.recipe = centrifugeRecipe.getId();
                         this.isWorking = true;
-                        setChanged();
+                        markDirty();
                     }
                 }
             }
@@ -138,7 +138,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
                 break;
             }
         }
-        setChanged2();
+        markDirty2();
 
     }
 
@@ -163,21 +163,21 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag CompoundTag = super.write(compound);
-        CompoundTag.put("fe_container", feContainer.serializeNBT());
-        CompoundTag.put("input", input.serializeNBT());
-        CompoundTag.put("output", output.serializeNBT());
-        CompoundTag.putBoolean("is_working", isWorking);
-        CompoundTag.put("progress", progress.serializeNBT());
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT compoundNBT = super.write(compound);
+        compoundNBT.put("fe_container", feContainer.serializeNBT());
+        compoundNBT.put("input", input.serializeNBT());
+        compoundNBT.put("output", output.serializeNBT());
+        compoundNBT.putBoolean("is_working", isWorking);
+        compoundNBT.put("progress", progress.serializeNBT());
         if (recipe != null) {
-            CompoundTag.putString("recipe", recipe.toString());
+            compoundNBT.putString("recipe", recipe.toString());
         }
-        return CompoundTag;
+        return compoundNBT;
     }
 
     @Override
-    public void read(CompoundTag nbt) {
+    public void read(CompoundNBT nbt) {
         super.read(nbt);
         feContainer.deserializeNBT(nbt.getCompound("fe_container"));
         input.deserializeNBT(nbt.getCompound("input"));

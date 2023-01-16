@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
@@ -12,7 +12,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -34,7 +34,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
     private FluidTank fluidTank = new FluidTank(12000) {
         @Override
         protected void onContentsChanged() {
-            setChanged();
+            markDirty();
         }
     };
     private ItemStackHandler blockItemContainer = new ItemStackHandler(1);
@@ -45,7 +45,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
         fluidTank.readFromNBT(compound.getCompound("fluid"));
         blockItemContainer.deserializeNBT(compound.getCompound("block_item"));
@@ -55,9 +55,9 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
-        compound.put("fluid", fluidTank.writeToNBT(new CompoundTag()));
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT write = super.write(compound);
+        compound.put("fluid", fluidTank.writeToNBT(new CompoundNBT()));
         write.put("block_item", blockItemContainer.serializeNBT());
         if (material != -1) {
             write.putInt("material", material);
@@ -77,7 +77,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
             if (block == RegisteredBlocks.PIPE_TUNGSTEN_STEEL) {
                 material = 8000;
             }
-            setChanged();
+            markDirty();
         }
         return material;
     }
@@ -103,14 +103,14 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
     public void block(ItemStack blocker) {
         this.blockItemContainer.setStackInSlot(0, blocker);
         world.setBlockState(pos, getBlockState().with(FluidPipeBlock.BLOCKED, true), 49);
-        setChanged();
+        markDirty();
     }
 
     public ItemStack unBlock() {
         world.setBlockState(pos, getBlockState().with(FluidPipeBlock.BLOCKED, false), 49);
         ItemStack copy = this.blockItemContainer.getStackInSlot(0).copy();
         this.blockItemContainer.setStackInSlot(0, ItemStack.EMPTY);
-        setChanged();
+        markDirty();
         return copy;
     }
 
@@ -193,7 +193,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                 }
 
             }
-            setChanged();
+            markDirty();
             return receiveAmount;
         }
     }
@@ -236,7 +236,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                                         } else {
                                             int fill = iFluidHandler.fill(this.fluidTank.drain(getMaterial(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
                                             iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                                            setChanged();
+                                            markDirty();
                                         }
 
                                     }
@@ -256,7 +256,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                         FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getTileEntity(this.pos.offset(direction));
                         int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
                         fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
-                        setChanged();
+                        markDirty();
                     }
                 }
 

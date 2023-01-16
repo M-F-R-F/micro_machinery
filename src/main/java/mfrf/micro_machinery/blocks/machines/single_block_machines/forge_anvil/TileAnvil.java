@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
@@ -11,7 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -43,7 +43,7 @@ public class TileAnvil extends MMTileBase {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         forgeTime.deserializeNBT(compound.getCompound("forge_time"));
         rank = EnumAnvilType.valueOf(compound.getString("rank"));
         itemStackHandler.deserializeNBT(compound.getCompound("items"));
@@ -51,7 +51,7 @@ public class TileAnvil extends MMTileBase {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.put("forge_time", forgeTime.serializeNBT());
         compound.put("items", itemStackHandler.serializeNBT());
         compound.putString("rank", rank.name());
@@ -68,7 +68,7 @@ public class TileAnvil extends MMTileBase {
                         itemStackHandler.setStackInSlot(0, ItemStack.EMPTY);
                         ItemHandlerHelper.giveItemToPlayer(player, stackInSlot);
                         forgeTime.resetValue();
-                        setChanged2();
+                        markDirty2();
                     }
                 } else {
                     Item item = heldItem.getItem();
@@ -83,14 +83,14 @@ public class TileAnvil extends MMTileBase {
                                 if (recipe != null && recipe.getRankNeed() <= this.rank.getRank()) {
                                     itemStackHandler.setStackInSlot(0, recipe.getOutput());
                                     forgeTime.resetValue();
-                                    setChanged2();
+                                    markDirty2();
                                 } else {
                                     forgeTime.resetValue();
-                                    setChanged2();
+                                    markDirty2();
                                 }
                             }
                         }
-                        setChanged2();
+                        markDirty2();
                     } else {
                         if (itemStackHandler.getStackInSlot(0).isEmpty()) {
                             itemStackHandler.setStackInSlot(0, new ItemStack(heldItem.getItem()));
@@ -103,7 +103,7 @@ public class TileAnvil extends MMTileBase {
                             itemStackHandler.setStackInSlot(0,ItemStack.EMPTY);
                             forgeTime.resetValue();
                         }
-                        setChanged2();
+                        markDirty2();
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.generator;
+package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorContainer;
@@ -11,7 +11,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IIntArray;
@@ -47,7 +47,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
         @Override
         public int selfAdd() {
             int add = add(400, false);
-            setChanged2();
+            markDirty2();
             return add;
         }
     };
@@ -68,7 +68,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         tank.readFromNBT(compound.getCompound("tank"));
         fuel_handler.deserializeNBT(compound.getCompound("fuel_slot"));
         energyContainer.deserializeNBT(compound.getCompound("energy_container"));
@@ -78,8 +78,8 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.put("tank", tank.writeToNBT(new CompoundTag()));
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.put("tank", tank.writeToNBT(new CompoundNBT()));
         compound.put("fuel_slot", fuel_handler.serializeNBT());
         compound.put("energy_container", energyContainer.serializeNBT());
         compound.put("burn_time_container", burnTimeContainer.serializeNBT());
@@ -121,7 +121,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
                 if (!tank.isEmpty()) {
                     energyContainer.selfAdd();
                 }
-                setChanged2();
+                markDirty2();
             } else {
                 tryToGetFuel();
             }
@@ -130,7 +130,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
                 burnTimeContainer = new IntegerContainer(0, 0);
                 isBurning = false;
                 BlockGenerator.setIsburning(isBurning, world, pos);
-                setChanged2();
+                markDirty2();
             }
 
             tryToPushEnergy();
@@ -149,7 +149,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
                     this.burnTimeContainer = new IntegerContainer(0, burnTime);
                     isBurning = true;
                     BlockGenerator.setIsburning(isBurning, world, pos);
-                    setChanged2();
+                    markDirty2();
                 }
             }
         }
@@ -161,7 +161,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
             if (backDirection != null) {
                 energyContainer = pushEnergyToDirection(backDirection, energyContainer);
             }
-            setChanged2();
+            markDirty2();
         }
     }
 

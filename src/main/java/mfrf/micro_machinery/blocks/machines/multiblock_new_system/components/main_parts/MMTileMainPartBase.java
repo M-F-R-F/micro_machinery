@@ -1,13 +1,13 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
+package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMTileMultiBlockPart;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
@@ -47,27 +47,27 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
 
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         super.read(compound);
-        ListTag components = compound.getList("components", Constants.NBT.TAG_COMPOUND);
+        ListNBT components = compound.getList("components", Constants.NBT.TAG_COMPOUND);
         for (INBT component : components) {
-            readKV(componentPoss, (CompoundTag) component);
+            readKV(componentPoss, (CompoundNBT) component);
         }
-        ListTag parts = compound.getList("parts", Constants.NBT.TAG_COMPOUND);
+        ListNBT parts = compound.getList("parts", Constants.NBT.TAG_COMPOUND);
         for (INBT part : parts) {
-            partPoss.add(NBTUtil.readBlockPos((CompoundTag) part));
+            partPoss.add(NBTUtil.readBlockPos((CompoundNBT) part));
         }
 
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
-        ListTag components = new ListTag();
+    public CompoundNBT write(CompoundNBT compound) {
+        CompoundNBT write = super.write(compound);
+        ListNBT components = new ListNBT();
         for (Map.Entry<Vec3i, BlockPos> componentPos : componentPoss.entrySet()) {
             components.add(writeKV(componentPos.getKey(), componentPos.getValue()));
         }
-        ListTag parts = new ListTag();
+        ListNBT parts = new ListNBT();
         for (BlockPos partPos : partPoss) {
             parts.add(NBTUtil.writeBlockPos(partPos));
         }
@@ -76,20 +76,20 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
         return write;
     }
 
-    private CompoundTag writeKV(Vec3i key, BlockPos value) {
-        CompoundTag CompoundTag = new CompoundTag();
-        CompoundTag.put("key", mfrf.dbydd.micro_machinery.utils.NBTUtil.writeVEC3I(key));
-        CompoundTag.put("value", NBTUtil.writeBlockPos(value));
-        return CompoundTag;
+    private CompoundNBT writeKV(Vec3i key, BlockPos value) {
+        CompoundNBT compoundNBT = new CompoundNBT();
+        compoundNBT.put("key", mfrf.dbydd.micro_machinery.utils.NBTUtil.writeVEC3I(key));
+        compoundNBT.put("value", NBTUtil.writeBlockPos(value));
+        return compoundNBT;
     }
 
-    private void readKV(HashMap<Vec3i, BlockPos> store, CompoundTag nbt) {
+    private void readKV(HashMap<Vec3i, BlockPos> store, CompoundNBT nbt) {
         store.put(mfrf.dbydd.micro_machinery.utils.NBTUtil.readVEC3I(nbt.getCompound("key")), NBTUtil.readBlockPos(nbt.getCompound("value")));
     }
 
     public void link(BlockPos pos) {
         partPoss.add(pos);
-        setChanged();
+        markDirty();
     }
 
 

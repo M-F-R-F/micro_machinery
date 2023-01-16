@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines.multi_block_old_system.lathe;
+package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.lathe.LatheContainer;
@@ -16,7 +16,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -34,7 +34,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         @Override
         public void addStep(Action action) {
             super.addStep(action);
-            setChanged2();
+            markDirty2();
         }
     };
     private FEContainer FEContainer = new FEContainer(0, 25600) {
@@ -51,14 +51,14 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
             int i = super.receiveEnergy(maxReceive, simulate);
-            setChanged2();
+            markDirty2();
             return i;
         }
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
             int i = super.extractEnergy(maxExtract, simulate);
-            setChanged2();
+            markDirty2();
             return i;
         }
     };
@@ -110,7 +110,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
+    public CompoundNBT write(CompoundNBT compound) {
         compound.put("fe_container", FEContainer.serializeNBT());
         compound.put("waste_material_container", wasteMaterialValueConatiner.serializeNBT());
         compound.put("item_handler", itemHander.serializeNBT());
@@ -120,7 +120,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void read(CompoundNBT compound) {
         FEContainer.deserializeNBT(compound.getCompound("fe_container"));
         wasteMaterialValueConatiner.deserializeNBT(compound.getCompound("waste_material_container"));
         itemHander.deserializeNBT(compound.getCompound("item_handler"));
@@ -164,7 +164,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
                 world.addEntity(new ItemEntity(world, pos.getX(), pos.getY() + 1, pos.getZ(), result));
             }
             resetEveryThing();
-            setChanged2();
+            markDirty2();
 //        }
     }
 
@@ -181,7 +181,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
                 if (!subRecipeGet.equals(this.recipe)) {
                     resetEveryThing();
                     this.recipe = subRecipeGet;
-                    setChanged2();
+                    markDirty2();
                     return true;
                 }
             } else {
@@ -205,13 +205,13 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
             if (wasteMaterialValueConatiner.atMaxValue()) {
                 resetEveryThing();
                 itemHander.getStackInSlot(0).shrink(1);
-                setChanged2();
+                markDirty2();
             }
         }
     }
 
     @Override
-    public void handleNetWorkSyncFromClient(CompoundTag tag) {
+    public void handleNetWorkSyncFromClient(CompoundNBT tag) {
         if (tag.contains("action", Constants.NBT.TAG_STRING)) {
             getAction(Action.valueOf(tag.getString("action")));
         }
@@ -221,7 +221,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
         wasteMaterialValueConatiner.resetValue();
         recipe = LatheRecipe.SubRecipe.createEmptyRecipe();
         actionContainer.reset();
-        setChanged2();
+        markDirty2();
     }
 
     public enum Action {

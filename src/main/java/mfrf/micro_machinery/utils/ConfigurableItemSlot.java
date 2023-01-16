@@ -1,10 +1,11 @@
-package mfrf.micro_machinery.utils;
+package mfrf.dbydd.micro_machinery.utils;
 
-import mfrf.micro_machinery.Config;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.world.item.ItemStack;
+import mfrf.dbydd.micro_machinery.Config;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -14,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<CompoundTag> {
+public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<CompoundNBT> {
 
     private LinkedList<ItemStack> stacks = new LinkedList<>();
     private int max_stack_size;
@@ -32,24 +33,23 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<Comp
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag CompoundTag = new CompoundTag();
-        ListTag stacksNBT = new ListTag();
+    public CompoundNBT serializeNBT() {
+        CompoundNBT compoundNBT = new CompoundNBT();
+        ListNBT stacksNBT = new ListNBT();
         for (ItemStack stack : stacks) {
             stacksNBT.add(stack.serializeNBT());
         }
-        CompoundTag.put("stacks", stacksNBT);
-        CompoundTag.putInt("max_stack_size", max_stack_size);
-        return CompoundTag;
+        compoundNBT.put("stacks", stacksNBT);
+        compoundNBT.putInt("max_stack_size", max_stack_size);
+        return compoundNBT;
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        ListTag stacks = nbt.getList("stacks", Tag.TAG_COMPOUND);
-        for (Tag inbt : stacks) {
-            this.stacks.add(ItemStack.of(((CompoundTag) inbt)));
+    public void deserializeNBT(CompoundNBT nbt) {
+        ListNBT stacks = nbt.getList("stacks", Constants.NBT.TAG_COMPOUND);
+        for (INBT inbt : stacks) {
+            this.stacks.add(ItemStack.read(((CompoundNBT) inbt)));
         }
-
         max_stack_size = nbt.getInt("max_stack_size");
     }
 
