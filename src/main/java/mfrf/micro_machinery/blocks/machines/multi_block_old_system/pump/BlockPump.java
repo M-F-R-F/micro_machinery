@@ -1,97 +1,126 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.pump;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.pump;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.TilePlaceHolder;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.TilePlaceHolder;
+import mfrf.micro_machinery.utils.TileHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.FluidState;
 
 public class BlockPump extends MMMultiBlockHolderBase {
     public static final BooleanProperty HEAD_OR_PIPE = BooleanProperty.create("head_or_pipe");
 
     public BlockPump(Properties properties) {
         super(properties, "pump", true, true, false);
-        setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, false).with(HEAD_OR_PIPE, false));
-    }
-
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        if (!state.get(IS_PLACEHOLDER)) {
-            return new TilePump();
-        } else {
-            return new TilePlaceHolder();
-        }
+        registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.SOUTH).setValue(IS_PLACEHOLDER, false).setValue(HEAD_OR_PIPE, false));
     }
 
     @Override
     public BlockPos getMainPartPos(BlockState state, BlockPos currentPos) {
-        if (state.get(IS_PLACEHOLDER)) {
-            if (state.get(HEAD_OR_PIPE)) {
-                return currentPos.offset(Direction.DOWN);
+        if (state.getValue(IS_PLACEHOLDER)) {
+            if (state.getValue(HEAD_OR_PIPE)) {
+                return currentPos.m_142300_(Direction.DOWN);
             } else {
-                return currentPos.offset(state.get(FACING));
+                return currentPos.m_142300_(state.getValue(FACING));
             }
         }
         return super.getMainPartPos(state, currentPos);
     }
 
     @Override
-    public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
-        super.harvestBlock(worldIn, player, pos, state, te, stack);
-        if (state.get(IS_PLACEHOLDER)) {
-            if (state.get(HEAD_OR_PIPE)) {
-                worldIn.destroyBlock(pos.offset(Direction.DOWN), false, player);
-                worldIn.destroyBlock(pos.offset(Direction.DOWN).offset(state.get(FACING).getOpposite()), false, player);
-            } else {
-                worldIn.destroyBlock(pos.offset(state.get(FACING)), false, player);
-                worldIn.destroyBlock(pos.offset(Direction.UP).offset(state.get(FACING)), false, player);
-            }
+    public @org.jetbrains.annotations.Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        if (!pState.getValue(IS_PLACEHOLDER)) {
+            return new TilePump(pPos, pState);
         } else {
-            worldIn.destroyBlock(pos.offset(Direction.UP), false, player);
-            worldIn.destroyBlock(pos.offset(state.get(FACING).getOpposite()), false, player);
+            return new TilePlaceHolder();
+        }
+    }
+
+    //todo migrate
+    @Override
+    public @org.jetbrains.annotations.Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if (!pState.getValue(IS_PLACEHOLDER)) {
+        return TileHelper.createTicker(pLevel,pBlockEntityType,TilePump.tick)
+        } else {
+            return new TilePlaceHolder();
         }
     }
 
     @Override
-    public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
-        super.onPlayerDestroy(worldIn, pos, state);
-        if (state.get(IS_PLACEHOLDER)) {
-            if (state.get(HEAD_OR_PIPE)) {
-                worldIn.destroyBlock(pos.offset(Direction.DOWN), false);
-                worldIn.destroyBlock(pos.offset(Direction.DOWN).offset(state.get(FACING).getOpposite()), false);
+    public void playerDestroy(Level worldIn, Player player, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity pBlockEntity, ItemStack pTool) {
+        super.playerDestroy(worldIn, player, pos, state, pBlockEntity, pTool);
+        if (state.getValue(IS_PLACEHOLDER)) {
+            if (state.getValue(HEAD_OR_PIPE)) {
+                worldIn.destroyBlock(pos.m_142300_(Direction.DOWN), false, player);
+                worldIn.destroyBlock(pos.m_142300_(Direction.DOWN).m_142300_(state.getValue(FACING).getOpposite()), false, player);
             } else {
-                worldIn.destroyBlock(pos.offset(state.get(FACING)), false);
-                worldIn.destroyBlock(pos.offset(Direction.UP).offset(state.get(FACING)), false);
+                worldIn.destroyBlock(pos.m_142300_(state.getValue(FACING)), false, player);
+                worldIn.destroyBlock(pos.m_142300_(Direction.UP).m_142300_(state.getValue(FACING)), false, player);
             }
         } else {
-            worldIn.destroyBlock(pos.offset(Direction.UP), false);
-            worldIn.destroyBlock(pos.offset(state.get(FACING).getOpposite()), false);
+            worldIn.destroyBlock(pos.m_142300_(Direction.UP), false, player);
+            worldIn.destroyBlock(pos.m_142300_(state.getValue(FACING).getOpposite()), false, player);
         }
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-        Direction direction = state.get(FACING);
-        worldIn.setBlockState(pos.offset(direction.getOpposite()), getDefaultState().with(FACING, direction).with(IS_PLACEHOLDER, true).with(HEAD_OR_PIPE, false));
-        worldIn.setBlockState(pos.offset(Direction.UP), getDefaultState().with(FACING, direction).with(IS_PLACEHOLDER, true).with(HEAD_OR_PIPE, true));
+    public boolean onDestroyedByPlayer(BlockState state, Level worldIn, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+        super.onDestroyedByPlayer(state, worldIn, pos, player, willHarvest, fluid);
+        if (state.getValue(IS_PLACEHOLDER)) {
+            if (state.getValue(HEAD_OR_PIPE)) {
+                worldIn.destroyBlock(pos.m_142300_(Direction.DOWN), false, player);
+                worldIn.destroyBlock(pos.m_142300_(Direction.DOWN).m_142300_(state.getValue(FACING).getOpposite()), false, player);
+            } else {
+                worldIn.destroyBlock(pos.m_142300_(state.getValue(FACING)), false, player);
+                worldIn.destroyBlock(pos.m_142300_(Direction.UP).m_142300_(state.getValue(FACING)), false, player);
+            }
+        } else {
+            worldIn.destroyBlock(pos.m_142300_(Direction.UP), false, player);
+            worldIn.destroyBlock(pos.m_142300_(state.getValue(FACING).getOpposite()), false, player);
+        }
+        return true;
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
-        builder.add(HEAD_OR_PIPE);
+    public void destroy(LevelAccessor worldIn, BlockPos pos, BlockState state) {
+        super.destroy(worldIn, pos, state);
+        if (state.getValue(IS_PLACEHOLDER)) {
+            if (state.getValue(HEAD_OR_PIPE)) {
+                worldIn.destroyBlock(pos.m_142300_(Direction.DOWN), false);
+                worldIn.destroyBlock(pos.m_142300_(Direction.DOWN).m_142300_(state.getValue(FACING).getOpposite()), false);
+            } else {
+                worldIn.destroyBlock(pos.m_142300_(state.getValue(FACING)), false);
+                worldIn.destroyBlock(pos.m_142300_(Direction.UP).m_142300_(state.getValue(FACING)), false);
+            }
+        } else {
+            worldIn.destroyBlock(pos.m_142300_(Direction.UP), false);
+            worldIn.destroyBlock(pos.m_142300_(state.getValue(FACING).getOpposite()), false);
+        }
+    }
+
+    @Override
+    public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable LivingEntity pPlacer, ItemStack pStack) {
+        super.setPlacedBy(worldIn, pos, state, pPlacer, pStack);
+        Direction direction = state.getValue(FACING);
+        worldIn.setBlockAndUpdate(pos.m_142300_(direction.getOpposite()), defaultBlockState().setValue(FACING, direction).setValue(IS_PLACEHOLDER, true).setValue(HEAD_OR_PIPE, false));
+        worldIn.setBlockAndUpdate(pos.m_142300_(Direction.UP), defaultBlockState().setValue(FACING, direction).setValue(IS_PLACEHOLDER, true).setValue(HEAD_OR_PIPE, true));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        super.createBlockStateDefinition(pBuilder);
+        pBuilder.add(HEAD_OR_PIPE);
     }
 }

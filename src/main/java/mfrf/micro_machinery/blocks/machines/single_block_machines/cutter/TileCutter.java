@@ -1,21 +1,21 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.cutter;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.cutter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.cutter.CutterContainer;
 import mfrf.dbydd.micro_machinery.items.SawBladeBase;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.cutter.CutterRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -28,7 +28,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileCutter extends MMTileBase implements ITickableTileEntity, IItemHandler, INamedContainerProvider {
+public class TileCutter extends MMTileBase implements ITickableBlockEntity, IItemHandler, INamedContainerProvider {
     private ItemStackHandler sawBladeHandler = new ItemStackHandler(1);
     private ItemStackHandler itemHandler = new ItemStackHandler(2);
     private IntegerContainer progress = new IntegerContainer();
@@ -63,7 +63,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
     };
 
     public TileCutter() {
-        super(RegisteredTileEntityTypes.TILE_CUTTER.get());
+        super(RegisteredBlockEntityTypes.TILE_CUTTER.get());
     }
 
     public ItemStackHandler getSawBladeHandler() {
@@ -87,7 +87,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compoundNBT) {
+    public CompoundTag write(CompoundTag compoundNBT) {
         compoundNBT.put("saw_blade", sawBladeHandler.serializeNBT());
         compoundNBT.put("item_handler", itemHandler.serializeNBT());
         compoundNBT.put("progress", progress.serializeNBT());
@@ -99,7 +99,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
     }
 
     @Override
-    public void read(CompoundNBT compoundNBT) {
+    public void read(CompoundTag compoundNBT) {
         super.read(compoundNBT);
         sawBladeHandler.deserializeNBT(compoundNBT.getCompound("saw_blade"));
         itemHandler.deserializeNBT(compoundNBT.getCompound("item_handler"));
@@ -121,7 +121,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
                         itemHandler.insertItem(1, result, false);
                         result = ItemStack.EMPTY;
                         progress.resetValue();
-                        world.setBlockState(pos, world.getBlockState(pos).with(BlockCutter.WORKING, false));
+                        world.setBlockState(pos, world.getBlockState(pos).setValue(BlockCutter.WORKING, false));
                     } else {
                         progress.selfSubtract();
                     }
@@ -142,8 +142,8 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
                     progress.setMax(((int) (cutterRecipe.getTickUse() * ((SawBladeBase) sawBladeHandler.getStackInSlot(0).getItem()).getCombinedSawEfficiency().get())));
                     result = cutterRecipe.getOutput().copy();
                     itemHandler.getStackInSlot(0).shrink(cutterRecipe.getInput().getCount());
-                    world.setBlockState(pos, world.getBlockState(pos).with(BlockCutter.WORKING, true));
-                    markDirty();
+                    world.setBlockState(pos, world.getBlockState(pos).setValue(BlockCutter.WORKING, true));
+                    setChanged();
                     //todo gui
                 }
             }
@@ -207,7 +207,7 @@ public class TileCutter extends MMTileBase implements ITickableTileEntity, IItem
 
     @Nullable
     @Override
-    public Container createMenu(int i, PlayerInventory playerInventory, PlayerEntity playerEntity) {
+    public Container createMenu(int i, PlayerInventory playerInventory, Player playerEntity) {
         return new CutterContainer(i, playerInventory, this.pos, this.world);
     }
 }

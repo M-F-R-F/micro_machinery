@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.items;
+package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 
@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 public class MMItemBase extends Item {
     public static Map<String, Supplier<Item>> registeries = new TreeMap<>();
-    public static Properties DEFAULT_PROPERTIES = new Properties().group(Micro_Machinery.MMTAB);
+    public static Properties DEFAULT_PROPERTIES = new Properties().group(MicroMachinery.MMTAB);
 
     public MMItemBase(Properties properties, String name) {
         super(properties);

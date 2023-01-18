@@ -1,12 +1,12 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
+package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 
 public class TileRedstoneInterface extends MMTileMultiBlockComponentInterface {
     public TileRedstoneInterface() {
-        super(RegisteredTileEntityTypes.REDSTONE_INTERFACE.get());
+        super(RegisteredBlockEntityTypes.REDSTONE_INTERFACE.get());
     }
 
     public int getLevel() {
@@ -15,6 +15,6 @@ public class TileRedstoneInterface extends MMTileMultiBlockComponentInterface {
 
 
     public void powerChange(int power) {
-        ((MMTileMainPartBase) world.getTileEntity(mainPart)).redstoneSignalChange(power, key);
+        ((MMTileMainPartBase) world.getBlockEntity(mainPart)).redstoneSignalChange(power, key);
     }
 }

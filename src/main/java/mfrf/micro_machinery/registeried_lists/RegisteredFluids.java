@@ -1,8 +1,8 @@
-package mfrf.dbydd.micro_machinery.registeried_lists;
+package mfrf.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.fluids.MMFluidBase;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.material.Material;
 
 public class RegisteredFluids {
 

@@ -1,9 +1,9 @@
-package mfrf.dbydd.micro_machinery.world_saved_data;
+package mfrf.micro_machinery.world_saved_data;
 
 import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -131,7 +131,7 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
     }
 
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(CompoundTag nbt) {
         GEAR_Recipe.deserializeNBT(nbt.getCompound("gear_recipe"));
         STICK_Recipe.deserializeNBT(nbt.getCompound("stick_recipe"));
         SCREW_Recipe.deserializeNBT(nbt.getCompound("screw_recipe"));
@@ -139,7 +139,7 @@ public class LatheRecipesWorldSavedData extends WorldSavedData {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.put("gear_recipe", GEAR_Recipe.serializeNBT());
         compound.put("stick_recipe", STICK_Recipe.serializeNBT());
         compound.put("screw_recipe", SCREW_Recipe.serializeNBT());

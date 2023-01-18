@@ -1,21 +1,21 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.atomization;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.atomization.AtomizationContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.atomization.AtomizationRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class TileAtomization extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
+public class TileAtomization extends MMTileBase implements ITickableBlockEntity, INamedContainerProvider {
     private FEContainer feContainer = new FEContainer(0, 80000) {
         @Override
         public boolean canExtract() {
@@ -74,7 +74,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
     private ResourceLocation recipe = null;
 
     public TileAtomization() {
-        super(RegisteredTileEntityTypes.TILE_ATOMIZATION.get());
+        super(RegisteredBlockEntityTypes.TILE_ATOMIZATION.get());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
 
                 if (feContainer.selfSubtract() != -1) {
                     progress.selfAdd();
-                    markDirty();
+                    setChanged();
                 }
 
                 if (progress.atMaxValue()) {
@@ -100,7 +100,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
                         } else {
                             progress.selfSubtract();
                         }
-                        markDirty();
+                        setChanged();
                     });
                 }
             } else {
@@ -111,7 +111,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
                         this.progress.setMax(atomizationRecipe.time);
                         this.isWorking = true;
                         this.recipe = atomizationRecipe.getId();
-                        markDirty();
+                        setChanged();
                     }
                 }
             }
@@ -140,10 +140,10 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        CompoundNBT compoundNBT = super.write(compound);
+    public CompoundTag write(CompoundTag compound) {
+        CompoundTag compoundNBT = super.write(compound);
         compoundNBT.put("fe_container", feContainer.serializeNBT());
-        compoundNBT.put("input", input.writeToNBT(new CompoundNBT()));
+        compoundNBT.put("input", input.writeToNBT(new CompoundTag()));
         compoundNBT.put("output", output.serializeNBT());
         compoundNBT.putBoolean("is_working", isWorking);
         compoundNBT.put("progress", progress.serializeNBT());
@@ -154,7 +154,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
     }
 
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(CompoundTag nbt) {
         super.read(nbt);
         feContainer.deserializeNBT(nbt.getCompound("fe_container"));
         input.readFromNBT(nbt.getCompound("input"));
@@ -193,7 +193,7 @@ public class TileAtomization extends MMTileBase implements ITickableTileEntity, 
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
         return new AtomizationContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 }

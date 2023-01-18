@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.enums;
+package mfrf.micro_machinery.enums;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;

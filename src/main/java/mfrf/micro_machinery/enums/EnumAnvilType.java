@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.enums;
+package mfrf.micro_machinery.enums;
 
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.SoundEvent;

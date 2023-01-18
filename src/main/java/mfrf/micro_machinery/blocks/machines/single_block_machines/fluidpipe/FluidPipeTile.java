@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
@@ -6,17 +6,17 @@ import mfrf.dbydd.micro_machinery.enums.EnumFluidPipeState;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -30,22 +30,22 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
+public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
     private FluidTank fluidTank = new FluidTank(12000) {
         @Override
         protected void onContentsChanged() {
-            markDirty();
+            setChanged();
         }
     };
     private ItemStackHandler blockItemContainer = new ItemStackHandler(1);
     private int material = -1;
 
     public FluidPipeTile() {
-        super(RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get());
+        super(RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get());
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         super.read(compound);
         fluidTank.readFromNBT(compound.getCompound("fluid"));
         blockItemContainer.deserializeNBT(compound.getCompound("block_item"));
@@ -55,9 +55,9 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        CompoundNBT write = super.write(compound);
-        compound.put("fluid", fluidTank.writeToNBT(new CompoundNBT()));
+    public CompoundTag write(CompoundTag compound) {
+        CompoundTag write = super.write(compound);
+        compound.put("fluid", fluidTank.writeToNBT(new CompoundTag()));
         write.put("block_item", blockItemContainer.serializeNBT());
         if (material != -1) {
             write.putInt("material", material);
@@ -77,7 +77,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
             if (block == RegisteredBlocks.PIPE_TUNGSTEN_STEEL) {
                 material = 8000;
             }
-            markDirty();
+            setChanged();
         }
         return material;
     }
@@ -88,12 +88,12 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
 
     //todo 做到这里
     public boolean ejectToOpenSide(Direction direction, FluidStack ejectStack) {
-        BlockPos offset = pos.offset(direction);
+        BlockPos.m_142300_ = pos.m_142300_(direction);
         BlockState blockStateToReplace = world.getBlockState(pos);
-        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(world, offset, ejectStack)) {
+        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(world,.m_142300_, ejectStack)) {
             if (blockStateToReplace.isReplaceable(ejectStack.getFluid()) && blockStateToReplace.getFluidState().getFluid() == Fluids.EMPTY) {
-                BlockState blockState = ejectStack.getFluid().getDefaultState().getBlockState();
-                world.setBlockState(offset, blockState);
+                BlockState blockState = ejectStack.getFluid().defaultBlockState().getBlockState();
+                world.setBlockState.m_142300_, blockState);
                 return true;
             }
         }
@@ -102,15 +102,15 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
 
     public void block(ItemStack blocker) {
         this.blockItemContainer.setStackInSlot(0, blocker);
-        world.setBlockState(pos, getBlockState().with(FluidPipeBlock.BLOCKED, true), 49);
-        markDirty();
+        world.setBlockState(pos, getBlockState().setValue(FluidPipeBlock.BLOCKED, true), 49);
+        setChanged();
     }
 
     public ItemStack unBlock() {
-        world.setBlockState(pos, getBlockState().with(FluidPipeBlock.BLOCKED, false), 49);
+        world.setBlockState(pos, getBlockState().setValue(FluidPipeBlock.BLOCKED, false), 49);
         ItemStack copy = this.blockItemContainer.getStackInSlot(0).copy();
         this.blockItemContainer.setStackInSlot(0, ItemStack.EMPTY);
-        markDirty();
+        setChanged();
         return copy;
     }
 
@@ -121,9 +121,9 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
         int receiveAmount = stack.getAmount();
 
         if (blocked()) {
-            TileEntity offset = world.getTileEntity(pos.offset(direction));
-            if (offset != null && offset.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
-                FluidPipeTile destPipe = (FluidPipeTile) offset;
+            BlockEntity.m_142300_ = world.getBlockEntity(pos.m_142300_(direction));
+            if .m_142300_ != null &&.m_142300_.getType() == RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+                FluidPipeTile destPipe = (FluidPipeTile).m_142300_;
                 if (!destPipe.blocked() && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
                     destPipe.block(this.unBlock());
                 }
@@ -193,7 +193,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                 }
 
             }
-            markDirty();
+            setChanged();
             return receiveAmount;
         }
     }
@@ -221,14 +221,14 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                 for (Direction side : Direction.values()) {
                     EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
                     if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN || enumFluidPipeState == EnumFluidPipeState.AUTO_CONNECTED) {
-                        BlockPos offset = pos.offset(side);
-                        TileEntity tileEntity = world.getTileEntity(offset);
+                        BlockPos.m_142300_ = pos.m_142300_(side);
+                        BlockEntity tileEntity = world.getBlockEntity.m_142300_);
 
                         if (tileEntity != null) {
                             tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
                                     iFluidHandler -> {
                                         //if is pipe, check
-                                        if (tileEntity.getType() == RegisteredTileEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+                                        if (tileEntity.getType() == RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
                                             pipeDirections.add(side);
                                             int amount = iFluidHandler.getFluidInTank(0).getAmount();
                                             if (amount - this.fluidTank.getFluidAmount() < -1)
@@ -236,7 +236,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                                         } else {
                                             int fill = iFluidHandler.fill(this.fluidTank.drain(getMaterial(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.SIMULATE);
                                             iFluidHandler.fill(this.fluidTank.drain(fill, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                                            markDirty();
+                                            setChanged();
                                         }
 
                                     }
@@ -253,10 +253,10 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
                     int remain = pipeFluidSum.get() % pipeDirections.size();
                     int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
                     for (Direction direction : pipeDirections) {
-                        FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getTileEntity(this.pos.offset(direction));
+                        FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getBlockEntity(this.pos.m_142300_(direction));
                         int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
                         fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
-                        markDirty();
+                        setChanged();
                     }
                 }
 
@@ -269,8 +269,8 @@ public class FluidPipeTile extends MMTileBase implements ITickableTileEntity {
 
     public void checkPipeState() {
         for (Direction value : Direction.values()) {
-            BlockPos offset = pos.offset(value);
-            BlockState blockState = world.getBlockState(offset);
+            BlockPos.m_142300_ = pos.m_142300_(value);
+            BlockState blockState = world.getBlockState.m_142300_);
             if (blockState.getBlock() instanceof FluidPipeBlock) {
                 FluidPipeBlock block = (FluidPipeBlock) blockState.getBlock();
                 world.setBlockState(pos, block.getState(world, pos), 18);

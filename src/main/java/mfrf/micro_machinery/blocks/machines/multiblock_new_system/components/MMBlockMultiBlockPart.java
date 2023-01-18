@@ -1,15 +1,15 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components;
+package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -24,53 +24,53 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
 
     @Nullable
     public BlockState pack(World world, BlockPos pos, Direction direction, BlockPos mainPart) {
-        BlockState replace = getDefaultState();
+        BlockState replace = defaultBlockState();
 
-        CompoundNBT reserved = new CompoundNBT();
+        CompoundTag reserved = new CompoundTag();
 
-        CompoundNBT blockNBT = NBTUtil.writeBlockState(world.getBlockState(pos));
+        CompoundTag blockNBT = NBTUtil.writeBlockState(world.getBlockState(pos));
         reserved.put("block", blockNBT);
 
-        TileEntity tileEntity = world.getTileEntity(pos);
+        BlockEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity != null) {
             reserved.put("tile", tileEntity.serializeNBT());
         }
 
         world.setBlockState(pos, replace);
-        ((MMTileMultiBlockPart) world.getTileEntity(pos)).setPacked(reserved, mainPart);
+        ((MMTileMultiBlockPart) world.getBlockEntity(pos)).setPacked(reserved, mainPart);
         return replace;
     }
 
     public static void unpack(World world, BlockPos pos) {
-        MMTileMultiBlockPart thisTile = (MMTileMultiBlockPart) world.getTileEntity(pos);
-        CompoundNBT packedNBT = thisTile.getPacked();
+        MMTileMultiBlockPart thisTile = (MMTileMultiBlockPart) world.getBlockEntity(pos);
+        CompoundTag packedNBT = thisTile.getPacked();
         BlockState block = NBTUtil.readBlockState(packedNBT.getCompound("block"));
         world.setBlockState(pos, block);
         if (packedNBT.contains("tile")) {
-            world.getTileEntity(pos).read(packedNBT.getCompound("tile"));
+            world.getBlockEntity(pos).read(packedNBT.getCompound("tile"));
         }
     }
 
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
+    public boolean hasBlockEntity(BlockState state) {
         return true;
     }
 
 
     @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, Player player) {
         if (!worldIn.isRemote()) {
-            TileEntity te = worldIn.getTileEntity(pos);
+            BlockEntity te = worldIn.getBlockEntity(pos);
             ((MMTileMultiBlockPart) te).onBlockHarvest(worldIn, pos, player, state);
         }
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player,
                                              Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote()) {
-            return ((MMTileMultiBlockPart) worldIn.getTileEntity(pos)).onBlockActivated(worldIn, player, handIn, hit);
+            return ((MMTileMultiBlockPart) worldIn.getBlockEntity(pos)).onBlockActivated(worldIn, player, handIn, hit);
 
         }
         return ActionResultType.SUCCESS;
@@ -88,7 +88,7 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
         return new MMTileMultiBlockPart();
     }
 }

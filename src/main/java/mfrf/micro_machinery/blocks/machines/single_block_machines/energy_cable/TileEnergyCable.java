@@ -1,13 +1,13 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.energy_cable;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumCableState;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -17,11 +17,11 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, IEnergyStorage {
+public class TileEnergyCable extends MMTileBase implements ITickableBlockEntity, IEnergyStorage {
     private int currentEnergy = 0;
 
     public TileEnergyCable() {
-        super(RegisteredTileEntityTypes.TILE_ENERGY_CABLE.get());
+        super(RegisteredBlockEntityTypes.TILE_ENERGY_CABLE.get());
     }
 
     public int getCurrentEnergy() {
@@ -29,13 +29,13 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         currentEnergy = compound.getInt("current_energy");
         super.read(compound);
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.putInt("current_energy", currentEnergy);
         return super.write(compound);
     }
@@ -83,7 +83,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
             int i = currentEnergy / cableSide.size();
             int sum = 0;
             for (Direction direction : cableSide) {
-                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+                BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
                 if (tileEntity instanceof TileEnergyCable) {
                     TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
                     int currentEnergy = tileEnergyCable.getCurrentEnergy();
@@ -94,7 +94,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
                 }
             }
             this.currentEnergy -= sum;
-            markDirty();
+            setChanged();
         }
     }
 
@@ -105,7 +105,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
             int i = currentEnergy / size;
             AtomicInteger sum = new AtomicInteger();
             for (Direction direction : outputSide) {
-                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+                BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
                 if (tileEntity != null) {
                     LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {
@@ -119,7 +119,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
                 }
             }
             currentEnergy -= sum.get();
-            markDirty();
+            setChanged();
         }
     }
 
@@ -135,12 +135,12 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
         } else {
             if (currentEnergy + maxReceive <= transfer) {
                 currentEnergy += maxReceive;
-                markDirty();
+                setChanged();
                 return maxReceive;
             } else {
                 int returnValue = transfer - currentEnergy;
                 currentEnergy = transfer;
-                markDirty();
+                setChanged();
                 return returnValue;
             }
         }
@@ -157,12 +157,12 @@ public class TileEnergyCable extends MMTileBase implements ITickableTileEntity, 
         } else {
             if (currentEnergy - maxExtract >= 0) {
                 currentEnergy -= maxExtract;
-                markDirty();
+                setChanged();
                 return maxExtract;
             } else {
                 int currentEnergy = this.currentEnergy;
                 this.currentEnergy = 0;
-                markDirty();
+                setChanged();
                 return currentEnergy;
             }
         }

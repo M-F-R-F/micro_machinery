@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.micro_machinery.utils;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.function.Consumer;
@@ -18,7 +18,7 @@ public class TickRegularTimerPartialSerializeAbleFactory<T> {
         return new TickRegularTimerPartialSerializeAble();
     }
 
-    public class TickRegularTimerPartialSerializeAble implements INBTSerializable<CompoundNBT> {
+    public class TickRegularTimerPartialSerializeAble implements INBTSerializable<CompoundTag> {
         public int tick = 0;
         private int interval = 0;
 
@@ -26,14 +26,14 @@ public class TickRegularTimerPartialSerializeAbleFactory<T> {
         }
 
         @Override
-        public CompoundNBT serializeNBT() {
-            CompoundNBT compoundNBT = new CompoundNBT();
+        public CompoundTag serializeNBT() {
+            CompoundTag compoundNBT = new CompoundTag();
             compoundNBT.putInt("tick", tick);
             return null;
         }
 
         @Override
-        public void deserializeNBT(CompoundNBT nbt) {
+        public void deserializeNBT(CompoundTag nbt) {
             tick = nbt.getInt("tick");
         }
 

@@ -1,14 +1,14 @@
-package mfrf.dbydd.micro_machinery.items;
+package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.MMOreBase;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -18,14 +18,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ToolProspector extends MMItemBase {
-    private static final String STRONG_FEEDBACK = Micro_Machinery.NAME + ".notify." + "strong_feedback";
-    private static final String OBVIOUS_FEEDBACK = Micro_Machinery.NAME + ".notify." + "obvious_feedback";
-    private static final String WEAK_FEEDBACK = Micro_Machinery.NAME + ".notify." + "weak_feedback";
-    private static final String WEAKEST_FEEDBACK = Micro_Machinery.NAME + ".notify." + "weakest_feedback";
-    private static final String NO_FEEDBACK = Micro_Machinery.NAME + ".notify." + "no_feedback";
+    private static final String STRONG_FEEDBACK = MicroMachinery.MODID + ".notify." + "strong_feedback";
+    private static final String OBVIOUS_FEEDBACK = MicroMachinery.MODID + ".notify." + "obvious_feedback";
+    private static final String WEAK_FEEDBACK = MicroMachinery.MODID + ".notify." + "weak_feedback";
+    private static final String WEAKEST_FEEDBACK = MicroMachinery.MODID + ".notify." + "weakest_feedback";
+    private static final String NO_FEEDBACK = MicroMachinery.MODID + ".notify." + "no_feedback";
 
     public ToolProspector() {
-        super(new Properties().maxStackSize(1).group(Micro_Machinery.MMTAB).maxDamage(36), "prospector");
+        super(new Properties().maxStackSize(1).group(MicroMachinery.MMTAB).maxDamage(36), "prospector");
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ToolProspector extends MMItemBase {
         TARGET_BLOCKS.addAll(Arrays.asList(Blocks.COAL_ORE, Blocks.IRON_ORE, Blocks.GOLD_ORE));
         World world = context.getWorld();
         if (!world.isRemote()) {
-            PlayerEntity player = context.getPlayer();
+            Player player = context.getPlayer();
             BlockPos contextPos = context.getPos();
             int count = 0;
             if (world.chunkExists(contextPos.getX() >> 4, contextPos.getZ() >> 4)) {

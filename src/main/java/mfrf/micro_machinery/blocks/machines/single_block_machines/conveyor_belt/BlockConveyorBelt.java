@@ -1,17 +1,17 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.dbydd.micro_machinery.utils.TriFields;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -30,10 +30,10 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
     public BlockConveyorBelt(Properties properties, String name, TriFields<Integer, Integer, Integer> speed_stack_interval) {
         super(properties, name);
         this.properties_speed_stack_interval_supplier = speed_stack_interval;
-        this.setDefaultState(
-                this.stateContainer.getBaseState()
-                        .with(OUT_STATE, EnumConveyorConnectState.NULL).with(FACING, Direction.SOUTH)
-                        .with(LEFT_STATE, false).with(RIGHT_STATE, false).with(BACK_STATE, true)
+        this.registerDefaultState(
+                this.getStateDefinition().any()
+                        .setValue(OUT_STATE, EnumConveyorConnectState.NULL).setValue(FACING, Direction.SOUTH)
+                        .setValue(LEFT_STATE, false).setValue(RIGHT_STATE, false).setValue(BACK_STATE, true)
         );
     }
 
@@ -53,8 +53,8 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
             Direction facing = context.getPlacementHorizontalFacing();
             BlockPos pos = context.getPos();
             World world = context.getWorld();
-            BlockState blockState = world.getBlockState(pos.offset(facing));
-            TileEntity tileEntity = world.getTileEntity(pos.offset(facing));
+            BlockState blockState = world.getBlockState(pos.m_142300_(facing));
+            BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(facing));
             boolean up = false;
             boolean down = false;
             boolean findAnyWhere = false;
@@ -67,12 +67,12 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
                 if (tileEntity != null && tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite()).isPresent()) {
                     connect = true;
                 } else {
-                    BlockPos offset = pos.offset(facing);
-                    BlockState upFacing = world.getBlockState(offset.up());
-                    TileEntity tileUp = world.getTileEntity(offset.up());
+                    BlockPos.m_142300_ = pos.m_142300_(facing);
+                    BlockState upFacing = world.getBlockState.m_142300_.up());
+                    BlockEntity tileUp = world.getBlockEntity.m_142300_.up());
 
-                    BlockState downFacing = world.getBlockState(offset.down());
-                    TileEntity tileDown = world.getTileEntity(offset.down());
+                    BlockState downFacing = world.getBlockState.m_142300_.down());
+                    BlockEntity tileDown = world.getBlockEntity.m_142300_.down());
 
                     if (upFacing.getBlock() instanceof BlockConveyorBelt && upFacing.get(FACING) != facing.getOpposite() || (tileUp != null && tileUp.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite()).isPresent())) {
                         up = true;
@@ -91,9 +91,9 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
 
 //            if (findAnyWhere) {
 //                for (Direction direction : Direction.Plane.HORIZONTAL) {
-//                    BlockState facingBlock = world.getBlockState(pos.offset(direction));
-//                    BlockState facingUp = world.getBlockState(pos.offset(direction).up());
-//                    BlockState facingDown = world.getBlockState(pos.offset(direction).down());
+//                    BlockState facingBlock = world.getBlockState(pos.m_142300_(direction));
+//                    BlockState facingUp = world.getBlockState(pos.m_142300_(direction).up());
+//                    BlockState facingDown = world.getBlockState(pos.m_142300_(direction).down());
 //                    if (facingBlock.getBlock() instanceof BlockConveyorBelt) {
 //                        if (facingBlock.get(FACING).getOpposite() != direction) {
 //                            facing = direction;
@@ -122,19 +122,19 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
                             BlockPos facingPos = null;
                             switch (j) {
                                 case 0: {
-                                    facingPos = pos.offset(facing);
+                                    facingPos = pos.m_142300_(facing);
                                 }
                                 case 1: {
-                                    facingPos = pos.offset(facing).up();
+                                    facingPos = pos.m_142300_(facing).up();
                                     break;
                                 }
                                 case 2: {
-                                    facingPos = pos.offset(facing).down();
+                                    facingPos = pos.m_142300_(facing).down();
                                     break;
                                 }
                             }
                             BlockState facingState = world.getBlockState(facingPos);
-                            TileEntity facingTile = world.getTileEntity(facingPos);
+                            BlockEntity facingTile = world.getBlockEntity(facingPos);
                             //todo determine state
                             if (facingState.getBlock() instanceof BlockConveyorBelt && facingState.get(FACING) == direction.getOpposite() || (facingTile != null && facingTile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).isPresent())) {
                                 switch (i) {
@@ -165,7 +165,7 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
             } else {
                 outState = EnumConveyorConnectState.NULL;
             }
-            return getDefaultState().with(FACING, facing).with(OUT_STATE, outState).with(LEFT_STATE, left).with(RIGHT_STATE, right).with(BACK_STATE, back);
+            return defaultBlockState().setValue(FACING, facing).setValue(OUT_STATE, outState).setValue(LEFT_STATE, left).setValue(RIGHT_STATE, right).setValue(BACK_STATE, back);
         }
 
         return super.getStateForPlacement(context);
@@ -179,12 +179,12 @@ public class BlockConveyorBelt extends MMBlockTileProviderBase {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
         return new TileConveyBelt();
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
+    public boolean hasBlockEntity(BlockState state) {
         return true;
     }
 }

@@ -1,22 +1,22 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.centrifuge;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
 
-public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
+public class TileCentrifuge extends MMTileBase implements ITickableBlockEntity, INamedContainerProvider {
     private FEContainer feContainer = new FEContainer(0, 40000) {
         @Override
         public boolean canExtract() {
@@ -74,7 +74,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
     private ResourceLocation recipe = null;
 
     public TileCentrifuge() {
-        super(RegisteredTileEntityTypes.TILE_CENTRIFUGE.get());
+        super(RegisteredBlockEntityTypes.TILE_CENTRIFUGE.get());
     }
 
     @Override
@@ -85,7 +85,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
 
                 if (feContainer.selfSubtract() != -1) {
                     progress.selfAdd();
-                    markDirty();
+                    setChanged();
                 }
 
                 if (progress.atMaxValue()) {
@@ -103,7 +103,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
                         isWorking = false;
                         progress.resetValue();
                         this.recipe = null;
-                        markDirty();
+                        setChanged();
 
                     });
                 }
@@ -117,7 +117,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
                         this.progress.setMax(centrifugeRecipe.getTime());
                         this.recipe = centrifugeRecipe.getId();
                         this.isWorking = true;
-                        markDirty();
+                        setChanged();
                     }
                 }
             }
@@ -163,8 +163,8 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        CompoundNBT compoundNBT = super.write(compound);
+    public CompoundTag write(CompoundTag compound) {
+        CompoundTag compoundNBT = super.write(compound);
         compoundNBT.put("fe_container", feContainer.serializeNBT());
         compoundNBT.put("input", input.serializeNBT());
         compoundNBT.put("output", output.serializeNBT());
@@ -177,7 +177,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
     }
 
     @Override
-    public void read(CompoundNBT nbt) {
+    public void read(CompoundTag nbt) {
         super.read(nbt);
         feContainer.deserializeNBT(nbt.getCompound("fe_container"));
         input.deserializeNBT(nbt.getCompound("input"));
@@ -214,7 +214,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableTileEntity, I
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
         return new CentrifugeContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 }

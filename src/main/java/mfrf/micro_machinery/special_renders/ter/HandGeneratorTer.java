@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.special_renders.ter;
+package mfrf.micro_machinery.special_renders.ter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.BlockHandGenerator;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.hand_generator.TileHandGenerator;
@@ -6,12 +6,12 @@ import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.util.Direction;
+import net.minecraft.client.renderer.tileentity.BlockEntityRendererDispatcher;
+import net.minecraft.core.Direction;
 import net.minecraftforge.client.model.data.EmptyModelData;
 
 public class HandGeneratorTer extends MMTERBase<TileHandGenerator> {
-    public HandGeneratorTer(TileEntityRendererDispatcher rendererDispatcherIn) {
+    public HandGeneratorTer(BlockEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 
@@ -24,7 +24,7 @@ public class HandGeneratorTer extends MMTERBase<TileHandGenerator> {
         matrixStackIn.rotate(new Quaternion(new Vector3f(0,1,0), -direction.getOpposite().getHorizontalAngle(), true));
         matrixStackIn.translate(move.getX(), move.getY(), move.getZ());
         matrixStackIn.rotate(new Quaternion(new Vector3f(1,0,0), 360*((float)progress.getCurrent()/(float)progress.getMax()), true));
-        blockRenderer.renderBlock(RegisteredBlocks.HAND_GENERATOR_1.getDefaultState(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, EmptyModelData.INSTANCE);
+        blockRenderer.renderBlock(RegisteredBlocks.HAND_GENERATOR_1.defaultBlockState(), matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, EmptyModelData.INSTANCE);
         matrixStackIn.pop();
 
     }

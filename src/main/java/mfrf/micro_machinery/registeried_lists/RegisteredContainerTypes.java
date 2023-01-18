@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.registeried_lists;
+package mfrf.micro_machinery.registeried_lists;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.gui.atomization.AtomizationContainer;
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
@@ -19,7 +19,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RegisteredContainerTypes {
-    public static final DeferredRegister<ContainerType<?>> CONTAINER_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.CONTAINERS, Micro_Machinery.NAME);
+    public static final DeferredRegister<ContainerType<?>> CONTAINER_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.CONTAINERS, MicroMachinery.MODID);
 
     public static RegistryObject<ContainerType<KlinContainer>> KLINCONTAINER = CONTAINER_TYPE_REGISTER.register("klincontainer", () -> IForgeContainerType.create((windowId, inv, data) -> new KlinContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld(), new TileKlin.KlinProgressBarNumArray())));
     public static final RegistryObject<ContainerType<GeneratorContainer>> GENERATOR = CONTAINER_TYPE_REGISTER.register("generatorcontainer", () -> IForgeContainerType.create((windowId, inv, data) -> new GeneratorContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().world.getWorld())));

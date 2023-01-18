@@ -1,14 +1,14 @@
-package mfrf.dbydd.micro_machinery.recipes.lathe;
+package mfrf.micro_machinery.recipes.lathe;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.Random;
 import java.util.function.Function;
 
-public class LatheRecipe implements INBTSerializable<CompoundNBT> {
+public class LatheRecipe implements INBTSerializable<CompoundTag> {
     private final Function<ItemStack, ItemStack> recipe;
     private TileLathe.Action action2;
     private TileLathe.Action action1;
@@ -33,8 +33,8 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
         return new SubRecipe(resultStack, new ItemStack(stack.getItem()), action1, action2, wasteValueNeeded);
     }
 
-    public CompoundNBT serializeNBT() {
-        CompoundNBT compoundNBT = new CompoundNBT();
+    public CompoundTag serializeNBT() {
+        CompoundTag compoundNBT = new CompoundTag();
         compoundNBT.putInt("wasteValueNeeded", wasteValueNeeded);
         compoundNBT.putString("action1", action1.name());
         compoundNBT.putString("action2", action2.name());
@@ -42,13 +42,13 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT compoundNBT) {
+    public void deserializeNBT(CompoundTag compoundNBT) {
         this.wasteValueNeeded = compoundNBT.getInt("wasteValueNeeded");
         this.action1 = TileLathe.Action.valueOf(compoundNBT.getString("action1"));
         this.action2 = TileLathe.Action.valueOf(compoundNBT.getString("action2"));
     }
 
-    public static class SubRecipe implements INBTSerializable<CompoundNBT> {
+    public static class SubRecipe implements INBTSerializable<CompoundTag> {
         public static final SubRecipe EMPTY = new SubRecipe();
         private TileLathe.Action action2;
         private TileLathe.Action action1;
@@ -93,8 +93,8 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
         }
 
         @Override
-        public CompoundNBT serializeNBT() {
-            CompoundNBT compoundNBT = new CompoundNBT();
+        public CompoundTag serializeNBT() {
+            CompoundTag compoundNBT = new CompoundTag();
             compoundNBT.put("input", input.serializeNBT());
             compoundNBT.put("result", result.serializeNBT());
             compoundNBT.putString("action1", action1.name());
@@ -104,7 +104,7 @@ public class LatheRecipe implements INBTSerializable<CompoundNBT> {
         }
 
         @Override
-        public void deserializeNBT(CompoundNBT nbt) {
+        public void deserializeNBT(CompoundTag nbt) {
             input = ItemStack.read(nbt.getCompound("input"));
             result = ItemStack.read(nbt.getCompound("result"));
             action1 = TileLathe.Action.valueOf(nbt.getString("action1"));

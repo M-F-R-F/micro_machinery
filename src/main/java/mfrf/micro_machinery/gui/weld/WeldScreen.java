@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.gui.weld;
+package mfrf.micro_machinery.gui.weld;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.weld.TileWeld;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
@@ -11,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 public class WeldScreen extends ScreenBase<WeldContainer> {
 
     public WeldScreen(WeldContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/weld.png"), 176, 182);
+        super(screenContainer, inv, titleIn, new ResourceLocation(MicroMachinery.MODID, "textures/gui/weld.png"), 176, 182);
     }
 
     @Override

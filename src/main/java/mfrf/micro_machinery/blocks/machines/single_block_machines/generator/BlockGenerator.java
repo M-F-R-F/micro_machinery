@@ -1,26 +1,26 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.utils.MathUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BucketItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -33,26 +33,26 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 public class BlockGenerator extends MMBlockTileProviderBase {
-    public static final VoxelShape GENERATOR_SHAPE1 = Block.makeCuboidShape(0, 0, 0, 16, 4, 15);
-    public static final VoxelShape GENERATOR_SHAPE2 = Block.makeCuboidShape(0, 4, 11, 16, 16, 15);
-    public static final VoxelShape GENERATOR_SHAPE3 = Block.makeCuboidShape(2, 2, 15, 14, 14, 16);
-    public static final VoxelShape GENERATOR_SHAPE4 = Block.makeCuboidShape(2, 4, 2, 14, 14, 11);
+    public static final VoxelShape GENERATOR_SHAPE1 = Block.box(0, 0, 0, 16, 4, 15);
+    public static final VoxelShape GENERATOR_SHAPE2 = Block.box(0, 4, 11, 16, 16, 15);
+    public static final VoxelShape GENERATOR_SHAPE3 = Block.box(2, 2, 15, 14, 14, 16);
+    public static final VoxelShape GENERATOR_SHAPE4 = Block.box(2, 4, 2, 14, 14, 11);
     public static final VoxelShape SHAPE = VoxelShapes.or(GENERATOR_SHAPE1, GENERATOR_SHAPE2, GENERATOR_SHAPE3, GENERATOR_SHAPE4);
     public static final BooleanProperty ISBURNING = BooleanProperty.create("isburning");
 
     public BlockGenerator(Properties properties) {
         super(properties, "generator");
-        this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(ISBURNING, false));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(ISBURNING, false));
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return makeShape(state.get(FACING));
+        return makeShape(state.getValue(FACING));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return makeShape(state.get(FACING));
+        return makeShape(state.getValue(FACING));
     }
 
     private VoxelShape makeShape(Direction direction){
@@ -61,7 +61,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     }
 
     public static void setIsburning(boolean isburning, World world, BlockPos pos) {
-        world.setBlockState(pos, world.getBlockState(pos).with(ISBURNING, isburning), 3);
+        world.setBlockState(pos, world.getBlockState(pos).setValue(ISBURNING, isburning), 3);
     }
 
     @Override
@@ -71,10 +71,10 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote() && handIn == Hand.MAIN_HAND) {
             ItemStack heldItem = player.getHeldItem(handIn);
-            TileGenerator tileGenerator = (TileGenerator) worldIn.getTileEntity(pos);
+            TileGenerator tileGenerator = (TileGenerator) worldIn.getBlockEntity(pos);
             if (!heldItem.isEmpty() && heldItem.getItem() instanceof BucketItem) {
                 BucketItem item = (BucketItem) heldItem.getItem();
                 if (item.getFluid() == Fluids.WATER) {
@@ -91,7 +91,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
                     });
                 }
             } else {
-                NetworkHooks.openGui((ServerPlayerEntity) player, tileGenerator, (PacketBuffer packerBuffer) -> {
+                NetworkHooks.openGui((ServerPlayer) player, tileGenerator, (PacketBuffer packerBuffer) -> {
                     packerBuffer.writeBlockPos(tileGenerator.getPos());
                 });
             }
@@ -102,7 +102,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
         return new TileGenerator();
     }
 }

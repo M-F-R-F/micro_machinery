@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.recipes;
+package mfrf.micro_machinery.recipes;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;

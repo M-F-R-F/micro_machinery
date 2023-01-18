@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockAccessoryPlaceHolder extends BlockPlaceHolder {

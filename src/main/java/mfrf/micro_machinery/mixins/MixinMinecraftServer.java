@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.mixins;
+package mfrf.micro_machinery.mixins;
 
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;

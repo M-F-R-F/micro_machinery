@@ -1,9 +1,9 @@
-package mfrf.dbydd.micro_machinery.event;
+package mfrf.micro_machinery.event;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
 import mfrf.dbydd.micro_machinery.fluids.MMFluidBase;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.BlockEvent;
@@ -16,7 +16,7 @@ public class MoltenMaterialToRockEventDenier {
     @SubscribeEvent
     public static void onMoltenMaterialGenerateStone(BlockEvent.FluidPlaceBlockEvent event) {
         Fluid fluid = event.getWorld().getFluidState(event.getLiquidPos()).getFluid();
-        if (fluid.getRegistryName().getNamespace().equals(Micro_Machinery.NAME) && fluid.getTags().contains(new ResourceLocation("minecraft", "lava"))) {
+        if (fluid.getRegistryName().getNamespace().equals(MicroMachinery.MODID) && fluid.getTags().contains(new ResourceLocation("minecraft", "lava"))) {
             String path = fluid.getRegistryName().getPath();
 
             for (MMFluidBase fluidBase : MMFluidBase.fluidBaseList) {

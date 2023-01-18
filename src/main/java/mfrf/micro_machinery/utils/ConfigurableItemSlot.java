@@ -1,8 +1,8 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.micro_machinery.utils;
 
 import mfrf.dbydd.micro_machinery.Config;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<CompoundNBT> {
+public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<CompoundTag> {
 
     private LinkedList<ItemStack> stacks = new LinkedList<>();
     private int max_stack_size;
@@ -33,8 +33,8 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<Comp
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT compoundNBT = new CompoundNBT();
+    public CompoundTag serializeNBT() {
+        CompoundTag compoundNBT = new CompoundTag();
         ListNBT stacksNBT = new ListNBT();
         for (ItemStack stack : stacks) {
             stacksNBT.add(stack.serializeNBT());
@@ -45,10 +45,10 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<Comp
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         ListNBT stacks = nbt.getList("stacks", Constants.NBT.TAG_COMPOUND);
         for (INBT inbt : stacks) {
-            this.stacks.add(ItemStack.read(((CompoundNBT) inbt)));
+            this.stacks.add(ItemStack.read(((CompoundTag) inbt)));
         }
         max_stack_size = nbt.getInt("max_stack_size");
     }

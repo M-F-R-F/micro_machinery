@@ -1,20 +1,20 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.electrolysis;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.electrolysis;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -27,7 +27,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileElectrolysis extends MMTileBase implements ITickableTileEntity, IItemHandler, INamedContainerProvider {
+public class TileElectrolysis extends MMTileBase implements ITickableBlockEntity, IItemHandler, INamedContainerProvider {
     private FEContainer energy = new FEContainer(0, 120000) {
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
@@ -62,7 +62,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     private boolean isWorking = false;
 
     public TileElectrolysis() {
-        super(RegisteredTileEntityTypes.TILE_ELECTROLYSIS.get());
+        super(RegisteredBlockEntityTypes.TILE_ELECTROLYSIS.get());
     }
 
     public FEContainer getEnergy() {
@@ -90,7 +90,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         items.deserializeNBT(compound.getCompound("item"));
         energy.deserializeNBT(compound.getCompound("energy"));
         isWorking = compound.getBoolean("is_working");
@@ -103,8 +103,8 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        CompoundNBT write = super.write(compound);
+    public CompoundTag write(CompoundTag compound) {
+        CompoundTag write = super.write(compound);
         write.put("item", items.serializeNBT());
         write.put("energy", energy.serializeNBT());
         write.putBoolean("is_working", isWorking);
@@ -162,7 +162,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
         if (slot == Slot.OUTPUT.index) return stack;
         ItemStack itemStack = items.insertItem(slot, stack, simulate);
-        markDirty();
+        setChanged();
         return itemStack;
     }
 
@@ -171,7 +171,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (slot == Slot.INPUT.index) return ItemStack.EMPTY;
         ItemStack itemStack = items.extractItem(slot, amount, simulate);
-        markDirty();
+        setChanged();
         return itemStack;
     }
 
@@ -192,7 +192,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableTileEntity,
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
         return new ElectrolysisContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 

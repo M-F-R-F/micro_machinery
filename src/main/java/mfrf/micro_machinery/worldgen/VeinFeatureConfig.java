@@ -1,9 +1,9 @@
-package mfrf.dbydd.micro_machinery.worldgen;
+package mfrf.micro_machinery.worldgen;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.IFeatureConfig;

@@ -1,8 +1,8 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 
@@ -11,7 +11,7 @@ public abstract class MMMultiBlockMainPartBase extends MMMultiBlockHolderBase {
 
     public MMMultiBlockMainPartBase(Properties properties, String name, boolean addToPlaceHolderList, boolean haveBlockItem, boolean addToStructureMaps) {
         super(properties, name, addToPlaceHolderList, haveBlockItem, addToStructureMaps);
-        this.setDefaultState(getDefaultState().with(MODEL_PLACEHOLDER, false));
+        this.registerDefaultState(defaultBlockState().setValue(MODEL_PLACEHOLDER, false));
     }
 
 

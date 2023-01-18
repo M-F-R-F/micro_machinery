@@ -1,23 +1,23 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.lathe;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.lathe.LatheContainer;
 import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.ActionContainer;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import mfrf.dbydd.micro_machinery.world_saved_data.LatheRecipesWorldSavedData;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
@@ -90,7 +90,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     };
 
     public TileLathe() {
-        super(RegisteredTileEntityTypes.TILE_LATHE.get());
+        super(RegisteredBlockEntityTypes.TILE_LATHE.get());
     }
 
     public mfrf.dbydd.micro_machinery.utils.FEContainer getFEContainer() {
@@ -110,7 +110,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.put("fe_container", FEContainer.serializeNBT());
         compound.put("waste_material_container", wasteMaterialValueConatiner.serializeNBT());
         compound.put("item_handler", itemHander.serializeNBT());
@@ -120,7 +120,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         FEContainer.deserializeNBT(compound.getCompound("fe_container"));
         wasteMaterialValueConatiner.deserializeNBT(compound.getCompound("waste_material_container"));
         itemHander.deserializeNBT(compound.getCompound("item_handler"));
@@ -145,7 +145,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     @Override
-    public Container createMenu(int sycID, PlayerInventory inventory, PlayerEntity player) {
+    public Container createMenu(int sycID, PlayerInventory inventory, Player player) {
         return new LatheContainer(sycID, inventory, this.pos, this.world);
     }
 
@@ -211,7 +211,7 @@ public class TileLathe extends MMTileBase implements INamedContainerProvider {
     }
 
     @Override
-    public void handleNetWorkSyncFromClient(CompoundNBT tag) {
+    public void handleNetWorkSyncFromClient(CompoundTag tag) {
         if (tag.contains("action", Constants.NBT.TAG_STRING)) {
             getAction(Action.valueOf(tag.getString("action")));
         }

@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.items;
+package mfrf.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
@@ -6,17 +6,17 @@ import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multibl
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.NBTUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Triple;
@@ -52,13 +52,13 @@ public class MMHammerBase extends ToolItem {
             return i >= blockIn.getHarvestLevel();
         }
         Material material = blockIn.getMaterial();
-        return material == Material.ROCK || material == Material.IRON || material == Material.ANVIL;
+        return material == Material.STONE || material == Material.IRON || material == Material.ANVIL;
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         Material material = state.getMaterial();
-        return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : this.efficiency;
+        return material != Material.IRON && material != Material.ANVIL && material != Material.STONE ? super.getDestroySpeed(stack, state) : this.efficiency;
     }
 
     @Override
@@ -125,9 +125,9 @@ public class MMHammerBase extends ToolItem {
                 BlockPos pos = context.getPos();
                 World world = context.getWorld();
 
-                CompoundNBT blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
-                world.setBlockState(pos, MMMultiBlockHolderBase.MAIN_PART_LIST.get(stringMultiBlockPosBoxEntry.getKey()).getDefaultState().with(MMMultiBlockHolderBase.FACING, face));
-                MMMultiBlockTileMainPartBase mainPartBase = (MMMultiBlockTileMainPartBase) world.getTileEntity(pos);
+                CompoundTag blockPackNBT = NBTUtil.getBlockPackNBT(world, pos);
+                world.setBlockState(pos, MMMultiBlockHolderBase.MAIN_PART_LIST.get(stringMultiBlockPosBoxEntry.getKey()).defaultBlockState().setValue(MMMultiBlockHolderBase.FACING, face));
+                MMMultiBlockTileMainPartBase mainPartBase = (MMMultiBlockTileMainPartBase) world.getBlockEntity(pos);
                 mainPartBase.saveBlockBeenReplaced(blockPackNBT);
 
                 ArrayList<nodeToBeProcess> posToBeLink = new ArrayList<>();

@@ -1,21 +1,21 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
 import mfrf.dbydd.micro_machinery.items.MMHammerBase;
 import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -26,11 +26,11 @@ public class TileAnvil extends MMTileBase {
     private ItemStackHandler itemStackHandler = new ItemStackHandler(1);
     private EnumAnvilType rank = null;
     public TileAnvil() {
-        super(RegisteredTileEntityTypes.TILE_ANVIL_TYPE.get());
+        super(RegisteredBlockEntityTypes.TILE_ANVIL_TYPE.get());
     }
 
     public TileAnvil(EnumAnvilType rank) {
-        super(RegisteredTileEntityTypes.TILE_ANVIL_TYPE.get());
+        super(RegisteredBlockEntityTypes.TILE_ANVIL_TYPE.get());
         this.rank = rank;
     }
 
@@ -43,7 +43,7 @@ public class TileAnvil extends MMTileBase {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         forgeTime.deserializeNBT(compound.getCompound("forge_time"));
         rank = EnumAnvilType.valueOf(compound.getString("rank"));
         itemStackHandler.deserializeNBT(compound.getCompound("items"));
@@ -51,14 +51,14 @@ public class TileAnvil extends MMTileBase {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.put("forge_time", forgeTime.serializeNBT());
         compound.put("items", itemStackHandler.serializeNBT());
         compound.putString("rank", rank.name());
         return super.write(compound);
     }
 
-    public ActionResultType onActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
 //        if (!worldIn.isRemote()) {
             if (handIn == Hand.MAIN_HAND) {
                 ItemStack heldItem = player.getHeldItem(handIn);

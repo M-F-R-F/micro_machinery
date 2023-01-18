@@ -1,12 +1,12 @@
-package mfrf.dbydd.micro_machinery.gui.lathe;
+package mfrf.micro_machinery.gui.lathe;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -18,7 +18,7 @@ public class LatheContainer extends ContainerBase {
 
     public LatheContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
         super(RegisteredContainerTypes.LATHE_CONTAINER.get(), id);
-        this.lathe = (TileLathe) world.getTileEntity(pos);
+        this.lathe = (TileLathe) world.getBlockEntity(pos);
         ItemStackHandler itemHander = lathe.getItemHander();
         this.addSlot(new SlotItemHandler(itemHander, 0, 28, 54));
         this.addSlot(new SlotItemHandler(itemHander, 1, 132, 54) {
@@ -35,12 +35,12 @@ public class LatheContainer extends ContainerBase {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean canInteractWith(Player playerIn) {
         return lathe.isUsableByPlayer(playerIn);
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack transferStackInSlot(Player playerIn, int index) {
         return ItemStack.EMPTY;
     }
 }

@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.klin;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.klin.KlinContainer;
@@ -6,19 +6,19 @@ import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IIntArray;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -37,7 +37,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHandler, IFluidHandler, INamedContainerProvider {
+public class TileKlin extends MMTileBase implements ITickableBlockEntity, IItemHandler, IFluidHandler, INamedContainerProvider {
 
     private FluidTank fluidHandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(5);
@@ -53,7 +53,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     private KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
 
     public TileKlin() {
-        super(RegisteredTileEntityTypes.TILE_KLIN_TYPE.get());
+        super(RegisteredBlockEntityTypes.TILE_KLIN_TYPE.get());
     }
 
     public boolean isBurning() {
@@ -64,7 +64,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
         return fluidHandler;
     }
 
-    public void onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public void onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
         player.sendMessage(new StringTextComponent("actived"));
     }
 
@@ -80,7 +80,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         this.fluidHandler.readFromNBT(compound.getCompound("fluidhandler"));
         this.itemhandler.deserializeNBT(compound.getCompound("itemhandler"));
         this.result = FluidStack.loadFluidStackFromNBT(compound.getCompound("result"));
@@ -96,10 +96,10 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        compound.put("fluidhandler", fluidHandler.writeToNBT(new CompoundNBT()));
+    public CompoundTag write(CompoundTag compound) {
+        compound.put("fluidhandler", fluidHandler.writeToNBT(new CompoundTag()));
         compound.put("itemhandler", itemhandler.serializeNBT());
-        compound.put("result", result.writeToNBT(new CompoundNBT()));
+        compound.put("result", result.writeToNBT(new CompoundTag()));
         compound.putInt("melttime", meltTime);
         compound.putInt("currentmeltime", currentMeltTime);
         compound.putInt("currentburntime", currentBurnTime);
@@ -319,7 +319,7 @@ public class TileKlin extends MMTileBase implements ITickableTileEntity, IItemHa
 
     @Nullable
     @Override
-    public Container createMenu(int sycID, PlayerInventory inventory, PlayerEntity player) {
+    public Container createMenu(int sycID, PlayerInventory inventory, Player player) {
         return new KlinContainer(sycID, inventory, this.pos, this.world, progressBarNumArray);
     }
 

@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.micro_machinery.utils;
 
 import java.util.Objects;
 import java.util.function.Supplier;

@@ -1,15 +1,15 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.micro_machinery.utils;
 
 import com.google.gson.JsonObject;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.World;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
@@ -97,7 +97,7 @@ public class MathUtil {
 
     /**
      * @param matrix An Affine-transformation matrix, the 3x3 sub matrix at upper left means linear transformation.
-     *               The first three elements in the fourth column means offset,and the final elements should always be 1.
+     *               The first three elements in the fourth column means.m_142300_,and the final elements should always be 1.
      * @param shape  the VoxelShape need to transform.
      * @return the VoxelShape that been transformed.
      */
@@ -112,7 +112,7 @@ public class MathUtil {
             RealVector beginPointTransitioned = realMatrix.operate(beginPoint);
             RealVector lastPointTransitioned = realMatrix.operate(lastPoint);
 
-            returnValue = VoxelShapes.or(returnValue, Block.makeCuboidShape(beginPointTransitioned.getEntry(0), beginPointTransitioned.getEntry(1), beginPointTransitioned.getEntry(2), lastPointTransitioned.getEntry(0), lastPointTransitioned.getEntry(1), lastPointTransitioned.getEntry(2)));
+            returnValue = VoxelShapes.or(returnValue, Block.box(beginPointTransitioned.getEntry(0), beginPointTransitioned.getEntry(1), beginPointTransitioned.getEntry(2), lastPointTransitioned.getEntry(0), lastPointTransitioned.getEntry(1), lastPointTransitioned.getEntry(2)));
         }
         return returnValue;
     }
@@ -215,13 +215,13 @@ public class MathUtil {
                     Block block = blockState.getBlock();
 
                     if (block != Blocks.AIR) {
-                        BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
+                        BlockPos.m_142300_Pos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
                         if (block instanceof BlockAccessoryPlaceHolder) {
-                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode(offsetPos, block, blockState.get(BlockAccessoryPlaceHolder.FACING), "", "", "place_holder");
+                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode.m_142300_Pos, block, blockState.get(BlockAccessoryPlaceHolder.FACING), "", "", "place_holder");
                             accessories.put("accessory$" + xOffset + "$" + yOffset + "$" + zOffset, accessoryNode);
                             blockNodes.add(accessoryNode);
                         } else {
-                            blockNodes.add(new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
+                            blockNodes.add(new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode.m_142300_Pos, block));
                         }
                     }
 

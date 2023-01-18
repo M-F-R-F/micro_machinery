@@ -1,51 +1,53 @@
-package mfrf.dbydd.micro_machinery.blocks.machines;
+package mfrf.micro_machinery.blocks.machines;
 
-import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.world.IBlockReader;
+import mfrf.micro_machinery.blocks.MMBlockBase;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
-import javax.annotation.Nullable;
+public abstract class MMBlockTileProviderBase extends MMBlockBase implements EntityBlock {
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-public abstract class MMBlockTileProviderBase extends MMBlockBase {
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-
-    public MMBlockTileProviderBase(Properties properties, String name) {
+    public MMBlockTileProviderBase(BlockBehaviour.Properties properties, String name) {
         super(properties, name);
     }
 
-    public MMBlockTileProviderBase(Properties properties, String name, boolean noItem) {
+    public MMBlockTileProviderBase(BlockBehaviour.Properties properties, String name, boolean noItem) {
         super(properties, name, noItem);
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(FACING);
+        super.createBlockStateDefinition(pBuilder);
     }
 
+    @org.jetbrains.annotations.Nullable
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-        super.fillStateContainer(builder);
+    public abstract BlockEntity newBlockEntity(BlockPos pPos, BlockState pState);
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public abstract <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType);
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 
-    @Nullable
-    @Override
-    public abstract TileEntity createTileEntity(BlockState state, IBlockReader world);
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
-    }
-
-    protected BlockState getStateToRegistry(){
-        return this.stateContainer.getBaseState().with(FACING, Direction.NORTH);
+    protected BlockState getStateToRegistry() {
+        return this.stateDefinition.any().setValue(FACING, Direction.NORTH);
     }
 }

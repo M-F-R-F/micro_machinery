@@ -1,4 +1,4 @@
-//package mfrf.dbydd.micro_machinery.special_renders.ter;
+//package mfrf.micro_machinery.special_renders.ter;
 //
 //import com.mojang.blaze3d.matrix.MatrixStack;
 //import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.etcher.BlockEtcher;
@@ -11,9 +11,9 @@
 //import net.minecraft.client.renderer.Vector3f;
 //import net.minecraft.client.renderer.model.IBakedModel;
 //import net.minecraft.client.renderer.model.ItemCameraTransforms;
-//import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-//import net.minecraft.item.ItemStack;
-//import net.minecraft.util.Direction;
+//import net.minecraft.client.renderer.tileentity.BlockEntityRendererDispatcher;
+//import net.minecraft.world.item.ItemStack;
+//import net.minecraft.core.Direction;
 //import net.minecraft.util.math.Vec3i;
 //import net.minecraft.world.LightType;
 //import net.minecraft.world.lighting.WorldLightManager;
@@ -21,7 +21,7 @@
 //
 //public class EtcherTer extends MMTERBase<TileEtcher> {
 //
-//    public EtcherTer(TileEntityRendererDispatcher rendererDispatcherIn) {
+//    public EtcherTer(BlockEntityRendererDispatcher rendererDispatcherIn) {
 //        super(rendererDispatcherIn);
 //    }
 //
@@ -44,7 +44,7 @@
 //        matrixStackIn.translate(x, y, z);
 //        matrixStackIn.translate(0.5, 0, 0.5);
 //        matrixStackIn.rotate(new Quaternion(0, direction == Direction.SOUTH || direction == Direction.NORTH ? direction.getHorizontalAngle() - 90 : direction.getHorizontalAngle() + 90, 0, true));
-//        blockRenderer.renderBlock(RegisteredBlocks.ETCHER_1.getDefaultState(), matrixStackIn, bufferIn, light, combinedOverlayIn, EmptyModelData.INSTANCE);
+//        blockRenderer.renderBlock(RegisteredBlocks.ETCHER_1.defaultBlockState(), matrixStackIn, bufferIn, light, combinedOverlayIn, EmptyModelData.INSTANCE);
 //        matrixStackIn.pop();
 //        //====================================================================================================================================================================================================//
 //        //====================================================================================================================================================================================================//

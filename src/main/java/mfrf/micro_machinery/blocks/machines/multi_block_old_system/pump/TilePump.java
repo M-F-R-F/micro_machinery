@@ -1,20 +1,21 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.pump;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.pump;
 
 import mfrf.dbydd.micro_machinery.Config;
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.block.BlockState;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.capabilities.Capability;
@@ -27,7 +28,7 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TilePump extends MMTileBase implements ITickableTileEntity {
+public class TilePump extends MMTileBase{
     private FluidTank tank = new FluidTank(2000);
     private FEContainer feContainer = new FEContainer(0, 3200) {
         @Override
@@ -48,7 +49,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
     private IntegerContainer cd = new IntegerContainer(0, (int) (2 * (35.0 / Config.HIGH_FREQUENCY_BLOCK_ACTIVE_UPDATE_CYCLE.get())));
 
     public TilePump() {
-        super(RegisteredTileEntityTypes.TILE_PUMP.get());
+        super(RegisteredBlockEntityTypes.TILE_PUMP.get());
     }
 
     @Override
@@ -56,7 +57,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
         if (!world.isRemote()) {
             if (feContainer.selfSubtract() >= 50) {
                 if (cd.atMaxValue()) {
-                    BlockPos extractPos = pos.offset(getBlockState().get(BlockPump.FACING).getOpposite()).offset(Direction.DOWN);
+                    BlockPos extractPos = pos.m_142300_(getBlockState().get(BlockPump.FACING).getOpposite()).m_142300_(Direction.DOWN);
                     BlockState extractTarget = world.getBlockState(extractPos);
                     Biome biome = world.getBiome(pos);
 
@@ -78,12 +79,12 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
 
 
                     if (!tank.isEmpty()) {
-                        TileEntity tileEntity = world.getTileEntity(pos.offset(getBackDirection().getOpposite()));
+                        BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(getBackDirection().getOpposite()));
                         if (tileEntity != null) {
                             LazyOptional<IFluidHandler> capability = tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, getBackDirection());
                             capability.ifPresent(iFluidHandler -> {
                                 tank.drain(iFluidHandler.fill(tank.drain(tank.getFluidAmount(), IFluidHandler.FluidAction.SIMULATE), IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
-                                markDirty();
+                                setChanged();
                             });
                         }
                     }
@@ -98,7 +99,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         super.read(compound);
         tank.readFromNBT(compound);
         feContainer.deserializeNBT(compound.getCompound("fe_container"));
@@ -106,7 +107,7 @@ public class TilePump extends MMTileBase implements ITickableTileEntity {
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         super.write(compound);
         tank.writeToNBT(compound);
         compound.put("fe_container", feContainer.serializeNBT());

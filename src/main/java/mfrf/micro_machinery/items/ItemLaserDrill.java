@@ -1,21 +1,21 @@
-package mfrf.dbydd.micro_machinery.items;
+package mfrf.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.Config;
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.utils.EnergyItemHandler;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -28,12 +28,12 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ItemLaserDrill extends MMItemBase {
 
     public ItemLaserDrill(String name) {
-        super(new Properties().group(Micro_Machinery.MMTAB).maxStackSize(1), name);
+        super(new Properties().group(MicroMachinery.MMTAB).maxStackSize(1), name);
     }
 
     @Nullable
     @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
         if (!stack.isEmpty())
             return new EnergyItemHandler(stack, new FEContainer(0, Config.LASER_DRILL_ENERGY_CAP.get()) {
                 @Override
@@ -58,7 +58,7 @@ public class ItemLaserDrill extends MMItemBase {
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {
         Hand hand = context.getHand();
-        PlayerEntity player = context.getPlayer();
+        Player player = context.getPlayer();
         ServerWorld world = ((ServerWorld) context.getWorld());
         Vec3d lookVec = player.getLookVec();
         Vec3d positionVec = player.getPositionVec();

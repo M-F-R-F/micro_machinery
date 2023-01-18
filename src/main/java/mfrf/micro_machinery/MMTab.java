@@ -1,12 +1,12 @@
-package mfrf.dbydd.micro_machinery;
+package mfrf.micro_machinery;
 
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredItems;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class MMTab extends ItemGroup {
     public MMTab() {
-        super("Micro_Machinery");
+        super("MicroMachinery");
     }
 
     @Override

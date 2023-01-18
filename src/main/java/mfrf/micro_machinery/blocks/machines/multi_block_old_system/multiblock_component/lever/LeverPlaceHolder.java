@@ -1,18 +1,18 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.lever;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.lever;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockPlaceHolder;
 import mfrf.dbydd.micro_machinery.interfaces.IMultiBlockRedStoneActiveable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
@@ -22,7 +22,7 @@ public class LeverPlaceHolder extends BlockPlaceHolder {
 
     public LeverPlaceHolder() {
         super("lever_place_holder");
-        setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, true).with(ACTIVED, false));
+        registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.SOUTH).setValue(IS_PLACEHOLDER, true).setValue(ACTIVED, false));
     }
 
     @Override
@@ -32,14 +32,14 @@ public class LeverPlaceHolder extends BlockPlaceHolder {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
         if(worldIn.isRemote()) {
-            Boolean actived = !state.get(ACTIVED);
-            worldIn.setBlockState(pos, state.with(ACTIVED, actived));
-            TilePlaceHolder tileEntity = (TilePlaceHolder) worldIn.getTileEntity(pos);
+            Boolean actived = !state.getValue(ACTIVED);
+            worldIn.setBlock(pos, state.setValue(ACTIVED, actived));
+            TilePlaceHolder tileEntity = (TilePlaceHolder) worldIn.getBlockEntity(pos);
             BlockPos mainPartPos = tileEntity.getMainPartPos();
             if(mainPartPos != null){
-                TileEntity mainPart = worldIn.getTileEntity(mainPartPos);
+                BlockEntity mainPart = worldIn.getBlockEntity(mainPartPos);
                 if(mainPart instanceof IMultiBlockRedStoneActiveable){
                     ((IMultiBlockRedStoneActiveable) mainPart).onActivated(actived);
                 }

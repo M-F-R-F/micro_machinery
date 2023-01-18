@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.recipes.weld;
+package mfrf.micro_machinery.recipes.weld;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -7,7 +7,7 @@ import mfrf.dbydd.micro_machinery.recipes.IngredientStack;
 import mfrf.dbydd.micro_machinery.recipes.RecipeBase;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;

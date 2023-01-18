@@ -1,11 +1,11 @@
-package mfrf.dbydd.micro_machinery.gui;
+package mfrf.micro_machinery.gui;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -16,7 +16,7 @@ public abstract class ContainerBase extends Container {
     }
 
     @Override
-    public abstract boolean canInteractWith(PlayerEntity playerIn);
+    public abstract boolean canInteractWith(Player playerIn);
 
     protected void drawInventory(int x, int y, IInventory inventory) {
         for (int i = 0; i < 9; i++) {
@@ -31,7 +31,7 @@ public abstract class ContainerBase extends Container {
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity p_82846_1_, int p_82846_2_) {
+    public ItemStack transferStackInSlot(Player p_82846_1_, int p_82846_2_) {
      return ItemStack.EMPTY;
     }
 }

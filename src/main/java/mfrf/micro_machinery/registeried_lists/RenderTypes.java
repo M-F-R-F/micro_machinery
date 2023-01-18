@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.registeried_lists;
+package mfrf.micro_machinery.registeried_lists;
 
 import mfrf.dbydd.micro_machinery.fluids.MMFluidBase;
 import net.minecraft.client.renderer.RenderType;

@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.recipes;
+package mfrf.micro_machinery.recipes;
 
 
 import com.google.gson.JsonObject;
@@ -18,7 +18,7 @@ import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import mfrf.dbydd.micro_machinery.utils.RecipeFluidStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;

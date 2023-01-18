@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.enums;
+package mfrf.micro_machinery.enums;
 
 public enum EnumCastType {
     INGOT, STICK, GEAR_BLANK, SWORD;

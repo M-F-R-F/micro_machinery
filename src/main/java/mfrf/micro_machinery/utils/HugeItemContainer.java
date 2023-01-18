@@ -1,7 +1,7 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.micro_machinery.utils;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
@@ -75,8 +75,8 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT
     }
 
 
-    private class Slot implements INBTSerializable<CompoundNBT> {
-        private CompoundNBT itemStack = new CompoundNBT();
+    private class Slot implements INBTSerializable<CompoundTag> {
+        private CompoundTag itemStack = new CompoundTag();
         private IntegerContainer size = new IntegerContainer();
 
         public Slot(ItemStack itemStack, IntegerContainer size) {
@@ -89,7 +89,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT
             itemStack = ItemStack.EMPTY.getTag();
         }
 
-        public Slot(CompoundNBT nbt) {
+        public Slot(CompoundTag nbt) {
             this.deserializeNBT(nbt);
         }
 
@@ -145,7 +145,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT
             return ItemStack.EMPTY;
         }
 
-        public CompoundNBT getItemStack() {
+        public CompoundTag getItemStack() {
             return itemStack;
         }
 
@@ -154,15 +154,15 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT
         }
 
         @Override
-        public CompoundNBT serializeNBT() {
-            CompoundNBT compoundNBT = new CompoundNBT();
+        public CompoundTag serializeNBT() {
+            CompoundTag compoundNBT = new CompoundTag();
             compoundNBT.put("item", itemStack);
             compoundNBT.put("integer_container", size.serializeNBT());
             return compoundNBT;
         }
 
         @Override
-        public void deserializeNBT(CompoundNBT nbt) {
+        public void deserializeNBT(CompoundTag nbt) {
             itemStack = nbt.getCompound("item");
             size.deserializeNBT(nbt);
         }

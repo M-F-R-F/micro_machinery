@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.items;
+package mfrf.micro_machinery.items;
 
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.IItemTier;

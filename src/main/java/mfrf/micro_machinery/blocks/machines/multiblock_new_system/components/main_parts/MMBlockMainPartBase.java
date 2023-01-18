@@ -1,8 +1,8 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
+package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
@@ -18,5 +18,5 @@ public abstract class MMBlockMainPartBase extends MMBlockMultiBlockPart {
 
     @Nullable
     @Override
-    public abstract TileEntity createTileEntity(BlockState state, IBlockReader world);
+    public abstract BlockEntity createBlockEntity(BlockState state, IBlockReader world);
 }

@@ -1,11 +1,11 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.TilePlaceHolder;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -15,23 +15,23 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStorage, ITickableTileEntity {
+public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStorage, ITickableBlockEntity {
     public boolean canReceive;
     public boolean canExtract;
 
     public TileEnergyInterface() {
-        super(RegisteredTileEntityTypes.TILE_ENERGY_INTERFACE.get());
+        super(RegisteredBlockEntityTypes.TILE_ENERGY_INTERFACE.get());
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         super.read(compound);
         canReceive = compound.getBoolean("can_receive");
         canExtract = compound.getBoolean("can_extract");
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.putBoolean("can_receive", canReceive);
         compound.putBoolean("can_extract", canExtract);
         return super.write(compound);
@@ -126,14 +126,14 @@ public class TileEnergyInterface extends TilePlaceHolder implements IEnergyStora
                 getFacingEnergyCapability().ifPresent(iEnergyStorage -> {
                     int i = iEnergyStorage.receiveEnergy(getEnergyStored(), true);
                     iEnergyStorage.receiveEnergy(extractEnergy(i, false), false);
-                    markDirty();
+                    setChanged();
                 });
             }
         }
     }
 
     private LazyOptional<IEnergyStorage> getFacingEnergyCapability() {
-        TileEntity tileEntity = world.getTileEntity(pos.offset(world.getBlockState(pos).get(BlockHolderEnergyInterfaceInput.FACING)));
+        BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(world.getBlockState(pos).get(BlockHolderEnergyInterfaceInput.FACING)));
         if (tileEntity != null) {
             return tileEntity.getCapability(CapabilityEnergy.ENERGY);
         }

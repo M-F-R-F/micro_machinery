@@ -1,11 +1,11 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.energy_interface;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -16,11 +16,11 @@ public class BlockHolderEnergyInterfaceInput extends BlockAccessoryPlaceHolder {
     }
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
         TileEnergyInterface tileEnergyInterface = new TileEnergyInterface();
         tileEnergyInterface.canExtract = false;
         tileEnergyInterface.canReceive = true;
-        tileEnergyInterface.markDirty();
+        tileEnergyInterface.setChanged();
         return tileEnergyInterface;
     }
 

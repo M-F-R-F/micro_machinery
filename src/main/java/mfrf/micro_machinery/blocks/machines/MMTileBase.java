@@ -1,61 +1,64 @@
-package mfrf.dbydd.micro_machinery.blocks.machines;
+package mfrf.micro_machinery.blocks.machines;
 
-import mfrf.dbydd.micro_machinery.utils.FEContainer;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
+import mfrf.micro_machinery.utils.FEContainer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-import javax.annotation.Nullable;
-
-public class MMTileBase extends TileEntity {
-    public MMTileBase(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+public class MMTileBase extends BlockEntity {
+    public MMTileBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+        super(tileEntityTypeIn, pos, state);
     }
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(pos, 1, getUpdateTag());
+    public Packet<ClientGamePacketListener> m_183216_() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        handleUpdateTag(pkt.getNbtCompound());
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
+        super.onDataPacket(net, pkt);
     }
 
     @Override
-    public CompoundNBT getUpdateTag() {
-        return this.write(new CompoundNBT());
+    public CompoundTag getUpdateTag() {
+        CompoundTag compoundTag = new CompoundTag();
+        this.saveAdditional(compoundTag);
+        return compoundTag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundNBT tag) {
-        this.read(tag);
+    public void handleUpdateTag(CompoundTag tag) {
+        this.load(tag);
     }
 
-    public void handleNetWorkSyncFromClient(CompoundNBT tag) {
+    public void handleNetWorkSyncFromClient(CompoundTag tag) {
 
     }
 
     public void markDirty2() {
-        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-        super.markDirty();
+        level.sendBlockUpdated(getBlockPos(), level.getBlockState(getBlockPos()), level.getBlockState(getBlockPos()), 2);
+        super.setChanged();
     }
 
     protected boolean isBackDirection(Direction side) {
-        return side == world.getBlockState(pos).get(MMBlockTileProviderBase.FACING).getOpposite();
+        return side == level.getBlockState(getBlockPos()).getValue(MMBlockTileProviderBase.FACING).getOpposite();
     }
 
     protected FEContainer pushEnergyToDirection(Direction direction, FEContainer container) {
-        TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+        BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
         if (tileEntity != null) {
             LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
             capability.ifPresent(iEnergyStorage -> {
@@ -75,16 +78,16 @@ public class MMTileBase extends TileEntity {
     }
 
     protected Direction getFacingDirection() {
-        BlockState blockState = world.getBlockState(pos);
+        BlockState blockState = level.getBlockState(getBlockPos());
         if (blockState.getBlock() instanceof MMBlockTileProviderBase) {
-            Direction direction = blockState.get(MMBlockTileProviderBase.FACING);
+            Direction direction = blockState.getValue(MMBlockTileProviderBase.FACING);
             return direction;
         }
 
         return null;
     }
 
-    public boolean isUsableByPlayer(PlayerEntity playerIn) {
-        return this.world.getTileEntity(this.pos) == this && playerIn.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
+    public boolean isUsableByPlayer(Player playerIn) {
+        return this.level.getBlockEntity(this.getBlockPos()) == this && playerIn.distanceToSqr((double) this.getBlockPos().getX() + 0.5D, (double) this.getBlockPos().getY() + 0.5D, (double) this.getBlockPos().getZ() + 0.5D) <= 64.0D;
     }
 }

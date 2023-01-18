@@ -1,12 +1,12 @@
-package mfrf.dbydd.micro_machinery.items;
+package mfrf.micro_machinery.items;
 
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
@@ -20,10 +20,10 @@ public class DebugTool extends MMItemBase {
     }
 
     private static void readMultiBlockOld(ItemUseContext context) {
-        CompoundNBT clickedPos = context.getItem().getChildTag("clickedPos");
+        CompoundTag clickedPos = context.getItem().getChildTag("clickedPos");
 
         if (clickedPos == null) {
-            clickedPos = new CompoundNBT();
+            clickedPos = new CompoundTag();
         }
 
         ItemStack heldItem = context.getPlayer().getHeldItem(Hand.OFF_HAND);
@@ -33,7 +33,7 @@ public class DebugTool extends MMItemBase {
         }
 
         if (!heldItem.isEmpty() && heldItem.getItem() == Items.STICK) {
-            CompoundNBT writeBlock = new CompoundNBT();
+            CompoundTag writeBlock = new CompoundTag();
             writeBlock.put("pos", NBTUtil.writeBlockPos(context.getPos()));
             writeBlock.putInt("direction", context.getFace().getIndex());
             clickedPos.put("active_block", writeBlock);
@@ -48,8 +48,8 @@ public class DebugTool extends MMItemBase {
         context.getPlayer().sendMessage(new StringTextComponent(clickedPos.toString()));
     }
 
-    private static void readTileEntity(ItemUseContext context, World world, Consumer<TileEntity> consumer) {
-        TileEntity tileEntity = world.getTileEntity(context.getPos());
+    private static void readBlockEntity(ItemUseContext context, World world, Consumer<BlockEntity> consumer) {
+        BlockEntity tileEntity = world.getBlockEntity(context.getPos());
         if (tileEntity != null) {
             consumer.accept(tileEntity);
         }
@@ -64,7 +64,7 @@ public class DebugTool extends MMItemBase {
 //            BlockPos pos = context.getPos();
 //            BlockState blockState = world.getBlockState(pos);
 //            if (blockState.getBlock() instanceof MMBlockMultiBlockPart) {
-//                MMTileMultiBlockPart tileEntity = (MMTileMultiBlockPart) world.getTileEntity(pos);
+//                MMTileMultiBlockPart tileEntity = (MMTileMultiBlockPart) world.getBlockEntity(pos);
 ////                context.getPlayer().sendMessage(new StringTextComponent(tileEntity.getPacked().toString()));
 //                try {
 //                    context.getPlayer().sendMessage(new StringTextComponent(
@@ -82,11 +82,11 @@ public class DebugTool extends MMItemBase {
 //
 //                world.setBlockState(context.getPos(),
 //                        blockState
-//                                .with(BlockConveyorBelt.FACING, Direction.SOUTH)
-//                                .with(BlockConveyorBelt.OUT_STATE, EnumConveyorConnectState.CONNECTED)
-//                                .with(BlockConveyorBelt.BACK_STATE, true)
-//                                .with(BlockConveyorBelt.LEFT_STATE, true)
-//                                .with(BlockConveyorBelt.RIGHT_STATE, true)
+//                                .setValue(BlockConveyorBelt.FACING, Direction.SOUTH)
+//                                .setValue(BlockConveyorBelt.OUT_STATE, EnumConveyorConnectState.CONNECTED)
+//                                .setValue(BlockConveyorBelt.BACK_STATE, true)
+//                                .setValue(BlockConveyorBelt.LEFT_STATE, true)
+//                                .setValue(BlockConveyorBelt.RIGHT_STATE, true)
 //                        // 以上五项就是对应的五个property,括号中左边的参数是索引，右边的是值
 //                        //想要看不同的blockstate只要赋值就行
 //                );

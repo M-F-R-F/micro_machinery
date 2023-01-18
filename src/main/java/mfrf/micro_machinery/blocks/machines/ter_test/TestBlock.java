@@ -1,8 +1,8 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.ter_test;
+package mfrf.micro_machinery.blocks.machines.ter_test;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
@@ -14,7 +14,7 @@ public class TestBlock extends MMBlockTileProviderBase {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
         return new TerTestTile();
     }
 }

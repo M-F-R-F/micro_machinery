@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.event;
+package mfrf.micro_machinery.event;
 
 import mfrf.dbydd.micro_machinery.gui.atomization.AtomizationScreen;
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceScreen;

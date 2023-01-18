@@ -1,12 +1,12 @@
-package mfrf.dbydd.micro_machinery.gui.weld;
+package mfrf.micro_machinery.gui.weld;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.weld.TileWeld;
 import mfrf.dbydd.micro_machinery.gui.ContainerBase;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -18,7 +18,7 @@ public class WeldContainer extends ContainerBase {
 
     public WeldContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
         super(RegisteredContainerTypes.WELD_CONTAINER.get(), id);
-        this.weld = (TileWeld) world.getTileEntity(pos);
+        this.weld = (TileWeld) world.getBlockEntity(pos);
         ItemStackHandler input = weld.getInput();
         ItemStackHandler output = weld.getOutput();
         this.addSlot(new SlotItemHandler(input, 0, 26, 32));
@@ -41,12 +41,12 @@ public class WeldContainer extends ContainerBase {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean canInteractWith(Player playerIn) {
         return weld.isUsableByPlayer(playerIn);
     }
 
     @Override
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+    public ItemStack transferStackInSlot(Player playerIn, int index) {
         return ItemStack.EMPTY;
     }
 }

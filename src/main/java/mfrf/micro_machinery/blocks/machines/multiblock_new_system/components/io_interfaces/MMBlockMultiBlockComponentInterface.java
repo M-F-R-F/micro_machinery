@@ -1,11 +1,11 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
+package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
@@ -14,7 +14,7 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
 
     public MMBlockMultiBlockComponentInterface(Properties properties, String name) {
         super(properties, name, false);
-        this.setDefaultState(getStateToRegistry());
+        this.registerDefaultState(getStateToRegistry());
     }
 
     @Override
@@ -25,17 +25,17 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
 
     @Override
     protected BlockState getStateToRegistry() {
-        return super.getStateToRegistry().with(CONSTRUCTED, false);
+        return super.getStateToRegistry().setValue(CONSTRUCTED, false);
     }
 
     public void link(BlockPos mainPart, World accessor, Vec3i key, BlockPos current) {
-        accessor.setBlockState(current, accessor.getBlockState(current).with(CONSTRUCTED, true));
+        accessor.setBlockState(current, accessor.getBlockState(current).setValue(CONSTRUCTED, true));
         linkTo(mainPart, accessor, current, key);
     }
 
 
     protected void linkTo(BlockPos mainPart, World accessor, BlockPos currentPos, Vec3i key) {
-        MMTileMultiBlockComponentInterface tileEntity = (MMTileMultiBlockComponentInterface) accessor.getTileEntity(currentPos);
+        MMTileMultiBlockComponentInterface tileEntity = (MMTileMultiBlockComponentInterface) accessor.getBlockEntity(currentPos);
         tileEntity.linkTo(mainPart, accessor, key);
     }
 }

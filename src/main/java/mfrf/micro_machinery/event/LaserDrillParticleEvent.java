@@ -1,4 +1,4 @@
-//package mfrf.dbydd.micro_machinery.event;
+//package mfrf.micro_machinery.event;
 //
 //import mfrf.dbydd.micro_machinery.items.ItemLaserDrill;
 //import net.minecraftforge.event.entity.player.PlayerInteractEvent;

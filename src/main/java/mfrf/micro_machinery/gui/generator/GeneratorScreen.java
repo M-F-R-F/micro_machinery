@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.gui.generator;
+package mfrf.micro_machinery.gui.generator;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator.TileGenerator;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
@@ -10,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class GeneratorScreen extends ScreenBase<GeneratorContainer> {
     public GeneratorScreen(GeneratorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/firegenerator.png"), 176, 178);
+        super(screenContainer, inv, titleIn, new ResourceLocation(MicroMachinery.MODID, "textures/gui/firegenerator.png"), 176, 178);
     }
 
     @Override

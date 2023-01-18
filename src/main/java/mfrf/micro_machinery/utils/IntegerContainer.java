@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.micro_machinery.utils;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.IIntArray;
 
 public class IntegerContainer {
@@ -42,8 +42,8 @@ public class IntegerContainer {
         this.max = max;
     }
 
-    public CompoundNBT serializeNBT() {
-        CompoundNBT compoundNBT = new CompoundNBT();
+    public CompoundTag serializeNBT() {
+        CompoundTag compoundNBT = new CompoundTag();
         compoundNBT.putInt("min", min);
         compoundNBT.putInt("max", max);
         compoundNBT.putInt("current", current);
@@ -51,7 +51,7 @@ public class IntegerContainer {
     }
 
     //in purpose of change config
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         this.current = nbt.getInt("current");
         this.max = Math.max(nbt.getInt("max"), max);
         this.min = Math.min(nbt.getInt("min"), min);

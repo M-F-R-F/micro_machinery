@@ -1,19 +1,19 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.TilePlaceHolder;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -22,7 +22,7 @@ public class BlockPlaceHolder extends MMMultiBlockHolderBase {
 
     public BlockPlaceHolder(String name) {
         super(Properties.create(Material.IRON).harvestLevel(-1).hardnessAndResistance(-1), name, true, false, false);
-        setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.SOUTH).with(IS_PLACEHOLDER, true));
+        registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.SOUTH).setValue(IS_PLACEHOLDER, true));
     }
 
     public BlockPlaceHolder(Properties properties, String name, boolean addToPlaceHolderList, boolean haveBlockItem, boolean addToStructureMaps) {
@@ -30,14 +30,14 @@ public class BlockPlaceHolder extends MMMultiBlockHolderBase {
     }
 
     public static BlockPos packageBlock(World world, BlockPos pos, BlockPos mainPart) {
-        CompoundNBT packedNBT = new CompoundNBT();
+        CompoundTag packedNBT = new CompoundTag();
 
         BlockState blockState = world.getBlockState(pos);
         packedNBT.put("block_state_nbt", NBTUtil.writeBlockState(blockState));
 
-        TileEntity tileEntity = world.getTileEntity(pos);
+        BlockEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity != null) {
-            packedNBT.put("tile_packaged", tileEntity.write(new CompoundNBT()));
+            packedNBT.put("tile_packaged", tileEntity.write(new CompoundTag()));
         }
 
         if (blockState.getBlock() == Blocks.LEVER) {
@@ -46,33 +46,33 @@ public class BlockPlaceHolder extends MMMultiBlockHolderBase {
             world.setBlockState(pos, RegisteredBlocks.PLACE_HOLDER.getDefaultState());
         }
 
-        TilePlaceHolder placeHolder = (TilePlaceHolder) world.getTileEntity(pos);
+        TilePlaceHolder placeHolder = (TilePlaceHolder) world.getBlockEntity(pos);
         placeHolder.setPackedNBT(packedNBT);
         placeHolder.setMainPartPos(mainPart);
         return pos;
     }
 
     @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        TileEntity te = worldIn.getTileEntity(pos);
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, Player player) {
+        BlockEntity te = worldIn.getBlockEntity(pos);
         ((TilePlaceHolder) te).onBlockHarvest(worldIn, pos, player, state);
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player,
             Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote()) {
-            return ((TilePlaceHolder) worldIn.getTileEntity(pos)).onBlockActivated(worldIn, player, handIn, hit);
+            return ((TilePlaceHolder) worldIn.getBlockEntity(pos)).onBlockActivated(worldIn, player, handIn, hit);
 
         }
         return ActionResultType.SUCCESS;
     }
 
-    public void breakBlock(CompoundNBT packedNBT, World world, BlockPos pos) {
+    public void breakBlock(CompoundTag packedNBT, World world, BlockPos pos) {
         BlockState blockState = NBTUtil.readBlockState(packedNBT.getCompound("block_state_nbt"));
         world.setBlockState(pos, blockState);
         if (packedNBT.contains("tile_packaged")) {
-            world.getTileEntity(pos).read(packedNBT.getCompound("tile_packaged"));
+            world.getBlockEntity(pos).read(packedNBT.getCompound("tile_packaged"));
         }
     }
 
@@ -88,7 +88,7 @@ public class BlockPlaceHolder extends MMMultiBlockHolderBase {
 
 
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
         return new TilePlaceHolder();
     }
 }

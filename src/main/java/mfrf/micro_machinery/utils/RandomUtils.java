@@ -1,9 +1,9 @@
-package mfrf.dbydd.micro_machinery.utils;
+package mfrf.micro_machinery.utils;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +26,10 @@ public class RandomUtils {
             sum += entry.getKey();
             if (sum >= d || time == size) {
                 sum = 0.0d;
-                return entry.getValue().getDefaultState();
+                return entry.getValue().defaultBlockState();
             } else time++;
         }
-        return Blocks.STONE.getDefaultState();
+        return Blocks.STONE.defaultBlockState();
     }
 
     public static int nextRandomInt() {
@@ -45,7 +45,7 @@ public class RandomUtils {
             this.right = right;
         }
 
-        public RangeI(CompoundNBT nbt) {
+        public RangeI(CompoundTag nbt) {
             left = nbt.getInt("l");
             right = nbt.getInt("r");
         }
@@ -54,8 +54,8 @@ public class RandomUtils {
             return left <= i && i < right;
         }
 
-        public CompoundNBT toNbt() {
-            CompoundNBT compoundNBT = new CompoundNBT();
+        public CompoundTag toNbt() {
+            CompoundTag compoundNBT = new CompoundTag();
             compoundNBT.putInt("l", left);
             compoundNBT.putInt("r", right);
             return compoundNBT;

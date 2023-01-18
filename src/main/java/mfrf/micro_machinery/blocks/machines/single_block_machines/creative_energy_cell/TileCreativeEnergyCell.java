@@ -1,25 +1,25 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TileCreativeEnergyCell extends MMTileBase implements ITickableTileEntity, IEnergyStorage {
+public class TileCreativeEnergyCell extends MMTileBase implements ITickableBlockEntity, IEnergyStorage {
     public TileCreativeEnergyCell() {
-        super(RegisteredTileEntityTypes.TILE_ENERGY_CELL.get());
+        super(RegisteredBlockEntityTypes.TILE_ENERGY_CELL.get());
     }
 
     @Override
     public void tick() {
         if (!world.isRemote()) {
             for (Direction direction : Direction.values()) {
-                TileEntity tileEntity = world.getTileEntity(pos.offset(direction));
+                BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
                 if (tileEntity != null) {
                     LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {

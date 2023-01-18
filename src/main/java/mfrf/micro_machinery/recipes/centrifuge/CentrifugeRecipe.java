@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.recipes.centrifuge;
+package mfrf.micro_machinery.recipes.centrifuge;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -9,10 +9,10 @@ import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import mfrf.dbydd.micro_machinery.utils.RandomUtils;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
@@ -108,17 +108,17 @@ public class CentrifugeRecipe extends RecipeBase {
             IngredientStack input = IngredientStack.ReadFromBuffer(buffer);
             ArrayList<RandomUtils.RollListI<ItemStack>> rollSlots = new ArrayList<>();
 
-            CompoundNBT container = buffer.readCompoundTag();
+            CompoundTag container = buffer.readCompoundTag();
             ListNBT slots = container.getList("s", Constants.NBT.TAG_LIST);
 
             for (INBT inbt : slots) {
-                CompoundNBT slot = (CompoundNBT) inbt;
+                CompoundTag slot = (CompoundTag) inbt;
                 int bounds = slot.getInt("b");
                 HashMap<RandomUtils.RangeI, ItemStack> rangeIItemStackHashMap = new HashMap<>();
 
                 ListNBT rollList = slot.getList("l", Constants.NBT.TAG_LIST);
                 for (INBT inbt1 : rollList) {
-                    CompoundNBT compoundNBT = (CompoundNBT) inbt1;
+                    CompoundTag compoundNBT = (CompoundTag) inbt1;
 
                     RandomUtils.RangeI range = new RandomUtils.RangeI(compoundNBT.getCompound("r"));
                     ItemStack itemStack = ItemStack.read(compoundNBT.getCompound("i"));
@@ -138,13 +138,13 @@ public class CentrifugeRecipe extends RecipeBase {
 
             ListNBT slots = new ListNBT();
             for (RandomUtils.RollListI<ItemStack> itemStackRollListI : recipe.rollList) {
-                CompoundNBT compoundNBT = new CompoundNBT();
+                CompoundTag compoundNBT = new CompoundTag();
                 HashMap<RandomUtils.RangeI, ItemStack> list = itemStackRollListI.list;
                 int bound = itemStackRollListI.bound;
 
                 ListNBT rollList = new ListNBT();
                 for (Map.Entry<RandomUtils.RangeI, ItemStack> rangeIItemStackEntry : list.entrySet()) {
-                    CompoundNBT nbt = new CompoundNBT();
+                    CompoundTag nbt = new CompoundTag();
                     nbt.put("r", rangeIItemStackEntry.getKey().toNbt());
                     nbt.put("i", rangeIItemStackEntry.getValue().serializeNBT());
                     rollList.add(nbt);
@@ -155,7 +155,7 @@ public class CentrifugeRecipe extends RecipeBase {
                 slots.add(compoundNBT);
             }
 
-            CompoundNBT container = new CompoundNBT();
+            CompoundTag container = new CompoundTag();
             container.put("s", slots);
 
             buffer.writeCompoundTag(container);

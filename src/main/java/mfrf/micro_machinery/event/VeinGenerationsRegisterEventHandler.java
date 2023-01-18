@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.event;
+package mfrf.micro_machinery.event;
 
 import mfrf.dbydd.micro_machinery.worldgen.VeinFeature;
 import mfrf.dbydd.micro_machinery.worldgen.VeinFeatureConfig;

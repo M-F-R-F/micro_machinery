@@ -1,10 +1,10 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
+package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -17,7 +17,7 @@ public class BlockRedstoneInterface extends MMBlockMultiBlockComponentInterface 
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
         return new TileRedstoneInterface();
     }
 
@@ -26,7 +26,7 @@ public class BlockRedstoneInterface extends MMBlockMultiBlockComponentInterface 
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!worldIn.isRemote()) {
             int power = worldIn.getRedstonePowerFromNeighbors(pos);
-            ((TileRedstoneInterface) worldIn.getTileEntity(pos)).powerChange(power);
+            ((TileRedstoneInterface) worldIn.getBlockEntity(pos)).powerChange(power);
         }
     }
 }

@@ -1,7 +1,7 @@
-package mfrf.dbydd.micro_machinery.recipes;
+package mfrf.micro_machinery.recipes;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.PacketBuffer;

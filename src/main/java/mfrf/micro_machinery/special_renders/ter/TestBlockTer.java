@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.special_renders.ter;
+package mfrf.micro_machinery.special_renders.ter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TerTestTile;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
@@ -6,12 +6,12 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.renderer.tileentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.tileentity.BlockEntityRendererDispatcher;
 import net.minecraftforge.client.model.data.EmptyModelData;
 
-public class TestBlockTer extends TileEntityRenderer<TerTestTile> {
-    public TestBlockTer(TileEntityRendererDispatcher rendererDispatcherIn) {
+public class TestBlockTer extends BlockEntityRenderer<TerTestTile> {
+    public TestBlockTer(BlockEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 
@@ -20,7 +20,7 @@ public class TestBlockTer extends TileEntityRenderer<TerTestTile> {
         BlockRendererDispatcher blockRenderer = Minecraft.getInstance().getBlockRendererDispatcher();
         matrixStackIn.push();
         matrixStackIn.translate(1, 0, 0);
-        blockRenderer.renderBlock(RegisteredBlocks.PUMP_1.getDefaultState(), matrixStackIn,bufferIn , 0x00F0_00F0, combinedOverlayIn,EmptyModelData.INSTANCE);
+        blockRenderer.renderBlock(RegisteredBlocks.PUMP_1.defaultBlockState(), matrixStackIn,bufferIn , 0x00F0_00F0, combinedOverlayIn,EmptyModelData.INSTANCE);
         matrixStackIn.pop();
     }
 }

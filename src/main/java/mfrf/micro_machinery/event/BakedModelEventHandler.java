@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.event;
+package mfrf.micro_machinery.event;
 
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;

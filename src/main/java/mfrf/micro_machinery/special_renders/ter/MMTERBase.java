@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.special_renders.ter;
+package mfrf.micro_machinery.special_renders.ter;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -7,21 +7,21 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.client.renderer.tileentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.tileentity.BlockEntityRendererDispatcher;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.math.Vec3d;
 
 import java.awt.*;
 
-public abstract class MMTERBase<T extends TileEntity> extends TileEntityRenderer<T> {
+public abstract class MMTERBase<T extends BlockEntity> extends BlockEntityRenderer<T> {
     protected static BlockRendererDispatcher blockRenderer = Minecraft.getInstance().getBlockRendererDispatcher();
     protected static ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
     protected static int MAX_LIGHT = 0x00F0_00F0;
     protected static int MIN_LIGHT = 0x00F0_0000;
 
-    public MMTERBase(TileEntityRendererDispatcher rendererDispatcherIn) {
+    public MMTERBase(BlockEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 

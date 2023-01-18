@@ -1,6 +1,6 @@
-package mfrf.dbydd.micro_machinery.interfaces;
+package mfrf.micro_machinery.interfaces;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.command;
+package mfrf.micro_machinery.command;
 
 import com.google.common.base.Charsets;
 import com.mojang.brigadier.Command;
@@ -7,12 +7,12 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import mfrf.dbydd.micro_machinery.items.DebugTool;
 import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
 import net.minecraft.command.CommandSource;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.entity.player.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import org.apache.commons.io.FileUtils;
 
@@ -24,14 +24,14 @@ public class ReadMultiBlockCommand implements Command<CommandSource> {
 
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity serverPlayerEntity = context.getSource().asPlayer();
-        ItemStack heldItem = serverPlayerEntity.getHeldItem(Hand.MAIN_HAND);
+        ServerPlayer serverPlayer = context.getSource().asPlayer();
+        ItemStack heldItem = serverPlayer.getHeldItem(Hand.MAIN_HAND);
         if (!heldItem.isEmpty() && heldItem.getItem() instanceof DebugTool) {
-            CompoundNBT clickedPos = heldItem.getChildTag("clickedPos");
+            CompoundTag clickedPos = heldItem.getChildTag("clickedPos");
             if (clickedPos != null) {
                 if (clickedPos.contains("pos1") && clickedPos.contains("pos2") && clickedPos.contains("active_block")) {
 
-                    CompoundNBT activeBlock = clickedPos.getCompound("active_block");
+                    CompoundTag activeBlock = clickedPos.getCompound("active_block");
                     BlockPos pos1 = NBTUtil.readBlockPos(clickedPos.getCompound("pos1"));
                     BlockPos pos2 = NBTUtil.readBlockPos(clickedPos.getCompound("pos2"));
                     BlockPos center = NBTUtil.readBlockPos(activeBlock.getCompound("pos"));

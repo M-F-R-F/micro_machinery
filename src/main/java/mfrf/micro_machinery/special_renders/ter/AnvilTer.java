@@ -1,23 +1,23 @@
-package mfrf.dbydd.micro_machinery.special_renders.ter;
+package mfrf.micro_machinery.special_renders.ter;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.forge_anvil.TileAnvil;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.client.renderer.tileentity.BlockEntityRendererDispatcher;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AnvilTer extends MMTERBase<TileAnvil> {
 
-    public AnvilTer(TileEntityRendererDispatcher rendererDispatcherIn) {
+    public AnvilTer(BlockEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 

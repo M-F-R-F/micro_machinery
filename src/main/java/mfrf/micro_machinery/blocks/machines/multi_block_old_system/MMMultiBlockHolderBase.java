@@ -1,14 +1,23 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,12 +46,15 @@ public abstract class MMMultiBlockHolderBase extends MMBlockTileProviderBase {
     }
 
     @Override
-    public abstract TileEntity createTileEntity(BlockState state, IBlockReader world);
+    public abstract @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState);
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(IS_PLACEHOLDER);
-        super.fillStateContainer(builder);
+    public abstract @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType);
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(IS_PLACEHOLDER);
+        super.createBlockStateDefinition(pBuilder);
     }
 
 }

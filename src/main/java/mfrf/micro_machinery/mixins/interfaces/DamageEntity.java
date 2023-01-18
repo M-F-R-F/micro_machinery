@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.mixins.interfaces;
+package mfrf.micro_machinery.mixins.interfaces;
 
 import net.minecraft.util.DamageSource;
 

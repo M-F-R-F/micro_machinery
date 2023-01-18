@@ -1,30 +1,30 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.blast_furnace;
+package mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.blast_furnace;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
 import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.blast_furnace.BlastFurnaceRecipe;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps.MultiBlockPosBox;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements INamedContainerProvider, ITickableTileEntity {
+public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements INamedContainerProvider, ITickableBlockEntity {
 
     private ItemStackHandler itemHandler = new ItemStackHandler(3);
     private IntegerContainer progressContainer = new IntegerContainer();
@@ -33,23 +33,23 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     private ItemStack output = ItemStack.EMPTY;
 
     public TileBlastFurnace() {
-        super(RegisteredTileEntityTypes.TILE_BLAST_FURNACE.get());
+        super(RegisteredBlockEntityTypes.TILE_BLAST_FURNACE.get());
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundTag write(CompoundTag compound) {
         compound.putBoolean("is_burning", burning);
         compound.put("items", itemHandler.serializeNBT());
         compound.put("progress", progressContainer.serializeNBT());
         compound.put("heat", heatHandler.serializeNBT());
         if (output != ItemStack.EMPTY) {
-            compound.put("output", output.write(new CompoundNBT()));
+            compound.put("output", output.write(new CompoundTag()));
         }
         return super.write(compound);
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         super.read(compound);
         burning = compound.getBoolean("is_burning");
         itemHandler.deserializeNBT(compound.getCompound("items"));
@@ -61,7 +61,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
     }
 
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
         return new BlastFurnaceContainer(p_createMenu_1_, p_createMenu_2_, this.pos, this.world);
     }
 
@@ -76,7 +76,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
 
             if (!heatHandler.atMinValue()) {
                 heatHandler.selfSubtract();
-                markDirty();
+                setChanged();
             }
 
             if (!progressContainer.atMinValue() && output != ItemStack.EMPTY) {
@@ -87,18 +87,18 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
                         heatHandler.selfSubtract();
                         progressContainer.selfAdd();
                     }
-                    markDirty();
+                    setChanged();
                 } else {
                     progressContainer.selfAdd();
                 }
-                markDirty();
+                setChanged();
 
                 if (progressContainer.atMaxValue()) {
                     if (itemHandler.insertItem(2, output, true) == ItemStack.EMPTY) {
                         itemHandler.insertItem(2, output, false);
                         output = ItemStack.EMPTY;
                         progressContainer.resetValue();
-                        markDirty();
+                        setChanged();
                     }
                 }
             } else {
@@ -109,7 +109,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
                     output = blastFurnaceRecipe.getOutput();
                     progressContainer.setCurrent(0);
                     progressContainer.setMax(blastFurnaceRecipe.getCookTime());
-                    markDirty();
+                    setChanged();
                 }
             }
 
@@ -123,7 +123,7 @@ public class TileBlastFurnace extends MMMultiBlockTileMainPartBase implements IN
             heatHandler.setMax(burnTime);
             heatHandler.setCurrent(burnTime);
             itemHandler.extractItem(1, 1, false);
-            markDirty();
+            setChanged();
             return true;
         } else
             return false;

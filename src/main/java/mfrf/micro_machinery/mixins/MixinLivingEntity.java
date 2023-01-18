@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.mixins;
+package mfrf.micro_machinery.mixins;
 
 import mfrf.dbydd.micro_machinery.mixins.interfaces.DamageEntity;
 import net.minecraft.entity.LivingEntity;

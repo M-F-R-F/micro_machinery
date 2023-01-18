@@ -1,4 +1,4 @@
-package mfrf.dbydd.micro_machinery.mixins;
+package mfrf.micro_machinery.mixins;
 
 import org.spongepowered.asm.mixin.Mixins;
 import org.spongepowered.asm.mixin.connect.IMixinConnector;

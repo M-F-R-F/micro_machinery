@@ -1,20 +1,20 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.weld;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.weld;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.weld.WeldContainer;
 import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
 import mfrf.dbydd.micro_machinery.recipes.weld.WeldRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -26,7 +26,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
+public class TileWeld extends MMTileBase implements ITickableBlockEntity, INamedContainerProvider {
     private ItemStackHandler input = new ItemStackHandler(6);
     private ItemStackHandler output = new ItemStackHandler(1);
     private IntegerContainer progress = new IntegerContainer();
@@ -43,20 +43,20 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
 
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
-            markDirty();
+            setChanged();
             return super.receiveEnergy(maxReceive, simulate);
         }
 
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
-            markDirty();
+            setChanged();
             return super.extractEnergy(maxExtract, simulate);
         }
 
         @Override
         public int selfSubtract() {
             int minus = this.minus(80, false);
-            markDirty();
+            setChanged();
             return minus;
         }
 
@@ -66,7 +66,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
 
 
     public TileWeld() {
-        super(RegisteredTileEntityTypes.TILE_WELD.get());
+        super(RegisteredBlockEntityTypes.TILE_WELD.get());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
 
             if (isWorking) {
                 progress.selfAdd();
-                markDirty();
+                setChanged();
             } else {
                 RecipeHelper.weldRecipeAndShrinkItemStacks weldRecipeAndShrinkItemStacks = RecipeHelper.getWeldRecipe(world.getRecipeManager(), input);
                 if (weldRecipeAndShrinkItemStacks != null) {
@@ -87,7 +87,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
                     for (int i = 0; i < shrinkCounts.length; i++) {
                         input.extractItem(i, shrinkCounts[i], false);
                     }
-                    markDirty();
+                    setChanged();
                 }
             }
 
@@ -97,7 +97,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
                 result = ItemStack.EMPTY;
                 progress.resetValue();
                 isWorking = false;
-                markDirty();
+                setChanged();
             }
 
 
@@ -105,7 +105,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         super.read(compound);
         input.deserializeNBT(compound.getCompound("input"));
         output.deserializeNBT(compound.getCompound("output"));
@@ -118,8 +118,8 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        CompoundNBT write = super.write(compound);
+    public CompoundTag write(CompoundTag compound) {
+        CompoundTag write = super.write(compound);
         write.put("input", input.serializeNBT());
         write.put("output", output.serializeNBT());
         write.put("progress", progress.serializeNBT());
@@ -175,7 +175,7 @@ public class TileWeld extends MMTileBase implements ITickableTileEntity, INamedC
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
         return new WeldContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 }

@@ -1,19 +1,19 @@
-package mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator;
+package mfrf.micro_machinery.blocks.machines.single_block_machines.generator;
 
 import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.dbydd.micro_machinery.gui.generator.GeneratorContainer;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredTileEntityTypes;
+import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.Direction;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -30,7 +30,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileGenerator extends MMTileBase implements ITickableTileEntity, INamedContainerProvider {
+public class TileGenerator extends MMTileBase implements ITickableBlockEntity, INamedContainerProvider {
     private FluidTank tank = new FluidTank(2000, (fluidStack) -> fluidStack.getFluid() == Fluids.WATER);
     private ItemStackHandler fuel_handler = new ItemStackHandler(1);
     private FEContainer energyContainer = new FEContainer(0, 40000) {
@@ -56,7 +56,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
 //    private GeneratorEnergyAndFuelIntArray array = new GeneratorEnergyAndFuelIntArray();
 
     public TileGenerator() {
-        super(RegisteredTileEntityTypes.TILE_GENERATOR_TYPE.get());
+        super(RegisteredBlockEntityTypes.TILE_GENERATOR_TYPE.get());
     }
 
     public boolean isBurning() {
@@ -68,7 +68,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     }
 
     @Override
-    public void read(CompoundNBT compound) {
+    public void read(CompoundTag compound) {
         tank.readFromNBT(compound.getCompound("tank"));
         fuel_handler.deserializeNBT(compound.getCompound("fuel_slot"));
         energyContainer.deserializeNBT(compound.getCompound("energy_container"));
@@ -78,8 +78,8 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        compound.put("tank", tank.writeToNBT(new CompoundNBT()));
+    public CompoundTag write(CompoundTag compound) {
+        compound.put("tank", tank.writeToNBT(new CompoundTag()));
         compound.put("fuel_slot", fuel_handler.serializeNBT());
         compound.put("energy_container", energyContainer.serializeNBT());
         compound.put("burn_time_container", burnTimeContainer.serializeNBT());
@@ -172,7 +172,7 @@ public class TileGenerator extends MMTileBase implements ITickableTileEntity, IN
 
     @Nullable
     @Override
-    public Container createMenu(int sycID, PlayerInventory inventory, PlayerEntity player) {
+    public Container createMenu(int sycID, PlayerInventory inventory, Player player) {
         return new GeneratorContainer(sycID, inventory, this.pos, this.world);
     }
 
