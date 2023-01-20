@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.gui.elements;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.gui.ScreenBase;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.gui.ScreenBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;

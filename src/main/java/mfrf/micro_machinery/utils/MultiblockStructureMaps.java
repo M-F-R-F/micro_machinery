@@ -1,9 +1,10 @@
 package mfrf.micro_machinery.utils;
 
 import com.google.gson.*;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
+import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.resources.JsonReloadListener;
@@ -13,7 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
@@ -169,7 +170,7 @@ public class MultiblockStructureMaps extends JsonReloadListener {
         }
     }
 
-    public static StructureMap create(World world, BlockPos pos1, BlockPos pos2, BlockPos center) {
+    public static StructureMap create(Level world, BlockPos pos1, BlockPos pos2, BlockPos center) {
         HashMap<Vec3i, Pair<Block, Vec3i>> map = new HashMap<>();
         int xMax = Math.max(pos1.getX(), pos2.getX());
         int yMax = Math.max(pos1.getY(), pos2.getY());

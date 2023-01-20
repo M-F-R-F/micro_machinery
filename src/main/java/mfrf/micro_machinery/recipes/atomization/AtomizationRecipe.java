@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.recipes.atomization;
 
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.recipes.RecipeBase;
-import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import mfrf.dbydd.micro_machinery.utils.RecipeFluidStack;
+import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.recipes.RecipeHelper;
+import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
+import mfrf.micro_machinery.utils.RecipeFluidStack;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;

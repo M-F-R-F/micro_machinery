@@ -1,9 +1,9 @@
 package mfrf.micro_machinery.gui.klin;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
-import mfrf.dbydd.micro_machinery.gui.ContainerBase;
-import mfrf.dbydd.micro_machinery.items.MMCastBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
+import mfrf.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
+import mfrf.micro_machinery.gui.ContainerBase;
+import mfrf.micro_machinery.items.MMCastBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.world.item.ItemStack;

@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.datafixers.DataFixer;
-import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
+import mfrf.micro_machinery.utils.MultiblockStructureMaps;
 import net.minecraft.command.Commands;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.server.MinecraftServer;

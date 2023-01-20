@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.registeried_lists.strctures;
 
-import mfrf.dbydd.micro_machinery.Config;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.worldgen.Predicates;
-import mfrf.dbydd.micro_machinery.worldgen.VeinFeatureConfig;
-import mfrf.dbydd.micro_machinery.event.VeinGenerationsRegisterEventHandler;
+import mfrf.micro_machinery.Config;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.worldgen.Predicates;
+import mfrf.micro_machinery.worldgen.VeinFeatureConfig;
+import mfrf.micro_machinery.event.VeinGenerationsRegisterEventHandler;
 import net.minecraft.world.level.block.Block
 import net.minecraft.block.Blocks;
 

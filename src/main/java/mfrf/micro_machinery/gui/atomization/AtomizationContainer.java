@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.gui.atomization;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization.TileAtomization;
-import mfrf.dbydd.micro_machinery.gui.ContainerBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
+import mfrf.micro_machinery.blocks.machines.single_block_machines.atomization.TileAtomization;
+import mfrf.micro_machinery.gui.ContainerBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.world.item.ItemStack;

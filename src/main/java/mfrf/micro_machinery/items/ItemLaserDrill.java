@@ -1,9 +1,9 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.Config;
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.utils.EnergyItemHandler;
-import mfrf.dbydd.micro_machinery.utils.FEContainer;
+import mfrf.micro_machinery.Config;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.utils.EnergyItemHandler;
+import mfrf.micro_machinery.utils.FEContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -56,13 +56,13 @@ public class ItemLaserDrill extends MMItemBase {
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public InteractionResult onItemUse(ItemUseContext context) {
         Hand hand = context.getHand();
         Player player = context.getPlayer();
         ServerWorld world = ((ServerWorld) context.getWorld());
         Vec3d lookVec = player.getLookVec();
         Vec3d positionVec = player.getPositionVec();
-        ItemStack heldItem = player.getHeldItem(hand);
+        ItemStack heldItem = player.getItemInHand(hand);
 
         if (!world.isRemote()) {
 
@@ -106,7 +106,7 @@ public class ItemLaserDrill extends MMItemBase {
                 }
             }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
 

@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.enums.EnumCastType;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.enums.EnumCastType;
 
 public class MMCastBase extends MMItemBase{
     public final EnumCastType type;

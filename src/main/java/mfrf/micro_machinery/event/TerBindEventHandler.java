@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.event;
 
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import mfrf.dbydd.micro_machinery.special_renders.ter.AnvilTer;
-import mfrf.dbydd.micro_machinery.special_renders.ter.BlastFurnaceTer;
-import mfrf.dbydd.micro_machinery.special_renders.ter.HandGeneratorTer;
-import mfrf.dbydd.micro_machinery.special_renders.ter.TestBlockTer;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.special_renders.ter.AnvilTer;
+import mfrf.micro_machinery.special_renders.ter.BlastFurnaceTer;
+import mfrf.micro_machinery.special_renders.ter.HandGeneratorTer;
+import mfrf.micro_machinery.special_renders.ter.TestBlockTer;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;

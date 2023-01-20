@@ -2,13 +2,13 @@ package mfrf.micro_machinery.utils;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT> {
+public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag> {
     private Slot[] slots;
 
     public HugeItemContainer(int size, IntegerContainer slotStackSize) {
@@ -55,8 +55,8 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT
     }
 
     @Override
-    public ListNBT serializeNBT() {
-        ListNBT inbts = new ListNBT();
+    public ListTag serializeNBT() {
+        ListTag inbts = new ListTag();
         for (Slot slot : slots) {
             inbts.add(slot.serializeNBT());
         }
@@ -64,7 +64,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListNBT
     }
 
     @Override
-    public void deserializeNBT(ListNBT nbt) {
+    public void deserializeNBT(ListTag nbt) {
         int size = nbt.size();
         if (slots.length < size) {
             slots = new Slot[size];

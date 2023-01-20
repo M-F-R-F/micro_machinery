@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.worldgen;
 
 import com.mojang.datafixers.Dynamic;
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.utils.RandomUtils;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.utils.RandomUtils;
 import net.minecraft.world.level.block.Block
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.registry.Registry;

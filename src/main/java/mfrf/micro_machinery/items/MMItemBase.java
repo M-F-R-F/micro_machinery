@@ -1,8 +1,9 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.MicroMachinery;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 import java.util.Map;
 import java.util.TreeMap;

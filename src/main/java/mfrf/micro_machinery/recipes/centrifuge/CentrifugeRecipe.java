@@ -3,18 +3,18 @@ package mfrf.micro_machinery.recipes.centrifuge;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.recipes.IngredientStack;
-import mfrf.dbydd.micro_machinery.recipes.RecipeBase;
-import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import mfrf.dbydd.micro_machinery.utils.RandomUtils;
+import mfrf.micro_machinery.recipes.IngredientStack;
+import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.recipes.RecipeHelper;
+import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
+import mfrf.micro_machinery.utils.RandomUtils;
 import net.minecraft.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants;
@@ -109,14 +109,14 @@ public class CentrifugeRecipe extends RecipeBase {
             ArrayList<RandomUtils.RollListI<ItemStack>> rollSlots = new ArrayList<>();
 
             CompoundTag container = buffer.readCompoundTag();
-            ListNBT slots = container.getList("s", Constants.NBT.TAG_LIST);
+            ListTag slots = container.getList("s", Constants.NBT.TAG_LIST);
 
             for (INBT inbt : slots) {
                 CompoundTag slot = (CompoundTag) inbt;
                 int bounds = slot.getInt("b");
                 HashMap<RandomUtils.RangeI, ItemStack> rangeIItemStackHashMap = new HashMap<>();
 
-                ListNBT rollList = slot.getList("l", Constants.NBT.TAG_LIST);
+                ListTag rollList = slot.getList("l", Constants.NBT.TAG_LIST);
                 for (INBT inbt1 : rollList) {
                     CompoundTag compoundNBT = (CompoundTag) inbt1;
 
@@ -136,13 +136,13 @@ public class CentrifugeRecipe extends RecipeBase {
             buffer.writeInt(recipe.time);
             recipe.input.serializeToBuffer(buffer);
 
-            ListNBT slots = new ListNBT();
+            ListTag slots = new ListTag();
             for (RandomUtils.RollListI<ItemStack> itemStackRollListI : recipe.rollList) {
                 CompoundTag compoundNBT = new CompoundTag();
                 HashMap<RandomUtils.RangeI, ItemStack> list = itemStackRollListI.list;
                 int bound = itemStackRollListI.bound;
 
-                ListNBT rollList = new ListNBT();
+                ListTag rollList = new ListTag();
                 for (Map.Entry<RandomUtils.RangeI, ItemStack> rangeIItemStackEntry : list.entrySet()) {
                     CompoundTag nbt = new CompoundTag();
                     nbt.put("r", rangeIItemStackEntry.getKey().toNbt());

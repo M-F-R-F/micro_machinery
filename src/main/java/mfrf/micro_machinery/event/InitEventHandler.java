@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.event;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.utils.MultiblockStructureMaps;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;

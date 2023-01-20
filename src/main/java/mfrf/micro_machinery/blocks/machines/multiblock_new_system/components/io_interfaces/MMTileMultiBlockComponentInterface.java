@@ -1,52 +1,51 @@
 package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
+import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
+import mfrf.micro_machinery.utils.NBTUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NBTUtil;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class MMTileMultiBlockComponentInterface extends BlockEntity {
     protected BlockPos mainPart = null;
-    protected Vec3i key = Vec3i.NULL_VECTOR;
+    protected Vec3i key = Vec3i.ZERO;
 
-    public MMTileMultiBlockComponentInterface(BlockEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public MMTileMultiBlockComponentInterface(BlockEntityType<?> tileEntityTypeIn, BlockState state, BlockPos pos) {
+        super(tileEntityTypeIn, pos, state);
     }
 
     @Override
-    public void read(CompoundTag compound) {
-        super.read(compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         if (compound.contains("main")) {
             mainPart = NBTUtil.readBlockPos(compound.getCompound("main"));
         }
-        key = mfrf.dbydd.micro_machinery.utils.NBTUtil.readVEC3I(compound.getCompound("key"));
+        key = mfrf.micro_machinery.utils.NBTUtil.readVEC3I(compound.getCompound("key"));
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
+    protected void saveAdditional(CompoundTag write) {
+        super.saveAdditional(write);
         if (mainPart != null) {
             write.put("main", NBTUtil.writeBlockPos(mainPart));
         }
-        write.put("key", mfrf.dbydd.micro_machinery.utils.NBTUtil.writeVEC3I(key));
-        return write;
+        write.put("key", mfrf.micro_machinery.utils.NBTUtil.writeVEC3I(key));
     }
 
-
-    public void linkTo(BlockPos pos, World world, Vec3i key) {
+    public void linkTo(BlockPos pos, Level world, Vec3i key) {
         this.key = key;
         mainPart = pos;
-        ((MMTileMainPartBase) world.getBlockEntity(mainPart)).linkComponent(this.pos, key);
+        ((MMTileMainPartBase) world.getBlockEntity(mainPart)).linkComponent(this.getBlockPos(), key);
         setChanged();
     }
 
     public void unLink() {
         mainPart = null;
-        key = Vec3i.NULL_VECTOR;
+        key = Vec3i.ZERO;
         setChanged();
     }
 

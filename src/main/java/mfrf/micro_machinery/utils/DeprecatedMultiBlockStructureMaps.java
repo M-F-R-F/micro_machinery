@@ -3,8 +3,8 @@ package mfrf.micro_machinery.utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
@@ -13,7 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 

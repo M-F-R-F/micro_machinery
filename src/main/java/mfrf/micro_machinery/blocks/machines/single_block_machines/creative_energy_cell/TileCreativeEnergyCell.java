@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.Direction;

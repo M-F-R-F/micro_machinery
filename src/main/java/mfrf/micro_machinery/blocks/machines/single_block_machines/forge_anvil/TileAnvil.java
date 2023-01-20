@@ -1,18 +1,18 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
-import mfrf.dbydd.micro_machinery.items.MMHammerBase;
-import mfrf.dbydd.micro_machinery.recipes.anvil.AnvilRecipe;
-import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.enums.EnumAnvilType;
+import mfrf.micro_machinery.items.MMHammerBase;
+import mfrf.micro_machinery.recipes.anvil.AnvilRecipe;
+import mfrf.micro_machinery.recipes.RecipeHelper;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.core.BlockPos;
@@ -58,10 +58,10 @@ public class TileAnvil extends MMTileBase {
         return super.write(compound);
     }
 
-    public ActionResultType onActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+    public InteractionResult onActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
 //        if (!worldIn.isRemote()) {
-            if (handIn == Hand.MAIN_HAND) {
-                ItemStack heldItem = player.getHeldItem(handIn);
+            if (handIn == InteractionHand.MAIN_HAND) {
+                ItemStack heldItem = player.getItemInHand(handIn);
                 if (heldItem.isEmpty()) {
                     if (!itemStackHandler.getStackInSlot(0).isEmpty()) {
                         ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
@@ -108,6 +108,6 @@ public class TileAnvil extends MMTileBase {
                 }
             }
 //        }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

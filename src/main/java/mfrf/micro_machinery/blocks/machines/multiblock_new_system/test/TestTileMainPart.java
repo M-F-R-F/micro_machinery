@@ -1,18 +1,19 @@
 package mfrf.micro_machinery.blocks.machines.multiblock_new_system.test;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.core.Vec3i;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TestTileMainPart extends MMTileMainPartBase {
-    public TestTileMainPart() {
-        super(RegisteredBlockEntityTypes.TEST.get());
+    public TestTileMainPart(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TEST.get(), pos, state);
     }
 
     @Override
-    protected void releaseDataOnUnpack(World world, BlockPos breakPos) {
+    protected void releaseDataOnUnpack(LevelAccessor world, BlockPos breakPos) {
 
     }
 

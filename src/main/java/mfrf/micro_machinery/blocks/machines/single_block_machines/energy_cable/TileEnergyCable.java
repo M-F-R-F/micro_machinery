@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.enums.EnumCableState;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.enums.EnumCableState;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;

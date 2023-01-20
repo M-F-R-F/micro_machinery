@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.mixins;
 
-import mfrf.dbydd.micro_machinery.mixins.interfaces.DamageEntity;
+import mfrf.micro_machinery.mixins.interfaces.DamageEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;

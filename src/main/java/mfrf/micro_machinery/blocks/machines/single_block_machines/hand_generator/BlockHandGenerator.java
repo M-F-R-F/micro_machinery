@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.hand_generator;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.core.BlockPos;
@@ -21,15 +21,15 @@ public class BlockHandGenerator extends MMBlockTileProviderBase {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote() && handIn == Hand.MAIN_HAND) {
+    public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+        if (!worldIn.isRemote() && handIn == InteractionHand.MAIN_HAND) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);
             Direction direction = Direction.fromAngle(state.getValue(FACING).getHorizontalAngle() - 90);
             if (tileEntity instanceof TileHandGenerator && hit.getFace() == direction) {
                 ((TileHandGenerator) tileEntity).OnActivated(direction.getOpposite());
             }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

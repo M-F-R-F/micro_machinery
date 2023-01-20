@@ -1,12 +1,13 @@
 package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
@@ -15,18 +16,25 @@ public class BlockRedstoneInterface extends MMBlockMultiBlockComponentInterface 
         super(properties, name);
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
+    public @Nullable
+    BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new TileRedstoneInterface();
+    }
+
+    @Override
+    public @Nullable
+    <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return null;
     }
 
 
     @Override
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        if (!worldIn.isRemote()) {
-            int power = worldIn.getRedstonePowerFromNeighbors(pos);
-            ((TileRedstoneInterface) worldIn.getBlockEntity(pos)).powerChange(power);
+    public void neighborChanged(BlockState pState, Level worldIn, BlockPos pos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        if (!worldIn.isClientSide()) {
+            int bestNeighborSignal = worldIn.getBestNeighborSignal(pos);
+            ((TileRedstoneInterface) worldIn.getBlockEntity(pos)).powerChange(bestNeighborSignal);
         }
+
     }
 }

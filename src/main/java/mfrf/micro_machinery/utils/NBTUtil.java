@@ -9,7 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.World;
 
 import java.util.function.Consumer;

@@ -2,10 +2,10 @@ package mfrf.micro_machinery.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.interfaces.Consumer;
-import mfrf.dbydd.micro_machinery.utils.FEContainer;
-import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.interfaces.Consumer;
+import mfrf.micro_machinery.utils.FEContainer;
+import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;

@@ -1,12 +1,12 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.klin;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.gui.klin.KlinContainer;
-import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
-import mfrf.dbydd.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.gui.klin.KlinContainer;
+import mfrf.micro_machinery.recipes.RecipeHelper;
+import mfrf.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
+import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;

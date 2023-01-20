@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.klin;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +13,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.core.BlockPos;
@@ -70,10 +70,10 @@ public class BlockKlin extends MMBlockTileProviderBase {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote && handIn == Hand.MAIN_HAND) {
+    public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+        if (!worldIn.isRemote && handIn == InteractionHand.MAIN_HAND) {
             TileKlin tileKlin = (TileKlin) worldIn.getBlockEntity(pos);
-            ItemStack heldItem = player.getHeldItem(handIn);
+            ItemStack heldItem = player.getItemInHand(handIn);
             if (heldItem.getItem() instanceof BucketItem) {
                 Fluid fluid = ((BucketItem) heldItem.getItem()).getFluid();
                 tileKlin.fill(new FluidStack(fluid, 1000), IFluidHandler.FluidAction.EXECUTE);
@@ -84,7 +84,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
                 });
             }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

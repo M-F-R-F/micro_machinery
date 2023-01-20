@@ -1,9 +1,9 @@
 package mfrf.micro_machinery.special_renders.ter;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockMainPartBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.blast_furnace.TileBlastFurnace;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockMainPartBase;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.blast_furnace.TileBlastFurnace;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.tileentity.BlockEntityRendererDispatcher;

@@ -1,11 +1,11 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockPlaceHolder;
-import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
-import mfrf.dbydd.micro_machinery.utils.MultiblockStructureMaps;
-import mfrf.dbydd.micro_machinery.utils.NBTUtil;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.MMMultiBlockHolderBase;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_main_parts.MMMultiBlockTileMainPartBase;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockPlaceHolder;
+import mfrf.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
+import mfrf.micro_machinery.utils.MultiblockStructureMaps;
+import mfrf.micro_machinery.utils.NBTUtil;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -13,7 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.core.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.core.BlockPos;
@@ -106,7 +106,7 @@ public class MMHammerBase extends ToolItem {
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public InteractionResult onItemUse(ItemUseContext context) {
         if (!context.getWorld().isRemote()) {
             boolean success = readOldStructures(context);
             if (!success) {
@@ -114,7 +114,7 @@ public class MMHammerBase extends ToolItem {
             }
 
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     private boolean readOldStructures(ItemUseContext context) {

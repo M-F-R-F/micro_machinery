@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.special_renders.ter;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.forge_anvil.TileAnvil;
-import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.blocks.machines.single_block_machines.forge_anvil.TileAnvil;
+import mfrf.micro_machinery.utils.IntegerContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

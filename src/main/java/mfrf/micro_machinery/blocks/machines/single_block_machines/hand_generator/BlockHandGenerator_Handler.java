@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.hand_generator;
 
-import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.blocks.MMBlockBase;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.state.StateContainer;

@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.MicroMachinery;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.SwordItem;

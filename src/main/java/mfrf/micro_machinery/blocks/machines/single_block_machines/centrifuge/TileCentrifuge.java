@@ -1,12 +1,12 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeContainer;
-import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import mfrf.dbydd.micro_machinery.utils.FEContainer;
-import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.gui.centrifuge.CentrifugeContainer;
+import mfrf.micro_machinery.recipes.RecipeHelper;
+import mfrf.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.utils.FEContainer;
+import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;

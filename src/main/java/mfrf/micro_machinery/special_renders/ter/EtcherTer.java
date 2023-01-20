@@ -1,10 +1,10 @@
 //package mfrf.micro_machinery.special_renders.ter;
 //
 //import com.mojang.blaze3d.matrix.MatrixStack;
-//import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.etcher.BlockEtcher;
-//import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.etcher.TileEtcher;
-//import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
-//import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+//import mfrf.micro_machinery.blocks.machines.single_block_machines.etcher.BlockEtcher;
+//import mfrf.micro_machinery.blocks.machines.single_block_machines.etcher.TileEtcher;
+//import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+//import mfrf.micro_machinery.utils.IntegerContainer;
 //import net.minecraft.client.renderer.IRenderTypeBuffer;
 //import net.minecraft.client.renderer.LightTexture;
 //import net.minecraft.client.renderer.Quaternion;
@@ -14,7 +14,7 @@
 //import net.minecraft.client.renderer.tileentity.BlockEntityRendererDispatcher;
 //import net.minecraft.world.item.ItemStack;
 //import net.minecraft.core.Direction;
-//import net.minecraft.util.math.Vec3i;
+//import net.minecraft.core.Vec3i;
 //import net.minecraft.world.LightType;
 //import net.minecraft.world.lighting.WorldLightManager;
 //import net.minecraftforge.client.model.data.EmptyModelData;

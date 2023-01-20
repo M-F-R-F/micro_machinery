@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.cutter;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
@@ -9,7 +9,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -29,13 +29,13 @@ public class BlockCutter extends MMBlockTileProviderBase {
 
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+    public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isRemote()) {
             NetworkHooks.openGui((ServerPlayer) player, (TileCutter) worldIn.getBlockEntity(pos), (PacketBuffer packerBuffer) -> {
                 packerBuffer.writeBlockPos(pos);
             });
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

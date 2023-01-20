@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.gui.electrolysis;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.electrolysis.TileElectrolysis;
-import mfrf.dbydd.micro_machinery.gui.ScreenBase;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.blocks.machines.single_block_machines.electrolysis.TileElectrolysis;
+import mfrf.micro_machinery.gui.ScreenBase;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

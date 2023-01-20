@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.world_saved_data;
 
-import mfrf.dbydd.micro_machinery.recipes.lathe.LatheRecipe;
+import mfrf.micro_machinery.recipes.lathe.LatheRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;

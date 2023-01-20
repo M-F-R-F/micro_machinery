@@ -1,21 +1,21 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.enums.EnumAnvilType;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.state.StateContainer;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Hand;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.enums.EnumAnvilType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.state.StateContainer;
+import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
@@ -39,12 +39,12 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+    public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);
         if (tileEntity instanceof TileAnvil) {
             return ((TileAnvil) tileEntity).onActivated(state, worldIn, pos, player, handIn, hit);
         }
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 
     @Nullable

@@ -1,16 +1,16 @@
 package mfrf.micro_machinery.event;
 
-import mfrf.dbydd.micro_machinery.gui.atomization.AtomizationScreen;
-import mfrf.dbydd.micro_machinery.gui.blast_furnace.BlastFurnaceScreen;
-import mfrf.dbydd.micro_machinery.gui.centrifuge.CentrifugeScreen;
-import mfrf.dbydd.micro_machinery.gui.cutter.CutterScreen;
-import mfrf.dbydd.micro_machinery.gui.electrolysis.ElectrolysisScreen;
-import mfrf.dbydd.micro_machinery.gui.generator.GeneratorScreen;
-import mfrf.dbydd.micro_machinery.gui.klin.KlinScreen;
-import mfrf.dbydd.micro_machinery.gui.lathe.LatheScreen;
-import mfrf.dbydd.micro_machinery.gui.weld.WeldScreen;
-import mfrf.dbydd.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncChannel;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredContainerTypes;
+import mfrf.micro_machinery.gui.atomization.AtomizationScreen;
+import mfrf.micro_machinery.gui.blast_furnace.BlastFurnaceScreen;
+import mfrf.micro_machinery.gui.centrifuge.CentrifugeScreen;
+import mfrf.micro_machinery.gui.cutter.CutterScreen;
+import mfrf.micro_machinery.gui.electrolysis.ElectrolysisScreen;
+import mfrf.micro_machinery.gui.generator.GeneratorScreen;
+import mfrf.micro_machinery.gui.klin.KlinScreen;
+import mfrf.micro_machinery.gui.lathe.LatheScreen;
+import mfrf.micro_machinery.gui.weld.WeldScreen;
+import mfrf.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncChannel;
+import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

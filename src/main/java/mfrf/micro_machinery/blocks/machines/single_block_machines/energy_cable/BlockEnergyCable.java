@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
 
-import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import mfrf.dbydd.micro_machinery.enums.EnumCableMaterial;
-import mfrf.dbydd.micro_machinery.enums.EnumCableState;
+import mfrf.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.enums.EnumCableMaterial;
+import mfrf.micro_machinery.enums.EnumCableState;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.item.BlockItemUseContext;

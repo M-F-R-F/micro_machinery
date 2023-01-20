@@ -1,18 +1,23 @@
 package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Hand;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
@@ -22,13 +27,23 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
         super(properties, name, noItem);
     }
 
+    @Override
+    public @org.jetbrains.annotations.Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new MMTileMultiBlockPart(pPos, pState);
+    }
+
+    @Override
+    public @org.jetbrains.annotations.Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return null;
+    }
+
     @Nullable
-    public BlockState pack(World world, BlockPos pos, Direction direction, BlockPos mainPart) {
+    public BlockState pack(Level world, BlockPos pos, Direction direction, BlockPos mainPart) {
         BlockState replace = defaultBlockState();
 
         CompoundTag reserved = new CompoundTag();
 
-        CompoundTag blockNBT = NBTUtil.writeBlockState(world.getBlockState(pos));
+        CompoundTag blockNBT = NbtUtils.writeBlockState(world.getBlockState(pos));
         reserved.put("block", blockNBT);
 
         BlockEntity tileEntity = world.getBlockEntity(pos);
@@ -36,59 +51,41 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
             reserved.put("tile", tileEntity.serializeNBT());
         }
 
-        world.setBlockState(pos, replace);
+        world.setBlockAndUpdate(pos, replace);
         ((MMTileMultiBlockPart) world.getBlockEntity(pos)).setPacked(reserved, mainPart);
         return replace;
     }
 
-    public static void unpack(World world, BlockPos pos) {
+    public static void unpack(LevelAccessor world, BlockPos pos) {
         MMTileMultiBlockPart thisTile = (MMTileMultiBlockPart) world.getBlockEntity(pos);
         CompoundTag packedNBT = thisTile.getPacked();
-        BlockState block = NBTUtil.readBlockState(packedNBT.getCompound("block"));
-        world.setBlockState(pos, block);
+        BlockState block = NbtUtils.m_129241_(packedNBT.getCompound("block"));
+        world.setBlockAndUpdate(pos, block);
         if (packedNBT.contains("tile")) {
-            world.getBlockEntity(pos).read(packedNBT.getCompound("tile"));
+            world.getBlockEntity(pos).load(packedNBT.getCompound("tile"));
         }
     }
 
-
     @Override
-    public boolean hasBlockEntity(BlockState state) {
-        return true;
-    }
-
-
-    @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, Player player) {
-        if (!worldIn.isRemote()) {
+    public void destroy(LevelAccessor worldIn, BlockPos pos, BlockState state) {
+        if (!worldIn.isClientSide()) {
             BlockEntity te = worldIn.getBlockEntity(pos);
-            ((MMTileMultiBlockPart) te).onBlockHarvest(worldIn, pos, player, state);
+            ((MMTileMultiBlockPart) te).onBlockHarvest(worldIn, pos, state);
         }
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player,
-                                             Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote()) {
+    public InteractionResult use(BlockState pState, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+        if (!worldIn.isClientSide()) {
             return ((MMTileMultiBlockPart) worldIn.getBlockEntity(pos)).onBlockActivated(worldIn, player, handIn, hit);
 
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return worldIn.getMaxLightLevel();
+    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+        return Shapes.empty();
     }
 
-    @Override
-    public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return 1f;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
-        return new MMTileMultiBlockPart();
-    }
 }

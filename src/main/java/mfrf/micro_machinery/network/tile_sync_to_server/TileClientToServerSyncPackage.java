@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.network.tile_sync_to_server;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.level.block.entity.BlockEntity;

@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.generator;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.dbydd.micro_machinery.utils.MathUtil;
+import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.utils.MathUtil;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +14,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.core.BlockPos;
@@ -71,9 +71,9 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     }
 
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote() && handIn == Hand.MAIN_HAND) {
-            ItemStack heldItem = player.getHeldItem(handIn);
+    public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+        if (!worldIn.isRemote() && handIn == InteractionHand.MAIN_HAND) {
+            ItemStack heldItem = player.getItemInHand(handIn);
             TileGenerator tileGenerator = (TileGenerator) worldIn.getBlockEntity(pos);
             if (!heldItem.isEmpty() && heldItem.getItem() instanceof BucketItem) {
                 BucketItem item = (BucketItem) heldItem.getItem();
@@ -97,7 +97,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
             }
 
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Nullable

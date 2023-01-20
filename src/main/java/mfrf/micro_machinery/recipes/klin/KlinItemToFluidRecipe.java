@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.recipes.klin;
 
-import mfrf.dbydd.micro_machinery.recipes.RecipeHelper;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
+import mfrf.micro_machinery.recipes.RecipeHelper;
+import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import com.google.gson.JsonObject;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;

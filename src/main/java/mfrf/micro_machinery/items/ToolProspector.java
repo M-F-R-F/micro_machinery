@@ -1,13 +1,13 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.blocks.MMOreBase;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.blocks.MMOreBase;
 import net.minecraft.world.level.block.Block
 import net.minecraft.block.Blocks;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -29,7 +29,7 @@ public class ToolProspector extends MMItemBase {
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public InteractionResult onItemUse(ItemUseContext context) {
         List<Block> TARGET_BLOCKS = new ArrayList<>();
         TARGET_BLOCKS.addAll(MMOreBase.oreList);
         TARGET_BLOCKS.addAll(Arrays.asList(Blocks.COAL_ORE, Blocks.IRON_ORE, Blocks.GOLD_ORE));
@@ -54,7 +54,7 @@ public class ToolProspector extends MMItemBase {
                 player1.sendBreakAnimation(EquipmentSlotType.MAINHAND);
             });
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
 }

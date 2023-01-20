@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
 
-import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import mfrf.dbydd.micro_machinery.enums.EnumFluidPipeState;
+import mfrf.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.LivingEntity;

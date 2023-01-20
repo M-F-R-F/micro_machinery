@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.registeried_lists;
 
-import mfrf.dbydd.micro_machinery.Config;
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.enums.EnumCastType;
-import mfrf.dbydd.micro_machinery.enums.EnumToolTier;
-import mfrf.dbydd.micro_machinery.items.*;
+import mfrf.micro_machinery.Config;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.enums.EnumCastType;
+import mfrf.micro_machinery.enums.EnumToolTier;
+import mfrf.micro_machinery.items.*;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

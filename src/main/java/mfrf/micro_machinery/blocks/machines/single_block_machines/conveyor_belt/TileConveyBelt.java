@@ -1,15 +1,15 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.dbydd.micro_machinery.enums.EnumConveyorConnectState;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import mfrf.dbydd.micro_machinery.utils.ItemContainer;
+import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.enums.EnumConveyorConnectState;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.utils.ItemContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.Direction;
@@ -162,7 +162,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
             CompoundTag compoundNBT = new CompoundTag();
             compoundNBT.putInt("max", max.get());
 
-            ListNBT listNBT = new ListNBT();
+            ListTag listNBT = new ListTag();
             stacks.forEach(s -> listNBT.add(s.serializeNBT()));
             compoundNBT.put("stacks", listNBT);
             return compoundNBT;

@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.utils;
 
-import mfrf.dbydd.micro_machinery.Config;
+import mfrf.micro_machinery.Config;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.ListTag;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
@@ -35,7 +35,7 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<Comp
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag compoundNBT = new CompoundTag();
-        ListNBT stacksNBT = new ListNBT();
+        ListTag stacksNBT = new ListTag();
         for (ItemStack stack : stacks) {
             stacksNBT.add(stack.serializeNBT());
         }
@@ -46,7 +46,7 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<Comp
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        ListNBT stacks = nbt.getList("stacks", Constants.NBT.TAG_COMPOUND);
+        ListTag stacks = nbt.getList("stacks", Constants.NBT.TAG_COMPOUND);
         for (INBT inbt : stacks) {
             this.stacks.add(ItemStack.read(((CompoundTag) inbt)));
         }

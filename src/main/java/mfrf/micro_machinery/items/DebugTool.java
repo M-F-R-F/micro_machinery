@@ -1,16 +1,16 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.dbydd.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
-import net.minecraft.world.item.ItemStack;
+import mfrf.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.InteractionResult;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.function.Consumer;
 
@@ -26,7 +26,7 @@ public class DebugTool extends MMItemBase {
             clickedPos = new CompoundTag();
         }
 
-        ItemStack heldItem = context.getPlayer().getHeldItem(Hand.OFF_HAND);
+        ItemStack heldItem = context.getPlayer().getItemInHand(Hand.OFF_HAND);
 
         if (!heldItem.isEmpty() && heldItem.getItem() == Items.APPLE) {
             context.getPlayer().sendMessage(new StringTextComponent(DeprecatedMultiBlockStructureMaps.getStructureMaps().toString()));
@@ -56,7 +56,7 @@ public class DebugTool extends MMItemBase {
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
+    public InteractionResult onItemUse(ItemUseContext context) {
         World world = context.getWorld();
         if (!world.isRemote()) {
             readMultiBlockOld(context);
@@ -93,6 +93,6 @@ public class DebugTool extends MMItemBase {
 //
 //            }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.fluids;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.items.MMItemBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.FluidBucketDispenserRegister;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.items.MMItemBase;
+import mfrf.micro_machinery.registeried_lists.FluidBucketDispenserRegister;
 import net.minecraft.world.level.block.Block
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.fluid.FlowingFluid;

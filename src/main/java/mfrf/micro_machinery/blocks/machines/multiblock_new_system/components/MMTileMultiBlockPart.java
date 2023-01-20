@@ -1,35 +1,36 @@
 package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
+import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.utils.NBTUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NBTUtil;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class MMTileMultiBlockPart extends BlockEntity {
     private CompoundTag packed = new CompoundTag();
     private BlockPos mainPart = null;
 
 
-    public MMTileMultiBlockPart() {
-        super(RegisteredBlockEntityTypes.MULTI_BLOCK_PART.get());
+    public MMTileMultiBlockPart(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.MULTI_BLOCK_PART.get(), pos, state);
     }
 
-    public MMTileMultiBlockPart(BlockEntityType<?> p_i48289_1_) {
-        super(p_i48289_1_);
+    public MMTileMultiBlockPart(BlockEntityType<?> p_i48289_1_, BlockPos pos, BlockState state) {
+        super(p_i48289_1_, pos, state);
     }
 
     @Override
-    public void read(CompoundTag compound) {
-        super.read(compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         packed = compound.getCompound("packed");
         if (compound.contains("main")) {
             mainPart = NBTUtil.readBlockPos(compound.getCompound("main"));
@@ -37,19 +38,18 @@ public class MMTileMultiBlockPart extends BlockEntity {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
+    protected void saveAdditional(CompoundTag write) {
+        super.saveAdditional(write);
         write.put("packed", packed);
         if (mainPart != null) {
             write.put("main", NBTUtil.writeBlockPos(mainPart));
         }
-        return write;
     }
 
     public void setPacked(CompoundTag nbt, BlockPos mainPart) {
         packed = nbt;
         this.mainPart = mainPart;
-        ((MMTileMainPartBase) world.getBlockEntity(mainPart)).link(this.pos);
+        ((MMTileMainPartBase) level.getBlockEntity(mainPart)).link(this.getBlockPos());
         setChanged();
     }
 
@@ -57,12 +57,12 @@ public class MMTileMultiBlockPart extends BlockEntity {
         return packed;
     }
 
-    public ActionResultType onBlockActivated(World worldIn, Player player, Hand handIn, BlockRayTraceResult hit) {
-        return ActionResultType.SUCCESS;
+    public InteractionResult onBlockActivated(Level worldIn, Player player, InteractionHand handIn, BlockHitResult hit) {
+        return InteractionResult.SUCCESS;
     }
 
     //todo check
-    public void onBlockHarvest(World worldIn, BlockPos pos, Player player, BlockState state) {
-        ((MMTileMainPartBase) worldIn.getBlockEntity(mainPart)).onBlockHarvest(worldIn, pos, player, state);
+    public void onBlockHarvest(LevelAccessor worldIn, BlockPos pos, BlockState state) {
+        ((MMTileMainPartBase) worldIn.getBlockEntity(mainPart)).onBlockHarvest(worldIn, pos, state);
     }
 }

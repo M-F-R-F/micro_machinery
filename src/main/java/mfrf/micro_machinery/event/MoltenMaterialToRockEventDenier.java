@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.event;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.blocks.MMBlockBase;
-import mfrf.dbydd.micro_machinery.fluids.MMFluidBase;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.fluids.MMFluidBase;
 import net.minecraft.world.level.block.Block
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.ResourceLocation;

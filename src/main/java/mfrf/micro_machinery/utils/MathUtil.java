@@ -1,14 +1,14 @@
 package mfrf.micro_machinery.utils;
 
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.core.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.World;

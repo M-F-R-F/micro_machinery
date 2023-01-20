@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.event;
 
-import mfrf.dbydd.micro_machinery.worldgen.VeinFeature;
-import mfrf.dbydd.micro_machinery.worldgen.VeinFeatureConfig;
+import mfrf.micro_machinery.worldgen.VeinFeature;
+import mfrf.micro_machinery.worldgen.VeinFeatureConfig;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.placement.ChanceRangeConfig;

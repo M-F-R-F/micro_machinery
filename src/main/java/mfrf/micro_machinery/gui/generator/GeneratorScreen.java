@@ -1,9 +1,9 @@
 package mfrf.micro_machinery.gui.generator;
 
-import mfrf.dbydd.micro_machinery.MicroMachinery;
-import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.generator.TileGenerator;
-import mfrf.dbydd.micro_machinery.gui.ScreenBase;
-import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
+import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.blocks.machines.single_block_machines.generator.TileGenerator;
+import mfrf.micro_machinery.gui.ScreenBase;
+import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

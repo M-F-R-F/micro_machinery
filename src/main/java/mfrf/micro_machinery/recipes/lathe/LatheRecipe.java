@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.recipes.lathe;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
+import mfrf.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;

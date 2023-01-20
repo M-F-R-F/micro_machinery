@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.special_renders.ter;
 
-import mfrf.dbydd.micro_machinery.blocks.machines.ter_test.TerTestTile;
-import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.blocks.machines.ter_test.TerTestTile;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
