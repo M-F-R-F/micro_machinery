@@ -1,0 +1,6 @@
+# Blender MTL File: 'flying_wheel_1.blend'
+# Model created by hqyzsy
+
+newmtl flywheel
+
+map_Kd micro_machinery:items/flying_wheel/flying_wheel_1
