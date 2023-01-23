@@ -18,7 +18,7 @@ import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslatableComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -79,7 +79,7 @@ public class TileAtomization extends MMTileBase implements ITickableBlockEntity,
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
 
             if (isWorking) {
 
@@ -188,7 +188,7 @@ public class TileAtomization extends MMTileBase implements ITickableBlockEntity,
 
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("atomization");
+        return new TranslatableComponent("atomization");
     }
 
     @Nullable

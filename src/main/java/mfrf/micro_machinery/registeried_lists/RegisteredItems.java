@@ -11,6 +11,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemTier;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ToolType;
 
 public class RegisteredItems {
@@ -21,10 +22,10 @@ public class RegisteredItems {
             COMBAT = new Item.Properties().group(ItemGroup.FOOD);
 
     //hammer
-    public static final Item STONE_HAMMER = new MMHammerBase(4.0f, -3.1f, ItemTier.STONE, new Item.Properties().group(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.STONE.getHarvestLevel()), "stone_hammer");
-    public static final Item BRONZE_HAMMER = new MMHammerBase(5.0f, -3.15f, ItemTier.IRON, new Item.Properties().group(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.IRON.getHarvestLevel()), "bronze_hammer");
-    public static final Item IRON_HAMMER = new MMHammerBase(6.0f, -3.2f, ItemTier.DIAMOND, new Item.Properties().group(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.DIAMOND.getHarvestLevel()), "iron_hammer");
-    public static final Item SUPERHAMMER = new MMHammerBase(8.0f, 0.0f, EnumToolTier.HSS, new Item.Properties().group(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, EnumToolTier.HSS.getHarvestLevel()), "superhammer");
+    public static final Item STONE_HAMMER = new MMHammerBase(4.0f, -3.1f, ItemTier.STONE, new Item.Properties().m_41491_(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.STONE.getHarvestLevel()), "stone_hammer");
+    public static final Item BRONZE_HAMMER = new MMHammerBase(5.0f, -3.15f, ItemTier.IRON, new Item.Properties().m_41491_(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.IRON.getHarvestLevel()), "bronze_hammer");
+    public static final Item IRON_HAMMER = new MMHammerBase(6.0f, -3.2f, ItemTier.DIAMOND, new Item.Properties().m_41491_(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, ItemTier.DIAMOND.getHarvestLevel()), "iron_hammer");
+    public static final Item SUPERHAMMER = new MMHammerBase(8.0f, 0.0f, EnumToolTier.HSS, new Item.Properties().m_41491_(MicroMachinery.MMTAB).addToolType(ToolType.PICKAXE, EnumToolTier.HSS.getHarvestLevel()), "superhammer");
     //axe
     public static final Item BRONZE_AXE = new MMAxeBase(EnumToolTier.BRONZE, 1, -3.1f, new Item.Properties().group(ItemGroup.TOOLS).addToolType(ToolType.AXE, EnumToolTier.BRONZE.getHarvestLevel()), "bronze_axe");
     public static final Item TUNGSTEN_STEEL_AXE = new MMAxeBase(ItemTier.DIAMOND, 2, -3.1f, new Item.Properties().group(ItemGroup.TOOLS).addToolType(ToolType.AXE, ItemTier.DIAMOND.getHarvestLevel()), "tungsten_steel_axe");

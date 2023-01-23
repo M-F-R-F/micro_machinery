@@ -72,7 +72,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
 
     @Override
     public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote() && handIn == InteractionHand.MAIN_HAND) {
+        if (!worldIn.isClientSide() && handIn == InteractionHand.MAIN_HAND) {
             ItemStack heldItem = player.getItemInHand(handIn);
             TileGenerator tileGenerator = (TileGenerator) worldIn.getBlockEntity(pos);
             if (!heldItem.isEmpty() && heldItem.getItem() instanceof BucketItem) {

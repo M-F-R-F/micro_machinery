@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ItemLaserDrill extends MMItemBase {
 
     public ItemLaserDrill(String name) {
-        super(new Properties().group(MicroMachinery.MMTAB).maxStackSize(1), name);
+        super(new Properties().m_41491_(MicroMachinery.MMTAB).stacksTo(1), name);
     }
 
     @Nullable
@@ -64,7 +64,7 @@ public class ItemLaserDrill extends MMItemBase {
         Vec3d positionVec = player.getPositionVec();
         ItemStack heldItem = player.getItemInHand(hand);
 
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
 
             if (heldItem.getItem() instanceof ItemLaserDrill) {
 

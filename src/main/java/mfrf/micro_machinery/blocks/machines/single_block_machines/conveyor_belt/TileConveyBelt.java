@@ -42,7 +42,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
     @Override
     public void tick() {
         //todo remake
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
             List<StackArray.CallbackSlot> popped = array.popAll();
 
             Direction out = getBlockState().get(BlockConveyorBelt.FACING);

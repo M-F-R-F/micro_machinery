@@ -59,7 +59,7 @@ public class TileAnvil extends MMTileBase {
     }
 
     public InteractionResult onActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-//        if (!worldIn.isRemote()) {
+//        if (!worldIn.isClientSide()) {
             if (handIn == InteractionHand.MAIN_HAND) {
                 ItemStack heldItem = player.getItemInHand(handIn);
                 if (heldItem.isEmpty()) {

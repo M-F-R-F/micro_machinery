@@ -1,6 +1,7 @@
 package mfrf.micro_machinery;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @Mod(MicroMachinery.MODID)
 public class MicroMachinery {
     public static final String MODID = "micro_machinery";
+    public static final CreativeModeTab MMTAB = new MMTab();
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 

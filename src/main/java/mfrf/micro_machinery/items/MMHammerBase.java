@@ -6,28 +6,29 @@ import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_co
 import mfrf.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import mfrf.micro_machinery.utils.MultiblockStructureMaps;
 import mfrf.micro_machinery.utils.NBTUtil;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.InteractionResult;
-import net.minecraft.core.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class MMHammerBase extends ToolItem {
+public class MMHammerBase extends DiggerItem {
     public static Map<String, Supplier<Item>> registeries = new HashMap<>();
 
     /**
@@ -35,8 +36,8 @@ public class MMHammerBase extends ToolItem {
      * @param attackSpeedIn
      * @param tier
      */
-    public MMHammerBase(float attackDamageIn, float attackSpeedIn, IItemTier tier, Item.Properties builder, String name) {
-        super(attackDamageIn, attackSpeedIn, tier, new HashSet<>(), builder);
+    public MMHammerBase(float attackDamageIn, float attackSpeedIn, Tier tier, Item.Properties builder, String name) {
+        super(attackDamageIn, attackSpeedIn, tier, BlockTags.MINEABLE_WITH_PICKAXE, builder);
         registeries.put(name, () -> this);
         this.addPropertyOverride(new ResourceLocation("damage_tier"), (p_call_1_, p_call_2_, p_call_3_) -> {
             float value = (float) p_call_1_.getDamage() / (float) p_call_1_.getMaxDamage();
@@ -45,25 +46,8 @@ public class MMHammerBase extends ToolItem {
     }
 
     @Override
-    public boolean canHarvestBlock(BlockState blockIn) {
-        Block block = blockIn.getBlock();
-        int i = this.getTier().getHarvestLevel();
-        if (blockIn.getHarvestTool() == net.minecraftforge.common.ToolType.PICKAXE) {
-            return i >= blockIn.getHarvestLevel();
-        }
-        Material material = blockIn.getMaterial();
-        return material == Material.STONE || material == Material.IRON || material == Material.ANVIL;
-    }
-
-    @Override
-    public float getDestroySpeed(ItemStack stack, BlockState state) {
-        Material material = state.getMaterial();
-        return material != Material.IRON && material != Material.ANVIL && material != Material.STONE ? super.getDestroySpeed(stack, state) : this.efficiency;
-    }
-
-    @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (!worldIn.isRemote && state.getBlockHardness(worldIn, pos) != 0.0F) {
+        if (!worldIn.isClientSide && state.getBlockHardness(worldIn, pos) != 0.0F) {
             stack.damageItem(1, entityLiving, (player) -> {
                 player.sendBreakAnimation(EquipmentSlotType.MAINHAND);
             });
@@ -107,7 +91,7 @@ public class MMHammerBase extends ToolItem {
 
     @Override
     public InteractionResult onItemUse(ItemUseContext context) {
-        if (!context.getWorld().isRemote()) {
+        if (!context.getWorld().isClientSide()) {
             boolean success = readOldStructures(context);
             if (!success) {
                 success = readNewStructures(context);

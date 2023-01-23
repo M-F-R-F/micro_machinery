@@ -16,7 +16,7 @@ import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslatableComponent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -114,7 +114,7 @@ public class TileGenerator extends MMTileBase implements ITickableBlockEntity, I
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
             if (isBurning) {
                 burnTimeContainer.selfAdd();
                 tank.drain(1, IFluidHandler.FluidAction.EXECUTE);
@@ -156,7 +156,7 @@ public class TileGenerator extends MMTileBase implements ITickableBlockEntity, I
     }
 
     private void tryToPushEnergy() {
-        if (!world.isRemote() && !energyContainer.atMinValue()) {
+        if (!world.isClientSide() && !energyContainer.atMinValue()) {
             Direction backDirection = getBackDirection();
             if (backDirection != null) {
                 energyContainer = pushEnergyToDirection(backDirection, energyContainer);
@@ -167,7 +167,7 @@ public class TileGenerator extends MMTileBase implements ITickableBlockEntity, I
 
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("generator");
+        return new TranslatableComponent("generator");
     }
 
     @Nullable

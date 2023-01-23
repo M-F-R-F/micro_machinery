@@ -17,7 +17,7 @@ public class TileCreativeEnergyCell extends MMTileBase implements ITickableBlock
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
             for (Direction direction : Direction.values()) {
                 BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
                 if (tileEntity != null) {

@@ -11,7 +11,7 @@ public class SawBladeBase extends MMItemBase {
     }
 
     public SawBladeBase(String name, ForgeConfigSpec.DoubleValue combinedSawEfficiency) {
-        super(DEFAULT_PROPERTIES.maxStackSize(1), name);
+        super(DEFAULT_PROPERTIES.stacksTo(1), name);
         this.combinedSawEfficiency = combinedSawEfficiency;
 
     }

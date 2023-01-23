@@ -65,7 +65,7 @@ public class TileKlin extends MMTileBase implements ITickableBlockEntity, IItemH
     }
 
     public void onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        player.sendMessage(new StringTextComponent("actived"));
+        player.displayClientMessage(new StringTextComponent("actived"));
     }
 
     @Nonnull
@@ -159,7 +159,7 @@ public class TileKlin extends MMTileBase implements ITickableBlockEntity, IItemH
 
     @Override
     public void tick() {
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             this.progressBarNumArray.set(0, this.currentMeltTime);
             this.progressBarNumArray.set(1, this.meltTime);
             this.progressBarNumArray.set(2, this.currentBurnTime);

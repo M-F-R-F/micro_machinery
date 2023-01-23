@@ -71,7 +71,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
 
     @Override
     public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote && handIn == InteractionHand.MAIN_HAND) {
+        if (!worldIn.isClientSide && handIn == InteractionHand.MAIN_HAND) {
             TileKlin tileKlin = (TileKlin) worldIn.getBlockEntity(pos);
             ItemStack heldItem = player.getItemInHand(handIn);
             if (heldItem.getItem() instanceof BucketItem) {

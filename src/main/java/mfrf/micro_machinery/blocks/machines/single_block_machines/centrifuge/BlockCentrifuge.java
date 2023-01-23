@@ -30,7 +30,7 @@ public class BlockCentrifuge extends MMBlockTileProviderBase {
 
     @Override
     public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote()) {
+        if (!worldIn.isClientSide()) {
             NetworkHooks.openGui((ServerPlayer) player, (TileCentrifuge) worldIn.getBlockEntity(pos), (PacketBuffer packerBuffer) -> {
                 packerBuffer.writeBlockPos(pos);
             });

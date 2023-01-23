@@ -24,7 +24,7 @@ public class BlockWeld extends MMBlockTileProviderBase {
 
     @Override
     public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote()) {
+        if (!worldIn.isClientSide()) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);
             if (tileEntity instanceof TileWeld) {
                 NetworkHooks.openGui((ServerPlayer) player, (TileWeld) tileEntity, (PacketBuffer packerBuffer) -> {

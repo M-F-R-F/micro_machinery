@@ -42,7 +42,7 @@ public class TileEnergyCable extends MMTileBase implements ITickableBlockEntity,
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
             solveCable();
             solveOutput();
         }

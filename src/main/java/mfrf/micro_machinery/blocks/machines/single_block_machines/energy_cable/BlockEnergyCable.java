@@ -113,7 +113,7 @@ public class BlockEnergyCable extends MMBlockBase {
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (!worldIn.isRemote() && worldIn instanceof World) {
+        if (!worldIn.isClientSide() && worldIn instanceof World) {
 
             BlockEntity tileEntityNeighbor = worldIn.getBlockEntity(facingPos);
             Direction facingFromVector = Direction.getFacingFromVector(facingPos.getX() - currentPos.getX(), facingPos.getY() - currentPos.getY(), facingPos.getZ() - currentPos.getZ());

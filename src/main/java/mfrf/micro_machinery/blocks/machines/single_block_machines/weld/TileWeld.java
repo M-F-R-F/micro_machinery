@@ -16,7 +16,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslatableComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -71,7 +71,7 @@ public class TileWeld extends MMTileBase implements ITickableBlockEntity, INamed
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
 
             if (isWorking) {
                 progress.selfAdd();
@@ -170,7 +170,7 @@ public class TileWeld extends MMTileBase implements ITickableBlockEntity, INamed
 
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("gui.name.weld");
+        return new TranslatableComponent("gui.name.weld");
     }
 
     @Nullable

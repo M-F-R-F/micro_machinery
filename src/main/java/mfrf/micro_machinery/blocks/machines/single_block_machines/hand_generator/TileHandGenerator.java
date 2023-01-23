@@ -66,7 +66,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableBlockEntit
     }
 
     public void OnActivated(Direction outPutDirection) {
-        if (!world.isRemote() && progress.atMinValue()) {
+        if (!world.isClientSide() && progress.atMinValue()) {
             container.selfAdd();
             if (outPutDirection != null) {
                 container = pushEnergyToDirection(outPutDirection, container);
@@ -79,7 +79,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableBlockEntit
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
             if (!progress.atMinValue()) {
                 progress.selfAdd();
                 markDirty2();

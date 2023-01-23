@@ -17,7 +17,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TranslatableComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -112,7 +112,7 @@ public class TileCutter extends MMTileBase implements ITickableBlockEntity, IIte
 
     @Override
     public void tick() {
-        if (!world.isRemote()) {
+        if (!world.isClientSide()) {
             if (!result.isEmpty()) {
 
                 if (progress.atMaxValue()) {
@@ -202,7 +202,7 @@ public class TileCutter extends MMTileBase implements ITickableBlockEntity, IIte
 
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("cutter_gui");
+        return new TranslatableComponent("cutter_gui");
     }
 
     @Nullable

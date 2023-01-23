@@ -116,7 +116,7 @@ public class FluidPipeBlock extends MMBlockBase {
 
     @Override
     public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-        if (!world.isRemote() && world instanceof World) {
+        if (!world.isClientSide() && world instanceof World) {
             BlockEntity tileEntityNeighbor = world.getBlockEntity(neighbor);
             Direction facingFromVector = Direction.getFacingFromVector(neighbor.getX() - pos.getX(), neighbor.getY() - pos.getY(), neighbor.getZ() - pos.getZ());
             EnumProperty<EnumFluidPipeState> enumPipeStateEnumProperty = DIRECTION_ENUM_PROPERTY_MAP.get(facingFromVector);

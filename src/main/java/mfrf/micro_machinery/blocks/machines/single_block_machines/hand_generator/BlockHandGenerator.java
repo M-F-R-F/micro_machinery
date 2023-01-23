@@ -22,7 +22,7 @@ public class BlockHandGenerator extends MMBlockTileProviderBase {
 
     @Override
     public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote() && handIn == InteractionHand.MAIN_HAND) {
+        if (!worldIn.isClientSide() && handIn == InteractionHand.MAIN_HAND) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);
             Direction direction = Direction.fromAngle(state.getValue(FACING).getHorizontalAngle() - 90);
             if (tileEntity instanceof TileHandGenerator && hit.getFace() == direction) {
