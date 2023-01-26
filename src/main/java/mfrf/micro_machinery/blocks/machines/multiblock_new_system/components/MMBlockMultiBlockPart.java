@@ -60,7 +60,7 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
         MMTileMultiBlockPart thisTile = (MMTileMultiBlockPart) world.getBlockEntity(pos);
         CompoundTag packedNBT = thisTile.getPacked();
         BlockState block = NbtUtils.m_129241_(packedNBT.getCompound("block"));
-        world.setBlockAndUpdate(pos, block);
+        world.setBlock(pos, block, 3);
         if (packedNBT.contains("tile")) {
             world.getBlockEntity(pos).load(packedNBT.getCompound("tile"));
         }

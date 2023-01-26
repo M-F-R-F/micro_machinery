@@ -1,21 +1,20 @@
 package mfrf.micro_machinery.utils;
 
 import com.google.gson.*;
+import com.mojang.realmsclient.util.JsonUtils;
 import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.core.Direction;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
@@ -24,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MultiblockStructureMaps extends JsonReloadListener {
+public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static HashMap<String, StructureMap> structures = null;
     private static HashMap<String, MMBlockMainPartBase> structure_main_block_maps = new HashMap<>();
@@ -33,20 +32,22 @@ public class MultiblockStructureMaps extends JsonReloadListener {
         super(GSON, "structures/new_system");
     }
 
-    public static void combine(String name, MMBlockMainPartBase block) {
-        structure_main_block_maps.put(name, block);
+    @Override
+    protected void apply(Map<ResourceLocation, JsonElement> objectIn, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
+        structures = new HashMap<>();
+        for (Map.Entry<ResourceLocation, JsonElement> resourceLocationJsonObjectEntry : objectIn.entrySet()) {
+
+            JsonObject jsonObject = resourceLocationJsonObjectEntry.getValue().getAsJsonObject();
+
+            String identifier = JsonUtils.getStringOr("identifier", jsonObject, "none");
+            if (!identifier.equals("none")) {
+                structures.put(identifier, new StructureMap(jsonObject));
+            }
+        }
     }
 
-    @Override
-    protected void apply(Map<ResourceLocation, JsonObject> objectIn, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-        structures = new HashMap<>();
-        for (Map.Entry<ResourceLocation, JsonObject> resourceLocationJsonObjectEntry : objectIn.entrySet()) {
-
-            JsonObject jsonObject = resourceLocationJsonObjectEntry.getValue();
-
-            String identifier = JSONUtils.getString(jsonObject, "identifier");
-            structures.put(identifier, new StructureMap(jsonObject));
-        }
+    public static void combine(String name, MMBlockMainPartBase block) {
+        structure_main_block_maps.put(name, block);
     }
 
     public static HashMap<String, StructureMap> getStructures() {
@@ -54,7 +55,7 @@ public class MultiblockStructureMaps extends JsonReloadListener {
     }
 
     @Nullable
-    public static Triple<String, StructureMap, Direction> findStructure(World world, BlockPos pos) {
+    public static Triple<String, StructureMap, Direction> findStructure(Level world, BlockPos pos) {
         Block center = world.getBlockState(pos).getBlock();
         for (Map.Entry<String, StructureMap> stringStructureMapEntry : getStructures().entrySet()) {
             Direction direction = stringStructureMapEntry.getValue().checkAllDirection(world, pos, center);
@@ -85,14 +86,14 @@ public class MultiblockStructureMaps extends JsonReloadListener {
         public static HashMap<Vec3i, Pair<Block, Vec3i>> readJson(JsonObject object) {
             HashMap<Vec3i, Pair<Block, Vec3i>> blockPosBlockHashMap = new HashMap<>();
 
-            JsonArray block_nodes = JSONUtils.getJsonArray(object, "blocks");
+            JsonArray block_nodes = object.getAsJsonArray("blocks");
             for (JsonElement element : block_nodes) {
                 JsonObject blockNode = (JsonObject) element;
-                Block block = ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(blockNode.get("block").getAsString()));
+                Block block = ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryParse(blockNode.get("block").getAsString()));
                 Vec3i vec3i = new Vec3i(
-                        JSONUtils.getInt(blockNode, "xO"),
-                        JSONUtils.getInt(blockNode, "yO"),
-                        JSONUtils.getInt(blockNode, "zO"));
+                        blockNode.get("xO").getAsInt(),
+                        blockNode.get("yO").getAsInt(),
+                        blockNode.get("zO").getAsInt());
 
                 blockPosBlockHashMap.put(vec3i, Pair.of(block, vec3i));
             }
@@ -127,8 +128,8 @@ public class MultiblockStructureMaps extends JsonReloadListener {
         }
 
         @Nullable
-        private Direction checkAllDirection(World world, BlockPos center, Block centerBlock) {
-            if (centerBlock != mapWithDirections.get(Direction.NORTH).get(Vec3i.NULL_VECTOR).getKey()) {
+        private Direction checkAllDirection(Level world, BlockPos center, Block centerBlock) {
+            if (centerBlock != mapWithDirections.get(Direction.NORTH).get(Vec3i.ZERO).getKey()) {
                 return null;
             }
             for (Direction direction : Direction.Plane.HORIZONTAL) {
@@ -141,23 +142,23 @@ public class MultiblockStructureMaps extends JsonReloadListener {
             return null;
         }
 
-        public static boolean check(World world, BlockPos center, HashMap<Vec3i, Pair<Block, Vec3i>> map) {
+        public static boolean check(Level world, BlockPos center, HashMap<Vec3i, Pair<Block, Vec3i>> map) {
             for (Map.Entry<Vec3i, Pair<Block, Vec3i>> vec3iBlockEntry : map.entrySet()) {
-                if (world.getBlockState(center.add(vec3iBlockEntry.getKey())).getBlock() != vec3iBlockEntry.getValue().getKey()) {
+                if (world.getBlockState(center.m_141952_(vec3iBlockEntry.getKey())).getBlock() != vec3iBlockEntry.getValue().getKey()) {
                     return false;
                 }
             }
             return true;
         }
 
-        public void construct(Direction direction, World world, BlockPos center, String id) {
+        public void construct(Direction direction, Level world, BlockPos center, String id) {
             MMBlockMainPartBase.MAP.get(id).pack(world, center, direction, center);
 
             mapWithDirections.get(direction).entrySet().stream()
                     .forEach(vec3iBlockEntry -> {
-                        if (!vec3iBlockEntry.getKey().equals(Vec3i.NULL_VECTOR)) {
+                        if (!vec3iBlockEntry.getKey().equals(Vec3i.ZERO)) {
 
-                            BlockPos currentPos = center.add(vec3iBlockEntry.getKey());
+                            BlockPos currentPos = center.m_141952_(vec3iBlockEntry.getKey());
                             if (!(world.getBlockState(currentPos).getBlock() instanceof MMBlockMultiBlockComponentInterface)) {
                                 RegisteredBlocks.MULTIBLOCK_PART.pack(world, currentPos, direction, center);
                             } else {

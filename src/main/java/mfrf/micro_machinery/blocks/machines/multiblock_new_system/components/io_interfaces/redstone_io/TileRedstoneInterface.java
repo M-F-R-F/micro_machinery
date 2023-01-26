@@ -4,10 +4,12 @@ package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io
 import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TileRedstoneInterface extends MMTileMultiBlockComponentInterface {
-    public TileRedstoneInterface() {
-        super(RegisteredBlockEntityTypes.REDSTONE_INTERFACE.get());
+    public TileRedstoneInterface(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.REDSTONE_INTERFACE.get(), state, pos);
     }
 
     public int getRedStoneSignalLevel() {

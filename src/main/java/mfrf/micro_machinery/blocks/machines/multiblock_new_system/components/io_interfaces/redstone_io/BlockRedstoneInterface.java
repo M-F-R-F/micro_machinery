@@ -19,7 +19,7 @@ public class BlockRedstoneInterface extends MMBlockMultiBlockComponentInterface 
     @Override
     public @Nullable
     BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileRedstoneInterface();
+        return new TileRedstoneInterface(pPos, pState);
     }
 
     @Override
