@@ -1,0 +1,19 @@
+{
+    "variants": {
+    "facing=north": {
+      "model": "micro_machinery:obj/spherical_tank"
+    },
+    "facing=east": {
+      "model": "micro_machinery:obj/spherical_tank",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "micro_machinery:obj/spherical_tank",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "micro_machinery:obj/spherical_tank",
+      "y": 270
+    }
+  }
+}
