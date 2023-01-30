@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TileEnergyCable extends MMTileBase implements ITickableBlockEntity, IEnergyStorage {
+public class TileEnergyCable extends MMTileBase implements  IEnergyStorage {
     private int currentEnergy = 0;
 
     public TileEnergyCable() {

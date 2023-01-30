@@ -10,7 +10,7 @@ import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
@@ -27,7 +27,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileElectrolysis extends MMTileBase implements ITickableBlockEntity, IItemHandler, INamedContainerProvider {
+public class TileElectrolysis extends MMTileBase implements  IItemHandler, MenuProvider {
     private FEContainer energy = new FEContainer(0, 120000) {
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
@@ -192,7 +192,7 @@ public class TileElectrolysis extends MMTileBase implements ITickableBlockEntity
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
+    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
         return new ElectrolysisContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 

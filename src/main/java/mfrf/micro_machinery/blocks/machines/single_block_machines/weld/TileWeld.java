@@ -10,7 +10,7 @@ import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
@@ -26,7 +26,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileWeld extends MMTileBase implements ITickableBlockEntity, INamedContainerProvider {
+public class TileWeld extends MMTileBase implements  MenuProvider {
     private ItemStackHandler input = new ItemStackHandler(6);
     private ItemStackHandler output = new ItemStackHandler(1);
     private IntegerContainer progress = new IntegerContainer();
@@ -175,7 +175,7 @@ public class TileWeld extends MMTileBase implements ITickableBlockEntity, INamed
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
+    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
         return new WeldContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 }

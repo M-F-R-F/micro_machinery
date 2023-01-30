@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TileCreativeEnergyCell extends MMTileBase implements ITickableBlockEntity, IEnergyStorage {
+public class TileCreativeEnergyCell extends MMTileBase implements  IEnergyStorage {
     public TileCreativeEnergyCell() {
         super(RegisteredBlockEntityTypes.TILE_ENERGY_CELL.get());
     }

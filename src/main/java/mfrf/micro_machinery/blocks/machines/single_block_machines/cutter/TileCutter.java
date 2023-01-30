@@ -11,7 +11,7 @@ import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
@@ -28,7 +28,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileCutter extends MMTileBase implements ITickableBlockEntity, IItemHandler, INamedContainerProvider {
+public class TileCutter extends MMTileBase implements  IItemHandler, MenuProvider {
     private ItemStackHandler sawBladeHandler = new ItemStackHandler(1);
     private ItemStackHandler itemHandler = new ItemStackHandler(2);
     private IntegerContainer progress = new IntegerContainer();

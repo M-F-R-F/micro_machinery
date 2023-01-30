@@ -10,7 +10,7 @@ import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
 
-public class TileCentrifuge extends MMTileBase implements ITickableBlockEntity, INamedContainerProvider {
+public class TileCentrifuge extends MMTileBase implements  MenuProvider {
     private FEContainer feContainer = new FEContainer(0, 40000) {
         @Override
         public boolean canExtract() {
@@ -214,7 +214,7 @@ public class TileCentrifuge extends MMTileBase implements ITickableBlockEntity, 
 
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, Player p_createMenu_3_) {
+    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
         return new CentrifugeContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
     }
 }

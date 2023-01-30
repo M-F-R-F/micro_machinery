@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
@@ -37,7 +37,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileKlin extends MMTileBase implements ITickableBlockEntity, IItemHandler, IFluidHandler, INamedContainerProvider {
+public class TileKlin extends MMTileBase implements  IItemHandler, IFluidHandler, MenuProvider {
 
     private FluidTank fluidHandler = new FluidTank(2000);
     private ItemStackHandler itemhandler = new ItemStackHandler(5);
