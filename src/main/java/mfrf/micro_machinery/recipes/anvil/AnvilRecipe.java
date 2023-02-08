@@ -1,21 +1,17 @@
 package mfrf.micro_machinery.recipes.anvil;
 
-import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import com.google.gson.JsonObject;
-import net.minecraft.item.Item;
+import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class AnvilRecipe implements IRecipe<RecipeWrapper> {
+public class AnvilRecipe implements Recipe<RecipeWrapper> {
     private final int rankNeed;
     private final ItemStack output;
     private final Ingredient input;
@@ -41,22 +37,22 @@ public class AnvilRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, World worldIn) {
+    public boolean matches(RecipeWrapper inv, Level worldIn) {
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(RecipeWrapper inv) {
+    public ItemStack assemble(RecipeWrapper inv) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return false;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return output;
     }
 
@@ -66,40 +62,40 @@ public class AnvilRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.FORGE_ANVIL_RECIPE.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AnvilRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<AnvilRecipe> {
 
         @Override
-        public AnvilRecipe read(ResourceLocation recipeId, JsonObject json) {
-            JsonObject output = JSONUtils.getJsonObject(json, "output");
-            int tier = JSONUtils.getInt(json, "tier");
-            Ingredient input = Ingredient.deserialize(JSONUtils.getJsonObject(json, "input"));
-            Item item = JSONUtils.getItem(output, "item");
-            int count = JSONUtils.getInt(output, "count");
+        public AnvilRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            JsonObject output = json.getAsJsonObject("output");
+            int tier = json.get("tier").getAsInt();
+            Ingredient input = Ingredient.fromJson(json.getAsJsonObject("input"));
+            Item item = ShapedRecipe.itemFromJson(output.getAsJsonObject("item"));
+            int count = output.get("count").getAsInt();
             return new AnvilRecipe(input, new ItemStack(item, count), tier, recipeId);
         }
 
         @Override
-        public AnvilRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public AnvilRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int rank = buffer.readInt();
-            Ingredient read = Ingredient.read(buffer);
-            ItemStack itemStack = buffer.readItemStack();
+            Ingredient read = Ingredient.fromNetwork(buffer);
+            ItemStack itemStack = buffer.readItem();
             return new AnvilRecipe(read, itemStack, rank, recipeId);
         }
 
         @Override
-        public void write(PacketBuffer buffer, AnvilRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, AnvilRecipe recipe) {
             buffer.writeInt(recipe.rankNeed);
-            recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output);
+            recipe.input.toNetwork(buffer);
+            buffer.writeItemStack(recipe.output, false,false);
         }
     }
 }

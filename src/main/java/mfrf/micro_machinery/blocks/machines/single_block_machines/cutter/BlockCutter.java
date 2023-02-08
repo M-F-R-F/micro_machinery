@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,7 +31,7 @@ public class BlockCutter extends MMBlockTileProviderBase {
     @Override
     public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
         if (!worldIn.isClientSide()) {
-            NetworkHooks.openGui((ServerPlayer) player, (TileCutter) worldIn.getBlockEntity(pos), (PacketBuffer packerBuffer) -> {
+            NetworkHooks.openGui((ServerPlayer) player, (TileCutter) worldIn.getBlockEntity(pos), (FriendlyByteBuf packerBuffer) -> {
                 packerBuffer.writeBlockPos(pos);
             });
         }

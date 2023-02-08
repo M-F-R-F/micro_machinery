@@ -1,7 +1,8 @@
 package mfrf.micro_machinery.utils;
 
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 public class RecipeFluidStack {
@@ -13,8 +14,8 @@ public class RecipeFluidStack {
         this.amount = amount;
     }
 
-    public static RecipeFluidStack read(PacketBuffer buffer) {
-        ResourceLocation fluid = ResourceLocation.tryCreate(buffer.readString(32767));
+    public static RecipeFluidStack read(FriendlyByteBuf buffer) {
+        ResourceLocation fluid = ResourceLocation.tryParse(buffer.readUtf(32767));
         int amount = buffer.readInt();
         return new RecipeFluidStack(fluid, amount);
     }
@@ -27,8 +28,8 @@ public class RecipeFluidStack {
         return amount;
     }
 
-    public void write(PacketBuffer buffer) {
-        buffer.writeString(fluidName.toString());
+    public void write(FriendlyByteBuf buffer) {
+        buffer.writeUtf(fluidName.toString());
         buffer.writeInt(amount);
     }
 

@@ -4,7 +4,7 @@ import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.ServerPlayer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.InteractionResult;
 import net.minecraft.util.Hand;
@@ -27,7 +27,7 @@ public class BlockWeld extends MMBlockTileProviderBase {
         if (!worldIn.isClientSide()) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);
             if (tileEntity instanceof TileWeld) {
-                NetworkHooks.openGui((ServerPlayer) player, (TileWeld) tileEntity, (PacketBuffer packerBuffer) -> {
+                NetworkHooks.openGui((ServerPlayer) player, (TileWeld) tileEntity, (FriendlyByteBuf packerBuffer) -> {
                     packerBuffer.writeBlockPos(tileEntity.getPos());
                 });
             }

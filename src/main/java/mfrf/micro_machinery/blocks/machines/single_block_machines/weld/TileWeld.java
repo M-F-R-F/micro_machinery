@@ -113,7 +113,7 @@ public class TileWeld extends MMTileBase implements  MenuProvider {
         feContainer.deserializeNBT(compound.getCompound("fe_container"));
         isWorking = compound.getBoolean("is_working");
         if (compound.contains("result")) {
-            result = ItemStack.read(compound.getCompound("result"));
+            result = ItemStack.of(compound.getCompound("result"));
         }
     }
 

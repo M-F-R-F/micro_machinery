@@ -8,16 +8,15 @@ import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import mfrf.micro_machinery.utils.RandomUtils;
-import net.minecraft.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -62,19 +61,19 @@ public class CentrifugeRecipe extends RecipeBase {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.CENTRIFUGE_RECIPE.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.CENTRIFUGE_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CentrifugeRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CentrifugeRecipe> {
 
         @Override
-        public CentrifugeRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public CentrifugeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             int time = json.get("time").getAsInt();
             IngredientStack input = IngredientStack.ReadFromJson(json.get("input_stack").getAsJsonObject());
             JsonArray output = json.get("output").getAsJsonArray();
@@ -103,25 +102,25 @@ public class CentrifugeRecipe extends RecipeBase {
 
         @Nullable
         @Override
-        public CentrifugeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public CentrifugeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int time = buffer.readInt();
             IngredientStack input = IngredientStack.ReadFromBuffer(buffer);
             ArrayList<RandomUtils.RollListI<ItemStack>> rollSlots = new ArrayList<>();
 
-            CompoundTag container = buffer.readCompoundTag();
-            ListTag slots = container.getList("s", Constants.NBT.TAG_LIST);
+            CompoundTag container = buffer.readAnySizeNbt();
+            ListTag slots = container.getList("s", Tag.TAG_LIST);
 
-            for (INBT inbt : slots) {
+            for (Tag inbt : slots) {
                 CompoundTag slot = (CompoundTag) inbt;
                 int bounds = slot.getInt("b");
                 HashMap<RandomUtils.RangeI, ItemStack> rangeIItemStackHashMap = new HashMap<>();
 
-                ListTag rollList = slot.getList("l", Constants.NBT.TAG_LIST);
-                for (INBT inbt1 : rollList) {
+                ListTag rollList = slot.getList("l", Tag.TAG_LIST);
+                for (Tag inbt1 : rollList) {
                     CompoundTag compoundNBT = (CompoundTag) inbt1;
 
                     RandomUtils.RangeI range = new RandomUtils.RangeI(compoundNBT.getCompound("r"));
-                    ItemStack itemStack = ItemStack.read(compoundNBT.getCompound("i"));
+                    ItemStack itemStack = ItemStack.of(compoundNBT.getCompound("i"));
                     rangeIItemStackHashMap.put(range, itemStack);
                 }
 
@@ -132,7 +131,7 @@ public class CentrifugeRecipe extends RecipeBase {
         }
 
         @Override
-        public void write(PacketBuffer buffer, CentrifugeRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, CentrifugeRecipe recipe) {
             buffer.writeInt(recipe.time);
             recipe.input.serializeToBuffer(buffer);
 
@@ -158,7 +157,7 @@ public class CentrifugeRecipe extends RecipeBase {
             CompoundTag container = new CompoundTag();
             container.put("s", slots);
 
-            buffer.writeCompoundTag(container);
+            buffer.writeNbt(container);
         }
     }
 }

@@ -16,15 +16,11 @@ import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.micro_machinery.recipes.weld.WeldRecipe;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
 import mfrf.micro_machinery.utils.RecipeFluidStack;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -39,7 +35,7 @@ public class RecipeHelper {
     public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
         if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
             boolean isSingle = false;
-            if (stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.isItemEqual(stackInSlot2)) {
+            if (stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.equals(stackInSlot2, true)) {
                 isSingle = true;
             }
             List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
@@ -206,7 +202,7 @@ public class RecipeHelper {
         return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(name));
     }
 
-    public static <cast extends IRecipe<?>> List<cast> getRecipeListByType(RecipeManager manager, IRecipeType<cast> type) {
+    public static <cast extends Recipe<?>> List<cast> getRecipeListByType(RecipeManager manager, RecipeType<cast> type) {
         return manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).map(iRecipe -> (cast) iRecipe).collect(Collectors.toList());
     }
 
@@ -215,13 +211,13 @@ public class RecipeHelper {
     }
 
     public static ItemStack getItemStackFormJsonObject(JsonObject object) {
-        Item itemOutput = JSONUtils.getItem(object, "item");
-        int countOutput = JSONUtils.getInt(object, "count");
+        Item itemOutput = ShapedRecipe.itemFromJson(object.getAsJsonObject("item"));
+        int countOutput = object.get("count").getAsInt();
         return new ItemStack(itemOutput, countOutput);
     }
 
     public static ResourceLocation getFluidNameFromJsonObject(JsonObject object) {
-        return ResourceLocation.tryCreate(object.get("fluid_name").getAsString());
+        return ResourceLocation.tryParse(object.get("fluid_name").getAsString());
     }
 
     public static int getFluidAmountFromJsonObject(JsonObject object) {

@@ -4,7 +4,7 @@ import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge.TileCentrifuge;
 import mfrf.micro_machinery.gui.ScreenBase;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class CentrifugeScreen extends ScreenBase<CentrifugeContainer> {

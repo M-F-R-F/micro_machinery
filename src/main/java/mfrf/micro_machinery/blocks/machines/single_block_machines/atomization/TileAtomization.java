@@ -8,9 +8,10 @@ import mfrf.micro_machinery.recipes.atomization.AtomizationRecipe;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.level.MenuProvider;
+import net.minecraft.level.entity.player.Inventory;
+import net.minecraft.level.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.MenuProvider;
@@ -18,10 +19,10 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.core.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslatableComponent;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.level.inventory.AbstractContainerMenu;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -82,7 +83,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
 
     @Override
     public void tick() {
-        if (!world.isClientSide()) {
+        if (!level.isClientSide()) {
 
             if (isWorking) {
 
@@ -92,7 +93,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
                 }
 
                 if (progress.atMaxValue()) {
-                    Optional<? extends IRecipe<?>> recipe = world.getRecipeManager().getRecipe(this.recipe);
+                    Optional<? extends IRecipe<?>> recipe = level.getRecipeManager().getRecipes().getRecipe(this.recipe);
                     recipe.ifPresent(iRecipe -> {
                         AtomizationRecipe atomizationRecipe = (AtomizationRecipe) iRecipe;
                         if (output.insertItem(0, atomizationRecipe.result, true).isEmpty()) {
@@ -108,7 +109,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
                 }
             } else {
                 if (!input.isEmpty()) {
-                    AtomizationRecipe atomizationRecipe = RecipeHelper.getAtomizationRecipe(input.getFluid(), world.getRecipeManager());
+                    AtomizationRecipe atomizationRecipe = RecipeHelper.getAtomizationRecipe(input.getFluid(), level.getRecipeManager());
                     if (atomizationRecipe != null) {
                         input.drain(atomizationRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
                         this.progress.setMax(atomizationRecipe.time);
@@ -165,7 +166,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
         isWorking = nbt.getBoolean("is_working");
         progress.deserializeNBT(nbt.getCompound("progress"));
         if (nbt.contains("recipe")) {
-            recipe = ResourceLocation.tryCreate(nbt.getString("recipe"));
+            recipe = ResourceLocation.tryParse(nbt.getString("recipe"));
         }
     }
 

@@ -1,24 +1,29 @@
 package mfrf.micro_machinery.recipes.klin;
 
+import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import com.google.gson.JsonObject;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.item.crafting.RecipeSerializer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
+public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
 
     private final boolean issingle;
     private final int melttime;
@@ -81,22 +86,22 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, World worldIn) {
+    public boolean matches(RecipeWrapper inv, Level worldIn) {
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(RecipeWrapper inv) {
+    public ItemStack assemble(RecipeWrapper inv) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return ItemStack.EMPTY;
     }
 
@@ -106,69 +111,71 @@ public class KlinItemToFluidRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.KLIN_ITEM_TO_FLUID.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE;
     }
 
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<KlinItemToFluidRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<KlinItemToFluidRecipe> {
         @Override
-        public KlinItemToFluidRecipe read(ResourceLocation recipeId, JsonObject json) {
-            JsonObject output = JSONUtils.getJsonObject(json, "output");
-            boolean isSingle = JSONUtils.getBoolean(json, "isSingle");
-            int meltTime = JSONUtils.getInt(json, "meltTime");
-            FluidStack result = new FluidStack(RecipeHelper.getFluidByName(JSONUtils.getString(output, "fluidName")), JSONUtils.getInt(output, "amount"));
+        public KlinItemToFluidRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            JsonObject output = json.getAsJsonObject("output");
+            boolean isSingle = GsonHelper.getAsBoolean(json, "isSingle");
+            int meltTime = json.get("meltTime").getAsInt();
+            FluidStack result = new FluidStack(RecipeHelper.getFluidByName(GsonHelper.getAsString(output, "fluidName")), output.get("amount").getAsInt());
             if (isSingle) {
-                JsonObject inputIfSingle = JSONUtils.getJsonObject(json, "inputIfSingle");
-                Ingredient input = Ingredient.deserialize(inputIfSingle);
-                return new KlinItemToFluidRecipe(true, meltTime, Ingredient.EMPTY, 0, Ingredient.EMPTY, 0, input, JSONUtils.getInt(inputIfSingle, "count"), result, recipeId);
+                JsonObject inputIfSingle = json.getAsJsonObject("inputIfSingle");
+                Ingredient input = Ingredient.fromJson(inputIfSingle);
+                result.get(recipeId).getAsInt();
+                return new KlinItemToFluidRecipe(true, meltTime, Ingredient.EMPTY, 0, Ingredient.EMPTY, 0, input, inputIfSingle, "count"),
             } else {
-                JsonObject input = JSONUtils.getJsonObject(json, "input");
-                JsonObject input1 = JSONUtils.getJsonObject(input, "input1");
-                JsonObject input2 = JSONUtils.getJsonObject(input, "input2");
-                Ingredient input1Ingredient = Ingredient.deserialize(input1);
-                Ingredient input2Ingredient = Ingredient.deserialize(input2);
+                JsonObject input = json.getAsJsonObject("input");
+                JsonObject input1 = GsonHelper.getAsJsonObject(input, "input1");
+                JsonObject input2 = GsonHelper.getAsJsonObject(input, "input2");
+                Ingredient input1Ingredient = Ingredient.fromJson(input1);
+                Ingredient input2Ingredient = Ingredient.fromJson(input2);
 
-                return new KlinItemToFluidRecipe(false, meltTime, input1Ingredient, JSONUtils.getInt(input1, "count"), input2Ingredient, JSONUtils.getInt(input2, "count"), Ingredient.EMPTY, 0, result, recipeId);
+                return new KlinItemToFluidRecipe(false, meltTime, input1Ingredient, input1, "count"),
+                input2Ingredient, GsonHelper.getAsInt(input2, "count"), Ingredient.EMPTY, 0, result.get(recipeId).getAsInt();
             }
 
         }
 
         @Nullable
         @Override
-        public KlinItemToFluidRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public KlinItemToFluidRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int meltTime = buffer.readInt();
             boolean isSingle = buffer.readBoolean();
-            Ingredient input = Ingredient.read(buffer);
+            Ingredient input = Ingredient.fromNetwork(buffer);
             int count = buffer.readInt();
-            Ingredient input1 = Ingredient.read(buffer);
+            Ingredient input1 = Ingredient.fromNetwork(buffer);
             int count1 = buffer.readInt();
-            Ingredient input2 = Ingredient.read(buffer);
+            Ingredient input2 = Ingredient.fromNetwork(buffer);
             int count2 = buffer.readInt();
             FluidStack fluidStack = FluidStack.readFromPacket(buffer);
             return new KlinItemToFluidRecipe(isSingle, meltTime, input1, count1, input2, count2, input, count, fluidStack, recipeId);
         }
 
         @Override
-        public void write(PacketBuffer buffer, KlinItemToFluidRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, KlinItemToFluidRecipe recipe) {
             buffer.writeInt(recipe.melttime);
             buffer.writeBoolean(recipe.issingle);
-            recipe.input.write(buffer);
+            recipe.input.toNetwork(buffer);
             buffer.writeInt(recipe.count);
-            recipe.input1.write(buffer);
+            recipe.input1.toNetwork(buffer);
             buffer.writeInt(recipe.count1);
-            recipe.input2.write(buffer);
+            recipe.input2.toNetwork(buffer);
             buffer.writeInt(recipe.count2);
             recipe.outputfluidstack.writeToPacket(buffer);
         }
 
         //- read: reads the data from a JsonObject and returns an instance of your recipe (json file stored in datapack)
-        //- read: reads the data from a PacketBuffer and returns an instance of your recipe (server/client packet sending)
+        //- read: reads the data from a FriendlyByteBuf and returns an instance of your recipe (server/client packet sending)
         //- write: reads the data from your instance to a packet buffer (server/client packet sending)
 
     }

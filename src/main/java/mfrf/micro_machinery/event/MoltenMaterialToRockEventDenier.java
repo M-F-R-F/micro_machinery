@@ -5,7 +5,7 @@ import mfrf.micro_machinery.blocks.MMBlockBase;
 import mfrf.micro_machinery.fluids.MMFluidBase;
 import net.minecraft.world.level.block.Block
 import net.minecraft.fluid.Fluid;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

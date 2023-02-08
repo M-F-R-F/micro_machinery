@@ -98,7 +98,7 @@ public class TileElectrolysis extends MMTileBase implements  IItemHandler, MenuP
             progress = new IntegerContainer();
             progress.deserializeNBT(compound.getCompound("progress"));
         }
-        result = ItemStack.read(compound.getCompound("result"));
+        result = ItemStack.of(compound.getCompound("result"));
         super.read(compound);
     }
 

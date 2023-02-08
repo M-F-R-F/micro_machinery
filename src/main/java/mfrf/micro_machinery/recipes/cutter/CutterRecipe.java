@@ -5,14 +5,12 @@ import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-
-import javax.annotation.Nullable;
 
 public class CutterRecipe extends RecipeBase {
     private final IngredientStack input;
@@ -39,38 +37,38 @@ public class CutterRecipe extends RecipeBase {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.CUTTER_RECIPE.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.CUTTER_RECIPE_TYPE;
     }
 
-    public static class Searlizer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CutterRecipe> {
+    public static class Searlizer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CutterRecipe> {
 
         @Override
-        public CutterRecipe read(ResourceLocation resourceLocation, JsonObject jsonObject) {
+        public CutterRecipe fromJson(ResourceLocation pRecipeId, JsonObject jsonObject) {
             IngredientStack input = IngredientStack.ReadFromJson(jsonObject.getAsJsonObject("input_stack"));
             ItemStack output = RecipeHelper.getItemStackFormJsonObject(jsonObject.getAsJsonObject("output"));
             int tick_use = jsonObject.get("tick_use").getAsInt();
-            return new CutterRecipe(resourceLocation, input, output, tick_use);
+            return new CutterRecipe(pRecipeId, input, output, tick_use);
         }
 
-        @Nullable
+        @org.jetbrains.annotations.Nullable
         @Override
-        public CutterRecipe read(ResourceLocation resourceLocation, PacketBuffer packetBuffer) {
+        public CutterRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf packetBuffer) {
             IngredientStack ingredientStack = IngredientStack.ReadFromBuffer(packetBuffer);
-            ItemStack itemStack = packetBuffer.readItemStack();
+            ItemStack itemStack = packetBuffer.readItem();
             int i = packetBuffer.readInt();
-            return new CutterRecipe(resourceLocation, ingredientStack, itemStack, i);
+            return new CutterRecipe(pRecipeId, ingredientStack, itemStack, i);
         }
 
         @Override
-        public void write(PacketBuffer packetBuffer, CutterRecipe cutterRecipe) {
+        public void toNetwork(FriendlyByteBuf packetBuffer, CutterRecipe cutterRecipe) {
             cutterRecipe.input.serializeToBuffer(packetBuffer);
-            packetBuffer.writeItemStack(cutterRecipe.output);
+            packetBuffer.writeItemStack(cutterRecipe.output, false);
             packetBuffer.writeInt(cutterRecipe.tickUse);
         }
     }

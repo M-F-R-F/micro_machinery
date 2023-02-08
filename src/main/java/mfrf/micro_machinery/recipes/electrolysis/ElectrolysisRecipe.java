@@ -4,13 +4,13 @@ import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import net.minecraft.item.Item;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -40,40 +40,40 @@ public class ElectrolysisRecipe extends RecipeBase {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.ELECTROLYSIS_RECIPE.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ElectrolysisRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ElectrolysisRecipe> {
 
         @Override
-        public ElectrolysisRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public ElectrolysisRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             IngredientStack input = IngredientStack.ReadFromJson(json.getAsJsonObject("input_stack"));
             JsonObject output = json.getAsJsonObject("output");
             int count = output.get("count").getAsInt();
-            Item item = JSONUtils.getItem(output, "item");
+            Item item = ShapedRecipe.itemFromJson(output.getAsJsonObject("item"));
             int time = json.get("time").getAsInt();
             return new ElectrolysisRecipe(input, new ItemStack(item, count), time, recipeId);
         }
 
         @Nullable
         @Override
-        public ElectrolysisRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public ElectrolysisRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             IngredientStack ingredientStack = IngredientStack.ReadFromBuffer(buffer);
-            ItemStack itemStack = buffer.readItemStack();
+            ItemStack itemStack = buffer.readItem();
             int i = buffer.readInt();
             return new ElectrolysisRecipe(ingredientStack, itemStack, i, recipeId);
         }
 
         @Override
-        public void write(PacketBuffer buffer, ElectrolysisRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, ElectrolysisRecipe recipe) {
             recipe.input.serializeToBuffer(buffer);
-            buffer.writeItemStack(recipe.output);
+            buffer.writeItemStack(recipe.output,false);
             buffer.writeInt(recipe.Time);
         }
     }

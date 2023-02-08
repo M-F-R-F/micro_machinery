@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.Tag 
 import net.minecraft.nbt.ListTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -172,7 +172,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
         public void deserializeNBT(CompoundTag nbt) {
             int maxI = nbt.getInt("max");
             max = () -> maxI;
-            for (INBT inbt : nbt.getList("stacks", Constants.NBT.TAG_COMPOUND)) {
+            for (Tag inbt : nbt.getList("stacks", Tag.TAG_COMPOUND)) {
                 Stack stack = new Stack();
                 stack.deserializeNBT((CompoundTag) inbt);
                 stacks.add(stack);
@@ -342,7 +342,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
 
             @Override
             public void deserializeNBT(CompoundTag nbt) {
-                stack = ItemStack.read(nbt.getCompound("stack"));
+                stack = ItemStack.of(nbt.getCompound("stack"));
                 time = nbt.getInt("time");
             }
         }

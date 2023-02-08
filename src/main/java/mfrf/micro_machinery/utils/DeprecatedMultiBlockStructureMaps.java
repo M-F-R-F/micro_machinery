@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IResource;
 import net.minecraft.core.Direction;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.World;
@@ -61,7 +61,7 @@ public class DeprecatedMultiBlockStructureMaps {
 
         public static MultiBlockPosBox readJson(JsonObject jsonObject) {
 
-            JsonArray blockNodeList = JSONUtils.getJsonArray(jsonObject, "block_node_list");
+            JsonArray blockNodeList = GsonHelper.getAsJsonArray(jsonObject, "block_node_list");
 
             HashMap<String, AccessoryNode> accessoryArrayList = new HashMap<>();
             ArrayList<BlockNode> blockNodes = new ArrayList<>();
@@ -141,7 +141,7 @@ public class DeprecatedMultiBlockStructureMaps {
             }
 
             public static BlockNode fromJsonObject(JsonObject jsonObject) {
-                return new BlockNode(MathUtil.getPosFromJsonObject(jsonObject), ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(jsonObject.get("block").getAsString())));
+                return new BlockNode(MathUtil.getPosFromJsonObject(jsonObject), ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryParse(jsonObject.get("block").getAsString())));
             }
 
             public Vec3i getPos() {

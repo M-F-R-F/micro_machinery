@@ -6,7 +6,7 @@ import mfrf.micro_machinery.enums.EnumCastType;
 import mfrf.micro_machinery.enums.EnumToolTier;
 import mfrf.micro_machinery.items.*;
 import net.minecraft.item.Food;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemTier;
 import net.minecraft.potion.EffectInstance;

@@ -9,7 +9,7 @@ import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -79,7 +79,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
                 tileKlin.fill(new FluidStack(fluid, 1000), IFluidHandler.FluidAction.EXECUTE);
 
             } else {
-                NetworkHooks.openGui((ServerPlayer) player, tileKlin, (PacketBuffer packerBuffer) -> {
+                NetworkHooks.openGui((ServerPlayer) player, tileKlin, (FriendlyByteBuf packerBuffer) -> {
                     packerBuffer.writeBlockPos(tileKlin.getPos());
                 });
             }

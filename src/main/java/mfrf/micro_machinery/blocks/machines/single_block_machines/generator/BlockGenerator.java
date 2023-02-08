@@ -10,7 +10,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -91,7 +91,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
                     });
                 }
             } else {
-                NetworkHooks.openGui((ServerPlayer) player, tileGenerator, (PacketBuffer packerBuffer) -> {
+                NetworkHooks.openGui((ServerPlayer) player, tileGenerator, (FriendlyByteBuf packerBuffer) -> {
                     packerBuffer.writeBlockPos(tileGenerator.getPos());
                 });
             }

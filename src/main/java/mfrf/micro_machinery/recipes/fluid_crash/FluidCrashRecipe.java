@@ -4,11 +4,11 @@ import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -34,27 +34,27 @@ public class FluidCrashRecipe extends RecipeBase {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.FLUID_CRASH_RECIPE.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<FluidCrashRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<FluidCrashRecipe> {
 
         @Override
-        public FluidCrashRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public FluidCrashRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject fluidA = json.get("fluidA").getAsJsonObject();
             JsonObject fluidB = json.get("fluidB").getAsJsonObject();
             JsonObject result = json.get("result").getAsJsonObject();
 
             return new FluidCrashRecipe(recipeId,
-                    ResourceLocation.tryCreate(fluidA.get("fluid_name").getAsString()),
+                    ResourceLocation.tryParse(fluidA.get("fluid_name").getAsString()),
                     fluidA.get("amount").getAsInt(),
-                    ResourceLocation.tryCreate(fluidB.get("fluid_name").getAsString()),
+                    ResourceLocation.tryParse(fluidB.get("fluid_name").getAsString()),
                     fluidB.get("amount").getAsInt(),
                     RecipeHelper.getItemStackFormJsonObject(result)
             );
@@ -62,22 +62,22 @@ public class FluidCrashRecipe extends RecipeBase {
 
         @Nullable
         @Override
-        public FluidCrashRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            ResourceLocation fluidA = ResourceLocation.tryCreate(buffer.readString(32767));
+        public FluidCrashRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            ResourceLocation fluidA = ResourceLocation.tryParse(buffer.readUtf(32767));
             int fluidAmount = buffer.readInt();
-            ResourceLocation fluidB = ResourceLocation.tryCreate(buffer.readString(32767));
+            ResourceLocation fluidB = ResourceLocation.tryParse(buffer.readUtf(32767));
             int fluidBmount = buffer.readInt();
-            ItemStack generate = buffer.readItemStack();
+            ItemStack generate = buffer.readItem();
             return new FluidCrashRecipe(recipeId, fluidA, fluidAmount, fluidB, fluidBmount, generate);
         }
 
         @Override
-        public void write(PacketBuffer buffer, FluidCrashRecipe recipe) {
-            buffer.writeString(recipe.fluidA.toString());
+        public void toNetwork(FriendlyByteBuf buffer, FluidCrashRecipe recipe) {
+            buffer.writeUtf(recipe.fluidA.toString());
             buffer.writeInt(recipe.fluidAUsage);
-            buffer.writeString(recipe.fluidB.toString());
+            buffer.writeUtf(recipe.fluidB.toString());
             buffer.writeInt(recipe.fluidBUsage);
-            buffer.writeItemStack(recipe.generate);
+            buffer.writeItemStack(recipe.generate, false);
         }
     }
 

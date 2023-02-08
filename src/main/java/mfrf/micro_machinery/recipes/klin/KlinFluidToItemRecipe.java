@@ -1,22 +1,22 @@
 package mfrf.micro_machinery.recipes.klin;
 
+import com.google.gson.JsonObject;
 import mfrf.micro_machinery.enums.EnumCastType;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import com.google.gson.JsonObject;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
+public class KlinFluidToItemRecipe implements Recipe<RecipeWrapper> {
 
     private final ItemStack output;
     private final EnumCastType cast;
@@ -50,22 +50,22 @@ public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, World worldIn) {
+    public boolean matches(RecipeWrapper inv, Level worldIn) {
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(RecipeWrapper inv) {
+    public ItemStack assemble(RecipeWrapper inv) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return false;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return output.copy();
     }
 
@@ -75,48 +75,48 @@ public class KlinFluidToItemRecipe implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.KLIN_FLUID_TO_ITEM.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<KlinFluidToItemRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<KlinFluidToItemRecipe> {
         @Override
-        public KlinFluidToItemRecipe read(ResourceLocation recipeId, JsonObject json) {
-            int coolDown = JSONUtils.getInt(json, "coolDown");
-            EnumCastType castType = EnumCastType.fromString(JSONUtils.getString(json, "castType"));
-            JsonObject input = JSONUtils.getJsonObject(json, "input");
-            JsonObject output = JSONUtils.getJsonObject(json, "output");
+        public KlinFluidToItemRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            int coolDown = json.get("coolDown").getAsInt();
+            EnumCastType castType = EnumCastType.fromString(json.get("castType").getAsString());
+            JsonObject input = json.getAsJsonObject("input");
+            JsonObject output = json.getAsJsonObject("output");
 
-            FluidStack inputFluidStack = new FluidStack(RecipeHelper.getFluidByName(JSONUtils.getString(input, "fluidName")), JSONUtils.getInt(input, "amount"));
-            ItemStack outputItemStack = new ItemStack(JSONUtils.getItem(output, "itemName"), JSONUtils.getInt(output, "count"));
+            FluidStack inputFluidStack = new FluidStack(RecipeHelper.getFluidByName(input.get("fluidName").getAsString()), input.get("amount").getAsInt());
+            ItemStack outputItemStack = new ItemStack(ShapedRecipe.itemFromJson(output.getAsJsonObject("itemName")), output.getAsJsonObject("count").getAsInt());
 
             return new KlinFluidToItemRecipe(outputItemStack, inputFluidStack, castType, coolDown, recipeId);
         }
 
         @Override
-        public KlinFluidToItemRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public KlinFluidToItemRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int coolDown = buffer.readInt();
-            EnumCastType enumCastType = EnumCastType.fromString(buffer.readString());
-            ItemStack outPut = buffer.readItemStack();
+            EnumCastType enumCastType = EnumCastType.fromString(buffer.readUtf());
+            ItemStack outPut = buffer.readItem();
             FluidStack inputFluid = buffer.readFluidStack();
             return new KlinFluidToItemRecipe(outPut, inputFluid, enumCastType, coolDown, recipeId);
         }
 
         @Override
-        public void write(PacketBuffer buffer, KlinFluidToItemRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, KlinFluidToItemRecipe recipe) {
             buffer.writeInt(recipe.cooldown);
-            buffer.writeString(EnumCastType.getString(recipe.cast));
-            buffer.writeItemStack(recipe.output);
+            buffer.writeUtf(EnumCastType.getString(recipe.cast));
+            buffer.writeItemStack(recipe.output, false);
             recipe.inputfluid.writeToPacket(buffer);
         }
 
         //- read: reads the data from a JsonObject and returns an instance of your recipe (json file stored in datapack)
-        //- read: reads the data from a PacketBuffer and returns an instance of your recipe (server/client packet sending)
+        //- read: reads the data from a FriendlyByteBuf and returns an instance of your recipe (server/client packet sending)
         //- write: reads the data from your instance to a packet buffer (server/client packet sending)
 
     }

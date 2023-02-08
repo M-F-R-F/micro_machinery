@@ -1,14 +1,14 @@
 package mfrf.micro_machinery.recipes;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
-public abstract class RecipeBase implements IRecipe<RecipeWrapper> {
+public abstract class RecipeBase implements Recipe<RecipeWrapper> {
     private final ResourceLocation id;
 
     public RecipeBase(ResourceLocation id) {
@@ -16,22 +16,22 @@ public abstract class RecipeBase implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, World worldIn) {
+    public boolean matches(RecipeWrapper inv, Level worldIn) {
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(RecipeWrapper inv) {
+    public ItemStack assemble(RecipeWrapper pContainer) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canFit(int width, int height) {
-        return false;
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+        return true;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return ItemStack.EMPTY;
     }
 
@@ -41,9 +41,9 @@ public abstract class RecipeBase implements IRecipe<RecipeWrapper> {
     }
 
     @Override
-    public abstract IRecipeSerializer<?> getSerializer();
+    public abstract RecipeSerializer<?> getSerializer();
 
     @Override
-    public abstract IRecipeType<?> getType();
+    public abstract RecipeType<?> getType();
 
 }

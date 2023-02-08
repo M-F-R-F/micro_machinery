@@ -11,13 +11,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.core.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslatableComponent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -185,7 +185,7 @@ public class TileCentrifuge extends MMTileBase implements  MenuProvider {
         isWorking = nbt.getBoolean("is_working");
         progress.deserializeNBT(nbt.getCompound("progress"));
         if (nbt.contains("recipe")) {
-            recipe = ResourceLocation.tryCreate(nbt.getString("recipe"));
+            recipe = ResourceLocation.tryParse(nbt.getString("recipe"));
         }
     }
 

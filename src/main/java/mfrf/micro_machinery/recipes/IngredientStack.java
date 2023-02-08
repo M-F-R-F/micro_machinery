@@ -1,10 +1,9 @@
 package mfrf.micro_machinery.recipes;
 
 import com.google.gson.JsonObject;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class IngredientStack {
     private final Ingredient ingredient;
@@ -15,12 +14,12 @@ public class IngredientStack {
         this.count = count;
     }
 
-    public static IngredientStack ReadFromBuffer(PacketBuffer buffer) {
-        return new IngredientStack(Ingredient.read(buffer), buffer.readInt());
+    public static IngredientStack ReadFromBuffer(FriendlyByteBuf buffer) {
+        return new IngredientStack(Ingredient.fromNetwork(buffer), buffer.readInt());
     }
 
-    public static IngredientStack ReadFromJson(JsonObject object){
-         return new IngredientStack(Ingredient.deserialize(object.get("input")),object.get("count").getAsInt());
+    public static IngredientStack ReadFromJson(JsonObject object) {
+        return new IngredientStack(Ingredient.fromJson(object.get("input")), object.get("count").getAsInt());
     }
 
     public Ingredient getIngredient() {
@@ -31,12 +30,12 @@ public class IngredientStack {
         return count;
     }
 
-    public boolean test(ItemStack stack){
+    public boolean test(ItemStack stack) {
         return ingredient.test(stack) && count <= stack.getCount();
     }
 
-    public void serializeToBuffer(PacketBuffer buffer) {
-        ingredient.write(buffer);
+    public void serializeToBuffer(FriendlyByteBuf buffer) {
+        ingredient.toNetwork(buffer);
         buffer.writeInt(count);
     }
 }

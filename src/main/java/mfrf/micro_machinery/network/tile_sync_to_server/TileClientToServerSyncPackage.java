@@ -2,7 +2,7 @@ package mfrf.micro_machinery.network.tile_sync_to_server;
 
 import mfrf.micro_machinery.blocks.machines.MMTileBase;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -16,8 +16,8 @@ public class TileClientToServerSyncPackage {
     private CompoundTag nbt;
     private BlockPos pos;
 
-    public TileClientToServerSyncPackage(PacketBuffer buffer) {
-        nbt = buffer.readCompoundTag();
+    public TileClientToServerSyncPackage(FriendlyByteBuf buffer) {
+        nbt = buffer.readAnySizeNbt();
         pos = buffer.readBlockPos();
     }
 
@@ -26,8 +26,8 @@ public class TileClientToServerSyncPackage {
         this.pos = pos;
     }
 
-    public void toBytes(PacketBuffer buf) {
-        buf.writeCompoundTag(nbt);
+    public void toBytes(FriendlyByteBuf buf) {
+        buf.writeNbt(nbt);
         buf.writeBlockPos(pos);
     }
 

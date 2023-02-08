@@ -5,7 +5,7 @@ import mfrf.micro_machinery.blocks.machines.single_block_machines.weld.TileWeld;
 import mfrf.micro_machinery.gui.ScreenBase;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class WeldScreen extends ScreenBase<WeldContainer> {

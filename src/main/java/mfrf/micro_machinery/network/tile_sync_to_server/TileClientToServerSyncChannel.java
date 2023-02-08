@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.network.tile_sync_to_server;
 
 import mfrf.micro_machinery.MicroMachinery;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 

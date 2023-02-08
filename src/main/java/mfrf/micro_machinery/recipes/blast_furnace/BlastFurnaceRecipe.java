@@ -4,13 +4,13 @@ import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import net.minecraft.item.Item;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
@@ -40,37 +40,37 @@ public class BlastFurnaceRecipe extends RecipeBase {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RegisteredRecipeSerializers.BLAST_FURNACE_RECIPE.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return RegisteredRecipeSerializers.Type.BLAST_FURNACE_RECIPE_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<BlastFurnaceRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<BlastFurnaceRecipe> {
 
         @Override
-        public BlastFurnaceRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public BlastFurnaceRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             IngredientStack ingredientStack = IngredientStack.ReadFromJson(json.get("input_stack").getAsJsonObject());
             JsonObject output = json.getAsJsonObject("output");
-            Item item = JSONUtils.getItem(output, "item");
-            int count = JSONUtils.getInt(output, "count");
+            Item item = ShapedRecipe.itemFromJson(output.getAsJsonObject("item"));
+            int count = output.get("count").getAsInt();
             int cook_time = json.get("time").getAsInt();
             return new BlastFurnaceRecipe(ingredientStack, new ItemStack(item, count), cook_time, recipeId);
         }
 
         @Nullable
         @Override
-        public BlastFurnaceRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            return new BlastFurnaceRecipe(IngredientStack.ReadFromBuffer(buffer), buffer.readItemStack(), buffer.readInt(), recipeId);
+        public BlastFurnaceRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            return new BlastFurnaceRecipe(IngredientStack.ReadFromBuffer(buffer), buffer.readItem(), buffer.readInt(), recipeId);
         }
 
         @Override
-        public void write(PacketBuffer buffer, BlastFurnaceRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, BlastFurnaceRecipe recipe) {
             recipe.input.serializeToBuffer(buffer);
-            buffer.writeItemStack(recipe.output);
+            buffer.writeItemStack(recipe.output,false);
             buffer.writeInt(recipe.cookTime);
         }
     }

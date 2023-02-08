@@ -106,7 +106,7 @@ public class TileCutter extends MMTileBase implements  IItemHandler, MenuProvide
         progress.deserializeNBT(compoundNBT.getCompound("progress"));
         energyContainer.deserializeNBT(compoundNBT.getCompound("energy"));
         if (compoundNBT.contains("result")) {
-            result = ItemStack.read(compoundNBT.getCompound("result"));
+            result = ItemStack.of(compoundNBT.getCompound("result"));
         }
     }
 

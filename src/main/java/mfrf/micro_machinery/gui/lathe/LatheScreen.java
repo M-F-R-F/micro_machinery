@@ -10,7 +10,7 @@ import mfrf.micro_machinery.recipes.lathe.LatheRecipe;
 import mfrf.micro_machinery.utils.ActionContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class LatheScreen extends ScreenBase<LatheContainer> {

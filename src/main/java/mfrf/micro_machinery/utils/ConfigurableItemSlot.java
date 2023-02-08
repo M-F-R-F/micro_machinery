@@ -3,7 +3,7 @@ package mfrf.micro_machinery.utils;
 import mfrf.micro_machinery.Config;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.ListTag;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -46,8 +46,8 @@ public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<Comp
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        ListTag stacks = nbt.getList("stacks", Constants.NBT.TAG_COMPOUND);
-        for (INBT inbt : stacks) {
+        ListTag stacks = nbt.getList("stacks", Tag.TAG_COMPOUND);
+        for (Tag inbt : stacks) {
             this.stacks.add(ItemStack.read(((CompoundTag) inbt)));
         }
         max_stack_size = nbt.getInt("max_stack_size");
