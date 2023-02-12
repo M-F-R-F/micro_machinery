@@ -1,16 +1,14 @@
 package mfrf.micro_machinery.utils;
 
-import net.minecraft.core.Vec3i;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.Consumer;
 
@@ -20,11 +18,11 @@ public class NBTUtil {
         CompoundTag packedNBT = new CompoundTag();
 
         BlockState blockState = world.getBlockState(pos);
-        packedNBT.put("block_state_nbt", net.minecraft.nbt.NBTUtil.writeBlockState(blockState));
+        packedNBT.put("block_state_nbt", NbtUtils.writeBlockState(blockState));
 
         BlockEntity tileEntity = world.getBlockEntity(pos);
         if (tileEntity != null) {
-            packedNBT.put("tile_packaged", tileEntity.write(new CompoundTag()));
+            packedNBT.put("tile_packaged", tileEntity.saveWithFullMetadata());
         }
 
         return packedNBT;

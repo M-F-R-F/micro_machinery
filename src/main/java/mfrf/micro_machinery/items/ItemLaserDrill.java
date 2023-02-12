@@ -14,7 +14,7 @@
 //import net.minecraft.util.InteractionResult;
 //import net.minecraft.util.DamageSource;
 //import net.minecraft.util.Hand;
-//import net.minecraft.util.math.AxisAlignedBB;
+//import net.minecraft.util.math.AABB;
 //import net.minecraft.core.BlockPos;
 //import net.minecraft.util.math.Vec3d;
 //import net.minecraft.world.server.ServerWorld;
@@ -86,7 +86,7 @@
 //                                } else {
 //                                    blockPos.set(null);
 //                                }
-//                                List<LivingEntity> loadedEntitiesWithinAABB = world.getLoadedEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(add.add(-0.3, -0.3, -0.3), add.add(0.3, 0.3, 0.3)));
+//                                List<LivingEntity> loadedEntitiesWithinAABB = world.getLoadedEntitiesWithinAABB(LivingEntity.class, new AABB(add.add(-0.3, -0.3, -0.3), add.add(0.3, 0.3, 0.3)));
 //                                if (!loadedEntitiesWithinAABB.isEmpty()) {
 //                                    for (LivingEntity livingEntity : loadedEntitiesWithinAABB) {
 //                                        // stupid

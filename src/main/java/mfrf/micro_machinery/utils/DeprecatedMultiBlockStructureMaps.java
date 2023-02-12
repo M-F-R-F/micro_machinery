@@ -4,17 +4,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IResource;
-import net.minecraft.core.Direction;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
@@ -34,8 +33,8 @@ public class DeprecatedMultiBlockStructureMaps {
         STRUCTURE_MAPS = new HashMap<>();
         try {
             for (String name : NAMES) {
-                IResource resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(MicroMachinery.MODID, "structures/old_system/" + name + ".json"));
-                STRUCTURE_MAPS.put(name, MultiBlockPosBox.readJson(JSONUtils.fromJson(new InputStreamReader(resource.getInputStream()))));
+                Resource resource = Minecraft.getInstance().getResourceManager().m_142591_((new ResourceLocation(MicroMachinery.MODID, "structures/old_system/" + name + ".json")));
+                STRUCTURE_MAPS.put(name, MultiBlockPosBox.readJson(GsonHelper.parse(new InputStreamReader(resource.m_6679_()))));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,10 +99,10 @@ public class DeprecatedMultiBlockStructureMaps {
             return json;
         }
 
-        public boolean matchAll(BlockPos pos, World world) {
+        public boolean matchAll(BlockPos pos, Level world) {
 
             for (BlockNode blockNode : blockNodes) {
-                BlockPos blockPos = pos.add(blockNode.pos);
+                BlockPos blockPos = pos.m_141952_(blockNode.pos);
                 if (blockNode instanceof AccessoryNode) {
                     AccessoryNode node = (AccessoryNode) blockNode;
                     if (!node.test(world.getBlockState(blockPos))) {
@@ -196,7 +195,7 @@ public class DeprecatedMultiBlockStructureMaps {
             @Override
             public JsonObject toJsonObject() {
                 JsonObject jsonObject = super.toJsonObject();
-                jsonObject.addProperty("direction", direction.getHorizontalIndex());
+                jsonObject.addProperty("direction", direction.get2DDataValue());
                 jsonObject.addProperty("arg1", arg1);
                 jsonObject.addProperty("arg2", arg2);
                 jsonObject.addProperty("arg3", arg3);
@@ -206,7 +205,7 @@ public class DeprecatedMultiBlockStructureMaps {
 
             public static AccessoryNode fromJsonObject(JsonObject jsonObject) {
 
-                Direction direction = Direction.byHorizontalIndex(jsonObject.get("direction").getAsInt());
+                Direction direction = Direction.from2DDataValue(jsonObject.get("direction").getAsInt());
                 String arg1 = jsonObject.get("arg1").getAsString();
                 String arg2 = jsonObject.get("arg2").getAsString();
                 String arg3 = jsonObject.get("arg3").getAsString();
@@ -238,7 +237,8 @@ public class DeprecatedMultiBlockStructureMaps {
             }
 
             public boolean test(BlockState blockState) {
-                return blockState.getBlock() == block && blockState.get(BlockAccessoryPlaceHolder.FACING) == direction;
+//                return blockState.getBlock() == block && blockState.getValue(BlockAccessoryPlaceHolder.FACING) == direction;
+                return true;
             }
         }
 

@@ -1,8 +1,14 @@
 package mfrf.micro_machinery.worldgen;
 
 import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.Dynamic;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.utils.RandomUtils;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -12,21 +18,28 @@ import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 import java.util.Random;
 import java.util.function.Function;
 
 public class VeinFeature extends Feature<VeinFeatureConfig> {
-    public static final RegistryObject<VeinFeature> VEIN_FEATURE = MicroMachinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature(VeinFeatureConfig::new));
+    public static final RegistryObject<VeinFeature> VEIN_FEATURE = MicroMachinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature(Codec.of(,)));
+    //todo modify
 
-    public VeinFeature(Function<Dynamic<?>, ? extends VeinFeatureConfig> configFactoryIn) {
+    public VeinFeature(Codec<VeinFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
     }
 
-    protected static <C extends IFeatureConfig, F extends Feature<C>> F register(String key, F value) {
-        return (F) (Registry.<Feature<?>>register(Registry.FEATURE, key, value));
+    protected static <C extends FeatureConfiguration, F extends Feature<C>> F register(String key, F value) {
+        return (F) (Registry.<Feature<?>>register(Registry.f_122839_, key, value));
     }
 
     public static void Init() {
@@ -34,18 +47,24 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
     }
 
     @Override
-    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, VeinFeatureConfig config) {
+    public boolean place(FeaturePlaceContext<VeinFeatureConfig> pContext) {
+        BlockPos pos = pContext.origin();
+        Random rand = pContext.m_159776_();
+        ChunkGenerator worldIn = pContext.chunkGenerator();
+        WorldGenLevel accessor = pContext.level();
+        VeinFeatureConfig config = pContext.config();
         int posX = pos.getX() + rand.nextInt(16);
         int posZ = pos.getZ() + rand.nextInt(16);
-        int tempY = worldIn.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, posX, posZ) - (config.getMinHeight() + config.getVeinHeight());
+        int tempY = worldIn.m_142647_(posX, posZ, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, accessor) - (config.getMinHeight() + config.getVeinHeight());
         if (tempY > 0) {
             int posY = config.getMinHeight() + rand.nextInt(tempY);
-            generateVein(worldIn, new BlockPos(posX, posY, posZ), rand, config);
+            generateVein(accessor, new BlockPos(posX, posY, posZ), rand, config);
         }
         return true;
+
     }
 
-    private void generateVein(IWorld worldIn, BlockPos pos, Random rand, VeinFeatureConfig config) {
+    private void generateVein(LevelAccessor worldIn, BlockPos pos, Random rand, VeinFeatureConfig config) {
         int oreStratum = config.getOreStratum();
         int stoneHeight = config.getStoneHeight();
         int oreDepositHeight = config.getOreDepositHeight();
@@ -77,13 +96,13 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         }
     }
 
-    private void generateMiniVein(IWorld worldIn, Random rand, double generateChancePerOre, Predicates predicate, Map<Double, Block> oreGenList, int y, int x1, int z1, int radius) {
+    private void generateMiniVein(LevelAccessor worldIn, Random rand, double generateChancePerOre, Predicates predicate, Map<Double, Block> oreGenList, int y, int x1, int z1, int radius) {
         for (int rx1 = x1 - radius; rx1 <= radius + x1; rx1++) {
             for (int rz1 = z1 - radius; rz1 <= radius + z1; rz1++) {
                 BlockPos position = new BlockPos(rx1, y, rz1);
                 if ((Math.pow((x1 - rx1), 2) + Math.pow((z1 - rz1), 2)) <= Math.pow((radius), 2)) {
                     if (RandomUtils.outputBooleanByChance(rand, generateChancePerOre) && predicate.test(worldIn.getChunk(position).getBlockState(position))) {
-                        setBlockState(worldIn, position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
+                        setBlock(worldIn, position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
                     }
 
                 }

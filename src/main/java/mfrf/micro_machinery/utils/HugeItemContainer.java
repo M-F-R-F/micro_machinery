@@ -27,7 +27,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
     @Override
     public ItemStack getStackInSlot(int slot) {
         Slot slotInstance = slots[slot];
-        ItemStack itemStack = ItemStack.read(slotInstance.itemStack);
+        ItemStack itemStack = ItemStack.of(slotInstance.itemStack);
         itemStack.setCount(slotInstance.size.getCurrent());
         return itemStack;
     }
@@ -98,7 +98,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
          * @return same as ItemHandler, the remains.
          */
         public ItemStack insert(ItemStack stackToInsert, boolean simulate) {
-            ItemStack currentStack = ItemStack.read(itemStack);
+            ItemStack currentStack = ItemStack.of(itemStack);
             ItemStack copied = stackToInsert.copy();
             copied.setCount(1);
             if (currentStack.isEmpty()) {
@@ -129,7 +129,7 @@ public class HugeItemContainer implements IItemHandler, INBTSerializable<ListTag
          * @return actual extracted
          */
         public ItemStack extract(int count, boolean simulate) {
-            ItemStack currentStack = ItemStack.read(itemStack);
+            ItemStack currentStack = ItemStack.of(itemStack);
             if (!currentStack.isEmpty()) {
                 ItemStack copy = currentStack.copy();
                 int minus = size.minus(count, simulate);

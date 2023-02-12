@@ -21,7 +21,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
@@ -37,7 +37,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     public static final VoxelShape GENERATOR_SHAPE2 = Block.box(0, 4, 11, 16, 16, 15);
     public static final VoxelShape GENERATOR_SHAPE3 = Block.box(2, 2, 15, 14, 14, 16);
     public static final VoxelShape GENERATOR_SHAPE4 = Block.box(2, 4, 2, 14, 14, 11);
-    public static final VoxelShape SHAPE = VoxelShapes.or(GENERATOR_SHAPE1, GENERATOR_SHAPE2, GENERATOR_SHAPE3, GENERATOR_SHAPE4);
+    public static final VoxelShape SHAPE = Shapes.or(GENERATOR_SHAPE1, GENERATOR_SHAPE2, GENERATOR_SHAPE3, GENERATOR_SHAPE4);
     public static final BooleanProperty ISBURNING = BooleanProperty.create("isburning");
 
     public BlockGenerator(Properties properties) {
@@ -56,7 +56,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     }
 
     private VoxelShape makeShape(Direction direction){
-//        return VoxelShapes.or(MathUtil.rotateDirection(GENERATOR_SHAPE1, direction), MathUtil.rotateDirection(GENERATOR_SHAPE2, direction),MathUtil.rotateDirection(GENERATOR_SHAPE3, direction),MathUtil.rotateDirection(GENERATOR_SHAPE4, direction));
+//        return Shapes.or(MathUtil.rotateDirection(GENERATOR_SHAPE1, direction), MathUtil.rotateDirection(GENERATOR_SHAPE2, direction),MathUtil.rotateDirection(GENERATOR_SHAPE3, direction),MathUtil.rotateDirection(GENERATOR_SHAPE4, direction));
         return MathUtil.VoxelShapeRotateDirection(SHAPE, direction);
     }
 

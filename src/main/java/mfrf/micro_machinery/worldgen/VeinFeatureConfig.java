@@ -1,20 +1,16 @@
 package mfrf.micro_machinery.worldgen;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.DynamicOps;
-import net.minecraft.world.level.block.Block
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.DynamicOps;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
-public class VeinFeatureConfig implements IFeatureConfig {
+public class VeinFeatureConfig implements FeatureConfiguration {
     private final Double veinGenChance;
     private final Double generateChancePerOre;
     private final int range;
@@ -101,6 +97,7 @@ public class VeinFeatureConfig implements IFeatureConfig {
         return predicate;
     }
 
+
     @Override
     public <T> Dynamic<T> serialize(DynamicOps<T> ops) {
         ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
@@ -118,4 +115,6 @@ public class VeinFeatureConfig implements IFeatureConfig {
         builder.put(ops.createString("predicate"), ops.createString(predicate.name()));
         return new Dynamic<>(ops, ops.createMap(builder.build()));
     }
+
+
 }

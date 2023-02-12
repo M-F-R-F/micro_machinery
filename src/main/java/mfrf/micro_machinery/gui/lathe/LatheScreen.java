@@ -7,7 +7,6 @@ import mfrf.micro_machinery.gui.elements.ButtonBase;
 import mfrf.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncChannel;
 import mfrf.micro_machinery.network.tile_sync_to_server.TileClientToServerSyncPackage;
 import mfrf.micro_machinery.recipes.lathe.LatheRecipe;
-import mfrf.micro_machinery.utils.ActionContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

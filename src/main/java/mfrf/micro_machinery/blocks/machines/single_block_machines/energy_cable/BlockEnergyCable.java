@@ -13,7 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -148,7 +148,7 @@ public class BlockEnergyCable extends MMBlockBase {
         for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
             EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
             if (enumCableState != EnumCableState.EMPTY) {
-                shape = VoxelShapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
             }
         }
 
@@ -164,7 +164,7 @@ public class BlockEnergyCable extends MMBlockBase {
         for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
             EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
             if (enumCableState != EnumCableState.EMPTY) {
-                shape = VoxelShapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
             }
         }
 

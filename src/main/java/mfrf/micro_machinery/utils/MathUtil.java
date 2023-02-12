@@ -1,17 +1,16 @@
 package mfrf.micro_machinery.utils;
 
 import com.google.gson.JsonObject;
-import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.core.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.World;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
@@ -102,17 +101,17 @@ public class MathUtil {
      * @return the VoxelShape that been transformed.
      */
     public static VoxelShape transformationVoxelShape(RealMatrix matrix, VoxelShape shape) {
-        List<AxisAlignedBB> axisAlignedBBS = shape.toBoundingBoxList();
+        List<AABB> axisAlignedBBS = shape.toAabbs();
         RealMatrix realMatrix = matrix.add(BLOCK_STATE_OFFSET_MATRIX);
-        VoxelShape returnValue = VoxelShapes.empty();
-        for (AxisAlignedBB boundingBox : axisAlignedBBS) {
+        VoxelShape returnValue = Shapes.empty();
+        for (AABB boundingBox : axisAlignedBBS) {
             RealVector beginPoint = new ArrayRealVector(new double[]{(boundingBox.minX * 16) - 8, boundingBox.minY * 16 - 8, (boundingBox.minZ * 16) - 8, 1});
             RealVector lastPoint = new ArrayRealVector(new double[]{(boundingBox.maxX * 16) - 8, boundingBox.maxY * 16 - 8, (boundingBox.maxZ * 16) - 8, 1});
 
             RealVector beginPointTransitioned = realMatrix.operate(beginPoint);
             RealVector lastPointTransitioned = realMatrix.operate(lastPoint);
 
-            returnValue = VoxelShapes.or(returnValue, Block.box(beginPointTransitioned.getEntry(0), beginPointTransitioned.getEntry(1), beginPointTransitioned.getEntry(2), lastPointTransitioned.getEntry(0), lastPointTransitioned.getEntry(1), lastPointTransitioned.getEntry(2)));
+            returnValue = Shapes.or(returnValue, Block.box(beginPointTransitioned.getEntry(0), beginPointTransitioned.getEntry(1), beginPointTransitioned.getEntry(2), lastPointTransitioned.getEntry(0), lastPointTransitioned.getEntry(1), lastPointTransitioned.getEntry(2)));
         }
         return returnValue;
     }
@@ -184,10 +183,10 @@ public class MathUtil {
     }
 
     public static BlockPos getOffsetPos(BlockPos pos, BlockPos center) {
-        return center.subtract(pos);
+        return center.m_141950_(pos);
     }
 
-    public static DeprecatedMultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, World world, Direction direction, BlockPos activePos) {
+    public static DeprecatedMultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, Level world, Direction direction, BlockPos activePos) {
         int pos1X = pos1.getX();
         int pos1Y = pos1.getY();
         int pos1Z = pos1.getZ();
@@ -209,20 +208,24 @@ public class MathUtil {
             for (int yOffset = 0; yOffset <= differenceY; yOffset++) {
                 for (int zOffset = 0; zOffset <= differenceZ; zOffset++) {
 
-                    BlockPos blockPos = beginPos.add(xOffset, yOffset, zOffset);
+                    BlockPos blockPos = beginPos.m_142082_(xOffset, yOffset, zOffset);
 
                     BlockState blockState = world.getBlockState(blockPos);
                     Block block = blockState.getBlock();
 
                     if (block != Blocks.AIR) {
-                        BlockPos.m_142300_Pos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
-                        if (block instanceof BlockAccessoryPlaceHolder) {
-                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode.m_142300_Pos, block, blockState.get(BlockAccessoryPlaceHolder.FACING), "", "", "place_holder");
-                            accessories.put("accessory$" + xOffset + "$" + yOffset + "$" + zOffset, accessoryNode);
-                            blockNodes.add(accessoryNode);
-                        } else {
-                            blockNodes.add(new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode.m_142300_Pos, block));
-                        }
+                        BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
+//                        if (block instanceof BlockAccessoryPlaceHolder) {
+//                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode.m_142300_Pos, block, blockState.
+//                            get(BlockAccessoryPlaceHolder.FACING), "", "", "place_holder");
+//                            accessories.put("accessory$" + xOffset + "$" + yOffset + "$" + zOffset, accessoryNode);
+//                            blockNodes.add(accessoryNode);
+                        /**
+                         * deprecated
+                         */
+//                    } else {
+                        blockNodes.add(new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.BlockNode(offsetPos, block));
+//                    }
                     }
 
                 }

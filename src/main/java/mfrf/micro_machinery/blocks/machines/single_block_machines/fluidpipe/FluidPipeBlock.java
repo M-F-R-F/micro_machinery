@@ -15,7 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -164,7 +164,7 @@ public class FluidPipeBlock extends MMBlockBase {
         for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
             EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
             if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
-                shape = VoxelShapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
             }
         }
 
@@ -180,7 +180,7 @@ public class FluidPipeBlock extends MMBlockBase {
         for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
             EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
             if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
-                shape = VoxelShapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
             }
         }
 

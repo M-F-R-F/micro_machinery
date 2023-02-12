@@ -20,7 +20,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -35,7 +35,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
     public static final VoxelShape KLIN_SHAPE2 = Block.box(2, 9, 2, 14, 15, 14);
     public static final VoxelShape KLIN_SHAPE3 = Block.box(3, 15, 3, 13, 18, 13);
     public static final VoxelShape KLIN_SHAPE4 = Block.box(4, 18, 4, 12, 20, 12);
-    private static final VoxelShape KLIN_SHAPE = VoxelShapes.or(KLIN_SHAPE1, KLIN_SHAPE2, KLIN_SHAPE3, KLIN_SHAPE4);
+    private static final VoxelShape KLIN_SHAPE = Shapes.or(KLIN_SHAPE1, KLIN_SHAPE2, KLIN_SHAPE3, KLIN_SHAPE4);
 
     public BlockKlin(Properties properties) {
         super(properties, "klin");

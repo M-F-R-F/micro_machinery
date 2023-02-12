@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +15,8 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
 import java.util.stream.Collectors;
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
 public class MicroMachinery {
     public static final String MODID = "micro_machinery";
     public static final CreativeModeTab MMTAB = new MMTab();
+    public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, MODID);
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 

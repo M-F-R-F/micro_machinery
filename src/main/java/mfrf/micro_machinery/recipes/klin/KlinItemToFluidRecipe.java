@@ -133,6 +133,7 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
                 Ingredient input = Ingredient.fromJson(inputIfSingle);
                 result.get(recipeId).getAsInt();
                 return new KlinItemToFluidRecipe(true, meltTime, Ingredient.EMPTY, 0, Ingredient.EMPTY, 0, input, inputIfSingle, "count"),
+                //todo fixit
             } else {
                 JsonObject input = json.getAsJsonObject("input");
                 JsonObject input1 = GsonHelper.getAsJsonObject(input, "input1");
