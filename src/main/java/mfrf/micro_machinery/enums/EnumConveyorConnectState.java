@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.enums;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum EnumConveyorConnectState implements IStringSerializable {
+public enum EnumConveyorConnectState implements StringRepresentable {
     CONNECTED("connected"), BLOCKED("blocked"), UP("up"), DOWN("down"), NULL("null");
 
 
@@ -13,7 +13,7 @@ public enum EnumConveyorConnectState implements IStringSerializable {
     }
 
     @Override
-    public String getName() {
+    public String getSerializedName() {
         return name;
     }
 }

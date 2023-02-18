@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.enums;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum EnumCableState implements IStringSerializable {
+public enum EnumCableState implements StringRepresentable {
     CONNECT("connect"),
     CABLE("cable"),
     EMPTY("empty");
@@ -15,7 +15,7 @@ public enum EnumCableState implements IStringSerializable {
     }
 
     @Override
-    public String getName() {
+    public String getSerializedName() {
         return name;
     }
 }

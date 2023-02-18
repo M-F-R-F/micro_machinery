@@ -1,25 +1,30 @@
 package mfrf.micro_machinery;
 
 import com.mojang.logging.LogUtils;
+import mfrf.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.items.MMAxeBase;
+import mfrf.micro_machinery.items.MMHammerBase;
+import mfrf.micro_machinery.items.MMItemBase;
+import mfrf.micro_machinery.items.MMSwordBase;
+import mfrf.micro_machinery.registeried_lists.*;
+import mfrf.micro_machinery.registeried_lists.strctures.Veins;
+import mfrf.micro_machinery.worldgen.VeinFeature;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
+import org.spongepowered.asm.launch.MixinBootstrap;
 
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.function.Supplier;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(MicroMachinery.MODID)
@@ -27,57 +32,74 @@ public class MicroMachinery {
     public static final String MODID = "micro_machinery";
     public static final CreativeModeTab MMTAB = new MMTab();
     public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, MODID);
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+    public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+    public static final DeferredRegister<Fluid> FLUID_REGISTER = DeferredRegister.create(ForgeRegistries.FLUIDS, MODID);
+
+
+    /*
+     * ugly ancient code :(
+     * maybe someday I will fixit
+     */
+    static {
+        InitListsNeedToRegister();
+
+        MicroMachinery.RegisteryItems(MMItemBase.registeries);
+        MicroMachinery.RegisteryItems(MMSwordBase.registeries);
+        MicroMachinery.RegisteryItems(MMHammerBase.registeries);
+        MicroMachinery.RegisteryItems(MMAxeBase.registeries);
+        MicroMachinery.RegisteryBlocks(MMBlockBase.registeries);
+        MicroMachinery.RegisteryBlocksWithoutItem(MMBlockBase.registeries_no_item);
+
+//        ITEM_REGISTER.register("lathe", LatheBlockItem::new);
+//        ITEM_REGISTER.register("pump", PumpBlockItem::new);
+    }
 
     public MicroMachinery() {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ITEM_REGISTER.register(modEventBus);
+        BLOCK_REGISTER.register(modEventBus);
+        FLUID_REGISTER.register(modEventBus);
+        FEATURE_REGISTER.register(modEventBus);
+        RegisteredBlockEntityTypes.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        RegisteredContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        RegisteredRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
+        LOGGER.info(MODID + " Loaded.");
+        LOGGER.info("Mixin Version: " + MixinBootstrap.VERSION);
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
-        // Some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event) {
-        // Some example code to dispatch IMC to another mod
-        InterModComms.sendTo("micro_machinery", "helloworld", () -> {
-            LOGGER.info("Hello world from the MDK");
-            return "Hello world";
-        });
-    }
-
-    private void processIMC(final InterModProcessEvent event) {
-        // Some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m -> m.messageSupplier().get()).
-                collect(Collectors.toList()));
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // Register a new block here
-            LOGGER.info("HELLO from Register Block");
+    public static void RegisteryItems(Map<String, Supplier<Item>> map) {
+        for (Map.Entry<String, Supplier<Item>> entry : map.entrySet()) {
+            ITEM_REGISTER.register(entry.getKey(), entry.getValue());
         }
     }
+
+    public static void RegisteryBlocks(Map<String, Supplier<Block>> map) {
+        for (Map.Entry<String, Supplier<Block>> entry : map.entrySet()) {
+            BLOCK_REGISTER.register(entry.getKey(), entry.getValue());
+            ITEM_REGISTER.register(entry.getKey(),
+                    () -> new BlockItem(entry.getValue().get(), new Item.Properties().m_41491_(MMTAB)));
+        }
+    }
+
+    public static void RegisteryBlocksWithoutItem(Map<String, Supplier<Block>> map) {
+        for (Map.Entry<String, Supplier<Block>> entry : map.entrySet()) {
+            BLOCK_REGISTER.register(entry.getKey(), entry.getValue());
+        }
+    }
+
+    public static void RegisterySingleBlock(String name, Block block, Item item) {
+        BLOCK_REGISTER.register(name, () -> block);
+        ITEM_REGISTER.register(name, () -> item);
+    }
+
+    private static void InitListsNeedToRegister() {
+        RegisteredItems.Init();
+        RegisteredBlocks.Init();
+        RegisteredFluids.Init();
+        Veins.Init();
+        VeinFeature.Init();
+    }
+
 }

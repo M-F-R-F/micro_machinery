@@ -1,12 +1,12 @@
 package mfrf.micro_machinery.enums;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum EnumFluidPipeState implements IStringSerializable {
+public enum EnumFluidPipeState implements StringRepresentable {
     OPEN, AUTO_TRUE, AUTO_FALSE, CLOSE, AUTO_CONNECTED;
 
     @Override
-    public String getName() {
+    public String getSerializedName() {
         switch (this) {
             case OPEN:
                 return "open";

@@ -1,11 +1,11 @@
 package mfrf.micro_machinery.enums;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 
-public enum EnumToolTier implements IItemTier {
-    BRONZE(400,2,5,3,2,Ingredient.EMPTY),
-    HSS(900,5,7,5,3,Ingredient.EMPTY);
+public enum EnumToolTier implements Tier {
+    BRONZE(400, 2, 5, 3, 2, Ingredient.EMPTY),
+    HSS(900, 5, 7, 5, 3, Ingredient.EMPTY);
 
     private final int maxUses;
     private final int efficiency;
@@ -24,32 +24,33 @@ public enum EnumToolTier implements IItemTier {
     }
 
     @Override
-    public int getMaxUses() {
+    public int getUses() {
         return maxUses;
     }
 
     @Override
-    public float getEfficiency() {
+    public float getSpeed() {
         return efficiency;
     }
 
     @Override
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return attackdamage;
     }
 
     @Override
-    public int getHarvestLevel() {
+    public int getLevel() {
         return harvestlevel;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return enchantability;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return ingredient;
     }
+
 }

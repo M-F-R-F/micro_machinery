@@ -1,15 +1,14 @@
 package mfrf.micro_machinery.network.tile_sync_to_server;
 
 import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
 public class TileClientToServerSyncPackage {
@@ -33,14 +32,13 @@ public class TileClientToServerSyncPackage {
 
     public void handler(Supplier<NetworkEvent.Context> ctx) {
         NetworkEvent.Context context = ctx.get();
-        if(context.getDirection().getReceptionSide()== LogicalSide.SERVER)
+        if (context.getDirection().getReceptionSide() == LogicalSide.SERVER)
             context.enqueueWork(() -> {
-                ServerWorld world = Objects.requireNonNull(context.getSender()).getServerWorld();
-                if(world.isAreaLoaded(pos, 1))
-                {
+                Level world = context.getSender().level;
+                if (world.isLoaded(pos)) {
                     BlockEntity tile = world.getBlockEntity(pos);
-                    if(tile instanceof MMTileBase){
-                        ((MMTileBase)tile).handleNetWorkSyncFromClient(nbt);
+                    if (tile instanceof MMTileBase) {
+                        ((MMTileBase) tile).handleNetWorkSyncFromClient(nbt);
                     }
                 }
             });

@@ -1,13 +1,13 @@
 package mfrf.micro_machinery.enums;
 
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.StringRepresentable;
 
-public enum EnumAnvilType implements IStringSerializable {
-    STONE(0, "stone", SoundEvents.BLOCK_STONE_BREAK),
-    BRONZE(1, "bronze", SoundEvents.BLOCK_ANVIL_LAND),
-    PIGIRON(2, "pig_iron", SoundEvents.BLOCK_ANVIL_LAND);
+public enum EnumAnvilType implements StringRepresentable {
+    STONE(0, "stone", SoundEvents.STONE_BREAK),
+    BRONZE(1, "bronze", SoundEvents.ANVIL_LAND),
+    PIGIRON(2, "pig_iron", SoundEvents.ANVIL_LAND);
 
     private final int rank;
     private final String name;
@@ -23,12 +23,12 @@ public enum EnumAnvilType implements IStringSerializable {
         return rank;
     }
 
-    @Override
-    public String getName() {
-        return this.name;
+    public SoundEvent getSound() {
+        return this.soundType;
     }
 
-    public SoundEvent getSound(){
-        return this.soundType;
+    @Override
+    public String getSerializedName() {
+        return this.name;
     }
 }

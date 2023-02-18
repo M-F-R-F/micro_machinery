@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.enums;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum EnumCableMaterial implements IStringSerializable {
+public enum EnumCableMaterial implements StringRepresentable {
     TEST(Integer.MAX_VALUE, "test_material"),
     COPPER(256, "copper"),
     NICKEL(1024, "nickel"),
@@ -25,7 +25,7 @@ public enum EnumCableMaterial implements IStringSerializable {
     }
 
     @Override
-    public String getName() {
+    public String getSerializedName() {
         return materialName;
     }
 
