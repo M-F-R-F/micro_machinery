@@ -1,5 +1,19 @@
 {
-	"variants": {
-		"": {"model": "micro_machinery:block/module/module_heat_sink"}
-	}
+    "variants": {
+      "facing=north": {
+        "model": "micro_machinery:block/module/module_heat_sink"
+      },
+      "facing=east": {
+        "model": "micro_machinery:block/module/module_heat_sink",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "micro_machinery:block/module/module_heat_sink",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "micro_machinery:block/module/module_heat_sink",
+        "y": 270
+      }
+    }
 }

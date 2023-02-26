@@ -1,5 +1,19 @@
 {
-	"variants": {
-		"": {"model": "micro_machinery:block/module/interface_fluid"}
-	}
+    "variants": {
+      "facing=north": {
+        "model": "micro_machinery:block/module/interface_fluid"
+      },
+      "facing=east": {
+        "model": "micro_machinery:block/module/interface_fluid",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "micro_machinery:block/module/interface_fluid",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "micro_machinery:block/module/interface_fluid",
+        "y": 270
+      }
+    }
 }
