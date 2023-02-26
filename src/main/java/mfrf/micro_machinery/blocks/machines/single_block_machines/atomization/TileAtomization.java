@@ -8,21 +8,19 @@ import mfrf.micro_machinery.recipes.atomization.AtomizationRecipe;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.level.MenuProvider;
-import net.minecraft.level.entity.player.Inventory;
-import net.minecraft.level.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslatableComponent;
-import net.minecraft.level.inventory.AbstractContainerMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -77,45 +75,44 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
     private boolean isWorking = false;
     private ResourceLocation recipe = null;
 
-    public TileAtomization() {
-        super(RegisteredBlockEntityTypes.TILE_ATOMIZATION.get());
+    public TileAtomization(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_ATOMIZATION.get(), pos, state);
     }
 
-    @Override
-    public void tick() {
-        if (!level.isClientSide()) {
+    public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!level.isClientSide() && blockEntity instanceof TileAtomization tileAtomization) {
 
-            if (isWorking) {
+            if (tileAtomization.isWorking) {
 
-                if (feContainer.selfSubtract() != -1) {
-                    progress.selfAdd();
-                    setChanged();
+                if (tileAtomization.feContainer.selfSubtract() != -1) {
+                    tileAtomization.progress.selfAdd();
+                    tileAtomization.setChanged();
                 }
 
-                if (progress.atMaxValue()) {
-                    Optional<? extends IRecipe<?>> recipe = level.getRecipeManager().getRecipes().getRecipe(this.recipe);
+                if (tileAtomization.progress.atMaxValue()) {
+                    Optional<? extends IRecipe<?>> recipe = level.getRecipeManager().byKey(tileAtomization.recipe);
                     recipe.ifPresent(iRecipe -> {
                         AtomizationRecipe atomizationRecipe = (AtomizationRecipe) iRecipe;
-                        if (output.insertItem(0, atomizationRecipe.result, true).isEmpty()) {
-                            output.insertItem(0, atomizationRecipe.result, false);
-                            this.isWorking = false;
-                            this.recipe = null;
-                            this.progress.resetValue();
+                        if (tileAtomization.output.insertItem(0, atomizationRecipe.result, true).isEmpty()) {
+                            tileAtomization.output.insertItem(0, atomizationRecipe.result, false);
+                            tileAtomization.isWorking = false;
+                            tileAtomization.recipe = null;
+                            tileAtomization.progress.resetValue();
                         } else {
-                            progress.selfSubtract();
+                            tileAtomization.progress.selfSubtract();
                         }
-                        setChanged();
+                        tileAtomization.setChanged();
                     });
                 }
             } else {
-                if (!input.isEmpty()) {
-                    AtomizationRecipe atomizationRecipe = RecipeHelper.getAtomizationRecipe(input.getFluid(), level.getRecipeManager());
+                if (!tileAtomization.input.isEmpty()) {
+                    AtomizationRecipe atomizationRecipe = RecipeHelper.getAtomizationRecipe(tileAtomization.input.getFluid(), level.getRecipeManager());
                     if (atomizationRecipe != null) {
-                        input.drain(atomizationRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
-                        this.progress.setMax(atomizationRecipe.time);
-                        this.isWorking = true;
-                        this.recipe = atomizationRecipe.getId();
-                        setChanged();
+                        tileAtomization.input.drain(atomizationRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
+                        tileAtomization.progress.setMax(atomizationRecipe.time);
+                        tileAtomization.isWorking = true;
+                        tileAtomization.recipe = atomizationRecipe.getId();
+                        tileAtomization.setChanged();
                     }
                 }
             }
@@ -190,20 +187,14 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
         return super.getCapability(cap, side);
     }
 
-    @Override
-    public ITextComponent getDisplayName() {
-        return new TranslatableComponent("atomization");
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
-        return new AtomizationContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
-    }
-
     @org.jetbrains.annotations.Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
+        return new AtomizationContainer(pContainerId, pPlayerInventory, getBlockPos(), level);
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return new TranslatableComponent("atomization");
     }
 }

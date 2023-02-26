@@ -39,10 +39,6 @@ public abstract class MMBlockTileProviderBase extends MMBlockBase implements Ent
 
     @org.jetbrains.annotations.Nullable
     @Override
-    public abstract <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType);
-
-    @org.jetbrains.annotations.Nullable
-    @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }

@@ -1,6 +1,8 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.atomization;
 
 import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.utils.TileHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockAtomization extends MMBlockTileProviderBase {
 
@@ -23,12 +26,13 @@ public class BlockAtomization extends MMBlockTileProviderBase {
 
     @Override
     public @org.jetbrains.annotations.Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return null;
+        return new TileAtomization(pPos, pState);
     }
 
+    @Nullable
     @Override
-    public @org.jetbrains.annotations.Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, RegisteredBlockEntityTypes.TILE_ATOMIZATION.get(), pBlockEntityType, TileAtomization::tick);
     }
 
     @Override
