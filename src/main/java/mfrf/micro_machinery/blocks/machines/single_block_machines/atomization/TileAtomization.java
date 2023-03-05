@@ -18,6 +18,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -90,7 +91,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
                 }
 
                 if (tileAtomization.progress.atMaxValue()) {
-                    Optional<? extends IRecipe<?>> recipe = level.getRecipeManager().byKey(tileAtomization.recipe);
+                    Optional<? extends Recipe<?>> recipe = level.getRecipeManager().byKey(tileAtomization.recipe);
                     recipe.ifPresent(iRecipe -> {
                         AtomizationRecipe atomizationRecipe = (AtomizationRecipe) iRecipe;
                         if (tileAtomization.output.insertItem(0, atomizationRecipe.result, true).isEmpty()) {

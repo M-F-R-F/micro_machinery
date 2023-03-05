@@ -4,18 +4,17 @@ import mfrf.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.ItemContainer;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag 
-import net.minecraft.nbt.ListTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -30,28 +29,27 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
+public class TileConveyBelt extends MMTileBase {
     public StackArray array;
     private int interval = 0;
 
-    public TileConveyBelt() {
-        super(RegisteredBlockEntityTypes.TILE_CONVEY_BELT.get());
+    public TileConveyBelt(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_CONVEY_BELT.get(), pos, state);
         array = new StackArray(() -> ((BlockConveyorBelt) getBlockState().getBlock()).properties_speed_stack_interval_supplier.b.get(), () -> ((BlockConveyorBelt) getBlockState().getBlock()).properties_speed_stack_interval_supplier.a.get());
     }
 
-    @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         //todo remake
-        if (!world.isClientSide()) {
-            List<StackArray.CallbackSlot> popped = array.popAll();
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
 
-            Direction out = getBlockState().get(BlockConveyorBelt.FACING);
-            EnumConveyorConnectState out_state = getBlockState().get(BlockConveyorBelt.OUT_STATE);
+            Direction out = state.getValue(BlockConveyorBelt.FACING);
+            EnumConveyorConnectState out_state = state.getValue(BlockConveyorBelt.OUT_STATE);
             if (!popped.isEmpty()) {
                 boolean toConveyorBeltOnly = false;
-                BlockPos out_pos = getPos().m_142300_(out);
-                BlockEntity downT = world.getBlockEntity(out_pos.down());
-                BlockEntity upT = world.getBlockEntity(out_pos.up());
+                BlockPos out_pos = pos.m_142300_(out);
+                BlockEntity downT = world.getBlockEntity(out_pos.below());
+                BlockEntity upT = world.getBlockEntity(out_pos.above());
                 BlockState downS = null;
                 BlockState upS = null;
                 if (downT instanceof TileConveyBelt) {
@@ -62,23 +60,22 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
                 }
 
                 if (out_state == EnumConveyorConnectState.DOWN) {
-                    out_pos = out_pos.down();
-                    if (downS != null && downS.get(BlockConveyorBelt.FACING) == out && downS.get(BlockConveyorBelt.BACK_STATE) && downS.get(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
+                    out_pos = out_pos.below();
+                    if (downS != null && downS.getValue(BlockConveyorBelt.FACING) == out && downS.getValue(BlockConveyorBelt.BACK_STATE) && downS.getValue(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
                         toConveyorBeltOnly = true;
                     }
                 } else if (out_state == EnumConveyorConnectState.UP) {
-                    out_pos = out_pos.up();
-                    if (upS != null && upS.get(BlockConveyorBelt.FACING) == out && upS.get(BlockConveyorBelt.BACK_STATE) && upS.get(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
+                    out_pos = out_pos.above();
+                    if (upS != null && upS.getValue(BlockConveyorBelt.FACING) == out && upS.getValue(BlockConveyorBelt.BACK_STATE) && upS.getValue(BlockConveyorBelt.OUT_STATE) == EnumConveyorConnectState.UP) {
                         toConveyorBeltOnly = true;
                     }
                 }
                 BlockEntity tileEntity = world.getBlockEntity(out_pos);
 
-                if (toConveyorBeltOnly) {
-                    TileConveyBelt conveyBelt = (TileConveyBelt) tileEntity;
-                    if (conveyBelt.array.notFull()) {
-                        conveyBelt.array.receive(popped);
-                        conveyBelt.setChanged();
+                if (toConveyorBeltOnly && tileEntity instanceof TileConveyBelt conveyBelt2) {
+                    if (conveyBelt2.array.notFull()) {
+                        conveyBelt2.array.receive(popped);
+                        conveyBelt2.setChanged();
                     }
                 } else {
                     tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, out.getOpposite()).ifPresent(iItemHandler -> {
@@ -86,17 +83,17 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
 
                             ItemStack outS = ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.func(), false);
                             if (!outS.isEmpty()) {
-                                ItemEntity itemEntity = new ItemEntity(world, this.pos.getX(), this.pos.getY() + 0.6, this.pos.getZ(), outS);
-                                itemEntity.setDefaultPickupDelay();
-                                world.addEntity(itemEntity);
+                                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY() + 0.6, pos.getZ(), outS);
+                                itemEntity.setDefaultPickUpDelay();
+                                world.addFreshEntity(itemEntity);
                             }
 
                         }
                     });
                 }
             }
-            array.tick();
-            setChanged();
+            conveyBelt.array.tick();
+            conveyBelt.setChanged();
         }
     }
 
@@ -104,7 +101,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         BlockState blockState = getBlockState();
-        Direction direction = blockState.get(BlockConveyorBelt.FACING);
+        Direction direction = blockState.getValue(BlockConveyorBelt.FACING);
         if (side == Direction.UP || side == Direction.DOWN) {
             return LazyOptional.of(() -> array).cast();
         } else if (side == direction) {
@@ -112,13 +109,13 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
         }
 
         if (direction.getOpposite() == side) {
-            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.BACK_STATE), false)).cast();
+            return LazyOptional.of(() -> new ItemContainer(array, blockState.getValue(BlockConveyorBelt.BACK_STATE), false)).cast();
         }
-        if (direction.rotateY() == side) {
-            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.RIGHT_STATE), false)).cast();
+        if (direction.getClockWise() == side) {
+            return LazyOptional.of(() -> new ItemContainer(array, blockState.getValue(BlockConveyorBelt.RIGHT_STATE), false)).cast();
         }
-        if (direction.rotateYCCW() == side) {
-            return LazyOptional.of(() -> new ItemContainer(array, blockState.get(BlockConveyorBelt.LEFT_STATE), false)).cast();
+        if (direction.getCounterClockWise() == side) {
+            return LazyOptional.of(() -> new ItemContainer(array, blockState.getValue(BlockConveyorBelt.LEFT_STATE), false)).cast();
         }
         return LazyOptional.empty();
     }
@@ -246,7 +243,7 @@ public class TileConveyBelt extends MMTileBase implements ITickableBlockEntity {
             int maxStackSize = stackSaved.stack.getMaxStackSize();
             int count = stackSaved.stack.getCount();
 
-            if (!stackSaved.stack.isItemEqual(stack) || count >= maxStackSize) {
+            if (!stackSaved.stack.sameItem(stack) || count >= maxStackSize) {
                 return stack;
             }
 

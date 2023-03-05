@@ -41,7 +41,7 @@ public class TileEnergyCable extends MMTileBase implements  IEnergyStorage {
     }
 
     @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide()) {
             solveCable();
             solveOutput();

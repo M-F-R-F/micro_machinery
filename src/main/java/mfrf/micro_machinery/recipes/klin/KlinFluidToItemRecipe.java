@@ -45,7 +45,7 @@ public class KlinFluidToItemRecipe implements Recipe<RecipeWrapper> {
         return inputfluid;
     }
 
-    public int getCooldown() {
+    public int getCoolbelow() {
         return cooldown;
     }
 

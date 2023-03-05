@@ -116,7 +116,7 @@ public class TileElectrolysis extends MMTileBase implements  IItemHandler, MenuP
     }
 
     @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
 //        if (!world.isClientSide()) {
             if (isWorking) {
                 if (!progress.atMaxValue()) {

@@ -78,7 +78,7 @@ public class TileHandGenerator extends MMTileBase implements ITickableBlockEntit
     }
 
     @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide()) {
             if (!progress.atMinValue()) {
                 progress.selfAdd();

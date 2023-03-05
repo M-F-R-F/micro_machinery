@@ -212,7 +212,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
 
     //todo 喷射液体和物品
     @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide()) {
             if (!blocked()) {
                 ArrayList<Direction> pipeDirections = new ArrayList<>();

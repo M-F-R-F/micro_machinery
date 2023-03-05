@@ -7,19 +7,23 @@ import mfrf.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.item.crafting.Recipe;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.MenuProvider;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslatableComponent;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -32,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Optional;
 
-public class TileCentrifuge extends MMTileBase implements  MenuProvider {
+public class TileCentrifuge extends MMTileBase implements MenuProvider {
     private FEContainer feContainer = new FEContainer(0, 40000) {
         @Override
         public boolean canExtract() {
@@ -73,51 +77,50 @@ public class TileCentrifuge extends MMTileBase implements  MenuProvider {
     private boolean isWorking = false;
     private ResourceLocation recipe = null;
 
-    public TileCentrifuge() {
-        super(RegisteredBlockEntityTypes.TILE_CENTRIFUGE.get());
+    public TileCentrifuge(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_CENTRIFUGE.get(), pos, state);
     }
 
-    @Override
-    public void tick() {
-        if (!world.isClientSide()) {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileCentrifuge centrifuge) {
 
-            if (isWorking) {
+            if (centrifuge.isWorking) {
 
-                if (feContainer.selfSubtract() != -1) {
-                    progress.selfAdd();
-                    setChanged();
+                if (centrifuge.feContainer.selfSubtract() != -1) {
+                    centrifuge.progress.selfAdd();
+                    centrifuge.setChanged();
                 }
 
-                if (progress.atMaxValue()) {
-                    Optional<? extends IRecipe<?>> recipe = world.getRecipeManager().getRecipe(this.recipe);
+                if (centrifuge.progress.atMaxValue()) {
+                    Optional<? extends Recipe<?>> recipe = world.getRecipeManager().byKey(centrifuge.recipe);
                     recipe.ifPresent(iRecipe -> {
                         CentrifugeRecipe centrifugeRecipe = (CentrifugeRecipe) iRecipe;
-                        Map<Item, Integer> outputs = centrifugeRecipe.getOutputs(world.rand);
+                        Map<Item, Integer> outputs = centrifugeRecipe.getOutputs(world.random);
                         int randTime = 0;
-                        while (testItemInsertable(outputs) && randTime++ < 5) {
-                            outputs = centrifugeRecipe.getOutputs(world.rand);
+                        while (centrifuge.testItemInsertable(outputs) && randTime++ < 5) {
+                            outputs = centrifugeRecipe.getOutputs(world.random);
                         }
 
-                        insertResultNoResponse(outputs);
+                        centrifuge.insertResultNoResponse(outputs);
 
-                        isWorking = false;
-                        progress.resetValue();
-                        this.recipe = null;
-                        setChanged();
+                        centrifuge.isWorking = false;
+                        centrifuge.progress.resetValue();
+                        centrifuge.recipe = null;
+                        centrifuge.setChanged();
 
                     });
                 }
             } else {
 
-                if (!input.getStackInSlot(0).isEmpty()) {
-                    CentrifugeRecipe centrifugeRecipe = RecipeHelper.getCentrifugeRecipe(input.getStackInSlot(0), world.getRecipeManager());
+                if (!centrifuge.input.getStackInSlot(0).isEmpty()) {
+                    CentrifugeRecipe centrifugeRecipe = RecipeHelper.getCentrifugeRecipe(centrifuge.input.getStackInSlot(0), world.getRecipeManager());
 
                     if (centrifugeRecipe != null) {
-                        this.input.getStackInSlot(0).shrink(centrifugeRecipe.getInput().getCount());
-                        this.progress.setMax(centrifugeRecipe.getTime());
-                        this.recipe = centrifugeRecipe.getId();
-                        this.isWorking = true;
-                        setChanged();
+                        centrifuge.input.getStackInSlot(0).shrink(centrifugeRecipe.getInput().getCount());
+                        centrifuge.progress.setMax(centrifugeRecipe.getTime());
+                        centrifuge.recipe = centrifugeRecipe.getId();
+                        centrifuge.isWorking = true;
+                        centrifuge.setChanged();
                     }
                 }
             }
@@ -208,13 +211,13 @@ public class TileCentrifuge extends MMTileBase implements  MenuProvider {
     }
 
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return new TranslatableComponent("centrifuge");
     }
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
-        return new CentrifugeContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return new CentrifugeContainer(pContainerId, pPlayerInventory, getBlockPos(), level);
     }
 }

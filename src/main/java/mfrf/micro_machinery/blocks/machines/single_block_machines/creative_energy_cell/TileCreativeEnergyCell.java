@@ -16,7 +16,7 @@ public class TileCreativeEnergyCell extends MMTileBase implements  IEnergyStorag
     }
 
     @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide()) {
             for (Direction direction : Direction.values()) {
                 BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));

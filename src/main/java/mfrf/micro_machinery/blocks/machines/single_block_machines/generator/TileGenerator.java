@@ -113,7 +113,7 @@ public class TileGenerator extends MMTileBase implements  MenuProvider {
     }
 
     @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide()) {
             if (isBurning) {
                 burnTimeContainer.selfAdd();

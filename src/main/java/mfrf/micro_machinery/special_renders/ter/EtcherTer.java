@@ -30,7 +30,7 @@
 //        TileEtcher.State state = tileEntityIn.getState();
 //        IntegerContainer plugProgress = tileEntityIn.getPlugProgress();
 //        WorldLightManager lightEngine = tileEntityIn.getWorld().getLightManager();
-//        int light = LightTexture.packLight(lightEngine.getLightEngine(LightType.BLOCK).getLightFor(tileEntityIn.getPos()), lightEngine.getLightEngine(LightType.SKY).getLightFor(tileEntityIn.getPos().up()));
+//        int light = LightTexture.packLight(lightEngine.getLightEngine(LightType.BLOCK).getLightFor(tileEntityIn.getPos()), lightEngine.getLightEngine(LightType.SKY).getLightFor(tileEntityIn.getPos().above()));
 //
 //        double scale = calcScale(state, plugProgress);
 //        Direction direction = tileEntityIn.getBlockState().get(BlockEtcher.FACING);

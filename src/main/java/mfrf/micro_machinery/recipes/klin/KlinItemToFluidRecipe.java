@@ -3,7 +3,7 @@ package mfrf.micro_machinery.recipes.klin;
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.RecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeSerializer;
 import net.minecraft.network.FriendlyByteBuf;

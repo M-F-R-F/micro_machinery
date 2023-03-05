@@ -158,7 +158,7 @@ public class TileKlin extends MMTileBase implements  IItemHandler, IFluidHandler
     }
 
     @Override
-    public void tick() {
+    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide) {
             this.progressBarNumArray.set(0, this.currentMeltTime);
             this.progressBarNumArray.set(1, this.meltTime);
@@ -207,7 +207,7 @@ public class TileKlin extends MMTileBase implements  IItemHandler, IFluidHandler
                 if (fluidHandler.getFluidAmount() != 0 && itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
                     recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidHandler.getFluid(), itemhandler.getStackInSlot(4), world.getRecipeManager());
                     if (recipe != null) {
-                        pouringCoolDown = recipe.getCooldown();
+                        pouringCoolDown = recipe.getCoolbelow();
                     }
                     markDirty2();
                 }
