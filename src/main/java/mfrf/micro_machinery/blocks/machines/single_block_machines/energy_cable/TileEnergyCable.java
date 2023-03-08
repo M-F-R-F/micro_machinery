@@ -3,11 +3,11 @@ package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
 import mfrf.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumCableState;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -17,11 +17,11 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TileEnergyCable extends MMTileBase implements  IEnergyStorage {
+public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
     private int currentEnergy = 0;
 
-    public TileEnergyCable() {
-        super(RegisteredBlockEntityTypes.TILE_ENERGY_CABLE.get());
+    public TileEnergyCable(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_ENERGY_CABLE.get(), pos, state);
     }
 
     public int getCurrentEnergy() {

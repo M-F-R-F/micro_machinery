@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
-    private ArrayList<BlockPos> partPoss = new ArrayList<>();
+    private final ArrayList<BlockPos> partPoss = new ArrayList<>();
     protected HashMap<Vec3i, BlockPos> componentPoss = new HashMap<>();
 
     public MMTileMainPartBase(BlockEntityType<?> p_i48289_1_, BlockPos pos, BlockState state) {

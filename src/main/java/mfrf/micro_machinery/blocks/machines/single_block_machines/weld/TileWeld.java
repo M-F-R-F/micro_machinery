@@ -7,16 +7,16 @@ import mfrf.micro_machinery.recipes.weld.WeldRecipe;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.inventory.container.MenuProvider;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslatableComponent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -26,11 +26,11 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileWeld extends MMTileBase implements  MenuProvider {
-    private ItemStackHandler input = new ItemStackHandler(6);
-    private ItemStackHandler output = new ItemStackHandler(1);
-    private IntegerContainer progress = new IntegerContainer();
-    private FEContainer feContainer = new FEContainer(0, 80000) {
+public class TileWeld extends MMTileBase implements MenuProvider {
+    private final ItemStackHandler input = new ItemStackHandler(6);
+    private final ItemStackHandler output = new ItemStackHandler(1);
+    private final IntegerContainer progress = new IntegerContainer();
+    private final FEContainer feContainer = new FEContainer(0, 80000) {
         @Override
         public boolean canExtract() {
             return false;
@@ -65,8 +65,8 @@ public class TileWeld extends MMTileBase implements  MenuProvider {
     private boolean isWorking = false;
 
 
-    public TileWeld() {
-        super(RegisteredBlockEntityTypes.TILE_WELD.get());
+    public TileWeld(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_WELD.get(), pos, state);
     }
 
     @Override

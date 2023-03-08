@@ -4,20 +4,18 @@ import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.micro_machinery.enums.EnumAnvilType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Hand;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
 
 public class BlockAnvil extends MMBlockTileProviderBase {
 
@@ -34,12 +32,12 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         BlockEntity tileEntity = worldIn.getBlockEntity(pos);
         if (tileEntity instanceof TileAnvil) {
             return ((TileAnvil) tileEntity).onActivated(state, worldIn, pos, player, handIn, hit);
@@ -47,10 +45,9 @@ public class BlockAnvil extends MMBlockTileProviderBase {
         return InteractionResult.PASS;
     }
 
-    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
-        return new TileAnvil(anvilType);
+    public @org.jetbrains.annotations.Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new TileAnvil(anvilType, pPos, pState);
     }
 
     @Override

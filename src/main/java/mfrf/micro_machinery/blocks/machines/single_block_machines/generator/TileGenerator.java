@@ -5,18 +5,19 @@ import mfrf.micro_machinery.gui.generator.GeneratorContainer;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
-import net.minecraft.core.Direction;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -30,9 +31,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileGenerator extends MMTileBase implements  MenuProvider {
-    private FluidTank tank = new FluidTank(2000, (fluidStack) -> fluidStack.getFluid() == Fluids.WATER);
-    private ItemStackHandler fuel_handler = new ItemStackHandler(1);
+public class TileGenerator extends MMTileBase implements MenuProvider {
+    private final FluidTank tank = new FluidTank(2000, (fluidStack) -> fluidStack.getFluid() == Fluids.WATER);
+    private final ItemStackHandler fuel_handler = new ItemStackHandler(1);
     private FEContainer energyContainer = new FEContainer(0, 40000) {
         @Override
         public boolean canExtract() {
@@ -55,8 +56,8 @@ public class TileGenerator extends MMTileBase implements  MenuProvider {
     private boolean isBurning = false;
 //    private GeneratorEnergyAndFuelIntArray array = new GeneratorEnergyAndFuelIntArray();
 
-    public TileGenerator() {
-        super(RegisteredBlockEntityTypes.TILE_GENERATOR_TYPE.get());
+    public TileGenerator(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_GENERATOR_TYPE.get(), pos, state);
     }
 
     public boolean isBurning() {
@@ -182,7 +183,7 @@ public class TileGenerator extends MMTileBase implements  MenuProvider {
 
     public static class GeneratorEnergyAndFuelIntArray implements IIntArray {
 
-        private int[] iArray = {0, 0, 0, 0};
+        private final int[] iArray = {0, 0, 0, 0};
 
         @Override
         public int get(int index) {

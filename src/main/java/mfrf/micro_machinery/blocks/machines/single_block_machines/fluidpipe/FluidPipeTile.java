@@ -5,18 +5,18 @@ import mfrf.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
+import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -31,17 +31,17 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
-    private FluidTank fluidTank = new FluidTank(12000) {
+    private final FluidTank fluidTank = new FluidTank(12000) {
         @Override
         protected void onContentsChanged() {
             setChanged();
         }
     };
-    private ItemStackHandler blockItemContainer = new ItemStackHandler(1);
+    private final ItemStackHandler blockItemContainer = new ItemStackHandler(1);
     private int material = -1;
 
-    public FluidPipeTile() {
-        super(RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get());
+    public FluidPipeTile(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get(), pos, state);
     }
 
     @Override
@@ -90,10 +90,11 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
     public boolean ejectToOpenSide(Direction direction, FluidStack ejectStack) {
         BlockPos.m_142300_ = pos.m_142300_(direction);
         BlockState blockStateToReplace = world.getBlockState(pos);
-        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(world,.m_142300_, ejectStack)) {
+        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(world,.m_142300_,
+        ejectStack)){
             if (blockStateToReplace.isReplaceable(ejectStack.getFluid()) && blockStateToReplace.getFluidState().getFluid() == Fluids.EMPTY) {
                 BlockState blockState = ejectStack.getFluid().defaultBlockState().getBlockState();
-                world.setBlockState.m_142300_, blockState);
+                world.setBlockState.m_142300_, blockState)
                 return true;
             }
         }
@@ -122,7 +123,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
 
         if (blocked()) {
             BlockEntity.m_142300_ = world.getBlockEntity(pos.m_142300_(direction));
-            if .m_142300_ != null &&.m_142300_.getType() == RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+            if .m_142300_ != null &&.m_142300_.getType() == RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()){
                 FluidPipeTile destPipe = (FluidPipeTile).m_142300_;
                 if (!destPipe.blocked() && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
                     destPipe.block(this.unBlock());
@@ -222,7 +223,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
                     EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
                     if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN || enumFluidPipeState == EnumFluidPipeState.AUTO_CONNECTED) {
                         BlockPos.m_142300_ = pos.m_142300_(side);
-                        BlockEntity tileEntity = world.getBlockEntity.m_142300_);
+                        BlockEntity tileEntity = world.getBlockEntity.m_142300_)
 
                         if (tileEntity != null) {
                             tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
@@ -270,7 +271,7 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
     public void checkPipeState() {
         for (Direction value : Direction.values()) {
             BlockPos.m_142300_ = pos.m_142300_(value);
-            BlockState blockState = world.getBlockState.m_142300_);
+            BlockState blockState = world.getBlockState.m_142300_)
             if (blockState.getBlock() instanceof FluidPipeBlock) {
                 FluidPipeBlock block = (FluidPipeBlock) blockState.getBlock();
                 world.setBlockState(pos, block.getState(world, pos), 18);

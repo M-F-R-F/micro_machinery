@@ -3,21 +3,20 @@ package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
 import mfrf.micro_machinery.blocks.MMBlockBase;
 import mfrf.micro_machinery.enums.EnumCableMaterial;
 import mfrf.micro_machinery.enums.EnumCableState;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nullable;
@@ -76,11 +75,11 @@ public class BlockEnergyCable extends MMBlockBase {
         BlockState defaultState = defaultBlockState();
         for (Direction direction : Direction.values()) {
             BlockPos.m_142300_ = pos.m_142300_(direction);
-            BlockState neighborState = world.getBlockState.m_142300_);
+            BlockState neighborState = world.getBlockState.m_142300_)
             if (neighborState.getBlock() instanceof BlockEnergyCable) {
                 defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CABLE);
             } else {
-                BlockEntity tileEntity = world.getBlockEntity.m_142300_);
+                BlockEntity tileEntity = world.getBlockEntity.m_142300_)
                 if (tileEntity != null && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) {
                     defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CONNECT);
                 }
@@ -104,8 +103,8 @@ public class BlockEnergyCable extends MMBlockBase {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
-        return new TileEnergyCable();
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new TileEnergyCable(pPos, pState)
     }
 
     private boolean setStateNoUpdateNeighbor(World world, BlockPos pos, BlockState state) {

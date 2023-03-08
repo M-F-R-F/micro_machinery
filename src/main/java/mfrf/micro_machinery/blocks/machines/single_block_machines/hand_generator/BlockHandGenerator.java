@@ -1,16 +1,15 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.hand_generator;
 
 import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +20,7 @@ public class BlockHandGenerator extends MMBlockTileProviderBase {
     }
 
     @Override
-    public InteractionResult onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (!worldIn.isClientSide() && handIn == InteractionHand.MAIN_HAND) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);
             Direction direction = Direction.fromAngle(state.getValue(FACING).getHorizontalAngle() - 90);
@@ -34,7 +33,7 @@ public class BlockHandGenerator extends MMBlockTileProviderBase {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
-        return new TileHandGenerator();
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new TileHandGenerator(pPos, pState)
     }
 }

@@ -4,9 +4,11 @@ import mfrf.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableBlockEntity;
-import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -33,8 +35,8 @@ public class TileHandGenerator extends MMTileBase implements ITickableBlockEntit
     };
     private IntegerContainer progress = new IntegerContainer(0, 40);
 
-    public TileHandGenerator() {
-        super(RegisteredBlockEntityTypes.TILE_HAND_GENERATOR.get());
+    public TileHandGenerator(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_HAND_GENERATOR.get(), pos, state);
     }
 
     public IntegerContainer getProgress() {

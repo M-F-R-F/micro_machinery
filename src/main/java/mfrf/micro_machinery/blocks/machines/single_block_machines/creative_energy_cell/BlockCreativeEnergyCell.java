@@ -1,9 +1,9 @@
 package mfrf.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell;
 
 import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class BlockCreativeEnergyCell extends MMBlockTileProviderBase {
 
@@ -12,7 +12,8 @@ public class BlockCreativeEnergyCell extends MMBlockTileProviderBase {
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
-        return new TileCreativeEnergyCell();
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new TileCreativeEnergyCell(pPos, pState)
     }
+
 }

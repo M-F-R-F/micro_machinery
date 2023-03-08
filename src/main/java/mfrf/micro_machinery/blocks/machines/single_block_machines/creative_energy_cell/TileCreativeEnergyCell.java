@@ -2,17 +2,18 @@ package mfrf.micro_machinery.blocks.machines.single_block_machines.creative_ener
 
 import mfrf.micro_machinery.blocks.machines.MMTileBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import net.minecraft.tileentity.ITickableBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TileCreativeEnergyCell extends MMTileBase implements  IEnergyStorage {
-    public TileCreativeEnergyCell() {
-        super(RegisteredBlockEntityTypes.TILE_ENERGY_CELL.get());
+public class TileCreativeEnergyCell extends MMTileBase implements IEnergyStorage {
+    public TileCreativeEnergyCell(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_ENERGY_CELL.get(), pos, state);
     }
 
     @Override

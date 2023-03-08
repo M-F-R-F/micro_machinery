@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class TileAtomization extends MMTileBase implements MenuProvider {
-    private FEContainer feContainer = new FEContainer(0, 80000) {
+    private final FEContainer feContainer = new FEContainer(0, 80000) {
         @Override
         public boolean canExtract() {
             return false;
@@ -70,9 +70,9 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
             }
         }
     };
-    private FluidTank input = new FluidTank(Config.ATOMIZATION_FLUID_CONTAINER.get());
-    private ItemStackHandler output = new ItemStackHandler(1);
-    private IntegerContainer progress = new IntegerContainer();
+    private final FluidTank input = new FluidTank(Config.ATOMIZATION_FLUID_CONTAINER.get());
+    private final ItemStackHandler output = new ItemStackHandler(1);
+    private final IntegerContainer progress = new IntegerContainer();
     private boolean isWorking = false;
     private ResourceLocation recipe = null;
 

@@ -137,7 +137,7 @@ public class TileConveyBelt extends MMTileBase {
     }
 
     public static class StackArray implements INBTSerializable<CompoundTag>, IItemHandler {
-        private LinkedList<Stack> stacks = new LinkedList<>();
+        private final LinkedList<Stack> stacks = new LinkedList<>();
         private Supplier<Integer> max = () -> 0;
         private Supplier<Integer> time;
 

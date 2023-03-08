@@ -2,23 +2,23 @@ package mfrf.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
 
 import mfrf.micro_machinery.blocks.MMBlockBase;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
@@ -66,11 +66,11 @@ public class FluidPipeBlock extends MMBlockBase {
         BlockState defaultState = defaultBlockState();
         for (Direction direction : Direction.values()) {
             BlockPos.m_142300_ = pos.m_142300_(direction);
-            BlockState neighborState = world.getBlockState.m_142300_);
+            BlockState neighborState = world.getBlockState.m_142300_)
             if (neighborState.getBlock() instanceof FluidPipeBlock) {
                 defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_TRUE);
             } else {
-                BlockEntity tileEntity = world.getBlockEntity.m_142300_);
+                BlockEntity tileEntity = world.getBlockEntity.m_142300_)
                 if (tileEntity != null && tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction.getOpposite()).isPresent()) {
                     defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_CONNECTED);
                 }
@@ -110,8 +110,8 @@ public class FluidPipeBlock extends MMBlockBase {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world) {
-        return new FluidPipeTile();
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new FluidPipeTile(pPos, pState)
     }
 
     @Override

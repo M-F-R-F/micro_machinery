@@ -9,7 +9,6 @@ import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.item.crafting.Recipe;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -37,7 +36,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class TileCentrifuge extends MMTileBase implements MenuProvider {
-    private FEContainer feContainer = new FEContainer(0, 40000) {
+    private final FEContainer feContainer = new FEContainer(0, 40000) {
         @Override
         public boolean canExtract() {
             return false;
@@ -71,9 +70,9 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
             }
         }
     };
-    private ItemStackHandler input = new ItemStackHandler(1);
-    private ItemStackHandler output = new ItemStackHandler(5);
-    private IntegerContainer progress = new IntegerContainer();
+    private final ItemStackHandler input = new ItemStackHandler(1);
+    private final ItemStackHandler output = new ItemStackHandler(5);
+    private final IntegerContainer progress = new IntegerContainer();
     private boolean isWorking = false;
     private ResourceLocation recipe = null;
 

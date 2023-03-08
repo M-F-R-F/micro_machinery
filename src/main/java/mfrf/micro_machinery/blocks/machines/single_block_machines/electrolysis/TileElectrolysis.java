@@ -7,16 +7,15 @@ import mfrf.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.MenuProvider;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.inventory.container.MenuProvider;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslatableComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -27,8 +26,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileElectrolysis extends MMTileBase implements  IItemHandler, MenuProvider {
-    private FEContainer energy = new FEContainer(0, 120000) {
+public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuProvider {
+    private final FEContainer energy = new FEContainer(0, 120000) {
         @Override
         public int extractEnergy(int maxExtract, boolean simulate) {
             markDirty2();
@@ -56,13 +55,13 @@ public class TileElectrolysis extends MMTileBase implements  IItemHandler, MenuP
             return this.minus(1024, false);
         }
     };
-    private ItemStackHandler items = new ItemStackHandler(2);
+    private final ItemStackHandler items = new ItemStackHandler(2);
     private IntegerContainer progress = new IntegerContainer();
     private ItemStack result = ItemStack.EMPTY;
     private boolean isWorking = false;
 
-    public TileElectrolysis() {
-        super(RegisteredBlockEntityTypes.TILE_ELECTROLYSIS.get());
+    public TileElectrolysis(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_ELECTROLYSIS.get(), pos, state);
     }
 
     public FEContainer getEnergy() {
@@ -118,31 +117,31 @@ public class TileElectrolysis extends MMTileBase implements  IItemHandler, MenuP
     @Override
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
 //        if (!world.isClientSide()) {
-            if (isWorking) {
-                if (!progress.atMaxValue()) {
-                    if (energy.getCurrent() >= 1024) {
-                        energy.selfSubtract();
-                        progress.selfAdd();
-                        markDirty2();
-                    }
-                } else {
-                    if (items.insertItem(Slot.OUTPUT.index, result, true) == ItemStack.EMPTY) {
-                        items.insertItem(Slot.OUTPUT.index, result, false);
-                        result = ItemStack.EMPTY;
-                        progress.resetValue();
-                        isWorking = false;
-                        markDirty2();
-                    }
+        if (isWorking) {
+            if (!progress.atMaxValue()) {
+                if (energy.getCurrent() >= 1024) {
+                    energy.selfSubtract();
+                    progress.selfAdd();
+                    markDirty2();
                 }
             } else {
-                ElectrolysisRecipe electrolysisRecipe = RecipeHelper.getElectrolysisRecipe(items.getStackInSlot(Slot.INPUT.index), world.getRecipeManager());
-                if (electrolysisRecipe != null) {
-                    result = electrolysisRecipe.getOutput();
-                    progress = new IntegerContainer(0, electrolysisRecipe.getTime());
-                    isWorking = true;
+                if (items.insertItem(Slot.OUTPUT.index, result, true) == ItemStack.EMPTY) {
+                    items.insertItem(Slot.OUTPUT.index, result, false);
+                    result = ItemStack.EMPTY;
+                    progress.resetValue();
+                    isWorking = false;
                     markDirty2();
                 }
             }
+        } else {
+            ElectrolysisRecipe electrolysisRecipe = RecipeHelper.getElectrolysisRecipe(items.getStackInSlot(Slot.INPUT.index), world.getRecipeManager());
+            if (electrolysisRecipe != null) {
+                result = electrolysisRecipe.getOutput();
+                progress = new IntegerContainer(0, electrolysisRecipe.getTime());
+                isWorking = true;
+                markDirty2();
+            }
+        }
 //        }
     }
 
