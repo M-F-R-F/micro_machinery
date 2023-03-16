@@ -15,6 +15,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -59,18 +60,18 @@ public class FluidPipeBlock extends MMBlockBase {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getState(context.getWorld(), context.getPos());
+        return getState(context.getWorld(), context.getBlockPos());
     }
 
-    public BlockState getState(World world, BlockPos pos) {
+    public BlockState getState(Level world, BlockPos pos) {
         BlockState defaultState = defaultBlockState();
         for (Direction direction : Direction.values()) {
-            BlockPos.m_142300_ = pos.m_142300_(direction);
-            BlockState neighborState = world.getBlockState.m_142300_)
+            BlockPos offset = pos.m_142300_(direction);
+            BlockState neighborState = world.getBlockState(offset);
             if (neighborState.getBlock() instanceof FluidPipeBlock) {
                 defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_TRUE);
             } else {
-                BlockEntity tileEntity = world.getBlockEntity.m_142300_)
+                BlockEntity tileEntity = world.getBlockEntity(offset);
                 if (tileEntity != null && tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction.getOpposite()).isPresent()) {
                     defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_CONNECTED);
                 }

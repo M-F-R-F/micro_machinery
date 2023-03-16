@@ -38,11 +38,11 @@ public class MMTileMultiBlockPart extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag write) {
-        super.saveAdditional(write);
-        write.put("packed", packed);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("packed", packed);
         if (mainPart != null) {
-            write.put("main", NBTUtil.writeBlockPos(mainPart));
+            pTag.put("main", NBTUtil.writeBlockPos(mainPart));
         }
     }
 

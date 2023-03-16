@@ -46,6 +46,6 @@ public class BlockCutter extends MMBlockTileProviderBase {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileCutter(pPos, pState)
+        return new TileCutter(pPos, pState);
     }
 }

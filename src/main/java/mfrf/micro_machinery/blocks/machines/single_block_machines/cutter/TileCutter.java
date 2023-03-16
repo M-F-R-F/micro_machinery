@@ -18,6 +18,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -88,15 +90,15 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
     }
 
     @Override
-    public CompoundTag write(CompoundTag compoundNBT) {
-        compoundNBT.put("saw_blade", sawBladeHandler.serializeNBT());
-        compoundNBT.put("item_handler", itemHandler.serializeNBT());
-        compoundNBT.put("progress", progress.serializeNBT());
-        compoundNBT.put("energy", energyContainer.serializeNBT());
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("saw_blade", sawBladeHandler.serializeNBT());
+        pTag.put("item_handler", itemHandler.serializeNBT());
+        pTag.put("progress", progress.serializeNBT());
+        pTag.put("energy", energyContainer.serializeNBT());
         if (!result.isEmpty()) {
-            compoundNBT.put("result", result.serializeNBT());
+            pTag.put("result", result.serializeNBT());
         }
-        return super.write(compoundNBT);
     }
 
     @Override

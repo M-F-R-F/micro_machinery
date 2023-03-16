@@ -7,7 +7,6 @@ import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -16,7 +15,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileHandGenerator extends MMTileBase implements ITickableBlockEntity {
+public class TileHandGenerator extends MMTileBase {
     private FEContainer container = new FEContainer(0, 40) {
         @Override
         public boolean canExtract() {
@@ -51,10 +50,10 @@ public class TileHandGenerator extends MMTileBase implements ITickableBlockEntit
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.put("energy_container", container.serializeNBT());
-        compound.put("progress", progress.serializeNBT());
-        return super.write(compound);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("energy_container", container.serializeNBT());
+        pTag.put("progress", progress.serializeNBT());
     }
 
     @Nonnull

@@ -34,6 +34,6 @@ public class BlockHandGenerator extends MMBlockTileProviderBase {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileHandGenerator(pPos, pState)
+        return new TileHandGenerator(pPos, pState);
     }
 }

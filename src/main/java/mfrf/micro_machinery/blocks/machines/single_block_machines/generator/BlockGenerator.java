@@ -92,7 +92,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
                 }
             } else {
                 NetworkHooks.openGui((ServerPlayer) player, tileGenerator, (FriendlyByteBuf packerBuffer) -> {
-                    packerBuffer.writeBlockPos(tileGenerator.getPos());
+                    packerBuffer.writeBlockPos(tileGenerator.getBlockPos());
                 });
             }
 

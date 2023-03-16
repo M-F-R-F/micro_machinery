@@ -142,17 +142,16 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag compoundNBT = super.write(compound);
-        compoundNBT.put("fe_container", feContainer.serializeNBT());
-        compoundNBT.put("input", input.writeToNBT(new CompoundTag()));
-        compoundNBT.put("output", output.serializeNBT());
-        compoundNBT.putBoolean("is_working", isWorking);
-        compoundNBT.put("progress", progress.serializeNBT());
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("fe_container", feContainer.serializeNBT());
+        pTag.put("input", input.writeToNBT(new CompoundTag()));
+        pTag.put("output", output.serializeNBT());
+        pTag.putBoolean("is_working", isWorking);
+        pTag.put("progress", progress.serializeNBT());
         if (recipe != null) {
-            compoundNBT.putString("recipe", recipe.toString());
+            pTag.putString("recipe", recipe.toString());
         }
-        return compoundNBT;
     }
 
     @Override

@@ -56,8 +56,8 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag write) {
-        super.saveAdditional(write);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
         ListTag components = new ListTag();
         for (Map.Entry<Vec3i, BlockPos> componentPos : componentPoss.entrySet()) {
             components.add(writeKV(componentPos.getKey(), componentPos.getValue()));
@@ -66,8 +66,8 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
         for (BlockPos partPos : partPoss) {
             parts.add(NBTUtil.writeBlockPos(partPos));
         }
-        write.put("components", components);
-        write.put("parts", parts);
+        pTag.put("components", components);
+        pTag.put("parts", parts);
     }
 
     private CompoundTag writeKV(Vec3i key, BlockPos value) {

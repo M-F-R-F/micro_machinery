@@ -80,7 +80,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
 
             } else {
                 NetworkHooks.openGui((ServerPlayer) player, tileKlin, (FriendlyByteBuf packerBuffer) -> {
-                    packerBuffer.writeBlockPos(tileKlin.getPos());
+                    packerBuffer.writeBlockPos(tileKlin.getBlockPos());
                 });
             }
         }
@@ -90,7 +90,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileKlin(pPos, pState)
+        return new TileKlin(pPos, pState);
     }
 
     @Override

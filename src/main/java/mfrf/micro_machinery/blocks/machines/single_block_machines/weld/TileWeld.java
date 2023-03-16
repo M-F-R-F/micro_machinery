@@ -118,17 +118,16 @@ public class TileWeld extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
-        write.put("input", input.serializeNBT());
-        write.put("output", output.serializeNBT());
-        write.put("progress", progress.serializeNBT());
-        write.put("fe_container", feContainer.serializeNBT());
-        write.putBoolean("is_working", isWorking);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("input", input.serializeNBT());
+        pTag.put("output", output.serializeNBT());
+        pTag.put("progress", progress.serializeNBT());
+        pTag.put("fe_container", feContainer.serializeNBT());
+        pTag.putBoolean("is_working", isWorking);
         if (result.isEmpty()) {
-            write.put("result", result.serializeNBT());
+            pTag.put("result", result.serializeNBT());
         }
-        return write;
     }
 
     public ItemStackHandler getInput() {

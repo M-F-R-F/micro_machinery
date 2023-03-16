@@ -28,12 +28,12 @@ public abstract class MMTileMultiBlockComponentInterface extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag write) {
-        super.saveAdditional(write);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
         if (mainPart != null) {
-            write.put("main", NBTUtil.writeBlockPos(mainPart));
+            pTag.put("main", NBTUtil.writeBlockPos(mainPart));
         }
-        write.put("key", mfrf.micro_machinery.utils.NBTUtil.writeVEC3I(key));
+        pTag.put("key", mfrf.micro_machinery.utils.NBTUtil.writeVEC3I(key));
     }
 
     public void linkTo(BlockPos pos, Level world, Vec3i key) {

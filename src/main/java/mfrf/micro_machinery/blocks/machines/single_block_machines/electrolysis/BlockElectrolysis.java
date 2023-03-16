@@ -24,7 +24,7 @@ public class BlockElectrolysis extends MMBlockTileProviderBase {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileElectrolysis(pPos, pState)
+        return new TileElectrolysis(pPos, pState);
     }
 
     @Override

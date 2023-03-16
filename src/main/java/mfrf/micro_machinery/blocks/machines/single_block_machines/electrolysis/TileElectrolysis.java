@@ -102,16 +102,15 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
-        write.put("item", items.serializeNBT());
-        write.put("energy", energy.serializeNBT());
-        write.putBoolean("is_working", isWorking);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("item", items.serializeNBT());
+        pTag.put("energy", energy.serializeNBT());
+        pTag.putBoolean("is_working", isWorking);
         if (progress != null) {
-            write.put("progress", progress.serializeNBT());
+            pTag.put("progress", progress.serializeNBT());
         }
-        write.put("result", result.serializeNBT());
-        return write;
+        pTag.put("result", result.serializeNBT());
     }
 
     @Override

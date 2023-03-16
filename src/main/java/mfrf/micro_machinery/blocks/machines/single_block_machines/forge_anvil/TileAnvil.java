@@ -52,11 +52,11 @@ public class TileAnvil extends MMTileBase {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.put("forge_time", forgeTime.serializeNBT());
-        compound.put("items", itemStackHandler.serializeNBT());
-        compound.putString("rank", rank.name());
-        return super.write(compound);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("forge_time", forgeTime.serializeNBT());
+        pTag.put("items", itemStackHandler.serializeNBT());
+        pTag.putString("rank", rank.name());
     }
 
     public InteractionResult onActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {

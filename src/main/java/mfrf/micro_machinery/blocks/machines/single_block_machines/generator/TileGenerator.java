@@ -79,14 +79,14 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.put("tank", tank.writeToNBT(new CompoundTag()));
-        compound.put("fuel_slot", fuel_handler.serializeNBT());
-        compound.put("energy_container", energyContainer.serializeNBT());
-        compound.put("burn_time_container", burnTimeContainer.serializeNBT());
-        compound.putBoolean("isburning", isBurning);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("tank", tank.writeToNBT(new CompoundTag()));
+        pTag.put("fuel_slot", fuel_handler.serializeNBT());
+        pTag.put("energy_container", energyContainer.serializeNBT());
+        pTag.put("burn_time_container", burnTimeContainer.serializeNBT());
+        pTag.putBoolean("isburning", isBurning);
 
-        return super.write(compound);
     }
 
     @Nonnull

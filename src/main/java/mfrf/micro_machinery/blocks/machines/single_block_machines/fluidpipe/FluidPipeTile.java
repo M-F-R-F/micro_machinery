@@ -9,14 +9,13 @@ import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tileentity.ITickableBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -30,7 +29,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
+public class FluidPipeTile extends MMTileBase {
     private final FluidTank fluidTank = new FluidTank(12000) {
         @Override
         protected void onContentsChanged() {
@@ -55,14 +54,13 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
-        compound.put("fluid", fluidTank.writeToNBT(new CompoundTag()));
-        write.put("block_item", blockItemContainer.serializeNBT());
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("fluid", fluidTank.writeToNBT(new CompoundTag()));
+        pTag.put("block_item", blockItemContainer.serializeNBT());
         if (material != -1) {
-            write.putInt("material", material);
+            pTag.putInt("material", material);
         }
-        return write;
     }
 
     public int getMaterial() {
@@ -83,18 +81,18 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
     }
 
     public boolean blocked() {
-        return getBlockState().get(FluidPipeBlock.BLOCKED);
+        return getBlockState().getValue(FluidPipeBlock.BLOCKED);
     }
 
     //todo 做到这里
     public boolean ejectToOpenSide(Direction direction, FluidStack ejectStack) {
-        BlockPos.m_142300_ = pos.m_142300_(direction);
-        BlockState blockStateToReplace = world.getBlockState(pos);
-        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(world,.m_142300_,
-        ejectStack)){
-            if (blockStateToReplace.isReplaceable(ejectStack.getFluid()) && blockStateToReplace.getFluidState().getFluid() == Fluids.EMPTY) {
-                BlockState blockState = ejectStack.getFluid().defaultBlockState().getBlockState();
-                world.setBlockState.m_142300_, blockState)
+        BlockPos offset = getBlockPos().m_142300_(direction);
+        BlockState blockStateToReplace = level.getBlockState(offset);
+        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(level, offset,
+                ejectStack)) {
+            if (blockStateToReplace.canBeReplaced(ejectStack.getFluid()) && blockStateToReplace.getFluidState().getType() == Fluids.EMPTY) {
+                BlockState blockState = ejectStack.getFluid().defaultFluidState().createLegacyBlock();
+                level.setBlockAndUpdate(offset, blockState);
                 return true;
             }
         }
@@ -222,8 +220,8 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
                 for (Direction side : Direction.values()) {
                     EnumFluidPipeState enumFluidPipeState = getBlockState().get(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
                     if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN || enumFluidPipeState == EnumFluidPipeState.AUTO_CONNECTED) {
-                        BlockPos.m_142300_ = pos.m_142300_(side);
-                        BlockEntity tileEntity = world.getBlockEntity.m_142300_)
+                        BlockPos offset = pos.m_142300_(side);
+                        BlockEntity tileEntity = world.getBlockEntity(offset);
 
                         if (tileEntity != null) {
                             tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
@@ -270,11 +268,12 @@ public class FluidPipeTile extends MMTileBase implements ITickableBlockEntity {
 
     public void checkPipeState() {
         for (Direction value : Direction.values()) {
-            BlockPos.m_142300_ = pos.m_142300_(value);
-            BlockState blockState = world.getBlockState.m_142300_)
+            BlockPos pos = getBlockPos();
+            BlockPos offset = pos.m_142300_(value);
+            BlockState blockState = level.getBlockState(offset);
             if (blockState.getBlock() instanceof FluidPipeBlock) {
                 FluidPipeBlock block = (FluidPipeBlock) blockState.getBlock();
-                world.setBlockState(pos, block.getState(world, pos), 18);
+                level.setBlock(pos, block.getState(level, pos), 18);
             }
         }
     }

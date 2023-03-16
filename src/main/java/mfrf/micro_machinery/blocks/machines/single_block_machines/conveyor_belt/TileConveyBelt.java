@@ -129,11 +129,10 @@ public class TileConveyBelt extends MMTileBase {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        CompoundTag write = super.write(compound);
-//        write.put("array", array.serializeNBT());
-        write.putInt("interval", interval);
-        return write;
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+//        pTag.put("array", array.serializeNBT());
+        pTag.putInt("interval", interval);
     }
 
     public static class StackArray implements INBTSerializable<CompoundTag>, IItemHandler {

@@ -18,9 +18,9 @@ import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
@@ -51,8 +51,8 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     private boolean isBurning = false;
     private final KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
 
-    public TileKlin() {
-        super(RegisteredBlockEntityTypes.TILE_KLIN_TYPE.get());
+    public TileKlin(BlockPos pos, BlockState state) {
+        super(RegisteredBlockEntityTypes.TILE_KLIN_TYPE.get(), pos, state);
     }
 
     public boolean isBurning() {
@@ -63,7 +63,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
         return fluidHandler;
     }
 
-    public void onBlockActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+    public void onBlockActivated(BlockState state, Level worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
         player.displayClientMessage(new StringTextComponent("actived"));
     }
 
@@ -95,19 +95,19 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.put("fluidhandler", fluidHandler.writeToNBT(new CompoundTag()));
-        compound.put("itemhandler", itemhandler.serializeNBT());
-        compound.put("result", result.writeToNBT(new CompoundTag()));
-        compound.putInt("melttime", meltTime);
-        compound.putInt("currentmeltime", currentMeltTime);
-        compound.putInt("currentburntime", currentBurnTime);
-        compound.putInt("maxburntime", maxBurnTime);
-        compound.putInt("pouringcooldown", pouringCoolDown);
-        compound.putInt("currentcooldown", currentcooldown);
-        compound.putBoolean("isburning", isBurning);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.put("fluidhandler", fluidHandler.writeToNBT(new CompoundTag()));
+        pTag.put("itemhandler", itemhandler.serializeNBT());
+        pTag.put("result", result.writeToNBT(new CompoundTag()));
+        pTag.putInt("melttime", meltTime);
+        pTag.putInt("currentmeltime", currentMeltTime);
+        pTag.putInt("currentburntime", currentBurnTime);
+        pTag.putInt("maxburntime", maxBurnTime);
+        pTag.putInt("pouringcooldown", pouringCoolDown);
+        pTag.putInt("currentcooldown", currentcooldown);
+        pTag.putBoolean("isburning", isBurning);
 
-        return super.write(compound);
     }
 
     public boolean issmelting() {
@@ -125,7 +125,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
                 handler.extractItem(index, 1, false);
                 this.isBurning = true;
                 this.maxBurnTime = maxburntime;
-                BlockKlin.setState(isBurning, world, this.getPos());
+                BlockKlin.setState(isBurning, world, this.getBlockPos());
             }
         }
     }
@@ -192,7 +192,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
                     currentBurnTime = 0;
                     maxBurnTime = 0;
                     isBurning = false;
-                    BlockKlin.setState(isBurning, world, this.getPos());
+                    BlockKlin.setState(isBurning, world, this.getBlockPos());
                     markDirty2();
                 }
             } else {

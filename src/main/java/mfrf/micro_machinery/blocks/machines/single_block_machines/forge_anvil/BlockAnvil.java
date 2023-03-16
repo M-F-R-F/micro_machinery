@@ -9,12 +9,14 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BlockAnvil extends MMBlockTileProviderBase {
@@ -51,8 +53,8 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Direction direction = state.getValue(FACING);
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        Direction direction = pState.getValue(FACING);
         if (direction == Direction.WEST || direction == Direction.EAST) {
             return ANVIL_WE;
         }
@@ -60,7 +62,7 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         Direction direction = state.getValue(FACING);
         if (direction == Direction.WEST || direction == Direction.EAST) {
             return ANVIL_WE;

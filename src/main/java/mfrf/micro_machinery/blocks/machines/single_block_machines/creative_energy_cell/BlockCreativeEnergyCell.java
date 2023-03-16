@@ -13,7 +13,7 @@ public class BlockCreativeEnergyCell extends MMBlockTileProviderBase {
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileCreativeEnergyCell(pPos, pState)
+        return new TileCreativeEnergyCell(pPos, pState);
     }
 
 }

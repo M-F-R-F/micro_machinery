@@ -35,9 +35,9 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
     }
 
     @Override
-    public CompoundTag write(CompoundTag compound) {
-        compound.putInt("current_energy", currentEnergy);
-        return super.write(compound);
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        pTag.putInt("current_energy", currentEnergy);
     }
 
     @Override
