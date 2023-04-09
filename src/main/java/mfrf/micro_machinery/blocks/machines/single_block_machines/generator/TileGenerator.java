@@ -7,17 +7,23 @@ import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.MenuProvider;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.IIntArray;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Component;
 import net.minecraft.util.text.TranslatableComponent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -69,13 +75,13 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void load(CompoundTag compound) {
         tank.readFromNBT(compound.getCompound("tank"));
         fuel_handler.deserializeNBT(compound.getCompound("fuel_slot"));
         energyContainer.deserializeNBT(compound.getCompound("energy_container"));
         burnTimeContainer.deserializeNBT(compound.getCompound("burn_time_container"));
         isBurning = compound.getBoolean("isburning");
-        super.read(compound);
+        super.load(compound);
     }
 
     @Override
@@ -113,28 +119,27 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
         return burnTimeContainer;
     }
 
-    @Override
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        if (!world.isClientSide()) {
-            if (isBurning) {
-                burnTimeContainer.selfAdd();
-                tank.drain(1, IFluidHandler.FluidAction.EXECUTE);
-                if (!tank.isEmpty()) {
-                    energyContainer.selfAdd();
+        if (!world.isClientSide() && blockEntity instanceof TileGenerator generator) {
+            if (generator.isBurning) {
+                generator.burnTimeContainer.selfAdd();
+                generator.tank.drain(1, IFluidHandler.FluidAction.EXECUTE);
+                if (!generator.tank.isEmpty()) {
+                    generator.energyContainer.selfAdd();
                 }
-                markDirty2();
+                generator.markDirty2();
             } else {
-                tryToGetFuel();
+                generator.tryToGetFuel();
             }
 
-            if (burnTimeContainer.atMaxValue()) {
-                burnTimeContainer = new IntegerContainer(0, 0);
-                isBurning = false;
-                BlockGenerator.setIsburning(isBurning, world, pos);
-                markDirty2();
+            if (generator.burnTimeContainer.atMaxValue()) {
+                generator.burnTimeContainer = new IntegerContainer(0, 0);
+                generator.isBurning = false;
+                BlockGenerator.setIsGenerating(false, world, pos);
+                generator.markDirty2();
             }
 
-            tryToPushEnergy();
+            generator.tryToPushEnergy();
 
         }
     }
@@ -143,13 +148,13 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
         if (!energyContainer.atMaxValue()) {
             ItemStack stackInSlot = fuel_handler.getStackInSlot(0);
             if (!stackInSlot.isEmpty() && !tank.isEmpty()) {
-                int burnTime = ForgeHooks.getBurnTime(stackInSlot);
+                int burnTime = ForgeHooks.getBurnTime(stackInSlot, RecipeType.SMELTING);
                 if (burnTime != 0) {
                     stackInSlot.shrink(1);
                     fuel_handler.setStackInSlot(0, stackInSlot);
                     this.burnTimeContainer = new IntegerContainer(0, burnTime);
                     isBurning = true;
-                    BlockGenerator.setIsburning(isBurning, world, pos);
+                    BlockGenerator.setIsGenerating(isBurning, level, getBlockPos());
                     markDirty2();
                 }
             }
@@ -157,7 +162,7 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
     }
 
     private void tryToPushEnergy() {
-        if (!world.isClientSide() && !energyContainer.atMinValue()) {
+        if (!level.isClientSide() && !energyContainer.atMinValue()) {
             Direction backDirection = getBackDirection();
             if (backDirection != null) {
                 energyContainer = pushEnergyToDirection(backDirection, energyContainer);
@@ -167,37 +172,37 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return new TranslatableComponent("generator");
     }
 
     @Nullable
     @Override
-    public Container createMenu(int sycID, PlayerInventory inventory, Player player) {
-        return new GeneratorContainer(sycID, inventory, this.pos, this.world);
+    public AbstractContainerMenu createMenu(int sycID, Inventory inventory, Player player) {
+        return new GeneratorContainer(sycID, inventory, this.getBlockPos(), this.level);
     }
 
     public ItemStackHandler getFuelHandler() {
         return fuel_handler;
     }
-
-    public static class GeneratorEnergyAndFuelIntArray implements IIntArray {
-
-        private final int[] iArray = {0, 0, 0, 0};
-
-        @Override
-        public int get(int index) {
-            return iArray[index];
-        }
-
-        @Override
-        public void set(int index, int value) {
-            iArray[index] = value;
-        }
-
-        @Override
-        public int size() {
-            return 4;
-        }
-    }
+//
+//    public static class GeneratorEnergyAndFuelIntArray implements IIntArray {
+//
+//        private final int[] iArray = {0, 0, 0, 0};
+//
+//        @Override
+//        public int get(int index) {
+//            return iArray[index];
+//        }
+//
+//        @Override
+//        public void set(int index, int value) {
+//            iArray[index] = value;
+//        }
+//
+//        @Override
+//        public int size() {
+//            return 4;
+//        }
+//    }
 }

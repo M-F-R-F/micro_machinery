@@ -9,18 +9,25 @@ import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Component;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
@@ -63,10 +70,6 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
         return fluidHandler;
     }
 
-    public void onBlockActivated(BlockState state, Level worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
-        player.displayClientMessage(new StringTextComponent("actived"));
-    }
-
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
@@ -79,7 +82,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void load(CompoundTag compound) {
         this.fluidHandler.readFromNBT(compound.getCompound("fluidhandler"));
         this.itemhandler.deserializeNBT(compound.getCompound("itemhandler"));
         this.result = FluidStack.loadFluidStackFromNBT(compound.getCompound("result"));
@@ -91,7 +94,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
         this.currentcooldown = compound.getInt("currentcooldown");
         this.isBurning = compound.getBoolean("isburning");
 
-        super.read(compound);
+        super.load(compound);
     }
 
     @Override
@@ -115,17 +118,17 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     }
 
     private KlinItemToFluidRecipe tryToGetRecipe() {
-        return RecipeHelper.GetKlinItemToFluidRecipe(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), world.getRecipeManager());
+        return RecipeHelper.GetKlinItemToFluidRecipe(itemhandler.getStackInSlot(0), itemhandler.getStackInSlot(1), level.getRecipeManager());
     }
 
     private void tryToExtractFuel(ItemStackHandler handler, int index) {
         if (handler.getStackInSlot(index) != ItemStack.EMPTY) {
-            int maxburntime = ForgeHooks.getBurnTime(handler.getStackInSlot(index));
+            int maxburntime = ForgeHooks.getBurnTime(handler.getStackInSlot(index), RecipeType.SMELTING);
             if (maxburntime != 0) {
                 handler.extractItem(index, 1, false);
                 this.isBurning = true;
                 this.maxBurnTime = maxburntime;
-                BlockKlin.setState(isBurning, world, this.getBlockPos());
+                BlockKlin.setState(isBurning, level, this.getBlockPos());
             }
         }
     }
@@ -156,74 +159,74 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
         itemhandler.setStackInSlot(slot, new ItemStack(output.getItem(), itemhandler.getStackInSlot(slot).getCount() + output.getCount()));
     }
 
-    @Override
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        if (!world.isClientSide) {
-            this.progressBarNumArray.set(0, this.currentMeltTime);
-            this.progressBarNumArray.set(1, this.meltTime);
-            this.progressBarNumArray.set(2, this.currentBurnTime);
-            this.progressBarNumArray.set(3, this.maxBurnTime);
-            if (isBurning) {
-                this.currentBurnTime++;
-                if (issmelting()) {
-                    currentMeltTime++;
-                    if (currentMeltTime >= meltTime) {
-                        if (fluidHandler.fill(result, IFluidHandler.FluidAction.SIMULATE) == result.getAmount()) {
-                            this.fluidHandler.fill(result, IFluidHandler.FluidAction.EXECUTE);
-                            result = FluidStack.EMPTY;
-                            currentMeltTime = 0;
-                            markDirty2();
+        if (!world.isClientSide && blockEntity instanceof TileKlin klin) {
+
+            klin.progressBarNumArray.set(0, klin.currentMeltTime);
+            klin.progressBarNumArray.set(1, klin.meltTime);
+            klin.progressBarNumArray.set(2, klin.currentBurnTime);
+            klin.progressBarNumArray.set(3, klin.maxBurnTime);
+            if (klin.isBurning) {
+                klin.currentBurnTime++;
+                if (klin.issmelting()) {
+                    klin.currentMeltTime++;
+                    if (klin.currentMeltTime >= klin.meltTime) {
+                        if (klin.fluidHandler.fill(klin.result, IFluidHandler.FluidAction.SIMULATE) == klin.result.getAmount()) {
+                            klin.fluidHandler.fill(klin.result, IFluidHandler.FluidAction.EXECUTE);
+                            klin.result = FluidStack.EMPTY;
+                            klin. currentMeltTime = 0;
+                            klin.markDirty2();
                         } else {
-                            currentMeltTime--;
-                            markDirty2();
+                            klin.currentMeltTime--;
+                            klin.markDirty2();
                         }
-                        markDirty2();
+                        klin.markDirty2();
                     }
                 } else {
-                    KlinItemToFluidRecipe recipeinsmelting = tryToGetRecipe();
-                    if (recipeinsmelting != null && fluidHandler.fill(recipeinsmelting.getOutputfluidstack(), IFluidHandler.FluidAction.SIMULATE) == recipeinsmelting.getOutputfluidstack().getAmount()) {
-                        this.result = recipeinsmelting.getOutputfluidstack();
-                        this.meltTime = recipeinsmelting.getMelttime();
-                        extractMaterial(recipeinsmelting);
-                        markDirty2();
+                    KlinItemToFluidRecipe recipeinsmelting = klin.tryToGetRecipe();
+                    if (recipeinsmelting != null && klin.fluidHandler.fill(recipeinsmelting.getOutputfluidstack(), IFluidHandler.FluidAction.SIMULATE) == recipeinsmelting.getOutputfluidstack().getAmount()) {
+                        klin.result = recipeinsmelting.getOutputfluidstack();
+                        klin.meltTime = recipeinsmelting.getMelttime();
+                        klin.extractMaterial(recipeinsmelting);
+                        klin.markDirty2();
                     }
                 }
-                if (currentBurnTime >= maxBurnTime) {
-                    currentBurnTime = 0;
-                    maxBurnTime = 0;
-                    isBurning = false;
-                    BlockKlin.setState(isBurning, world, this.getBlockPos());
-                    markDirty2();
+                if (klin.currentBurnTime >= klin.maxBurnTime) {
+                    klin.currentBurnTime = 0;
+                    klin.maxBurnTime = 0;
+                    klin.isBurning = false;
+                    BlockKlin.setState(klin.isBurning, world, klin.getBlockPos());
+                    klin.markDirty2();
                 }
             } else {
-                if (tryToGetRecipe() != null) {
-                    tryToExtractFuel(this.itemhandler, 2);
+                if (klin.tryToGetRecipe() != null) {
+                    klin.tryToExtractFuel(klin.itemhandler, 2);
                 }
-                markDirty2();
+                klin.markDirty2();
             }
 
-            if (recipe == null) {
-                if (fluidHandler.getFluidAmount() != 0 && itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
-                    recipe = RecipeHelper.GetKlinFluidRecipe(this.fluidHandler.getFluid(), itemhandler.getStackInSlot(4), world.getRecipeManager());
-                    if (recipe != null) {
-                        pouringCoolDown = recipe.getCoolbelow();
+            if (klin.recipe == null) {
+                if (klin.fluidHandler.getFluidAmount() != 0 && klin.itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
+                    klin.recipe = RecipeHelper.GetKlinFluidRecipe(klin.fluidHandler.getFluid(), klin.itemhandler.getStackInSlot(4), world.getRecipeManager());
+                    if (klin.recipe != null) {
+                        klin.pouringCoolDown = klin.recipe.getCoolbelow();
                     }
-                    markDirty2();
+                    klin.markDirty2();
                 }
-            } else if (currentcooldown < pouringCoolDown && this.isBurning()) {
-                currentcooldown++;
-                markDirty2();
+            } else if (klin.currentcooldown < klin.pouringCoolDown && klin.isBurning()) {
+                klin.currentcooldown++;
+                klin.markDirty2();
             } else {
-                if (RecipeHelper.canInsert(itemhandler.getStackInSlot(3), recipe.getOutput())) {
-                    insertResult(3, recipe.getOutput());
-                    fluidHandler.drain(recipe.getInputfluid(), IFluidHandler.FluidAction.EXECUTE);
-                    currentcooldown = 0;
-                    pouringCoolDown = 0;
-                    recipe = null;
-                    markDirty2();
+                if (RecipeHelper.canInsert(klin.itemhandler.getStackInSlot(3), klin.recipe.getOutput())) {
+                    klin.insertResult(3, klin.recipe.getOutput());
+                    klin.fluidHandler.drain(klin.recipe.getInputfluid(), IFluidHandler.FluidAction.EXECUTE);
+                    klin.currentcooldown = 0;
+                    klin.pouringCoolDown = 0;
+                    klin.recipe = null;
+                    klin.markDirty2();
                 } else {
-                    currentcooldown--;
-                    markDirty2();
+                    klin.currentcooldown--;
+                    klin.markDirty2();
                 }
             }
         }
@@ -312,36 +315,36 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     }
 
     @Override
-    public ITextComponent getDisplayName() {
-        return RegisteredBlocks.KLIN.getNameTextComponent();
+    public Component getDisplayName() {
+        return new TranslatableComponent("container.klin");
     }
 
     @Nullable
     @Override
-    public Container createMenu(int sycID, PlayerInventory inventory, Player player) {
-        return new KlinContainer(sycID, inventory, this.pos, this.world, progressBarNumArray);
+    public AbstractContainerMenu createMenu(int sycID, Inventory inventory, Player player) {
+        return new KlinContainer(sycID, inventory, this.getBlockPos(), this.level, progressBarNumArray);
     }
 
     public ItemStackHandler getItemHandler() {
         return itemhandler;
     }
 
-    public static class KlinProgressBarNumArray implements IIntArray {
-        private final int[] iArray = {0, 0, 0, 0};
-
-        @Override
-        public int get(int index) {
-            return iArray[index];
-        }
-
-        @Override
-        public void set(int index, int value) {
-            iArray[index] = value;
-        }
-
-        @Override
-        public int size() {
-            return 4;
-        }
-    }
+//    public static class KlinProgressBarNumArray implements IIntArray {
+//        private final int[] iArray = {0, 0, 0, 0};
+//
+//        @Override
+//        public int get(int index) {
+//            return iArray[index];
+//        }
+//
+//        @Override
+//        public void set(int index, int value) {
+//            iArray[index] = value;
+//        }
+//
+//        @Override
+//        public int size() {
+//            return 4;
+//        }
+//    }
 }

@@ -122,8 +122,8 @@ public class TileConveyBelt extends MMTileBase {
 
 
     @Override
-    public void read(CompoundTag compound) {
-        super.read(compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
 //        array.deserializeNBT(compound.getCompound("array"));
         interval = compound.getInt("interval");
     }

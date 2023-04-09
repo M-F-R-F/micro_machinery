@@ -6,22 +6,24 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.Shapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -42,7 +44,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(BURNING, false));
     }
 
-    public static void setState(boolean active, World worldIn, BlockPos pos) {
+    public static void setState(boolean active, Level worldIn, BlockPos pos) {
         BlockState state = worldIn.getBlockState(pos);
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
 
@@ -53,8 +55,8 @@ public class BlockKlin extends MMBlockTileProviderBase {
         }
 
         if (tileentity != null) {
-            tileentity.validate();
-            worldIn.setBlockEntity(pos, tileentity);
+            tileentity.clearRemoved();
+            worldIn.setBlockEntity(tileentity);
         }
     }
 
@@ -62,11 +64,6 @@ public class BlockKlin extends MMBlockTileProviderBase {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(BURNING);
-    }
-
-    @Override
-    public boolean hasBlockEntity(BlockState state) {
-        return true;
     }
 
     @Override
@@ -94,12 +91,13 @@ public class BlockKlin extends MMBlockTileProviderBase {
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return KLIN_SHAPE;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return KLIN_SHAPE;
     }
+
 }

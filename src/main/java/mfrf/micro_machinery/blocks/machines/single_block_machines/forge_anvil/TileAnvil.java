@@ -9,15 +9,15 @@ import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Hand;
-import net.minecraft.util.InteractionResult;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -44,11 +44,11 @@ public class TileAnvil extends MMTileBase {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void load(CompoundTag compound) {
         forgeTime.deserializeNBT(compound.getCompound("forge_time"));
         rank = EnumAnvilType.valueOf(compound.getString("rank"));
         itemStackHandler.deserializeNBT(compound.getCompound("items"));
-        super.read(compound);
+        super.load(compound);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class TileAnvil extends MMTileBase {
         pTag.putString("rank", rank.name());
     }
 
-    public InteractionResult onActivated(BlockState state, World worldIn, BlockPos pos, Player player, Hand handIn, BlockRayTraceResult hit) {
+    public InteractionResult onActivated(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
 //        if (!worldIn.isClientSide()) {
         if (handIn == InteractionHand.MAIN_HAND) {
             ItemStack heldItem = player.getItemInHand(handIn);
@@ -75,9 +75,9 @@ public class TileAnvil extends MMTileBase {
                 Item item = heldItem.getItem();
                 if (item instanceof MMHammerBase) {
                     forgeTime.selfAdd();
-                    heldItem.damageItem(1, player, playerEntity -> {
+                    heldItem.hurtAndBreak(1, player, playerEntity -> {
                     });
-                    worldIn.playSound(player, pos, rank.getSound(), SoundCategory.PLAYERS, 1.0F, 1.0F);
+                    worldIn.playSound(player, pos, rank.getSound(), SoundSource.PLAYERS, 1.0F, 1.0F);
                     if (forgeTime.atMaxValue()) {
                         ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
                         if (!stackInSlot.isEmpty()) {
@@ -98,7 +98,7 @@ public class TileAnvil extends MMTileBase {
                         itemStackHandler.setStackInSlot(0, new ItemStack(heldItem.getItem()));
                         forgeTime.resetValue();
                         heldItem.shrink(1);
-                        player.setHeldItem(handIn, heldItem);
+                        player.setItemInHand(handIn, heldItem);
                     } else {
                         ItemStack stackInSlot = itemStackHandler.getStackInSlot(0);
                         ItemHandlerHelper.giveItemToPlayer(player, stackInSlot);

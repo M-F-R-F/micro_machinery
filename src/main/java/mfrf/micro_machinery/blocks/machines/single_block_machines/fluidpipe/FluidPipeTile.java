@@ -44,8 +44,8 @@ public class FluidPipeTile extends MMTileBase {
     }
 
     @Override
-    public void read(CompoundTag compound) {
-        super.read(compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         fluidTank.readFromNBT(compound.getCompound("fluid"));
         blockItemContainer.deserializeNBT(compound.getCompound("block_item"));
         if (compound.contains("material")) {
@@ -252,7 +252,7 @@ public class FluidPipeTile extends MMTileBase {
                     int remain = pipeFluidSum.get() % pipeDirections.size();
                     int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
                     for (Direction direction : pipeDirections) {
-                        FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getBlockEntity(this.pos.m_142300_(direction));
+                        FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getBlockEntity(this.getBlockPos().m_142300_(direction));
                         int received = averageOut - pipeDemoTile.receiveFluid(fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
                         fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
                         setChanged();

@@ -19,6 +19,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
@@ -127,7 +129,7 @@ public class FluidPipeBlock extends MMBlockBase {
                 if (world.getBlockState(neighbor).getBlock() instanceof FluidPipeBlock) {
                     if (currentValue != EnumFluidPipeState.AUTO_TRUE) {
                         setStateAndUpdateNeighbor((World) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
-//                        ((World) world).setBlockState(pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
+//                        ((World) world).setBlockAndUpdate(pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE))
                     }
                 } else if (tileEntityNeighbor != null) {
                     if (tileEntityNeighbor.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facingFromVector.getOpposite()).isPresent()) {

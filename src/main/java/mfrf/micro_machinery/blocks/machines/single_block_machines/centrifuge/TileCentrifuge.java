@@ -178,8 +178,8 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public void read(CompoundTag nbt) {
-        super.read(nbt);
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
         feContainer.deserializeNBT(nbt.getCompound("fe_container"));
         input.deserializeNBT(nbt.getCompound("input"));
         output.deserializeNBT(nbt.getCompound("output"));
@@ -215,7 +215,7 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
 
     @org.jetbrains.annotations.Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new CentrifugeContainer(pContainerId, pPlayerInventory, getBlockPos(), level);
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
+        return new CentrifugeContainer(pContainerId, pInventory, getBlockPos(), level);
     }
 }

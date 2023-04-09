@@ -6,6 +6,7 @@ import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -29,9 +30,9 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void load(CompoundTag compound) {
         currentEnergy = compound.getInt("current_energy");
-        super.read(compound);
+        super.load(compound);
     }
 
     @Override
@@ -40,11 +41,10 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
         pTag.putInt("current_energy", currentEnergy);
     }
 
-    @Override
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        if (!world.isClientSide()) {
-            solveCable();
-            solveOutput();
+        if (!world.isClientSide() && blockEntity instanceof TileEnergyCable tileEnergyCable) {
+            tileEnergyCable.solveCable();
+            tileEnergyCable.solveOutput();
         }
     }
 
@@ -70,7 +70,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
         ArrayList<Direction> list = new ArrayList<>();
         BlockState blockState = getBlockState();
         for (Direction direction : Direction.values()) {
-            if (blockState.get(BlockEnergyCable.DIRECTION_ENUM_PROPERTY_MAP.get(direction)) == state) {
+            if (blockState.getValue(BlockEnergyCable.DIRECTION_ENUM_PROPERTY_MAP.get(direction)) == state) {
                 list.add(direction);
             }
         }
@@ -83,7 +83,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
             int i = currentEnergy / cableSide.size();
             int sum = 0;
             for (Direction direction : cableSide) {
-                BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
+                BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
                 if (tileEntity instanceof TileEnergyCable) {
                     TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
                     int currentEnergy = tileEnergyCable.getCurrentEnergy();
@@ -105,7 +105,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
             int i = currentEnergy / size;
             AtomicInteger sum = new AtomicInteger();
             for (Direction direction : outputSide) {
-                BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
+                BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
                 if (tileEntity != null) {
                     LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {

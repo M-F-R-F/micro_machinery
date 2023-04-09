@@ -6,24 +6,23 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.Shapes;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.World;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -47,13 +46,13 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     }
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return makeShape(state.getValue(FACING));
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return makeShape(pState.getValue(FACING));
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return makeShape(state.getValue(FACING));
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return makeShape(pState.getValue(FACING));
     }
 
     private VoxelShape makeShape(Direction direction) {
@@ -61,14 +60,14 @@ public class BlockGenerator extends MMBlockTileProviderBase {
         return MathUtil.VoxelShapeRotateDirection(SHAPE, direction);
     }
 
-    public static void setIsburning(boolean isburning, World world, BlockPos pos) {
-        world.setBlockState(pos, world.getBlockState(pos).setValue(ISBURNING, isburning), 3);
+    public static void setIsGenerating(boolean isburning, Level world, BlockPos pos) {
+        world.setBlock(pos, world.getBlockState(pos).setValue(ISBURNING, isburning), 3);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(ISBURNING);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
                             iFluidHandler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE);
                             tileGenerator.markDirty2();
                             if (!player.isCreative()) {
-                                player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
+                                player.setItemInHand(handIn, new ItemStack(Items.BUCKET));
                             }
                         }
                     });
@@ -103,6 +102,6 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileGenerator(pPos, pState)
+        return new TileGenerator(pPos, pState);
     }
 }

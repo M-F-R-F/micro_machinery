@@ -7,6 +7,8 @@ import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -43,10 +45,10 @@ public class TileHandGenerator extends MMTileBase {
     }
 
     @Override
-    public void read(CompoundTag compound) {
+    public void load(CompoundTag compound) {
         container.deserializeNBT(compound.getCompound("energy_container"));
         progress.deserializeNBT(compound.getCompound("progress"));
-        super.read(compound);
+        super.load(compound);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class TileHandGenerator extends MMTileBase {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        Direction direction = Direction.fromAngle(getBlockState().get(BlockHandGenerator.FACING).getHorizontalAngle() + 90f);
+        Direction direction = Direction.fromYRot(getBlockState().getValue(BlockHandGenerator.FACING).toYRot() + 90f);
         if (cap == CapabilityEnergy.ENERGY && side == direction) {
             return LazyOptional.of(() -> container).cast();
         }
@@ -78,17 +80,16 @@ public class TileHandGenerator extends MMTileBase {
         }
     }
 
-    @Override
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        if (!world.isClientSide()) {
-            if (!progress.atMinValue()) {
-                progress.selfAdd();
-                markDirty2();
+        if (!world.isClientSide() && blockEntity instanceof TileHandGenerator generator) {
+            if (!generator.progress.atMinValue()) {
+                generator.progress.selfAdd();
+                generator.markDirty2();
             }
 
-            if (progress.atMaxValue()) {
-                progress = new IntegerContainer(0, 40);
-                markDirty2();
+            if (generator.progress.atMaxValue()) {
+                generator.progress = new IntegerContainer(0, 40);
+                generator.markDirty2();
             }
         }
     }

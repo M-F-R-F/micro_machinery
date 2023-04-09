@@ -10,13 +10,13 @@ import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -102,8 +102,8 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
     }
 
     @Override
-    public void read(CompoundTag compoundNBT) {
-        super.read(compoundNBT);
+    public void load(CompoundTag compoundNBT) {
+        super.load(compoundNBT);
         sawBladeHandler.deserializeNBT(compoundNBT.getCompound("saw_blade"));
         itemHandler.deserializeNBT(compoundNBT.getCompound("item_handler"));
         progress.deserializeNBT(compoundNBT.getCompound("progress"));
@@ -113,28 +113,31 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
         }
     }
 
-    @Override
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        if (!world.isClientSide()) {
-            if (!result.isEmpty()) {
+        if (!world.isClientSide() && blockEntity instanceof TileCutter tileCutter) {
+            ItemStackHandler itemHandler = tileCutter.itemHandler;
+            IntegerContainer progress = tileCutter.progress;
+            ItemStackHandler sawBladeHandler = tileCutter.sawBladeHandler;
+            FEContainer energyContainer = tileCutter.energyContainer;
+            if (!tileCutter.result.isEmpty()) {
 
                 if (progress.atMaxValue()) {
 
-                    if (itemHandler.insertItem(1, result, true).isEmpty()) {
-                        itemHandler.insertItem(1, result, false);
-                        result = ItemStack.EMPTY;
+                    if (itemHandler.insertItem(1, tileCutter.result, true).isEmpty()) {
+                        itemHandler.insertItem(1, tileCutter.result, false);
+                        tileCutter.result = ItemStack.EMPTY;
                         progress.resetValue();
-                        world.setBlockState(pos, world.getBlockState(pos).setValue(BlockCutter.WORKING, false));
+                        world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockCutter.WORKING, false));
                     } else {
                         progress.selfSubtract();
                     }
 
-                    markDirty2();
+                    tileCutter.markDirty2();
                 } else {
 
                     if (energyContainer.selfSubtract() == 128) {
                         progress.selfAdd();
-                        markDirty2();
+                        tileCutter.markDirty2();
                     }
 
                 }
@@ -143,10 +146,10 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
                 CutterRecipe cutterRecipe = RecipeHelper.getCutterRecipe(itemHandler.getStackInSlot(0), world.getRecipeManager());
                 if (cutterRecipe != null) {
                     progress.setMax(((int) (cutterRecipe.getTickUse() * ((SawBladeBase) sawBladeHandler.getStackInSlot(0).getItem()).getCombinedSawEfficiency().get())));
-                    result = cutterRecipe.getOutput().copy();
+                    tileCutter.result = cutterRecipe.getOutput().copy();
                     itemHandler.getStackInSlot(0).shrink(cutterRecipe.getInput().getCount());
-                    world.setBlockState(pos, world.getBlockState(pos).setValue(BlockCutter.WORKING, true));
-                    setChanged();
+                    world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockCutter.WORKING, true));
+                    tileCutter.setChanged();
                     //todo gui
                 }
             }
@@ -204,13 +207,14 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
     }
 
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return new TranslatableComponent("cutter_gui");
     }
 
     @Nullable
     @Override
-    public Container createMenu(int i, PlayerInventory playerInventory, Player playerEntity) {
-        return new CutterContainer(i, playerInventory, this.pos, this.world);
+    public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
+        return new CutterContainer(i, playerInventory, this.getBlockPos(), this.level);
     }
+
 }

@@ -9,13 +9,16 @@ import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -69,35 +72,34 @@ public class TileWeld extends MMTileBase implements MenuProvider {
         super(RegisteredBlockEntityTypes.TILE_WELD.get(), pos, state);
     }
 
-    @Override
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        if (!world.isClientSide()) {
+        if (!world.isClientSide() && blockEntity instanceof TileWeld weld) {
 
-            if (isWorking) {
-                progress.selfAdd();
-                setChanged();
+            if (weld.isWorking) {
+                weld.progress.selfAdd();
+                weld.setChanged();
             } else {
-                RecipeHelper.weldRecipeAndShrinkItemStacks weldRecipeAndShrinkItemStacks = RecipeHelper.getWeldRecipe(world.getRecipeManager(), input);
+                RecipeHelper.weldRecipeAndShrinkItemStacks weldRecipeAndShrinkItemStacks = RecipeHelper.getWeldRecipe(world.getRecipeManager(), weld.input);
                 if (weldRecipeAndShrinkItemStacks != null) {
                     WeldRecipe weldRecipe = weldRecipeAndShrinkItemStacks.weldRecipe;
                     int[] shrinkCounts = weldRecipeAndShrinkItemStacks.shrinkCounts;
-                    progress.setMax(weldRecipe.getTime());
-                    isWorking = true;
-                    result = weldRecipe.getOutput();
+                    weld.progress.setMax(weldRecipe.getTime());
+                    weld.isWorking = true;
+                    weld.result = weldRecipe.getOutput();
                     for (int i = 0; i < shrinkCounts.length; i++) {
-                        input.extractItem(i, shrinkCounts[i], false);
+                        weld.input.extractItem(i, shrinkCounts[i], false);
                     }
-                    setChanged();
+                    weld.setChanged();
                 }
             }
 
-            if (progress.atMaxValue()) {
-                if (output.insertItem(0, result, true).isEmpty()) ;
-                output.insertItem(0, result, false);
-                result = ItemStack.EMPTY;
-                progress.resetValue();
-                isWorking = false;
-                setChanged();
+            if (weld.progress.atMaxValue()) {
+                if (weld.output.insertItem(0, weld.result, true).isEmpty()) ;
+                weld.output.insertItem(0, weld.result, false);
+                weld.result = ItemStack.EMPTY;
+                weld.progress.resetValue();
+                weld.isWorking = false;
+                weld.setChanged();
             }
 
 
@@ -105,8 +107,8 @@ public class TileWeld extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public void read(CompoundTag compound) {
-        super.read(compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         input.deserializeNBT(compound.getCompound("input"));
         output.deserializeNBT(compound.getCompound("output"));
         progress.deserializeNBT(compound.getCompound("progress"));
@@ -168,13 +170,13 @@ public class TileWeld extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public ITextComponent getDisplayName() {
+    public Component getDisplayName() {
         return new TranslatableComponent("gui.name.weld");
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
-        return new WeldContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
+        return new WeldContainer(p_createMenu_1_, p_createMenu_2_, worldPosition, level);
     }
 }

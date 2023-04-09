@@ -155,8 +155,8 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
     }
 
     @Override
-    public void read(CompoundTag nbt) {
-        super.read(nbt);
+    public void load(CompoundTag nbt) {
+        super.load(nbt);
         feContainer.deserializeNBT(nbt.getCompound("fe_container"));
         input.readFromNBT(nbt.getCompound("input"));
         output.deserializeNBT(nbt.getCompound("output"));
@@ -175,7 +175,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
             if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                 return LazyOptional.of(() -> output).cast();
 
-        } else if (side == backDirection.rotateYCCW()) {
+        } else if (side == backDirection.getCounterClockWise()) {
             if (cap == CapabilityEnergy.ENERGY)
                 return LazyOptional.of(() -> feContainer).cast();
 
@@ -189,8 +189,8 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
 
     @org.jetbrains.annotations.Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return new AtomizationContainer(pContainerId, pPlayerInventory, getBlockPos(), level);
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
+        return new AtomizationContainer(pContainerId, pInventory, getBlockPos(), level);
     }
 
     @Override

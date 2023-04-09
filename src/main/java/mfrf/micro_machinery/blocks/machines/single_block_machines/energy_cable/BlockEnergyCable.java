@@ -5,17 +5,17 @@ import mfrf.micro_machinery.enums.EnumCableMaterial;
 import mfrf.micro_machinery.enums.EnumCableState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.Shapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.energy.CapabilityEnergy;
 
@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BlockEnergyCable extends MMBlockBase {
+public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     public static final Map<Direction, VoxelShape> DIRECTION_VOXEL_SHAPE_MAP = new HashMap<>();
     public static final Map<Direction, EnumProperty<EnumCableState>> DIRECTION_ENUM_PROPERTY_MAP = new HashMap<>();
     public static final EnumProperty<EnumCableMaterial> CABLE_MATERIAL_ENUM_PROPERTY = EnumProperty.create("material", EnumCableMaterial.class);
@@ -60,21 +60,16 @@ public class BlockEnergyCable extends MMBlockBase {
         ).setValue(NORTH_ISCONNECTED, EnumCableState.EMPTY).setValue(WEST_ISCONNECTED, EnumCableState.EMPTY).setValue(EAST_ISCONNECTED, EnumCableState.EMPTY));
     }
 
-    @Override
-    public boolean hasBlockEntity(BlockState state) {
-        return true;
-    }
-
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getState(context.getWorld(), context.getBlockPos());
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return getState(context.getLevel(), context.getClickedPos());
     }
 
-    public BlockState getState(World world, BlockPos pos) {
+    public BlockState getState(Level world, BlockPos pos) {
         BlockState defaultState = defaultBlockState();
         for (Direction direction : Direction.values()) {
-            BlockPos offset= pos.m_142300_(direction);
+            BlockPos offset = pos.m_142300_(direction);
             BlockState neighborState = world.getBlockState(offset);
             if (neighborState.getBlock() instanceof BlockEnergyCable) {
                 defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CABLE);
@@ -88,8 +83,9 @@ public class BlockEnergyCable extends MMBlockBase {
         return defaultState;
     }
 
+
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(CABLE_MATERIAL_ENUM_PROPERTY);
         builder.add(UP_ISCONNECTED);
         builder.add(DOWN_ISCONNECTED);
@@ -97,52 +93,55 @@ public class BlockEnergyCable extends MMBlockBase {
         builder.add(NORTH_ISCONNECTED);
         builder.add(WEST_ISCONNECTED);
         builder.add(EAST_ISCONNECTED);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
-
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new TileEnergyCable(pPos, pState)
+        return new TileEnergyCable(pPos, pState);
     }
 
-    private boolean setStateNoUpdateNeighbor(World world, BlockPos pos, BlockState state) {
-        return world.setBlockState(pos, state, 22);
+
+    private boolean setStateNoUpdateNeighbor(Level world, BlockPos pos, BlockState state) {
+        return world.setBlock(pos, state, 22);
     }
+
+//    @Override
+//    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+//        pLevel.setBlock(pPos,updatePostPlacement(pState,pLevel,pPos));
+//    }
+//
+//    public BlockState updatePostPlacement(BlockState stateIn, Level worldIn, BlockPos currentPos) {
+//        if (!worldIn.isClientSide()) {
+//
+//            BlockEntity tileEntityNeighbor = worldIn.getBlockEntity(facingPos);
+//            Direction facingFromVector = Direction.getNearest(facingPos.getX() - currentPos.getX(), facingPos.getY() - currentPos.getY(), facingPos.getZ() - currentPos.getZ());
+//            EnumProperty<EnumCableState> enumCableStateEnumProperty = DIRECTION_ENUM_PROPERTY_MAP.get(facingFromVector);
+//
+//            if (worldIn.getBlockState(facingPos).getBlock() instanceof BlockEnergyCable) {
+//                if (stateIn.getValue(enumCableStateEnumProperty) != EnumCableState.CABLE) {
+//                    setStateNoUpdateNeighbor(worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.CABLE));
+//                }
+//            } else if (tileEntityNeighbor != null) {
+//                if (tileEntityNeighbor.getCapability(CapabilityEnergy.ENERGY, facingFromVector.getOpposite()).isPresent()) {
+//                    if (stateIn.getValue(enumCableStateEnumProperty) != EnumCableState.CONNECT) {
+//                        setStateNoUpdateNeighbor(worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.CONNECT));
+//                    }
+//                }
+//            } else {
+//                if (stateIn.getValue(enumCableStateEnumProperty) != EnumCableState.EMPTY) {
+//                    setStateNoUpdateNeighbor(worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.EMPTY));
+//                }
+//            }
+//
+//        }
+//
+//        return stateIn;
+//    } //todo determine state
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        if (!worldIn.isClientSide() && worldIn instanceof World) {
-
-            BlockEntity tileEntityNeighbor = worldIn.getBlockEntity(facingPos);
-            Direction facingFromVector = Direction.getFacingFromVector(facingPos.getX() - currentPos.getX(), facingPos.getY() - currentPos.getY(), facingPos.getZ() - currentPos.getZ());
-            EnumProperty<EnumCableState> enumCableStateEnumProperty = DIRECTION_ENUM_PROPERTY_MAP.get(facingFromVector);
-
-            if (worldIn.getBlockState(facingPos).getBlock() instanceof BlockEnergyCable) {
-                if (stateIn.get(enumCableStateEnumProperty) != EnumCableState.CABLE) {
-                    setStateNoUpdateNeighbor((World) worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.CABLE));
-                }
-            } else if (tileEntityNeighbor != null) {
-                if (tileEntityNeighbor.getCapability(CapabilityEnergy.ENERGY, facingFromVector.getOpposite()).isPresent()) {
-                    if (stateIn.get(enumCableStateEnumProperty) != EnumCableState.CONNECT) {
-                        setStateNoUpdateNeighbor((World) worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.CONNECT));
-                    }
-                }
-            } else {
-                if (stateIn.get(enumCableStateEnumProperty) != EnumCableState.EMPTY) {
-                    setStateNoUpdateNeighbor((World) worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.EMPTY));
-                }
-            }
-
-        }
-
-        return stateIn;
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
 
         for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
@@ -157,8 +156,7 @@ public class BlockEnergyCable extends MMBlockBase {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-
+    public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
 
         for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
@@ -171,5 +169,4 @@ public class BlockEnergyCable extends MMBlockBase {
 
         return shape;
     }
-
 }
