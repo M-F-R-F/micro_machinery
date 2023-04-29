@@ -1,37 +1,25 @@
 package mfrf.micro_machinery.worldgen;
 
-import com.mojang.datafixers.Dynamic;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.Dynamic;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.utils.RandomUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.Block
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.function.Function;
 
 public class VeinFeature extends Feature<VeinFeatureConfig> {
-    public static final RegistryObject<VeinFeature> VEIN_FEATURE = MicroMachinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature(Codec.of(,)));
+    public static final RegistryObject<VeinFeature> VEIN_FEATURE = MicroMachinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature());
     //todo modify
 
     public VeinFeature(Codec<VeinFeatureConfig> configFactoryIn) {
@@ -65,7 +53,7 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
     }
 
     private void generateVein(LevelAccessor worldIn, BlockPos pos, Random rand, VeinFeatureConfig config) {
-        int oreStratum = config.getOreStratum();
+        int oreStratum = config.getOreLayers();
         int stoneHeight = config.getStoneHeight();
         int oreDepositHeight = config.getOreDepositHeight();
         int range = config.getRange();
