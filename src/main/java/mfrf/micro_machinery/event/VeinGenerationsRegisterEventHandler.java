@@ -2,7 +2,6 @@ package mfrf.micro_machinery.event;
 
 import mfrf.micro_machinery.worldgen.VeinFeature;
 import mfrf.micro_machinery.worldgen.VeinFeatureConfig;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.placement.ChanceRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
@@ -19,16 +18,17 @@ import java.util.List;
 public class VeinGenerationsRegisterEventHandler {
     public static List<VeinFeatureConfig> registerys = new ArrayList<>();
 
-    public VeinGenerationsRegisterEventHandler(VeinFeatureConfig config) {
+    public static VeinFeatureConfig addConfig(VeinFeatureConfig config) {
         registerys.add(config);
+        return config;
     }
 
     @SubscribeEvent
     public static void onEvent(FMLCommonSetupEvent event) {
         registerys.forEach((config) -> {
-            for (Biome biome : ForgeRegistries.BIOMES) {
-                biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, VeinFeature.VEIN_FEATURE.get().withConfiguration(config).withPlacement(Placement.CHANCE_RANGE.configure(new ChanceRangeConfig(config.getVeinGenChance().floatValue(),config.getMinHeight(), config.getVeinHeight()+config.getStoneHeight(),config.getMaxHeight()))));
-            }
+//            for (Biome biome : ForgeRegistries.FEATURES) {
+//                biome(GenerationStage.Decoration.SURFACE_STRUCTURES, VeinFeature.VEIN_FEATURE.get().withConfiguration(config).withPlacement(Placement.CHANCE_RANGE.configure(new ChanceRangeConfig(config.getVeinGenChance().floatValue(),config.getMinHeight(), config.getVeinHeight()+config.getStoneHeight(),config.getMaxHeight()))));
+//            }
         });
     }
 }

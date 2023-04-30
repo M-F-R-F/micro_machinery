@@ -1,11 +1,13 @@
 package mfrf.micro_machinery.utils;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,16 +19,16 @@ public class RandomUtils {
         return d <= chance;
     }
 
-    public static BlockState outputRandmonBlockByList(Random rand, Map<Double, Block> map) {
+    public static BlockState outputRandmonBlockByList(Random rand, List<Pair<Double, Block>> list) {
         Double d = rand.nextDouble();
         Double sum = 0.0d;
-        int size = map.size();
+        int size = list.size();
         int time = 0;
-        for (Map.Entry<Double, Block> entry : map.entrySet()) {
-            sum += entry.getKey();
+        for (Pair<Double, Block> pair : list) {
+            sum += pair.getFirst();
             if (sum >= d || time == size) {
                 sum = 0.0d;
-                return entry.getValue().defaultBlockState();
+                return pair.getSecond().defaultBlockState();
             } else time++;
         }
         return Blocks.STONE.defaultBlockState();

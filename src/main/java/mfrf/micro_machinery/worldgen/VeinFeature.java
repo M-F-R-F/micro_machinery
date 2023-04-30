@@ -1,10 +1,12 @@
 package mfrf.micro_machinery.worldgen;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.utils.RandomUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -15,11 +17,11 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.Map;
+import java.util.List;
 import java.util.Random;
 
 public class VeinFeature extends Feature<VeinFeatureConfig> {
-    public static final RegistryObject<VeinFeature> VEIN_FEATURE = MicroMachinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature());
+    public static final RegistryObject<VeinFeature> VEIN_FEATURE = MicroMachinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature(VeinFeatureConfig.CODEC));
     //todo modify
 
     public VeinFeature(Codec<VeinFeatureConfig> configFactoryIn) {
@@ -59,8 +61,8 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         int range = config.getRange();
         int veinHeight = config.getVeinHeight();
         double generateChancePerOre = config.getGenerateChancePerOre();
-        Predicates predicate = config.getPredicate();
-        Map<Double, Block> oreGenList = config.getOreGenList();
+        List<TagKey<Block>> predicate = config.getPredicate();
+        List<Pair<Double, Block>> oreGenList = config.getOreGenList();
         for (int i = 0; i < oreStratum; i++) {
             for (int j = 0; j < oreDepositHeight; j++) {
 
@@ -84,12 +86,12 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         }
     }
 
-    private void generateMiniVein(LevelAccessor worldIn, Random rand, double generateChancePerOre, Predicates predicate, Map<Double, Block> oreGenList, int y, int x1, int z1, int radius) {
+    private void generateMiniVein(LevelAccessor worldIn, Random rand, double generateChancePerOre, List<TagKey<Block>> predicate, List<Pair<Double, Block>> oreGenList, int y, int x1, int z1, int radius) {
         for (int rx1 = x1 - radius; rx1 <= radius + x1; rx1++) {
             for (int rz1 = z1 - radius; rz1 <= radius + z1; rz1++) {
                 BlockPos position = new BlockPos(rx1, y, rz1);
                 if ((Math.pow((x1 - rx1), 2) + Math.pow((z1 - rz1), 2)) <= Math.pow((radius), 2)) {
-                    if (RandomUtils.outputBooleanByChance(rand, generateChancePerOre) && predicate.test(worldIn.getChunk(position).getBlockState(position))) {
+                    if (RandomUtils.outputBooleanByChance(rand, generateChancePerOre) && predicate.stream().anyMatch(p -> worldIn.getChunk(position).getBlockState(position).is(p))) {
                         setBlock(worldIn, position, RandomUtils.outputRandmonBlockByList(rand, oreGenList));
                     }
 

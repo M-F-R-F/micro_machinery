@@ -61,19 +61,19 @@ public class VeinFeatureConfig implements FeatureConfiguration {
         this.range = range;
     }
 
-    public VeinFeatureConfig(Dynamic<?> dynamic) {
-        this.veinGenChance = dynamic.get("vein_gen_chance").asDouble(0);
-        this.generateChancePerOre = dynamic.get("generate_chance_per_ore").asDouble(0);
-        this.range = dynamic.get("range").asInt(0);
-        this.oreLayers = dynamic.get("ore_stratum").asInt(0);
-        this.oreDepositHeight = dynamic.get("ore_deposit_height").asInt(0);
-        this.stoneHeight = dynamic.get("stone_height").asInt(0);
-        this.minHeight = dynamic.get("min_height").asInt(0);
-        this.veinHeight = dynamic.get("vein_height").asInt(0);
-        this.maxHeight = dynamic.get("max_height").asInt(0);
-        this.oreGenList = dynamic.get("ore_gen_list").asMap(dynamic1 -> dynamic1.asDouble(0), dynamic2 -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(dynamic2.asString(null))));
-        this.predicate = Predicates.valueOf(dynamic.get("predicate").asString("STONE"));
-    }
+//    public VeinFeatureConfig(Dynamic<?> dynamic) {
+//        this.veinGenChance = dynamic.get("vein_gen_chance").asDouble(0);
+//        this.generateChancePerOre = dynamic.get("generate_chance_per_ore").asDouble(0);
+//        this.range = dynamic.get("range").asInt(0);
+//        this.oreLayers = dynamic.get("ore_stratum").asInt(0);
+//        this.oreDepositHeight = dynamic.get("ore_deposit_height").asInt(0);
+//        this.stoneHeight = dynamic.get("stone_height").asInt(0);
+//        this.minHeight = dynamic.get("min_height").asInt(0);
+//        this.veinHeight = dynamic.get("vein_height").asInt(0);
+//        this.maxHeight = dynamic.get("max_height").asInt(0);
+//        this.oreGenList = dynamic.get("ore_gen_list").asMap(dynamic1 -> dynamic1.asDouble(0), dynamic2 -> ForgeRegistries.BLOCKS.getValue(new ResourceLocation(dynamic2.asString(null))));
+//        this.predicate = Predicates.valueOf(dynamic.get("predicate").asString("STONE"));
+//    }
 
     public Double getVeinGenChance() {
         return veinGenChance;
@@ -123,22 +123,20 @@ public class VeinFeatureConfig implements FeatureConfiguration {
         return predicate.stream().map(TagKey::location).collect(Collectors.toList());
     }
 
-    public <T> Dynamic<T> serialize(DynamicOps<T> ops) {
-        ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
-        ImmutableMap.Builder<T, T> ore_gen_list_builder = ImmutableMap.builder();
-        builder.put(ops.createString("vein_gen_chance"), ops.createDouble(veinGenChance));
-        builder.put(ops.createString("generate_chance_per_ore"), ops.createDouble(generateChancePerOre));
-        builder.put(ops.createString("range"), ops.createInt(range));
-        builder.put(ops.createString("ore_stratum"), ops.createInt(oreLayers));
-        builder.put(ops.createString("ore_deposit_height"), ops.createInt(oreDepositHeight));
-        builder.put(ops.createString("stone_height"), ops.createInt(stoneHeight));
-        builder.put(ops.createString("min_height"), ops.createInt(minHeight));
-        builder.put(ops.createString("vein_height"), ops.createInt(veinHeight));
-        oreGenList.forEach((_Double, block) -> ore_gen_list_builder.put(ops.createDouble(_Double), ops.createString(block.getRegistryName().getPath())));
-        builder.put(ops.createString("ore_gen_list"), ops.createMap(ore_gen_list_builder.build()));
-        builder.put(ops.createString("predicate"), ops.createString(predicate.name()));
-        return new Dynamic<>(ops, ops.createMap(builder.build()));
-    }
+//    public <T> Dynamic<T> serialize(DynamicOps<T> ops) {
+//        ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
+//        builder.put(ops.createString("vein_gen_chance"), ops.createDouble(veinGenChance));
+//        builder.put(ops.createString("generate_chance_per_ore"), ops.createDouble(generateChancePerOre));
+//        builder.put(ops.createString("range"), ops.createInt(range));
+//        builder.put(ops.createString("ore_stratum"), ops.createInt(oreLayers));
+//        builder.put(ops.createString("ore_deposit_height"), ops.createInt(oreDepositHeight));
+//        builder.put(ops.createString("stone_height"), ops.createInt(stoneHeight));
+//        builder.put(ops.createString("min_height"), ops.createInt(minHeight));
+//        builder.put(ops.createString("vein_height"), ops.createInt(veinHeight));
+//        builder.put(ops.createString("ore_gen_list"), ops.createMap(oreGenList.stream().map(doubleBlockPair -> Pair.of(doubleBlockPair.getFirst(), doubleBlockPair.getSecond().getRegistryName().toString()))));
+//        builder.put(ops.createString("predicate"), ops.createString(predicate.name()));
+//        return new Dynamic<>(ops, ops.createMap(builder.build()));
+//    }
 
 
 }

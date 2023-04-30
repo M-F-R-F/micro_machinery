@@ -1,24 +1,16 @@
 package mfrf.micro_machinery.worldgen;
 
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraftforge.common.Tags;
 
-import java.util.function.Predicate;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public enum Predicates implements Predicate<BlockState> {
-    OVERWORLD(blockState -> !(blockState.is(Tags.Blocks.NETHERRACK) || blockState.is(Tags.Blocks.END_STONES)) && blockState.is(Tags.Blocks.STONE) || blockState.is(Tags.Blocks.COBBLESTONE)),
-    NETHER(blockState -> blockState.is(Tags.Blocks.NETHERRACK)),
-    END(blockState -> blockState.is(Tags.Blocks.END_STONES));
-
-    private final Predicate<BlockState> predicate;
-
-    Predicates(Predicate<BlockState> predicate) {
-        this.predicate = predicate;
-    }
-
-    @Override
-    public boolean test(BlockState block) {
-        return predicate.test(block);
-    }
+public class Predicates {
+    public static final List<ResourceLocation>
+            OVERWORLD = List.of(Tags.Blocks.STONE, Tags.Blocks.COBBLESTONE, Tags.Blocks.END_STONES, Tags.Blocks.NETHERRACK).stream().map(TagKey::location).collect(Collectors.toList()),
+            NETHER = List.of(Tags.Blocks.NETHERRACK).stream().map(TagKey::location).collect(Collectors.toList()),
+            END = List.of(Tags.Blocks.END_STONES).stream().map(TagKey::location).collect(Collectors.toList());
 
 }
