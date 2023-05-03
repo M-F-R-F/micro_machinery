@@ -6,6 +6,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.placement.ChanceRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -26,9 +27,7 @@ public class VeinGenerationsRegisterEventHandler {
     @SubscribeEvent
     public static void onEvent(FMLCommonSetupEvent event) {
         registerys.forEach((config) -> {
-//            for (Biome biome : ForgeRegistries.FEATURES) {
-//                biome(GenerationStage.Decoration.SURFACE_STRUCTURES, VeinFeature.VEIN_FEATURE.get().withConfiguration(config).withPlacement(Placement.CHANCE_RANGE.configure(new ChanceRangeConfig(config.getVeinGenChance().floatValue(),config.getMinHeight(), config.getVeinHeight()+config.getStoneHeight(),config.getMaxHeight()))));
-//            }
+            //todo data generator
         });
     }
 }
