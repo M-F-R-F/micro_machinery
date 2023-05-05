@@ -1,24 +1,20 @@
 package mfrf.micro_machinery.gui;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
 
 import javax.annotation.Nullable;
 
-public abstract class ContainerBase extends Container {
+public abstract class ContainerBase extends AbstractContainerMenu {
 
-    protected ContainerBase(@Nullable ContainerType<?> type, int id) {
+    protected ContainerBase(@Nullable MenuType<?> type, int id) {
         super(type, id);
     }
 
-    @Override
-    public abstract boolean canInteractWith(Player playerIn);
 
-    protected void drawInventory(int x, int y, IInventory inventory) {
+    protected void drawInventory(int x, int y, Container inventory) {
         for (int i = 0; i < 9; i++) {
             this.addSlot(new Slot(inventory, i, 8 + i * 18, y + 59));
         }
@@ -30,8 +26,4 @@ public abstract class ContainerBase extends Container {
         }
     }
 
-    @Override
-    public ItemStack transferStackInSlot(Player p_82846_1_, int p_82846_2_) {
-     return ItemStack.EMPTY;
-    }
 }

@@ -38,7 +38,7 @@ public class ButtonBase extends Button {
             Minecraft mc = Minecraft.getInstance();
             mc.getTextureManager().bindTexture(MODULES);
             FontRenderer fontrenderer = mc.fontRenderer;
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             if (isPressable(mouseX, mouseY)) {
                 blit(this.x, this.y, holdTextureX, holdTextureY, this.width, this.height);
             } else {
