@@ -3,14 +3,9 @@ package mfrf.micro_machinery.recipes.klin;
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registeried_lists.RegisteredRecipeSerializers;
-import net.minecraft.item.crafting.RecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.RecipeSerializer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -131,9 +126,8 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
             if (isSingle) {
                 JsonObject inputIfSingle = json.getAsJsonObject("inputIfSingle");
                 Ingredient input = Ingredient.fromJson(inputIfSingle);
-                result.get(recipeId).getAsInt();
-                return new KlinItemToFluidRecipe(true, meltTime, Ingredient.EMPTY, 0, Ingredient.EMPTY, 0, input, inputIfSingle, "count"),
-                //todo fixit
+                int count = json.get("count").getAsInt();
+                //todo 连机器一起重写
             } else {
                 JsonObject input = json.getAsJsonObject("input");
                 JsonObject input1 = GsonHelper.getAsJsonObject(input, "input1");
@@ -141,8 +135,6 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
                 Ingredient input1Ingredient = Ingredient.fromJson(input1);
                 Ingredient input2Ingredient = Ingredient.fromJson(input2);
 
-                return new KlinItemToFluidRecipe(false, meltTime, input1Ingredient, input1, "count"),
-                input2Ingredient, GsonHelper.getAsInt(input2, "count"), Ingredient.EMPTY, 0, result.get(recipeId).getAsInt();
             }
 
         }
