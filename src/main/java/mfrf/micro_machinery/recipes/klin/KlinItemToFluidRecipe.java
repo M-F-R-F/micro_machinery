@@ -119,22 +119,22 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<KlinItemToFluidRecipe> {
         @Override
         public KlinItemToFluidRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            JsonObject output = json.getAsJsonObject("output");
+            JsonObject output = GsonHelper.getAsJsonObject(json, "output");
             boolean isSingle = GsonHelper.getAsBoolean(json, "isSingle");
-            int meltTime = json.get("meltTime").getAsInt();
-            FluidStack result = new FluidStack(RecipeHelper.getFluidByName(GsonHelper.getAsString(output, "fluidName")), output.get("amount").getAsInt());
+            int meltTime = GsonHelper.getAsInt(json, "meltTime");
+            FluidStack result = new FluidStack(RecipeHelper.getFluidByName(GsonHelper.getAsString(output, "fluidName")), GsonHelper.getAsInt(output, "amount"));
             if (isSingle) {
-                JsonObject inputIfSingle = json.getAsJsonObject("inputIfSingle");
+                JsonObject inputIfSingle = GsonHelper.getAsJsonObject(json, "inputIfSingle");
                 Ingredient input = Ingredient.fromJson(inputIfSingle);
-                int count = json.get("count").getAsInt();
-                //todo 连机器一起重写
+                return new KlinItemToFluidRecipe(true, meltTime, Ingredient.EMPTY, 0, Ingredient.EMPTY, 0, input, GsonHelper.getAsInt(inputIfSingle, "count"), result, recipeId);
             } else {
-                JsonObject input = json.getAsJsonObject("input");
+                JsonObject input = GsonHelper.getAsJsonObject(json, "input");
                 JsonObject input1 = GsonHelper.getAsJsonObject(input, "input1");
                 JsonObject input2 = GsonHelper.getAsJsonObject(input, "input2");
                 Ingredient input1Ingredient = Ingredient.fromJson(input1);
                 Ingredient input2Ingredient = Ingredient.fromJson(input2);
 
+                return new KlinItemToFluidRecipe(false, meltTime, input1Ingredient, GsonHelper.getAsInt(input1, "count"), input2Ingredient, GsonHelper.getAsInt(input2, "count"), Ingredient.EMPTY, 0, result, recipeId);
             }
 
         }
