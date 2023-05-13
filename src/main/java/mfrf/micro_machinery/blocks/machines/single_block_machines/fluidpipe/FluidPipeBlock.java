@@ -77,9 +77,6 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        //todo 管道等级
-        //todo 重写
-//        builder.add(CABLE_MATERIAL_ENUM_PROPERTY);
         builder.add(UP_ISCONNECTED);
         builder.add(DOWN_ISCONNECTED);
         builder.add(SOUTH_ISCONNECTED);

@@ -193,7 +193,6 @@ public class RegisteredBlocks {
 
     /**
      * new system of multi block
-     * todo fill data
      */
     //part
     public static final MMBlockMultiBlockPart MULTIBLOCK_PART = new MMBlockMultiBlockPart(Block.Properties.of(Material.METAL).harvestLevel(-1).hardnessAndResistance(-1), "part", true);

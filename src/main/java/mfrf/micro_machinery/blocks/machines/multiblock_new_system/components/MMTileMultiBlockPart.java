@@ -61,7 +61,7 @@ public class MMTileMultiBlockPart extends BlockEntity {
         return InteractionResult.SUCCESS;
     }
 
-    //todo check
+    //todo check onharvest
     public void onBlockHarvest(LevelAccessor worldIn, BlockPos pos, BlockState state) {
         ((MMTileMainPartBase) worldIn.getBlockEntity(mainPart)).onBlockHarvest(worldIn, pos, state);
     }
