@@ -329,7 +329,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
         return itemhandler;
     }
 
-//    public static class KlinProgressBarNumArray implements IIntArray {
+//    public static class KlinProgressBarNumArray implements IIntArray { //todo renew system
 //        private final int[] iArray = {0, 0, 0, 0};
 //
 //        @Override
