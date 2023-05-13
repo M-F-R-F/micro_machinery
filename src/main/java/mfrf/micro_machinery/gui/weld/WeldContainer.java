@@ -3,11 +3,13 @@ package mfrf.micro_machinery.gui.weld;
 import mfrf.micro_machinery.blocks.machines.single_block_machines.weld.TileWeld;
 import mfrf.micro_machinery.gui.ContainerBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.entity.player.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 

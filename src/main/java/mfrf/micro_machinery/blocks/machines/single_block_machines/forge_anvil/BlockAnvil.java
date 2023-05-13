@@ -4,8 +4,6 @@ import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
 import mfrf.micro_machinery.enums.EnumAnvilType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;

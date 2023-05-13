@@ -4,22 +4,21 @@ import mfrf.micro_machinery.blocks.MMBlockBase;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.Shapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
@@ -27,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FluidPipeBlock extends MMBlockBase {
+public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
     //todo clear blockItem by shift+rightClick
     public static final Map<Direction, VoxelShape> DIRECTION_VOXEL_SHAPE_MAP = new HashMap<>();
     public static final Map<Direction, EnumProperty<EnumFluidPipeState>> DIRECTION_ENUM_PROPERTY_MAP = new HashMap<>();
@@ -53,15 +52,10 @@ public class FluidPipeBlock extends MMBlockBase {
         ).setValue(NORTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(WEST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(EAST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(BLOCKED, false));
     }
 
+    @org.jetbrains.annotations.Nullable
     @Override
-    public boolean hasBlockEntity(BlockState state) {
-        return true;
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return getState(context.getWorld(), context.getBlockPos());
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return getState(pContext.getLevel(), pContext.getClickedPos());
     }
 
     public BlockState getState(Level world, BlockPos pos) {
@@ -117,28 +111,28 @@ public class FluidPipeBlock extends MMBlockBase {
     }
 
     @Override
-    public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-        if (!world.isClientSide() && world instanceof World) {
+    public void onNeighborChange(BlockState state, LevelReader world, BlockPos pos, BlockPos neighbor) {
+        if (!world.isClientSide() && world instanceof Level) {
             BlockEntity tileEntityNeighbor = world.getBlockEntity(neighbor);
-            Direction facingFromVector = Direction.getFacingFromVector(neighbor.getX() - pos.getX(), neighbor.getY() - pos.getY(), neighbor.getZ() - pos.getZ());
+            Direction facingFromVector = Direction.getNearest(neighbor.getX() - pos.getX(), neighbor.getY() - pos.getY(), neighbor.getZ() - pos.getZ());
             EnumProperty<EnumFluidPipeState> enumPipeStateEnumProperty = DIRECTION_ENUM_PROPERTY_MAP.get(facingFromVector);
             EnumFluidPipeState currentValue = state.getValue(enumPipeStateEnumProperty);
 
             if (!(currentValue == EnumFluidPipeState.CLOSE || currentValue == EnumFluidPipeState.OPEN)) {
                 if (world.getBlockState(neighbor).getBlock() instanceof FluidPipeBlock) {
                     if (currentValue != EnumFluidPipeState.AUTO_TRUE) {
-                        setStateAndUpdateNeighbor((World) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
+                        setStateAndUpdateNeighbor((Level) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE));
 //                        ((World) world).setBlockAndUpdate(pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE))
                     }
                 } else if (tileEntityNeighbor != null) {
                     if (tileEntityNeighbor.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facingFromVector.getOpposite()).isPresent()) {
                         if (currentValue != EnumFluidPipeState.AUTO_CONNECTED) {
-                            setStateAndUpdateNeighbor((World) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_CONNECTED));
+                            setStateAndUpdateNeighbor((Level) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_CONNECTED));
                         }
                     }
                 } else {
                     if (currentValue != EnumFluidPipeState.AUTO_FALSE) {
-                        setStateAndUpdateNeighbor((World) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_FALSE));
+                        setStateAndUpdateNeighbor((Level) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_FALSE));
                     }
                 }
             }
@@ -148,18 +142,18 @@ public class FluidPipeBlock extends MMBlockBase {
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-//        worldIn.notifyNeighborsOfStateChange(pos, state.getBlock());
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @org.jetbrains.annotations.Nullable LivingEntity pPlacer, ItemStack pStack) {
+        super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
     }
 
-    private boolean setStateAndUpdateNeighbor(World world, BlockPos pos, BlockState state) {
-        boolean b = world.setBlockState(pos, state, 22);
+    private boolean setStateAndUpdateNeighbor(Level world, BlockPos pos, BlockState state) {
+        boolean b = world.setBlock(pos, state, 22);
         return b;
     }
 
+
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
 
         VoxelShape shape = CENTER_SHAPE;
 
@@ -175,7 +169,7 @@ public class FluidPipeBlock extends MMBlockBase {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
 
         VoxelShape shape = CENTER_SHAPE;
 
@@ -189,5 +183,6 @@ public class FluidPipeBlock extends MMBlockBase {
 
         return shape;
     }
+
 }
 
