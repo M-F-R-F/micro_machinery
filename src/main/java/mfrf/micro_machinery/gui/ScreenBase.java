@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -76,7 +77,7 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
         if (!fluid.isEmpty() && (mouthy - (topPos + y)) <= tankHeight && (mouthy - (topPos + y)) >= 0 && (mouthx - (leftPos + x)) <= tankWidth && (mouthx - (leftPos + x)) >= 0) {
             String name = fluid.getDisplayName().getString();
             String[] info = new String[]{I18n.get("gui.fluid.name", name), ChatFormatting.GRAY + I18n.get("gui.fluid.amount", amount, max)};
-            this.renderTooltip(stack, Arrays.asList(info), mouthx, mouthy);//todo format
+            this.renderTooltip(stack, Arrays.asList(), mouthx, mouthy);//todo format
         }
     }
 
@@ -84,7 +85,7 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
         if ((mouseY - (topPos + y)) <= barHeight && (mouseY - (topPos + y)) >= 0 && (mouseX - (leftPos + x)) <= barWidth && (mouseX - (leftPos + x)) >= 0) {
             int current = container.getCurrent();
             int max = container.getMaxEnergyStored();
-            this.renderTooltip(stack, current + "/" + max + " FE", mouseX, mouseY);
+            this.renderTooltip(stack, new TextComponent(current + "/" + max + " FE"), mouseX, mouseY);
         }
     }
 

@@ -1,6 +1,7 @@
 package mfrf.micro_machinery.gui;
 
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
@@ -14,7 +15,7 @@ public abstract class ContainerBase extends AbstractContainerMenu {
     }
 
 
-    protected void drawInventory(int x, int y, Container inventory) {
+    protected void drawInventory(int x, int y, Inventory inventory) {
         for (int i = 0; i < 9; i++) {
             this.addSlot(new Slot(inventory, i, 8 + i * 18, y + 59));
         }

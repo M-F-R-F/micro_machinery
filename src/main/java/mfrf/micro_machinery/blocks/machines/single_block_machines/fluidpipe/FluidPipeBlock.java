@@ -6,8 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.Shapes;
@@ -19,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -83,7 +82,7 @@ public class FluidPipeBlock extends MMBlockBase {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         //todo 管道等级
         //todo 重写
 //        builder.add(CABLE_MATERIAL_ENUM_PROPERTY);
@@ -107,14 +106,14 @@ public class FluidPipeBlock extends MMBlockBase {
         DIRECTION_VOXEL_SHAPE_MAP.put(Direction.NORTH, NORTH_SHAPE);
         DIRECTION_VOXEL_SHAPE_MAP.put(Direction.WEST, WEST_SHAPE);
         DIRECTION_VOXEL_SHAPE_MAP.put(Direction.EAST, EAST_SHAPE);
-        super.fillStateContainer(builder);
+        super.createBlockStateDefinition(builder);
     }
 
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new FluidPipeTile(pPos, pState)
+        return new FluidPipeTile(pPos, pState);
     }
 
     @Override

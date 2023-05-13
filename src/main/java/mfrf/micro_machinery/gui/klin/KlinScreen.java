@@ -1,38 +1,40 @@
 package mfrf.micro_machinery.gui.klin;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
 import mfrf.micro_machinery.gui.ScreenBase;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.IIntArray;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.IIntArray;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.DataSlot;
 
 public class KlinScreen extends ScreenBase<KlinContainer> {
 
-    public KlinScreen(KlinContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public KlinScreen(KlinContainer screenContainer, Inventory inv, Component titleIn) {
         super(screenContainer, inv, titleIn, new ResourceLocation(MicroMachinery.MODID, "textures/gui/klin.png"), 176, 166);
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        TileKlin klin = container.getKlin();
-        initBase();
-        super.render(mouseX, mouseY, partialTicks);
+    public void m_6305_(PoseStack pPoseStack, int mouseX, int mouseY, float partialTicks) {
+        TileKlin klin = menu.getKlin();
+        initBase(pPoseStack);
+        super.m_6305_(pPoseStack, mouseX, mouseY, partialTicks);
         if (klin.issmelting()) {
-            renderModule(78, 31, 70, 0, calcProgressBarWidth(), 16);
+            renderModule(pPoseStack, 78, 31, 70, 0, calcProgressBarWidth(), 16);
         }
         if (klin.isBurning()) {
-            renderModule(82, 29, 56, 12, 14, calcBurnProgressBarHeight());
+            renderModule(pPoseStack, 82, 29, 56, 12, 14, calcBurnProgressBarHeight());
         }
-        renderFluidTank(klin.getFluidHandler(), 152, 63, 16, 60);
-        renderTankGauge(152, 3, 16, 60);
-        renderFluidTankTooltip(klin.getFluidHandler(), mouseX, mouseY, 152, 3, 16, 60);
-        renderHoveredToolTip(mouseX, mouseY);
+        renderFluidTank(pPoseStack, klin.getFluidHandler(), 152, 63, 16, 60);
+        renderTankGauge(pPoseStack, 152, 3, 16, 60);
+        renderFluidTankTooltip(pPoseStack, klin.getFluidHandler(), mouseX, mouseY, 152, 3, 16, 60);
+        renderTooltip(pPoseStack, mouseX, mouseY);
     }
 
     private int calcProgressBarWidth() {
-        IIntArray intArray = container.getIntArray();
+        DataSlot intArray = menu.getIntArray();
         int currentMeltTime = intArray.get(KlinArrayEnum.CURRENT_MELTTIME.getNum());
         int MaxMeltTime = intArray.get(KlinArrayEnum.MELT_TIME.getNum());
         return Math.round(22f * (float) currentMeltTime / (float) MaxMeltTime);

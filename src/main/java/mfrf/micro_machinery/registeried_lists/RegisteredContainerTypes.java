@@ -13,10 +13,12 @@ import mfrf.micro_machinery.gui.lathe.LatheContainer;
 import mfrf.micro_machinery.gui.weld.WeldContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class RegisteredContainerTypes {
     public static final DeferredRegister<MenuType<?>> CONTAINER_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.CONTAINERS, MicroMachinery.MODID);

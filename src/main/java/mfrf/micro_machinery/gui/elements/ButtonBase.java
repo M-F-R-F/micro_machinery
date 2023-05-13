@@ -1,12 +1,15 @@
 package mfrf.micro_machinery.gui.elements;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.gui.ScreenBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ButtonBase extends Button {
@@ -18,7 +21,7 @@ public class ButtonBase extends Button {
     private int textureX;
     private int textureY;
 
-    public ButtonBase(int x, int y, int width, int height, String buttonText, String name, int holdTextureX, int holdTextureY, int textureX, int textureY, IPressable onPress, ScreenBase screen) {
+    public ButtonBase(int x, int y, int width, int height, Component buttonText, String name, int holdTextureX, int holdTextureY, int textureX, int textureY, OnPress onPress, ScreenBase screen) {
         super(x, y, width, height, buttonText, onPress);
         this.holdTextureX = holdTextureX;
         this.holdTextureY = holdTextureY;
@@ -33,20 +36,20 @@ public class ButtonBase extends Button {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
+    public void m_6305_(PoseStack pPoseStack, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
-            mc.getTextureManager().bindTexture(MODULES);
-            FontRenderer fontrenderer = mc.fontRenderer;
+            RenderSystem.setShaderTexture(0, MODULES);
+//            Font font = mc.font;
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             if (isPressable(mouseX, mouseY)) {
-                blit(this.x, this.y, holdTextureX, holdTextureY, this.width, this.height);
+                blit(pPoseStack, this.x, this.y, holdTextureX, holdTextureY, this.width, this.height);
             } else {
-                blit(this.x, this.y, textureX, textureY, this.width, this.height);
+                blit(pPoseStack, this.x, this.y, textureX, textureY, this.width, this.height);
             }
             if (isMouseOver(mouseX, mouseY)) {
                 screen.renderButtonToolTip = () -> {
-                    screen.renderTooltip(I18n.format(this.name), mouseX, mouseY);
+                    screen.renderTooltip(pPoseStack, I18n.get(this.name), mouseX, mouseY);//todo fixit
                     screen.renderButtonToolTip = null;
                 };
             }

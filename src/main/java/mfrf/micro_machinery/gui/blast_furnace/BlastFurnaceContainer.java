@@ -4,7 +4,7 @@ import mfrf.micro_machinery.blocks.machines.multi_block_old_system.multi_block_m
 import mfrf.micro_machinery.gui.ContainerBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public class BlastFurnaceContainer extends ContainerBase {
     private TileBlastFurnace furnace;
 
-    public BlastFurnaceContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
+    public BlastFurnaceContainer(int id, Inventory Container, BlockPos pos, Level world) {
         super(RegisteredContainerTypes.BLAST_FURNACE_CONTAINER.get(), id);
         this.furnace = (TileBlastFurnace) world.getBlockEntity(pos);
 
@@ -30,7 +30,7 @@ public class BlastFurnaceContainer extends ContainerBase {
             }
         });
 
-        drawInventory(7, 84, playerInventory);
+        drawInventory(7, 84, Container);
     }
 
     public TileBlastFurnace getFurnace() {
@@ -38,12 +38,9 @@ public class BlastFurnaceContainer extends ContainerBase {
     }
 
     @Override
-    public boolean canInteractWith(Player playerIn) {
+    public boolean stillValid(Player playerIn) {
         return furnace.isUsableByPlayer(playerIn);
     }
 
-    @Override
-    public ItemStack transferStackInSlot(Player playerIn, int index) {
-        return ItemStack.EMPTY;
-    }
+
 }

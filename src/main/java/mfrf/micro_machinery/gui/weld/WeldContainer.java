@@ -4,7 +4,7 @@ import mfrf.micro_machinery.blocks.machines.single_block_machines.weld.TileWeld;
 import mfrf.micro_machinery.gui.ContainerBase;
 import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.World;
@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public class WeldContainer extends ContainerBase {
     private final TileWeld weld;
 
-    public WeldContainer(int id, PlayerInventory playerInventory, BlockPos pos, World world) {
+    public WeldContainer(int id, Inventory Container, BlockPos pos, Level world) {
         super(RegisteredContainerTypes.WELD_CONTAINER.get(), id);
         this.weld = (TileWeld) world.getBlockEntity(pos);
         ItemStackHandler input = weld.getInput();
@@ -33,7 +33,7 @@ public class WeldContainer extends ContainerBase {
                 return false;
             }
         });
-        drawInventory(8, 96, playerInventory);
+        drawInventory(8, 96, Container);
     }
 
     public TileWeld getWeld() {
@@ -41,12 +41,9 @@ public class WeldContainer extends ContainerBase {
     }
 
     @Override
-    public boolean canInteractWith(Player playerIn) {
+    public boolean stillValid(Player playerIn) {
         return weld.isUsableByPlayer(playerIn);
     }
 
-    @Override
-    public ItemStack transferStackInSlot(Player playerIn, int index) {
-        return ItemStack.EMPTY;
-    }
+
 }
