@@ -23,9 +23,9 @@ import java.util.function.Function;
 
 public class MMFluidBase {
     public static List<MMFluidBase> fluidBaseList = new ArrayList<>();
-    private static DeferredRegister<Fluid> FLUID_REGISTER = MicroMachinery.FLUID_REGISTER;
-    private static DeferredRegister<Block> BLOCK_REGISTER = MicroMachinery.BLOCK_REGISTER;
-    private static DeferredRegister<Item> ITEM_REGISTER = MicroMachinery.ITEM_REGISTER;
+    private static final DeferredRegister<Fluid> FLUID_REGISTER = MicroMachinery.FLUID_REGISTER;
+    private static final DeferredRegister<Block> BLOCK_REGISTER = MicroMachinery.BLOCK_REGISTER;
+    private static final DeferredRegister<Item> ITEM_REGISTER = MicroMachinery.ITEM_REGISTER;
     public final ResourceLocation fluid_resource_location;
     public final ResourceLocation fluid_flow_resource_location;
     private final String name;

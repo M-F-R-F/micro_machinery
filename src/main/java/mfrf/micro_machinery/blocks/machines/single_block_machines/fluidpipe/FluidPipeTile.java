@@ -124,7 +124,7 @@ public class FluidPipeTile extends MMTileBase {
             BlockEntity offset = level.getBlockEntity(worldPosition.m_142300_(direction));
             if (offset != null && offset.getType() == RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
                 FluidPipeTile destPipe = (FluidPipeTile) offset;
-                if (!destPipe.blocked(getBlockState()) && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
+                if (!blocked(getBlockState()) && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
                     destPipe.block(this.unBlock());
                 }
             }
@@ -146,7 +146,7 @@ public class FluidPipeTile extends MMTileBase {
                         if (generateCount == 0) {
                             thisUse = Math.min(receiveAmount, fluidCrashRecipe.fluidAUsage);
                             receivedUse = Math.min(receiveAmount, fluidCrashRecipe.fluidBUsage);
-                            if (!this.blocked(getBlockState())) {
+                            if (!blocked(getBlockState())) {
                                 generateTrash = true;
                                 generateCount = 1;
                             }
@@ -161,7 +161,7 @@ public class FluidPipeTile extends MMTileBase {
                         if (generateCount == 0) {
                             thisUse = Math.min(receiveAmount, fluidCrashRecipe.fluidBUsage);
                             receivedUse = Math.min(receiveAmount, fluidCrashRecipe.fluidAUsage);
-                            if (!this.blocked(getBlockState())) {
+                            if (!blocked(getBlockState())) {
                                 generateTrash = true;
                                 generateCount = 1;
                             }
@@ -271,8 +271,7 @@ public class FluidPipeTile extends MMTileBase {
             BlockPos pos = getBlockPos();
             BlockPos offset = pos.m_142300_(value);
             BlockState blockState = level.getBlockState(offset);
-            if (blockState.getBlock() instanceof FluidPipeBlock) {
-                FluidPipeBlock block = (FluidPipeBlock) blockState.getBlock();
+            if (blockState.getBlock() instanceof FluidPipeBlock block) {
                 level.setBlock(pos, block.getState(level, pos), 18);
             }
         }

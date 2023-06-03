@@ -34,10 +34,7 @@ public class RecipeHelper {
 
     public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
         if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
-            boolean isSingle = false;
-            if (stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.equals(stackInSlot2, true)) {
-                isSingle = true;
-            }
+            boolean isSingle = stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.equals(stackInSlot2, true);
             List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, RegisteredRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
             for (KlinItemToFluidRecipe klinItemToFluidRecipe : collect) {
                 if (klinItemToFluidRecipe.isIssingle() == isSingle) {
@@ -192,10 +189,7 @@ public class RecipeHelper {
         if (stackinslot.isEmpty()) {
             return true;
         }
-        if (stackinslot.getItem() == output.getItem() && stackinslot.getCount() + output.getCount() <= stackinslot.getMaxStackSize()) {
-            return true;
-        }
-        return false;
+        return stackinslot.getItem() == output.getItem() && stackinslot.getCount() + output.getCount() <= stackinslot.getMaxStackSize();
     }
 
     public static Fluid getFluidByName(String name) {

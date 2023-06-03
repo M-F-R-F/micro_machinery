@@ -22,6 +22,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
@@ -77,7 +78,7 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
         if (!fluid.isEmpty() && (mouthy - (topPos + y)) <= tankHeight && (mouthy - (topPos + y)) >= 0 && (mouthx - (leftPos + x)) <= tankWidth && (mouthx - (leftPos + x)) >= 0) {
             String name = fluid.getDisplayName().getString();
             String[] info = new String[]{I18n.get("gui.fluid.name", name), ChatFormatting.GRAY + I18n.get("gui.fluid.amount", amount, max)};
-            this.renderTooltip(stack, Arrays.asList(), mouthx, mouthy);//todo format
+            this.renderTooltip(stack, List.of(), mouthx, mouthy);//todo format
         }
     }
 

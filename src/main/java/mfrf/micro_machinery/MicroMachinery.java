@@ -7,6 +7,7 @@ import mfrf.micro_machinery.items.MMHammerBase;
 import mfrf.micro_machinery.items.MMItemBase;
 import mfrf.micro_machinery.items.MMSwordBase;
 import mfrf.micro_machinery.registeried_lists.*;
+import mfrf.micro_machinery.registeried_lists.strctures.StructGenerate2Point0;
 import mfrf.micro_machinery.registeried_lists.strctures.Veins;
 import mfrf.micro_machinery.worldgen.VeinFeature;
 import net.minecraft.world.item.BlockItem;
@@ -62,6 +63,7 @@ public class MicroMachinery {
         BLOCK_REGISTER.register(modEventBus);
         FLUID_REGISTER.register(modEventBus);
         FEATURE_REGISTER.register(modEventBus);
+        StructGenerate2Point0.STRUCTURES.register(modEventBus);
         RegisteredBlockEntityTypes.TILE_ENTITY_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         RegisteredContainerTypes.CONTAINER_TYPE_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         RegisteredRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());

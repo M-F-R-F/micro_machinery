@@ -13,7 +13,7 @@ public enum EnumAnvilType implements StringRepresentable {
     private final String name;
     private final SoundEvent soundType;
 
-    private EnumAnvilType(int rank, String name, SoundEvent soundType) {
+    EnumAnvilType(int rank, String name, SoundEvent soundType) {
         this.rank = rank;
         this.name = name;
         this.soundType = soundType;

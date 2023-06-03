@@ -84,8 +84,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
             int sum = 0;
             for (Direction direction : cableSide) {
                 BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
-                if (tileEntity instanceof TileEnergyCable) {
-                    TileEnergyCable tileEnergyCable = (TileEnergyCable) tileEntity;
+                if (tileEntity instanceof TileEnergyCable tileEnergyCable) {
                     int currentEnergy = tileEnergyCable.getCurrentEnergy();
                     if (currentEnergy < this.currentEnergy) {
                         int difference = (this.currentEnergy - currentEnergy) / 2;

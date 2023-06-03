@@ -20,7 +20,7 @@ public class TickRegularTimerPartialSerializeAbleFactory<T> {
 
     public class TickRegularTimerPartialSerializeAble implements INBTSerializable<CompoundTag> {
         public int tick = 0;
-        private int interval = 0;
+        private final int interval = 0;
 
         TickRegularTimerPartialSerializeAble() {
         }

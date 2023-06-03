@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 
 public class ConfigurableItemSlot implements IItemHandler, INBTSerializable<CompoundTag> {
 
-    private LinkedList<ItemStack> stacks = new LinkedList<>();
+    private final LinkedList<ItemStack> stacks = new LinkedList<>();
     private int max_stack_size;
 
     public ConfigurableItemSlot(int max_stack_size) {

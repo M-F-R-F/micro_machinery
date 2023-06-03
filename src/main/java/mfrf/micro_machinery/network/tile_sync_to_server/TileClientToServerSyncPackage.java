@@ -12,8 +12,8 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class TileClientToServerSyncPackage {
-    private CompoundTag nbt;
-    private BlockPos pos;
+    private final CompoundTag nbt;
+    private final BlockPos pos;
 
     public TileClientToServerSyncPackage(FriendlyByteBuf buffer) {
         nbt = buffer.readAnySizeNbt();

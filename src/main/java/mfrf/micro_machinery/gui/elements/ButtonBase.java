@@ -15,11 +15,11 @@ import net.minecraft.resources.ResourceLocation;
 public class ButtonBase extends Button {
     protected final ResourceLocation MODULES = new ResourceLocation(MicroMachinery.MODID, "textures/gui/module.png");
     private final String name;
-    private ScreenBase screen;
-    private int holdTextureX;
-    private int holdTextureY;
-    private int textureX;
-    private int textureY;
+    private final ScreenBase screen;
+    private final int holdTextureX;
+    private final int holdTextureY;
+    private final int textureX;
+    private final int textureY;
 
     public ButtonBase(int x, int y, int width, int height, Component buttonText, String name, int holdTextureX, int holdTextureY, int textureX, int textureY, OnPress onPress, ScreenBase screen) {
         super(x, y, width, height, buttonText, onPress);

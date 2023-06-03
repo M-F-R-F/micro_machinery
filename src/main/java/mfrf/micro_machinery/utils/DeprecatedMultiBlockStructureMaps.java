@@ -50,8 +50,8 @@ public class DeprecatedMultiBlockStructureMaps {
 
     public static class MultiBlockPosBox {
 
-        private ArrayList<BlockNode> blockNodes;
-        private HashMap<String, AccessoryNode> accessories;
+        private final ArrayList<BlockNode> blockNodes;
+        private final HashMap<String, AccessoryNode> accessories;
 
         MultiBlockPosBox(ArrayList<BlockNode> blockNodes, HashMap<String, AccessoryNode> accessories) {
             this.blockNodes = blockNodes;
@@ -103,8 +103,7 @@ public class DeprecatedMultiBlockStructureMaps {
 
             for (BlockNode blockNode : blockNodes) {
                 BlockPos blockPos = pos.m_141952_(blockNode.pos);
-                if (blockNode instanceof AccessoryNode) {
-                    AccessoryNode node = (AccessoryNode) blockNode;
+                if (blockNode instanceof AccessoryNode node) {
                     if (!node.test(world.getBlockState(blockPos))) {
                         return false;
                     }

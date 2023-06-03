@@ -26,7 +26,7 @@ import java.util.Map;
 public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static HashMap<String, StructureMap> structures = null;
-    private static HashMap<String, MMBlockMainPartBase> structure_main_block_maps = new HashMap<>();
+    private static final HashMap<String, MMBlockMainPartBase> structure_main_block_maps = new HashMap<>();
 
     public MultiblockStructureMaps() {
         super(GSON, "structures/new_system");
@@ -159,10 +159,9 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
                         if (!vec3iBlockEntry.getKey().equals(Vec3i.ZERO)) {
 
                             BlockPos currentPos = center.m_141952_(vec3iBlockEntry.getKey());
-                            if (!(world.getBlockState(currentPos).getBlock() instanceof MMBlockMultiBlockComponentInterface)) {
+                            if (!(world.getBlockState(currentPos).getBlock() instanceof MMBlockMultiBlockComponentInterface blockComponentInterface)) {
                                 RegisteredBlocks.MULTIBLOCK_PART.pack(world, currentPos, direction, center);
                             } else {
-                                MMBlockMultiBlockComponentInterface blockComponentInterface = (MMBlockMultiBlockComponentInterface) world.getBlockState(currentPos).getBlock();
 
                                 blockComponentInterface.link(center, world, vec3iBlockEntry.getValue().getValue(), currentPos);
                             }
