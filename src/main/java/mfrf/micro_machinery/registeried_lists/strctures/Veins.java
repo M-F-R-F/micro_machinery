@@ -4,8 +4,8 @@ import com.mojang.datafixers.util.Pair;
 import mfrf.micro_machinery.Config;
 import mfrf.micro_machinery.datagen.DataGenHandler;
 import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
-import mfrf.micro_machinery.worldgen.Predicates;
-import mfrf.micro_machinery.worldgen.VeinFeatureConfig;
+import mfrf.micro_machinery.worldgen.vein.Predicates;
+import mfrf.micro_machinery.worldgen.vein.VeinFeatureConfig;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 

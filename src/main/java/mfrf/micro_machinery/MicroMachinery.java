@@ -9,7 +9,7 @@ import mfrf.micro_machinery.items.MMSwordBase;
 import mfrf.micro_machinery.registeried_lists.*;
 import mfrf.micro_machinery.registeried_lists.strctures.StructGenerate2Point0;
 import mfrf.micro_machinery.registeried_lists.strctures.Veins;
-import mfrf.micro_machinery.worldgen.VeinFeature;
+import mfrf.micro_machinery.worldgen.vein.VeinFeature;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -33,7 +33,7 @@ public class MicroMachinery {
     public static final String MODID = "micro_machinery";
     public static final CreativeModeTab MMTAB = new MMTab();
     public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, MODID);
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Fluid> FLUID_REGISTER = DeferredRegister.create(ForgeRegistries.FLUIDS, MODID);

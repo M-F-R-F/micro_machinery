@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.worldgen;
+package mfrf.micro_machinery.worldgen.vein;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;

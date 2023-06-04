@@ -1,17 +1,12 @@
 package mfrf.micro_machinery.datagen;
 
-import mfrf.micro_machinery.worldgen.VeinFeatureConfig;
+import mfrf.micro_machinery.worldgen.vein.VeinFeatureConfig;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.placement.ChanceRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegistryBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenHandler {

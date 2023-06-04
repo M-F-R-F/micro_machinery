@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.worldgen;
+package mfrf.micro_machinery.worldgen.vein;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
