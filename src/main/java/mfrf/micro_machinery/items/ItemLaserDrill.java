@@ -16,7 +16,7 @@
 //import net.minecraft.util.Hand;
 //import net.minecraft.util.math.AABB;
 //import net.minecraft.core.BlockPos;
-//import net.minecraft.util.math.Vec3d;
+//import net.minecraft.util.math.Vec3;
 //import net.minecraft.world.server.ServerWorld;
 //import net.minecraftforge.common.capabilities.ICapabilityProvider;
 //import net.minecraftforge.energy.CapabilityEnergy;
@@ -60,15 +60,15 @@
 //        Hand hand = context.getHand();
 //        Player player = context.getPlayer();
 //        ServerWorld world = ((ServerWorld) context.getWorld());
-//        Vec3d lookVec = player.getLookVec();
-//        Vec3d positionVec = player.getPositionVec();
+//        Vec3 lookVec = player.getLookVec();
+//        Vec3 positionVec = player.getPositionVec();
 //        ItemStack heldItem = player.getItemInHand(hand);
 //
 //        if (!world.isClientSide()) {
 //
 //            if (heldItem.getItem() instanceof ItemLaserDrill) {
 //
-//                Vec3d start = positionVec.add(lookVec.scale(0.3));
+//                Vec3 start = positionVec.add(lookVec.scale(0.3));
 //
 //                AtomicReference<BlockPos> blockPos = null;
 //                heldItem.getCapability(CapabilityEnergy.ENERGY).ifPresent(iEnergyStorage -> {
@@ -77,7 +77,7 @@
 //                        if (world.getDayTime() % 10 == 0) {
 //                            for (int i = 0; i < 20000; i++) {
 //                                //step = 0.8
-//                                Vec3d add = positionVec.add(lookVec.scale(1 + 0.8 * i));
+//                                Vec3 add = positionVec.add(lookVec.scale(1 + 0.8 * i));
 //                                blockPos.set(new BlockPos(add));
 //                                BlockState blockState = world.getBlockState(blockPos.get());
 //                                if (!blockState.isAir()) {
@@ -101,7 +101,7 @@
 //                    }
 //                });
 //                if (blockPos.get() == null) {
-//                    Vec3d end = positionVec.add(lookVec.scale(80));
+//                    Vec3 end = positionVec.add(lookVec.scale(80));
 //                    world.spawnParticle(ParticleTypes.FLAME, start.x, start.y, start.z, 24, end.x, end.y, end.z, 2.5);
 //                }
 //            }
@@ -110,6 +110,6 @@
 //    }
 //
 //
-////    private  nearEntity(Vec3d sampleP, World world, Double range) {
+////    private  nearEntity(Vec3 sampleP, World world, Double range) {
 ////    }
 //}

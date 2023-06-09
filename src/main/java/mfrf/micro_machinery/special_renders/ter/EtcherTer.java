@@ -40,15 +40,15 @@
 //        double y = directionVec.getY() * scale;
 //        double z = directionVec.getZ() * scale;
 //        //====================================================================================================================================================================================================//
-//        matrixStackIn.push();
+//        matrixStackIn.pushPose();
 //        matrixStackIn.translate(x, y, z);
 //        matrixStackIn.translate(0.5, 0, 0.5);
 //        matrixStackIn.rotate(new Quaternion(0, direction == Direction.SOUTH || direction == Direction.NORTH ? direction.getHorizontalAngle() - 90 : direction.getHorizontalAngle() + 90, 0, true));
 //        blockRenderer.renderBlock(RegisteredBlocks.ETCHER_1.defaultBlockState(), matrixStackIn, bufferIn, light, combinedOverlayIn, EmptyModelData.INSTANCE);
-//        matrixStackIn.pop();
+//        matrixStackIn.popPose();
 //        //====================================================================================================================================================================================================//
 //        //====================================================================================================================================================================================================//
-//        matrixStackIn.push();
+//        matrixStackIn.pushPose();
 //        matrixStackIn.translate(0.5, 0, 0.5);
 //        matrixStackIn.translate(x + directionVec.getX() * 0.1, 0.65, z + directionVec.getZ() * 0.1);
 //        matrixStackIn.scale(0.5f, 0.3f, 0.5f);
@@ -56,7 +56,7 @@
 //        matrixStackIn.rotate(new Quaternion(0, direction == Direction.SOUTH || direction == Direction.NORTH ? direction.getHorizontalAngle() - 90 : direction.getHorizontalAngle() + 90, 0, true));
 //        IBakedModel ibakedmodel = itemRenderer.getItemModelWithOverrides(currentItemStackInSlot, tileEntityIn.getWorld(), null);
 //        itemRenderer.renderItem(currentItemStackInSlot, ItemCameraTransforms.TransformType.FIXED, true, matrixStackIn, bufferIn, light, combinedOverlayIn, ibakedmodel);
-//        matrixStackIn.pop();
+//        matrixStackIn.popPose();
 //        //====================================================================================================================================================================================================//
 //
 //    }
