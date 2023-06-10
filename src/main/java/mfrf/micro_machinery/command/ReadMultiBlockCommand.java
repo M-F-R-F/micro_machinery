@@ -8,6 +8,7 @@ import mfrf.micro_machinery.items.DebugTool;
 import mfrf.micro_machinery.utils.MultiblockStructureMaps;
 import mfrf.micro_machinery.utils.NBTUtil;
 import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -19,13 +20,13 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-public class ReadMultiBlockCommand implements Command<CommandSource> {
+public class ReadMultiBlockCommand implements Command<CommandSourceStack> {
     public static ReadMultiBlockCommand Instance = new ReadMultiBlockCommand();
 
     @Override
-    public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        CommandSource source = context.getSource();
-        if (source instanceof ServerPlayer serverPlayer) {
+    public int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        CommandSourceStack source = context.getSource();
+        if (source.getEntityOrException() instanceof ServerPlayer serverPlayer) {
             ItemStack heldItem = serverPlayer.getItemInHand(InteractionHand.MAIN_HAND);
             if (!heldItem.isEmpty() && heldItem.getItem() instanceof DebugTool) {
                 CompoundTag clickedPos = heldItem.getTagElement("clickedPos");
