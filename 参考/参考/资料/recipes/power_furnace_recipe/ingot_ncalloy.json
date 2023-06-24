@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1625,
+ "input": [{
+   "tag": "forge:ingots/nicochrome",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_ncalloy",
+   "amount": 144}],
+ "heat":100}

@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:cating_machine_recipe",
+    "castType": "block",
+
+      "input": {
+        "fluidName": "micro_machinery:fluids/molten_tungsten",
+        "amount": 1440
+    },
+    "output" : {
+      "item" : "micro_machinery:blocktungsten",
+      "count" : 1
+    },
+    "time": 1000
+  }

@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 2163,
+ "input": [{
+   "tag": "forge:ingots/vanadium",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_vanadium",
+   "amount": 144}],
+ "heat":120}

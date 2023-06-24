@@ -1,0 +1,4 @@
+{
+	"parent": "micro_machinery:block/pipe_input",
+	"textures": {"#0": "micro_machinery:blocks/energy3_pipe"}
+}

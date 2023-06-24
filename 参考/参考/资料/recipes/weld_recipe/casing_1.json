@@ -1,0 +1,24 @@
+{
+    "type": "micro_machinery:weld_recipe",
+      "input": [{
+        "tag" : "forge:plates/bronze",
+        "count" : 6
+      },
+      {
+        "item" : "micro_machinery:steel_scaffolding",
+        "count" : 1
+      },
+      {
+        "tag" : "forge:screws/bronze",
+        "count" : 24
+      },
+      {
+        "tag" : "forge:strings/copper",
+        "count" : 4
+      }],
+    "output" : {
+      "item" : "micro_machinery:casing_1",
+      "count" : 1
+    },
+    "time": 160
+  }

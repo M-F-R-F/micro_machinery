@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1570,
+ "input": [{
+   "tag": "forge:plates/stainlesssteel",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_ss",
+   "amount": 144}],
+ "heat":80}

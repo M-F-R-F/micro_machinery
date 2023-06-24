@@ -1,0 +1,57 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "micro_machinery:crafting_shaped/motor_5"
+    ]
+  },
+  "criteria": {
+    "has_wire": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:wires/cobalt"
+          },
+          {
+            "tag": "forge:wires/nicochrome"
+          }
+        ]
+      }
+    },
+    "has_stick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:sticks/highspeedsteel"
+          }
+        ]
+      }
+    },
+    "has_plate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:plates/tungstensteel"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "micro_machinery:crafting_shaped/motor_5"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wire",
+      "has_stick",
+      "has_plate",
+      "has_the_recipe"
+    ]
+  ]
+}

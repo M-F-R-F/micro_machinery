@@ -1,0 +1,7 @@
+{
+	"parent": "micro_machinery:block/logistic/pipe_1",
+	"textures": {
+	  "0": "micro_machinery:blocks/logistics/pipe_2",
+	  "particle": "micro_machinery:blocks/logistics/pipe_2"
+	}
+}

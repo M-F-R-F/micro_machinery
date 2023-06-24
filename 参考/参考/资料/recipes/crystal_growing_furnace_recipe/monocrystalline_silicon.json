@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:crystal_growing_furnace_recipe",
+    "castType":"silicon",
+ 
+      "input": {
+        "tag": "forge:dusts/silicon",
+      "count": 64
+    },
+    "output" :{
+      "item" : "micro_machinery:monocrystalline_silicon",
+      "count" : 1
+    },
+    "time": 3600
+  }

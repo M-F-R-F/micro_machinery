@@ -1,0 +1,20 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "micro_machinery:obj/continuous_cating",
+		"particle": "micro_machinery:obj/continuous_cating"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [8, 3, 8],
+			"faces": {
+				"north": {"uv": [9.75, 5.125, 9.5625, 5.625], "rotation": 90, "texture": "#0"},
+				"east": {"uv": [9.75, 5.125, 10.25, 4.9375], "texture": "#0"},
+				"south": {"uv": [10.25, 5.125, 10.4375, 5.625], "rotation": 90, "texture": "#0"},
+				"west": {"uv": [9.75, 5.625, 10.25, 5.8125], "texture": "#0"},
+				"up": {"uv": [9.75, 5.125, 10.25, 5.625], "rotation": 90, "texture": "#0"}
+			}
+		}
+	]
+}

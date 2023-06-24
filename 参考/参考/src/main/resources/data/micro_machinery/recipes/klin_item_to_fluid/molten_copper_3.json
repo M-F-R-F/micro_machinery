@@ -1,0 +1,14 @@
+﻿{
+  "type": "micro_machinery:klin_item_to_fluid",
+  "isSingle": true,
+  "meltTime": 200,
+  "output": {
+    "fluidName": "micro_machinery:fluids/molten_copper",
+    "amount": 160
+  },
+    "inputIfSingle": {
+      "isTag": false,
+      "item": "micro_machinery:ore_copper_concentrate",
+      "count": 1
+    }
+}

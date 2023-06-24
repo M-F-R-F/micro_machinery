@@ -1,0 +1,6 @@
+# Blender MTL File: 'spherical_tank.blend'
+# Material Count: 1
+
+newmtl Material
+
+map_Kd micro_machinery:obj/spherical_tank

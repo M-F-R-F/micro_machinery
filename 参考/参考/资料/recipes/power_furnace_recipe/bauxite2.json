@@ -1,0 +1,13 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 983,
+ "input": [{
+   "tag": "forge:crusheds/aluminum",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_aluminum",
+   "amount": 144},
+   {"item":"micro_machinery:slag",
+     "count":1,
+     "probability":0.3}],
+ "heat":120}

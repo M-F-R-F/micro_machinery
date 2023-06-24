@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:forging_press_recipe",
+
+      "input": {
+        "tag": "forge:storage_blocks/tungstensteel"
+      ,
+      "count": 1
+    },
+    "output" : {
+      "item" : "micro_machinery:circle_casting_tungsten_steel",
+      "count" : 1
+    },
+    "time": 160
+  }

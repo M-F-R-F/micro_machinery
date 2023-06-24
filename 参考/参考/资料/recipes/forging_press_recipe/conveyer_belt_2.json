@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:forging_press_recipe",
+
+      "input": {
+        "tag": "forge:plates/steel"
+      ,
+      "count": 4
+    },
+    "output" : {
+      "item" : "micro_machinery:conveyer_belt_2",
+      "count" : 1
+    },
+    "time": 160
+  }

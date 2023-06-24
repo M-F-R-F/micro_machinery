@@ -1,0 +1,15 @@
+{
+    "type": "micro_machinery:cnc_recipe",
+    "castType":"value",
+    "input_stack": {
+      "input": {
+        "tag": "value"
+      },
+      "count": 123123
+    },
+    "output" :{
+      "item" : "value",
+      "count" : "value"
+    },
+    "cook_time" : 123123
+  }

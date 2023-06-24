@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "bbb",
+      "bwb",
+      "bbb"
+    ],
+    "key": {
+      "b": {
+        "item": "micro_machinery:clay_brick"
+      },
+      "w": {
+        "item": "minecraft:slime_ball"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:cast_gear_blank"
+    }
+  }

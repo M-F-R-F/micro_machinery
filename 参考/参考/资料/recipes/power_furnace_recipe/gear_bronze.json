@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1170,
+ "input": [{
+   "tag": "forge:gears/bronze",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_bronze",
+   "amount": 576}],
+ "heat":240}

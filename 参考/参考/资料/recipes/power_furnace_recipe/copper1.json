@@ -1,0 +1,21 @@
+﻿{
+  "type": "micro_machinery:power_furnace_recipe",
+  "isSingle": true,
+  "temperature": 1456,
+  "input": [{
+    "tag": "forge:ores/copper",
+      "count": 1
+  }],
+  "output": [
+    {
+    "fluidName": "micro_machinery:fluids/molten_copper",
+    "amount": 144
+    },
+    {
+      "item":"micro_machinery:slag",
+      "count":1,
+      "probability":0.5
+    }
+  ],
+  "heat":80
+}

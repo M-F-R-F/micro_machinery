@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.mfrf.Micro_Machienry.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "Micro_Machienry.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

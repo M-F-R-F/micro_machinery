@@ -1,0 +1,13 @@
+{
+   "type": "micro_machinery:continuous_cating_recipe",
+   "castType": "wire",
+     "input": {
+       "fluidName": "micro_machinery:fluids/molten_tungsten",
+       "amount": 150
+   },
+   "output" : {
+     "item" : "micro_machinery:string_tungsten",
+     "count" : 2
+   },
+   "time": 20
+ }

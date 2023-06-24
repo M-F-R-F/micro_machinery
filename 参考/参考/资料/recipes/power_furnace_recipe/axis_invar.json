@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1723,
+ "input": [{
+   "tag": "forge:axles/invar",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_invar",
+   "amount": 1152}],
+ "heat":560}

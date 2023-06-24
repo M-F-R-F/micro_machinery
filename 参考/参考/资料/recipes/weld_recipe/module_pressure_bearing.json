@@ -1,0 +1,21 @@
+{
+    "type": "micro_machinery:weld_recipe",
+      "input": [
+      {
+        "item" : "micro_machinery:slag_concrete",
+        "count" : 4
+      },
+      {
+        "tag" : "forge:plates/stainlesssteel",
+        "count" : 8
+      },
+      {
+        "item" : "micro_machinery:steel_scaffolding",
+        "count" : 1
+      }],
+    "output" : {
+      "item" : "micro_machinery:module_pressure_bearing",
+      "count" : 1
+    },
+    "time": 320
+  }

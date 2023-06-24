@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "ww",
+      "wb",
+      " b"
+    ],
+    "key": {
+      "w": {
+        "tag": "forge:ingots/bronze"
+      },
+      "b": {
+        "tag": "forge:rods/wooden"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:bronze_axe"
+    }
+  }

@@ -1,0 +1,14 @@
+{
+  "type": "micro_machinery:blast_furnace_recipe",
+  "input_stack": {
+    "input": {
+      "item": "micro_machinery:ore_iron_concentrate"
+    },
+    "count": 1
+  },
+  "output" : {
+    "item" : "micro_machinery:sponge_iron",
+    "count" : 1
+  },
+  "time": 800
+}

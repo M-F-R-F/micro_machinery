@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/reaction_still.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/reaction_still"
+	},
+	"flip-v": true
+}

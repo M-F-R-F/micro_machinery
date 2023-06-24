@@ -1,0 +1,18 @@
+{
+    "type": "micro_machinery:crusher_recipe",
+    "input_stack": {
+      "input": {
+        "tag": "value"
+      },
+      "count": 123123
+    },
+    "output" : [{
+      "item" : "value",
+      "count" : "value"
+    },
+    {
+      "item" : "value",
+      "count" : "value"
+    }],
+    "rotation" : 123123
+  }

@@ -1,0 +1,13 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 3783,
+ "input": [{
+   "tag": "forge:ores/tungstate",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_tungsten",
+   "amount": 144},
+   {"item":"micro_machinery:slag",
+     "count":1,
+     "probability":0.5}],
+ "heat":480}

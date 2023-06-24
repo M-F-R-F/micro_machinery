@@ -1,0 +1,11 @@
+{
+  "type": "micro_machinery:forge_anvil_recipe",
+  "tier": 0,
+  "input": {
+    "item": "minecraft:sandstone"
+  },
+  "output": {
+    "count": 1,
+    "item": "minecraft:sand"
+  }
+}

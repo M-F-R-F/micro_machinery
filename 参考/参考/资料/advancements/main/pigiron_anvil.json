@@ -1,0 +1,35 @@
+{
+  "parent": "micro_machinery:main/stone_anvil",
+  "display": {
+    "icon": {
+      "item": "micro_machinery:pigiron_anvil"
+    },
+    "title": {
+      "translate": "advancement.micro_machinery.pigiron_anvil"
+    },
+    "description": {
+      "translate": "advancement.micro_machinery.pigiron_anvil.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pigiron_anvil": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "micro_machinery:pigiron_anvil"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pigiron_anvil"
+    ]
+  ]
+}

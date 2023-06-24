@@ -1,0 +1,16 @@
+{
+    "type": "micro_machinery:weld_recipe",
+      "input": [{
+        "tag" : "forge:plates/stainlesssteel",
+        "count" : 4
+      },
+      {
+        "tag" : "forge:screws/invar",
+        "count" : 8
+      }],
+    "output" : {
+      "item" : "micro_machinery:pipe_stainless_steel",
+      "count" : 1
+    },
+    "time": 60
+  }

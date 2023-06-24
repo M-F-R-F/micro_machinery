@@ -1,0 +1,15 @@
+{
+  "type": "micro_machinery:etcher_recipe",
+  "output": {
+    "item": "value",
+    "count": "value"
+  },
+  "input": {
+    "ingredient": {
+      "tag": "value"
+    },
+    "count": "value"
+  },
+  "fe_per_tick": "value",
+  "time": "value"
+}

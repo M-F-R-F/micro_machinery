@@ -1,0 +1,13 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 1285,
+ "input": [{
+   "tag": "forge:crusheds/silver",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_silver",
+   "amount": 144},
+   {"item":"micro_machinery:slag",
+     "count":1,
+     "probability":0.3}],
+ "heat":80}

@@ -1,0 +1,21 @@
+﻿{
+  "type": "micro_machinery:power_furnace_recipe",
+  "isSingle": true,
+  "temperature": 1356,
+  "input": [{
+    "item": "micro_machinery:ore_copper_concentrate",
+      "count": 1
+  }],
+  "output": [
+    {
+    "fluidName": "micro_machinery:fluids/molten_copper",
+    "amount": 160
+    },
+    {
+      "item":"micro_machinery:slag",
+      "count":1,
+      "probability":0.1
+    }
+  ],
+  "heat":80
+}

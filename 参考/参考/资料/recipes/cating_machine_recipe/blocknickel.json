@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:cating_machine_recipe",
+    "castType": "block",
+
+      "input": {
+        "fluidName": "micro_machinery:fluids/molten_nickel",
+        "amount": 1440
+    },
+    "output" : {
+      "item" : "micro_machinery:blocknickel",
+      "count" : 1
+    },
+    "time": 600
+  }

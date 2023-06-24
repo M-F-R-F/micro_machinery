@@ -1,0 +1,14 @@
+{
+  "type": "micro_machinery:electrolysis_recipe",
+  "input_stack": {
+    "input": {
+      "tag": "value"
+    },
+    "count": 123123
+  },
+  "output": {
+    "item": "value",
+    "count": "value"
+  },
+  "time": 123123
+}

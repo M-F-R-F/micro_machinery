@@ -1,0 +1,84 @@
+{
+	"credit": "Made by hqyzsy",
+	"textures": {
+		"particle": "micro_machinery:blocks/logistics/conveyor_belt_1",
+		"1_0": "micro_machinery:blocks/logistics/conveyor_belt_1"
+	},
+	"elements": [
+		{
+			"from": [3, 1, 0],
+			"to": [13, 6, 3],
+			"faces": {
+				"north": {"uv": [11, 1, 16, 3.5], "rotation": 180, "texture": "#1_0"},
+				"up": {"uv": [11, 1, 16, 2.5], "texture": "#1_0"},
+				"down": {"uv": [11, 0, 16, 1.5], "texture": "#1_0"}
+			}
+		},
+		{
+			"from": [2, 0, 0],
+			"to": [3, 7, 2],
+			"faces": {
+				"north": {"uv": [6, 0, 6.5, 3.5], "texture": "#1_0"},
+				"east": {"uv": [7, 0, 6, 3.5], "texture": "#1_0"},
+				"south": {"uv": [5, 0, 5.5, 3.5], "texture": "#1_0"},
+				"west": {"uv": [6, 0, 7, 3.5], "texture": "#1_0"},
+				"up": {"uv": [6, 0, 7, 0.5], "rotation": 90, "texture": "#1_0"},
+				"down": {"uv": [6, 3, 7, 3.5], "rotation": 90, "texture": "#1_0"}
+			}
+		},
+		{
+			"from": [13, 0, 0],
+			"to": [14, 7, 2],
+			"faces": {
+				"north": {"uv": [6, 0, 6.5, 3.5], "texture": "#1_0"},
+				"east": {"uv": [7, 0, 6, 3.5], "texture": "#1_0"},
+				"south": {"uv": [5, 0, 5.5, 3.5], "texture": "#1_0"},
+				"west": {"uv": [6, 0, 7, 3.5], "texture": "#1_0"},
+				"up": {"uv": [6, 0, 7, 0.5], "rotation": 90, "texture": "#1_0"},
+				"down": {"uv": [6, 3, 7, 3.5], "rotation": 90, "texture": "#1_0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [90, 0, 0],
+			"translation": [-2, 1, 2],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [90, 0, 0],
+			"translation": [-2, 1, 2],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_righthand": {
+			"rotation": [38, -4, 15],
+			"translation": [0, 2.25, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [38, -4, 15],
+			"translation": [0, 2.25, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"gui": {
+			"rotation": [30, 45, 0],
+			"translation": [0, 2, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"rotation": [-90, -180, 0],
+			"translation": [0, 0, -5],
+			"scale": [0.8, 0.8, 0.8]
+		}
+	},
+	"groups": [
+		{
+			"name": "conveyor_belt_blocked",
+			"origin": [8, 8, 8],
+			"children": [0, 1, 2]
+		}
+	]
+}

@@ -1,0 +1,13 @@
+{
+    "type": "micro_machinery:cating_machine_recipe",
+    "castType": "ingot",
+      "input": {
+        "fluidName": "micro_machinery:fluids/molten_nickel",
+        "amount": 160
+    },
+    "output" : {
+      "item" : "micro_machinery:ingot_nickel",
+      "count" : 1
+    },
+    "time": 60
+  }

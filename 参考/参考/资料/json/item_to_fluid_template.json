@@ -1,0 +1,24 @@
+﻿{
+  "type": "micro_machinery:klin_item_to_fluid",
+
+  "isSingle": "value",
+  "meltTime": "value",
+  "output": {
+    "fluidName": "value",
+    "amount": "value"
+  },
+  "input1": {
+    "input1": {
+      "item": "value",
+      "count": "value"
+    },
+    "input2": {
+      "item": "value",
+      "count": "value"
+    },
+    "inputIfSingle": {
+      "item": "value",
+      "count": "value"
+    }
+  }
+}

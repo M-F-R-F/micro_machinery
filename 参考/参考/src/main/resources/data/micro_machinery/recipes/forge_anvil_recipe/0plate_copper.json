@@ -1,0 +1,11 @@
+{
+  "type": "micro_machinery:forge_anvil_recipe",
+  "tier": 0,
+  "input": {
+    "tag": "forge:ingots/copper"
+  },
+  "output": {
+    "count": 1,
+    "item": "micro_machinery:plate_copper"
+  }
+}

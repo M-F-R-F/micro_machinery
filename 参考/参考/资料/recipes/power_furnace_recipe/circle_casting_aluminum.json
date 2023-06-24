@@ -1,0 +1,10 @@
+{"type": "micro_machinery:power_furnace_recipe",
+ "isSingle": true,
+ "temperature": 933,
+ "input": [{
+   "tag": "forge:circle_castings/aluminum",
+     "count": 1}],
+ "output": [
+   {"fluidName": "micro_machinery:fluids/molten_aluminum",
+   "amount": 1296}],
+ "heat":1280}

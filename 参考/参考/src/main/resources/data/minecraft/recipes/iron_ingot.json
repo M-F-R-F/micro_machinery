@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:barrier"
+  },
+  "result": "minecraft:barrier",
+  "experience": 0,
+  "cookingtime": 0
+}

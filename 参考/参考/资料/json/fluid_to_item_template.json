@@ -1,0 +1,13 @@
+﻿{
+    "type":"micro_machinery:klin_fluid_to_item",
+    "coolDown": "value",
+    "castType": "value",
+    "input": {
+        "fluidName": "value",
+        "amount": "value"
+    },
+    "output": {
+        "itemName": "value",
+        "count": "value"
+    }
+}

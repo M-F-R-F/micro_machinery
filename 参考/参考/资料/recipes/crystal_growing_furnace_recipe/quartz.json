@@ -1,0 +1,13 @@
+{
+    "type": "micro_machinery:crystal_growing_furnace_recipe",
+    "castType":"quartz",
+      "input": {
+        "tag": "forge:dusts/silicon",
+      "count": 64
+    },
+    "output" :{
+      "item" : "minecraft:quartz",
+      "count" : 64
+    },
+    "time": 1200
+  }

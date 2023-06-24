@@ -1,0 +1,46 @@
+{
+  "type": "micro_machinery:weld_recipe",
+  "input": [
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    },
+    {
+      "input": {
+        "tag": "value"
+      },
+      "count": "value"
+    }
+  ],
+  "output": {
+    "item": "value",
+    "count": "value"
+  },
+  "time": 123123
+}

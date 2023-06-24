@@ -1,0 +1,14 @@
+{
+    "type": "micro_machinery:forging_press_recipe",
+
+      "input": {
+        "tag": "forge:circle_castings/steel"
+      ,
+      "count": 1
+    },
+    "output" : {
+      "item" : "micro_machinery:axis_steel",
+      "count" : 1
+    },
+    "time": 160
+  }

@@ -1,0 +1,20 @@
+{
+    "variants": 
+    {
+        "facing=north": {
+            "model": "micro_machinery:block/weld"
+        },
+        "facing=east": {
+            "model": "micro_machinery:block/weld",
+            "y": 90
+        },
+        "facing=south": {
+            "model": "micro_machinery:block/weld",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "micro_machinery:block/weld",
+            "y": 270
+        }
+    }
+}
