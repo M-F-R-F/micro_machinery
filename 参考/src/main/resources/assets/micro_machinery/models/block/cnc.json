@@ -1,8 +1,0 @@
-{
-	"loader": "forge:obj",
-	"model": "micro_machinery:models/block/obj/cnc.obj",
-	"textures": {
-		"particle": "micro_machinery:obj/cnc"
-	},
-	"flip-v": true
-}

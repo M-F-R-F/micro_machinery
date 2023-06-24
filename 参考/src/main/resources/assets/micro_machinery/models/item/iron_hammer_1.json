@@ -1,6 +1,0 @@
-{
-  "parent": "micro_machinery:item/hammer",
-  "textures": {
-    "0": "micro_machinery:items/iron_hammer_1"
-  }
-}

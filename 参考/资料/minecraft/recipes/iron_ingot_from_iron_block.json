@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "minecraft:barrier"
-  },
-  "result": "minecraft:barrier",
-  "experience": 0,
-  "cookingtime": 0
-}
