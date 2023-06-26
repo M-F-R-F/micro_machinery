@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "micro_machinery:items/tool/prospector"
+    }
+}

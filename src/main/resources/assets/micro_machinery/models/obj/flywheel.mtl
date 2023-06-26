@@ -1,0 +1,42 @@
+# Blender 3.4.1 MTL File: 'flywheel.blend'
+# www.blender.org
+
+newmtl m_1718b1d8-2138-0e91-b468-0b8b8d0fa5a9
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd micro_machinery:blocks/modules/interface
+
+newmtl m_23de63b3-9195-2f73-084d-412dcb25eede
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd micro_machinery:blocks/modules/steel_scaffolding
+
+newmtl m_3f7e041b-75ad-c68d-edf0-69b2b099d24c
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd micro_machinery:obj/flywheel
+
+newmtl none
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1

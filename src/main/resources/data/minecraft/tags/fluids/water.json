@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "micro_machinery:fluids/apple_juice",
+    "micro_machinery:fluids/apple_juice_flow",
+    "micro_machinery:fluids/ethene",
+    "micro_machinery:fluids/ethene_flow",
+    "micro_machinery:fluids/golden_apple_juice",
+    "micro_machinery:fluids/golden_apple_juice_flow"    
+  ]
+}

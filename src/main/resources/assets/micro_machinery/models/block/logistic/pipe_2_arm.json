@@ -1,0 +1,6 @@
+{
+	"parent": "micro_machinery:block/logistic/pipe_1_arm",
+	"textures": {
+	  "0": "micro_machinery:blocks/logistics/pipe_2"
+	}
+}
