@@ -1,7 +1,7 @@
 package org.mfrf.micro_machienry.items;
 
 import mfrf.dbydd.micro_machinery.Config;
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.utils.EnergyItemHandler;
 import mfrf.dbydd.micro_machinery.utils.FEContainer;
 import net.minecraft.block.BlockState;
@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ItemLaserDrill extends MMItemBase {
 
     public ItemLaserDrill(String name) {
-        super(new Properties().group(Micro_Machinery.MMTAB).maxStackSize(1), name);
+        super(new Properties().group(MicroMachinery.MMTAB).maxStackSize(1), name);
     }
 
     @Nullable

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class MMTab extends ItemGroup {
     public MMTab() {
-        super("Micro_Machinery");
+        super("MicroMachinery");
     }
 
     @Override

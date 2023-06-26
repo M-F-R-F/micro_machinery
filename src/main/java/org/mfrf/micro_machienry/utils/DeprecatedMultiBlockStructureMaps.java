@@ -3,7 +3,7 @@ package org.mfrf.micro_machienry.utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.multiblock_component.BlockAccessoryPlaceHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -34,7 +34,7 @@ public class DeprecatedMultiBlockStructureMaps {
         STRUCTURE_MAPS = new HashMap<>();
         try {
             for (String name : NAMES) {
-                IResource resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(Micro_Machinery.NAME, "structures/old_system/" + name + ".json"));
+                IResource resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(MicroMachinery.NAME, "structures/old_system/" + name + ".json"));
                 STRUCTURE_MAPS.put(name, MultiBlockPosBox.readJson(JSONUtils.fromJson(new InputStreamReader(resource.getInputStream()))));
             }
         } catch (IOException e) {

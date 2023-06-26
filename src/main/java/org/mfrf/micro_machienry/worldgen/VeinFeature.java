@@ -1,7 +1,7 @@
 package org.mfrf.micro_machienry.worldgen;
 
 import com.mojang.datafixers.Dynamic;
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.utils.RandomUtils;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
@@ -19,7 +19,7 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class VeinFeature extends Feature<VeinFeatureConfig> {
-    public static final RegistryObject<VeinFeature> VEIN_FEATURE = Micro_Machinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature(VeinFeatureConfig::new));
+    public static final RegistryObject<VeinFeature> VEIN_FEATURE = MicroMachinery.FEATURE_REGISTER.register("vein_feature", () -> new VeinFeature(VeinFeatureConfig::new));
 
     public VeinFeature(Function<Dynamic<?>, ? extends VeinFeatureConfig> configFactoryIn) {
         super(configFactoryIn);

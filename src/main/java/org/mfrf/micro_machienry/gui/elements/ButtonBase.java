@@ -1,7 +1,7 @@
 package org.mfrf.micro_machienry.gui.elements;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -10,7 +10,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 public class ButtonBase extends Button {
-    protected final ResourceLocation MODULES = new ResourceLocation(Micro_Machinery.NAME, "textures/gui/module.png");
+    protected final ResourceLocation MODULES = new ResourceLocation(MicroMachinery.NAME, "textures/gui/module.png");
     private final String name;
     private ScreenBase screen;
     private int holdTextureX;

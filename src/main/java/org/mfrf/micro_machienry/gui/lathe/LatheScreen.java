@@ -1,6 +1,6 @@
 package org.mfrf.micro_machienry.gui.lathe;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.multi_block_old_system.lathe.TileLathe;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import mfrf.dbydd.micro_machinery.gui.elements.ButtonBase;
@@ -16,7 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 public class LatheScreen extends ScreenBase<LatheContainer> {
 
     public LatheScreen(LatheContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/lathe.png"), 176, 182);
+        super(screenContainer, inv, titleIn, new ResourceLocation(MicroMachinery.NAME, "textures/gui/lathe.png"), 176, 182);
     }
 
     @Override

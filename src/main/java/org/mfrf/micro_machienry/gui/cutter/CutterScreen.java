@@ -1,6 +1,6 @@
 package org.mfrf.micro_machienry.gui.cutter;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.cutter.TileCutter;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import mfrf.dbydd.micro_machinery.utils.IntegerContainer;
@@ -10,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class CutterScreen extends ScreenBase<CutterContainer> {
     public CutterScreen(CutterContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME,"textures/gui/cutter.png"), 176, 179);
+        super(screenContainer, inv, titleIn, new ResourceLocation(MicroMachinery.NAME,"textures/gui/cutter.png"), 176, 179);
     }
 
     @Override

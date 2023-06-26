@@ -1,6 +1,6 @@
 package org.mfrf.micro_machienry.gui.klin;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import net.minecraft.entity.player.PlayerInventory;
@@ -11,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 public class KlinScreen extends ScreenBase<KlinContainer> {
 
     public KlinScreen(KlinContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/klin.png"), 176, 166);
+        super(screenContainer, inv, titleIn, new ResourceLocation(MicroMachinery.NAME, "textures/gui/klin.png"), 176, 166);
     }
 
     @Override

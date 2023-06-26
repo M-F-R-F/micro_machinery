@@ -1,6 +1,6 @@
 package org.mfrf.micro_machienry.items.blockitems;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.registeried_lists.RegisteredBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 public class LatheBlockItem extends BlockItem {
 
     public LatheBlockItem() {
-        super(RegisteredBlocks.LATHE, new Item.Properties().group(Micro_Machinery.MMTAB));
+        super(RegisteredBlocks.LATHE, new Item.Properties().group(MicroMachinery.MMTAB));
     }
 
     @Override

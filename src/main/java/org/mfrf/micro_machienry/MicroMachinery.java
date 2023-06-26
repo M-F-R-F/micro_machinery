@@ -45,8 +45,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(Micro_machienry.MOD_ID)
-public class Micro_machienry {
+@Mod(MicroMachinery.MOD_ID)
+public class MicroMachinery {
 
     public static final String NAME = "micro_machinery";
     public static final String MOD_ID = "Micro Machinery";
@@ -61,18 +61,18 @@ public class Micro_machienry {
     static {
         InitListsNeedToRegister();
 
-        Micro_Machinery.RegisteryItems(MMItemBase.registeries);
-        Micro_Machinery.RegisteryItems(MMSwordBase.registeries);
-        Micro_Machinery.RegisteryItems(MMHammerBase.registeries);
-        Micro_Machinery.RegisteryItems(MMAxeBase.registeries);
-        Micro_Machinery.RegisteryBlocks(MMBlockBase.registeries);
-        Micro_Machinery.RegisteryBlocksWithoutItem(MMBlockBase.registeries_no_item);
+        MicroMachinery.RegisteryItems(MMItemBase.registeries);
+        MicroMachinery.RegisteryItems(MMSwordBase.registeries);
+        MicroMachinery.RegisteryItems(MMHammerBase.registeries);
+        MicroMachinery.RegisteryItems(MMAxeBase.registeries);
+        MicroMachinery.RegisteryBlocks(MMBlockBase.registeries);
+        MicroMachinery.RegisteryBlocksWithoutItem(MMBlockBase.registeries_no_item);
 
         ITEM_REGISTER.register("lathe", LatheBlockItem::new);
         ITEM_REGISTER.register("pump", PumpBlockItem::new);
     }
 
-    public Micro_Machinery() {
+    public MicroMachinery() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.CONFIG);
         ITEM_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCK_REGISTER.register(FMLJavaModLoadingContext.get().getModEventBus());

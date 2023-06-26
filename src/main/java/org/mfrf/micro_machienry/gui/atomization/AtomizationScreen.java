@@ -1,6 +1,6 @@
 package org.mfrf.micro_machienry.gui.atomization;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.dbydd.micro_machinery.gui.ScreenBase;
 import net.minecraft.entity.player.PlayerInventory;
@@ -9,7 +9,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class AtomizationScreen extends ScreenBase<AtomizationContainer> {
     public AtomizationScreen(AtomizationContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-        super(screenContainer, inv, titleIn, new ResourceLocation(Micro_Machinery.NAME, "textures/gui/atomization.png"), 176, 180);
+        super(screenContainer, inv, titleIn, new ResourceLocation(MicroMachinery.NAME, "textures/gui/atomization.png"), 176, 180);
     }
 
     @Override

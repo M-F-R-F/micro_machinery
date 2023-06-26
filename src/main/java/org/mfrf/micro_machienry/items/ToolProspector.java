@@ -1,6 +1,6 @@
 package org.mfrf.micro_machienry.items;
 
-import mfrf.dbydd.micro_machinery.Micro_Machinery;
+import mfrf.dbydd.micro_machinery.MicroMachinery;
 import mfrf.dbydd.micro_machinery.blocks.MMOreBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -18,14 +18,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ToolProspector extends MMItemBase {
-    private static final String STRONG_FEEDBACK = Micro_Machinery.NAME + ".notify." + "strong_feedback";
-    private static final String OBVIOUS_FEEDBACK = Micro_Machinery.NAME + ".notify." + "obvious_feedback";
-    private static final String WEAK_FEEDBACK = Micro_Machinery.NAME + ".notify." + "weak_feedback";
-    private static final String WEAKEST_FEEDBACK = Micro_Machinery.NAME + ".notify." + "weakest_feedback";
-    private static final String NO_FEEDBACK = Micro_Machinery.NAME + ".notify." + "no_feedback";
+    private static final String STRONG_FEEDBACK = MicroMachinery.NAME + ".notify." + "strong_feedback";
+    private static final String OBVIOUS_FEEDBACK = MicroMachinery.NAME + ".notify." + "obvious_feedback";
+    private static final String WEAK_FEEDBACK = MicroMachinery.NAME + ".notify." + "weak_feedback";
+    private static final String WEAKEST_FEEDBACK = MicroMachinery.NAME + ".notify." + "weakest_feedback";
+    private static final String NO_FEEDBACK = MicroMachinery.NAME + ".notify." + "no_feedback";
 
     public ToolProspector() {
-        super(new Properties().maxStackSize(1).group(Micro_Machinery.MMTAB).maxDamage(36), "prospector");
+        super(new Properties().maxStackSize(1).group(MicroMachinery.MMTAB).maxDamage(36), "prospector");
     }
 
     @Override
