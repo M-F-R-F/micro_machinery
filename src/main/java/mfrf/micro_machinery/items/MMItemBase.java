@@ -7,27 +7,29 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
 public class MMItemBase extends Item {
-    public static Map<ResourceKey<CreativeModeTab>, Supplier<Item>> registeries = new TreeMap<>();
+    public static Map<ResourceKey<CreativeModeTab>, List<Item>> registeries = new TreeMap<>();
     public static Properties DEFAULT_PROPERTIES = new Properties().stacksTo(64);
 
     public MMItemBase(Properties properties, ResourceKey<CreativeModeTab> tab) {
         super(properties);
-        registeries.put(tab, () -> this);
+        registeries.computeIfAbsent(tab, ignore -> new ArrayList<Item>()).add(this);
     }
 
     public MMItemBase() {
         super(DEFAULT_PROPERTIES);
-        registeries.put(MMItems.TAB.ICON_TAB.getKey(), () -> this);
+        registeries.computeIfAbsent(MMItems.TAB.ICON_TAB.getKey(), ignore -> new ArrayList<Item>()).add(this);
     }
 
     public MMItemBase(Properties properties) {
         super(properties);
-        registeries.put(MMItems.TAB.ICON_TAB.getKey(), () -> this);
+        registeries.computeIfAbsent(MMItems.TAB.ICON_TAB.getKey(), ignore -> new ArrayList<Item>()).add(this);
     }
 
     /**
@@ -35,6 +37,6 @@ public class MMItemBase extends Item {
      */
     public MMItemBase(Properties properties, FoodProperties food) {
         super(properties.food(food));
-        registeries.put(CreativeModeTabs.FOOD_AND_DRINKS, () -> this);
+        registeries.computeIfAbsent(CreativeModeTabs.FOOD_AND_DRINKS, ignore -> new ArrayList<Item>()).add(this);
     }
 }

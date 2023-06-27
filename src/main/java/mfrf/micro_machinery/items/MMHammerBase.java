@@ -30,9 +30,9 @@ public class MMHammerBase extends DiggerItem {
      * @param attackSpeedIn
      * @param tier
      */
-    public MMHammerBase(float attackDamageIn, float attackSpeedIn, Tier tier, Properties builder, String name) {
+    public MMHammerBase(float attackDamageIn, float attackSpeedIn, Tier tier, Properties builder) {
         super(attackDamageIn, attackSpeedIn, tier, BlockTags.MINEABLE_WITH_PICKAXE, builder);
-        registeries.put(name, () -> this);
+        
 //        this.addPropertyOverride(new ResourceLocation("damage_tier"), (p_call_1_, p_call_2_, p_call_3_) -> {
 //            float value = (float) p_call_1_.getDamage() / (float) p_call_1_.getMaxDamage();
 //            return (float) (value <= 0.4 ? 1.0 : value <= 0.6 ? 2.0 : 3.0);
