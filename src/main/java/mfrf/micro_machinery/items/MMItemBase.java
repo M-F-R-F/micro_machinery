@@ -20,20 +20,18 @@ public class MMItemBase extends Item {
     }
 
     public MMItemBase() {
-        super(DEFAULT_PROPERTIES);
-        RegistryThingsEvent.getOrCreateItemListToRegisterTab(MMItems.TAB.ICON_TAB.getKey()).add(() -> this);
+        this(DEFAULT_PROPERTIES);
     }
 
     public MMItemBase(Properties properties) {
-        super(properties);
-        RegistryThingsEvent.getOrCreateItemListToRegisterTab(MMItems.TAB.ICON_TAB.getKey()).add(() -> this);
+        this(properties, MMItems.TAB.ICON_TAB.getKey());
     }
 
     /**
      * registry food
      */
     public MMItemBase(Properties properties, FoodProperties food) {
-        super(properties.food(food));
+        this(properties.food(food));
         RegistryThingsEvent.getOrCreateItemListToRegisterTab(CreativeModeTabs.FOOD_AND_DRINKS).add(() -> this);
     }
 }
