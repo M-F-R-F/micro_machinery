@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.items;
 
-import mfrf.micro_machinery.utils.MultiblockStructureMaps;
+import mfrf.micro_machinery.events.RegistryThingsEvent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -8,16 +8,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DiggerItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.apache.commons.lang3.tuple.Triple;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -32,11 +29,9 @@ public class MMHammerBase extends DiggerItem {
      */
     public MMHammerBase(float attackDamageIn, float attackSpeedIn, Tier tier, Properties builder) {
         super(attackDamageIn, attackSpeedIn, tier, BlockTags.MINEABLE_WITH_PICKAXE, builder);
-        
-//        this.addPropertyOverride(new ResourceLocation("damage_tier"), (p_call_1_, p_call_2_, p_call_3_) -> {
-//            float value = (float) p_call_1_.getDamage() / (float) p_call_1_.getMaxDamage();
-//            return (float) (value <= 0.4 ? 1.0 : value <= 0.6 ? 2.0 : 3.0);
-//        });
+
+        RegistryThingsEvent.getOrCreateItemListToRegisterTab(CreativeModeTabs.TOOLS_AND_UTILITIES).add(() -> this);
+
     }
 
     @Override
@@ -53,6 +48,7 @@ public class MMHammerBase extends DiggerItem {
                     for (int z = -1; z <= 1; z++) {
                         BlockPos position = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
                         digBlock(worldIn, position, entityLiving);
+                        super.mineBlock(stack, worldIn, state, position, entityLiving);
                     }
                 }
             } else {
@@ -61,6 +57,7 @@ public class MMHammerBase extends DiggerItem {
                         for (int y = -1; y <= 1; y++) {
                             BlockPos position = new BlockPos(pos.getX(), pos.getY() + y, pos.getZ() + z);
                             digBlock(worldIn, position, entityLiving);
+                            super.mineBlock(stack, worldIn, state, position, entityLiving);
                         }
                     }
                 } else {
@@ -68,6 +65,7 @@ public class MMHammerBase extends DiggerItem {
                         for (int y = -1; y <= 1; y++) {
                             BlockPos position = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ());
                             digBlock(worldIn, position, entityLiving);
+                            super.mineBlock(stack, worldIn, state, position, entityLiving);
                         }
                     }
                 }

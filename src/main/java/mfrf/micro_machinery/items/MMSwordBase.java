@@ -10,12 +10,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class MMSwordBase extends SwordItem {
-    public static Map<String, Supplier<Item>> registeries = new HashMap<>();
-    public static Properties DEFAULT_PROPERTIES = new Properties().stacksTo(1);
 
-    public MMSwordBase(Tier material_tier, int correct_value, float attack_speed, Properties properties, String name) {
+    public MMSwordBase(Tier material_tier, int correct_value, float attack_speed, Properties properties) {
         super(material_tier, correct_value, attack_speed, properties);
-        registeries.put(name, () -> this);
     }
 
 }

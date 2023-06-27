@@ -1,17 +1,27 @@
 package mfrf.micro_machinery.events;
 
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.items.MMItemBase;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegisterEvent;
+
+import java.util.*;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = MicroMachinery.MODID)
 public class RegistryThingsEvent {
 
+    public static Map<ResourceKey<CreativeModeTab>, List<Supplier<Item>>> TAB_ITEM_MAP = new TreeMap<>();
+
+    public static List<Supplier<Item>> getOrCreateItemListToRegisterTab(ResourceKey<CreativeModeTab> tabResourceKey) {
+        return TAB_ITEM_MAP.getOrDefault(tabResourceKey, new ArrayList<>());
+    }
+
     @SubscribeEvent
     public static void onRegisterItemInToTab(BuildCreativeModeTabContentsEvent event) {
-        MMItemBase.registeries.computeIfPresent(event.getTabKey(), (tab,list)->list.forEach(event::accept));
+        TAB_ITEM_MAP.getOrDefault(event.getTabKey(), Collections.emptyList()).forEach(event::accept);
     }
 }
