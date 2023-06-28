@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.items;
+package mfrf.micro_machinery.item;
 
 import mfrf.micro_machinery.events.RegistryThingsEvent;
 import net.minecraft.world.item.AxeItem;

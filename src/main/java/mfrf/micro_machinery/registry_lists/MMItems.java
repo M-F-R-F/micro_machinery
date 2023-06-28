@@ -3,7 +3,7 @@ package mfrf.micro_machinery.registry_lists;
 import mfrf.micro_machinery.Config;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.enums.EnumToolTier;
-import mfrf.micro_machinery.items.*;
+import mfrf.micro_machinery.item.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;

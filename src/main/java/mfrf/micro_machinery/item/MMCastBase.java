@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.items;
+package mfrf.micro_machinery.item;
 
 public class MMCastBase extends MMItemBase {
 

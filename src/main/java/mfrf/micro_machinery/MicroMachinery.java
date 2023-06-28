@@ -17,7 +17,6 @@ public class MicroMachinery {
     public static final String MODID = "micro_machinery";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-
     public MicroMachinery() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         MMItems.ITEM_REGISTER.register(modEventBus);

@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.items;//package mfrf.micro_machinery.items;
+package mfrf.micro_machinery.item;//package mfrf.micro_machinery.items;
 //
 //import mfrf.micro_machinery.Config;
 //import mfrf.micro_machinery.MicroMachinery;
