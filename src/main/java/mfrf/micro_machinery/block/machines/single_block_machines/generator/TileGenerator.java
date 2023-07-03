@@ -1,8 +1,8 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.generator;
+package mfrf.micro_machinery.block.machines.single_block_machines.generator;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.gui.generator.GeneratorContainer;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
@@ -63,7 +63,7 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
 //    private GeneratorEnergyAndFuelIntArray array = new GeneratorEnergyAndFuelIntArray();
 
     public TileGenerator(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_GENERATOR_TYPE.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_GENERATOR_TYPE.get(), pos, state);
     }
 
     public boolean isBurning() {
@@ -104,7 +104,7 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && !isBackDirection(side)) {
             return LazyOptional.of(() -> fuel_handler).cast();
         }
-        if (cap == CapabilityEnergy.ENERGY && isBackDirection(side)) {
+        if (cap == ForgeCapabilities.ENERGY && isBackDirection(side)) {
             return LazyOptional.of(() -> energyContainer).cast();
         }
 

@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines;
+package mfrf.micro_machinery.block.machines;
 
-import mfrf.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.block.MMBlockBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -16,12 +16,8 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 public abstract class MMBlockTileProviderBase extends MMBlockBase implements EntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public MMBlockTileProviderBase(BlockBehaviour.Properties properties, String name) {
-        super(properties, name);
-    }
-
-    public MMBlockTileProviderBase(BlockBehaviour.Properties properties, String name, boolean noItem) {
-        super(properties, name, noItem);
+    public MMBlockTileProviderBase(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     @Override

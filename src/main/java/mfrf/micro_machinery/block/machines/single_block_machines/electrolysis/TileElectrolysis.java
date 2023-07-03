@@ -1,10 +1,10 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.electrolysis;
+package mfrf.micro_machinery.block.machines.single_block_machines.electrolysis;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.gui.electrolysis.ElectrolysisContainer;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.electrolysis.ElectrolysisRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
@@ -65,7 +65,7 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
     private boolean isWorking = false;
 
     public TileElectrolysis(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_ELECTROLYSIS.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_ELECTROLYSIS.get(), pos, state);
     }
 
     public FEContainer getEnergy() {
@@ -87,7 +87,7 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityEnergy.ENERGY && isBackDirection(side)) return LazyOptional.of(() -> energy).cast();
+        if (cap == ForgeCapabilities.ENERGY && isBackDirection(side)) return LazyOptional.of(() -> energy).cast();
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return LazyOptional.of(() -> this).cast();
         return super.getCapability(cap, side);
     }

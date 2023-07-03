@@ -71,7 +71,7 @@ package mfrf.micro_machinery.item;//package mfrf.micro_machinery.items;
 //                Vec3 start = positionVec.add(lookVec.scale(0.3));
 //
 //                AtomicReference<BlockPos> blockPos = null;
-//                heldItem.getCapability(CapabilityEnergy.ENERGY).ifPresent(iEnergyStorage -> {
+//                heldItem.getCapability(ForgeCapabilities.ENERGY).ifPresent(iEnergyStorage -> {
 //                    int extracted = iEnergyStorage.extractEnergy(100, false);
 //                    if (extracted == 100) {
 //                        if (world.getDayTime() % 10 == 0) {

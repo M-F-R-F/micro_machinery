@@ -1,7 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.klin;
+package mfrf.micro_machinery.block.machines.single_block_machines.klin;
 
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.registry_lists.RegisteredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;

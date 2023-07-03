@@ -1,7 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components;
+package mfrf.micro_machinery.block.machines.multiblock_new_system.components;
 
-import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.NBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -21,7 +21,7 @@ public class MMTileMultiBlockPart extends BlockEntity {
 
 
     public MMTileMultiBlockPart(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.MULTI_BLOCK_PART.get(), pos, state);
+        super(MMBlockEntityTypes.MULTI_BLOCK_PART.get(), pos, state);
     }
 
     public MMTileMultiBlockPart(BlockEntityType<?> p_i48289_1_, BlockPos pos, BlockState state) {

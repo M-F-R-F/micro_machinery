@@ -1,7 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.creative_energy_cell;
+package mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.block.machines.MMTileBase;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -14,7 +14,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileCreativeEnergyCell extends MMTileBase implements IEnergyStorage {
     public TileCreativeEnergyCell(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_ENERGY_CELL.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_ENERGY_CELL.get(), pos, state);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class TileCreativeEnergyCell extends MMTileBase implements IEnergyStorage
             for (Direction direction : Direction.values()) {
                 BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
                 if (tileEntity != null) {
-                    LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
+                    LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {
                         if (iEnergyStorage.canReceive()) {
                             int i = iEnergyStorage.receiveEnergy(Integer.MAX_VALUE / 2, true);
@@ -38,13 +38,13 @@ public class TileCreativeEnergyCell extends MMTileBase implements IEnergyStorage
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap) {
-        if (cap == CapabilityEnergy.ENERGY) return LazyOptional.of(() -> this).cast();
+        if (cap == ForgeCapabilities.ENERGY) return LazyOptional.of(() -> this).cast();
         return super.getCapability(cap);
     }
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (cap == CapabilityEnergy.ENERGY) return LazyOptional.of(() -> this).cast();
+        if (cap == ForgeCapabilities.ENERGY) return LazyOptional.of(() -> this).cast();
         return super.getCapability(cap, side);
     }
 

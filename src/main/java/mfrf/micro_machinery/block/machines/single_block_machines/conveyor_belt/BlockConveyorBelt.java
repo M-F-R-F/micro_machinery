@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
+package mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt;
 
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import mfrf.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.micro_machinery.utils.TriFields;
 import net.minecraft.core.BlockPos;

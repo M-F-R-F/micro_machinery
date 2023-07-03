@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
+package mfrf.micro_machinery.block.machines.single_block_machines.forge_anvil;
 
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import mfrf.micro_machinery.enums.EnumAnvilType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

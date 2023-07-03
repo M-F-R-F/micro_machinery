@@ -1,11 +1,11 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.cutter;
+package mfrf.micro_machinery.block.machines.single_block_machines.cutter;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.gui.cutter.CutterContainer;
 import mfrf.micro_machinery.item.SawBladeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.cutter.CutterRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
@@ -66,7 +66,7 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
     };
 
     public TileCutter(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_CUTTER.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_CUTTER.get(), pos, state);
     }
 
     public ItemStackHandler getSawBladeHandler() {
@@ -159,7 +159,7 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (side == getBackDirection() && cap == CapabilityEnergy.ENERGY) {
+        if (side == getBackDirection() && cap == ForgeCapabilities.ENERGY) {
             return LazyOptional.of(() -> energyContainer).cast();
         }
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side != getBackDirection()) {

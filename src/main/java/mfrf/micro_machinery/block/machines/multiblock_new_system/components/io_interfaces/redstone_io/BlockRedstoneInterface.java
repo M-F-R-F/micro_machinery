@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.redstone_io;
+package mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.redstone_io;
 
-import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;

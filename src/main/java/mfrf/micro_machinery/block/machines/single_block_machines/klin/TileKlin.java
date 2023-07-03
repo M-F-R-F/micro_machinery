@@ -1,12 +1,12 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.klin;
+package mfrf.micro_machinery.block.machines.single_block_machines.klin;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.gui.klin.KlinContainer;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.RegisteredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.entity.player.Inventory;
@@ -59,7 +59,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     private final KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
 
     public TileKlin(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_KLIN_TYPE.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_KLIN_TYPE.get(), pos, state);
     }
 
     public boolean isBurning() {

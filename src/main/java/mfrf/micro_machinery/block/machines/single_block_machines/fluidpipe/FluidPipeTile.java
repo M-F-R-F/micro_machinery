@@ -1,12 +1,12 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
+package mfrf.micro_machinery.block.machines.single_block_machines.fluidpipe;
 
 import mfrf.micro_machinery.Config;
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlocks;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.RegisteredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -41,7 +41,7 @@ public class FluidPipeTile extends MMTileBase {
     private int material = -1;
 
     public FluidPipeTile(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get(), pos, state);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class FluidPipeTile extends MMTileBase {
 
         if (blocked(getBlockState())) {
             BlockEntity offset = level.getBlockEntity(worldPosition.m_142300_(direction));
-            if (offset != null && offset.getType() == RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+            if (offset != null && offset.getType() == MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
                 FluidPipeTile destPipe = (FluidPipeTile) offset;
                 if (!blocked(getBlockState()) && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
                     destPipe.block(this.unBlock());
@@ -227,7 +227,7 @@ public class FluidPipeTile extends MMTileBase {
                             tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
                                     iFluidHandler -> {
                                         //if is pipe, check
-                                        if (tileEntity.getType() == RegisteredBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+                                        if (tileEntity.getType() == MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
                                             pipeDirections.add(side);
                                             int amount = iFluidHandler.getFluidInTank(0).getAmount();
                                             if (amount - fluidPipeTile.fluidTank.getFluidAmount() < -1)

@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.cutter;
+package mfrf.micro_machinery.block.machines.single_block_machines.cutter;
 
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;

@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces;
+package mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces;
 
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;

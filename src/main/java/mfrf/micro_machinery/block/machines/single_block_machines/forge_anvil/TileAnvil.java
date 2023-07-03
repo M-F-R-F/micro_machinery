@@ -1,11 +1,11 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.forge_anvil;
+package mfrf.micro_machinery.block.machines.single_block_machines.forge_anvil;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumAnvilType;
 import mfrf.micro_machinery.item.MMHammerBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.anvil.AnvilRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -27,11 +27,11 @@ public class TileAnvil extends MMTileBase {
     private EnumAnvilType rank = null;
 
     public TileAnvil(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_ANVIL_TYPE.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_ANVIL_TYPE.get(), pos, state);
     }
 
     public TileAnvil(EnumAnvilType rank, BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_ANVIL_TYPE.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_ANVIL_TYPE.get(), pos, state);
         this.rank = rank;
     }
 

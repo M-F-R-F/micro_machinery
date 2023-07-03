@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
+package mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts;
 
-import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;

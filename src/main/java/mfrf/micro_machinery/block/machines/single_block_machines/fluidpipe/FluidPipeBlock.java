@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.fluidpipe;
+package mfrf.micro_machinery.block.machines.single_block_machines.fluidpipe;
 
-import mfrf.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.block.MMBlockBase;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

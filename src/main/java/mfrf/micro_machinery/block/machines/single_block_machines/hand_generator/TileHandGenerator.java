@@ -1,7 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.hand_generator;
+package mfrf.micro_machinery.block.machines.single_block_machines.hand_generator;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.block.machines.MMTileBase;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
@@ -37,7 +37,7 @@ public class TileHandGenerator extends MMTileBase {
     private IntegerContainer progress = new IntegerContainer(0, 40);
 
     public TileHandGenerator(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_HAND_GENERATOR.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_HAND_GENERATOR.get(), pos, state);
     }
 
     public IntegerContainer getProgress() {
@@ -62,7 +62,7 @@ public class TileHandGenerator extends MMTileBase {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         Direction direction = Direction.fromYRot(getBlockState().getValue(BlockHandGenerator.FACING).toYRot() + 90f);
-        if (cap == CapabilityEnergy.ENERGY && side == direction) {
+        if (cap == ForgeCapabilities.ENERGY && side == direction) {
             return LazyOptional.of(() -> container).cast();
         }
         return super.getCapability(cap, side);

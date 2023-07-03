@@ -1,8 +1,8 @@
-package mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.main_parts;
+package mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts;
 
-import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
-import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.MMTileMultiBlockPart;
-import mfrf.micro_machinery.blocks.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMTileMultiBlockPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.micro_machinery.utils.NBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;

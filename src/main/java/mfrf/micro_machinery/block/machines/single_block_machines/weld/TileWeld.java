@@ -1,10 +1,10 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.weld;
+package mfrf.micro_machinery.block.machines.single_block_machines.weld;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.gui.weld.WeldContainer;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.weld.WeldRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
@@ -69,7 +69,7 @@ public class TileWeld extends MMTileBase implements MenuProvider {
 
 
     public TileWeld(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_WELD.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_WELD.get(), pos, state);
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
@@ -155,7 +155,7 @@ public class TileWeld extends MMTileBase implements MenuProvider {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityEnergy.ENERGY && side == getBackDirection()) {
+        if (cap == ForgeCapabilities.ENERGY && side == getBackDirection()) {
             return LazyOptional.of(() -> feContainer).cast();
         }
 

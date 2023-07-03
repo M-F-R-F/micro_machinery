@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
+package mfrf.micro_machinery.block.machines.single_block_machines.energy_cable;
 
-import mfrf.micro_machinery.blocks.MMBlockBase;
+import mfrf.micro_machinery.block.MMBlockBase;
 import mfrf.micro_machinery.enums.EnumCableMaterial;
 import mfrf.micro_machinery.enums.EnumCableState;
 import net.minecraft.core.BlockPos;
@@ -75,7 +75,7 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
                 defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CABLE);
             } else {
                 BlockEntity tileEntity = world.getBlockEntity(offset);
-                if (tileEntity != null && tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).isPresent()) {
+                if (tileEntity != null && tileEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite()).isPresent()) {
                     defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CONNECT);
                 }
             }
@@ -125,7 +125,7 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
                         setStateNoUpdateNeighbor(worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.CABLE));
                     }
                 } else if (tileEntityNeighbor != null) {
-                    if (tileEntityNeighbor.getCapability(CapabilityEnergy.ENERGY, facingFromVector.getOpposite()).isPresent()) {
+                    if (tileEntityNeighbor.getCapability(ForgeCapabilities.ENERGY, facingFromVector.getOpposite()).isPresent()) {
                         if (stateIn.getValue(enumCableStateEnumProperty) != EnumCableState.CONNECT) {
                             setStateNoUpdateNeighbor(worldIn, currentPos, stateIn.setValue(enumCableStateEnumProperty, EnumCableState.CONNECT));
                         }

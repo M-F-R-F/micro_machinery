@@ -1,7 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge;
+package mfrf.micro_machinery.block.machines.single_block_machines.centrifuge;
 
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.TileHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -31,7 +31,7 @@ public class BlockCentrifuge extends MMBlockTileProviderBase {
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, RegisteredBlockEntityTypes.TILE_CENTRIFUGE.get(), pBlockEntityType, TileCentrifuge::tick);
+        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_CENTRIFUGE.get(), pBlockEntityType, TileCentrifuge::tick);
     }
 
     @Override

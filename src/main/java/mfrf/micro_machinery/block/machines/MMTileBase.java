@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.blocks.machines;
+package mfrf.micro_machinery.block.machines;
 
 import mfrf.micro_machinery.utils.FEContainer;
 import net.minecraft.core.BlockPos;
@@ -12,18 +12,19 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import org.jetbrains.annotations.Nullable;
 
 public class MMTileBase extends BlockEntity {
     public MMTileBase(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
-    public Packet<ClientGamePacketListener> m_183216_() {
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
@@ -58,9 +59,9 @@ public class MMTileBase extends BlockEntity {
     }
 
     protected FEContainer pushEnergyToDirection(Direction direction, FEContainer container) {
-        BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
+        BlockEntity tileEntity = level.getBlockEntity(getBlockPos().relative(direction));
         if (tileEntity != null) {
-            LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
+            LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
             capability.ifPresent(iEnergyStorage -> {
                 if (iEnergyStorage.canReceive() && container.canExtract()) {
                     int extractEnergy = container.extractEnergy(container.getMaxEnergyStored(), false);

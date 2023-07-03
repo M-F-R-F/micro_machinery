@@ -1,7 +1,7 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.atomization;
+package mfrf.micro_machinery.block.machines.single_block_machines.atomization;
 
-import mfrf.micro_machinery.blocks.machines.MMBlockTileProviderBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.TileHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -20,8 +20,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class BlockAtomization extends MMBlockTileProviderBase {
 
-    public BlockAtomization(Properties properties, String name) {
-        super(properties, name);
+    public BlockAtomization(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -32,13 +32,13 @@ public class BlockAtomization extends MMBlockTileProviderBase {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, RegisteredBlockEntityTypes.TILE_ATOMIZATION.get(), pBlockEntityType, TileAtomization::tick);
+        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_ATOMIZATION.get(), pBlockEntityType, TileAtomization::tick);
     }
 
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (!worldIn.isClientSide()) {
-            NetworkHooks.openGui((ServerPlayer) player, (TileAtomization) worldIn.getBlockEntity(pos), (FriendlyByteBuf packerBuffer) -> {
+            NetworkHooks.openScreen((ServerPlayer) player, (TileAtomization) worldIn.getBlockEntity(pos), (FriendlyByteBuf packerBuffer) -> {
                 packerBuffer.writeBlockPos(pos);
             });
         }

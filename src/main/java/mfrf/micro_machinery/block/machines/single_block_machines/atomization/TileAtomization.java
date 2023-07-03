@@ -1,11 +1,11 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.atomization;
+package mfrf.micro_machinery.block.machines.single_block_machines.atomization;
 
 import mfrf.micro_machinery.Config;
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.gui.atomization.AtomizationContainer;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.atomization.AtomizationRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -77,7 +76,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
     private ResourceLocation recipe = null;
 
     public TileAtomization(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_ATOMIZATION.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_ATOMIZATION.get(), pos, state);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
@@ -176,7 +175,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
                 return LazyOptional.of(() -> output).cast();
 
         } else if (side == backDirection.getCounterClockWise()) {
-            if (cap == CapabilityEnergy.ENERGY)
+            if (cap == ForgeCapabilities.ENERGY)
                 return LazyOptional.of(() -> feContainer).cast();
 
         } else if (side == backDirection.getOpposite()) {

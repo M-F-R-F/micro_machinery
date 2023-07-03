@@ -1,10 +1,10 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge;
+package mfrf.micro_machinery.block.machines.single_block_machines.centrifuge;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.gui.centrifuge.CentrifugeContainer;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
@@ -77,7 +77,7 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
     private ResourceLocation recipe = null;
 
     public TileCentrifuge(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_CENTRIFUGE.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_CENTRIFUGE.get(), pos, state);
     }
 
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
@@ -193,7 +193,7 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityEnergy.ENERGY && isBackDirection(side)) {
+        if (cap == ForgeCapabilities.ENERGY && isBackDirection(side)) {
             return LazyOptional.of(() -> feContainer).cast();
         }
 

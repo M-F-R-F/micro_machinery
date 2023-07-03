@@ -1,8 +1,8 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.conveyor_belt;
+package mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumConveyorConnectState;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.ItemContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,7 +34,7 @@ public class TileConveyBelt extends MMTileBase {
     private int interval = 0;
 
     public TileConveyBelt(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_CONVEY_BELT.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_CONVEY_BELT.get(), pos, state);
         array = new StackArray(() -> ((BlockConveyorBelt) getBlockState().getBlock()).properties_speed_stack_interval_supplier.b.get(), () -> ((BlockConveyorBelt) getBlockState().getBlock()).properties_speed_stack_interval_supplier.a.get());
     }
 

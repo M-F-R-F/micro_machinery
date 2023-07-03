@@ -1,8 +1,8 @@
-package mfrf.micro_machinery.blocks.machines.single_block_machines.energy_cable;
+package mfrf.micro_machinery.block.machines.single_block_machines.energy_cable;
 
-import mfrf.micro_machinery.blocks.machines.MMTileBase;
+import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumCableState;
-import mfrf.micro_machinery.registeried_lists.RegisteredBlockEntityTypes;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -22,7 +22,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
     private int currentEnergy = 0;
 
     public TileEnergyCable(BlockPos pos, BlockState state) {
-        super(RegisteredBlockEntityTypes.TILE_ENERGY_CABLE.get(), pos, state);
+        super(MMBlockEntityTypes.TILE_ENERGY_CABLE.get(), pos, state);
     }
 
     public int getCurrentEnergy() {
@@ -51,7 +51,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if (cap == CapabilityEnergy.ENERGY) {
+        if (cap == ForgeCapabilities.ENERGY) {
             return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(cap);
@@ -60,7 +60,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == CapabilityEnergy.ENERGY) {
+        if (cap == ForgeCapabilities.ENERGY) {
             return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(cap, side);
@@ -106,7 +106,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
             for (Direction direction : outputSide) {
                 BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
                 if (tileEntity != null) {
-                    LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite());
+                    LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {
                         if (iEnergyStorage.canReceive()) {
                             int difference = iEnergyStorage.getMaxEnergyStored() - iEnergyStorage.getEnergyStored();
