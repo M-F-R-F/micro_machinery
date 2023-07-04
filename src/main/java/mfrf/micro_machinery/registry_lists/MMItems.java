@@ -7,11 +7,9 @@ import mfrf.micro_machinery.item.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -258,10 +256,10 @@ public class MMItems {
             ORE_NOLANITE_CONCENTRATE = ITEM_REGISTER.register("ore_nolanite_concentrate", MMItemBase::new),
             ORE_TUNSTITE_CONCENTRATE = ITEM_REGISTER.register("ore_tunstite_concentrate", MMItemBase::new),
     // casts
-    CAST_INGOT = ITEM_REGISTER.register("cast_ingot", MMCastBase::new),
-            CAST_STICK = ITEM_REGISTER.register("cast_stick", MMCastBase::new),
-            CAST_GEAR_BLANK = ITEM_REGISTER.register("cast_gear_blank", MMCastBase::new),
-            CAST_SWORD = ITEM_REGISTER.register("cast_sword", MMCastBase::new),
+    CAST_INGOT = ITEM_REGISTER.register("cast_ingot", () -> new MMCastBase("cast_ingot")),
+            CAST_STICK = ITEM_REGISTER.register("cast_stick", () -> new MMCastBase("cast_stick")),
+            CAST_GEAR_BLANK = ITEM_REGISTER.register("cast_gear_blank", () -> new MMCastBase("cast_gear_blank")),
+            CAST_SWORD = ITEM_REGISTER.register("cast_sword", () -> new MMCastBase("cast_sword")),
     // other
     MONOCRYSTALLINE_SILICON = ITEM_REGISTER.register("monocrystalline_silicon", MMItemBase::new),
             WAFER = ITEM_REGISTER.register("wafer", MMItemBase::new),

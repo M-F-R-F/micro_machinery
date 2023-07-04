@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -42,8 +42,8 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     public static final VoxelShape UP_SHAPE = Block.box(6, 10, 6, 10, 16, 10);
     public static final VoxelShape DOWN_SHAPE = Block.box(6, 0, 6, 10, 6, 10);
 
-    public BlockEnergyCable(Properties properties, String name, EnumCableMaterial material) {
-        super(properties, name);
+    public BlockEnergyCable(Properties properties, EnumCableMaterial material) {
+        super(properties);
         DIRECTION_ENUM_PROPERTY_MAP.put(Direction.UP, UP_ISCONNECTED);
         DIRECTION_ENUM_PROPERTY_MAP.put(Direction.DOWN, DOWN_ISCONNECTED);
         DIRECTION_ENUM_PROPERTY_MAP.put(Direction.SOUTH, SOUTH_ISCONNECTED);
@@ -69,7 +69,7 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     public BlockState getState(Level world, BlockPos pos) {
         BlockState defaultState = defaultBlockState();
         for (Direction direction : Direction.values()) {
-            BlockPos offset = pos.m_142300_(direction);
+            BlockPos offset = pos.relative(direction);
             BlockState neighborState = world.getBlockState(offset);
             if (neighborState.getBlock() instanceof BlockEnergyCable) {
                 defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumCableState.CABLE);
@@ -115,7 +115,7 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     public BlockState updatePostPlacement(BlockState stateIn, Level worldIn, BlockPos currentPos) {
         if (!worldIn.isClientSide()) {
             for (Direction value : Direction.values()) {//todo test facingPos
-                BlockPos facingPos = currentPos.m_142300_(value);
+                BlockPos facingPos = currentPos.relative(value);
                 BlockEntity tileEntityNeighbor = worldIn.getBlockEntity(facingPos);
                 Direction facingFromVector = Direction.getNearest(facingPos.getX() - currentPos.getX(), facingPos.getY() - currentPos.getY(), facingPos.getZ() - currentPos.getZ());
                 EnumProperty<EnumCableState> enumCableStateEnumProperty = DIRECTION_ENUM_PROPERTY_MAP.get(facingFromVector);

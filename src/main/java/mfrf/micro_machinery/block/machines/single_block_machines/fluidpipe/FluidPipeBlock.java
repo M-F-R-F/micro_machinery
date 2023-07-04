@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
@@ -61,13 +62,13 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
     public BlockState getState(Level world, BlockPos pos) {
         BlockState defaultState = defaultBlockState();
         for (Direction direction : Direction.values()) {
-            BlockPos offset = pos.m_142300_(direction);
+            BlockPos offset = pos.relative(direction);
             BlockState neighborState = world.getBlockState(offset);
             if (neighborState.getBlock() instanceof FluidPipeBlock) {
                 defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_TRUE);
             } else {
                 BlockEntity tileEntity = world.getBlockEntity(offset);
-                if (tileEntity != null && tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction.getOpposite()).isPresent()) {
+                if (tileEntity != null && tileEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite()).isPresent()) {
                     defaultState = defaultState.setValue(DIRECTION_ENUM_PROPERTY_MAP.get(direction), EnumFluidPipeState.AUTO_CONNECTED);
                 }
             }
@@ -122,7 +123,7 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
 //                        ((World) world).setBlockAndUpdate(pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_TRUE))
                     }
                 } else if (tileEntityNeighbor != null) {
-                    if (tileEntityNeighbor.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facingFromVector.getOpposite()).isPresent()) {
+                    if (tileEntityNeighbor.getCapability(ForgeCapabilities.FLUID_HANDLER, facingFromVector.getOpposite()).isPresent()) {
                         if (currentValue != EnumFluidPipeState.AUTO_CONNECTED) {
                             setStateAndUpdateNeighbor((Level) world, pos, state.setValue(enumPipeStateEnumProperty, EnumFluidPipeState.AUTO_CONNECTED));
                         }

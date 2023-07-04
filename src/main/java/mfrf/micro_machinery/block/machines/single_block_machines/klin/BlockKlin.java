@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.klin;
 
 import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
-import mfrf.micro_machinery.registry_lists.RegisteredBlocks;
+import mfrf.micro_machinery.registry_lists.MMBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,7 +38,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
     private static final VoxelShape KLIN_SHAPE = Shapes.or(KLIN_SHAPE1, KLIN_SHAPE2, KLIN_SHAPE3, KLIN_SHAPE4);
 
     public BlockKlin(Properties properties) {
-        super(properties, "klin");
+        super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(BURNING, false));
     }
 
@@ -74,7 +74,7 @@ public class BlockKlin extends MMBlockTileProviderBase {
                 tileKlin.fill(new FluidStack(fluid, 1000), IFluidHandler.FluidAction.EXECUTE);
 
             } else {
-                NetworkHooks.openGui((ServerPlayer) player, tileKlin, (FriendlyByteBuf packerBuffer) -> {
+                NetworkHooks.openScreen((ServerPlayer) player, tileKlin, (FriendlyByteBuf packerBuffer) -> {
                     packerBuffer.writeBlockPos(tileKlin.getBlockPos());
                 });
             }

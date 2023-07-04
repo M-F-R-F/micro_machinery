@@ -8,8 +8,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public class TileCreativeEnergyCell extends MMTileBase implements IEnergyStorage {
@@ -21,7 +21,7 @@ public class TileCreativeEnergyCell extends MMTileBase implements IEnergyStorage
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide()) {
             for (Direction direction : Direction.values()) {
-                BlockEntity tileEntity = world.getBlockEntity(pos.m_142300_(direction));
+                BlockEntity tileEntity = world.getBlockEntity(pos.relative(direction));
                 if (tileEntity != null) {
                     LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {

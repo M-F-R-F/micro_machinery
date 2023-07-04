@@ -24,6 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -41,7 +42,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
     public static final BooleanProperty ISBURNING = BooleanProperty.create("isburning");
 
     public BlockGenerator(Properties properties) {
-        super(properties, "generator");
+        super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(ISBURNING, false));
     }
 
@@ -77,7 +78,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
             TileGenerator tileGenerator = (TileGenerator) worldIn.getBlockEntity(pos);
             if (!heldItem.isEmpty() && heldItem.getItem() instanceof BucketItem item) {
                 if (item.getFluid() == Fluids.WATER) {
-                    LazyOptional<IFluidHandler> capability = tileGenerator.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+                    LazyOptional<IFluidHandler> capability = tileGenerator.getCapability(ForgeCapabilities.FLUID_HANDLER);
                     capability.ifPresent(iFluidHandler -> {
                         int fill = iFluidHandler.fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.SIMULATE);
                         if (fill != 0) {
@@ -90,7 +91,7 @@ public class BlockGenerator extends MMBlockTileProviderBase {
                     });
                 }
             } else {
-                NetworkHooks.openGui((ServerPlayer) player, tileGenerator, (FriendlyByteBuf packerBuffer) -> {
+                NetworkHooks.openScreen((ServerPlayer) player, tileGenerator, (FriendlyByteBuf packerBuffer) -> {
                     packerBuffer.writeBlockPos(tileGenerator.getBlockPos());
                 });
             }

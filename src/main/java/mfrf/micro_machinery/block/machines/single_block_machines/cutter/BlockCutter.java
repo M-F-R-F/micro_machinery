@@ -22,7 +22,7 @@ public class BlockCutter extends MMBlockTileProviderBase {
     public static BooleanProperty WORKING = BooleanProperty.create("working");
 
     public BlockCutter(Properties properties) {
-        super(properties, "cutter");
+        super(properties);
         registerDefaultState(getStateToRegistry().setValue(WORKING, false));
     }
 
@@ -30,7 +30,7 @@ public class BlockCutter extends MMBlockTileProviderBase {
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (!worldIn.isClientSide()) {
-            NetworkHooks.openGui((ServerPlayer) player, (TileCutter) worldIn.getBlockEntity(pos), (FriendlyByteBuf packerBuffer) -> {
+            NetworkHooks.openScreen((ServerPlayer) player, (TileCutter) worldIn.getBlockEntity(pos), (FriendlyByteBuf packerBuffer) -> {
                 packerBuffer.writeBlockPos(pos);
             });
         }

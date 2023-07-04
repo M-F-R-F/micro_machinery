@@ -6,18 +6,18 @@ import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import mfrf.micro_machinery.utils.RandomUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class CentrifugeRecipe extends RecipeBase {
         this.time = time;
     }
 
-    public Map<Item, Integer> getOutputs(Random random) {
+    public Map<Item, Integer> getOutputs(RandomSource random) {
 //        ArrayList<ItemStack> itemStacks = new ArrayList<>();
         HashMap<Item, Integer> ret = new HashMap<>();
         for (RandomUtils.RollListI<ItemStack> itemStackRollListI : rollList) {
@@ -70,7 +70,7 @@ public class CentrifugeRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.CENTRIFUGE_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CentrifugeRecipe> {
+    public static class Serializer  implements RecipeSerializer<CentrifugeRecipe> {
 
         @Override
         public CentrifugeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

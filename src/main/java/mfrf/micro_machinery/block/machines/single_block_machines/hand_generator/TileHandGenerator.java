@@ -11,8 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,7 +69,7 @@ public class TileHandGenerator extends MMTileBase {
     }
 
     public void OnActivated(Direction outPutDirection) {
-        if (!world.isClientSide() && progress.atMinValue()) {
+        if (!level.isClientSide() && progress.atMinValue()) {
             container.selfAdd();
             if (outPutDirection != null) {
                 container = pushEnergyToDirection(outPutDirection, container);

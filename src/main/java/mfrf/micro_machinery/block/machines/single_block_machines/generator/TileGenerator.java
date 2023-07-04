@@ -7,12 +7,8 @@ import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.entity.player.Inventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.text.Component;
 import net.minecraft.util.text.TranslatableComponent;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -26,8 +22,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -98,10 +94,10 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && !isBackDirection(side)) {
+        if (cap == ForgeCapabilities.FLUID_HANDLER && !isBackDirection(side)) {
             return LazyOptional.of(() -> tank).cast();
         }
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && !isBackDirection(side)) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER && !isBackDirection(side)) {
             return LazyOptional.of(() -> fuel_handler).cast();
         }
         if (cap == ForgeCapabilities.ENERGY && isBackDirection(side)) {
@@ -173,7 +169,7 @@ public class TileGenerator extends MMTileBase implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("generator");
+        return Component.translatable("generator");
     }
 
     @Nullable

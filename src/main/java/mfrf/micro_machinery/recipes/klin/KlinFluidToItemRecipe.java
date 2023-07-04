@@ -1,35 +1,32 @@
 package mfrf.micro_machinery.recipes.klin;
 
 import com.google.gson.JsonObject;
-import mfrf.micro_machinery.enums.EnumCastType;
+import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class KlinFluidToItemRecipe implements Recipe<RecipeWrapper> {
+public class KlinFluidToItemRecipe extends RecipeBase {
 
     private final ItemStack output;
     private final String cast;
     private final FluidStack inputfluid;
     private final int cooldown;
-    private final ResourceLocation id;
 
     public KlinFluidToItemRecipe(ItemStack output, FluidStack inputfluid, String cast, int cooldown, ResourceLocation id) {
+        super(id);
         this.output = output;
         this.inputfluid = inputfluid;
         this.cast = cast;
         this.cooldown = cooldown;
-        this.id = id;
 
     }
 
@@ -54,25 +51,12 @@ public class KlinFluidToItemRecipe implements Recipe<RecipeWrapper> {
         return false;
     }
 
-    @Override
-    public ItemStack assemble(RecipeWrapper inv) {
-        return ItemStack.EMPTY;
-    }
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
         return false;
     }
 
-    @Override
-    public ItemStack getResultItem() {
-        return output.copy();
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
-    }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
@@ -84,11 +68,11 @@ public class KlinFluidToItemRecipe implements Recipe<RecipeWrapper> {
         return MMRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<KlinFluidToItemRecipe> {
+    public static class Serializer implements RecipeSerializer<KlinFluidToItemRecipe> {
         @Override
         public KlinFluidToItemRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             int coolDown = json.get("coolDown").getAsInt();
-            EnumCastType castType = EnumCastType.fromString(json.get("castType").getAsString());
+            String castType = json.get("castType").getAsString();
             JsonObject input = json.getAsJsonObject("input");
             JsonObject output = json.getAsJsonObject("output");
 
@@ -101,7 +85,7 @@ public class KlinFluidToItemRecipe implements Recipe<RecipeWrapper> {
         @Override
         public KlinFluidToItemRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int coolDown = buffer.readInt();
-            EnumCastType enumCastType = EnumCastType.fromString(buffer.readUtf());
+            String enumCastType = buffer.readUtf();
             ItemStack outPut = buffer.readItem();
             FluidStack inputFluid = buffer.readFluidStack();
             return new KlinFluidToItemRecipe(outPut, inputFluid, enumCastType, coolDown, recipeId);
@@ -110,7 +94,7 @@ public class KlinFluidToItemRecipe implements Recipe<RecipeWrapper> {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, KlinFluidToItemRecipe recipe) {
             buffer.writeInt(recipe.cooldown);
-            buffer.writeUtf(EnumCastType.getString(recipe.cast));
+            buffer.writeUtf(recipe.cast);
             buffer.writeItemStack(recipe.output, false);
             recipe.inputfluid.writeToPacket(buffer);
         }

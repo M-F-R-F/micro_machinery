@@ -3,7 +3,7 @@ package mfrf.micro_machinery.recipes.electrolysis;
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
@@ -49,7 +48,7 @@ public class ElectrolysisRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ElectrolysisRecipe> {
+    public static class Serializer  implements RecipeSerializer<ElectrolysisRecipe> {
 
         @Override
         public ElectrolysisRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

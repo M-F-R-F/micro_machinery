@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 
 public class BlockWeld extends MMBlockTileProviderBase {
     public BlockWeld(Properties properties) {
-        super(properties, "weld");
+        super(properties);
     }
 
 
@@ -26,7 +26,7 @@ public class BlockWeld extends MMBlockTileProviderBase {
         if (!worldIn.isClientSide()) {
             BlockEntity tileEntity = worldIn.getBlockEntity(pos);
             if (tileEntity instanceof TileWeld weld) {
-                NetworkHooks.openGui((ServerPlayer) player, weld, (FriendlyByteBuf packerBuffer) -> {
+                NetworkHooks.openScreen((ServerPlayer) player, weld, (FriendlyByteBuf packerBuffer) -> {
                     packerBuffer.writeBlockPos(weld.getBlockPos());
                 });
             }

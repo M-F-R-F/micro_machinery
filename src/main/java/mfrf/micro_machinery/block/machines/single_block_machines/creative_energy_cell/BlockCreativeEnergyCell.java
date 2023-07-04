@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class BlockCreativeEnergyCell extends MMBlockTileProviderBase {
 
     public BlockCreativeEnergyCell(Properties properties) {
-        super(properties, "creative_energy_cell");
+        super(properties);
     }
 
     @Override

@@ -6,8 +6,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-import javax.annotation.Nullable;
-
 public abstract class TileHelper extends BaseEntityBlock {
     protected TileHelper(Properties pProperties) {
         super(pProperties);

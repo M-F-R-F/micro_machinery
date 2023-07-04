@@ -8,9 +8,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 
-import java.util.ArrayList;
-import java.util.function.Supplier;
-
 public class MMItemBase extends Item {
     public static Properties DEFAULT_PROPERTIES = new Properties().stacksTo(64);
 

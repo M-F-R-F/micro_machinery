@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 
 public class BlockElectrolysis extends MMBlockTileProviderBase {
     public BlockElectrolysis(Properties properties) {
-        super(properties, "electrolysis");
+        super(properties);
         this.registerDefaultState(getStateToRegistry());
     }
 
@@ -30,7 +30,7 @@ public class BlockElectrolysis extends MMBlockTileProviderBase {
     @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (!worldIn.isClientSide()) {
-            NetworkHooks.openGui((ServerPlayer) player, (TileElectrolysis) worldIn.getBlockEntity(pos), (FriendlyByteBuf packerBuffer) -> {
+            NetworkHooks.openScreen((ServerPlayer) player, (TileElectrolysis) worldIn.getBlockEntity(pos), (FriendlyByteBuf packerBuffer) -> {
                 packerBuffer.writeBlockPos(pos);
             });
         }

@@ -4,13 +4,12 @@ import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class CutterRecipe extends RecipeBase {
     private final IngredientStack input;
@@ -46,7 +45,7 @@ public class CutterRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.CUTTER_RECIPE_TYPE;
     }
 
-    public static class Searlizer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<CutterRecipe> {
+    public static class Searlizer  implements RecipeSerializer<CutterRecipe> {
 
         @Override
         public CutterRecipe fromJson(ResourceLocation pRecipeId, JsonObject jsonObject) {

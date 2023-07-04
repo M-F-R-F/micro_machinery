@@ -15,9 +15,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
@@ -47,7 +47,7 @@ public class TileConveyBelt extends MMTileBase {
             EnumConveyorConnectState out_state = state.getValue(BlockConveyorBelt.OUT_STATE);
             if (!popped.isEmpty()) {
                 boolean toConveyorBeltOnly = false;
-                BlockPos out_pos = pos.m_142300_(out);
+                BlockPos out_pos = pos.relative(out);
                 BlockEntity downT = world.getBlockEntity(out_pos.below());
                 BlockEntity upT = world.getBlockEntity(out_pos.above());
                 BlockState downS = null;
@@ -78,7 +78,7 @@ public class TileConveyBelt extends MMTileBase {
                         conveyBelt2.setChanged();
                     }
                 } else {
-                    tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, out.getOpposite()).ifPresent(iItemHandler -> {
+                    tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, out.getOpposite()).ifPresent(iItemHandler -> {
                         for (StackArray.CallbackSlot callbackSlot : popped) {
 
                             ItemStack outS = ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.func(), false);
@@ -242,7 +242,7 @@ public class TileConveyBelt extends MMTileBase {
             int maxStackSize = stackSaved.stack.getMaxStackSize();
             int count = stackSaved.stack.getCount();
 
-            if (!stackSaved.stack.sameItem(stack) || count >= maxStackSize) {
+            if (!stackSaved.stack.is(stack.getItem()) || count >= maxStackSize) {
                 return stack;
             }
 

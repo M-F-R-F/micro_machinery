@@ -3,14 +3,13 @@ package mfrf.micro_machinery.recipes.atomization;
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import mfrf.micro_machinery.utils.RecipeFluidStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class AtomizationRecipe extends RecipeBase {
     public RecipeFluidStack input;
@@ -38,7 +37,7 @@ public class AtomizationRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.ATOMIZATION_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<AtomizationRecipe> {
+    public static class Serializer  implements RecipeSerializer<AtomizationRecipe> {
 
         @Override
         public AtomizationRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

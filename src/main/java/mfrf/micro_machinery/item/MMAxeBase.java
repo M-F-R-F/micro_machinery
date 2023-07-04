@@ -3,12 +3,7 @@ package mfrf.micro_machinery.item;
 import mfrf.micro_machinery.events.RegistryThingsEvent;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
 
 public class MMAxeBase extends AxeItem {
 

@@ -6,20 +6,10 @@ import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
-import mfrf.micro_machinery.registry_lists.RegisteredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.entity.player.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.MenuProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.Component;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,12 +21,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -73,9 +62,9 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return LazyOptional.of(() -> (T) this);
-        } else if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+        } else if (cap == ForgeCapabilities.FLUID_HANDLER) {
             return LazyOptional.of(() -> (T) this);
         }
         return super.getCapability(cap, side);
@@ -316,7 +305,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("container.klin");
+        return Component.translatable("container.klin");
     }
 
     @Nullable

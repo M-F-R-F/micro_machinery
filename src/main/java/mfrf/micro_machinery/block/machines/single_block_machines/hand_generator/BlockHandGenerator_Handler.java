@@ -4,7 +4,7 @@ import mfrf.micro_machinery.block.MMBlockBase;
 
 public class BlockHandGenerator_Handler extends MMBlockBase {
     public BlockHandGenerator_Handler() {
-        super("hand_generator_1", true);
+        super();
     }
 
 }

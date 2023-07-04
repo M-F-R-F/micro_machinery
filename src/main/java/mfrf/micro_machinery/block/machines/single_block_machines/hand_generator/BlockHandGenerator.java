@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 public class BlockHandGenerator extends MMBlockTileProviderBase {
 
     public BlockHandGenerator(Properties properties) {
-        super(properties, "hand_generator");
+        super(properties);
     }
 
     @Override

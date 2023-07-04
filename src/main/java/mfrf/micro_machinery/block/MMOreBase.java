@@ -1,7 +1,5 @@
 package mfrf.micro_machinery.block;
 
-import mfrf.micro_machinery.block.MMBlockBase;
-
 import java.util.ArrayList;
 import java.util.List;
 

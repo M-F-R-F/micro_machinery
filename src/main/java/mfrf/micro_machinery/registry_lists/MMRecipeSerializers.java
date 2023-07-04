@@ -14,7 +14,6 @@ import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.micro_machinery.recipes.weld.WeldRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

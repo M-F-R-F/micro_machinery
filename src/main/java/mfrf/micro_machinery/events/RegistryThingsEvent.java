@@ -1,7 +1,6 @@
 package mfrf.micro_machinery.events;
 
 import mfrf.micro_machinery.MicroMachinery;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;

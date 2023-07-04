@@ -6,13 +6,12 @@ import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
@@ -51,7 +50,7 @@ public class WeldRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.WELD_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<WeldRecipe> {
+    public static class Serializer  implements RecipeSerializer<WeldRecipe> {
 
         @Override
         public WeldRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

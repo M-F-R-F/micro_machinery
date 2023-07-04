@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,11 +24,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
@@ -171,7 +171,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         Direction backDirection = getBackDirection();
         if (side == backDirection) {
-            if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            if (cap == ForgeCapabilities.ITEM_HANDLER)
                 return LazyOptional.of(() -> output).cast();
 
         } else if (side == backDirection.getCounterClockWise()) {
@@ -179,7 +179,7 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
                 return LazyOptional.of(() -> feContainer).cast();
 
         } else if (side == backDirection.getOpposite()) {
-            if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+            if (cap == ForgeCapabilities.FLUID_HANDLER)
                 return LazyOptional.of(() -> input).cast();
         }
 
@@ -194,6 +194,6 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("atomization");
+        return Component.translatable("atomization");
     }
 }

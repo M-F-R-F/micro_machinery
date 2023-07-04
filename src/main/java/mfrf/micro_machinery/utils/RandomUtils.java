@@ -2,6 +2,7 @@ package mfrf.micro_machinery.utils;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -79,7 +80,7 @@ public class RandomUtils {
             this.bound = bound;
         }
 
-        public T roll(Random random) {
+        public T roll(RandomSource random) {
             if (list.size() == 1) {
                 return list.values().stream().findAny().get();
             }

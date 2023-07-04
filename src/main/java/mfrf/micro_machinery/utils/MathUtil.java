@@ -96,7 +96,7 @@ public class MathUtil {
 
     /**
      * @param matrix An Affine-transformation matrix, the 3x3 sub matrix at upper left means linear transformation.
-     *               The first three elements in the fourth column means.m_142300_,and the final elements should always be 1.
+     *               The first three elements in the fourth column means.relative,and the final elements should always be 1.
      * @param shape  the VoxelShape need to transform.
      * @return the VoxelShape that been transformed.
      */
@@ -216,7 +216,7 @@ public class MathUtil {
                     if (block != Blocks.AIR) {
                         BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
 //                        if (block instanceof BlockAccessoryPlaceHolder) {
-//                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode.m_142300_Pos, block, blockState.
+//                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode.relativePos, block, blockState.
 //                            get(BlockAccessoryPlaceHolder.FACING), "", "", "place_holder");
 //                            accessories.put("accessory$" + xOffset + "$" + yOffset + "$" + zOffset, accessoryNode);
 //                            blockNodes.add(accessoryNode);

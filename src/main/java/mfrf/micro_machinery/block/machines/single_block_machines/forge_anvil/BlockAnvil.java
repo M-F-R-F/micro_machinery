@@ -23,8 +23,8 @@ public class BlockAnvil extends MMBlockTileProviderBase {
     public final VoxelShape ANVIL_WE;
     private final EnumAnvilType anvilType;
 
-    public BlockAnvil(Properties properties, String name, EnumAnvilType anvilType, int height) {
-        super(properties, name);
+    public BlockAnvil(Properties properties, EnumAnvilType anvilType, int height) {
+        super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
         this.anvilType = anvilType;
         this.ANVIL_SN = Block.box(0, 0, 3, 16, height, 13);

@@ -21,8 +21,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -159,11 +159,11 @@ public class TileWeld extends MMTileBase implements MenuProvider {
             return LazyOptional.of(() -> feContainer).cast();
         }
 
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == Direction.UP) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER && side == Direction.UP) {
             return LazyOptional.of(() -> input).cast();
         }
 
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == Direction.DOWN) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER && side == Direction.DOWN) {
             return LazyOptional.of(() -> output).cast();
         }
         return super.getCapability(cap, side);
@@ -171,7 +171,7 @@ public class TileWeld extends MMTileBase implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("gui.name.weld");
+        return Component.translatable("gui.name.weld");
     }
 
     @Nullable

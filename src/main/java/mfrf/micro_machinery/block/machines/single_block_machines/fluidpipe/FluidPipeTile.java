@@ -6,7 +6,7 @@ import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
-import mfrf.micro_machinery.registry_lists.RegisteredBlocks;
+import mfrf.micro_machinery.registry_lists.MMBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.ItemStackHandler;
@@ -87,7 +86,7 @@ public class FluidPipeTile extends MMTileBase {
 
     //todo 做到这里
     public boolean ejectToOpenSide(Direction direction, FluidStack ejectStack) {
-        BlockPos offset = getBlockPos().m_142300_(direction);
+        BlockPos offset = getBlockPos().relative(direction);
         BlockState blockStateToReplace = level.getBlockState(offset);
         if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(level, offset,
                 ejectStack)) {
@@ -121,7 +120,7 @@ public class FluidPipeTile extends MMTileBase {
         int receiveAmount = stack.getAmount();
 
         if (blocked(getBlockState())) {
-            BlockEntity offset = level.getBlockEntity(worldPosition.m_142300_(direction));
+            BlockEntity offset = level.getBlockEntity(worldPosition.relative(direction));
             if (offset != null && offset.getType() == MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
                 FluidPipeTile destPipe = (FluidPipeTile) offset;
                 if (!blocked(getBlockState()) && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
@@ -201,7 +200,7 @@ public class FluidPipeTile extends MMTileBase {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && side != null) {
+        if (cap == ForgeCapabilities.FLUID_HANDLER && side != null) {
             EnumFluidPipeState enumFluidPipeState = getBlockState().getValue(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
             if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN) {
                 return LazyOptional.of(() -> fluidTank).cast();
@@ -220,11 +219,11 @@ public class FluidPipeTile extends MMTileBase {
                 for (Direction side : Direction.values()) {
                     EnumFluidPipeState enumFluidPipeState = state.getValue(FluidPipeBlock.DIRECTION_ENUM_PROPERTY_MAP.get(side));
                     if (enumFluidPipeState == EnumFluidPipeState.AUTO_TRUE || enumFluidPipeState == EnumFluidPipeState.OPEN || enumFluidPipeState == EnumFluidPipeState.AUTO_CONNECTED) {
-                        BlockPos offset = pos.m_142300_(side);
+                        BlockPos offset = pos.relative(side);
                         BlockEntity tileEntity = world.getBlockEntity(offset);
 
                         if (tileEntity != null) {
-                            tileEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()).ifPresent(
+                            tileEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, side.getOpposite()).ifPresent(
                                     iFluidHandler -> {
                                         //if is pipe, check
                                         if (tileEntity.getType() == MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
@@ -252,7 +251,7 @@ public class FluidPipeTile extends MMTileBase {
                     int remain = pipeFluidSum.get() % pipeDirections.size();
                     int averageOut = (pipeFluidSum.get() - remain) / pipeDirections.size();
                     for (Direction direction : pipeDirections) {
-                        FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getBlockEntity(fluidPipeTile.getBlockPos().m_142300_(direction));
+                        FluidPipeTile pipeDemoTile = (FluidPipeTile) world.getBlockEntity(fluidPipeTile.getBlockPos().relative(direction));
                         int received = averageOut - pipeDemoTile.receiveFluid(fluidPipeTile.fluidTank.drain(averageOut, IFluidHandler.FluidAction.SIMULATE), direction);
                         fluidPipeTile.fluidTank.drain(received, IFluidHandler.FluidAction.EXECUTE);
                         fluidPipeTile.setChanged();
@@ -269,7 +268,7 @@ public class FluidPipeTile extends MMTileBase {
     public void checkPipeState() {
         for (Direction value : Direction.values()) {
             BlockPos pos = getBlockPos();
-            BlockPos offset = pos.m_142300_(value);
+            BlockPos offset = pos.relative(value);
             BlockState blockState = level.getBlockState(offset);
             if (blockState.getBlock() instanceof FluidPipeBlock block) {
                 level.setBlock(pos, block.getState(level, pos), 18);

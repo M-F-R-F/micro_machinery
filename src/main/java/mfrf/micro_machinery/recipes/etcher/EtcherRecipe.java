@@ -1,33 +1,33 @@
 package mfrf.micro_machinery.recipes.etcher;
 
 import com.google.gson.JsonObject;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import javax.annotation.Nullable;
 
-public class EtcherRecipe implements Recipe<RecipeWrapper> {
+public class EtcherRecipe extends RecipeBase {
     private final int fePerTick;
     private final int time;
     private final Ingredient input;
     private final ItemStack output;
     private final int countInput;
-    private final ResourceLocation id;
 
     public EtcherRecipe(int fePerTick, int feNeed, Ingredient input, ItemStack output, int countInput, ResourceLocation id) {
+        super(id);
         this.fePerTick = fePerTick;
         this.time = feNeed;
         this.input = input;
         this.output = output;
         this.countInput = countInput;
-        this.id = id;
     }
 
     public int getFePerTick() {
@@ -50,29 +50,10 @@ public class EtcherRecipe implements Recipe<RecipeWrapper> {
         return countInput;
     }
 
-    @Override
-    public boolean matches(RecipeWrapper pContainer, Level pLevel) {
-        return false;
-    }
-
-    @Override
-    public ItemStack assemble(RecipeWrapper inv) {
-        return null;
-    }
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
         return false;
-    }
-
-    @Override
-    public ItemStack getResultItem() {
-        return output;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
     }
 
     @Override
@@ -85,7 +66,7 @@ public class EtcherRecipe implements Recipe<RecipeWrapper> {
         return MMRecipeSerializers.Type.ETCHER_RECIPE_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<EtcherRecipe> {
+    public static class Serializer  implements RecipeSerializer<EtcherRecipe> {
 
         @Override
         public EtcherRecipe fromJson(ResourceLocation recipeId, JsonObject json) {

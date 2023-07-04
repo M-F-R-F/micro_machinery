@@ -1,24 +1,22 @@
 package mfrf.micro_machinery.recipes.klin;
 
 import com.google.gson.JsonObject;
+import mfrf.micro_machinery.recipes.RecipeBase;
 import mfrf.micro_machinery.recipes.RecipeHelper;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
+public class KlinItemToFluidRecipe extends RecipeBase {
 
     private final boolean issingle;
     private final int melttime;
@@ -29,9 +27,9 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
     private final Ingredient input;
     private final int count;
     private final FluidStack outputfluidstack;
-    private final ResourceLocation id;
 
     public KlinItemToFluidRecipe(boolean issingle, int melttime, Ingredient input1, int count1, Ingredient input2, int count2, Ingredient input, int count, FluidStack outputfluidstack, ResourceLocation id) {
+        super(id);
         this.issingle = issingle;
         this.melttime = melttime;
         this.input1 = input1;
@@ -41,7 +39,6 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
         this.input = input;
         this.count = count;
         this.outputfluidstack = outputfluidstack;
-        this.id = id;
     }
 
     public int getCount1() {
@@ -85,25 +82,12 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
         return false;
     }
 
-    @Override
-    public ItemStack assemble(RecipeWrapper inv) {
-        return ItemStack.EMPTY;
-    }
 
     @Override
     public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
-    @Override
-    public ItemStack getResultItem() {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
-    }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
@@ -116,7 +100,7 @@ public class KlinItemToFluidRecipe implements Recipe<RecipeWrapper> {
     }
 
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<KlinItemToFluidRecipe> {
+    public static class Serializer  implements RecipeSerializer<KlinItemToFluidRecipe> {
         @Override
         public KlinItemToFluidRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject output = GsonHelper.getAsJsonObject(json, "output");

@@ -37,7 +37,7 @@ public class BlockCentrifuge extends MMBlockTileProviderBase {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            NetworkHooks.openGui((ServerPlayer) pPlayer, (TileCentrifuge) pLevel.getBlockEntity(pPos), (FriendlyByteBuf packerBuffer) -> {
+            NetworkHooks.openScreen((ServerPlayer) pPlayer, (TileCentrifuge) pLevel.getBlockEntity(pPos), (FriendlyByteBuf packerBuffer) -> {
                 packerBuffer.writeBlockPos(pPos);
             });
         }

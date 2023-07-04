@@ -22,8 +22,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -162,7 +162,7 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
         if (side == getBackDirection() && cap == ForgeCapabilities.ENERGY) {
             return LazyOptional.of(() -> energyContainer).cast();
         }
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side != getBackDirection()) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER && side != getBackDirection()) {
             return LazyOptional.of(() -> this).cast();
         }
         return super.getCapability(cap, side);
@@ -208,7 +208,7 @@ public class TileCutter extends MMTileBase implements IItemHandler, MenuProvider
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("cutter_gui");
+        return Component.translatable("cutter_gui");
     }
 
     @Nullable

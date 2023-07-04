@@ -1,27 +1,27 @@
 package mfrf.micro_machinery.recipes.anvil;
 
 import com.google.gson.JsonObject;
-import mfrf.micro_machinery.registeried_lists.MMRecipeSerializers;
+import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
-public class AnvilRecipe implements Recipe<RecipeWrapper> {
+public class AnvilRecipe extends RecipeBase {
     private final int rankNeed;
     private final ItemStack output;
     private final Ingredient input;
-    private final ResourceLocation id;
 
     public AnvilRecipe(Ingredient input, ItemStack output, int rankNeed, ResourceLocation id) {
+        super(id);
         this.input = input;
         this.output = output;
         this.rankNeed = rankNeed;
-        this.id = id;
     }
 
     public Ingredient getInput() {
@@ -37,29 +37,10 @@ public class AnvilRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean matches(RecipeWrapper inv, Level worldIn) {
-        return false;
-    }
-
-    @Override
-    public ItemStack assemble(RecipeWrapper inv) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
     public boolean canCraftInDimensions(int width, int height) {
         return false;
     }
 
-    @Override
-    public ItemStack getResultItem() {
-        return output;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
-    }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
@@ -71,7 +52,7 @@ public class AnvilRecipe implements Recipe<RecipeWrapper> {
         return MMRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE;
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<AnvilRecipe> {
+    public static class Serializer implements RecipeSerializer<AnvilRecipe> {
 
         @Override
         public AnvilRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -95,7 +76,7 @@ public class AnvilRecipe implements Recipe<RecipeWrapper> {
         public void toNetwork(FriendlyByteBuf buffer, AnvilRecipe recipe) {
             buffer.writeInt(recipe.rankNeed);
             recipe.input.toNetwork(buffer);
-            buffer.writeItemStack(recipe.output, false,false);
+            buffer.writeItemStack(recipe.output, false);
         }
     }
 }

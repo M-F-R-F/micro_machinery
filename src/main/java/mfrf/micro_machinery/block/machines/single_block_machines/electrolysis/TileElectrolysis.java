@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -88,7 +87,7 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ENERGY && isBackDirection(side)) return LazyOptional.of(() -> energy).cast();
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return LazyOptional.of(() -> this).cast();
+        if (cap == ForgeCapabilities.ITEM_HANDLER) return LazyOptional.of(() -> this).cast();
         return super.getCapability(cap, side);
     }
 
@@ -188,7 +187,7 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
 
     @Override
     public Component getDisplayName() {
-        return new TranslatableComponent("electrolysis");
+        return Component.translatable("electrolysis");
     }
 
     @Nullable

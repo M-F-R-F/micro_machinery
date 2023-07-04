@@ -10,8 +10,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
@@ -83,7 +83,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
             int i = currentEnergy / cableSide.size();
             int sum = 0;
             for (Direction direction : cableSide) {
-                BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
+                BlockEntity tileEntity = level.getBlockEntity(getBlockPos().relative(direction));
                 if (tileEntity instanceof TileEnergyCable tileEnergyCable) {
                     int currentEnergy = tileEnergyCable.getCurrentEnergy();
                     if (currentEnergy < this.currentEnergy) {
@@ -104,7 +104,7 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
             int i = currentEnergy / size;
             AtomicInteger sum = new AtomicInteger();
             for (Direction direction : outputSide) {
-                BlockEntity tileEntity = level.getBlockEntity(getBlockPos().m_142300_(direction));
+                BlockEntity tileEntity = level.getBlockEntity(getBlockPos().relative(direction));
                 if (tileEntity != null) {
                     LazyOptional<IEnergyStorage> capability = tileEntity.getCapability(ForgeCapabilities.ENERGY, direction.getOpposite());
                     capability.ifPresent(iEnergyStorage -> {
@@ -188,6 +188,6 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
     }
 
     private int getTransfer() {
-        return getBlockState().get(BlockEnergyCable.CABLE_MATERIAL_ENUM_PROPERTY).getTransfer();
+        return getBlockState().getValue(BlockEnergyCable.CABLE_MATERIAL_ENUM_PROPERTY).getTransfer();
     }
 }
