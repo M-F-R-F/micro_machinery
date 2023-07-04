@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class BlockPropertys extends BlockTagsProvider
+public class BlockPropertys extends BlockTagsProvider{
 
         public BlockPropertys(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
             super(output, lookupProvider, modId, existingFileHelper);

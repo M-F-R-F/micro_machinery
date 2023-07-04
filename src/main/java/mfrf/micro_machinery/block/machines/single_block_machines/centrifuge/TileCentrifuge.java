@@ -216,6 +216,16 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
     @org.jetbrains.annotations.Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new CentrifugeContainer(pContainerId, pInventory, getBlockPos(), level);
+        return new AbstractContainerMenu(pContainerId, pInventory, getBlockPos(), level) {
+            @Override
+            public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+                return null;
+            }
+
+            @Override
+            public boolean stillValid(Player pPlayer) {
+                return false;
+            }
+        };
     }
 }
