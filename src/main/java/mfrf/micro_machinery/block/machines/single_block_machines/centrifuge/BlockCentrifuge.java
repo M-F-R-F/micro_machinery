@@ -19,8 +19,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class BlockCentrifuge extends MMBlockTileProviderBase {
 
-    public BlockCentrifuge(Properties properties, String name) {
-        super(properties, name);
+    public BlockCentrifuge(Properties properties) {
+        super(properties);
     }
 
     @Override

@@ -219,7 +219,7 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
         return new AbstractContainerMenu(pContainerId, pInventory, getBlockPos(), level) {
             @Override
             public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
             @Override

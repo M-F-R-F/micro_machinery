@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.registeried_lists;
 
-import mfrf.micro_machinery.fluids.MMFluidBase;
+import mfrf.micro_machinery.block.fluids.MMFluidBase;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

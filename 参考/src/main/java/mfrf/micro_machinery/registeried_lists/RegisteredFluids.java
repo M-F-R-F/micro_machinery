@@ -1,7 +1,7 @@
 package mfrf.micro_machinery.registeried_lists;
 
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.fluids.MMFluidBase;
+import mfrf.micro_machinery.block.fluids.MMFluidBase;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PumpkinBlock;
 import net.minecraft.world.level.material.Fluid;

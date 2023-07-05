@@ -1,9 +1,26 @@
 package mfrf.micro_machinery.registry_lists;
 
 import com.google.common.base.Supplier;
+import mfrf.micro_machinery.Config;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.block.MMBlockBase;
+import mfrf.micro_machinery.block.machines.single_block_machines.atomization.BlockAtomization;
+import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.BlockCentrifuge;
+import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
+import mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell.BlockCreativeEnergyCell;
+import mfrf.micro_machinery.block.machines.single_block_machines.cutter.BlockCutter;
+import mfrf.micro_machinery.block.machines.single_block_machines.electrolysis.BlockElectrolysis;
+import mfrf.micro_machinery.block.machines.single_block_machines.energy_cable.BlockEnergyCable;
+import mfrf.micro_machinery.block.machines.single_block_machines.fluidpipe.FluidPipeBlock;
+import mfrf.micro_machinery.block.machines.single_block_machines.forge_anvil.BlockAnvil;
+import mfrf.micro_machinery.block.machines.single_block_machines.generator.BlockGenerator;
+import mfrf.micro_machinery.block.machines.single_block_machines.hand_generator.BlockHandGenerator;
+import mfrf.micro_machinery.block.machines.single_block_machines.klin.BlockKlin;
+import mfrf.micro_machinery.block.machines.single_block_machines.weld.BlockWeld;
+import mfrf.micro_machinery.enums.EnumAnvilType;
+import mfrf.micro_machinery.enums.EnumCableMaterial;
 import mfrf.micro_machinery.item.MMBlockItemBase;
+import mfrf.micro_machinery.utils.TriFields;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -109,42 +126,38 @@ public class MMBlocks {
             SLAG_CONCRETE = makeBlockWithItem("slag_concrete", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(1.5f))),
             CLAY_BRICK_BLOCK = makeBlockWithItem("clay_brick_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
             FIRE_BRICK_BLOCK = makeBlockWithItem("fire_brick_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
-            BELLOW = makeBlockWithItem("bellow", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f)));
-//     //machine
-//     public static final Block
-//             KLIN = new BlockKlin(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f)),
-//             GENERATOR = new BlockGenerator(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f)),
-//             HAND_GENERATOR = new BlockHandGenerator(Block.Properties.of().sound(SoundType.METAL).strength(3).noOcclusion().requiresCorrectToolForDrops()),
-//             STONE_ANVIL = new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(2.0f).requiresCorrectToolForDrops(), "stone_anvil", EnumAnvilType.STONE, 16),
-//             BRONZE_ANVIL = new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(3.0f).requiresCorrectToolForDrops(), "bronze_anvil", EnumAnvilType.BRONZE, 16),
-//             PIGIRON_ANVIL = new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(4.0f).requiresCorrectToolForDrops(), "pigiron_anvil", EnumAnvilType.PIGIRON, 12),
-//             CREATIVE_ENERGY_CELL = new BlockCreativeEnergyCell(Block.Properties.of().sound(SoundType.METAL)),
-//             ELECTROLYSIS = new BlockElectrolysis(Block.Properties.of().sound(SoundType.METAL)),
-//             CUTTER = new BlockCutter(Block.Properties.of().sound(SoundType.METAL)),
-//             CENTRIFUGE = new BlockCentrifuge(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), "centrifuge"),
-//             ATOMIZATION = new BlockAtomization(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), "atomization"),
-//             WELD = new BlockWeld(Block.Properties.of().sound(SoundType.METAL));
-//     //    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.of().sound(SoundType.METAL)),
+            BELLOW = makeBlockWithItem("bellow", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
+    //machine
+    KLIN = makeBlockWithItem("klin", () -> new BlockKlin(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f))),
+            GENERATOR = makeBlockWithItem("generator", () -> new BlockGenerator(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            HAND_GENERATOR = makeBlockWithItem("hand_generator", () -> new BlockHandGenerator(Block.Properties.of().sound(SoundType.METAL).strength(3).noOcclusion().requiresCorrectToolForDrops())),
+            STONE_ANVIL = makeBlockWithItem("stone_anvil", () -> new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(2.0f).requiresCorrectToolForDrops(), EnumAnvilType.STONE, 16)),
+            BRONZE_ANVIL = makeBlockWithItem("bronze_anvil", () -> new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(3.0f).requiresCorrectToolForDrops(), EnumAnvilType.BRONZE, 16)),
+            PIGIRON_ANVIL = makeBlockWithItem("pigiron_anvim", () -> new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(4.0f).requiresCorrectToolForDrops(), EnumAnvilType.PIGIRON, 12)),
+            CREATIVE_ENERGY_CELL = makeBlockWithItem("creative_energy_cell", () -> new BlockCreativeEnergyCell(Block.Properties.of().sound(SoundType.METAL))),
+            ELECTROLYSIS = makeBlockWithItem("electrolysis", () -> new BlockElectrolysis(Block.Properties.of().sound(SoundType.METAL))),
+            CUTTER = makeBlockWithItem("cutter", () -> new BlockCutter(Block.Properties.of().sound(SoundType.METAL))),
+            CENTRIFUGE = makeBlockWithItem("centrifuge", () -> new BlockCentrifuge(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            ATOMIZATION = makeBlockWithItem("atomization", () -> new BlockAtomization(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            WELD = makeBlockWithItem("weld", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+    //    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.of().sound(SoundType.METAL)),
 
-//     //cable
-//     public static final Block
-//             COPPER_CABLE = new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), "copper_cable", EnumCableMaterial.COPPER),
-//             NICKEL_CABLE = new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), "nickel_cable", EnumCableMaterial.NICKEL),
-//             ALUMINUM_CABLE = new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), "aluminum_cable", EnumCableMaterial.ALUMINUM),
-//             TUNGSTEN_CABLE = new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), "tungsten_cable", EnumCableMaterial.TUNGSTEN),
-//             COBALT_CABLE = new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), "cobalt_cable", EnumCableMaterial.COBALT);
-//     //convey belt
-//     public static final Block
-//             CONVEYOR_BELT_1 = new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), "conveyor_belt_1", TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get)),
-//             CONVEYOR_BELT_2 = new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), "conveyor_belt_2", TriFields.of(Config.CONVEY_BELT_2_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_2_TRANSMIT_SPEED::get, Config.CONVEY_BELT_2_TRANSMIT_STACK_SIZE::get)),
-//             CONVEYOR_BELT_3 = new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), "conveyor_belt_3", TriFields.of(Config.CONVEY_BELT_3_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_3_TRANSMIT_SPEED::get, Config.CONVEY_BELT_3_TRANSMIT_STACK_SIZE::get));
+    //cable
+    COPPER_CABLE = makeBlockWithItem("copper_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.COPPER)),
+            NICKEL_CABLE = makeBlockWithItem("nickel_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.NICKEL)),
+            ALUMINUM_CABLE = makeBlockWithItem("aluminum_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.ALUMINUM)),
+            TUNGSTEN_CABLE = makeBlockWithItem("tungstel_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.TUNGSTEN)),
+            COBALT_CABLE = makeBlockWithItem("cobalt_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.COBALT)),
+    //convey belt
+    CONVEYOR_BELT_1 = makeBlockWithItem("conveyor_belt_1", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get))),
+            CONVEYOR_BELT_2 = makeBlockWithItem("conveyor_belt_2", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_2_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_2_TRANSMIT_SPEED::get, Config.CONVEY_BELT_2_TRANSMIT_STACK_SIZE::get))),
+            CONVEYOR_BELT_3 = makeBlockWithItem("conveyor_belt_3", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_3_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_3_TRANSMIT_SPEED::get, Config.CONVEY_BELT_3_TRANSMIT_STACK_SIZE::get))),
 
-//     //fluid pipe
-//     public static final Block
-//             PIPE_INVAR = new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL), "pipe_invar"),
-//             PIPE_STAINLESS_STEEL = new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL), "pipe_stainless_steel"),
-//             PIPE_TUNGSTEN_STEEL = new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL), "pipe_tungsten_steel");
-//     //multiBlock
+    //fluid pipe
+    PIPE_INVAR = makeBlockWithItem("pipe_invar", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL))),
+            PIPE_STAINLESS_STEEL = makeBlockWithItem("pipe_stainless_steel", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL))),
+            PIPE_TUNGSTEN_STEEL = makeBlockWithItem("pipe_tungstel_steel", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL)));
+    //multiBlock
 
 //     //component
 //     public static final Block

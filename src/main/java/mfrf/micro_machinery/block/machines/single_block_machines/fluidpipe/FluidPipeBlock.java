@@ -21,7 +21,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -47,8 +46,8 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
     public static final VoxelShape UP_SHAPE = Block.box(6, 10, 6, 10, 16, 10);
     public static final VoxelShape DOWN_SHAPE = Block.box(6, 0, 6, 10, 6, 10);
 
-    public FluidPipeBlock(Properties properties, String name) {
-        super(properties, name);
+    public FluidPipeBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(UP_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(DOWN_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(SOUTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE
         ).setValue(NORTH_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(WEST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(EAST_ISCONNECTED, EnumFluidPipeState.AUTO_FALSE).setValue(BLOCKED, false));
     }

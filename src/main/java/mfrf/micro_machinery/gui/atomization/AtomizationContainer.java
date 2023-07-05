@@ -2,7 +2,7 @@ package mfrf.micro_machinery.gui.atomization;
 
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.micro_machinery.gui.ContainerBase;
-import mfrf.micro_machinery.registry_lists.RegisteredContainerTypes;
+import mfrf.micro_machinery.registry_lists.MMContainerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +16,7 @@ public class AtomizationContainer extends ContainerBase {
     private final TileAtomization tileEntity;
 
     public AtomizationContainer(int id, Inventory Container, BlockPos pos, Level world) {
-        super(RegisteredContainerTypes.ATOMIZATION_CONTAINER.get(), id);
+        super(MMContainerTypes.ATOMIZATION_CONTAINER.get(), id);
         this.tileEntity = ((TileAtomization) world.getBlockEntity(pos));
         ItemStackHandler output = tileEntity.getOutput();
         this.addSlot(new SlotItemHandler(output, 0, 120, 46) {

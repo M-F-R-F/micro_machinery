@@ -45,7 +45,7 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
 
         int i = this.leftPos;
         int j = this.topPos;
-        this.blit(p_283065_, i, j, 0, 0, this.imageWidth, this.imageHeight);
+        p_283065_.blit(i, j, 0, 0, this.imageWidth, this.imageHeight);
     }
 
     protected void renderFluidTank(PoseStack stack, IFluidTank tank, int x, int y, int tankWidth, int tankHeight) {

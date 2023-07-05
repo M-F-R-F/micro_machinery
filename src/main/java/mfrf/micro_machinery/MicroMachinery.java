@@ -1,10 +1,7 @@
 package mfrf.micro_machinery;
 
 import com.mojang.logging.LogUtils;
-import mfrf.micro_machinery.registry_lists.MMBlocks;
-import mfrf.micro_machinery.registry_lists.MMFeatures;
-import mfrf.micro_machinery.registry_lists.MMFluids;
-import mfrf.micro_machinery.registry_lists.MMItems;
+import mfrf.micro_machinery.registry_lists.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -23,6 +20,9 @@ public class MicroMachinery {
         MMBlocks.BLOCK_REGISTER.register(modEventBus);
         MMFluids.FLUID_REGISTER.register(modEventBus);
         MMFeatures.FEATURE_REGISTER.register(modEventBus);
+        MMRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(modEventBus);
+        MMContainerTypes.CONTAINER_TYPE_REGISTER.register(modEventBus);
+
         LOGGER.info(MODID + " Loaded.");
         LOGGER.info("Mixin Version: " + MixinBootstrap.VERSION);
     }

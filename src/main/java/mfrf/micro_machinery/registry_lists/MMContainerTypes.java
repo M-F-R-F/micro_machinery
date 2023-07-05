@@ -9,7 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class RegisteredContainerTypes {
+public class MMContainerTypes {
     public static final DeferredRegister<MenuType<?>> CONTAINER_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MicroMachinery.MODID);
 
 //    public static RegistryObject<MenuType<KlinContainer>> KLINCONTAINER = CONTAINER_TYPE_REGISTER.register("klincontainer", () -> IForgeMenuType.create((windowId, inv, data) -> new KlinContainer(windowId, inv, data.readBlockPos(), Minecraft.getInstance().level, new TileKlin.KlinProgressBarNumArray())));

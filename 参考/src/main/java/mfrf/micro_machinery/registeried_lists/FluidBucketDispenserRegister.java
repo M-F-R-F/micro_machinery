@@ -1,6 +1,6 @@
 package mfrf.micro_machinery.registeried_lists;
 
-import mfrf.micro_machinery.fluids.MMFluidBase;
+import mfrf.micro_machinery.block.fluids.MMFluidBase;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;

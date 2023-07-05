@@ -2,7 +2,7 @@ package mfrf.micro_machinery.event;
 
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.blocks.MMBlockBase;
-import mfrf.micro_machinery.fluids.MMFluidBase;
+import mfrf.micro_machinery.block.fluids.MMFluidBase;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.resources.ResourceLocation;
