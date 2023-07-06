@@ -30,6 +30,7 @@ public class MMFluidBase {
     public final ResourceLocation fluid_resource_location;
     public final ResourceLocation fluid_flow_resource_location;
     private final String name;
+    public final boolean is_molten_material;
     private RegistryObject<FluidType> fluid_type;
     public RegistryObject<FlowingFluid> fluid;
     public RegistryObject<FlowingFluid> fluid_flowing;
@@ -53,6 +54,7 @@ public class MMFluidBase {
         RegistryThingsEvent.getOrCreateItemListToRegisterTab(MMItems.TAB.ICON_TAB.getKey()).add(fluid_bucket);
         fluidBaseList.add(this);
         tempContainer.put(fluid_type, this);
+        this.is_molten_material = is_molten_material;
 //        FluidBucketDispenserRegister.fluids.add(this);//todo check bucket wrapper
     }
 
