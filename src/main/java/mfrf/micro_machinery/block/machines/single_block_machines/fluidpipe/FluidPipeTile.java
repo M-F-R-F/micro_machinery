@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -150,7 +151,7 @@ public class FluidPipeTile extends MMTileBase {
                                 generateCount = 1;
                             }
                         } else {
-                            if (this.blockItemContainer.getStackInSlot(0).sameItem(fluidCrashRecipe.generate) && blockItemContainer.getStackInSlot(0).getCount() + fluidCrashRecipe.generate.getCount() <= fluidCrashRecipe.generate.getMaxStackSize()) {
+                            if (this.blockItemContainer.getStackInSlot(0).is(fluidCrashRecipe.generate.getItem()) && blockItemContainer.getStackInSlot(0).getCount() + fluidCrashRecipe.generate.getCount() <= fluidCrashRecipe.generate.getMaxStackSize()) {
                                 thisUse = generateCount * fluidCrashRecipe.fluidAUsage;
                                 receivedUse = fluidCrashRecipe.fluidBUsage * generateCount;
                             }
@@ -165,7 +166,7 @@ public class FluidPipeTile extends MMTileBase {
                                 generateCount = 1;
                             }
                         } else {
-                            if (this.blockItemContainer.getStackInSlot(0).sameItem(fluidCrashRecipe.generate) && blockItemContainer.getStackInSlot(0).getCount() + fluidCrashRecipe.generate.getCount() <= fluidCrashRecipe.generate.getMaxStackSize()) {
+                            if (this.blockItemContainer.getStackInSlot(0).is(fluidCrashRecipe.generate.getItem()) && blockItemContainer.getStackInSlot(0).getCount() + fluidCrashRecipe.generate.getCount() <= fluidCrashRecipe.generate.getMaxStackSize()) {
                                 thisUse = generateCount * fluidCrashRecipe.fluidBUsage;
                                 receivedUse = fluidCrashRecipe.fluidAUsage * generateCount;
                             }

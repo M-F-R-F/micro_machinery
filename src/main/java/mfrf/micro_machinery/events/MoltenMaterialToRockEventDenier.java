@@ -1,20 +1,13 @@
 package mfrf.micro_machinery.events;
 
-import jdk.javadoc.internal.doclets.formats.html.markup.HtmlStyle;
-import mfrf.micro_machinery.Config;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.block.fluids.MMFluidBase;
-import mfrf.micro_machinery.registry_lists.MMBlocks;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.HashMap;
 
