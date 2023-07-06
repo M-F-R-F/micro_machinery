@@ -50,7 +50,8 @@ public class MMFluids {
                     .supportsBoating(true)
                     .viscosity(8960)
                     .canDrown(true)
-                    .rarity(Rarity.EPIC)
+                    .rarity(Rarity.EPIC),
+            true
     ),
             MOLTEN_TIN = new MMFluidBase("molten_tin", Block.Properties.of().noCollission().replaceable().randomTicks().lightLevel((state) -> 15), (fluid) -> fluid.temperature(505), 20),
             MOLTEN_BRONZE = new MMFluidBase("molten_bronze", Block.Properties.of().noCollission().replaceable().randomTicks().lightLevel((state) -> 15), (fluid) -> fluid.temperature(1170), 20),

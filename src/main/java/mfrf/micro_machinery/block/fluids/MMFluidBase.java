@@ -15,9 +15,8 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static mfrf.micro_machinery.registry_lists.MMBlocks.BLOCK_REGISTER;
 import static mfrf.micro_machinery.registry_lists.MMFluids.FLUID_REGISTER;
@@ -26,6 +25,8 @@ import static mfrf.micro_machinery.registry_lists.MMItems.ITEM_REGISTER;
 
 public class MMFluidBase {
     public static List<MMFluidBase> fluidBaseList = new ArrayList<>();
+    private static HashMap<RegistryObject<FluidType>, MMFluidBase> tempContainer = new HashMap<RegistryObject<FluidType>, MMFluidBase>();
+    private static HashMap<FluidType, MMFluidBase> FLUID_MAP = null;
     public final ResourceLocation fluid_resource_location;
     public final ResourceLocation fluid_flow_resource_location;
     private final String name;
@@ -40,7 +41,7 @@ public class MMFluidBase {
     /**
      * this.fluid_properties = new ForgeFlowingFluid.Properties(this.fluid, this.fluid_flowing, factory.apply(FluidAttributes.builder(fluid_resource_location, fluid_flow_resource_location).density(10).viscosity(1500))).bucket(this.fluid_bucket).block(this.fluid_block).slopeFindDistance(3).explosionResistance(100F).tickRate(tickRate);
      */
-    public MMFluidBase(String name, Block.Properties fluid_block_properties, FluidType.Properties fluid_properties) {
+    public MMFluidBase(String name, Block.Properties fluid_block_properties, FluidType.Properties fluid_properties,boolean is_molten_material) {
         this.name = name;
         this.fluid_resource_location = new ResourceLocation(MicroMachinery.MODID, "fluids/" + name + "_still");
         this.fluid_flow_resource_location = new ResourceLocation(MicroMachinery.MODID, "fluids/" + name + "_flow");
@@ -51,7 +52,18 @@ public class MMFluidBase {
         this.fluid_bucket = ITEM_REGISTER.register(name + "_bucket", () -> new BucketItem(this.fluid, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
         RegistryThingsEvent.getOrCreateItemListToRegisterTab(MMItems.TAB.ICON_TAB.getKey()).add(fluid_bucket);
         fluidBaseList.add(this);
+        tempContainer.put(fluid_type, this);
 //        FluidBucketDispenserRegister.fluids.add(this);//todo check bucket wrapper
+    }
+
+    public static HashMap<FluidType, MMFluidBase> getFluidMap() {
+        if (FLUID_MAP == null) {
+            FLUID_MAP = new HashMap<>();
+            for (MMFluidBase mmFluidBase : fluidBaseList) {
+                FLUID_MAP.put(mmFluidBase.fluid_type.get(), mmFluidBase);
+            }
+        }
+        return FLUID_MAP;
     }
 
     public String getName() {

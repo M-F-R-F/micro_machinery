@@ -4,6 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class Config {
     public static ForgeConfigSpec CONFIG;
+    public static ForgeConfigSpec.BooleanValue FLUID_COLLIDE_GENERATE_DISCARDED_STONE;
     public static ForgeConfigSpec.DoubleValue GENERATE_CHANCE_OF_COPPER_VEIN;
     public static ForgeConfigSpec.DoubleValue GENERATE_CHANCE_OF_TIN_VEIN;
     public static ForgeConfigSpec.DoubleValue GENERATE_CHANCE_OF_IRON_VEIN;
@@ -52,6 +53,8 @@ public class Config {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
 
         builder.comment("world settings", "this part defines your ore generation").push("world");
+        FLUID_COLLIDE_GENERATE_DISCARDED_STONE = builder.comment("if true, fluid collide will generate discarded stone").define("fluid_collide_generate_discarded_stone", true);
+
         GENERATE_CHANCE_OF_COPPER_VEIN = builder.comment("generation chance of copper vein(0.0-0.05)").defineInRange("value_copper", 0.01d, 0.0d, 0.05d);
         GENERATE_CHANCE_OF_TIN_VEIN = builder.comment("generation chance of tin vein(0.0-0.05)").defineInRange("value_tin", 0.008d, 0.0d, 0.05d);
         GENERATE_CHANCE_OF_IRON_VEIN = builder.comment("generation chance of iron vein(0.0-0.05)").defineInRange("value_iron", 0.0075d, 0.0d, 0.05d);

@@ -1,6 +1,7 @@
 package mfrf.micro_machinery;
 
 import com.mojang.logging.LogUtils;
+import mfrf.micro_machinery.events.MoltenMaterialToRockEventDenier;
 import mfrf.micro_machinery.registry_lists.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -22,6 +23,10 @@ public class MicroMachinery {
         MMFeatures.FEATURE_REGISTER.register(modEventBus);
         MMRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(modEventBus);
         MMContainerTypes.CONTAINER_TYPE_REGISTER.register(modEventBus);
+
+        if (Config.FLUID_COLLIDE_GENERATE_DISCARDED_STONE.get()) {
+            modEventBus.addListener(MoltenMaterialToRockEventDenier::onMoltenMaterialGenerateStone);
+        }
 
         LOGGER.info(MODID + " Loaded.");
         LOGGER.info("Mixin Version: " + MixinBootstrap.VERSION);
