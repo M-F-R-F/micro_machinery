@@ -40,12 +40,12 @@ public class MMFluidBase {
     /**
      * this.fluid_properties = new ForgeFlowingFluid.Properties(this.fluid, this.fluid_flowing, factory.apply(FluidAttributes.builder(fluid_resource_location, fluid_flow_resource_location).density(10).viscosity(1500))).bucket(this.fluid_bucket).block(this.fluid_block).slopeFindDistance(3).explosionResistance(100F).tickRate(tickRate);
      */
-    public MMFluidBase(String name, Block.Properties fluid_block_properties, FluidType.Properties fluid_properties, int tickRate) {
+    public MMFluidBase(String name, Block.Properties fluid_block_properties, FluidType.Properties fluid_properties) {
         this.name = name;
         this.fluid_resource_location = new ResourceLocation(MicroMachinery.MODID, "fluids/" + name + "_still");
         this.fluid_flow_resource_location = new ResourceLocation(MicroMachinery.MODID, "fluids/" + name + "_flow");
-        this.fluid = FLUID_REGISTER.register("fluids/" + name, () -> new ForgeFlowingFluid.Source(this.fluid_properties));
         this.fluid_type = FLUID_TYPE_REGISTER.register("fluids/" + name, () -> new FluidType(fluid_properties));
+        this.fluid = FLUID_REGISTER.register("fluids/" + name, () -> new ForgeFlowingFluid.Source(this.fluid_properties));
         this.fluid_flowing = FLUID_REGISTER.register("fluids/" + name + "_flow", () -> new ForgeFlowingFluid.Flowing(this.fluid_properties));
         this.fluid_block = BLOCK_REGISTER.register("fluids/" + name, () -> new LiquidBlock(this.fluid, fluid_block_properties));
         this.fluid_bucket = ITEM_REGISTER.register(name + "_bucket", () -> new BucketItem(this.fluid, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
