@@ -76,7 +76,4 @@ public class MMFluids {
             ETHENE = new MMFluidBase("ethene", Block.Properties.of().noCollission().replaceable(), (fluid) -> fluid.temperature(293).viscosity(1000), 10);
 
 
-    private static MMFluidBase make(String name, BlockBehaviour.Properties block_properties, FluidType.Properties fluid_properties, int tickRate) {
-        return new MMFluidBase(name, block_properties, fluid_properties, tickRate);
-    }
 }
