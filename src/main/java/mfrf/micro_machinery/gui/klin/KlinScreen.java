@@ -1,9 +1,9 @@
 package mfrf.micro_machinery.gui.klin;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
+import mfrf.micro_machinery.block.machines.single_block_machines.klin.TileKlin;
 import mfrf.micro_machinery.gui.ScreenBase;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.IIntArray;
@@ -17,20 +17,20 @@ public class KlinScreen extends ScreenBase<KlinContainer> {
     }
 
     @Override
-    public void m_6305_(PoseStack pPoseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         TileKlin klin = menu.getKlin();
-        initBase(pPoseStack);
-        super.m_6305_(pPoseStack, mouseX, mouseY, partialTicks);
+        initBase(guiGraphics);
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
         if (klin.issmelting()) {
-            renderModule(pPoseStack, 78, 31, 70, 0, calcProgressBarWidth(), 16);
+            renderModule(guiGraphics, 78, 31, 70, 0, calcProgressBarWidth(), 16);
         }
         if (klin.isBurning()) {
-            renderModule(pPoseStack, 82, 29, 56, 12, 14, calcBurnProgressBarHeight());
+            renderModule(guiGraphics, 82, 29, 56, 12, 14, calcBurnProgressBarHeight());
         }
-        renderFluidTank(pPoseStack, klin.getFluidHandler(), 152, 63, 16, 60);
-        renderTankGauge(pPoseStack, 152, 3, 16, 60);
-        renderFluidTankTooltip(pPoseStack, klin.getFluidHandler(), mouseX, mouseY, 152, 3, 16, 60);
-        renderTooltip(pPoseStack, mouseX, mouseY);
+        renderFluidTank(guiGraphics, klin.getFluidHandler(), 152, 63, 16, 60);
+        renderTankGauge(guiGraphics, 152, 3, 16, 60);
+        renderFluidTankTooltip(guiGraphics, klin.getFluidHandler(), mouseX, mouseY, 152, 3, 16, 60);
+        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     private int calcProgressBarWidth() {

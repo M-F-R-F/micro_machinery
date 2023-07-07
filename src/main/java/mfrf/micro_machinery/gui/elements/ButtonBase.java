@@ -1,13 +1,11 @@
 package mfrf.micro_machinery.gui.elements;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.gui.ScreenBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +20,7 @@ public class ButtonBase extends Button {
     private final int textureY;
 
     public ButtonBase(int x, int y, int width, int height, Component buttonText, String name, int holdTextureX, int holdTextureY, int textureX, int textureY, OnPress onPress, ScreenBase screen) {
-        super(x, y, width, height, buttonText, onPress);
+        super(x, y, width, height, buttonText, onPress, DEFAULT_NARRATION);
         this.holdTextureX = holdTextureX;
         this.holdTextureY = holdTextureY;
         this.textureX = textureX;
@@ -32,24 +30,22 @@ public class ButtonBase extends Button {
     }
 
     private boolean isPressable(double mouseX, double mouseY) {
-        return this.active && this.visible && mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+        return this.active && this.visible && mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
     }
 
     @Override
-    public void m_6305_(PoseStack pPoseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         if (this.visible) {
             Minecraft mc = Minecraft.getInstance();
-            RenderSystem.setShaderTexture(0, MODULES);
-//            Font font = mc.font;
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             if (isPressable(mouseX, mouseY)) {
-                blit(pPoseStack, this.x, this.y, holdTextureX, holdTextureY, this.width, this.height);
+                guiGraphics.blit(MODULES, this.getX(), this.getY(), holdTextureX, holdTextureY, this.width, this.height);
             } else {
-                blit(pPoseStack, this.x, this.y, textureX, textureY, this.width, this.height);
+                guiGraphics.blit(MODULES, this.getX(), this.getY(), textureX, textureY, this.width, this.height);
             }
             if (isMouseOver(mouseX, mouseY)) {
                 screen.renderButtonToolTip = () -> {
-                    screen.renderTooltip(pPoseStack, I18n.get(this.name), mouseX, mouseY);//todo fixit
+                    guiGraphics.renderTooltip(screen.getMinecraft().font, Component.translatable(this.name), mouseX, mouseY);
                     screen.renderButtonToolTip = null;
                 };
             }

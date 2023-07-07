@@ -1,8 +1,8 @@
 package mfrf.micro_machinery.gui.centrifuge;
 
-import mfrf.micro_machinery.blocks.machines.single_block_machines.centrifuge.TileCentrifuge;
+import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.TileCentrifuge;
 import mfrf.micro_machinery.gui.ContainerBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
+import mfrf.micro_machinery.registry_lists.MMContainerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +18,7 @@ public class CentrifugeContainer extends ContainerBase {
     public TileCentrifuge tileCentrifuge;
 
     public CentrifugeContainer(int windowId, Inventory inv, BlockPos readBlockPos, Level world) {
-        super(RegisteredContainerTypes.CENTRIFUGE_CONTAINER.get(), windowId);
+        super(MMContainerTypes.CENTRIFUGE_CONTAINER.get(), windowId);
         this.tileCentrifuge = ((TileCentrifuge) world.getBlockEntity(readBlockPos));
         final ItemStackHandler input = tileCentrifuge.getInput();
         final ItemStackHandler output = tileCentrifuge.getOutput();

@@ -1,9 +1,10 @@
 package mfrf.micro_machinery.gui.klin;
 
-import mfrf.micro_machinery.blocks.machines.single_block_machines.klin.TileKlin;
+
+import mfrf.micro_machinery.block.machines.single_block_machines.klin.TileKlin;
 import mfrf.micro_machinery.gui.ContainerBase;
-import mfrf.micro_machinery.items.MMCastBase;
-import mfrf.micro_machinery.registeried_lists.RegisteredContainerTypes;
+import mfrf.micro_machinery.item.MMCastBase;
+import mfrf.micro_machinery.registry_lists.MMContainerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -20,7 +21,7 @@ public class KlinContainer extends ContainerBase {
     private final TileKlin klin;
 
     public KlinContainer(int id, Inventory Container, BlockPos pos, Level world, DataSlot intArray) {
-        super(RegisteredContainerTypes.KLINCONTAINER.get(), id);
+        super(MMContainerTypes.KLINCONTAINER.get(), id);
         this.intArray = intArray;//todo fix data slot
         addDataSlot(this.intArray);
         this.klin = (TileKlin) world.getBlockEntity(pos);
@@ -29,8 +30,13 @@ public class KlinContainer extends ContainerBase {
         this.addSlot(new SlotItemHandler(itemHandler, 1, 40, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 2, 80, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 3, 120, 50) {
+//            @Override
+//            public boolean isItemValid(@Nonnull ItemStack stack) {
+//                return false;
+//            }
+
             @Override
-            public boolean isItemValid(@Nonnull ItemStack stack) {
+            public boolean isActive() {
                 return false;
             }
         });

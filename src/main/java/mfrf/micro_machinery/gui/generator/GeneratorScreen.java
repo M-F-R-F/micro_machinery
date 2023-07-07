@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.gui.generator;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.blocks.machines.single_block_machines.generator.TileGenerator;
+import mfrf.micro_machinery.block.machines.single_block_machines.generator.TileGenerator;
 import mfrf.micro_machinery.gui.ScreenBase;
 import mfrf.micro_machinery.utils.IntegerContainer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,20 +15,20 @@ public class GeneratorScreen extends ScreenBase<GeneratorContainer> {
     }
 
     @Override
-    public void m_6305_(PoseStack pPoseStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         TileGenerator generator = menu.getGenerator();
 //        IIntArray intArray = container.getIntArray();
-        initBase(pPoseStack);
+        initBase(guiGraphics);
         if (generator.isBurning()) {
-            renderModule(pPoseStack, 71, 55, 40, 14, 16, calculateBurnFireHeight());
+            renderModule(guiGraphics, 71, 55, 40, 14, 16, calculateBurnFireHeight());
         }
-        renderModule(pPoseStack, 157, 83, 243, 70, 5, calculateEnergyBarHeight());
-        super.m_6305_(pPoseStack, mouseX, mouseY, partialTicks);
-        renderFluidTank(pPoseStack, generator.getTank(), 17, 75, 16, 60);
-        renderTankGauge(pPoseStack, 17, 15, 16, 60);
-        renderFluidTankTooltip(pPoseStack, generator.getTank(), mouseX, mouseY, 17, 15, 16, 60);
-        renderEnergyBarTooltip(pPoseStack, generator.getEnergyContainer(), mouseX, mouseY, 157, 13, 5, 70);
-        renderTooltip(pPoseStack, mouseX, mouseY);
+        renderModule(guiGraphics, 157, 83, 243, 70, 5, calculateEnergyBarHeight());
+        super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        renderFluidTank(guiGraphics, generator.getTank(), 17, 75, 16, 60);
+        renderTankGauge(guiGraphics, 17, 15, 16, 60);
+        renderFluidTankTooltip(guiGraphics, generator.getTank(), mouseX, mouseY, 17, 15, 16, 60);
+        renderEnergyBarTooltip(guiGraphics, generator.getEnergyContainer(), mouseX, mouseY, 157, 13, 5, 70);
+        renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
     private int calculateBurnFireHeight() {

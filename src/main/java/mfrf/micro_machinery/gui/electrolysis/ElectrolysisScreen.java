@@ -1,9 +1,9 @@
 package mfrf.micro_machinery.gui.electrolysis;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.blocks.machines.single_block_machines.electrolysis.TileElectrolysis;
+import mfrf.micro_machinery.block.machines.single_block_machines.electrolysis.TileElectrolysis;
 import mfrf.micro_machinery.gui.ScreenBase;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,14 +15,14 @@ public class ElectrolysisScreen extends ScreenBase<ElectrolysisContainer> {
     }
 
     @Override
-    public void m_6305_(PoseStack pPoseStack, int p_render_1_, int p_render_2_, float p_render_3_) {
+    public void render(GuiGraphics guiGraphics, int mouse_x, int mouse_y, float pTick) {
         TileElectrolysis electrolysis = menu.getElectrolysis();
-        initBase(pPoseStack);
-        super.m_6305_(pPoseStack, p_render_1_, p_render_2_, p_render_3_);
+        initBase(guiGraphics);
+        super.render(guiGraphics, mouse_x, mouse_y, pTick);
 
         if (electrolysis.isWorking())
-            renderModule(pPoseStack, 70, 35, 16, 0, -calculateBarPixel(electrolysis.getProgress(), 24), 16);
-        renderDefaultEnergyBarWithTip(pPoseStack, electrolysis.getEnergy(), 152, 78, p_render_1_, p_render_2_);
-        renderTooltip(pPoseStack, p_render_1_, p_render_2_);
+            renderModule(guiGraphics, 70, 35, 16, 0, -calculateBarPixel(electrolysis.getProgress(), 24), 16);
+        renderDefaultEnergyBarWithTip(guiGraphics, electrolysis.getEnergy(), 152, 78, mouse_x, mouse_y);
+        renderTooltip(guiGraphics, mouse_x, mouse_y);
     }
 }

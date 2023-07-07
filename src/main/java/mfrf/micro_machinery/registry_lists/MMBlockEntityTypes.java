@@ -1,9 +1,6 @@
 package mfrf.micro_machinery.registry_lists;
 
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMTileMultiBlockPart;
-import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.redstone_io.TileRedstoneInterface;
-import mfrf.micro_machinery.block.machines.multiblock_new_system.test.TestTileMainPart;
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.TileCentrifuge;
 import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.TileConveyBelt;
