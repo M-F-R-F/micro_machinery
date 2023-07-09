@@ -2,6 +2,7 @@ package mfrf.micro_machinery.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import mfrf.micro_machinery.MicroMachinery;
+import mfrf.micro_machinery.interfaces.VoidSupplier;
 import mfrf.micro_machinery.utils.FEContainer;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.ChatFormatting;
@@ -18,12 +19,16 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
+import org.lwjgl.system.SharedLibrary;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 
     protected final ResourceLocation MODULES = new ResourceLocation(MicroMachinery.MODID, "textures/gui/module.png");
     protected final ResourceLocation TEXTURES;
-    public Consumer renderButtonToolTip = null;
+    public VoidSupplier renderButtonToolTip = null;
 
     public ScreenBase(T screenContainer, Inventory inv, Component titleIn, ResourceLocation TEXTURES, int textureWidth, int textureHeight) {
         super(screenContainer, inv, titleIn);

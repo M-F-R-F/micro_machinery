@@ -25,6 +25,7 @@ import java.util.List;
  * Of course you can use other libs,just need a bit of change.
  * note : these matrix is a shit mountain,coordinates of minecraft is too complex.....
  * don't touch these matrix that from line 30 to line 92......
+ * todo rewrite matrix
  */
 public class MathUtil {
     /**
@@ -208,7 +209,7 @@ public class MathUtil {
             for (int yOffset = 0; yOffset <= differenceY; yOffset++) {
                 for (int zOffset = 0; zOffset <= differenceZ; zOffset++) {
 
-                    BlockPos blockPos = beginPos.m_142082_(xOffset, yOffset, zOffset);
+                    BlockPos blockPos = beginPos.offset(xOffset, yOffset, zOffset);
 
                     BlockState blockState = world.getBlockState(blockPos);
                     Block block = blockState.getBlock();

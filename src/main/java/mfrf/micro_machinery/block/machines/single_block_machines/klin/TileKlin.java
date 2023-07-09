@@ -6,6 +6,7 @@ import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
+import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,6 +32,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler, MenuProvider {
 
@@ -38,14 +40,10 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     private final ItemStackHandler itemhandler = new ItemStackHandler(5);
     private FluidStack result = FluidStack.EMPTY;
     private KlinFluidToItemRecipe recipe = null;
-    private int meltTime = 0;
-    private int currentMeltTime = 0;
-    private int currentBurnTime = 0;
-    private int maxBurnTime = 0;
-    private int pouringCoolDown = 0;
-    private int currentcooldown = 0;
+    private IntegerContainer meltTime = new IntegerContainer(0);
+    private IntegerContainer burnTime = new IntegerContainer(0);
+    private IntegerContainer coolDown = new IntegerContainer(0);
     private boolean isBurning = false;
-    private final KlinProgressBarNumArray progressBarNumArray = new KlinProgressBarNumArray();
 
     public TileKlin(BlockPos pos, BlockState state) {
         super(MMBlockEntityTypes.TILE_KLIN_TYPE.get(), pos, state);
@@ -75,13 +73,10 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
         this.fluidHandler.readFromNBT(compound.getCompound("fluidhandler"));
         this.itemhandler.deserializeNBT(compound.getCompound("itemhandler"));
         this.result = FluidStack.loadFluidStackFromNBT(compound.getCompound("result"));
-        this.meltTime = compound.getInt("melttime");
-        this.currentMeltTime = compound.getInt("currentmelttime");
-        this.currentBurnTime = compound.getInt("currentburntime");
-        this.maxBurnTime = compound.getInt("maxburntime");
-        this.pouringCoolDown = compound.getInt("pouringcooldown");
-        this.currentcooldown = compound.getInt("currentcooldown");
         this.isBurning = compound.getBoolean("isburning");
+        meltTime.deserializeNBT(compound.getCompound("melt_time"));
+        burnTime.deserializeNBT(compound.getCompound("burn_time"));
+        coolDown.deserializeNBT(compound.getCompound("cooldown"));
 
         super.load(compound);
     }
@@ -92,18 +87,15 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
         pTag.put("fluidhandler", fluidHandler.writeToNBT(new CompoundTag()));
         pTag.put("itemhandler", itemhandler.serializeNBT());
         pTag.put("result", result.writeToNBT(new CompoundTag()));
-        pTag.putInt("melttime", meltTime);
-        pTag.putInt("currentmeltime", currentMeltTime);
-        pTag.putInt("currentburntime", currentBurnTime);
-        pTag.putInt("maxburntime", maxBurnTime);
-        pTag.putInt("pouringcooldown", pouringCoolDown);
-        pTag.putInt("currentcooldown", currentcooldown);
         pTag.putBoolean("isburning", isBurning);
+        pTag.put("melt_time", meltTime.serializeNBT());
+        pTag.put("burn_time", burnTime.serializeNBT());
+        pTag.put("cooldown", coolDown.serializeNBT());
 
     }
 
     public boolean issmelting() {
-        return result != FluidStack.EMPTY && meltTime != 0 && isBurning;
+        return result != FluidStack.EMPTY && meltTime.atMinValue() && isBurning;
     }
 
     private KlinItemToFluidRecipe tryToGetRecipe() {
@@ -116,7 +108,7 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
             if (maxburntime != 0) {
                 handler.extractItem(index, 1, false);
                 this.isBurning = true;
-                this.maxBurnTime = maxburntime;
+                burnTime.setMax(maxburntime);
                 BlockKlin.setState(isBurning, level, this.getBlockPos());
             }
         }
@@ -151,22 +143,18 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide && blockEntity instanceof TileKlin klin) {
 
-            klin.progressBarNumArray.set(0, klin.currentMeltTime);
-            klin.progressBarNumArray.set(1, klin.meltTime);
-            klin.progressBarNumArray.set(2, klin.currentBurnTime);
-            klin.progressBarNumArray.set(3, klin.maxBurnTime);
             if (klin.isBurning) {
-                klin.currentBurnTime++;
+                klin.burnTime.selfAdd();
                 if (klin.issmelting()) {
-                    klin.currentMeltTime++;
-                    if (klin.currentMeltTime >= klin.meltTime) {
+                    klin.meltTime.selfAdd();
+                    if (!klin.meltTime.atMinValue()) {
                         if (klin.fluidHandler.fill(klin.result, IFluidHandler.FluidAction.SIMULATE) == klin.result.getAmount()) {
                             klin.fluidHandler.fill(klin.result, IFluidHandler.FluidAction.EXECUTE);
                             klin.result = FluidStack.EMPTY;
-                            klin. currentMeltTime = 0;
+                            klin.meltTime.resetValue();
                             klin.markDirty2();
                         } else {
-                            klin.currentMeltTime--;
+                            klin.meltTime.selfSubtract();
                             klin.markDirty2();
                         }
                         klin.markDirty2();
@@ -175,14 +163,14 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
                     KlinItemToFluidRecipe recipeinsmelting = klin.tryToGetRecipe();
                     if (recipeinsmelting != null && klin.fluidHandler.fill(recipeinsmelting.getOutputfluidstack(), IFluidHandler.FluidAction.SIMULATE) == recipeinsmelting.getOutputfluidstack().getAmount()) {
                         klin.result = recipeinsmelting.getOutputfluidstack();
-                        klin.meltTime = recipeinsmelting.getMelttime();
+                        klin.meltTime.setMax(recipeinsmelting.getMelttime());
                         klin.extractMaterial(recipeinsmelting);
                         klin.markDirty2();
                     }
                 }
-                if (klin.currentBurnTime >= klin.maxBurnTime) {
-                    klin.currentBurnTime = 0;
-                    klin.maxBurnTime = 0;
+                if (klin.burnTime.atMaxValue()) {
+                    klin.burnTime.resetValue();
+                    klin.burnTime.setMax(0);
                     klin.isBurning = false;
                     BlockKlin.setState(klin.isBurning, world, klin.getBlockPos());
                     klin.markDirty2();
@@ -198,23 +186,23 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
                 if (klin.fluidHandler.getFluidAmount() != 0 && klin.itemhandler.getStackInSlot(4) != ItemStack.EMPTY) {
                     klin.recipe = RecipeHelper.GetKlinFluidRecipe(klin.fluidHandler.getFluid(), klin.itemhandler.getStackInSlot(4), world.getRecipeManager());
                     if (klin.recipe != null) {
-                        klin.pouringCoolDown = klin.recipe.getCoolbelow();
+                        klin.coolDown.setMax(klin.recipe.getCoolbelow());
                     }
                     klin.markDirty2();
                 }
-            } else if (klin.currentcooldown < klin.pouringCoolDown && klin.isBurning()) {
-                klin.currentcooldown++;
+            } else if (!klin.coolDown.atMaxValue() && klin.isBurning()) {
+                klin.coolDown.selfAdd();
                 klin.markDirty2();
             } else {
                 if (RecipeHelper.canInsert(klin.itemhandler.getStackInSlot(3), klin.recipe.getOutput())) {
                     klin.insertResult(3, klin.recipe.getOutput());
                     klin.fluidHandler.drain(klin.recipe.getInputfluid(), IFluidHandler.FluidAction.EXECUTE);
-                    klin.currentcooldown = 0;
-                    klin.pouringCoolDown = 0;
+                    klin.coolDown.setCurrent(0);
+                    klin.coolDown.setMax(0);
                     klin.recipe = null;
                     klin.markDirty2();
                 } else {
-                    klin.currentcooldown--;
+                    klin.coolDown.selfSubtract();
                     klin.markDirty2();
                 }
             }
@@ -311,29 +299,22 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int sycID, Inventory inventory, Player player) {
-        return new KlinContainer(sycID, inventory, this.getBlockPos(), this.level, progressBarNumArray);
+        return new KlinContainer(sycID, inventory, this.getBlockPos(), this.level);
     }
 
     public ItemStackHandler getItemHandler() {
         return itemhandler;
     }
 
-//    public static class KlinProgressBarNumArray implements IIntArray { //todo renew system
-//        private final int[] iArray = {0, 0, 0, 0};
-//
-//        @Override
-//        public int get(int index) {
-//            return iArray[index];
-//        }
-//
-//        @Override
-//        public void set(int index, int value) {
-//            iArray[index] = value;
-//        }
-//
-//        @Override
-//        public int size() {
-//            return 4;
-//        }
-//    }
+    public IntegerContainer getMeltTime() {
+        return meltTime;
+    }
+
+    public IntegerContainer getBurnTime() {
+        return burnTime;
+    }
+
+    public IntegerContainer getCoolDown() {
+        return coolDown;
+    }
 }

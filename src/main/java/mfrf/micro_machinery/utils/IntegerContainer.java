@@ -1,8 +1,9 @@
 package mfrf.micro_machinery.utils;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.inventory.DataSlot;
 
-public class IntegerContainer {
+public class IntegerContainer extends DataSlot {
     private int min;
     private int max;
     private int current;
@@ -19,10 +20,26 @@ public class IntegerContainer {
         this.current = current;
     }
 
+    public IntegerContainer(int current) {
+        this.current = current;
+        this.min = 0;
+        this.max = 0;
+    }
+
     public IntegerContainer() {
         this.min = -1;
         this.max = -1;
         this.current = -1;
+    }
+
+    @Override
+    public int get() {
+        return getCurrent();
+    }
+
+    @Override
+    public void set(int pValue) {
+        setCurrent(pValue);
     }
 
     public int getMin() {
