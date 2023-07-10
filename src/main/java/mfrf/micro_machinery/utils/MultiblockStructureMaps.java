@@ -4,7 +4,6 @@ import com.google.gson.*;
 import com.mojang.realmsclient.util.JsonUtils;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
-import mfrf.micro_machinery.registry_lists.RegisteredBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;

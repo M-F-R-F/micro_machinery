@@ -159,17 +159,17 @@ public class MMBlocks {
             PIPE_TUNGSTEN_STEEL = makeBlockWithItem("pipe_tungstel_steel", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL)));
     //multiBlock
 
-//     //component
-//     public static final Block
-//             BELLOW_RIGHT = new MMBlockBase("bellow_right", true),
-//             BELLOW_LEFT = new MMBlockBase("bellow_left", true),
-//             HAND_GENERATOR_1 = new BlockHandGenerator_Handler(),
-//             ETCHER_1 = new MMBlockBase("etcher_1", true),
-//             PUMP_1 = new MMBlockBase("pump_1", true),
-//             FORGING_PRESS_1 = new MMBlockBase("forging_press_1", true),
-//             CRUSHER_1 = new MMBlockBase("crusher_1", true),
-//             CATING_MACHINE_1 = new MMBlockBase("cating_machine_1", true),
-//             THICKENER_1 = new MMBlockBase("thickener_1", true);
+    //ter_util
+    public static final RegistryObject<MMBlockBase>
+            BELLOW_RIGHT = BLOCK_REGISTER.register("bellow_right", MMBlockBase::new),
+            BELLOW_LEFT = BLOCK_REGISTER.register("bellow_left", MMBlockBase::new),
+            HAND_GENERATOR_1 = BLOCK_REGISTER.register("hand_generator_handle", MMBlockBase::new),
+            ETCHER_1 = BLOCK_REGISTER.register("etcher_1", MMBlockBase::new),
+            PUMP_1 = BLOCK_REGISTER.register("pump_1", MMBlockBase::new),
+            FORGING_PRESS_1 = BLOCK_REGISTER.register("forging_press_1", MMBlockBase::new),
+            CRUSHER_1 = BLOCK_REGISTER.register("crusher_1", MMBlockBase::new),
+            CATING_MACHINE_1 = BLOCK_REGISTER.register("cating_machine_1", MMBlockBase::new),
+            THICKENER_1 = BLOCK_REGISTER.register("thickener_1", MMBlockBase::new);
 
 //     /**
 //      * this is machine with multi_block
