@@ -67,13 +67,13 @@ public class FluidPipeTile extends MMTileBase {
     public int getMaterial() {
         if (material == -1) {
             Block block = getBlockState().getBlock();
-            if (block == MMBlocks.PIPE_INVAR) {
+            if (block == MMBlocks.PIPE_INVAR.getKey().get()) {
                 material = 1000;
             }
-            if (block == MMBlocks.PIPE_STAINLESS_STEEL) {
+            if (block == MMBlocks.PIPE_STAINLESS_STEEL.getKey().get()) {
                 material = 4000;
             }
-            if (block == MMBlocks.PIPE_TUNGSTEN_STEEL) {
+            if (block == MMBlocks.PIPE_TUNGSTEN_STEEL.getKey().get()) {
                 material = 8000;
             }
             setChanged();
@@ -89,7 +89,7 @@ public class FluidPipeTile extends MMTileBase {
     public boolean ejectToOpenSide(Direction direction, FluidStack ejectStack) {
         BlockPos offset = getBlockPos().relative(direction);
         BlockState blockStateToReplace = level.getBlockState(offset);
-        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getAttributes().canBePlacedInWorld(level, offset,
+        if (ejectStack.getAmount() > 1000 && ejectStack.getFluid().getFluidType().canBePlacedInLevel(level, offset,
                 ejectStack)) {
             if (blockStateToReplace.canBeReplaced(ejectStack.getFluid()) && blockStateToReplace.getFluidState().getType() == Fluids.EMPTY) {
                 BlockState blockState = ejectStack.getFluid().defaultFluidState().createLegacyBlock();
@@ -141,7 +141,8 @@ public class FluidPipeTile extends MMTileBase {
 
                     int thisUse = 0;
                     int receivedUse = 0;
-                    if (fluidCrashRecipe.fluidA == thisFluid.getFluid().getRegistryName()) {
+//                    if (fluidCrashRecipe.fluidA == thisFluid.getFluid().getRegistryName()) {
+                    if(false){
                         generateCount = Math.min(thisAmount / fluidCrashRecipe.fluidAUsage, receiveAmount / fluidCrashRecipe.fluidBUsage);
                         if (generateCount == 0) {
                             thisUse = Math.min(receiveAmount, fluidCrashRecipe.fluidAUsage);

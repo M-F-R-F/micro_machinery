@@ -21,7 +21,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class MMBlockEntityTypes {
-    public static DeferredRegister<BlockEntityType<? extends BlockEntity>> TILE_ENTITY_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MicroMachinery.MODID);
+    public static DeferredRegister<BlockEntityType<?>> TILE_ENTITY_TYPE_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MicroMachinery.MODID);
 
 
     public static final RegistryObject<BlockEntityType<TileKlin>> TILE_KLIN_TYPE = TILE_ENTITY_TYPE_REGISTER.register("klin", () -> BlockEntityType.Builder.of(TileKlin::new, MMBlocks.KLIN.getKey().get()).build(null));

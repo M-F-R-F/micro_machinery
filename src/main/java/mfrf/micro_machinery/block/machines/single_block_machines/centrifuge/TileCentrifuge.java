@@ -1,6 +1,7 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.centrifuge;
 
 import mfrf.micro_machinery.block.machines.MMTileBase;
+import mfrf.micro_machinery.gui.centrifuge.CentrifugeContainer;
 import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.recipes.centrifuge.CentrifugeRecipe;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
@@ -213,16 +214,6 @@ public class TileCentrifuge extends MMTileBase implements MenuProvider {
     @org.jetbrains.annotations.Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new AbstractContainerMenu(pContainerId, pInventory, getBlockPos(), level) {
-            @Override
-            public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
-                return ItemStack.EMPTY;
-            }
-
-            @Override
-            public boolean stillValid(Player pPlayer) {
-                return false;
-            }
-        };
+       return new CentrifugeContainer(pContainerId, pInventory, worldPosition, level);
     }
 }

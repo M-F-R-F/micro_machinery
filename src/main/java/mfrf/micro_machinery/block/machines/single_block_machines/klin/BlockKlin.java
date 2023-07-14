@@ -47,9 +47,9 @@ public class BlockKlin extends MMBlockTileProviderBase {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
 
         if (active) {
-            worldIn.setBlock(pos, MMBlocks.KLIN.defaultBlockState().setValue(FACING, state.getValue(FACING)).setValue(BURNING, true), 3);
+            worldIn.setBlock(pos, MMBlocks.KLIN.getKey().get().defaultBlockState().setValue(FACING, state.getValue(FACING)).setValue(BURNING, true), 3);
         } else {
-            worldIn.setBlock(pos, MMBlocks.KLIN.defaultBlockState().setValue(FACING, state.getValue(FACING)).setValue(BURNING, false), 3);
+            worldIn.setBlock(pos, MMBlocks.KLIN.getKey().get().defaultBlockState().setValue(FACING, state.getValue(FACING)).setValue(BURNING, false), 3);
         }
 
         if (tileentity != null) {

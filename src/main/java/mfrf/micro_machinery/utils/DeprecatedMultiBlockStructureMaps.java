@@ -33,8 +33,8 @@ public class DeprecatedMultiBlockStructureMaps {
         STRUCTURE_MAPS = new HashMap<>();
         try {
             for (String name : NAMES) {
-                Resource resource = Minecraft.getInstance().getResourceManager().m_142591_((new ResourceLocation(MicroMachinery.MODID, "structures/old_system/" + name + ".json")));
-                STRUCTURE_MAPS.put(name, MultiBlockPosBox.readJson(GsonHelper.parse(new InputStreamReader(resource.m_6679_()))));
+                Resource resource = Minecraft.getInstance().getResourceManager().getResourceOrThrow((new ResourceLocation(MicroMachinery.MODID, "structures/old_system/" + name + ".json")));
+                STRUCTURE_MAPS.put(name, MultiBlockPosBox.readJson(GsonHelper.parse(new InputStreamReader(resource.open()))));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,7 +102,7 @@ public class DeprecatedMultiBlockStructureMaps {
         public boolean matchAll(BlockPos pos, Level world) {
 
             for (BlockNode blockNode : blockNodes) {
-                BlockPos blockPos = pos.m_141952_(blockNode.pos);
+                BlockPos blockPos = pos.offset(blockNode.pos);
                 if (blockNode instanceof AccessoryNode node) {
                     if (!node.test(world.getBlockState(blockPos))) {
                         return false;

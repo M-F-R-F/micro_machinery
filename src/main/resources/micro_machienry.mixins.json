@@ -1,0 +1,10 @@
+{
+  "package": "mfrf.micro_machinery.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "required": true,
+  "refmap": "micro_machinery.refmap.json",
+  "minVersion": "0.8",
+  "mixins": [
+
+  ]
+}

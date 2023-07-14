@@ -1,6 +1,7 @@
 package mfrf.micro_machinery.utils;
 
 import com.google.gson.JsonObject;
+import mfrf.micro_machinery.utils.math.Matrix44d;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -11,10 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.RealVector;
+import org.joml.Vector4d;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,31 +29,31 @@ public class MathUtil {
     /**
      * Affine transformation = Linear transformation + transformation
      */
-    public static final RealMatrix MATRIX_ROT_WEST = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_WEST = new Matrix44d(new double[][]{
             {0, 0, 1, 0},
             {0, 1, 0, 0},
             {-1, 0, 0, 0},
             {0, 0, 0, 1}
     });
-    public static final RealMatrix MATRIX_ROT_SOUTH = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_SOUTH = new Matrix44d(new double[][]{
             {-1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, -1, 0},
             {0, 0, 0, 1}
     });
-    public static final RealMatrix MATRIX_ROT_EAST = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_EAST = new Matrix44d(new double[][]{
             {0, 0, -1, 0},
             {0, 1, 0, 0},
             {1, 0, 0, 0},
             {0, 0, 0, 1}
     });
-    public static final RealMatrix MATRIX_ROT_NORTH_IDENTITY = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_NORTH_IDENTITY = new Matrix44d(new double[][]{
             {1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 1, 0},
             {0, 0, 0, 1}
     });
-    public static final RealMatrix BLOCK_STATE_OFFSET_MATRIX = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d BLOCK_STATE_OFFSET_MATRIX_44_D = new Matrix44d(new double[][]{
             {0, 0, 0, 8},
             {0, 0, 0, 8},
             {0, 0, 0, 8},
@@ -64,7 +62,7 @@ public class MathUtil {
     /**
      * Inverse of this matrix is MATRIX_ROT_NORTH_TO_WEST_270DEG.
      */
-    public static final RealMatrix MATRIX_ROT_NORTH_TO_EAST_90DEG = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_NORTH_TO_EAST_90_DEG = new Matrix44d(new double[][]{
             {0, 0, 1, 0},
             {0, 1, 0, 0},
             {-1, 0, 0, 0},
@@ -73,7 +71,7 @@ public class MathUtil {
     /**
      * Inverse of this matrix is itself.
      */
-    public static final RealMatrix MATRIX_ROT_NORTH_TO_SOUTH_180DEG = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_NORTH_TO_SOUTH_180_DEG = new Matrix44d(new double[][]{
             {-1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, -1, 0},
@@ -82,13 +80,13 @@ public class MathUtil {
     /**
      * Inverse of this matrix is MATRIX_ROT_NORTH_TO_EAST_90DEG.
      */
-    public static final RealMatrix MATRIX_ROT_NORTH_TO_WEST_270DEG = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_NORTH_TO_WEST_270_DEG = new Matrix44d(new double[][]{
             {0, 0, -1, 0},
             {0, 1, 0, 0},
             {1, 0, 0, 0},
             {0, 0, 0, 1}
     });
-    public static final RealMatrix MATRIX_ROT_NORTH_TO_NORTH_IDENTITY_360DEG = new Array2DRowRealMatrix(new double[][]{
+    public static final Matrix44d MATRIX_44_D_ROT_NORTH_TO_NORTH_IDENTITY_360_DEG = new Matrix44d(new double[][]{
             {1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 1, 0},
@@ -96,23 +94,23 @@ public class MathUtil {
     });
 
     /**
-     * @param matrix An Affine-transformation matrix, the 3x3 sub matrix at upper left means linear transformation.
-     *               The first three elements in the fourth column means.relative,and the final elements should always be 1.
-     * @param shape  the VoxelShape need to transform.
+     * @param matrix44d An Affine-transformation matrix, the 3x3 sub matrix at upper left means linear transformation.
+     *                  The first three elements in the fourth column means.relative,and the final elements should always be 1.
+     * @param shape     the VoxelShape need to transform.
      * @return the VoxelShape that been transformed.
      */
-    public static VoxelShape transformationVoxelShape(RealMatrix matrix, VoxelShape shape) {
+    public static VoxelShape transformationVoxelShape(Matrix44d matrix44d, VoxelShape shape) {
         List<AABB> axisAlignedBBS = shape.toAabbs();
-        RealMatrix realMatrix = matrix.add(BLOCK_STATE_OFFSET_MATRIX);
+        Matrix44d realMatrix44d = matrix44d.add(BLOCK_STATE_OFFSET_MATRIX_44_D);
         VoxelShape returnValue = Shapes.empty();
         for (AABB boundingBox : axisAlignedBBS) {
-            RealVector beginPoint = new ArrayRealVector(new double[]{(boundingBox.minX * 16) - 8, boundingBox.minY * 16 - 8, (boundingBox.minZ * 16) - 8, 1});
-            RealVector lastPoint = new ArrayRealVector(new double[]{(boundingBox.maxX * 16) - 8, boundingBox.maxY * 16 - 8, (boundingBox.maxZ * 16) - 8, 1});
+            Vector4d beginPoint = new Vector4d(new double[]{(boundingBox.minX * 16) - 8, boundingBox.minY * 16 - 8, (boundingBox.minZ * 16) - 8, 1});
+            Vector4d lastPoint = new Vector4d(new double[]{(boundingBox.maxX * 16) - 8, boundingBox.maxY * 16 - 8, (boundingBox.maxZ * 16) - 8, 1});
 
-            RealVector beginPointTransitioned = realMatrix.operate(beginPoint);
-            RealVector lastPointTransitioned = realMatrix.operate(lastPoint);
+            Vector4d beginPointTransitioned = realMatrix44d.multiplyL(beginPoint);
+            Vector4d lastPointTransitioned = realMatrix44d.multiplyL(lastPoint);
 
-            returnValue = Shapes.or(returnValue, Block.box(beginPointTransitioned.getEntry(0), beginPointTransitioned.getEntry(1), beginPointTransitioned.getEntry(2), lastPointTransitioned.getEntry(0), lastPointTransitioned.getEntry(1), lastPointTransitioned.getEntry(2)));
+            returnValue = Shapes.or(returnValue, Block.box(beginPointTransitioned.get(0), beginPointTransitioned.get(1), beginPointTransitioned.get(2), lastPointTransitioned.get(0), lastPointTransitioned.get(1), lastPointTransitioned.get(2)));
         }
         return returnValue;
     }
@@ -126,32 +124,32 @@ public class MathUtil {
         if (direction != Direction.UP && direction != Direction.DOWN) {
             switch (direction) {
                 case EAST:
-                    return transformationVoxelShape(MATRIX_ROT_EAST, shape);
+                    return transformationVoxelShape(MATRIX_44_D_ROT_EAST, shape);
                 case WEST:
-                    return transformationVoxelShape(MATRIX_ROT_WEST, shape);
+                    return transformationVoxelShape(MATRIX_44_D_ROT_WEST, shape);
                 case SOUTH:
-                    return transformationVoxelShape(MATRIX_ROT_SOUTH, shape);
+                    return transformationVoxelShape(MATRIX_44_D_ROT_SOUTH, shape);
                 default:
-                    return transformationVoxelShape(MATRIX_ROT_NORTH_IDENTITY, shape);
+                    return transformationVoxelShape(MATRIX_44_D_ROT_NORTH_IDENTITY, shape);
             }
         }
         return shape;
     }
 
     public static Vec3i rotateBlockPosToDirection(Vec3i pos, Direction direction) {
-        ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1});
+        Vector4d posVector = new Vector4d(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1});
         switch (direction) {
             case NORTH: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_SOUTH_180DEG.operate(posVector);
-                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+                Vector4d operated = MATRIX_44_D_ROT_NORTH_TO_SOUTH_180_DEG.multiplyL(posVector);
+                return new BlockPos((int) operated.get(0), (int) operated.get(1), (int) operated.get(2));
             }
             case WEST: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_WEST_270DEG.operate(posVector);
-                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+                Vector4d operated = MATRIX_44_D_ROT_NORTH_TO_WEST_270_DEG.multiplyL(posVector);
+                return new BlockPos((int) operated.get(0), (int) operated.get(1), (int) operated.get(2));
             }
             case EAST: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_EAST_90DEG.operate(posVector);
-                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+                Vector4d operated = MATRIX_44_D_ROT_NORTH_TO_EAST_90_DEG.multiplyL(posVector);
+                return new BlockPos((int) operated.get(0), (int) operated.get(1), (int) operated.get(2));
             }
             case SOUTH: {
                 return pos;
@@ -161,30 +159,26 @@ public class MathUtil {
     }
 
     public static BlockPos rotateBlockPosToNorth(BlockPos pos, Direction direction) {
-        ArrayRealVector posVector = new ArrayRealVector(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1});
+        Vector4d posVector = new Vector4d(new double[]{pos.getX(), pos.getY(), pos.getZ(), 1});
         switch (direction) {
             case SOUTH: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_SOUTH_180DEG.operate(posVector);
-                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+                Vector4d operated = MATRIX_44_D_ROT_NORTH_TO_SOUTH_180_DEG.multiplyL(posVector);
+                return new BlockPos((int) operated.get(0), (int) operated.get(1), (int) operated.get(2));
             }
             case WEST: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_EAST_90DEG.operate(posVector);
-                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+                Vector4d operated = MATRIX_44_D_ROT_NORTH_TO_EAST_90_DEG.multiplyL(posVector);
+                return new BlockPos((int) operated.get(0), (int) operated.get(1), (int) operated.get(2));
             }
             case EAST: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_WEST_270DEG.operate(posVector);
-                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+                Vector4d operated = MATRIX_44_D_ROT_NORTH_TO_WEST_270_DEG.multiplyL(posVector);
+                return new BlockPos((int) operated.get(0), (int) operated.get(1), (int) operated.get(2));
             }
             case NORTH: {
-                RealVector operated = MATRIX_ROT_NORTH_TO_NORTH_IDENTITY_360DEG.operate(posVector);
-                return new BlockPos(operated.getEntry(0), operated.getEntry(1), operated.getEntry(2));
+                Vector4d operated = MATRIX_44_D_ROT_NORTH_TO_NORTH_IDENTITY_360_DEG.multiplyL(posVector);
+                return new BlockPos((int) operated.get(0), (int) operated.get(1), (int) operated.get(2));
             }
         }
         return pos;
-    }
-
-    public static BlockPos getOffsetPos(BlockPos pos, BlockPos center) {
-        return center.m_141950_(pos);
     }
 
     public static DeprecatedMultiBlockStructureMaps.MultiBlockPosBox getNormalizedBlockPosBox(BlockPos pos1, BlockPos pos2, Level world, Direction direction, BlockPos activePos) {
@@ -215,7 +209,7 @@ public class MathUtil {
                     Block block = blockState.getBlock();
 
                     if (block != Blocks.AIR) {
-                        BlockPos offsetPos = rotateBlockPosToNorth(getOffsetPos(blockPos, activePos), direction);
+                        BlockPos offsetPos = rotateBlockPosToNorth(activePos.offset(blockPos), direction);
 //                        if (block instanceof BlockAccessoryPlaceHolder) {
 //                            DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode accessoryNode = new DeprecatedMultiBlockStructureMaps.MultiBlockPosBox.AccessoryNode.relativePos, block, blockState.
 //                            get(BlockAccessoryPlaceHolder.FACING), "", "", "place_holder");

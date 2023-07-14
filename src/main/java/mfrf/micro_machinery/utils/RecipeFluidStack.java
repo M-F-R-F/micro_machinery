@@ -33,6 +33,7 @@ public class RecipeFluidStack {
     }
 
     public boolean test(FluidStack stack) {
-        return stack.getFluid().getRegistryName().equals(fluidName) && amount <= stack.getAmount();
+//        return stack.getFluid().getFluidType().equals(fluidName) && amount <= stack.getAmount(); //todo fixit
+        return true;
     }
 }

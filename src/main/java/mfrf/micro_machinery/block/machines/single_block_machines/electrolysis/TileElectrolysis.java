@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
@@ -191,7 +192,7 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
-        return new ElectrolysisContainer(p_createMenu_1_, p_createMenu_2_, pos, world);
+        return new ElectrolysisContainer(p_createMenu_1_, p_createMenu_2_, worldPosition, level);
     }
 
     public enum Slot {
