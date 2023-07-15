@@ -12,11 +12,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.joml.Math;
 import org.joml.Vector4d;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Require org.apache.commons.math3.
@@ -57,7 +59,7 @@ public class MathUtil {
             {0, 0, 0, 8},
             {0, 0, 0, 8},
             {0, 0, 0, 8},
-            {0, 0, 0, 0}
+            {0, 0, 0, 1}
     });
     /**
      * Inverse of this matrix is MATRIX_ROT_NORTH_TO_WEST_270DEG.
@@ -101,16 +103,25 @@ public class MathUtil {
      */
     public static VoxelShape transformationVoxelShape(Matrix44d matrix44d, VoxelShape shape) {
         List<AABB> axisAlignedBBS = shape.toAabbs();
-        Matrix44d realMatrix44d = matrix44d.add(BLOCK_STATE_OFFSET_MATRIX_44_D);
+        Matrix44d shifted = matrix44d.add(BLOCK_STATE_OFFSET_MATRIX_44_D);
         VoxelShape returnValue = Shapes.empty();
         for (AABB boundingBox : axisAlignedBBS) {
-            Vector4d beginPoint = new Vector4d(new double[]{(boundingBox.minX * 16) - 8, boundingBox.minY * 16 - 8, (boundingBox.minZ * 16) - 8, 1});
-            Vector4d lastPoint = new Vector4d(new double[]{(boundingBox.maxX * 16) - 8, boundingBox.maxY * 16 - 8, (boundingBox.maxZ * 16) - 8, 1});
+            Vector4d beginPoint = new Vector4d((boundingBox.minX * 16) - 8, boundingBox.minY * 16 - 8, (boundingBox.minZ * 16) - 8, 1);
+            Vector4d lastPoint = new Vector4d((boundingBox.maxX * 16) - 8, boundingBox.maxY * 16 - 8, (boundingBox.maxZ * 16) - 8, 1);
 
-            Vector4d beginPointTransitioned = realMatrix44d.multiplyL(beginPoint);
-            Vector4d lastPointTransitioned = realMatrix44d.multiplyL(lastPoint);
+            Vector4d beginPointTransitioned = shifted.multiplyL(beginPoint);
+            Vector4d lastPointTransitioned = shifted.multiplyL(lastPoint);
 
-            returnValue = Shapes.or(returnValue, Block.box(beginPointTransitioned.get(0), beginPointTransitioned.get(1), beginPointTransitioned.get(2), lastPointTransitioned.get(0), lastPointTransitioned.get(1), lastPointTransitioned.get(2)));
+            //minmax xyz
+            double minX = Math.min(beginPointTransitioned.get(0), lastPointTransitioned.get(0));
+            double maxX = Math.max(beginPointTransitioned.get(0), lastPointTransitioned.get(0));
+            double minY = Math.min(beginPointTransitioned.get(1), lastPointTransitioned.get(1));
+            double maxY = Math.max(beginPointTransitioned.get(1), lastPointTransitioned.get(1));
+            double minZ = Math.min(beginPointTransitioned.get(2), lastPointTransitioned.get(2));
+            double maxZ = Math.max(beginPointTransitioned.get(2), lastPointTransitioned.get(2));
+
+//            returnValue = Shapes.or(returnValue, Block.box(beginPointTransitioned.get(0), beginPointTransitioned.get(1), beginPointTransitioned.get(2), lastPointTransitioned.get(0), lastPointTransitioned.get(1), lastPointTransitioned.get(2)));
+            returnValue = Shapes.or(returnValue, Block.box(minX, minY, minZ, maxX, maxY, maxZ));
         }
         return returnValue;
     }

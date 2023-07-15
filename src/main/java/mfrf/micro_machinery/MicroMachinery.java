@@ -21,6 +21,7 @@ public class MicroMachinery {
     public MicroMachinery() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.CONFIG);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        MMTab.TAB_REGISER.register(modEventBus);
         MMItems.ITEM_REGISTER.register(modEventBus);
         MMBlocks.BLOCK_REGISTER.register(modEventBus);
 //        MMFluids.FLUID_REGISTER.register(modEventBus);
@@ -28,7 +29,6 @@ public class MicroMachinery {
         MMRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(modEventBus);
         MMContainerTypes.CONTAINER_TYPE_REGISTER.register(modEventBus);
         MMBlockEntityTypes.TILE_ENTITY_TYPE_REGISTER.register(modEventBus);
-        MMRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(modEventBus);
 
 //        if (Config.FLUID_COLLIDE_GENERATE_DISCARDED_STONE.get()) {
 //            modEventBus.addListener(MoltenMaterialToRockEventDenier::onMoltenMaterialGenerateStone);

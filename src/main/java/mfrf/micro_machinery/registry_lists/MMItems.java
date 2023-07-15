@@ -289,12 +289,4 @@ public class MMItems {
     FLYWHEEL_BATTERY = ITEM_REGISTER.register("flywheel_battery", MMItemBase::new);
     // TEST_UTIL = new DebugTool;
 
-    public static class TAB {
-        public static final DeferredRegister<CreativeModeTab> TAG_REGISER = DeferredRegister
-                .create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), MicroMachinery.MODID);
-        public static final RegistryObject<CreativeModeTab> ICON_TAB = TAG_REGISER.register(
-                MicroMachinery.MODID,
-                CreativeModeTab.builder().icon(ICON.get()::getDefaultInstance)::build);
-
-    }
 }

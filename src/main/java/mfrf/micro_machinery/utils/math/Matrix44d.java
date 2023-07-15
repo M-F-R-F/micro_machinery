@@ -75,32 +75,33 @@ public class Matrix44d {
         return result;
     }
 
-    public Matrix44d add(Matrix44d matrix44d){
-        Matrix44d result = new Matrix44d(rows,columns);
+    public Matrix44d add(Matrix44d matrix44d) {
+        Matrix44d result = new Matrix44d(rows, columns);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                result.setValue(i,j,data[i][j]+ matrix44d.getValue(i,j));
+                result.setValue(i, j, data[i][j] + matrix44d.getValue(i, j));
             }
         }
         return result;
     }
 
-    public Matrix44d minus(Matrix44d matrix44d){
-        Matrix44d result = new Matrix44d(rows,columns);
+    public Matrix44d minus(Matrix44d matrix44d) {
+        Matrix44d result = new Matrix44d(rows, columns);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                result.setValue(i,j,data[i][j]- matrix44d.getValue(i,j));
+                result.setValue(i, j, data[i][j] - matrix44d.getValue(i, j));
             }
         }
         return result;
     }
 
-    public Vector4d multiplyL(Vector4d vector4d){
+    public Vector4d multiplyL(Vector4d vector4d) {
         Vector4d result = new Vector4d();
         result.x = data[0][0] * vector4d.x + data[0][1] * vector4d.y + data[0][2] * vector4d.z + data[0][3] * vector4d.w;
         result.y = data[1][0] * vector4d.x + data[1][1] * vector4d.y + data[1][2] * vector4d.z + data[1][3] * vector4d.w;
         result.z = data[2][0] * vector4d.x + data[2][1] * vector4d.y + data[2][2] * vector4d.z + data[2][3] * vector4d.w;
-        result.w = data[3][0] * vector4d.x + data[3][1] * vector4d.y + data[3][2] * vector4d.z + data[3][3] * vector4d.w;
+//        result.w = data[3][0] * vector4d.x + data[3][1] * vector4d.y + data[3][2] * vector4d.z + data[3][3] * vector4d.w;
+        result.w = vector4d.w;
         return result;
     }
 
