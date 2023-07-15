@@ -154,12 +154,12 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
 
         VoxelShape shape = CENTER_SHAPE;
 
-        for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-            EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-            if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
-                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
-            }
-        }
+//        for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
+//            EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
+//            if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
+//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+//            }
+//        }
 
 
         return shape;
@@ -170,12 +170,12 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
 
         VoxelShape shape = CENTER_SHAPE;
 
-        for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-            EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-            if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
-                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
-            }
-        }
+//        for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
+//            EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
+//            if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
+//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+//            }
+//        }
 
 
         return shape;

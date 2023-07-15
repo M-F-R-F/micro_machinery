@@ -5,6 +5,8 @@ import mfrf.micro_machinery.registry_lists.MMTab;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -13,7 +15,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.*;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = MicroMachinery.MODID)
+@Mod.EventBusSubscriber(modid = MicroMachinery.MODID,bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
 public class RegistryThingsEvent {
 
     public static final Map<ResourceKey<CreativeModeTab>, List<Supplier<Item>>> TAB_ITEM_MAP = new HashMap<>();
@@ -31,9 +33,9 @@ public class RegistryThingsEvent {
     public static void onRegisterItemInToTab(BuildCreativeModeTabContentsEvent event) {
         ResourceKey<CreativeModeTab> tabKey = event.getTabKey();
         if (tabKey == MMTab.ICON_TAB.getKey()) {
-            TAB_ITEMS.forEach(event::accept);
+            TAB_ITEMS.stream().map(itemSupplier -> new ItemStack(itemSupplier.get())).forEach(event::accept);
         } else {
-            TAB_ITEM_MAP.getOrDefault(tabKey, Collections.emptyList()).forEach(event::accept);
+            TAB_ITEM_MAP.getOrDefault(tabKey, Collections.emptyList()).stream().map(itemSupplier -> new ItemStack(itemSupplier.get())).forEach(event::accept);
         }
     }
 }

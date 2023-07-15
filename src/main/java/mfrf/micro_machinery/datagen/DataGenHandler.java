@@ -18,8 +18,10 @@ public class DataGenHandler {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-        BlockPropertys blockPropertys = new BlockPropertys(packOutput, lookupProvider, MicroMachinery.MODID, event.getExistingFileHelper());
+//        BlockPropertys blockPropertys = new BlockPropertys(packOutput, lookupProvider, MicroMachinery.MODID, event.getExistingFileHelper());
 
-        generator.addProvider(event.includeServer(), blockPropertys);
+//        generator.addProvider(event.includeServer(), blockPropertys);
+        generator.addProvider(event.includeClient(), new BlockTextures(packOutput, event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new ItemTextures(packOutput, event.getExistingFileHelper()));
     }
 }

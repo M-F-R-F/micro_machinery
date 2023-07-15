@@ -1,0 +1,7 @@
+{
+	"parent": "micro_machinery:item/conveyor_belt_1",
+	"textures": {
+	  "0": "micro_machinery:blocks/pipes/conveyor_belt_3",
+	  "particle": "micro_machinery:blocks/pipes/conveyor_belt_3"
+	}
+  }

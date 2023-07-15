@@ -1,0 +1,8 @@
+{
+  "loader": "forge:obj",
+  "model": "micro_machinery:models/block/obj/forging_press.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/forging_press"
+	},
+  "flip-v": true
+  }

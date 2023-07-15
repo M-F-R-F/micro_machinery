@@ -146,13 +146,13 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     public VoxelShape getCollisionShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
 
-        for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-            EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-            if (enumCableState != EnumCableState.EMPTY) {
-                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
-            }
-        }
-
+//        for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
+//            EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
+//            if (enumCableState != EnumCableState.EMPTY) {
+//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+//            }
+//        }
+//
 
         return shape;
     }
@@ -161,12 +161,12 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
 
-        for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-            EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-            if (enumCableState != EnumCableState.EMPTY) {
-                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
-            }
-        }
+//        for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
+//            EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
+//            if (enumCableState != EnumCableState.EMPTY) {
+//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+//            }
+//        }
 
 
         return shape;

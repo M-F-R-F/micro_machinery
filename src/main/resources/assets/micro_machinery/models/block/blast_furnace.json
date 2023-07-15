@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/block/obj/blast_furnace.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/blast_furnace"
+	},
+	"flip-v": true
+}

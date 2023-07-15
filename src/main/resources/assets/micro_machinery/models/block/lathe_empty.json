@@ -1,0 +1,6 @@
+{
+	"parent": "micro_machinery:block/empty",
+	"textures": {
+        "particle": "micro_machinery:blocks/lathe"
+    }
+}

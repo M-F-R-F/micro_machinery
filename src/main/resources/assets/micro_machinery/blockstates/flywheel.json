@@ -1,5 +1,19 @@
 {
-	"variants": {
-		"": {"model": "micro_machinery:obj/flywheel"}
-	}
+    "variants": {
+    "facing=south": {
+      "model": "micro_machinery:block/flywheel"
+    },
+    "facing=west": {
+      "model": "micro_machinery:block/flywheel",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "micro_machinery:block/flywheel",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "micro_machinery:block/flywheel",
+      "y": 270
+    }
+  }
 }

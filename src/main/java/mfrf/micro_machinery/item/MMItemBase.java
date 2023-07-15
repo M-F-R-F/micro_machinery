@@ -8,10 +8,13 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class MMItemBase extends Item {
     public static Properties DEFAULT_PROPERTIES = new Properties().stacksTo(64);
+    public static List<Item> simpleItems = new ArrayList<>();
 
     public MMItemBase(Properties properties, ResourceKey<CreativeModeTab> tab) {
         super(properties);
@@ -25,6 +28,7 @@ public class MMItemBase extends Item {
     public MMItemBase(Properties properties) {
         super(properties);
         RegistryThingsEvent.TAB_ITEMS.add(() -> this);
+        simpleItems.add(this);
     }
 
     /**
@@ -33,5 +37,9 @@ public class MMItemBase extends Item {
     public MMItemBase(Properties properties, FoodProperties food) {
         this(properties.food(food));
         RegistryThingsEvent.getOrCreateItemListToRegisterTab(CreativeModeTabs.FOOD_AND_DRINKS).add(() -> this);
+    }
+
+    private String getLoc() {
+        return "";
     }
 }

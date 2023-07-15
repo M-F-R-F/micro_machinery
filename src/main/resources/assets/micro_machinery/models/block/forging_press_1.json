@@ -1,0 +1,20 @@
+{
+	"texture_size": [256, 256],
+	"textures": {
+		"0": "micro_machinery:obj/forging_press"
+	},
+	"elements": [
+		{
+			"from": [3, 0, 3],
+			"to": [13, 24, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 26, 0]},
+			"faces": {
+				"north": {"uv": [0.75, 6.75, 1.375, 8.25], "texture": "#0"},
+				"east": {"uv": [1.375, 6.75, 0.75, 8.25], "texture": "#0"},
+				"south": {"uv": [0.75, 6.75, 1.375, 8.25], "texture": "#0"},
+				"west": {"uv": [1.375, 6.75, 0.75, 8.25], "texture": "#0"},
+				"down": {"uv": [2.0625, 5.8125, 1.4375, 6.4375], "texture": "#0"}
+			}
+		}
+	]
+}
