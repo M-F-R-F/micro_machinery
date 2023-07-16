@@ -81,6 +81,10 @@ public class MMFluidBase {
         }
     }
 
+    public MMFluidBase(String name, Block.Properties fluid_block_properties, FluidType.Properties fluid_properties, boolean is_molten_material) {
+        this(name, fluid_block_properties, fluid_properties, is_molten_material, 20);
+    }
+
     @SubscribeEvent
     public void registerFluids(RegisterEvent event) {
         event.register(ForgeRegistries.Keys.FLUIDS, helper -> {

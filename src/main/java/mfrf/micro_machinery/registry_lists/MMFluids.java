@@ -445,7 +445,7 @@ public class MMFluids {
             FluidType.Properties.create()
                     .temperature(293).
                     viscosity(500),
-            false
+            false, 5
     ),
 
     APPLE_JUICE = new MMFluidBase(
@@ -454,12 +454,13 @@ public class MMFluids {
             FluidType.Properties.create()
                     .temperature(293)
                     .viscosity(500),
-            false
+            false, 3
     ),
             ETHENE = new MMFluidBase(
                     "ethene", Block.Properties.of().noCollission().replaceable(),
                     FluidType.Properties.create()
-                            .temperature(293).viscosity(1000), false);
+                            .temperature(293).viscosity(1000), false, 10
+            );
 
 
 }
