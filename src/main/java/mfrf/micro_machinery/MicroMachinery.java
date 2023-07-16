@@ -24,7 +24,8 @@ public class MicroMachinery {
         MMTab.TAB_REGISER.register(modEventBus);
         MMItems.ITEM_REGISTER.register(modEventBus);
         MMBlocks.BLOCK_REGISTER.register(modEventBus);
-//        MMFluids.FLUID_REGISTER.register(modEventBus);
+        MMFluids.FLUID_REGISTER.register(modEventBus);
+        MMFluids.FLUID_TYPE_REGISTER.register(modEventBus);
         MMFeatures.FEATURE_REGISTER.register(modEventBus);
         MMRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(modEventBus);
         MMContainerTypes.CONTAINER_TYPE_REGISTER.register(modEventBus);
