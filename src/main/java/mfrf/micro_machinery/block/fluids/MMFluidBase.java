@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -41,7 +42,8 @@ public class MMFluidBase {
     private final RegistryObject<Fluid> fluid;
     private final RegistryObject<Fluid> fluid_flow;
     private final RegistryObject<BucketItem> bucket;
-    private final RegistryObject<LiquidBlock> block;
+    private RegistryObject<LiquidBlock> block;
+    private final BlockBehaviour.Properties fluid_block_properties;
     private int tickrate;
 
     /**
@@ -70,11 +72,11 @@ public class MMFluidBase {
                 });
             }
         });
-        this.fluid = RegistryObject.create(new ResourceLocation(name), ForgeRegistries.Keys.FLUIDS, MicroMachinery.MODID);
-        this.fluid_flow = RegistryObject.create(new ResourceLocation(name + "_flow"), ForgeRegistries.Keys.FLUIDS, MicroMachinery.MODID);
-        this.block = MMBlocks.BLOCK_REGISTER.register(name, () -> new LiquidBlock(() -> (FlowingFluid) fluid_flow.get(), fluid_block_properties));
-
+        this.fluid = RegistryObject.create(new ResourceLocation(MicroMachinery.MODID, name), ForgeRegistries.Keys.FLUIDS, MicroMachinery.MODID);
+        this.fluid_flow = RegistryObject.create(new ResourceLocation(MicroMachinery.MODID, name + "_flow"), ForgeRegistries.Keys.FLUIDS, MicroMachinery.MODID);
+        this.fluid_block_properties = fluid_block_properties;
         this.bucket = ITEM_REGISTER.register(name + "_bucket", () -> new BucketItem(fluid::get, new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
+        RegistryThingsEvent.addItemToRegisterTab(bucket::get);
 
         if (is_molten_material) {
             MOLTEN_FLUIDS.add(this);
@@ -96,6 +98,7 @@ public class MMFluidBase {
 
             helper.register(fluid.getId(), new ForgeFlowingFluid.Source(properties));
             helper.register(fluid_flow.getId(), new ForgeFlowingFluid.Flowing(properties));
+            this.block = MMBlocks.BLOCK_REGISTER.register(name, () -> new LiquidBlock(() -> (FlowingFluid) fluid_flow.get(), fluid_block_properties));
         });
     }
 

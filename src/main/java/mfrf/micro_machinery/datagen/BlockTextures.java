@@ -19,9 +19,5 @@ public class BlockTextures extends BlockModelProvider {
 
     @Override
     protected void registerModels() {
-        for (Block simpleBlock : MMBlockBase.simpleBlocks) {
-            String name = ForgeRegistries.BLOCKS.getKey(simpleBlock).getPath();
-            singleTexture(name, mcLoc("block/cube_all"), "all", modLoc("blocks/" + name));
-        }
     }
 }

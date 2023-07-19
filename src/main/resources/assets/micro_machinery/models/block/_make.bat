@@ -16,7 +16,7 @@ for %%x in (%*) do (
 	echo Making %%x.json block
 	(
 		echo {
-		echo 	"parent": "block/cube_all",
+		echo 	"parent": "minecraft:block/cube_all",
 		echo 	"textures": {
 		echo 		"all": "%modid%:blocks/%%x"
 		echo 	}

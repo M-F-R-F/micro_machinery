@@ -16,9 +16,15 @@ public class ItemTextures extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        for (Item simpleItem : MMItemBase.simpleItems) {
-            String name = ForgeRegistries.ITEMS.getKey(simpleItem).getPath();
-            singleTexture(name, mcLoc("item/handheld"), "layer0", modLoc("items/" + name));
-        }
+//        for (Item simpleItem : MMItemBase.simpleItems) {
+//            String name = ForgeRegistries.ITEMS.getKey(simpleItem).getPath();
+//            singleTexture(name, mcLoc("item/handheld"), "layer0", modLoc("items/" + name));
+//        }
+//        registerItemTexture(MMItems.WAFER.get());
+    }
+
+    private void registerItemTexture(Item item) {
+        String name = ForgeRegistries.ITEMS.getKey(item).getPath();
+        singleTexture(name, mcLoc("item/handheld"), "layer0", modLoc("items/" + name));
     }
 }

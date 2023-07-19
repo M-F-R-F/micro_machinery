@@ -4,6 +4,7 @@ import mfrf.micro_machinery.MicroMachinery;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,6 +16,6 @@ public class MMTab {
     public static final RegistryObject<CreativeModeTab> ICON_TAB = TAB_REGISER.register(
             MicroMachinery.MODID, () ->
 //                    CreativeModeTab.builder().icon(MMItems.ICON.get()::getDefaultInstance).build());
-                    CreativeModeTab.builder().icon(() -> new ItemStack(Items.STICK)).title(Component.translatable("test")).build());
+                    CreativeModeTab.builder().icon(() -> new ItemStack(MMItems.ICON.get())).title(Component.translatable(MicroMachinery.MODID)).withTabsBefore(CreativeModeTabs.SPAWN_EGGS).build());
 
 }
