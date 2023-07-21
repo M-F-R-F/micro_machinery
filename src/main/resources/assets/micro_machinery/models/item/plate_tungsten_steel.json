@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/handheld",
-    "textures": {
-        "layer0": "micro_machinery:items/plate_tungsten_steel"
-    }
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "micro_machinery:item/plate_tungsten_steel"
+	}
 }

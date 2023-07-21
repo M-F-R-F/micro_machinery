@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/cube_all",
-	"textures": {
-		"all": "micro_machinery:blocks/module_transmission_1"
-	}
-}

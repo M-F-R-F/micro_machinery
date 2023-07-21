@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "micro_machinery:item/ore_manganese_concentrate"
+	}
+}

@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/handheld",
-    "textures": {
-        "layer0": "micro_machinery:items/ingot_hss"
-    }
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "micro_machinery:item/ingot_hss"
+	}
 }

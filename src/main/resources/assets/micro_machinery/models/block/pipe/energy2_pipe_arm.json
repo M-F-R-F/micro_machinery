@@ -1,7 +1,0 @@
-{
-  "parent": "micro_machinery:block/pipe/pipe_arm",
-  "textures": {
-    "0": "micro_machinery:blocks/pipes/energy2_pipe",
-    "particle": "micro_machinery:blocks/pipes/energy2_pipe"
-  }
-}

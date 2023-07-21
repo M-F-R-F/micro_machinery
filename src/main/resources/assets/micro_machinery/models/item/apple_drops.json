@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/handheld",
-    "textures": {
-        "layer0": "micro_machinery:items/apple_drops"
-    }
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "micro_machinery:item/apple_drops"
+	}
 }

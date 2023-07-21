@@ -1,0 +1,19 @@
+{
+    "variants": {
+      "facing=north": {
+        "model": "micro_machinery:block/anvil_copper"
+      },
+      "facing=east": {
+        "model": "micro_machinery:block/anvil_copper",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "micro_machinery:block/anvil_copper",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "micro_machinery:block/anvil_copper",
+        "y": 270
+      }
+    }
+}

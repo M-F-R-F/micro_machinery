@@ -1,6 +1,6 @@
 {
   "loader": "forge:obj",
-  "model": "micro_machinery:models/block/obj/flying_wheel_3.obj",
+  "model": "micro_machinery:models/obj/flying_wheel_3.obj",
   "flip-v": true,
   "display": {
 		"thirdperson_righthand": {

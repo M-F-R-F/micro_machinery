@@ -1,0 +1,8 @@
+{
+	"loader": "forge:obj",
+	"model": "micro_machinery:models/obj/spherical_tank.obj",
+	"textures": {
+		"particle": "micro_machinery:obj/spherical_tank"
+	},
+	"flip-v": true
+}

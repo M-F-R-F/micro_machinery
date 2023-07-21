@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/cube_all",
+	"parent": "block/cube_all",
 	"textures": {
-		"all": "micro_machinery:blocks/tank_block"
+		"all": "micro_machinery:block/tank_block"
 	}
 }

@@ -1,0 +1,6 @@
+{
+	"parent": "micro_machinery:block/pipe_1_arm",
+	"textures": {
+	  "0": "micro_machinery:block/pipe_3"
+	}
+}

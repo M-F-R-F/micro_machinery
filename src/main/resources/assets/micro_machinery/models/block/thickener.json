@@ -1,8 +1,0 @@
-{
-	"loader": "forge:obj",
-	"model": "micro_machinery:models/block/obj/thickener.obj",
-	"textures": {
-		"particle": "micro_machinery:obj/thickener"
-	},
-	"flip-v": true
-}

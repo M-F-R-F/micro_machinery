@@ -1,0 +1,7 @@
+{
+	"parent": "micro_machinery:block/pipe_1",
+	"textures": {
+	  "0": "micro_machinery:block/pipe_3",
+	  "particle": "micro_machinery:block/pipe_3"
+	}
+}

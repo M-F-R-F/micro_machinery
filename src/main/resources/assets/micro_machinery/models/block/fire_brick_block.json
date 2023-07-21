@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/cube_all",
+	"parent": "block/cube_all",
 	"textures": {
-		"all": "micro_machinery:blocks/fire_brick_block"
+		"all": "micro_machinery:block/fire_brick_block"
 	}
 }
