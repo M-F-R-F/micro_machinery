@@ -1,38 +1,40 @@
 package mfrf.micro_machinery.utils;
 
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class RandomUtils {
     private static final Random random = new Random();
 
-    public static boolean outputBooleanByChance(Random rand, double chance) {
-        double d = rand.nextDouble();
+    public static boolean outputBooleanByChance(Supplier<Double> supplier, double chance) {
+        double d = supplier.get();
         return d <= chance;
     }
 
-    public static BlockState outputRandmonBlockByList(Random rand, List<Pair<Double, Block>> list) {
-        Double d = rand.nextDouble();
+    @Nullable
+    public static void setRandmonBlockByList(RandomSource rand, Map<Double, OreConfiguration.TargetBlockState> list, BlockState blockState, Consumer<BlockState> set) {
+        double d = rand.nextDouble();
         Double sum = 0.0d;
         int size = list.size();
         int time = 0;
-        for (Pair<Double, Block> pair : list) {
-            sum += pair.getFirst();
+        for (Map.Entry<Double, OreConfiguration.TargetBlockState> pair : list.entrySet()) {
+            sum += pair.getKey();
             if (sum >= d || time == size) {
                 sum = 0.0d;
-                return pair.getSecond().defaultBlockState();
+                if (pair.getValue().target.test(blockState, rand)) {
+                    set.accept(pair.getValue().state);
+                }
             } else time++;
         }
-        return Blocks.STONE.defaultBlockState();
     }
 
     public static int nextRandomInt() {
