@@ -29,10 +29,10 @@ public class WeldContainer extends ContainerBase {
         this.addSlot(new SlotItemHandler(input, 4, 44, 50));
         this.addSlot(new SlotItemHandler(input, 5, 62, 50));
         this.addSlot(new SlotItemHandler(output, 0, 116, 40) {
-//            @Override //todo fixit
-//            public boolean isItemValid(@Nonnull ItemStack stack) {
-//                return false;
-//            }
+            @Override
+            public boolean mayPlace(@Nonnull ItemStack stack) {
+                return false;
+            }
         });
         drawInventory(8, 96, Container);
     }

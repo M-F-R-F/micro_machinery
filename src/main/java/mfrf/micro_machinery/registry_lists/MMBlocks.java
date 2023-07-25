@@ -8,6 +8,7 @@ import mfrf.micro_machinery.block.machines.single_block_machines.atomization.Blo
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.BlockCentrifuge;
 import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
 import mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell.BlockCreativeEnergyCell;
+import mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell.testcr;
 import mfrf.micro_machinery.block.machines.single_block_machines.cutter.BlockCutter;
 import mfrf.micro_machinery.block.machines.single_block_machines.electrolysis.BlockElectrolysis;
 import mfrf.micro_machinery.block.machines.single_block_machines.energy_cable.BlockEnergyCable;
@@ -148,6 +149,7 @@ public class MMBlocks {
             ALUMINUM_CABLE = makeBlockWithItem("aluminum_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.ALUMINUM)),
             TUNGSTEN_CABLE = makeBlockWithItem("tungstel_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.TUNGSTEN)),
             COBALT_CABLE = makeBlockWithItem("cobalt_cable", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.COBALT)),
+            TESTCR = makeBlockWithItem("testcr", testcr::new),
     //convey belt
     CONVEYOR_BELT_1 = makeBlockWithItem("conveyor_belt_1", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get))),
             CONVEYOR_BELT_2 = makeBlockWithItem("conveyor_belt_2", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_2_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_2_TRANSMIT_SPEED::get, Config.CONVEY_BELT_2_TRANSMIT_STACK_SIZE::get))),

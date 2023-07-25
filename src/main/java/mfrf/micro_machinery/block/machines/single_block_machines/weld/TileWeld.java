@@ -34,7 +34,7 @@ public class TileWeld extends MMTileBase implements MenuProvider {
     private final FEContainer feContainer = new FEContainer(0, 80000) {
         @Override
         public boolean canExtract() {
-            return false;
+            return true;
         }
 
         @Override
@@ -153,7 +153,8 @@ public class TileWeld extends MMTileBase implements MenuProvider {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ENERGY && side == getBackDirection()) {
+        if (cap == ForgeCapabilities.ENERGY) {
+             //&& side == getBackDirection()
             return LazyOptional.of(() -> feContainer).cast();
         }
 

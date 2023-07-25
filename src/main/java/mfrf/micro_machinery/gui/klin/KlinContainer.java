@@ -28,10 +28,10 @@ public class KlinContainer extends ContainerBase {
         this.addSlot(new SlotItemHandler(itemHandler, 1, 40, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 2, 80, 50));
         this.addSlot(new SlotItemHandler(itemHandler, 3, 120, 50) {
-//            @Override
-//            public boolean isItemValid(@Nonnull ItemStack stack) {
-//                return false;
-//            }
+            @Override
+            public boolean mayPlace(@Nonnull ItemStack stack) {
+                return false;
+            }
 
             @Override
             public boolean isActive() {

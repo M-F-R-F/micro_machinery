@@ -5,6 +5,7 @@ import mfrf.micro_machinery.block.machines.single_block_machines.atomization.Til
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.TileCentrifuge;
 import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.TileConveyBelt;
 import mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell.TileCreativeEnergyCell;
+import mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell.TileTestcr;
 import mfrf.micro_machinery.block.machines.single_block_machines.cutter.TileCutter;
 import mfrf.micro_machinery.block.machines.single_block_machines.electrolysis.TileElectrolysis;
 import mfrf.micro_machinery.block.machines.single_block_machines.energy_cable.TileEnergyCable;
@@ -45,6 +46,7 @@ public class MMBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<TileWeld>> TILE_WELD = TILE_ENTITY_TYPE_REGISTER.register("weld", () -> BlockEntityType.Builder.of(TileWeld::new, MMBlocks.WELD.getKey().get()).build(null));
     //    public static final RegistryObject<BlockEntityType<TileHugeContainer>> TILE_HUGE_CONTAINER = TILE_ENTITY_TYPE_REGISTER.register("huge_container", () -> BlockEntityType.Builder.of(TileHugeContainer::new, MMBlocks.HUGE_CONTAINER.getKey().get()).build(null));
     public static final RegistryObject<BlockEntityType<TileConveyBelt>> TILE_CONVEY_BELT = TILE_ENTITY_TYPE_REGISTER.register("convey_belt", () -> BlockEntityType.Builder.of(TileConveyBelt::new, MMBlocks.CONVEYOR_BELT_1.getKey().get(), MMBlocks.CONVEYOR_BELT_2.getKey().get(), MMBlocks.CONVEYOR_BELT_3.getKey().get()).build(null));
+    public static final RegistryObject<BlockEntityType<TileTestcr>> TESTCR = TILE_ENTITY_TYPE_REGISTER.register("testcr", () -> BlockEntityType.Builder.of(TileTestcr::new, MMBlocks.TESTCR.getKey().get()).build(null));
     //todo: fix this
 //    public static final RegistryObject<BlockEntityType<MMTileMultiBlockPart>> MULTI_BLOCK_PART = TILE_ENTITY_TYPE_REGISTER.register("part", () -> BlockEntityType.Builder.of(MMTileMultiBlockPart::new, MMBlocks.MULTIBLOCK_PART.getKey().get()).build(null));
 //    public static final RegistryObject<BlockEntityType<TileRedstoneInterface>> REDSTONE_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("redstone_interface", () -> BlockEntityType.Builder.of(TileRedstoneInterface::new, MMBlocks.REDSTONE_INTERFACE.getKey().get()).build(null));

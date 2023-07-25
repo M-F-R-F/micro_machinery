@@ -25,6 +25,7 @@ public class MMItems {
             BRONZE_HAMMER = ITEM_REGISTER.register("bronze_hammer", () -> new MMHammerBase(5.0f, -3.15f, EnumToolTier.BRONZE, new Item.Properties().stacksTo(1))),
             IRON_HAMMER = ITEM_REGISTER.register("iron_hammer", () -> new MMHammerBase(6.0f, -3.2f, Tiers.DIAMOND, new Item.Properties().stacksTo(1))),
             SUPERHAMMER = ITEM_REGISTER.register("superhammer", () -> new MMHammerBase(8.0f, 0.0f, EnumToolTier.HSS, new Item.Properties().stacksTo(1))),
+            DEBUG = ITEM_REGISTER.register("debug",() -> new DebugTool()),
     //axe
     BRONZE_AXE = ITEM_REGISTER.register("bronze_axe", () -> new MMAxeBase(EnumToolTier.BRONZE, 1, -3.1f, new Item.Properties().stacksTo(1))),
             TUNGSTEN_STEEL_AXE = ITEM_REGISTER.register("tungsten_steel_axe", () -> new MMAxeBase(Tiers.DIAMOND, 2, -3.1f, new Item.Properties().stacksTo(1))),
@@ -286,6 +287,7 @@ public class MMItems {
             ADAPTER_CARD = ITEM_REGISTER.register("adapter_card", MMItemBase::new),
             PIPE_BLOCKAGE = ITEM_REGISTER.register("pipe_blockage", MMItemBase::new),
     // battery
+
     FLYWHEEL_BATTERY = ITEM_REGISTER.register("flywheel_battery", MMItemBase::new);
     // TEST_UTIL = new DebugTool;
 
