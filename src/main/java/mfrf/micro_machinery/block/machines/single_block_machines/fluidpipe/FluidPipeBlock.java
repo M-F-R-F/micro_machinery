@@ -1,7 +1,10 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.fluidpipe;
 
 import mfrf.micro_machinery.block.MMBlockBase;
+import mfrf.micro_machinery.block.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
+import mfrf.micro_machinery.utils.TileHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,6 +16,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -146,6 +151,13 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
     private boolean setStateAndUpdateNeighbor(Level world, BlockPos pos, BlockState state) {
         boolean b = world.setBlock(pos, state, 22);
         return b;
+    }
+
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get(), pBlockEntityType, FluidPipeTile::tick);
     }
 
 

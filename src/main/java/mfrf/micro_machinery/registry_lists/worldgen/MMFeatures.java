@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.registry_lists;
+package mfrf.micro_machinery.registry_lists.worldgen;
 
 import com.mojang.serialization.Codec;
 import mfrf.micro_machinery.MicroMachinery;
@@ -12,10 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class MMFeatures {
-    public static final DeferredRegister<StructureType<?>> FEATURE_REGISTER = DeferredRegister.create(BuiltInRegistries.STRUCTURE_TYPE.key(), MicroMachinery.MODID);
-    public static final RegistryObject<StructureType<VeinFeature>> VEIN_FEATURE = FEATURE_REGISTER.register("vein_feature", () -> explicitStructureTypeTyping(VeinFeature.CODEC));
+    public static final DeferredRegister<Feature<?>> FEATURE_REGISTER = DeferredRegister.create(ForgeRegistries.FEATURES, MicroMachinery.MODID);
+    public static final RegistryObject<VeinFeature> VEIN_FEATURE = FEATURE_REGISTER.register("vein_feature", VeinFeature::new);
 
-    private static <T extends Structure> StructureType<T> explicitStructureTypeTyping(Codec<T> structureCodec) {
-        return () -> structureCodec;
-    }
 }

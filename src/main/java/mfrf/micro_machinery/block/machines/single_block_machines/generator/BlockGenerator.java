@@ -1,7 +1,10 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.generator;
 
 import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
+import mfrf.micro_machinery.block.machines.single_block_machines.atomization.TileAtomization;
+import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.MathUtil;
+import mfrf.micro_machinery.utils.TileHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,6 +19,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -62,6 +67,13 @@ public class BlockGenerator extends MMBlockTileProviderBase {
 
     public static void setIsGenerating(boolean isburning, Level world, BlockPos pos) {
         world.setBlock(pos, world.getBlockState(pos).setValue(ISBURNING, isburning), 3);
+
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_GENERATOR_TYPE.get(), pBlockEntityType, TileGenerator::tick);
     }
 
     @Override

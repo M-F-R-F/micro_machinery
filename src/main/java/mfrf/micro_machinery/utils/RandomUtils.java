@@ -21,18 +21,17 @@ public class RandomUtils {
     }
 
     @Nullable
-    public static void setRandmonBlockByList(RandomSource rand, Map<Double, OreConfiguration.TargetBlockState> list, BlockState blockState, Consumer<BlockState> set) {
+    public static void setRandmonBlockByList(RandomSource rand, Map<Double, BlockState> list, BlockState blockState, Consumer<BlockState> set) {
         double d = rand.nextDouble();
         Double sum = 0.0d;
         int size = list.size();
         int time = 0;
-        for (Map.Entry<Double, OreConfiguration.TargetBlockState> pair : list.entrySet()) {
+        for (Map.Entry<Double, BlockState> pair : list.entrySet()) {
             sum += pair.getKey();
             if (sum >= d || time == size) {
                 sum = 0.0d;
-                if (pair.getValue().target.test(blockState, rand)) {
-                    set.accept(pair.getValue().state);
-                }
+                set.accept(pair.getValue());
+                return;
             } else time++;
         }
     }

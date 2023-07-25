@@ -1,5 +1,6 @@
 package mfrf.micro_machinery.events;
 
+import mfrf.micro_machinery.gui.atomization.AtomizationScreen;
 import mfrf.micro_machinery.gui.centrifuge.CentrifugeScreen;
 import mfrf.micro_machinery.gui.cutter.CutterScreen;
 import mfrf.micro_machinery.gui.electrolysis.ElectrolysisScreen;
@@ -27,7 +28,7 @@ public class GuiBindEventHandler {
             MenuScreens.register(MMContainerTypes.ELECTROLYSIS_CONTAINER.get(), ElectrolysisScreen::new);
             MenuScreens.register(MMContainerTypes.CUTTER_CONTAINER.get(), CutterScreen::new);
             MenuScreens.register(MMContainerTypes.CENTRIFUGE_CONTAINER.get(), CentrifugeScreen::new);
-//        MenuScreens.register(MMContainerTypes.ATOMIZATION_CONTAINER.get(), AtomizationScreen::new);
+            MenuScreens.register(MMContainerTypes.ATOMIZATION_CONTAINER.get(), AtomizationScreen::new);
             MenuScreens.register(MMContainerTypes.WELD_CONTAINER.get(), WeldScreen::new);
         });
     }

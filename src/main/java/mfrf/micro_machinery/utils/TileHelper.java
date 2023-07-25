@@ -12,6 +12,6 @@ public abstract class TileHelper extends BaseEntityBlock {
     }
 
     public static <T extends BlockEntity> BlockEntityTicker<T> createTicker(Level pLevel, BlockEntityType<T> argType, BlockEntityType<? extends BlockEntity> clientType, BlockEntityTicker<BlockEntity> ticker) {
-        return pLevel.isClientSide ? createTickerHelper(argType, clientType, ticker) : null;
+        return !pLevel.isClientSide ? createTickerHelper(argType, clientType, ticker) : null;
     }
 }

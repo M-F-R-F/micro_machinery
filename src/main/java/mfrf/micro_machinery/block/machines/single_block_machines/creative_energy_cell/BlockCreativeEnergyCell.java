@@ -22,10 +22,12 @@ public class BlockCreativeEnergyCell extends MMBlockTileProviderBase {
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new TileCreativeEnergyCell(pPos, pState);
     }
+
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_ENERGY_CELL.get(), pBlockEntityType, TileCreativeEnergyCell::tick);
     }
+
 
 }
