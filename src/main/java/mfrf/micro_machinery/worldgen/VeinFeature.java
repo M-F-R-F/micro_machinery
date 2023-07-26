@@ -19,6 +19,7 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
 
     public VeinFeature() {
         super(VeinFeatureConfig.CODEC);
+        //todo 修改为structure
     }
 
     private boolean generateVein(WorldGenLevel worldIn, BlockPos pos, RandomSource rand, VeinFeatureConfig config) {
