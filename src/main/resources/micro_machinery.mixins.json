@@ -5,6 +5,5 @@
   "refmap": "micro_machinery.refmap.json",
   "minVersion": "0.8",
   "server": [
-    "MixinDefaultBiomeFeatures"
   ]
 }
