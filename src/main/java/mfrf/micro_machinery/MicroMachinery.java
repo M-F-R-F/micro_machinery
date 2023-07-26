@@ -3,6 +3,7 @@ package mfrf.micro_machinery;
 import com.mojang.logging.LogUtils;
 import mfrf.micro_machinery.registry_lists.*;
 import mfrf.micro_machinery.registry_lists.worldgen.MMFeatures;
+import mfrf.micro_machinery.registry_lists.worldgen.MMPlacedConfiguredFeatures;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;

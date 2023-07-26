@@ -1,16 +1,19 @@
 package mfrf.micro_machinery.worldgen;
 
+import com.mojang.datafixers.util.Pair;
 import mfrf.micro_machinery.utils.RandomUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
-import java.util.Map;
+import java.util.List;
 
 public class VeinFeature extends Feature<VeinFeatureConfig> {
 
@@ -26,7 +29,7 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         int veinHeight = config.getVeinHeight();
         double generateChancePerOre = config.getGenerateChancePerOre();
         RuleTest predicate = config.getPredicate();
-        Map<Double, BlockState> blocks = config.getBlocks();
+        List<Pair<BlockState, Double>> blocks = config.getBlocks();
         for (int i = 0; i < oreStratum; i++) {
             for (int j = 0; j < oreDepositHeight; j++) {
 
@@ -52,7 +55,7 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         return false;
     }
 
-    private void generateMiniVein(WorldGenLevel worldIn, RandomSource rand, double generateChancePerOre, RuleTest predicate, Map<Double, BlockState> oreGenList, int y, int x1, int z1, int radius) {
+    private void generateMiniVein(WorldGenLevel worldIn, RandomSource rand, double generateChancePerOre, RuleTest predicate, List<Pair<BlockState, Double>> oreGenList, int y, int x1, int z1, int radius) {
         for (int rx1 = x1 - radius; rx1 <= radius + x1; rx1++) {
             for (int rz1 = z1 - radius; rz1 <= radius + z1; rz1++) {
                 BlockPos position = new BlockPos(rx1, y, rz1);
@@ -83,4 +86,5 @@ public class VeinFeature extends Feature<VeinFeatureConfig> {
         }
         return true;
     }
+
 }

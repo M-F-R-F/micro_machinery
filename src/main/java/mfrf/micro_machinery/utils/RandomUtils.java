@@ -1,12 +1,13 @@
 package mfrf.micro_machinery.utils;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -21,16 +22,16 @@ public class RandomUtils {
     }
 
     @Nullable
-    public static void setRandmonBlockByList(RandomSource rand, Map<Double, BlockState> list, BlockState blockState, Consumer<BlockState> set) {
+    public static void setRandmonBlockByList(RandomSource rand, List<Pair<BlockState, Double>> list, BlockState blockState, Consumer<BlockState> set) {
         double d = rand.nextDouble();
         Double sum = 0.0d;
         int size = list.size();
         int time = 0;
-        for (Map.Entry<Double, BlockState> pair : list.entrySet()) {
-            sum += pair.getKey();
+        for (Pair<BlockState, Double> pair : list) {
+            sum += pair.getSecond();
             if (sum >= d || time == size) {
                 sum = 0.0d;
-                set.accept(pair.getValue());
+                set.accept(pair.getFirst());
                 return;
             } else time++;
         }

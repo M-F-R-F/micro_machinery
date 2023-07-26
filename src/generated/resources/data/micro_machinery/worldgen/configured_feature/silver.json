@@ -1,0 +1,37 @@
+{
+  "type": "micro_machinery:vein_feature",
+  "config": {
+    "block_map": [
+      {
+        "block_state": {
+          "Name": "micro_machinery:oresilver"
+        },
+        "probabilities": 0.7
+      },
+      {
+        "block_state": {
+          "Name": "minecraft:lapis_ore"
+        },
+        "probabilities": 0.2
+      },
+      {
+        "block_state": {
+          "Name": "micro_machinery:orecopper"
+        },
+        "probabilities": 0.1
+      }
+    ],
+    "generate_chance_per_ore": 0.2,
+    "max_height": 48,
+    "min_height": 3,
+    "ore_deposit_height": 3,
+    "ore_stratum": 3,
+    "predicate": {
+      "predicate_type": "minecraft:tag_match",
+      "tag": "minecraft:base_stone_overworld"
+    },
+    "range": 6,
+    "stone_height": 3,
+    "vein_gen_chance": 0.005
+  }
+}

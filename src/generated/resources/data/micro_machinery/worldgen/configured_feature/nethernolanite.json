@@ -1,0 +1,37 @@
+{
+  "type": "micro_machinery:vein_feature",
+  "config": {
+    "block_map": [
+      {
+        "block_state": {
+          "Name": "micro_machinery:orenolanite_nether"
+        },
+        "probabilities": 0.6
+      },
+      {
+        "block_state": {
+          "Name": "micro_machinery:orebauxite_nether"
+        },
+        "probabilities": 0.25
+      },
+      {
+        "block_state": {
+          "Name": "minecraft:nether_quartz_ore"
+        },
+        "probabilities": 0.15
+      }
+    ],
+    "generate_chance_per_ore": 0.2,
+    "max_height": 120,
+    "min_height": 3,
+    "ore_deposit_height": 3,
+    "ore_stratum": 3,
+    "predicate": {
+      "predicate_type": "minecraft:tag_match",
+      "tag": "minecraft:nether_carver_replaceables"
+    },
+    "range": 6,
+    "stone_height": 3,
+    "vein_gen_chance": 0.005
+  }
+}

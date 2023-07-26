@@ -1,0 +1,42 @@
+{
+  "feature": "micro_machinery:iron",
+  "placement": [
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "max_inclusive": {
+          "above_bottom": 80
+        },
+        "min_inclusive": {
+          "above_bottom": 3
+        }
+      }
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 16,
+          "min_inclusive": 0
+        }
+      },
+      "y_spread": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 16,
+          "min_inclusive": 0
+        }
+      }
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 133
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "type": "micro_machinery:vein_feature",
+  "config": {
+    "block_map": [
+      {
+        "block_state": {
+          "Name": "micro_machinery:oretunstite"
+        },
+        "probabilities": 1.0
+      }
+    ],
+    "generate_chance_per_ore": 0.04,
+    "max_height": 62,
+    "min_height": 3,
+    "ore_deposit_height": 3,
+    "ore_stratum": 5,
+    "predicate": {
+      "block": "minecraft:end_stone",
+      "predicate_type": "minecraft:block_match"
+    },
+    "range": 8,
+    "stone_height": 3,
+    "vein_gen_chance": 0.0075
+  }
+}

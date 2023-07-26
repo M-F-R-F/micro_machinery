@@ -1,19 +1,18 @@
 package mfrf.micro_machinery.worldgen;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.Keyable;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
+import com.mojang.datafixers.util.Pair;
 
 import java.util.List;
-import java.util.Map;
 
 public class VeinFeatureConfig implements FeatureConfiguration {
     public static final Codec<VeinFeatureConfig> CODEC = RecordCodecBuilder.create((p_67849_) -> {
         return p_67849_.group(
-                Codec.simpleMap(Codec.DOUBLE, BlockState.CODEC, Keyable.forStrings(List.of("chance")::stream)).fieldOf("block_map").forGetter((p_161027_) -> {
+                Codec.pair(BlockState.CODEC.fieldOf("block_state").codec(), Codec.DOUBLE.fieldOf("probabilities").codec()).listOf().fieldOf("block_map").forGetter((p_161027_) -> {
                     return p_161027_.blocks;
                 }),
                 Codec.doubleRange(0, 1D).fieldOf("vein_gen_chance").forGetter(
@@ -45,7 +44,7 @@ public class VeinFeatureConfig implements FeatureConfiguration {
                 )
         ).apply(p_67849_, VeinFeatureConfig::new);
     });
-    private final Map<Double, BlockState> blocks;
+    private final List<Pair<BlockState, Double>> blocks;
     private final Double veinGenChance;
     private final Double generateChancePerOre;
     private final int range;
@@ -57,7 +56,7 @@ public class VeinFeatureConfig implements FeatureConfiguration {
     private final int veinHeight;
     private final RuleTest predicate;
 
-    public VeinFeatureConfig(Map<Double, BlockState> blocks, Double veinGenChance, Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, RuleTest predicate) {
+    public VeinFeatureConfig(List<Pair<BlockState, Double>> blocks, Double veinGenChance, Double generateChancePerOre, int range, int oreStratum, int oreDepositHeight, int stoneHeight, int minHeight, int maxHeight, RuleTest predicate) {
         this.blocks = blocks;
         this.veinGenChance = veinGenChance;
         this.generateChancePerOre = generateChancePerOre;
@@ -110,7 +109,7 @@ public class VeinFeatureConfig implements FeatureConfiguration {
         return veinHeight;
     }
 
-    public Map<Double, BlockState> getBlocks() {
+    public List<Pair<BlockState, Double>> getBlocks() {
         return blocks;
     }
 
