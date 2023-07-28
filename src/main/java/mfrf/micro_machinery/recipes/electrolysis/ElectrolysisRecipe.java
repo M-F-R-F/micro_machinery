@@ -45,7 +45,7 @@ public class ElectrolysisRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE.get();
     }
 
     public static class Serializer  implements RecipeSerializer<ElectrolysisRecipe> {

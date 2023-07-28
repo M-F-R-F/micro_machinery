@@ -45,7 +45,7 @@ public class BlastFurnaceRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.BLAST_FURNACE_RECIPE_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.BLAST_FURNACE_RECIPE_RECIPE_TYPE.get();
     }
 
     public static class Serializer  implements RecipeSerializer<BlastFurnaceRecipe> {

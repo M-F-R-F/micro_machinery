@@ -30,6 +30,7 @@ public class MicroMachinery {
         MMFluids.FLUID_TYPE_REGISTER.register(modEventBus);
         MMFeatures.FEATURE_REGISTER.register(modEventBus);
         MMRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(modEventBus);
+        MMRecipeSerializers.TYPE_DEFERRED_REGISTER.register(modEventBus);
         MMContainerTypes.CONTAINER_TYPE_REGISTER.register(modEventBus);
         MMBlockEntityTypes.TILE_ENTITY_TYPE_REGISTER.register(modEventBus);
 

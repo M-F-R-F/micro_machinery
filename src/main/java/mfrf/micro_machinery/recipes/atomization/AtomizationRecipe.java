@@ -34,7 +34,7 @@ public class AtomizationRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.ATOMIZATION_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.ATOMIZATION_RECIPE_TYPE.get();
     }
 
     public static class Serializer  implements RecipeSerializer<AtomizationRecipe> {
@@ -42,7 +42,7 @@ public class AtomizationRecipe extends RecipeBase {
         @Override
         public AtomizationRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             RecipeFluidStack input = RecipeHelper.getFluidStackFromJsonObject(json.getAsJsonObject("input"));
-            ItemStack output = RecipeHelper.getItemStackFormJsonObject(json.getAsJsonObject("output"));
+            ItemStack output = RecipeHelper.getItemStackOutPutFormJsonObject(json.getAsJsonObject("output"));
             int time = json.get("time").getAsInt();
             return new AtomizationRecipe(recipeId, input, output, time);
         }

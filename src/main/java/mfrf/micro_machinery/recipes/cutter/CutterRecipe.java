@@ -42,7 +42,7 @@ public class CutterRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.CUTTER_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.CUTTER_RECIPE_TYPE.get();
     }
 
     public static class Searlizer  implements RecipeSerializer<CutterRecipe> {
@@ -50,7 +50,7 @@ public class CutterRecipe extends RecipeBase {
         @Override
         public CutterRecipe fromJson(ResourceLocation pRecipeId, JsonObject jsonObject) {
             IngredientStack input = IngredientStack.ReadFromJson(jsonObject.getAsJsonObject("input_stack"));
-            ItemStack output = RecipeHelper.getItemStackFormJsonObject(jsonObject.getAsJsonObject("output"));
+            ItemStack output = RecipeHelper.getItemStackOutPutFormJsonObject(jsonObject.getAsJsonObject("output"));
             int tick_use = jsonObject.get("tick_use").getAsInt();
             return new CutterRecipe(pRecipeId, input, output, tick_use);
         }

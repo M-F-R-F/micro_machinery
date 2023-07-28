@@ -72,10 +72,11 @@ public class TileWeld extends MMTileBase implements MenuProvider {
 
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide() && blockEntity instanceof TileWeld weld) {
-
+            weld.markDirty2();
             if (weld.isWorking) {
                 weld.progress.selfAdd();
                 weld.setChanged();
+
             } else {
                 RecipeHelper.weldRecipeAndShrinkItemStacks weldRecipeAndShrinkItemStacks = RecipeHelper.getWeldRecipe(world.getRecipeManager(), weld.input);
                 if (weldRecipeAndShrinkItemStacks != null) {

@@ -49,7 +49,7 @@ public class AnvilRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE.get();
     }
 
     public static class Serializer implements RecipeSerializer<AnvilRecipe> {

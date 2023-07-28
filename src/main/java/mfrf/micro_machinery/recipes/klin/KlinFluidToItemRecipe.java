@@ -65,7 +65,7 @@ public class KlinFluidToItemRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE.get();
     }
 
     public static class Serializer implements RecipeSerializer<KlinFluidToItemRecipe> {

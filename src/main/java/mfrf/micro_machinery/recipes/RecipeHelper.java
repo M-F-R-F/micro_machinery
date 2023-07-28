@@ -35,7 +35,7 @@ public class RecipeHelper {
     public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
         if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
             boolean isSingle = stackInSlot1.isEmpty() || stackInSlot2.isEmpty() || stackInSlot1.equals(stackInSlot2, true);
-            List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, MMRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE);
+            List<KlinItemToFluidRecipe> collect = getRecipeListByType(manager, MMRecipeSerializers.Type.KLIN_ITEM_TO_FLUID_RECIPE_TYPE.get());
             for (KlinItemToFluidRecipe klinItemToFluidRecipe : collect) {
                 if (klinItemToFluidRecipe.isIssingle() == isSingle) {
                     boolean issingle = klinItemToFluidRecipe.isIssingle();
@@ -55,7 +55,7 @@ public class RecipeHelper {
     }
 
     public static KlinFluidToItemRecipe GetKlinFluidRecipe(FluidStack fluidStack, ItemStack castslot, RecipeManager manager) {
-        List<KlinFluidToItemRecipe> collect = getRecipeListByType(manager, MMRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE);
+        List<KlinFluidToItemRecipe> collect = getRecipeListByType(manager, MMRecipeSerializers.Type.KLIN_FLUID_TP_ITEM_RECIPE_TYPE.get());
         Item cast = castslot.getItem();
         if (cast instanceof MMCastBase) {
             for (KlinFluidToItemRecipe recipe : collect) {
@@ -68,7 +68,7 @@ public class RecipeHelper {
     }
 
     public static AnvilRecipe getForgingAnvilRecipe(ItemStack input, RecipeManager manager) {
-        List<AnvilRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE);
+        List<AnvilRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.FORGE_ANVIL_RECIPE_TYPE.get());
         for (AnvilRecipe recipe : recipeListByType) {
             if (recipe.getInput().test(input)) {
                 return recipe;
@@ -78,7 +78,7 @@ public class RecipeHelper {
     }
 
     public static EtcherRecipe getEtcherRecipe(ItemStack input, RecipeManager manager) {
-        List<EtcherRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.ETCHER_RECIPE_RECIPE_TYPE);
+        List<EtcherRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.ETCHER_RECIPE_RECIPE_TYPE.get());
         for (EtcherRecipe recipe : recipeListByType) {
             if (recipe.getInput().test(input) && recipe.getCountInput() <= input.getCount()) {
                 return recipe;
@@ -88,7 +88,7 @@ public class RecipeHelper {
     }
 
     public static BlastFurnaceRecipe getBlastFurnaceRecipe(ItemStack input, RecipeManager manager) {
-        List<BlastFurnaceRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.BLAST_FURNACE_RECIPE_RECIPE_TYPE);
+        List<BlastFurnaceRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.BLAST_FURNACE_RECIPE_RECIPE_TYPE.get());
         for (BlastFurnaceRecipe blastFurnaceRecipe : recipeListByType) {
             if (blastFurnaceRecipe.getInput().test(input)) {
                 return blastFurnaceRecipe;
@@ -98,7 +98,7 @@ public class RecipeHelper {
     }
 
     public static ElectrolysisRecipe getElectrolysisRecipe(ItemStack input, RecipeManager manager) {
-        List<ElectrolysisRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE);
+        List<ElectrolysisRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE.get());
         for (ElectrolysisRecipe electrolysisRecipe : recipeListByType) {
             if (electrolysisRecipe.getInput().test(input)) {
                 return electrolysisRecipe;
@@ -108,7 +108,7 @@ public class RecipeHelper {
     }
 
     public static CutterRecipe getCutterRecipe(ItemStack input, RecipeManager manager) {
-        List<CutterRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.CUTTER_RECIPE_TYPE);
+        List<CutterRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.CUTTER_RECIPE_TYPE.get());
         for (CutterRecipe cutterRecipe : recipeListByType) {
             if (cutterRecipe.getInput().test(input)) {
                 return cutterRecipe;
@@ -118,7 +118,7 @@ public class RecipeHelper {
     }
 
     public static CentrifugeRecipe getCentrifugeRecipe(ItemStack input, RecipeManager manager) {
-        List<CentrifugeRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.CENTRIFUGE_RECIPE_TYPE);
+        List<CentrifugeRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.CENTRIFUGE_RECIPE_TYPE.get());
         for (CentrifugeRecipe centrifugeRecipe : recipeListByType) {
             if (centrifugeRecipe.getInput().test(input)) {
                 return centrifugeRecipe;
@@ -128,7 +128,7 @@ public class RecipeHelper {
     }
 
     public static FluidCrashRecipe getFluidCrashRecipe(FluidStack a, FluidStack b, RecipeManager manager) {
-        List<FluidCrashRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE);
+        List<FluidCrashRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE.get());
         for (FluidCrashRecipe fluidCrashRecipe : recipeListByType) {
             Fluid fluidA = ForgeRegistries.FLUIDS.getValue(fluidCrashRecipe.fluidA);
             Fluid fluidB = ForgeRegistries.FLUIDS.getValue(fluidCrashRecipe.fluidB);
@@ -140,7 +140,7 @@ public class RecipeHelper {
     }
 
     public static AtomizationRecipe getAtomizationRecipe(FluidStack stack, RecipeManager manager) {
-        List<AtomizationRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.ATOMIZATION_RECIPE_TYPE);
+        List<AtomizationRecipe> recipeListByType = getRecipeListByType(manager, MMRecipeSerializers.Type.ATOMIZATION_RECIPE_TYPE.get());
         for (AtomizationRecipe atomizationRecipe : recipeListByType) {
             if (atomizationRecipe.input.test(stack))
                 return atomizationRecipe;
@@ -159,7 +159,7 @@ public class RecipeHelper {
         if (inputStacks.stream().allMatch(ItemStack::isEmpty))
             return null;
 
-        List<WeldRecipe> recipeListByType = getRecipeListByType(recipeManager, MMRecipeSerializers.Type.WELD_RECIPE_TYPE);
+        List<WeldRecipe> recipeListByType = getRecipeListByType(recipeManager, MMRecipeSerializers.Type.WELD_RECIPE_TYPE.get());
         for (WeldRecipe weldRecipe : recipeListByType) {
             LinkedList<IngredientStack> inputs = weldRecipe.getInputs();
             int[] shrinkItemStacks = new int[inputs.size()];
@@ -207,10 +207,17 @@ public class RecipeHelper {
     }
 
     public static ItemStack getItemStackFormJsonObject(JsonObject object) {
-        Item itemOutput = ShapedRecipe.itemFromJson(object.getAsJsonObject("item"));
+        Item itemOutput = ShapedRecipe.itemFromJson(object.getAsJsonObject("input"));
         int countOutput = object.get("count").getAsInt();
         return new ItemStack(itemOutput, countOutput);
     }
+
+    public static ItemStack getItemStackOutPutFormJsonObject(JsonObject object) {
+        Item itemOutput = ShapedRecipe.itemFromJson(object);
+        int countOutput = object.get("count").getAsInt();
+        return new ItemStack(itemOutput, countOutput);
+    }
+
 
     public static ResourceLocation getFluidNameFromJsonObject(JsonObject object) {
         return ResourceLocation.tryParse(object.get("fluid_name").getAsString());

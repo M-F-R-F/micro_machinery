@@ -47,7 +47,7 @@ public class WeldRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.WELD_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.WELD_RECIPE_TYPE.get();
     }
 
     public static class Serializer  implements RecipeSerializer<WeldRecipe> {
@@ -59,7 +59,7 @@ public class WeldRecipe extends RecipeBase {
             for (JsonElement jsonElement : jsonArray) {
                 inputs.add(IngredientStack.ReadFromJson(jsonElement.getAsJsonObject()));
             }
-            ItemStack output = RecipeHelper.getItemStackFormJsonObject(json.getAsJsonObject("output"));
+            ItemStack output = RecipeHelper.getItemStackOutPutFormJsonObject(json.getAsJsonObject("output"));
             int time = json.get("time").getAsInt();
             return new WeldRecipe(recipeId, inputs, output, time);
         }

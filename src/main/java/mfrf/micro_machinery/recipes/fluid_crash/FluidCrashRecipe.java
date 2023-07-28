@@ -39,7 +39,7 @@ public class FluidCrashRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE.get();
     }
 
     public static class Serializer  implements RecipeSerializer<FluidCrashRecipe> {

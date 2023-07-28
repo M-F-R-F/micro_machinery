@@ -12,6 +12,9 @@ import mfrf.micro_machinery.recipes.fluid_crash.FluidCrashRecipe;
 import mfrf.micro_machinery.recipes.klin.KlinFluidToItemRecipe;
 import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.micro_machinery.recipes.weld.WeldRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -20,6 +23,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class MMRecipeSerializers {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS_REGISTER = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MicroMachinery.MODID);
+    public static final DeferredRegister<RecipeType<?>> TYPE_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MicroMachinery.MODID);
 
     public static final RegistryObject<RecipeSerializer<KlinItemToFluidRecipe>> KLIN_ITEM_TO_FLUID = RECIPE_SERIALIZERS_REGISTER.register("klin_item_to_fluid", KlinItemToFluidRecipe.Serializer::new);
     public static final RegistryObject<RecipeSerializer<KlinFluidToItemRecipe>> KLIN_FLUID_TO_ITEM = RECIPE_SERIALIZERS_REGISTER.register("klin_fluid_to_item", KlinFluidToItemRecipe.Serializer::new);
@@ -38,16 +42,27 @@ public class MMRecipeSerializers {
     }
 
     public static class Type {
-        public static final RecipeType<KlinItemToFluidRecipe> KLIN_ITEM_TO_FLUID_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "klin_item_to_fluid_recipe");
-        public static final RecipeType<KlinFluidToItemRecipe> KLIN_FLUID_TP_ITEM_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "klin_fluid_to_item_recipe");
-        public static final RecipeType<AnvilRecipe> FORGE_ANVIL_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "forge_anvil_recipe");
-        public static final RecipeType<EtcherRecipe> ETCHER_RECIPE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "etcher_recipe");
-        public static final RecipeType<BlastFurnaceRecipe> BLAST_FURNACE_RECIPE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "blast_furnace_recipe");
-        public static final RecipeType<ElectrolysisRecipe> ELECTROLYSIS_RECIPE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "electrolysis_recipe");
-        public static final RecipeType<CutterRecipe> CUTTER_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "cutter_recipe");
-        public static final RecipeType<CentrifugeRecipe> CENTRIFUGE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "centrifuge_recipe");
-        public static final RecipeType<FluidCrashRecipe> FLUID_CRASH_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "fluid_crash_recipe");
-        public static final RecipeType<AtomizationRecipe> ATOMIZATION_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "atomization_recipe");
-        public static final RecipeType<WeldRecipe> WELD_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "weld_recipe");
+            public static final RegistryObject<RecipeType<KlinItemToFluidRecipe>> KLIN_ITEM_TO_FLUID_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("klin_item_to_fluid_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "klin_item_to_fluid_recipe")));
+            public static final RegistryObject<RecipeType<KlinFluidToItemRecipe>> KLIN_FLUID_TP_ITEM_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("klin_fluid_to_item_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "klin_fluid_to_item_recipe")));
+            public static final RegistryObject<RecipeType<AnvilRecipe>> FORGE_ANVIL_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("forge_anvil_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "forge_anvil_recipe")));
+            public static final RegistryObject<RecipeType<EtcherRecipe>> ETCHER_RECIPE_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("etcher_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "etcher_recipe")));
+            public static final RegistryObject<RecipeType<BlastFurnaceRecipe>> BLAST_FURNACE_RECIPE_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("blast_furnace_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "blast_furnace_recipe")));
+            public static final RegistryObject<RecipeType<ElectrolysisRecipe>> ELECTROLYSIS_RECIPE_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("electrolysis_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "electrolysis_recipe")));
+            public static final RegistryObject<RecipeType<CutterRecipe>> CUTTER_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("cutter_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "cutter_recipe")));
+            public static final RegistryObject<RecipeType<CentrifugeRecipe>> CENTRIFUGE_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("centrifuge_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "centrifuge_recipe")));
+            public static final RegistryObject<RecipeType<FluidCrashRecipe>> FLUID_CRASH_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("fluid_crash_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "fluid_crash_recipe")));
+            public static final RegistryObject<RecipeType<AtomizationRecipe>> ATOMIZATION_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("atomization_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "atomization_recipe")));
+            public static final RegistryObject<RecipeType<WeldRecipe>> WELD_RECIPE_TYPE = TYPE_DEFERRED_REGISTER.register("weld_recipe", () -> RecipeType.simple(new ResourceLocation(MicroMachinery.MODID, "weld_recipe")));
+//        public static final RecipeType<KlinItemToFluidRecipe> KLIN_ITEM_TO_FLUID_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "klin_item_to_fluid_recipe");
+//        public static final RecipeType<KlinFluidToItemRecipe> KLIN_FLUID_TP_ITEM_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "klin_fluid_to_item_recipe");
+//        public static final RecipeType<AnvilRecipe> FORGE_ANVIL_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "forge_anvil_recipe");
+//        public static final RecipeType<EtcherRecipe> ETCHER_RECIPE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "etcher_recipe");
+//        public static final RecipeType<BlastFurnaceRecipe> BLAST_FURNACE_RECIPE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "blast_furnace_recipe");
+//        public static final RecipeType<ElectrolysisRecipe> ELECTROLYSIS_RECIPE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "electrolysis_recipe");
+//        public static final RecipeType<CutterRecipe> CUTTER_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "cutter_recipe");
+//        public static final RecipeType<CentrifugeRecipe> CENTRIFUGE_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "centrifuge_recipe");
+//        public static final RecipeType<FluidCrashRecipe> FLUID_CRASH_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "fluid_crash_recipe");
+//        public static final RecipeType<AtomizationRecipe> ATOMIZATION_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "atomization_recipe");
+//        public static final RecipeType<WeldRecipe> WELD_RECIPE_TYPE = RecipeType.register(MicroMachinery.MODID + "weld_recipe");
     }
 }

@@ -66,7 +66,7 @@ public class CentrifugeRecipe extends RecipeBase {
 
     @Override
     public RecipeType<?> getType() {
-        return MMRecipeSerializers.Type.CENTRIFUGE_RECIPE_TYPE;
+        return MMRecipeSerializers.Type.CENTRIFUGE_RECIPE_TYPE.get();
     }
 
     public static class Serializer  implements RecipeSerializer<CentrifugeRecipe> {
