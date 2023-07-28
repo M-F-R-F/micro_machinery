@@ -20,7 +20,7 @@ public class AtomizationScreen extends ScreenBase<AtomizationContainer> {
         super.render(guiGraphics, mouse_x, mouse_y, pTick);
         TileAtomization tileEntity = menu.getBlockEntity();
         renderTankWithGaugeAndToolTip(guiGraphics, tileEntity.getInput(), mouse_x, mouse_y, 26, 24, 16, 60);
-        renderDefaultEnergyBarWithTip(guiGraphics, tileEntity.getFeContainer(), 157, 85, mouse_x, mouse_y);
+        renderDefaultEnergyBarWithTip(guiGraphics, tileEntity.getFeContainer(), 157, 13, mouse_x, mouse_y);
         if (tileEntity.isWorking()) {
             renderModule(guiGraphics, 64, 31, 0, 152, calculateBarPixel(tileEntity.getProgress(), 44), 40);
         }

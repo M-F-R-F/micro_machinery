@@ -105,7 +105,7 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
     }
 
     protected void renderDefaultEnergyBarWithTip(GuiGraphics guiGraphics, FEContainer container, int beginX, int beginY, int mouseX, int mouseY) {
-        renderModule(guiGraphics, beginX, beginY, 243, 70, 5, calculateBarPixel(container, 70));
+        renderModule(guiGraphics, beginX, beginY, 243, 0, 5, calculateBarPixel(container, 70));
         renderEnergyBarTooltip(guiGraphics, container, mouseX, mouseY, beginX, beginY - 70, 5, 70);
     }
 
@@ -123,7 +123,7 @@ public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContain
     protected int calculateBarPixel(IntegerContainer container, float pixel) {
         int current = container.getCurrent();
         int max = container.getMax();
-        return -Math.round(pixel * (float) current / (float) max);
+        return Math.round(pixel * (float) current / (float) max);
     }
 
 }

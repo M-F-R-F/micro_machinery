@@ -22,7 +22,7 @@ public class ElectrolysisScreen extends ScreenBase<ElectrolysisContainer> {
 
         if (electrolysis.isWorking())
             renderModule(guiGraphics, 70, 35, 16, 0, -calculateBarPixel(electrolysis.getProgress(), 24), 16);
-        renderDefaultEnergyBarWithTip(guiGraphics, electrolysis.getEnergy(), 152, 78, mouse_x, mouse_y);
+        renderDefaultEnergyBarWithTip(guiGraphics, electrolysis.getEnergy(), 152, 8, mouse_x, mouse_y);
 //        renderDefaultEnergyBarWithTip(guiGraphics, electrolysis.getEnergy(), -16, 128, mouse_x, mouse_y);
         renderTooltip(guiGraphics, mouse_x, mouse_y);
     }

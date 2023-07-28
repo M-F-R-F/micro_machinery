@@ -23,7 +23,7 @@ public class CentrifugeScreen extends ScreenBase<CentrifugeContainer> {
         if (tileCentrifuge.isWorking()) {
             renderModule(guiGraphics, 73, 42, 89, 16, calculateBarPixel(tileCentrifuge.getProgress(), 30), 5);
         }
-        renderDefaultEnergyBarWithTip(guiGraphics, tileCentrifuge.getFeContainer(), 157, 85, mouse_x, mouse_y);
+        renderDefaultEnergyBarWithTip(guiGraphics, tileCentrifuge.getFeContainer(), 157, 13, mouse_x, mouse_y);
         renderTooltip(guiGraphics, mouse_x, mouse_y);
     }
 

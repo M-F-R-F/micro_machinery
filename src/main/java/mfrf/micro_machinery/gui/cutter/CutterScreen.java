@@ -24,7 +24,7 @@ public class CutterScreen extends ScreenBase<CutterContainer> {
             int i = (int) (((float) progress.getCurrent() / (float) progress.getMax()) * (float) 15);
             renderModule(guiGraphics, 72, 40, 92, 0, 16, i);
         }
-        renderDefaultEnergyBarWithTip(guiGraphics, tileEntity.getEnergyContainer(), 157, 83, mouse_x, mouse_y);
+        renderDefaultEnergyBarWithTip(guiGraphics, tileEntity.getEnergyContainer(), 157, 13, mouse_x, mouse_y);
         renderTooltip(guiGraphics, mouse_x, mouse_y);
     }
 }
