@@ -1,0 +1,14 @@
+﻿{
+    "type":"micro_machinery:klin_fluid_to_item",
+    "coolDown": 160,
+    "castType": "gear_blank",
+    "input": {
+        "fluidName": "micro_machinery:fluids/molten_bronze",
+        "amount": 720
+    },
+    "output": {
+        "isTag": false,
+        "item": "micro_machinery:gear_blank_bronze",
+        "count": 1
+    }
+}

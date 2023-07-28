@@ -89,7 +89,7 @@ public class CentrifugeRecipe extends RecipeBase {
                     if (jsonObject.has("probability")) {
                         probability = jsonObject.get("probability").getAsInt();
                     }
-                    ItemStack stack = RecipeHelper.getItemStackFormJsonObject(jsonObject);
+                    ItemStack stack = RecipeHelper.getItemStackOutPutFormJsonObject(jsonObject);
                     roll_list.put(stack, probability);
                 }
 

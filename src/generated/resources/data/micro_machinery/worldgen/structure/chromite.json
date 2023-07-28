@@ -1,0 +1,40 @@
+{
+  "type": "micro_machinery:vein_feature",
+  "biomes": "#minecraft:is_overworld",
+  "spawn_overrides": {},
+  "step": "underground_ores",
+  "vein_config": {
+    "block_map": [
+      {
+        "block_state": {
+          "Name": "minecraft:iron_ore"
+        },
+        "probabilities": 0.6
+      },
+      {
+        "block_state": {
+          "Name": "micro_machinery:orechromite"
+        },
+        "probabilities": 0.3
+      },
+      {
+        "block_state": {
+          "Name": "micro_machinery:orenickel"
+        },
+        "probabilities": 0.1
+      }
+    ],
+    "generate_chance_per_ore": 0.2,
+    "max_height": 62,
+    "min_height": 3,
+    "ore_deposit_height": 3,
+    "ore_stratum": 3,
+    "predicate": {
+      "predicate_type": "minecraft:tag_match",
+      "tag": "minecraft:base_stone_overworld"
+    },
+    "range": 7,
+    "stone_height": 3,
+    "vein_gen_chance": 0.005
+  }
+}

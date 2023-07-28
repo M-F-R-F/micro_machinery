@@ -2,6 +2,7 @@ package mfrf.micro_machinery.recipes.etcher;
 
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -66,13 +67,12 @@ public class EtcherRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.ETCHER_RECIPE_RECIPE_TYPE.get();
     }
 
-    public static class Serializer  implements RecipeSerializer<EtcherRecipe> {
+    public static class Serializer implements RecipeSerializer<EtcherRecipe> {
 
         @Override
         public EtcherRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             JsonObject output = json.getAsJsonObject("output");
-            Item itemOutput = ShapedRecipe.itemFromJson(output.getAsJsonObject("item"));
-            int countOutput = output.get("count").getAsInt();
+            ItemStack itemStackOutPutFormJsonObject = RecipeHelper.getItemStackOutPutFormJsonObject(output);
 
             JsonObject input = json.getAsJsonObject("input");
             Ingredient inputIngredient = Ingredient.fromJson(input.getAsJsonObject("ingredient"));
@@ -80,7 +80,7 @@ public class EtcherRecipe extends RecipeBase {
 
             int fePerTick = json.get("fe_per_tick").getAsInt();
             int feNeed = json.get("time").getAsInt();
-            return new EtcherRecipe(fePerTick, feNeed, inputIngredient, new ItemStack(itemOutput, countOutput), countInput, recipeId);
+            return new EtcherRecipe(fePerTick, feNeed, inputIngredient, itemStackOutPutFormJsonObject, countInput, recipeId);
         }
 
         @Nullable

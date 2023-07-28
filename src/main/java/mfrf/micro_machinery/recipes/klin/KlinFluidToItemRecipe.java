@@ -77,9 +77,9 @@ public class KlinFluidToItemRecipe extends RecipeBase {
             JsonObject output = json.getAsJsonObject("output");
 
             FluidStack inputFluidStack = new FluidStack(RecipeHelper.getFluidByName(input.get("fluidName").getAsString()), input.get("amount").getAsInt());
-            ItemStack outputItemStack = new ItemStack(ShapedRecipe.itemFromJson(output.getAsJsonObject("itemName")), output.getAsJsonObject("count").getAsInt());
+            ItemStack itemStackOutPutFormJsonObject = RecipeHelper.getItemStackOutPutFormJsonObject(output);
 
-            return new KlinFluidToItemRecipe(outputItemStack, inputFluidStack, castType, coolDown, recipeId);
+            return new KlinFluidToItemRecipe(itemStackOutPutFormJsonObject, inputFluidStack, castType, coolDown, recipeId);
         }
 
         @Override

@@ -50,8 +50,8 @@ public class MMTileBase extends BlockEntity {
     }
 
     public void markDirty2() {
+        this.setChanged();
         level.sendBlockUpdated(getBlockPos(), level.getBlockState(getBlockPos()), level.getBlockState(getBlockPos()), 2);
-        super.setChanged();
     }
 
     protected boolean isBackDirection(Direction side) {

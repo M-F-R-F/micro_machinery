@@ -1,0 +1,14 @@
+{
+  "type": "micro_machinery:cutter_recipe",
+  "input_stack": {
+    "input": {
+      "tag": "forge:storage_blocks/stainlesssteel"
+    },
+    "count": 1
+  },
+  "output" : {
+    "item" : "micro_machinery:plate_ss",
+    "count" : 8
+  },
+  "tick_use" : 200
+}

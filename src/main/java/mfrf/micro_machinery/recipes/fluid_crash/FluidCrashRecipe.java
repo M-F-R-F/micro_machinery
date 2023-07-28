@@ -55,7 +55,7 @@ public class FluidCrashRecipe extends RecipeBase {
                     fluidA.get("amount").getAsInt(),
                     ResourceLocation.tryParse(fluidB.get("fluid_name").getAsString()),
                     fluidB.get("amount").getAsInt(),
-                    RecipeHelper.getItemStackFormJsonObject(result)
+                    RecipeHelper.getItemStackOutPutFormJsonObject(result)
             );
         }
 

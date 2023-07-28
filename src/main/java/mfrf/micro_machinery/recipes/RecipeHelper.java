@@ -206,11 +206,6 @@ public class RecipeHelper {
         return ingredient.test(stack) && stack.getCount() >= count;
     }
 
-    public static ItemStack getItemStackFormJsonObject(JsonObject object) {
-        Item itemOutput = ShapedRecipe.itemFromJson(object.getAsJsonObject("input"));
-        int countOutput = object.get("count").getAsInt();
-        return new ItemStack(itemOutput, countOutput);
-    }
 
     public static ItemStack getItemStackOutPutFormJsonObject(JsonObject object) {
         Item itemOutput = ShapedRecipe.itemFromJson(object);

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cwc",
+    "wbw",
+    "cwc"
+  ],
+  "key": {
+    "w": {
+      "tag": "forge:wires/nickel"
+    },
+    "b": {
+      "tag": "forge:sticks/steel"
+    },
+    "c": {
+      "tag": "forge:plates/bronze"
+    }
+  },
+  "result": {
+    "item": "micro_machinery:motor_2"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "micro_machinery:forge_anvil_recipe",
+  "tier": 0,
+  "input": {
+    "tag": "forge:cobblestone"
+  },
+  "output": {
+    "count": 1,
+    "item": "minecraft:gravel"
+  }
+}

@@ -2,8 +2,7 @@ package mfrf.micro_machinery;
 
 import com.mojang.logging.LogUtils;
 import mfrf.micro_machinery.registry_lists.*;
-import mfrf.micro_machinery.registry_lists.worldgen.MMFeatures;
-import mfrf.micro_machinery.registry_lists.worldgen.MMPlacedConfiguredFeatures;
+import mfrf.micro_machinery.registry_lists.worldgen.MMStructureThings;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -28,9 +27,10 @@ public class MicroMachinery {
         MMBlocks.BLOCK_REGISTER.register(modEventBus);
         MMFluids.FLUID_REGISTER.register(modEventBus);
         MMFluids.FLUID_TYPE_REGISTER.register(modEventBus);
-        MMFeatures.FEATURE_REGISTER.register(modEventBus);
+        MMStructureThings.STRUCTURE_TYPE_DEFERRED_REGISTER.register(modEventBus);
+        MMStructureThings.STRUCTURE_PIECE_DEFERRED_REGISTER.register(modEventBus);
         MMRecipeSerializers.RECIPE_SERIALIZERS_REGISTER.register(modEventBus);
-        MMRecipeSerializers.TYPE_DEFERRED_REGISTER.register(modEventBus);
+        MMRecipeSerializers.Type.TYPE_DEFERRED_REGISTER.register(modEventBus);
         MMContainerTypes.CONTAINER_TYPE_REGISTER.register(modEventBus);
         MMBlockEntityTypes.TILE_ENTITY_TYPE_REGISTER.register(modEventBus);
 

@@ -1,0 +1,11 @@
+{
+    "type": "micro_machinery:forge_anvil_recipe",
+    "tier": 0,
+    "input": {
+      "item": "minecraft:brick"
+    },
+    "output": {
+      "count": 1,
+      "item": "micro_machinery:brick_powder"
+    }
+}

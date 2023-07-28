@@ -3,6 +3,7 @@ package mfrf.micro_machinery.recipes.blast_furnace;
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -48,16 +49,15 @@ public class BlastFurnaceRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.BLAST_FURNACE_RECIPE_RECIPE_TYPE.get();
     }
 
-    public static class Serializer  implements RecipeSerializer<BlastFurnaceRecipe> {
+    public static class Serializer implements RecipeSerializer<BlastFurnaceRecipe> {
 
         @Override
         public BlastFurnaceRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             IngredientStack ingredientStack = IngredientStack.ReadFromJson(json.get("input_stack").getAsJsonObject());
             JsonObject output = json.getAsJsonObject("output");
-            Item item = ShapedRecipe.itemFromJson(output.getAsJsonObject("item"));
-            int count = output.get("count").getAsInt();
+            ItemStack itemStackOutPutFormJsonObject = RecipeHelper.getItemStackOutPutFormJsonObject(output);
             int cook_time = json.get("time").getAsInt();
-            return new BlastFurnaceRecipe(ingredientStack, new ItemStack(item, count), cook_time, recipeId);
+            return new BlastFurnaceRecipe(ingredientStack, itemStackOutPutFormJsonObject, cook_time, recipeId);
         }
 
         @Nullable
@@ -69,7 +69,7 @@ public class BlastFurnaceRecipe extends RecipeBase {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, BlastFurnaceRecipe recipe) {
             recipe.input.serializeToBuffer(buffer);
-            buffer.writeItemStack(recipe.output,false);
+            buffer.writeItemStack(recipe.output, false);
             buffer.writeInt(recipe.cookTime);
         }
     }

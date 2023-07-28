@@ -2,6 +2,7 @@ package mfrf.micro_machinery.recipes.anvil;
 
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -59,9 +60,8 @@ public class AnvilRecipe extends RecipeBase {
             JsonObject output = json.getAsJsonObject("output");
             int tier = json.get("tier").getAsInt();
             Ingredient input = Ingredient.fromJson(json.getAsJsonObject("input"));
-            Item item = ShapedRecipe.itemFromJson(output.getAsJsonObject("item"));
-            int count = output.get("count").getAsInt();
-            return new AnvilRecipe(input, new ItemStack(item, count), tier, recipeId);
+            ItemStack item = RecipeHelper.getItemStackOutPutFormJsonObject(output);
+            return new AnvilRecipe(input, item, tier, recipeId);
         }
 
         @Override

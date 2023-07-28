@@ -3,6 +3,7 @@ package mfrf.micro_machinery.recipes.electrolysis;
 import com.google.gson.JsonObject;
 import mfrf.micro_machinery.recipes.IngredientStack;
 import mfrf.micro_machinery.recipes.RecipeBase;
+import mfrf.micro_machinery.recipes.RecipeHelper;
 import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -48,16 +49,15 @@ public class ElectrolysisRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.ELECTROLYSIS_RECIPE_RECIPE_TYPE.get();
     }
 
-    public static class Serializer  implements RecipeSerializer<ElectrolysisRecipe> {
+    public static class Serializer implements RecipeSerializer<ElectrolysisRecipe> {
 
         @Override
         public ElectrolysisRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             IngredientStack input = IngredientStack.ReadFromJson(json.getAsJsonObject("input_stack"));
             JsonObject output = json.getAsJsonObject("output");
-            int count = output.get("count").getAsInt();
-            Item item = ShapedRecipe.itemFromJson(output.getAsJsonObject("item"));
+            ItemStack itemStackOutPutFormJsonObject = RecipeHelper.getItemStackOutPutFormJsonObject(output);
             int time = json.get("time").getAsInt();
-            return new ElectrolysisRecipe(input, new ItemStack(item, count), time, recipeId);
+            return new ElectrolysisRecipe(input, itemStackOutPutFormJsonObject, time, recipeId);
         }
 
         @Nullable
@@ -72,7 +72,7 @@ public class ElectrolysisRecipe extends RecipeBase {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, ElectrolysisRecipe recipe) {
             recipe.input.serializeToBuffer(buffer);
-            buffer.writeItemStack(recipe.output,false);
+            buffer.writeItemStack(recipe.output, false);
             buffer.writeInt(recipe.Time);
         }
     }
