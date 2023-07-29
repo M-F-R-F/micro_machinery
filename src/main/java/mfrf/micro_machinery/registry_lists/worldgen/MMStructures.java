@@ -37,19 +37,18 @@ public class MMStructures {
     public static final HashMap<String, StructureComp> MAPS = new HashMap<>();
     public static final HashMap<String, Holder<StructurePlacement>> PLACEMENTS = new HashMap<>();
     public static final ArrayList<Pair<BlockState, Double>>
-            OreCopper = new ArrayList<>(),
+
             OreTin = new ArrayList<>(),
             OreIron = new ArrayList<>(),
             OreGold = new ArrayList<>(),
             OreCoal = new ArrayList<>(),
             OreIlmenite = new ArrayList<>(),
             OreSilver = new ArrayList<>(),
-            OrePyrolusite = new ArrayList<>(),
+            OreManganese = new ArrayList<>(),
             OreChromite = new ArrayList<>(),
             OreBauxite = new ArrayList<>(),
             OreNickel = new ArrayList<>(),
             OreNolanite = new ArrayList<>(),
-            OreFerroManganese = new ArrayList<>(),
             NetherOrePyrolusite = new ArrayList<>(),
             NetherOreGraphite = new ArrayList<>(),
             NetherOreBauxite = new ArrayList<>(),
@@ -144,8 +143,8 @@ public class MMStructures {
         OreSilver.add(Pair.of(MMBlocks.ORESILVER.getKey().get().defaultBlockState(), 0.7d));
         OreSilver.add(Pair.of(Blocks.LAPIS_ORE.defaultBlockState(), 0.2d));
         OreSilver.add(Pair.of(MMBlocks.ORECOPPER.getKey().get().defaultBlockState(), 0.1d));
-        OrePyrolusite.add(Pair.of(MMBlocks.OREPYROLUSITE.getKey().get().defaultBlockState(), 0.8d));
-        OrePyrolusite.add(Pair.of(MMBlocks.OREFERROMANGANESE.getKey().get().defaultBlockState(), 0.2d));
+        OreManganese.add(Pair.of(MMBlocks.OREMANGANESE.getKey().get().defaultBlockState(), 0.8d));
+        OreManganese.add(Pair.of(MMBlocks.OREFERROMANGANESE.getKey().get().defaultBlockState(), 0.2d));
         OreChromite.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.6d));
         OreChromite.add(Pair.of(MMBlocks.ORECHROMITE.getKey().get().defaultBlockState(), 0.3d));
         OreChromite.add(Pair.of(MMBlocks.ORENICKEL.getKey().get().defaultBlockState(), 0.1d));

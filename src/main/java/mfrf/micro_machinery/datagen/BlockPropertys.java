@@ -2,12 +2,17 @@ package mfrf.micro_machinery.datagen;
 
 import mfrf.micro_machinery.registry_lists.MMBlocks;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeBiomeTagsProvider;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -24,11 +29,14 @@ public class BlockPropertys extends BlockTagsProvider{
             List.of(
                     MMBlocks.ORECOPPER,
                     MMBlocks.ORETIN
+                    //这玩意里面填对应的方块
+                    //记得加逗号
             ).forEach(
                     registryObjectRegistryObjectPair -> {
                         ResourceKey<Block> key = registryObjectRegistryObjectPair.getKey().getKey();
-                        tag(BlockTags.NEEDS_IRON_TOOL).add(key);
-                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(key);
+                        //这里填对应的TAG
+                        tag(/*→*/BlockTags.NEEDS_IRON_TOOL/*←*/).add(key);//这个tag表示使用铁质工具挖
+                        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(key);//这个表示使用镐子挖掘
                     }
             );
 
@@ -37,90 +45,90 @@ public class BlockPropertys extends BlockTagsProvider{
             ).forEach(registryObjectRegistryObjectPair -> {
                 ResourceKey<Block> key = registryObjectRegistryObjectPair.getKey().getKey();
                 tag(BlockTags.NEEDS_IRON_TOOL).add(key);
-                tag(BlockTags.MINEABLE_WITH_AXE).add(key);
+                tag(BlockTags.MINEABLE_WITH_AXE).add(key);//同样的，这里表示使用斧头
             });
 
 //                STALINITE = makeBlockWithItem("stalinite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.GLASS).strength(8.0f).requiresCorrectToolForDrops().noOcclusion())),
 //                STEEL_SCAFFOLDING = makeBlockWithItem("steel_scaffolding", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).strength(1.0f).requiresCorrectToolForDrops().noOcclusion())),
-//                ORECOPPER = makeBlockWithItem("orecopper", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.5f))),
-//                ORETIN = makeBlockWithItem("oretin", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                OREILMENITE = makeBlockWithItem("oreilmenite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(5.0f))),
-//                ORESILVER = makeBlockWithItem("oresilver", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                OREPYROLUSITE = makeBlockWithItem("orepyrolusite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                OREGRAPHITE = makeBlockWithItem("oregraphite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(2.0f))),
-//                ORECHROMITE = makeBlockWithItem("orechromite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(4.5f))),
-//                OREBAUXITE = makeBlockWithItem("orebauxite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.5f))),
-//                OREFERROMANGANESE = makeBlockWithItem("oreferromanganese", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(3.0f))),
-//                ORENICKEL = makeBlockWithItem("orenickel", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.5f))),
-//                ORENOLANITE = makeBlockWithItem("orenolanite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                OREPYROLUSITE_NETHER = makeBlockWithItem("orepyrolusite_nether", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                OREGRAPHITE_NETHER = makeBlockWithItem("oregraphite_nether", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(2.0f))),
-//                OREBAUXITE_NETHER = makeBlockWithItem("orebauxite_nether", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.5f))),
-//                OREFERROMANGANESE_NETHER = makeBlockWithItem("oreferromanganese_nether", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(3.0f))),
-//                ORENOLANITE_NETHER = makeBlockWithItem("orenolanite_nether", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                ORETUNSTITE = makeBlockWithItem("oretunstite", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(7.0f))),
-//                BLOCKCOPPER = makeBlockWithItem("blockcopper", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(4.0f))),
-//                BLOCKTIN = makeBlockWithItem("blocktin", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.5f))),
-//                BLOCKBRONZE = makeBlockWithItem("blockbronze", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(4.5f))),
-//                BLOCKSTEEL = makeBlockWithItem("blocksteel", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.5f))),
-//                BLOCKSS = makeBlockWithItem("blockss", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(5.0f))),
-//                BLOCKTUNGSTEN = makeBlockWithItem("blocktungsten", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(7.0f))),
-//                BLOCKNICKEL = makeBlockWithItem("blocknickel", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.5f))),
-//                BLOCKTUNGSTEN_STEEL = makeBlockWithItem("blocktungsten_steel", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(7.0f))),
-//                BLOCKINVAR = makeBlockWithItem("blockinvar", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(4.0f))),
-//                BLOCKHSS = makeBlockWithItem("blockhss", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(6.0f))),
-//                BLOCKSILVER = makeBlockWithItem("blocksilver", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                BLOCKCHROMIUM = makeBlockWithItem("blockchromium", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(6.5f))),
-//                BLOCKVANADIUM = makeBlockWithItem("blockvanadium", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(5.0f))),
-//                BLOCKCOBALT = makeBlockWithItem("blockcobalt", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(5.0f))),
-//                BLOCKTITANIUM = makeBlockWithItem("blocktitanium", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(7.0f))),
-//                BLOCKALUMINUM = makeBlockWithItem("blockaluminum", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                BLOCKNCALLOY = makeBlockWithItem("blockncalloy", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(4.0f))),
-//                BLOCKMANGANESE = makeBlockWithItem("blockmanganese", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(4.0f))),
-//                COILCOPPER = makeBlockWithItem("coilcopper", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                COILNICKEL = makeBlockWithItem("coilnickel", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(2.5f))),
-//                COILALUMINUM = makeBlockWithItem("coilaluminum", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(2.0f))),
-//                COILTUNGSTEN = makeBlockWithItem("coiltungsten", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(6.0f))),
-//                COILCOBALT = makeBlockWithItem("coilcobalt", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(4.0f))),
-//                CASING_1 = makeBlockWithItem("casing_1", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                CASING_2 = makeBlockWithItem("casing_2", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(3.0f))),
-//                CASING_3 = makeBlockWithItem("casing_3", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(4.0f))),
-//                CASING_4 = makeBlockWithItem("casing_4", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(3).requiresCorrectToolForDrops().strength(5.0f))),
-//                MOLTEN_COPPER_DISCARDED = makeBlockWithItem("molten_copper_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_TIN_DISCARDED = makeBlockWithItem("molten_tin_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_BRONZE_DISCARDED = makeBlockWithItem("molten_bronze_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_STEEL_DISCARDED = makeBlockWithItem("molten_steel_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_SS_DISCARDED = makeBlockWithItem("molten_ss_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_TUNGSTEN_DISCARDED = makeBlockWithItem("molten_tungsten_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_NICKEL_DISCARDED = makeBlockWithItem("molten_nickel_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_INVAR_DISCARDED = makeBlockWithItem("molten_invar_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_HSS_DISCARDED = makeBlockWithItem("molten_hss_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_SILVER_DISCARDED = makeBlockWithItem("molten_silver_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_GOLD_DISCARDED = makeBlockWithItem("molten_gold_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_MANGANESE_DISCARDED = makeBlockWithItem("molten_manganese_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_CHROMIUM_DISCARDED = makeBlockWithItem("molten_chromium_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_VANADIUM_DISCARDED = makeBlockWithItem("molten_vanadium_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_COBALT_DISCARDED = makeBlockWithItem("molten_cobalt_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_TITANIUM_DISCARDED = makeBlockWithItem("molten_titanium_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_ALUMINUM_DISCARDED = makeBlockWithItem("molten_aluminum_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_NCALLOY_DISCARDED = makeBlockWithItem("molten_ncalloy_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_FERROCHROME_DISCARDED = makeBlockWithItem("molten_ferrochrome_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MOLTEN_IRON_DISCARDED = makeBlockWithItem("molten_iron_discarded", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                MODULE_GENERATOR = makeBlockWithItem("module_generator", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                MODULE_HEAT_SINK = makeBlockWithItem("module_heat_sink", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                MODULE_PRESSURE_BEARING = makeBlockWithItem("module_pressure_bearing", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                MODULE_TRANSMISSION_1 = makeBlockWithItem("module_transmission_1", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                MODULE_TRANSMISSION_2 = makeBlockWithItem("module_transmission_2", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                MODULE_TRANSMISSION_3 = makeBlockWithItem("module_transmission_3", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                MODULE_TRANSMISSION_4 = makeBlockWithItem("module_transmission_4", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                MODULE_TRANSMISSION_5 = makeBlockWithItem("module_transmission_5", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(2).requiresCorrectToolForDrops().strength(3.0f))),
-//                PCM = makeBlockWithItem("pcm", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.5f))),
-//                TANK_BLOCK = makeBlockWithItem("tank_block", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(1.5f))),
-//                GRAPHITE_CRUCIBLE = makeBlockWithItem("graphite_crucible", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(1.5f).noOcclusion())),
-//                SLAG_CONCRETE = makeBlockWithItem("slag_concrete", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(1.5f))),
-//                CLAY_BRICK_BLOCK = makeBlockWithItem("clay_brick_block", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                FIRE_BRICK_BLOCK = makeBlockWithItem("fire_brick_block", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f))),
-//                BELLOW = makeBlockWithItem("bellow", ()->new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).harvestLevel(1).requiresCorrectToolForDrops().strength(2.0f).harvestTool(ToolType.AXE)));
+//                // ORECOPPER : harvestLevel(1)
+//                // ORETIN : harvestLevel(1)
+//                // OREILMENITE : harvestLevel(3)
+//                // ORESILVER : harvestLevel(1)
+//                // OREPYROLUSITE : harvestLevel(2)
+//                // OREGRAPHITE : harvestLevel(2)
+//                // ORECHROMITE : harvestLevel(3)
+//                // OREBAUXITE : harvestLevel(1)
+//                // OREFERROMANGANESE : harvestLevel(3)
+//                // ORENICKEL : harvestLevel(2)
+//                // ORENOLANITE : harvestLevel(2)
+//                // OREPYROLUSITE_NETHER : harvestLevel(2)
+//                // OREGRAPHITE_NETHER : harvestLevel(2)
+//                // OREBAUXITE_NETHER : harvestLevel(1)
+//                // OREFERROMANGANESE_NETHER : harvestLevel(3)
+//                // ORENOLANITE_NETHER : harvestLevel(2)
+//                // ORETUNSTITE : harvestLevel(3)
+//                // BLOCKCOPPER : harvestLevel(2)
+//                // BLOCKTIN : harvestLevel(1)
+//                // BLOCKBRONZE : harvestLevel(2)
+//                // BLOCKSTEEL : harvestLevel(2)
+//                // BLOCKSS : harvestLevel(3)
+//                // BLOCKTUNGSTEN : harvestLevel(3)
+//                // BLOCKNICKEL : harvestLevel(2)
+//                // BLOCKTUNGSTEN_STEEL : harvestLevel(3)
+//                // BLOCKINVAR : harvestLevel(2)
+//                // BLOCKHSS : harvestLevel(3)
+//                // BLOCKSILVER : harvestLevel(1)
+//                // BLOCKCHROMIUM : harvestLevel(2)
+//                // BLOCKVANADIUM : harvestLevel(2)
+//                // BLOCKCOBALT : harvestLevel(3)
+//                // BLOCKTITANIUM : harvestLevel(3)
+//                // BLOCKALUMINUM : harvestLevel(2)
+//                // BLOCKNCALLOY : harvestLevel(2)
+//                // BLOCKMANGANESE : harvestLevel(2)
+//                // COILCOPPER : harvestLevel(1)
+//                // COILNICKEL : harvestLevel(2)
+//                // COILALUMINUM : harvestLevel(2)
+//                // COILTUNGSTEN : harvestLevel(3)
+//                // COILCOBALT : harvestLevel(3)
+//                // CASING_1 : harvestLevel(1)
+//                // CASING_2 : harvestLevel(1)
+//                // CASING_3 : harvestLevel(2)
+//                // CASING_4 : harvestLevel(3)
+//                // MOLTEN_COPPER_DISCARDED : harvestLevel(1)
+//                // MOLTEN_TIN_DISCARDED : harvestLevel(1)
+//                // MOLTEN_BRONZE_DISCARDED : harvestLevel(1)
+//                // MOLTEN_STEEL_DISCARDED : harvestLevel(1)
+//                // MOLTEN_SS_DISCARDED : harvestLevel(1)
+//                // MOLTEN_TUNGSTEN_DISCARDED : harvestLevel(1)
+//                // MOLTEN_NICKEL_DISCARDED : harvestLevel(1)
+//                // MOLTEN_INVAR_DISCARDED : harvestLevel(1)
+//                // MOLTEN_HSS_DISCARDED : harvestLevel(1)
+//                // MOLTEN_SILVER_DISCARDED : harvestLevel(1)
+//                // MOLTEN_GOLD_DISCARDED : harvestLevel(1)
+//                // MOLTEN_MANGANESE_DISCARDED : harvestLevel(1)
+//                // MOLTEN_CHROMIUM_DISCARDED : harvestLevel(1)
+//                // MOLTEN_VANADIUM_DISCARDED : harvestLevel(1)
+//                // MOLTEN_COBALT_DISCARDED : harvestLevel(1)
+//                // MOLTEN_TITANIUM_DISCARDED : harvestLevel(1)
+//                // MOLTEN_ALUMINUM_DISCARDED : harvestLevel(1)
+//                // MOLTEN_NCALLOY_DISCARDED : harvestLevel(1)
+//                // MOLTEN_FERROCHROME_DISCARDED : harvestLevel(1)
+//                // MOLTEN_IRON_DISCARDED : harvestLevel(1)
+//                // MODULE_GENERATOR : harvestLevel(2)
+//                // MODULE_HEAT_SINK : harvestLevel(2)
+//                // MODULE_PRESSURE_BEARING : harvestLevel(2)
+//                // MODULE_TRANSMISSION_1 : harvestLevel(2)
+//                // MODULE_TRANSMISSION_2 : harvestLevel(2)
+//                // MODULE_TRANSMISSION_3 : harvestLevel(2)
+//                // MODULE_TRANSMISSION_4 : harvestLevel(2)
+//                // MODULE_TRANSMISSION_5 : harvestLevel(2)
+//                // PCM : harvestLevel(1)
+//                // TANK_BLOCK : harvestLevel(1)
+//                // GRAPHITE_CRUCIBLE : harvestLevel(1)
+//                // SLAG_CONCRETE : harvestLevel(1)
+//                // CLAY_BRICK_BLOCK : harvestLevel(1)
+//                // FIRE_BRICK_BLOCK : harvestLevel(1)
+//                // BELLOW : harvestLevel(1)
 //     //machine
 //     public static final Block
 //             KLIN = new BlockKlin(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().harvestLevel(1).strength(2.0f)),

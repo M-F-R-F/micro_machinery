@@ -5,7 +5,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public enum EnumToolTier implements Tier {
     BRONZE(400, 2, 5, 3, 2, Ingredient.EMPTY),
-    HSS(900, 5, 7, 5, 3, Ingredient.EMPTY);
+    CARBIDE(900, 5, 7, 5, 3, Ingredient.EMPTY);
 
     private final int maxUses;
     private final int efficiency;
