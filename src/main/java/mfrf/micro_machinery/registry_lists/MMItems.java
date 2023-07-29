@@ -160,7 +160,7 @@ public class MMItems {
             STICK_IRON = ITEM_REGISTER.register("stick_iron", MMItemBase::new),
             STICK_GOLD = ITEM_REGISTER.register("stick_gold", MMItemBase::new),
     // wire
-            WIRE_TIN = ITEM_REGISTER.register("wire_tin", MMItemBase::new),
+    WIRE_TIN = ITEM_REGISTER.register("wire_tin", MMItemBase::new),
             WIRE_SILVER = ITEM_REGISTER.register("wire_silver", MMItemBase::new),
             WIRE_ALUMINUM = ITEM_REGISTER.register("wire_aluminum", MMItemBase::new),
             WIRE_STEEL = ITEM_REGISTER.register("wire_steel", MMItemBase::new),
@@ -183,9 +183,9 @@ public class MMItems {
             CIRCLE_CASTING_IRON = ITEM_REGISTER.register("circle_casting_iron", MMItemBase::new),
             CIRCLE_CASTING_GOLD = ITEM_REGISTER.register("circle_casting_gold", MMItemBase::new),
     // axle
-    AXLE_STEEL = ITEM_REGISTER.register("screw_bronze", MMItemBase::new),
-            AXLE_INVAR = ITEM_REGISTER.register("screw_invar", MMItemBase::new),
-            AXLE_SS = ITEM_REGISTER.register("screw_ss", MMItemBase::new),
+    AXLE_STEEL = ITEM_REGISTER.register("axle_steel", MMItemBase::new),
+            AXLE_INVAR = ITEM_REGISTER.register("axle_invar", MMItemBase::new),
+            AXLE_SS = ITEM_REGISTER.register("axle_ss", MMItemBase::new),
     // gear
     GEAR_SILVER = ITEM_REGISTER.register("gear_silver", MMItemBase::new),
             GEAR_NICKEL = ITEM_REGISTER.register("gear_nickel", MMItemBase::new),

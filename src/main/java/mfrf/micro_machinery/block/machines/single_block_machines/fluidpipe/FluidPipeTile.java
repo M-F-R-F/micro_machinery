@@ -67,13 +67,13 @@ public class FluidPipeTile extends MMTileBase {
     public int getMaterial() {
         if (material == -1) {
             Block block = getBlockState().getBlock();
-            if (block == MMBlocks.PIPE_INVAR.getKey().get()) {
+            if (block == MMBlocks.PIPE_1.getKey().get()) {
                 material = 1000;
             }
-            if (block == MMBlocks.PIPE_STAINLESS_STEEL.getKey().get()) {
+            if (block == MMBlocks.PIPE_2.getKey().get()) {
                 material = 4000;
             }
-            if (block == MMBlocks.PIPE_TUNGSTEN_STEEL.getKey().get()) {
+            if (block == MMBlocks.PIPE_3.getKey().get()) {
                 material = 8000;
             }
             setChanged();

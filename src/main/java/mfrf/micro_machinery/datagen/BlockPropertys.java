@@ -27,8 +27,7 @@ public class BlockPropertys extends BlockTagsProvider{
         @Override
         protected void addTags(HolderLookup.Provider pProvider) {
             List.of(
-                    MMBlocks.ORECOPPER,
-                    MMBlocks.ORETIN
+                    MMBlocks.ORETIN,MMBlocks.ORESILVER,MMBlocks.OREBAUXITE,MMBlocks.OREBAUXITE_NETHER,MMBlocks.BLOCKTIN,MMBlocks.BLOCKSILVER
                     //这玩意里面填对应的方块
                     //记得加逗号
             ).forEach(

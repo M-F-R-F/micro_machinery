@@ -57,19 +57,18 @@ public class MMStructures {
             EndOreTunstite = new ArrayList<>();
 
     public static final StructureComp
-            COPPER = StructureComp.of("copper", new VeinStructureConfig(OreCopper, 0.1, 0.2, 8, 3, 3, 3, 3, 62, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             TIN = StructureComp.of("tin", new VeinStructureConfig(OreTin, 0.008, 0.2, 7, 2, 5, 3, 32, 80, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             IRON = StructureComp.of("iron", new VeinStructureConfig(OreIron, 0.0075, 0.2, 8, 4, 3, 3, 3, 80, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             GOLD = StructureComp.of("gold", new VeinStructureConfig(OreGold, 0.04, 0.2, 6, 3, 3, 3, 3, 32, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             COAL = StructureComp.of("coal", new VeinStructureConfig(OreCoal, 0.012, 0.2, 10, 5, 3, 3, 3, 120, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             ILMENITE = StructureComp.of("ilmenite", new VeinStructureConfig(OreIlmenite, 0.006, 0.2, 6, 3, 3, 3, 3, 32, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             SILVER = StructureComp.of("silver", new VeinStructureConfig(OreSilver, 0.005, 0.2, 6, 3, 3, 3, 3, 48, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
-            PYROLUSITE = StructureComp.of("pyrolusite", new VeinStructureConfig(OrePyrolusite, 0.004, 0.2, 6, 2, 4, 3, 16, 80, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
+            MANGANESE = StructureComp.of("manganese", new VeinStructureConfig(OreManganese, 0.004, 0.2, 6, 2, 4, 3, 16, 80, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             CHROMITE = StructureComp.of("chromite", new VeinStructureConfig(OreChromite, 0.005, 0.2, 7, 3, 3, 3, 3, 62, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             BAUXITE = StructureComp.of("bauxite", new VeinStructureConfig(OreBauxite, 0.007, 0.2, 6, 1, 4, 3, 32, 80, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             NICKEL = StructureComp.of("nickel", new VeinStructureConfig(OreNickel, 0.0055, 0.2, 8, 3, 3, 3, 3, 62, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             NOLANITE = StructureComp.of("nolanite", new VeinStructureConfig(OreNolanite, 0.005, 0.2, 6, 3, 3, 3, 3, 48, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
-            FERROMANGANESE = StructureComp.of("ferromanganese", new VeinStructureConfig(OreFerroManganese, 0.0005, 0.2, 6, 3, 3, 3, 3, 48, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
+            FERROMANGANESE = StructureComp.of("ferromanganese", new VeinStructureConfig(OreManganese, 0.0005, 0.2, 6, 3, 3, 3, 3, 48, new TagMatchTest(BlockTags.BASE_STONE_OVERWORLD))),
             NETHERPYROLUSITE = StructureComp.of("netherpyrolusite", new VeinStructureConfig(NetherOrePyrolusite, 0.005, 0.2, 6, 3, 3, 3, 60, 120, new TagMatchTest(BlockTags.NETHER_CARVER_REPLACEABLES)), BiomeTags.IS_NETHER),
             NETHERGRAPHITE = StructureComp.of("nethergraphite", new VeinStructureConfig(NetherOreGraphite, 0.005, 0.2, 6, 3, 3, 3, 3, 48, new TagMatchTest(BlockTags.NETHER_CARVER_REPLACEABLES)), BiomeTags.IS_NETHER),
             NETHERBAUXITE = StructureComp.of("netherbauxite", new VeinStructureConfig(NetherOreBauxite, 0.005, 0.2, 6, 3, 3, 3, 48, 120, new TagMatchTest(BlockTags.NETHER_CARVER_REPLACEABLES)), BiomeTags.IS_NETHER),
@@ -121,56 +120,38 @@ public class MMStructures {
     }
 
     static {
-        OreCopper.add(Pair.of(MMBlocks.ORECOPPER.getKey().get().defaultBlockState(), 0.8d));
-        OreCopper.add(Pair.of(MMBlocks.ORETIN.getKey().get().defaultBlockState(), 0.15d));
-        OreCopper.add(Pair.of(Blocks.GOLD_ORE.defaultBlockState(), 0.05d));
         OreTin.add(Pair.of(MMBlocks.ORETIN.getKey().get().defaultBlockState(), 0.8d));
-        OreTin.add(Pair.of(MMBlocks.ORECOPPER.getKey().get().defaultBlockState(), 0.2d));
         OreIron.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.8d));
         OreIron.add(Pair.of(Blocks.GOLD_ORE.defaultBlockState(), 0.09d));
         OreIron.add(Pair.of(MMBlocks.ORENICKEL.getKey().get().defaultBlockState(), 0.11d));
         OreGold.add(Pair.of(Blocks.GOLD_ORE.defaultBlockState(), 0.7d));
         OreGold.add(Pair.of(MMBlocks.ORENOLANITE.getKey().get().defaultBlockState(), 0.15d));
         OreGold.add(Pair.of(MMBlocks.ORESILVER.getKey().get().defaultBlockState(), 0.1d));
-        OreGold.add(Pair.of(MMBlocks.ORECOPPER.getKey().get().defaultBlockState(), 0.05d));
         OreCoal.add(Pair.of(Blocks.COAL_ORE.defaultBlockState(), 0.8d));
         OreCoal.add(Pair.of(Blocks.COAL_BLOCK.defaultBlockState(), 0.1d));
         OreCoal.add(Pair.of(MMBlocks.OREGRAPHITE.getKey().get().defaultBlockState(), 0.07d));
         OreCoal.add(Pair.of(Blocks.DIAMOND_ORE.defaultBlockState(), 0.03d));
         OreIlmenite.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.5d));
         OreIlmenite.add(Pair.of(MMBlocks.OREILMENITE.getKey().get().defaultBlockState(), 0.4d));
-        OreIlmenite.add(Pair.of(MMBlocks.OREFERROMANGANESE.getKey().get().defaultBlockState(), 0.1d));
         OreSilver.add(Pair.of(MMBlocks.ORESILVER.getKey().get().defaultBlockState(), 0.7d));
         OreSilver.add(Pair.of(Blocks.LAPIS_ORE.defaultBlockState(), 0.2d));
-        OreSilver.add(Pair.of(MMBlocks.ORECOPPER.getKey().get().defaultBlockState(), 0.1d));
         OreManganese.add(Pair.of(MMBlocks.OREMANGANESE.getKey().get().defaultBlockState(), 0.8d));
-        OreManganese.add(Pair.of(MMBlocks.OREFERROMANGANESE.getKey().get().defaultBlockState(), 0.2d));
         OreChromite.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.6d));
         OreChromite.add(Pair.of(MMBlocks.ORECHROMITE.getKey().get().defaultBlockState(), 0.3d));
         OreChromite.add(Pair.of(MMBlocks.ORENICKEL.getKey().get().defaultBlockState(), 0.1d));
         OreBauxite.add(Pair.of(MMBlocks.OREBAUXITE.getKey().get().defaultBlockState(), 0.6d));
         OreBauxite.add(Pair.of(Blocks.CLAY.defaultBlockState(), 0.3d));
-        OreBauxite.add(Pair.of(MMBlocks.ORECOPPER.getKey().get().defaultBlockState(), 0.06d));
         OreBauxite.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.04d));
         OreNickel.add(Pair.of(MMBlocks.ORENICKEL.getKey().get().defaultBlockState(), 0.6d));
         OreNickel.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.25d));
-        OreNickel.add(Pair.of(MMBlocks.ORECOPPER.getKey().get().defaultBlockState(), 0.1d));
-        OreNickel.add(Pair.of(MMBlocks.OREFERROMANGANESE.getKey().get().defaultBlockState(), 0.05d));
         OreNolanite.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.7d));
         OreNolanite.add(Pair.of(MMBlocks.ORENOLANITE.getKey().get().defaultBlockState(), 0.2d));
         OreNolanite.add(Pair.of(MMBlocks.OREILMENITE.getKey().get().defaultBlockState(), 0.1d));
-        OreFerroManganese.add(Pair.of(Blocks.IRON_ORE.defaultBlockState(), 0.5d));
-        OreFerroManganese.add(Pair.of(MMBlocks.OREFERROMANGANESE.getKey().get().defaultBlockState(), 0.3d));
-        OreFerroManganese.add(Pair.of(MMBlocks.OREPYROLUSITE.getKey().get().defaultBlockState(), 0.2d));
-        NetherOrePyrolusite.add(Pair.of(MMBlocks.OREPYROLUSITE_NETHER.getKey().get().defaultBlockState(), 0.8d));
-        NetherOrePyrolusite.add(Pair.of(MMBlocks.OREFERROMANGANESE_NETHER.getKey().get().defaultBlockState(), 0.2d));
         NetherOreGraphite.add(Pair.of(MMBlocks.OREGRAPHITE_NETHER.getKey().get().defaultBlockState(), 0.8d));
         NetherOreGraphite.add(Pair.of(Blocks.COAL_BLOCK.defaultBlockState(), 0.2d));
         NetherOreBauxite.add(Pair.of(MMBlocks.OREBAUXITE_NETHER.getKey().get().defaultBlockState(), 0.7d));
         NetherOreBauxite.add(Pair.of(Blocks.CLAY.defaultBlockState(), 0.2d));
         NetherOreBauxite.add(Pair.of(Blocks.GRAVEL.defaultBlockState(), 0.1d));
-        NetherOreFerroManganese.add(Pair.of(MMBlocks.OREFERROMANGANESE_NETHER.getKey().get().defaultBlockState(), 0.7d));
-        NetherOreFerroManganese.add(Pair.of(MMBlocks.OREPYROLUSITE_NETHER.getKey().get().defaultBlockState(), 0.3d));
         NetherOreNolanite.add(Pair.of(MMBlocks.ORENOLANITE_NETHER.getKey().get().defaultBlockState(), 0.6d));
         NetherOreNolanite.add(Pair.of(MMBlocks.OREBAUXITE_NETHER.getKey().get().defaultBlockState(), 0.25d));
         NetherOreNolanite.add(Pair.of(Blocks.NETHER_QUARTZ_ORE.defaultBlockState(), 0.15d));
