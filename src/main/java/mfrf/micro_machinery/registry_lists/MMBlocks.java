@@ -95,7 +95,7 @@ public class MMBlocks {
             RAWILMENITE_BLOCK = makeBlockWithItem("raw_ilmenite_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
             RAWTUNSTITE_BLOCK = makeBlockWithItem("raw_tunstite_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
     //discarded metal
-            MOLTEN_TIN_DISCARDED = makeBlockWithItem("molten_tin_discarded", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(2.0f))),
+    MOLTEN_TIN_DISCARDED = makeBlockWithItem("molten_tin_discarded", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(2.0f))),
             MOLTEN_SILVER_DISCARDED = makeBlockWithItem("molten_silver_discarded", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(2.0f))),
             MOLTEN_NICKEL_DISCARDED = makeBlockWithItem("molten_nickel_discarded", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(2.0f))),
             MOLTEN_ALUMINUM_DISCARDED = makeBlockWithItem("molten_aluminum_discarded", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(2.0f))),
@@ -133,11 +133,11 @@ public class MMBlocks {
     //other
     FIRE_BRICK_BLOCK = makeBlockWithItem("fire_brick_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
             TANK_BLOCK = makeBlockWithItem("tank_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.5f))),
-            BELLOW = makeBlockWithItem("bellow", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
+            BELLOW/*待删除*/ = makeBlockWithItem("bellow", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
     //machine
-    KLIN = makeBlockWithItem("klin", () -> new BlockKlin(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f))),
+    KLIN/*待更改为多方块*/ = makeBlockWithItem("klin", () -> new BlockKlin(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f))),
             GENERATOR = makeBlockWithItem("generator", () -> new BlockGenerator(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            HAND_GENERATOR = makeBlockWithItem("hand_generator", () -> new BlockHandGenerator(Block.Properties.of().sound(SoundType.METAL).strength(3).noOcclusion().requiresCorrectToolForDrops())),
+            HAND_GENERATOR/*待删除*/ = makeBlockWithItem("hand_generator", () -> new BlockHandGenerator(Block.Properties.of().sound(SoundType.METAL).strength(3).noOcclusion().requiresCorrectToolForDrops())),
             ANVIL_STONE = makeBlockWithItem("anvil_stone", () -> new BlockAnvil(Block.Properties.of().sound(SoundType.STONE).noOcclusion().strength(2.0f).requiresCorrectToolForDrops(), EnumAnvilType.STONE, 16)),
             ANVIL_COPPER = makeBlockWithItem("anvil_copper", () -> new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(3.0f).requiresCorrectToolForDrops(), EnumAnvilType.BRONZE, 16)),
             ANVIL_STEEL = makeBlockWithItem("anvil_steel", () -> new BlockAnvil(Block.Properties.of().sound(SoundType.ANVIL).noOcclusion().strength(4.0f).requiresCorrectToolForDrops(), EnumAnvilType.PIGIRON, 12)),
@@ -146,7 +146,11 @@ public class MMBlocks {
             CUTTER = makeBlockWithItem("cutter", () -> new BlockCutter(Block.Properties.of().sound(SoundType.METAL))),
             CENTRIFUGE = makeBlockWithItem("centrifuge", () -> new BlockCentrifuge(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             ATOMIZATION = makeBlockWithItem("atomization", () -> new BlockAtomization(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            WELD = makeBlockWithItem("weld", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+            WELD/*待删除*/ = makeBlockWithItem("weld", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+            LATHE = makeBlockWithItem("lathe",() -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+            WHEEL_GENERATOR = makeBlockWithItem("wheel_generator",() -> new BlockWeld(Block.Properties.of().sound(SoundType.WOOD))),
+            PUMP = makeBlockWithItem("pump",() -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+
     //    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.of().sound(SoundType.METAL)),
 
     //cable
