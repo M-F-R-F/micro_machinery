@@ -161,8 +161,8 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
                     }
                 } else {
                     KlinItemToFluidRecipe recipeinsmelting = klin.tryToGetRecipe();
-                    if (recipeinsmelting != null && klin.fluidHandler.fill(recipeinsmelting.getOutputfluidstack(), IFluidHandler.FluidAction.SIMULATE) == recipeinsmelting.getOutputfluidstack().getAmount()) {
-                        klin.result = recipeinsmelting.getOutputfluidstack();
+                    if (recipeinsmelting != null && klin.fluidHandler.fill(recipeinsmelting.getOutputfluidstack().copy(), IFluidHandler.FluidAction.SIMULATE) == recipeinsmelting.getOutputfluidstack().getAmount()) {
+                        klin.result = recipeinsmelting.getOutputfluidstack().copy();
                         klin.meltTime.setMax(recipeinsmelting.getMelttime());
                         klin.extractMaterial(recipeinsmelting);
                         klin.markDirty2();
@@ -194,8 +194,8 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
                 klin.coolDown.selfAdd();
                 klin.markDirty2();
             } else {
-                if (RecipeHelper.canInsert(klin.itemhandler.getStackInSlot(3), klin.recipe.getOutput())) {
-                    klin.insertResult(3, klin.recipe.getOutput());
+                if (RecipeHelper.canInsert(klin.itemhandler.getStackInSlot(3), klin.recipe.getOutput().copy())) {
+                    klin.insertResult(3, klin.recipe.getOutput().copy());
                     klin.fluidHandler.drain(klin.recipe.getInputfluid(), IFluidHandler.FluidAction.EXECUTE);
                     klin.coolDown.setCurrent(0);
                     klin.coolDown.setMax(0);

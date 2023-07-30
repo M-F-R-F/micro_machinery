@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -185,7 +186,7 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
 //        for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
 //            EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
 //            if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
-//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
+//                shape = Shapes.join(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()), BooleanOp.OR);
 //            }
 //        }
 

@@ -84,7 +84,7 @@ public class TileWeld extends MMTileBase implements MenuProvider {
                     int[] shrinkCounts = weldRecipeAndShrinkItemStacks.shrinkCounts;
                     weld.progress.setMax(weldRecipe.getTime());
                     weld.isWorking = true;
-                    weld.result = weldRecipe.getOutput();
+                    weld.result = weldRecipe.getOutput().copy();
                     for (int i = 0; i < shrinkCounts.length; i++) {
                         weld.input.extractItem(i, shrinkCounts[i], false);
                     }
@@ -155,7 +155,7 @@ public class TileWeld extends MMTileBase implements MenuProvider {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ENERGY) {
-             //&& side == getBackDirection()
+            //&& side == getBackDirection()
             return LazyOptional.of(() -> feContainer).cast();
         }
 

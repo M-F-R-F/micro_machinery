@@ -125,8 +125,9 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
                         electrolysis.markDirty2();
                     }
                 } else {
-                    if (electrolysis.items.insertItem(Slot.OUTPUT.index, electrolysis.result, true) == ItemStack.EMPTY) {
-                        electrolysis.items.insertItem(Slot.OUTPUT.index, electrolysis.result, false);
+                    ItemStack copy = electrolysis.result.copy();
+                    if (electrolysis.items.insertItem(Slot.OUTPUT.index, copy, true) == ItemStack.EMPTY) {
+                        electrolysis.items.insertItem(Slot.OUTPUT.index, copy, false);
                         electrolysis.result = ItemStack.EMPTY;
                         electrolysis.progress.resetValue();
                         electrolysis.isWorking = false;
@@ -136,7 +137,8 @@ public class TileElectrolysis extends MMTileBase implements IItemHandler, MenuPr
             } else {
                 ElectrolysisRecipe electrolysisRecipe = RecipeHelper.getElectrolysisRecipe(electrolysis.items.getStackInSlot(Slot.INPUT.index), world.getRecipeManager());
                 if (electrolysisRecipe != null) {
-                    electrolysis.result = electrolysisRecipe.getOutput();
+                    electrolysis.result = electrolysisRecipe.getOutput().copy();
+                    electrolysis.items.getStackInSlot(Slot.INPUT.index).shrink(electrolysisRecipe.getInput().getCount());
                     electrolysis.progress = new IntegerContainer(0, electrolysisRecipe.getTime());
                     electrolysis.isWorking = true;
                     electrolysis.markDirty2();

@@ -91,8 +91,8 @@ public class TileAtomization extends MMTileBase implements MenuProvider {
                     Optional<? extends Recipe<?>> recipe = level.getRecipeManager().byKey(tileAtomization.recipe);
                     recipe.ifPresent(iRecipe -> {
                         AtomizationRecipe atomizationRecipe = (AtomizationRecipe) iRecipe;
-                        if (tileAtomization.output.insertItem(0, atomizationRecipe.result, true).isEmpty()) {
-                            tileAtomization.output.insertItem(0, atomizationRecipe.result, false);
+                        if (tileAtomization.output.insertItem(0, atomizationRecipe.result.copy(), true).isEmpty()) {
+                            tileAtomization.output.insertItem(0, atomizationRecipe.result.copy(), false);
                             tileAtomization.isWorking = false;
                             tileAtomization.recipe = null;
                             tileAtomization.progress.resetValue();

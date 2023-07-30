@@ -4,6 +4,8 @@ import com.google.common.base.Supplier;
 import mfrf.micro_machinery.Config;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.block.MMBlockBase;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.redstone_io.BlockRedstoneInterface;
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.BlockAtomization;
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.BlockCentrifuge;
 import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
@@ -27,6 +29,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -192,13 +195,13 @@ public class MMBlocks {
 //      */
 
 
-//     /**
+    //     /**
 //      * new system of multi block
 //      */
 //     //part
-//     public static final MMBlockMultiBlockPart MULTIBLOCK_PART = new MMBlockMultiBlockPart(Block.Properties.of().sound(SoundType.METAL).harvestLevel(-1).strength(-1), "part", true);
-//     //component
-//     public static final BlockRedstoneInterface REDSTONE_INTERFACE = new BlockRedstoneInterface(Block.Properties.of().sound(SoundType.METAL), "redstone_interface");
+    public static final RegistryObject<MMBlockMultiBlockPart> MULTIBLOCK_PART = BLOCK_REGISTER.register("part", () -> new MMBlockMultiBlockPart(Block.Properties.of().sound(SoundType.METAL).strength(-1)));
+    //     //component
+    public static final Pair<RegistryObject<Block>, RegistryObject<Item>> REDSTONE_INTERFACE = makeBlockWithItem("redstone_interface", () -> new BlockRedstoneInterface(Block.Properties.of().sound(SoundType.METAL)));
 //     //main part
 //     public static final MMBlockMainPartBase TEST = new TestMainPart();
 
@@ -213,5 +216,6 @@ public class MMBlocks {
         RegistryObject<Item> ret_item = MMItems.ITEM_REGISTER.register(name, () -> new MMBlockItemBase(ret_block.get()));
         return Pair.of(ret_block, ret_item);
     }
+
 
 }

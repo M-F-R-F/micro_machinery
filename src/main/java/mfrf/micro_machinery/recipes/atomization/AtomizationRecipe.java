@@ -37,7 +37,7 @@ public class AtomizationRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.ATOMIZATION_RECIPE_TYPE.get();
     }
 
-    public static class Serializer  implements RecipeSerializer<AtomizationRecipe> {
+    public static class Serializer implements RecipeSerializer<AtomizationRecipe> {
 
         @Override
         public AtomizationRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -59,7 +59,7 @@ public class AtomizationRecipe extends RecipeBase {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, AtomizationRecipe recipe) {
             recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.result, false);
+            buffer.writeItemStack(recipe.result.copy(), false);
             buffer.writeInt(recipe.time);
         }
     }

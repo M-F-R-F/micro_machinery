@@ -36,6 +36,7 @@ import static mfrf.micro_machinery.registry_lists.MMItems.ITEM_REGISTER;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MMFluidBase {
+    private static final HashMap<String, MMFluidBase> MAP = new HashMap<>();
     public static final HashSet<MMFluidBase> MOLTEN_FLUIDS = new HashSet<>();
     private final String name;
     private final RegistryObject<FluidType> fluid_type;
@@ -81,6 +82,7 @@ public class MMFluidBase {
         if (is_molten_material) {
             MOLTEN_FLUIDS.add(this);
         }
+        MAP.put(name, this);
     }
 
     public MMFluidBase(String name, Block.Properties fluid_block_properties, FluidType.Properties fluid_properties, boolean is_molten_material) {
@@ -88,19 +90,21 @@ public class MMFluidBase {
     }
 
     @SubscribeEvent
-    public void registerFluids(RegisterEvent event) {
-        event.register(ForgeRegistries.Keys.FLUIDS, helper -> {
-            // set up properties
-//            ResourceLocation blockKey = new ResourceLocation(MicroMachinery.MODID, name);
-//            event.register(ForgeRegistries.BLOCKS.getRegistryKey(), blockKey, () -> new LiquidBlock(() -> (FlowingFluid) fluid_flow.get(), fluid_block_properties));
-            ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(this.fluid_type, this.fluid, this.fluid_flow)
-                    .tickRate(tickrate)
-                    .block(() -> (LiquidBlock) ForgeRegistries.BLOCKS.getValue(this.block))
-                    .bucket(bucket);
+    public static void registerFluids(RegisterEvent event) {
+        MAP.forEach((name, mmFluidBase) -> {
+            event.register(ForgeRegistries.Keys.FLUIDS, helper -> {
+                // set up properties
+                ResourceLocation blockKey = new ResourceLocation(MicroMachinery.MODID, name);
+                event.register(ForgeRegistries.BLOCKS.getRegistryKey(), blockKey, () -> new LiquidBlock(() -> (FlowingFluid) mmFluidBase.fluid_flow.get(), mmFluidBase.fluid_block_properties));
+                ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(mmFluidBase.fluid_type, mmFluidBase.fluid, mmFluidBase.fluid_flow)
+                        .tickRate(mmFluidBase.tickrate)
+                        .block(() -> (LiquidBlock) ForgeRegistries.BLOCKS.getValue(mmFluidBase.block))
+                        .bucket(mmFluidBase.bucket);
 
-            helper.register(fluid.getId(), new ForgeFlowingFluid.Source(properties));
-            helper.register(fluid_flow.getId(), new ForgeFlowingFluid.Flowing(properties));
-//            this.block = blockKey;
+                helper.register(mmFluidBase.fluid.getId(), new ForgeFlowingFluid.Source(properties));
+                helper.register(mmFluidBase.fluid_flow.getId(), new ForgeFlowingFluid.Flowing(properties));
+                mmFluidBase.block = blockKey;
+            });
         });
     }
 

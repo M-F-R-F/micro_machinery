@@ -1,6 +1,7 @@
 package mfrf.micro_machinery.item;
 
 import mfrf.micro_machinery.events.RegistryThingsEvent;
+import mfrf.micro_machinery.utils.MultiblockStructureMaps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,25 +84,25 @@ public class MMHammerBase extends DiggerItem {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-//        if (!context.getLevel().isClientSide()) {
-//            tryConstructNewStructures(context);
-//        }
+        if (!context.getLevel().isClientSide()) {
+            tryConstructNewStructures(context);
+        }
         return InteractionResult.SUCCESS;
     }
 
-    //todo multiblock
-//    private boolean tryConstructNewStructures(UseOnContext context) {
-//        Level world = context.getLevel();
-//        BlockPos pos = context.getClickedPos();
-//        Triple<String, MultiblockStructureMaps.StructureMap, Direction> packedData = MultiblockStructureMaps.findStructure(world, pos);
-//        if (packedData != null) {
-//            String id = packedData.getLeft();
-//            MultiblockStructureMaps.StructureMap map = packedData.getMiddle();
-//            Direction direction = packedData.getRight();
-//            map.construct(direction, world, pos, id);
-//            return true;
-//        }
-//        return false;
-//    }
+//    todo multiblock
+    private boolean tryConstructNewStructures(UseOnContext context) {
+        Level world = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        Triple<String, MultiblockStructureMaps.StructureMap, Direction> packedData = MultiblockStructureMaps.findStructure(world, pos);
+        if (packedData != null) {
+            String id = packedData.getLeft();
+            MultiblockStructureMaps.StructureMap map = packedData.getMiddle();
+            Direction direction = packedData.getRight();
+            map.construct(direction, world, pos, id);
+            return true;
+        }
+        return false;
+    }
 
 }
