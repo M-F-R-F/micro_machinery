@@ -375,8 +375,8 @@ public class MMFluids {
                             .rarity(Rarity.EPIC),
                     true
             ),
-            MOLTEN_NCALLOY = new MMFluidBase(
-                    "molten_ncalloy",
+            MOLTEN_SMA = new MMFluidBase(
+                    "molten_sma",
                     Block.Properties.of().noCollission().replaceable().randomTicks().lightLevel((state) -> 15),
                     FluidType.Properties.create()
                             .lightLevel(15)
@@ -386,28 +386,7 @@ public class MMFluids {
                             .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
                             .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
                             .density(8960)
-                            .temperature(1625)
-                            .canSwim(true)
-                            .canPushEntity(true)
-                            .fallDistanceModifier(0.5f)
-                            .supportsBoating(true)
-                            .viscosity(8960)
-                            .canDrown(true)
-                            .rarity(Rarity.EPIC),
-                    true
-            ),
-            MOLTEN_FERROCHROME = new MMFluidBase(
-                    "molten_ferrochrome",
-                    Block.Properties.of().noCollission().replaceable().randomTicks().lightLevel((state) -> 15),
-                    FluidType.Properties.create()
-                            .lightLevel(15)
-                            .adjacentPathType(null)
-                            .pathType(BlockPathTypes.LAVA)
-                            .canConvertToSource(false)
-                            .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
-                            .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA)
-                            .density(8960)
-                            .temperature(2130)
+                            .temperature(1941)
                             .canSwim(true)
                             .canPushEntity(true)
                             .fallDistanceModifier(0.5f)
@@ -460,6 +439,26 @@ public class MMFluids {
                     "ethene", Block.Properties.of().noCollission().replaceable(),
                     FluidType.Properties.create()
                             .temperature(293).viscosity(1000), false, 10
+            ),
+            STEAM = new MMFluidBase(
+                    "steam", Block.Properties.of().noCollission().replaceable(),
+                    FluidType.Properties.create()
+                            .temperature(600).viscosity(1000), false, 10
+            ),
+            STEAM_H = new MMFluidBase(
+                    "steam_h", Block.Properties.of().noCollission().replaceable(),
+                    FluidType.Properties.create()
+                            .temperature(700).viscosity(1000), false, 10
+            ),
+            STEAM_S = new MMFluidBase(
+                    "steam_s", Block.Properties.of().noCollission().replaceable(),
+                    FluidType.Properties.create()
+                            .temperature(800).viscosity(1000), false, 10
+            ),
+            STEAM_US = new MMFluidBase(
+                    "steam_us", Block.Properties.of().noCollission().replaceable(),
+                    FluidType.Properties.create()
+                            .temperature(900).viscosity(1000), false, 10
             );
 
 

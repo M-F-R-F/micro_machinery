@@ -4,11 +4,10 @@ import net.minecraft.util.StringRepresentable;
 
 public enum EnumCableMaterial implements StringRepresentable {
     TEST(Integer.MAX_VALUE, "test_material"),
-    COPPER(256, "copper"),
-    NICKEL(1024, "nickel"),
-    ALUMINUM(4096, "aluminum"),
-    TUNGSTEN(16384, "tungsten"),
-    COBALT(65536, "cobalt"),
+    LEVEL1(1024, "level1"),
+    LEVEL2(4096, "level2"),
+    LEVEL3(16384, "level3"),
+    LEVEL4(65536, "level4"),
     NULL(0, "null");
 
 
@@ -33,16 +32,14 @@ public enum EnumCableMaterial implements StringRepresentable {
         switch (name) {
             case "test_material":
                 return TEST;
-            case "copper":
-                return COPPER;
-            case "nickel":
-                return NICKEL;
-            case "aluminum":
-                return ALUMINUM;
-            case "tungsten":
-                return TUNGSTEN;
-            case "cobalt":
-                return COBALT;
+            case "level1":
+                return LEVEL1;
+            case "level2":
+                return LEVEL2;
+            case "level3":
+                return LEVEL3;
+            case "level4":
+                return LEVEL4;
             default:
                 return NULL;
         }

@@ -91,8 +91,8 @@ public class MMFluidBase {
     public void registerFluids(RegisterEvent event) {
         event.register(ForgeRegistries.Keys.FLUIDS, helper -> {
             // set up properties
-            ResourceLocation blockKey = new ResourceLocation(MicroMachinery.MODID, name);
-            event.register(ForgeRegistries.BLOCKS.getRegistryKey(), blockKey, () -> new LiquidBlock(() -> (FlowingFluid) fluid_flow.get(), fluid_block_properties));
+//            ResourceLocation blockKey = new ResourceLocation(MicroMachinery.MODID, name);
+//            event.register(ForgeRegistries.BLOCKS.getRegistryKey(), blockKey, () -> new LiquidBlock(() -> (FlowingFluid) fluid_flow.get(), fluid_block_properties));
             ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(this.fluid_type, this.fluid, this.fluid_flow)
                     .tickRate(tickrate)
                     .block(() -> (LiquidBlock) ForgeRegistries.BLOCKS.getValue(this.block))
@@ -100,7 +100,7 @@ public class MMFluidBase {
 
             helper.register(fluid.getId(), new ForgeFlowingFluid.Source(properties));
             helper.register(fluid_flow.getId(), new ForgeFlowingFluid.Flowing(properties));
-            this.block = blockKey;
+//            this.block = blockKey;
         });
     }
 

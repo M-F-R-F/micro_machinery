@@ -1,0 +1,19 @@
+{
+    "variants": {
+      "facing=north": {
+        "model": "micro_machinery:block/module_generator"
+      },
+      "facing=east": {
+        "model": "micro_machinery:block/module_generator",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "micro_machinery:block/module_generator",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "micro_machinery:block/module_generator",
+        "y": 270
+      }
+    }
+}
