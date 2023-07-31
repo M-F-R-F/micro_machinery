@@ -2,8 +2,9 @@ package mfrf.micro_machinery.utils;
 
 import com.google.gson.*;
 import com.mojang.realmsclient.util.JsonUtils;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
-import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.MMBlockMainPartBase;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.MMMultiBlockMainPartBase;
 import mfrf.micro_machinery.registry_lists.MMBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,7 +27,7 @@ import java.util.Map;
 public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
     private static HashMap<String, StructureMap> structures = null;
-    private static final HashMap<String, MMBlockMainPartBase> structure_main_block_maps = new HashMap<>();
+    private static final HashMap<String, MMMultiBlockMainPartBase> structure_main_block_maps = new HashMap<>();
 
     public MultiblockStructureMaps() {
         super(GSON, "structures/new_system");
@@ -46,7 +47,7 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
         }
     }
 
-    public static void combine(String name, MMBlockMainPartBase block) {
+    public static void combine(String name, MMMultiBlockMainPartBase block) {
         structure_main_block_maps.put(name, block);
     }
 
@@ -66,7 +67,7 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
         return null;
     }
 
-    public static MMBlockMainPartBase getMainPart(String id) {
+    public static MMMultiBlockMainPartBase getMainPart(String id) {
         return structure_main_block_maps.get(id);
     }
 
@@ -105,10 +106,9 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
             JsonObject jsonObject = new JsonObject();
 
             JsonArray jsonElements = new JsonArray();
-            map.forEach((vec3i, block) -> {
+            map.forEach((vec3i, pair) -> {
                 JsonObject blockNode = new JsonObject();
-//                blockNode.addProperty("block", block.getKey().block().toString());
-                //todo fixit
+                blockNode.addProperty("block", ForgeRegistries.BLOCKS.getKey(pair.getKey()).toString());
                 blockNode.addProperty("xO", vec3i.getX());
                 blockNode.addProperty("yO", vec3i.getY());
                 blockNode.addProperty("zO", vec3i.getZ());
@@ -153,7 +153,10 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
         }
 
         public void construct(Direction direction, Level world, BlockPos center, String id) {
-//            MMBlockMainPartBase.MAP.get(id).pack(world, center, direction, center);
+            MMBlockMultiBlockPart mmBlockMultiBlockPart = MMMultiBlockMainPartBase.MAP.get(id);
+            if (mmBlockMultiBlockPart != null) {
+                mmBlockMultiBlockPart.pack(world, center, direction, center);
+            }
 
             mapWithDirections.get(direction).entrySet().stream()
                     .forEach(vec3iBlockEntry -> {
@@ -161,9 +164,8 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
 
                             BlockPos currentPos = center.offset(vec3iBlockEntry.getKey());
                             if (!(world.getBlockState(currentPos).getBlock() instanceof MMBlockMultiBlockComponentInterface blockComponentInterface)) {
-//                                MMBlocks.MULTIBLOCK_PART.pack(world, currentPos, direction, center);
+                                MMBlocks.MULTIBLOCK_PART.get().pack(world, currentPos, direction, center);
                             } else {
-
                                 blockComponentInterface.link(center, world, vec3iBlockEntry.getValue().getValue(), currentPos);
                             }
                         }

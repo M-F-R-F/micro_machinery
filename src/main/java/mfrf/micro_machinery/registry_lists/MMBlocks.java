@@ -4,6 +4,7 @@ import com.google.common.base.Supplier;
 import mfrf.micro_machinery.Config;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.block.MMBlockBase;
+import mfrf.micro_machinery.block.MMDirectionalBlock;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.redstone_io.BlockRedstoneInterface;
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.BlockAtomization;
@@ -42,9 +43,9 @@ public class MMBlocks {
     //todo make data gen
 
     public static final Pair<RegistryObject<Block>, RegistryObject<Item>>
-    //Deco
-    //Ores
-    ORETIN = makeBlockWithItem("ore_tin", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
+            //Deco
+            //Ores
+            ORETIN = makeBlockWithItem("ore_tin", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
             OREILMENITE = makeBlockWithItem("ore_ilmenite", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(5.0f))),
             ORESILVER = makeBlockWithItem("ore_silver", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
             OREMANGANESE = makeBlockWithItem("ore_manganese", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(3.0f))),
@@ -71,14 +72,14 @@ public class MMBlocks {
             BLOCKALUMINUM = makeBlockWithItem("block_aluminum", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(3.0f))),
             BLOCKMANGANESE = makeBlockWithItem("block_manganese", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.0f))),
 
-            BLOCKSTEEL = makeBlockWithItem("block_steel", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(3.5f))),
+    BLOCKSTEEL = makeBlockWithItem("block_steel", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(3.5f))),
             BLOCKCHROMIUM = makeBlockWithItem("block_chromium", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(6.5f))),
             BLOCKVANADIUM = makeBlockWithItem("block_vanadium", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(5.0f))),
             BLOCKCOBALT = makeBlockWithItem("block_cobalt", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(5.0f))),
             BLOCKTITANIUM = makeBlockWithItem("block_titanium", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(7.0f))),
             BLOCKTUNGSTEN = makeBlockWithItem("block_tungsten", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(7.0f))),
 
-            BLOCKBRONZE = makeBlockWithItem("block_bronze", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.5f))),
+    BLOCKBRONZE = makeBlockWithItem("block_bronze", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.5f))),
             BLOCKINVAR = makeBlockWithItem("block_invar", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(4.0f))),
             BLOCKSS = makeBlockWithItem("block_ss", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(5.0f))),
             BLOCKHSS = makeBlockWithItem("block_hss", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(6.0f))),
@@ -121,15 +122,15 @@ public class MMBlocks {
             CASING_4 = makeBlockWithItem("casing_4", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
     //module
     STEEL_SCAFFOLDING = makeBlockWithItem("steel_scaffolding", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).strength(1.0f).requiresCorrectToolForDrops().noOcclusion())),
-            MODULE_GENERATOR = makeBlockWithItem("module_generator", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            MODULE_HEAT_SINK = makeBlockWithItem("module_heat_sink", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            MODULE_GENERATOR = makeBlockWithItem("module_generator", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            MODULE_HEAT_SINK = makeBlockWithItem("module_heat_sink", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             MODULE_PRESSURE_BEARING = makeBlockWithItem("module_pressure_bearing", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_ENERGY= makeBlockWithItem("interface_energy", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_DATA = makeBlockWithItem("interface_data", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_ITEM = makeBlockWithItem("interface_item", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_FLUID = makeBlockWithItem("interface_fluid", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            MODULE_DTE = makeBlockWithItem("module_dte", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            MODULE_INTELLIGENT = makeBlockWithItem("module_intelligent", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_ENERGY = makeBlockWithItem("interface_energy", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_DATA = makeBlockWithItem("interface_data", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_ITEM = makeBlockWithItem("interface_item", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_FLUID = makeBlockWithItem("interface_fluid", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            MODULE_DTE = makeBlockWithItem("module_dte", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            MODULE_INTELLIGENT = makeBlockWithItem("module_intelligent", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
     //other
     FIRE_BRICK_BLOCK = makeBlockWithItem("fire_brick_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.STONE).requiresCorrectToolForDrops().strength(2.0f))),
             TANK_BLOCK = makeBlockWithItem("tank_block", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(1.5f))),
@@ -147,9 +148,9 @@ public class MMBlocks {
             CENTRIFUGE = makeBlockWithItem("centrifuge", () -> new BlockCentrifuge(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             ATOMIZATION = makeBlockWithItem("atomization", () -> new BlockAtomization(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             WELD/*待删除*/ = makeBlockWithItem("weld", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
-            LATHE = makeBlockWithItem("lathe",() -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
-            WHEEL_GENERATOR = makeBlockWithItem("wheel_generator",() -> new BlockWeld(Block.Properties.of().sound(SoundType.WOOD))),
-            PUMP = makeBlockWithItem("pump",() -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+            LATHE = makeBlockWithItem("lathe", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+            WHEEL_GENERATOR = makeBlockWithItem("wheel_generator", () -> new BlockWeld(Block.Properties.of().sound(SoundType.WOOD))),
+            PUMP = makeBlockWithItem("pump", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
 
     //    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.of().sound(SoundType.METAL)),
 
@@ -160,16 +161,16 @@ public class MMBlocks {
             CABLE_4 = makeBlockWithItem("cable_4", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.LEVEL4)),
             TESTCR = makeBlockWithItem("testcr", testcr::new),
     //convey belt
-            CONVEYOR_BELT_1 = makeBlockWithItem("conveyor_belt_1", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get))),
+    CONVEYOR_BELT_1 = makeBlockWithItem("conveyor_belt_1", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get))),
             CONVEYOR_BELT_2 = makeBlockWithItem("conveyor_belt_2", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_2_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_2_TRANSMIT_SPEED::get, Config.CONVEY_BELT_2_TRANSMIT_STACK_SIZE::get))),
             CONVEYOR_BELT_3 = makeBlockWithItem("conveyor_belt_3", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_3_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_3_TRANSMIT_SPEED::get, Config.CONVEY_BELT_3_TRANSMIT_STACK_SIZE::get))),
-            SPLITTER = makeBlockWithItem("splitter", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
-            MECHANICAL_ARM = makeBlockWithItem("mechanical_arm", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
+            SPLITTER = makeBlockWithItem("splitter", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
+            MECHANICAL_ARM = makeBlockWithItem("mechanical_arm", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
     //fluid pipe
-            PIPE_1 = makeBlockWithItem("pipe_1", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion())),
+    PIPE_1 = makeBlockWithItem("pipe_1", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion())),
             PIPE_2 = makeBlockWithItem("pipe_2", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion())),
             PIPE_3 = makeBlockWithItem("pipe_3", () -> new FluidPipeBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion())),
-            CHECK_VALVE = makeBlockWithItem("check_valve", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f)));
+            CHECK_VALVE = makeBlockWithItem("check_valve", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f)));
     //multiBlock
 
     //ter_util

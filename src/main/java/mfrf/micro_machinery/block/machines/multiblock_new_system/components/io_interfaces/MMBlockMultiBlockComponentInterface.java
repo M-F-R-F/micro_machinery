@@ -31,6 +31,7 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
     public void link(BlockPos mainPart, Level accessor, Vec3i key, BlockPos current) {
         accessor.setBlockAndUpdate(current, accessor.getBlockState(current).setValue(CONSTRUCTED, true));
         linkTo(mainPart, accessor, current, key);
+        //todo 天顶星科技准备开始考古
     }
 
 
