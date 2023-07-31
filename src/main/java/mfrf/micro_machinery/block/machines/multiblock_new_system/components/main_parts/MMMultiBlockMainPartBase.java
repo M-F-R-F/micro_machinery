@@ -11,10 +11,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 
-public abstract class MMBlockMainPartBase extends MMBlockMultiBlockPart {
-    public static HashMap<String, MMBlockMultiBlockPart> MAP = new HashMap<>();
+public abstract class MMMultiBlockMainPartBase extends MMBlockMultiBlockPart {
+    public static HashMap<String, MMMultiBlockMainPartBase> MAP = new HashMap<>();
 
-    public MMBlockMainPartBase(Properties properties, String structureID) {
+    public MMMultiBlockMainPartBase(Properties properties, String structureID) {
         super(properties);
         MAP.put(structureID, this);
     }
