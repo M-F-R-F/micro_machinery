@@ -7,7 +7,7 @@
     },
     {
       "when": {
-        "north_connect": "open"
+        "north_connect": "cable"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_arm",
@@ -16,7 +16,7 @@
     },
     {
       "when": {
-        "east_connect": "open"
+        "east_connect": "cable"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_arm",
@@ -25,7 +25,7 @@
     },
     {
       "when": {
-        "south_connect": "open"
+        "south_connect": "cable"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_arm"
@@ -33,7 +33,7 @@
     },
     {
       "when": {
-        "west_connect": "open"
+        "west_connect": "cable"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_arm",
@@ -42,7 +42,7 @@
     },
     {
       "when": {
-        "up_connect": "open"
+        "up_connect": "cable"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_arm",
@@ -51,7 +51,7 @@
     },
     {
       "when": {
-        "down_connect": "open"
+        "down_connect": "cable"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_arm",
@@ -60,60 +60,7 @@
     },
     {
       "when": {
-        "north_connect": "auto_true"
-      },
-      "apply": {
-        "model": "micro_machinery:block/cable_1_arm",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "east_connect": "auto_true"
-      },
-      "apply": {
-        "model": "micro_machinery:block/cable_1_arm",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "south_connect": "auto_true"
-      },
-      "apply": {
-        "model": "micro_machinery:block/cable_1_arm"
-      }
-    },
-    {
-      "when": {
-        "west_connect": "auto_true"
-      },
-      "apply": {
-        "model": "micro_machinery:block/cable_1_arm",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "up_connect": "auto_true"
-      },
-      "apply": {
-        "model": "micro_machinery:block/cable_1_arm",
-        "x": 90
-      }
-    },
-    {
-      "when": {
-        "down_connect": "auto_true"
-      },
-      "apply": {
-        "model": "micro_machinery:block/cable_1_arm",
-        "x": 270
-      }
-    },
-    {
-      "when": {
-        "north_connect": "close"
+        "north_connect": "empty"
       },
       "apply": {
         "model": "micro_machinery:block/empty"
@@ -121,7 +68,7 @@
     },
     {
       "when": {
-        "east_connect": "close"
+        "east_connect": "empty"
       },
       "apply": {
         "model": "micro_machinery:block/empty"
@@ -129,7 +76,7 @@
     },
     {
       "when": {
-        "south_connect": "close"
+        "south_connect": "empty"
       },
       "apply": {
         "model": "micro_machinery:block/empty"
@@ -137,7 +84,7 @@
     },
     {
       "when": {
-        "west_connect": "close"
+        "west_connect": "empty"
       },
       "apply": {
         "model": "micro_machinery:block/empty"
@@ -145,7 +92,7 @@
     },
     {
       "when": {
-        "up_connect": "close"
+        "up_connect": "empty"
       },
       "apply": {
         "model": "micro_machinery:block/empty"
@@ -153,7 +100,7 @@
     },
     {
       "when": {
-        "down_connect": "close"
+        "down_connect": "empty"
       },
       "apply": {
         "model": "micro_machinery:block/empty"
@@ -161,55 +108,7 @@
     },
     {
       "when": {
-        "north_connect": "auto_false"
-      },
-      "apply": {
-        "model": "micro_machinery:block/empty"
-      }
-    },
-    {
-      "when": {
-        "east_connect": "auto_false"
-      },
-      "apply": {
-        "model": "micro_machinery:block/empty"
-      }
-    },
-    {
-      "when": {
-        "south_connect": "auto_false"
-      },
-      "apply": {
-        "model": "micro_machinery:block/empty"
-      }
-    },
-    {
-      "when": {
-        "west_connect": "auto_false"
-      },
-      "apply": {
-        "model": "micro_machinery:block/empty"
-      }
-    },
-    {
-      "when": {
-        "up_connect": "auto_false"
-      },
-      "apply": {
-        "model": "micro_machinery:block/empty"
-      }
-    },
-    {
-      "when": {
-        "down_connect": "auto_false"
-      },
-      "apply": {
-        "model": "micro_machinery:block/empty"
-      }
-    },
-    {
-      "when": {
-        "north_connect": "auto_connected"
+        "north_connect": "connect"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_connect",
@@ -218,7 +117,7 @@
     },
     {
       "when": {
-        "east_connect": "auto_connected"
+        "east_connect": "connect"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_connect",
@@ -227,7 +126,7 @@
     },
     {
       "when": {
-        "south_connect": "auto_connected"
+        "south_connect": "connect"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_connect"
@@ -235,7 +134,7 @@
     },
     {
       "when": {
-        "west_connect": "auto_connected"
+        "west_connect": "connect"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_connect",
@@ -244,7 +143,7 @@
     },
     {
       "when": {
-        "up_connect": "auto_connected"
+        "up_connect": "connect"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_connect",
@@ -253,7 +152,7 @@
     },
     {
       "when": {
-        "down_connect": "auto_connected"
+        "down_connect": "connect"
       },
       "apply": {
         "model": "micro_machinery:block/cable_1_connect",
