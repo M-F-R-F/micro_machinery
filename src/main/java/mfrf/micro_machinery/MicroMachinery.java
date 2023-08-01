@@ -11,7 +11,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import org.spongepowered.asm.launch.MixinBootstrap;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(MicroMachinery.MODID)
 public class MicroMachinery {
     public static final String MODID = "micro_machinery";
