@@ -1,7 +1,6 @@
 package mfrf.micro_machinery.utils;
 
 import com.google.gson.*;
-import com.mojang.realmsclient.util.JsonUtils;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.MMMultiBlockMainPartBase;
@@ -40,10 +39,19 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
 
             JsonObject jsonObject = resourceLocationJsonObjectEntry.getValue().getAsJsonObject();
 
-            String identifier = JsonUtils.getStringOr("identifier", jsonObject, "none");
+            String identifier = getStringOr("identifier", jsonObject, "none");
             if (!identifier.equals("none")) {
                 structures.put(identifier, new StructureMap(jsonObject));
             }
+        }
+    }
+
+    public static String getStringOr(String pKey, JsonObject pJson, @Nullable String pDefaultValue) {
+        JsonElement jsonelement = pJson.get(pKey);
+        if (jsonelement != null) {
+            return jsonelement.isJsonNull() ? pDefaultValue : jsonelement.getAsString();
+        } else {
+            return pDefaultValue;
         }
     }
 
