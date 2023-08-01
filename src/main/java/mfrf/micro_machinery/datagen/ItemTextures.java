@@ -1,8 +1,6 @@
 package mfrf.micro_machinery.datagen;
 
 import mfrf.micro_machinery.MicroMachinery;
-import mfrf.micro_machinery.item.MMItemBase;
-import mfrf.micro_machinery.registry_lists.MMItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;

@@ -2,7 +2,6 @@ package mfrf.micro_machinery.item;
 
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.events.RegistryThingsEvent;
-import mfrf.micro_machinery.registry_lists.MMTab;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class MMItemBase extends Item {
     public static Properties DEFAULT_PROPERTIES = new Properties().stacksTo(64);

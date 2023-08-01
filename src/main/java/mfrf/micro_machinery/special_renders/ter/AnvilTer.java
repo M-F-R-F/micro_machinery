@@ -5,7 +5,6 @@ import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import mfrf.micro_machinery.block.machines.single_block_machines.forge_anvil.TileAnvil;
 import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
@@ -14,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.joml.AxisAngle4d;
-import org.joml.Quaterniond;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 

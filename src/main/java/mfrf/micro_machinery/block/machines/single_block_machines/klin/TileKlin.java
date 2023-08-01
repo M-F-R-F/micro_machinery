@@ -32,7 +32,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler, MenuProvider {
 
@@ -40,9 +39,9 @@ public class TileKlin extends MMTileBase implements IItemHandler, IFluidHandler,
     private final ItemStackHandler itemhandler = new ItemStackHandler(5);
     private FluidStack result = FluidStack.EMPTY;
     private KlinFluidToItemRecipe recipe = null;
-    private IntegerContainer meltTime = new IntegerContainer(0);
-    private IntegerContainer burnTime = new IntegerContainer(0);
-    private IntegerContainer coolDown = new IntegerContainer(0);
+    private final IntegerContainer meltTime = new IntegerContainer(0);
+    private final IntegerContainer burnTime = new IntegerContainer(0);
+    private final IntegerContainer coolDown = new IntegerContainer(0);
     private boolean isBurning = false;
 
     public TileKlin(BlockPos pos, BlockState state) {

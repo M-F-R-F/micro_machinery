@@ -1,12 +1,12 @@
 package mfrf.micro_machinery.worldgen;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
-import com.mojang.datafixers.util.Pair;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.List;

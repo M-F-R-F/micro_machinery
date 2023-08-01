@@ -19,10 +19,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
-import org.lwjgl.system.SharedLibrary;
-
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class ScreenBase<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 

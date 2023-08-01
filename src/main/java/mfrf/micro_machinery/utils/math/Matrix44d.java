@@ -3,9 +3,9 @@ package mfrf.micro_machinery.utils.math;
 import org.joml.Vector4d;
 
 public class Matrix44d {
-    private double[][] data;
-    private int rows;
-    private int columns;
+    private final double[][] data;
+    private final int rows;
+    private final int columns;
 
     public Matrix44d(int rows, int columns) {
         this.rows = rows;

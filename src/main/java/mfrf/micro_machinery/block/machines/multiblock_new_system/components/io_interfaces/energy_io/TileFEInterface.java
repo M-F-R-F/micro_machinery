@@ -3,7 +3,6 @@ package mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class TileFEInterface extends MMTileMultiBlockComponentInterface {

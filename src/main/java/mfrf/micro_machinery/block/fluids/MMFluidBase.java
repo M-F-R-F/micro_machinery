@@ -2,10 +2,7 @@ package mfrf.micro_machinery.block.fluids;
 
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.events.RegistryThingsEvent;
-import mfrf.micro_machinery.registry_lists.MMBlocks;
 import mfrf.micro_machinery.registry_lists.MMFluids;
-import mfrf.micro_machinery.registry_lists.MMItems;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -23,17 +20,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.function.Consumer;
 
 import static mfrf.micro_machinery.registry_lists.MMBlocks.BLOCK_REGISTER;
-import static mfrf.micro_machinery.registry_lists.MMBlocks.THICKENER_1;
-import static mfrf.micro_machinery.registry_lists.MMFluids.FLUID_REGISTER;
 import static mfrf.micro_machinery.registry_lists.MMItems.ITEM_REGISTER;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -45,9 +37,9 @@ public class MMFluidBase {
     private final RegistryObject<Fluid> fluid;
     private final RegistryObject<Fluid> fluid_flow;
     private final RegistryObject<BucketItem> bucket;
-    private RegistryObject<LiquidBlock> block;
+    private final RegistryObject<LiquidBlock> block;
     private final BlockBehaviour.Properties fluid_block_properties;
-    private int tickrate;
+    private final int tickrate;
 
     /**
      * this.fluid_properties = new ForgeFlowingFluid.Properties(this.fluid, this.fluid_flowing, factory.apply(FluidAttributes.builder(fluid_resource_location, fluid_flow_resource_location).density(10).viscosity(1500))).bucket(this.fluid_bucket).block(this.fluid_block).slopeFindDistance(3).explosionResistance(100F).tickRate(tickRate);

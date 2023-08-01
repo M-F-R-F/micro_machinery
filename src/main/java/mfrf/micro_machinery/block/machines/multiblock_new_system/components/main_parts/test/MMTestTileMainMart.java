@@ -6,7 +6,6 @@ import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class MMTestTileMainMart extends MMTileMainPartBase {

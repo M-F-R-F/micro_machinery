@@ -1,7 +1,6 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.energy_cable;
 
 import mfrf.micro_machinery.block.MMBlockBase;
-import mfrf.micro_machinery.block.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.micro_machinery.enums.EnumCableMaterial;
 import mfrf.micro_machinery.enums.EnumCableState;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 

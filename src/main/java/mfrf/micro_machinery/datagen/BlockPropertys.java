@@ -1,19 +1,13 @@
 package mfrf.micro_machinery.datagen;
 
-import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.registry_lists.MMBlocks;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.ForgeBiomeTagsProvider;
-import net.minecraftforge.common.data.ForgeBlockTagsProvider;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

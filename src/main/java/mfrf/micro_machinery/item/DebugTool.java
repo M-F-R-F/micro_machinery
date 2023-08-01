@@ -1,11 +1,8 @@
 package mfrf.micro_machinery.item;
 //package mfrf.micro_machinery.items;
 
-import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
-import mfrf.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.micro_machinery.utils.DeprecatedMultiBlockStructureMaps;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
@@ -17,8 +14,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 import java.util.function.Consumer;
 

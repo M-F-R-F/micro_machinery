@@ -5,7 +5,6 @@ import mfrf.micro_machinery.block.machines.single_block_machines.klin.TileKlin;
 import mfrf.micro_machinery.gui.ContainerBase;
 import mfrf.micro_machinery.item.MMCastBase;
 import mfrf.micro_machinery.registry_lists.MMContainerTypes;
-import mfrf.micro_machinery.utils.IntegerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +14,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class KlinContainer extends ContainerBase {
     private final TileKlin klin;

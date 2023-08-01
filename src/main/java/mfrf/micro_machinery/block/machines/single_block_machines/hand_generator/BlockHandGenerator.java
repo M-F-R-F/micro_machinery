@@ -1,7 +1,6 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.hand_generator;
 
 import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
-import mfrf.micro_machinery.block.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.TileHelper;
 import net.minecraft.core.BlockPos;
