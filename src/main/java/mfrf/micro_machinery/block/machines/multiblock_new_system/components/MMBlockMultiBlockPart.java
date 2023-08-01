@@ -9,6 +9,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -69,11 +70,12 @@ public class MMBlockMultiBlockPart extends MMBlockTileProviderBase {
     }
 
     @Override
-    public void destroy(LevelAccessor worldIn, BlockPos pos, BlockState state) {
+    public void playerWillDestroy(Level worldIn, BlockPos pos, BlockState state, Player pPlayer) {
         if (!worldIn.isClientSide()) {
             BlockEntity te = worldIn.getBlockEntity(pos);
             ((MMTileMultiBlockPart) te).onBlockHarvest(worldIn, pos, state);
         }
+        super.playerWillDestroy(worldIn, pos, state, pPlayer);
     }
 
     @Override

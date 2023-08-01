@@ -461,5 +461,7 @@ public class MMFluids {
                             .temperature(900).viscosity(1000), false, 10
             );
 
-
+        public static void init(){
+            MMFluidBase.init();
+        }
 }

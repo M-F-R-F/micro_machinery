@@ -5,6 +5,7 @@ import mfrf.micro_machinery.events.RegistryThingsEvent;
 import mfrf.micro_machinery.registry_lists.MMBlocks;
 import mfrf.micro_machinery.registry_lists.MMFluids;
 import mfrf.micro_machinery.registry_lists.MMItems;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +45,7 @@ public class MMFluidBase {
     private final RegistryObject<Fluid> fluid;
     private final RegistryObject<Fluid> fluid_flow;
     private final RegistryObject<BucketItem> bucket;
-    private ResourceLocation block;
+    private RegistryObject<LiquidBlock> block;
     private final BlockBehaviour.Properties fluid_block_properties;
     private int tickrate;
 
@@ -77,6 +79,8 @@ public class MMFluidBase {
         this.fluid_flow = RegistryObject.create(new ResourceLocation(MicroMachinery.MODID, name + "_flow"), ForgeRegistries.Keys.FLUIDS, MicroMachinery.MODID);
         this.fluid_block_properties = fluid_block_properties;
         this.bucket = ITEM_REGISTER.register(name + "_bucket", () -> new BucketItem(fluid::get, new Item.Properties().stacksTo(1).craftRemainder(Items.BUCKET)));
+        RegistryObject<LiquidBlock> register = BLOCK_REGISTER.register(name, () -> new LiquidBlock(() -> (FlowingFluid) fluid_flow.get(), fluid_block_properties));
+        block = register;
         RegistryThingsEvent.addItemToRegisterTab(bucket::get);
 
         if (is_molten_material) {
@@ -94,16 +98,13 @@ public class MMFluidBase {
         MAP.forEach((name, mmFluidBase) -> {
             event.register(ForgeRegistries.Keys.FLUIDS, helper -> {
                 // set up properties
-                ResourceLocation blockKey = new ResourceLocation(MicroMachinery.MODID, name);
-                event.register(ForgeRegistries.BLOCKS.getRegistryKey(), blockKey, () -> new LiquidBlock(() -> (FlowingFluid) mmFluidBase.fluid_flow.get(), mmFluidBase.fluid_block_properties));
                 ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(mmFluidBase.fluid_type, mmFluidBase.fluid, mmFluidBase.fluid_flow)
                         .tickRate(mmFluidBase.tickrate)
-                        .block(() -> (LiquidBlock) ForgeRegistries.BLOCKS.getValue(mmFluidBase.block))
+                        .block(mmFluidBase.block)
                         .bucket(mmFluidBase.bucket);
 
                 helper.register(mmFluidBase.fluid.getId(), new ForgeFlowingFluid.Source(properties));
                 helper.register(mmFluidBase.fluid_flow.getId(), new ForgeFlowingFluid.Flowing(properties));
-                mmFluidBase.block = blockKey;
             });
         });
     }
@@ -111,5 +112,9 @@ public class MMFluidBase {
 
     public String getName() {
         return name;
+    }
+
+    public static void init() {
+
     }
 }
