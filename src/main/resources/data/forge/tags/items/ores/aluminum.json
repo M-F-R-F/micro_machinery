@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "micro_machinery:orebauxite",
-	"micro_machinery:orebauxite_nether"
+  "micro_machinery:ore_bauxite",
+	"micro_machinery:ore_bauxite_nether",
+  "micro_machinery:ore_bauxite_deepslate"
   ]
 }

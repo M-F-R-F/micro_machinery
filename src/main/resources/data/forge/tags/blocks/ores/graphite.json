@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "micro_machinery:oregraphite",
-	"micro_machinery:oregraphite_nether"
+    "micro_machinery:ore_graphite",
+	"micro_machinery:ore_graphite_nether"
   ]
 }

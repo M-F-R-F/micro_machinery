@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "micro_machinery:orechromite"
+    "micro_machinery:ore_chromite",
+    "micro_machinery:ore_chromite_deepslate"
   ]
 }

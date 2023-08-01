@@ -7,13 +7,13 @@
   ],
   "key": {
     "w": {
-      "tag": "forge:wires/aluminum"
+      "tag": "forge:wires/gold"
     },
     "b": {
-      "tag": "forge:sticks/gold"
+      "tag": "forge:sticks/titanium"
     },
     "c": {
-      "tag": "forge:plates/invar"
+      "tag": "forge:plates/stainlesssteel"
     }
   },
   "result": {

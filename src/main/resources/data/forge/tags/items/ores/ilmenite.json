@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "micro_machinery:oreilmenite"
+    "micro_machinery:ore_ilmenite",
+    "micro_machinery:ore_ilmenite_deepslate"
   ]
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "micro_machinery:oresilver"
+    "micro_machinery:ore_silver",
+    "micro_machinery:ore_silver_deepslate"
   ]
 }

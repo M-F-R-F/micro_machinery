@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "ccc",
+      "cbc",
+      "www"
+    ],
+    "key": {
+      "w": {
+        "tag": "forge:ingots/bronze"
+      },
+      "b": {
+        "item": "minecraft:iron_ingot"
+      },
+      "c": {
+        "tag": "forge:plates/iron"
+      }
+    },
+    "result": {
+      "item": "micro_machinery:anvil_steel"
+    }
+  }

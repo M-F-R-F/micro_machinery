@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "micro_machinery:oretunstite"
+    "micro_machinery:ore_tunstite",
+    "micro_machinery:ore_tunstite_deepslate"
   ]
 }

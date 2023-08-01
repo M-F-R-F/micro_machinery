@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "micro_machinery:orenolanite",
-	"micro_machinery:orenolanite_nether"
+    "micro_machinery:ore_nolanite",
+	"micro_machinery:ore_nolanite_nether",
+  "micro_machinery:ore_nolanite_deepslate"
   ]
 }

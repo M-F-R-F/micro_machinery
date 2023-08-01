@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "micro_machinery:ore_manganese",
+	"micro_machinery:ore_manganese_nether"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "w",
+    "w",
+    "b"
+  ],
+  "key": {
+    "w": {
+      "tag": "forge:ingots/carbide"
+    },
+    "b": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "micro_machinery:carbide_sword"
+  }
+}
