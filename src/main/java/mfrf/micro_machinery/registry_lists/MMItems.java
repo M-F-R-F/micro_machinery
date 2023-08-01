@@ -20,7 +20,7 @@ public class MMItems {
     public static final RegistryObject<Item> ICON = ITEM_REGISTER.register("micro_machinery_logo", MMItemBase::new),
     // hammer
     STONE_HAMMER = ITEM_REGISTER.register("stone_hammer", () -> new MMHammerBase(4.0f, -3.1f, Tiers.STONE, new Item.Properties().stacksTo(1))),
-            BRONZE_HAMMER = ITEM_REGISTER.register("bronze_hammer", () -> new MMHammerBase(5.0f, -3.15f, EnumToolTier.BRONZE, new Item.Properties().stacksTo(1))),
+            COPPER_HAMMER = ITEM_REGISTER.register("copper_hammer", () -> new MMHammerBase(5.0f, -3.15f, EnumToolTier.BRONZE, new Item.Properties().stacksTo(1))),
             IRON_HAMMER = ITEM_REGISTER.register("iron_hammer", () -> new MMHammerBase(6.0f, -3.2f, Tiers.DIAMOND, new Item.Properties().stacksTo(1))),
             SUPER_HAMMER = ITEM_REGISTER.register("super_hammer", () -> new MMHammerBase(8.0f, 0.0f, EnumToolTier.CARBIDE, new Item.Properties().stacksTo(1))),
             DEBUG = ITEM_REGISTER.register("debug", () -> new DebugTool()),

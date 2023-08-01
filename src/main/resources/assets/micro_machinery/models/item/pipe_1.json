@@ -2,7 +2,8 @@
 	"credit": "Made by hqyzsy",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "micro_machinery:block/pipe_1"
+		"0": "micro_machinery:block/pipe_1",
+		"particle": "micro_machinery:block/pipe_1"
 	},
 	"elements": [
 		{

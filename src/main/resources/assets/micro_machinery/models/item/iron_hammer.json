@@ -1,8 +1,8 @@
 {
 	"credit": "Made by hqyzsy",
 	"textures": {
-		"0": "micro_machinery:item/steel_hammer",
-		"particle": "micro_machinery:item/steel_hammer"
+		"0": "micro_machinery:item/iron_hammer",
+		"particle": "micro_machinery:item/iron_hammer"
 	},
 	"elements": [
 		{
