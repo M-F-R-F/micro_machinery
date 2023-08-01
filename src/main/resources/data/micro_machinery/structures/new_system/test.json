@@ -1,0 +1,53 @@
+{
+  "identifier": "test",
+  "blocks": [
+    {
+      "block": "micro_machinery:module_intelligent",
+      "xO": 0,
+      "yO": 0,
+      "zO": 0
+    },
+    {
+      "block": "micro_machinery:tank_block",
+      "xO": 0,
+      "yO": 0,
+      "zO": 1
+    },
+    {
+      "block": "micro_machinery:module_generator",
+      "xO": 1,
+      "yO": 0,
+      "zO": 0
+    },
+    {
+      "block": "micro_machinery:anvil_steel",
+      "xO": 1,
+      "yO": 0,
+      "zO": 1
+    },
+    {
+      "block": "micro_machinery:tank_block",
+      "xO": 0,
+      "yO": -1,
+      "zO": 1
+    },
+    {
+      "block": "micro_machinery:tank_block",
+      "xO": 1,
+      "yO": -1,
+      "zO": 1
+    },
+    {
+      "block": "micro_machinery:tank_block",
+      "xO": 1,
+      "yO": -1,
+      "zO": 0
+    },
+    {
+      "block": "micro_machinery:tank_block",
+      "xO": 0,
+      "yO": -1,
+      "zO": 0
+    }
+  ]
+}

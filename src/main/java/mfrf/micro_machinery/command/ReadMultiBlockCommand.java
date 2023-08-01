@@ -9,6 +9,7 @@ import mfrf.micro_machinery.utils.MultiblockStructureMaps;
 import mfrf.micro_machinery.utils.NBTUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -36,13 +37,13 @@ public class ReadMultiBlockCommand implements Command<CommandSourceStack> {
                         BlockPos pos1 = NBTUtil.readBlockPos(clickedPos.getCompound("pos1"));
                         BlockPos pos2 = NBTUtil.readBlockPos(clickedPos.getCompound("pos2"));
                         BlockPos center = NBTUtil.readBlockPos(activeBlock.getCompound("pos"));
+                        Direction direction = Direction.from2DDataValue(activeBlock.getInt("direction"));
 //                    Direction direction = Direction.byIndex(activeBlock.getInt("direction"));
                         ServerLevel world = (ServerLevel) serverPlayer.level();
 
 //                    JsonObject jsonObject = MathUtil.getNormalizedBlockPosBox(pos1, pos2, world, direction,center).convertToJson();
                         String id = heldItem.getDisplayName().getString();
-                        MultiblockStructureMaps.StructureMap structureMap = MultiblockStructureMaps.create(world, pos1, pos2, center);
-
+                        MultiblockStructureMaps.StructureMap structureMap = MultiblockStructureMaps.create(world, pos1, pos2, center, direction);
                         File file = new File("test" + File.separator + id + ".json");
                         try {
 //                        FileUtils.writeStringToFile(file, jsonObject.toString(), Charsets.UTF_8);

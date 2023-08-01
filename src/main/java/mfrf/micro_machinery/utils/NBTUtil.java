@@ -49,7 +49,7 @@ public class NBTUtil {
     }
 
     public static BlockPos readBlockPos(CompoundTag nbt) {
-        return new BlockPos(nbt.getInt("x"), nbt.getInt("y"), nbt.getInt("z"));
+        return new BlockPos(nbt.getInt("X"), nbt.getInt("Y"), nbt.getInt("Z"));
     }
 
 

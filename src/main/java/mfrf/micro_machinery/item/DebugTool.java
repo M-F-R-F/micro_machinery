@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
@@ -33,18 +34,19 @@ public class DebugTool extends MMItemBase {
             clickedPos = new CompoundTag();
         }
 
-        ItemStack heldItem = context.getPlayer().getItemInHand(InteractionHand.OFF_HAND);
+        Player player = context.getPlayer();
+        ItemStack heldItem = player.getItemInHand(InteractionHand.OFF_HAND);
 
         if (!heldItem.isEmpty() && heldItem.getItem() == Items.APPLE) {
-            context.getPlayer().displayClientMessage(Component.literal(DeprecatedMultiBlockStructureMaps.getStructureMaps().toString()), true);
+            player.displayClientMessage(Component.literal(DeprecatedMultiBlockStructureMaps.getStructureMaps().toString()), true);
         }
 
         if (!heldItem.isEmpty() && heldItem.getItem() == Items.STICK) {
             CompoundTag writeBlock = new CompoundTag();
             writeBlock.put("pos", NbtUtils.writeBlockPos(context.getClickedPos()));
-            writeBlock.putInt("direction", context.getClickedFace().get3DDataValue());
+            writeBlock.putInt("direction", context.getClickedFace().get2DDataValue());
             clickedPos.put("active_block", writeBlock);
-        } else if (context.getPlayer().isShiftKeyDown()) {
+        } else if (player.isShiftKeyDown()) {
             clickedPos.put("pos1", NbtUtils.writeBlockPos(context.getClickedPos()));
         } else {
             clickedPos.put("pos2", NbtUtils.writeBlockPos(context.getClickedPos()));
@@ -52,7 +54,7 @@ public class DebugTool extends MMItemBase {
 
         context.getItemInHand().addTagElement("clickedPos", clickedPos);
 
-        context.getPlayer().displayClientMessage(Component.literal(clickedPos.toString()), true);
+        player.displayClientMessage(Component.literal(clickedPos.toString()), true);
     }
 
     private static void readBlockEntity(UseOnContext context, Level world, Consumer<BlockEntity> consumer) {
@@ -66,7 +68,7 @@ public class DebugTool extends MMItemBase {
     public InteractionResult useOn(UseOnContext context) {
         Level world = context.getLevel();
         if (!world.isClientSide()) {
-//            readMultiBlockOld(context);
+            readMultiBlockOld(context);
 //    //        HashMap<String, MultiblockStructureMaps.StructureMap> structures = MultiblockStructureMaps.getStructures();
             BlockPos pos = context.getClickedPos();
 //            BlockState blockState = world.getBlockState(pos);
@@ -98,12 +100,12 @@ public class DebugTool extends MMItemBase {
 //                );
 //
 //            }
-            BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
-            if(blockEntity != null){
-                blockEntity.getCapability(ForgeCapabilities.ENERGY,context.getClickedFace()).ifPresent(iEnergyStorage -> {
-                    context.getPlayer().sendSystemMessage(Component.literal(""+iEnergyStorage.getEnergyStored()));
-                });
-            }
+//            BlockEntity blockEntity = context.getLevel().getBlockEntity(pos);
+//            if (blockEntity != null) {
+//                blockEntity.getCapability(ForgeCapabilities.ENERGY, context.getClickedFace()).ifPresent(iEnergyStorage -> {
+//                    context.getPlayer().sendSystemMessage(Component.literal("" + iEnergyStorage.getEnergyStored()));
+//                });
+//            }
 
         }
         return InteractionResult.SUCCESS;

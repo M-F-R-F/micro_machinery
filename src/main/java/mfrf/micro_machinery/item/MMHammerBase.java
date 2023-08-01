@@ -31,6 +31,7 @@ public class MMHammerBase extends DiggerItem {
     public MMHammerBase(float attackDamageIn, float attackSpeedIn, Tier tier, Properties builder) {
         super(attackDamageIn, attackSpeedIn, tier, BlockTags.MINEABLE_WITH_PICKAXE, builder);
 
+        RegistryThingsEvent.TAB_ITEMS.add(() -> this);
         RegistryThingsEvent.getOrCreateItemListToRegisterTab(CreativeModeTabs.TOOLS_AND_UTILITIES).add(() -> this);
 
     }
@@ -90,7 +91,7 @@ public class MMHammerBase extends DiggerItem {
         return InteractionResult.SUCCESS;
     }
 
-//    todo multiblock
+    //    todo multiblock
     private boolean tryConstructNewStructures(UseOnContext context) {
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();

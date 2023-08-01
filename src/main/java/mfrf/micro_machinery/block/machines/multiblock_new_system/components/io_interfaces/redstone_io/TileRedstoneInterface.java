@@ -18,6 +18,6 @@ public class TileRedstoneInterface extends MMTileMultiBlockComponentInterface {
 
 
     public void powerChange(int power) {
-        ((MMTileMainPartBase) level.getBlockEntity(mainPart)).redstoneSignalChange(power, key);
+        ((MMTileMainPartBase) level.getBlockEntity(mainPart)).componentEvent(this, power, key);
     }
 }

@@ -173,7 +173,7 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
         }
     }
 
-    public static StructureMap create(Level world, BlockPos pos1, BlockPos pos2, BlockPos center) {
+    public static StructureMap create(Level world, BlockPos pos1, BlockPos pos2, BlockPos center, Direction direction) {
         HashMap<Vec3i, Pair<Block, Vec3i>> map = new HashMap<>();
         int xMax = Math.max(pos1.getX(), pos2.getX());
         int yMax = Math.max(pos1.getY(), pos2.getY());
@@ -194,6 +194,10 @@ public class MultiblockStructureMaps extends SimpleJsonResourceReloadListener {
                 }
             }
         }
-        return new StructureMap(map);
+        if (direction != null) {
+            map = StructureMap.rotateTo(Direction.from2DDataValue(((int) Direction.Plane.HORIZONTAL.stream().count()) - direction.get2DDataValue()), map);
+        }
+        StructureMap structureMap = new StructureMap(map);
+        return structureMap;
     }
 }

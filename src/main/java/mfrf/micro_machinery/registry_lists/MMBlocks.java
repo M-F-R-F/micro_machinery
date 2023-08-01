@@ -6,7 +6,10 @@ import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.block.MMBlockBase;
 import mfrf.micro_machinery.block.MMDirectionalBlock;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.energy_io.BlockFEInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.redstone_io.BlockRedstoneInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.test.MMTestBlockMainPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.test.MMTestTileMainMart;
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.BlockAtomization;
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.BlockCentrifuge;
 import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
@@ -125,8 +128,8 @@ public class MMBlocks {
             MODULE_GENERATOR = makeBlockWithItem("module_generator", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             MODULE_HEAT_SINK = makeBlockWithItem("module_heat_sink", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             MODULE_PRESSURE_BEARING = makeBlockWithItem("module_pressure_bearing", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_ENERGY = makeBlockWithItem("interface_energy", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_DATA = makeBlockWithItem("interface_data", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_ENERGY = makeBlockWithItem("interface_energy", () -> new BlockFEInterface(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_DATA = makeBlockWithItem("interface_data", () -> new BlockRedstoneInterface(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             INTERFACE_ITEM = makeBlockWithItem("interface_item", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             INTERFACE_FLUID = makeBlockWithItem("interface_fluid", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             MODULE_DTE = makeBlockWithItem("module_dte", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
@@ -195,9 +198,10 @@ public class MMBlocks {
 //             THERMAL_POWER_PLANT = new MMBlockBase("thermal_power_plant", true),
 //             FLYWHEEL = new MMBlockBase("flywheel", true);
 
-//     /**
+    //     /**
 //      * Multi Block main parts
 //      */
+    public static final RegistryObject<MMTestBlockMainPart> TEST_MAIN_MART = BLOCK_REGISTER.register("test_main_mart", () -> new MMTestBlockMainPart(MMBlockBase.DEFAULT_PROPERTIES, "test"));
 
 
     //     /**
@@ -205,10 +209,6 @@ public class MMBlocks {
 //      */
 //     //part
     public static final RegistryObject<MMBlockMultiBlockPart> MULTIBLOCK_PART = BLOCK_REGISTER.register("part", () -> new MMBlockMultiBlockPart(Block.Properties.of().sound(SoundType.METAL).strength(-1)));
-    //     //component
-    public static final Pair<RegistryObject<Block>, RegistryObject<Item>> REDSTONE_INTERFACE = makeBlockWithItem("redstone_interface", () -> new BlockRedstoneInterface(Block.Properties.of().sound(SoundType.METAL)));
-//     //main part
-//     public static final MMBlockMainPartBase TEST = new TestMainPart();
 
     public static Pair<RegistryObject<Block>, RegistryObject<Item>> makeBlockWithItem(String name, Supplier<Block> block, Function<RegistryObject<Block>, Supplier<BlockItem>> item) {
         RegistryObject<Block> ret_block = BLOCK_REGISTER.register(name, block);

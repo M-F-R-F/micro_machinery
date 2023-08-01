@@ -5,15 +5,23 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
 public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTileProviderBase {
     public static BooleanProperty CONSTRUCTED = BooleanProperty.create("constructed");
+    public static Properties DEFAULT_PROPERTIES = BlockBehaviour.Properties.of().sound(SoundType.ANVIL).noOcclusion().dynamicShape().strength(3.0f);
 
     public MMBlockMultiBlockComponentInterface(Properties properties) {
         super(properties);
+        this.registerDefaultState(getStateToRegistry());
+    }
+
+    public MMBlockMultiBlockComponentInterface() {
+        super(DEFAULT_PROPERTIES);
         this.registerDefaultState(getStateToRegistry());
     }
 
@@ -32,6 +40,12 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
         accessor.setBlockAndUpdate(current, accessor.getBlockState(current).setValue(CONSTRUCTED, true));
         linkTo(mainPart, accessor, current, key);
         //todo 天顶星科技准备开始考古
+    }
+
+    public void unLink(Level accessor, BlockPos current) {
+        accessor.setBlockAndUpdate(current, accessor.getBlockState(current).setValue(CONSTRUCTED, false));
+        MMTileMultiBlockComponentInterface blockEntity = (MMTileMultiBlockComponentInterface) accessor.getBlockEntity(current);
+        blockEntity.unLink();
     }
 
 

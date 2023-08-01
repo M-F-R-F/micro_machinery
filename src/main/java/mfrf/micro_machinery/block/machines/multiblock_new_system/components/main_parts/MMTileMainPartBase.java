@@ -2,6 +2,7 @@ package mfrf.micro_machinery.block.machines.multiblock_new_system.components.mai
 
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMTileMultiBlockPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.micro_machinery.utils.NBTUtil;
 import net.minecraft.core.BlockPos;
@@ -91,5 +92,5 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
         componentPoss.put(key, pos);
     }
 
-    public abstract void redstoneSignalChange(int changed, Vec3i key);
+    public abstract void componentEvent(MMTileMultiBlockComponentInterface sender, int changed, Vec3i key);
 }
