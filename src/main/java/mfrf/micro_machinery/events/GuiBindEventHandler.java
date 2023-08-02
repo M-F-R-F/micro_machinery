@@ -35,7 +35,7 @@ public class GuiBindEventHandler {
 
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event) {
-        TileClientToServerSyncChannel.registerMessage();
+//        TileClientToServerSyncChannel.registerMessage();
     }
 
 

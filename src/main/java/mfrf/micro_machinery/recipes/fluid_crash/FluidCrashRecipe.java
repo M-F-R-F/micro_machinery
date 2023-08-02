@@ -11,6 +11,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import javax.annotation.Nullable;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class FluidCrashRecipe extends RecipeBase {
     public ResourceLocation fluidA;
@@ -42,7 +44,7 @@ public class FluidCrashRecipe extends RecipeBase {
         return MMRecipeSerializers.Type.FLUID_CRASH_RECIPE_TYPE.get();
     }
 
-    public static class Serializer  implements RecipeSerializer<FluidCrashRecipe> {
+    public static class Serializer implements RecipeSerializer<FluidCrashRecipe> {
 
         @Override
         public FluidCrashRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -62,9 +64,11 @@ public class FluidCrashRecipe extends RecipeBase {
         @Nullable
         @Override
         public FluidCrashRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            ResourceLocation fluidA = ResourceLocation.tryParse(buffer.readUtf(32767));
+            int A = buffer.readInt();
+            int B = buffer.readInt();
+            ResourceLocation fluidA = ResourceLocation.tryParse(buffer.readUtf(A));
+            ResourceLocation fluidB = ResourceLocation.tryParse(buffer.readUtf(B));
             int fluidAmount = buffer.readInt();
-            ResourceLocation fluidB = ResourceLocation.tryParse(buffer.readUtf(32767));
             int fluidBmount = buffer.readInt();
             ItemStack generate = buffer.readItem();
             return new FluidCrashRecipe(recipeId, fluidA, fluidAmount, fluidB, fluidBmount, generate);
@@ -72,9 +76,13 @@ public class FluidCrashRecipe extends RecipeBase {
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, FluidCrashRecipe recipe) {
-            buffer.writeUtf(recipe.fluidA.toString());
+            String A = recipe.fluidA.toString();
+            String B = recipe.fluidB.toString();
+            buffer.writeInt(A.length());
+            buffer.writeInt(B.length());
+            buffer.writeUtf(A, A.length());
+            buffer.writeUtf(B, B.length());
             buffer.writeInt(recipe.fluidAUsage);
-            buffer.writeUtf(recipe.fluidB.toString());
             buffer.writeInt(recipe.fluidBUsage);
             buffer.writeItemStack(recipe.generate, false);
         }

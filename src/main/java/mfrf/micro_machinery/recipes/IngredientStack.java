@@ -15,7 +15,9 @@ public class IngredientStack {
     }
 
     public static IngredientStack ReadFromBuffer(FriendlyByteBuf buffer) {
-        return new IngredientStack(Ingredient.fromNetwork(buffer), buffer.readInt());
+        Ingredient ingredientStack = Ingredient.fromNetwork(buffer);
+        int i = buffer.readInt();
+        return new IngredientStack(ingredientStack, i);
     }
 
     public static IngredientStack ReadFromJson(JsonObject object) {

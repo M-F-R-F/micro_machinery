@@ -61,7 +61,10 @@ public class BlastFurnaceRecipe extends RecipeBase {
         @Nullable
         @Override
         public BlastFurnaceRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-            return new BlastFurnaceRecipe(IngredientStack.ReadFromBuffer(buffer), buffer.readItem(), buffer.readInt(), recipeId);
+            IngredientStack ingredientStack = IngredientStack.ReadFromBuffer(buffer);
+            ItemStack item = buffer.readItem();
+            int i = buffer.readInt();
+            return new BlastFurnaceRecipe(ingredientStack, item, i, recipeId);
         }
 
         @Override

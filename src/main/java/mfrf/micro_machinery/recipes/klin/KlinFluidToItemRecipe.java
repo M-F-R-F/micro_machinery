@@ -84,7 +84,8 @@ public class KlinFluidToItemRecipe extends RecipeBase {
         @Override
         public KlinFluidToItemRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             int coolDown = buffer.readInt();
-            String enumCastType = buffer.readUtf();
+            int i = buffer.readInt();
+            String enumCastType = buffer.readUtf(i);
             ItemStack outPut = buffer.readItem();
             FluidStack inputFluid = buffer.readFluidStack();
             return new KlinFluidToItemRecipe(outPut, inputFluid, enumCastType, coolDown, recipeId);
@@ -93,6 +94,7 @@ public class KlinFluidToItemRecipe extends RecipeBase {
         @Override
         public void toNetwork(FriendlyByteBuf buffer, KlinFluidToItemRecipe recipe) {
             buffer.writeInt(recipe.cooldown);
+            buffer.writeInt(recipe.cast.length());
             buffer.writeUtf(recipe.cast);
             buffer.writeItemStack(recipe.output, false);
             recipe.inputfluid.writeToPacket(buffer);
