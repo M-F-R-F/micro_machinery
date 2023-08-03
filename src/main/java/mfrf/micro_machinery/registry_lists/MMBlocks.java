@@ -179,7 +179,6 @@ public class MMBlocks {
             BELLOW_LEFT = BLOCK_REGISTER.register("bellow_left", MMBlockBase::new),
             HAND_GENERATOR_1 = BLOCK_REGISTER.register("hand_generator_handle", MMBlockBase::new),
             ETCHER_1 = BLOCK_REGISTER.register("etcher_1", MMBlockBase::new),
-            PUMP_1 = BLOCK_REGISTER.register("pump_1", MMBlockBase::new),
             FORGING_PRESS_1 = BLOCK_REGISTER.register("forging_press_1", MMBlockBase::new),
             CRUSHER_1 = BLOCK_REGISTER.register("crusher_1", MMBlockBase::new),
             CATING_MACHINE_1 = BLOCK_REGISTER.register("cating_machine_1", MMBlockBase::new),
