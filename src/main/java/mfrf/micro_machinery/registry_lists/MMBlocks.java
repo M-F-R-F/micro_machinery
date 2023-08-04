@@ -117,7 +117,7 @@ public class MMBlocks {
             MOLTEN_GOLD_DISCARDED = makeBlockWithItem("molten_gold_discarded", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).requiresCorrectToolForDrops().strength(2.0f))),
     //machine casing
     CASING_1 = makeBlockWithItem("casing_1", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(2.0f))),
-            CASING_2 = makeBlockWithItem("casing_2", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noCollission().requiresCorrectToolForDrops().strength(3.0f))),
+            CASING_2 = makeBlockWithItem("casing_2", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             CASING_3 = makeBlockWithItem("casing_3", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(4.0f))),
             CASING_4 = makeBlockWithItem("casing_4", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
     //module
