@@ -171,6 +171,13 @@ public class IntegerContainer extends DataSlot {
         return current - min;
     }
 
+    public double getPercent() {
+        return (double) current / (double) max;
+    }
+
+    public float getPrecisePercent() {
+        return (float) current / (float) max;
+    }
 //    public IIntArray toIntArray() {
 //        return new IIntArray() {
 //            @Override
