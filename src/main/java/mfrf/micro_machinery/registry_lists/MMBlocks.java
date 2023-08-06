@@ -177,13 +177,13 @@ public class MMBlocks {
     public static final RegistryObject<MMBlockBase>
             BELLOW_RIGHT = BLOCK_REGISTER.register("bellow_right", MMBlockBase::new),
             BELLOW_LEFT = BLOCK_REGISTER.register("bellow_left", MMBlockBase::new),
-            HAND_GENERATOR_1 = BLOCK_REGISTER.register("hand_generator_handle", MMBlockBase::new),
             ETCHER_1 = BLOCK_REGISTER.register("etcher_1", MMBlockBase::new),
             FORGING_PRESS_1 = BLOCK_REGISTER.register("forging_press_1", MMBlockBase::new),
             CRUSHER_1 = BLOCK_REGISTER.register("crusher_1", MMBlockBase::new),
             CATING_MACHINE_1 = BLOCK_REGISTER.register("cating_machine_1", MMBlockBase::new),
             THICKENER_1 = BLOCK_REGISTER.register("thickener_1", MMBlockBase::new);
-
+    public static final RegistryObject<MMDirectionalBlock>
+            HAND_GENERATOR_1 = BLOCK_REGISTER.register("hand_generator_handle", MMDirectionalBlock::new);
 //     /**
 //      * this is machine with multi_block
 //      */

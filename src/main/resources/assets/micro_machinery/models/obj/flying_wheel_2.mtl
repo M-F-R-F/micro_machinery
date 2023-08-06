@@ -1,12 +1,10 @@
-# Blender 3.4.1 MTL File: 'None'
-# www.blender.org
-
-newmtl flywheel.001
-Ns 0.000000
-Ka 1.000000 1.000000 1.000000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 1
-map_Kd micro_machinery:item/flying_wheel_2
+# Made in Blockbench 4.8.1
+newmtl m_4b9e2b0f-7ec7-bf42-e9cc-804f40fcc83d
+map_Kd micro_machinery:item/texture_orange
+newmtl m_d339c5e6-ade2-ba45-a313-67ed3018e88b
+map_Kd micro_machinery:item/texture_black
+newmtl m_8cb6c6b3-295b-eef0-f2c0-6f2f4df57a92
+map_Kd micro_machinery:item/texture_gray
+newmtl m_5b041710-fce0-1ca7-f75e-4aa26d0dcc3c
+map_Kd micro_machinery:item/texture_yellow
+newmtl none
