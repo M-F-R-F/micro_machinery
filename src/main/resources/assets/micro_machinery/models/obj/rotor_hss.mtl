@@ -1,0 +1,10 @@
+# Made in Blockbench 4.8.1
+newmtl m_3c7a01c7-e1ea-14e9-9c77-5f85e42aef14
+map_Kd micro_machinery:item/texture_gray
+newmtl m_0f673f34-ba59-e6f5-2f43-4fe67987aa55
+map_Kd micro_machinery:item/texture_black
+newmtl m_d518d539-51de-663a-0308-5f9afc240153
+map_Kd micro_machinery:item/rotor_hss
+newmtl m_7f9d1896-7d75-7411-0b14-fc9b3f8d2a3e
+map_Kd micro_machinery:item/texture_white
+newmtl none
