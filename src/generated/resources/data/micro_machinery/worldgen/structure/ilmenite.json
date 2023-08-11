@@ -13,15 +13,9 @@
       },
       {
         "block_state": {
-          "Name": "micro_machinery:oreilmenite"
+          "Name": "micro_machinery:ore_ilmenite"
         },
         "probabilities": 0.4
-      },
-      {
-        "block_state": {
-          "Name": "micro_machinery:oreferromanganese"
-        },
-        "probabilities": 0.1
       }
     ],
     "generate_chance_per_ore": 0.2,

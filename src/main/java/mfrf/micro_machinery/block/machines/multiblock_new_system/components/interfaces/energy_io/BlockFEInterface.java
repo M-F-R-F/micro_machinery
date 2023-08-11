@@ -1,6 +1,6 @@
-package mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.energy_io;
+package mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.energy_io;
 
-import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.MMBlockMultiBlockComponentInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

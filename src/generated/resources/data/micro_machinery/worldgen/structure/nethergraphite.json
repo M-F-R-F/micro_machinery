@@ -7,7 +7,7 @@
     "block_map": [
       {
         "block_state": {
-          "Name": "micro_machinery:oregraphite_nether"
+          "Name": "micro_machinery:ore_graphite_nether"
         },
         "probabilities": 0.8
       },

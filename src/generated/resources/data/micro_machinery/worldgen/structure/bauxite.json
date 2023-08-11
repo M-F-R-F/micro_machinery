@@ -7,7 +7,7 @@
     "block_map": [
       {
         "block_state": {
-          "Name": "micro_machinery:orebauxite"
+          "Name": "micro_machinery:ore_bauxite"
         },
         "probabilities": 0.6
       },
@@ -16,12 +16,6 @@
           "Name": "minecraft:clay"
         },
         "probabilities": 0.3
-      },
-      {
-        "block_state": {
-          "Name": "micro_machinery:orecopper"
-        },
-        "probabilities": 0.06
       },
       {
         "block_state": {

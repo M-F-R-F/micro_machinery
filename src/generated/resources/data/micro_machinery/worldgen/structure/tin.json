@@ -7,15 +7,9 @@
     "block_map": [
       {
         "block_state": {
-          "Name": "micro_machinery:oretin"
+          "Name": "micro_machinery:ore_tin"
         },
         "probabilities": 0.8
-      },
-      {
-        "block_state": {
-          "Name": "micro_machinery:orecopper"
-        },
-        "probabilities": 0.2
       }
     ],
     "generate_chance_per_ore": 0.2,

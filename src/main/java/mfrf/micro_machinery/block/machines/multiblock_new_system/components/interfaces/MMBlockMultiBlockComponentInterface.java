@@ -1,4 +1,4 @@
-package mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces;
+package mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces;
 
 import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import net.minecraft.core.BlockPos;

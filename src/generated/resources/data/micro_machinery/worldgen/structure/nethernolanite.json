@@ -7,13 +7,13 @@
     "block_map": [
       {
         "block_state": {
-          "Name": "micro_machinery:orenolanite_nether"
+          "Name": "micro_machinery:ore_nolanite_nether"
         },
         "probabilities": 0.6
       },
       {
         "block_state": {
-          "Name": "micro_machinery:orebauxite_nether"
+          "Name": "micro_machinery:ore_bauxite_nether"
         },
         "probabilities": 0.25
       },

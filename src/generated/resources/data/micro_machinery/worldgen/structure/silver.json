@@ -7,7 +7,7 @@
     "block_map": [
       {
         "block_state": {
-          "Name": "micro_machinery:oresilver"
+          "Name": "micro_machinery:ore_silver"
         },
         "probabilities": 0.7
       },
@@ -16,12 +16,6 @@
           "Name": "minecraft:lapis_ore"
         },
         "probabilities": 0.2
-      },
-      {
-        "block_state": {
-          "Name": "micro_machinery:orecopper"
-        },
-        "probabilities": 0.1
       }
     ],
     "generate_chance_per_ore": 0.2,
