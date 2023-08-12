@@ -13,13 +13,13 @@
       },
       {
         "block_state": {
-          "Name": "micro_machinery:orenolanite"
+          "Name": "micro_machinery:ore_nolanite"
         },
         "probabilities": 0.2
       },
       {
         "block_state": {
-          "Name": "micro_machinery:oreilmenite"
+          "Name": "micro_machinery:ore_ilmenite"
         },
         "probabilities": 0.1
       }

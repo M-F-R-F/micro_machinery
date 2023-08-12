@@ -1,0 +1,6 @@
+// 1.20.1	2023-08-11T15:56:39.3324699	Tags for minecraft:block mod id micro_machinery
+0e3b12507a44d4810cee58db61762d29d17e9155 data/minecraft/tags/blocks/mineable/axe.json
+fa80e2e063951848063aaa7a1cf8d738afe5b9d5 data/minecraft/tags/blocks/mineable/pickaxe.json
+d5d534f52c032bd2b12ee4d41792898d14282e35 data/minecraft/tags/blocks/needs_diamond_tool.json
+34585870eacef04f4fd2911aafb969df5e6269b8 data/minecraft/tags/blocks/needs_iron_tool.json
+17540ad79102793e0dc6bbf1dd2f9c2398cfdc72 data/minecraft/tags/blocks/needs_stone_tool.json

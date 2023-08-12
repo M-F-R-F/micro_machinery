@@ -1,6 +1,7 @@
 package mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.test;
 
-import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.ComponentEvent;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.MMTileMainPartBase;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -19,8 +20,9 @@ public class MMTestTileMainMart extends MMTileMainPartBase {
     }
 
     @Override
-    public void componentEvent(MMTileMultiBlockComponentInterface sender, int changed, Vec3i key) {
+    public void componentEvent(ComponentEvent event) {
 
     }
+
 
 }

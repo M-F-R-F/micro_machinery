@@ -2,7 +2,8 @@ package mfrf.micro_machinery.block.machines.multiblock_new_system.components.mai
 
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMTileMultiBlockPart;
-import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMTileMultiBlockComponentInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.ComponentEvent;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.MMTileMultiBlockComponentInterface;
 import mfrf.micro_machinery.utils.NBTUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -91,5 +92,6 @@ public abstract class MMTileMainPartBase extends MMTileMultiBlockPart {
         componentPoss.put(key, pos);
     }
 
-    public abstract void componentEvent(MMTileMultiBlockComponentInterface sender, int changed, Vec3i key);
+    public abstract void componentEvent(ComponentEvent event);
 }
+

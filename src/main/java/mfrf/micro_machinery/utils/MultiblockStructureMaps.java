@@ -2,7 +2,7 @@ package mfrf.micro_machinery.utils;
 
 import com.google.gson.*;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
-import mfrf.micro_machinery.block.machines.multiblock_new_system.components.io_interfaces.MMBlockMultiBlockComponentInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.MMBlockMultiBlockComponentInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.MMMultiBlockMainPartBase;
 import mfrf.micro_machinery.registry_lists.MMBlocks;
 import net.minecraft.core.BlockPos;
