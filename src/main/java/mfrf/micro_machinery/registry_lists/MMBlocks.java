@@ -9,6 +9,7 @@ import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBl
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.energy_io.BlockFEInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.redstone_io.BlockRedstoneInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.test.MMTestBlockMainPart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.expand_machine.pump.BlockPump;
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.BlockAtomization;
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.BlockCentrifuge;
 import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
@@ -150,7 +151,7 @@ public class MMBlocks {
             WELD/*待删除*/ = makeBlockWithItem("weld", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
             LATHE = makeBlockWithItem("lathe", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
             WHEEL_GENERATOR = makeBlockWithItem("wheel_generator", () -> new BlockWeld(Block.Properties.of().sound(SoundType.WOOD))),
-            PUMP = makeBlockWithItem("pump", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
+            PUMP = makeBlockWithItem("pump", () -> new BlockPump(Block.Properties.of().sound(SoundType.METAL))),
 
     //    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.of().sound(SoundType.METAL)),
 

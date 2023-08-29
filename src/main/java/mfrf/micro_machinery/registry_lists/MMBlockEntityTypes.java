@@ -5,6 +5,9 @@ import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMTi
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.energy_io.TileFEInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.redstone_io.TileRedstoneInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.test.MMTestTileMainMart;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.expand_machine.DelegateTile;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.expand_machine.ExpandMachineBase;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.expand_machine.pump.TilePump;
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.TileAtomization;
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.TileCentrifuge;
 import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.TileConveyBelt;
@@ -45,7 +48,7 @@ public class MMBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<TileCentrifuge>> TILE_CENTRIFUGE = TILE_ENTITY_TYPE_REGISTER.register("centrifuge", () -> BlockEntityType.Builder.of(TileCentrifuge::new, MMBlocks.CENTRIFUGE.getKey().get()).build(null));
     public static final RegistryObject<BlockEntityType<FluidPipeTile>> TILE_FLUID_PIPE_DEMO = TILE_ENTITY_TYPE_REGISTER.register("fluid_pipe", () -> BlockEntityType.Builder.of(FluidPipeTile::new, MMBlocks.PIPE_1.getKey().get(), MMBlocks.PIPE_2.getKey().get(), MMBlocks.PIPE_3.getKey().get()).build(null));
     public static final RegistryObject<BlockEntityType<TileAtomization>> TILE_ATOMIZATION = TILE_ENTITY_TYPE_REGISTER.register("atomization", () -> BlockEntityType.Builder.of(TileAtomization::new, MMBlocks.ATOMIZATION.getKey().get()).build(null));
-    //    public static final RegistryObject<BlockEntityType<TilePump>> TILE_PUMP = TILE_ENTITY_TYPE_REGISTER.register("pump", () -> BlockEntityType.Builder.of(TilePump::new, MMBlocks.PUMP.getKey().get()).build(null));
+    public static final RegistryObject<BlockEntityType<TilePump>> TILE_PUMP = TILE_ENTITY_TYPE_REGISTER.register("pump", () -> BlockEntityType.Builder.of(TilePump::new, MMBlocks.PUMP.getKey().get()).build(null));
     public static final RegistryObject<BlockEntityType<TileWeld>> TILE_WELD = TILE_ENTITY_TYPE_REGISTER.register("weld", () -> BlockEntityType.Builder.of(TileWeld::new, MMBlocks.WELD.getKey().get()).build(null));
     //    public static final RegistryObject<BlockEntityType<TileHugeContainer>> TILE_HUGE_CONTAINER = TILE_ENTITY_TYPE_REGISTER.register("huge_container", () -> BlockEntityType.Builder.of(TileHugeContainer::new, MMBlocks.HUGE_CONTAINER.getKey().get()).build(null));
     public static final RegistryObject<BlockEntityType<TileConveyBelt>> TILE_CONVEY_BELT = TILE_ENTITY_TYPE_REGISTER.register("convey_belt", () -> BlockEntityType.Builder.of(TileConveyBelt::new, MMBlocks.CONVEYOR_BELT_1.getKey().get(), MMBlocks.CONVEYOR_BELT_2.getKey().get(), MMBlocks.CONVEYOR_BELT_3.getKey().get()).build(null));
@@ -56,4 +59,5 @@ public class MMBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<TileFEInterface>> FE_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("fe_interface", () -> BlockEntityType.Builder.of(TileFEInterface::new, MMBlocks.INTERFACE_ENERGY.getKey().get()).build(null));
     //
     public static final RegistryObject<BlockEntityType<MMTestTileMainMart>> TEST = TILE_ENTITY_TYPE_REGISTER.register("test", () -> BlockEntityType.Builder.of(MMTestTileMainMart::new, MMBlocks.TEST_MAIN_MART.get()).build(null));
+    public static final RegistryObject<BlockEntityType<DelegateTile>> DELEGATE_TILE = TILE_ENTITY_TYPE_REGISTER.register("delegate_tile", () -> BlockEntityType.Builder.of(DelegateTile::new, ExpandMachineBase.main_parts.toArray(new ExpandMachineBase[]{})).build(null));
 }
