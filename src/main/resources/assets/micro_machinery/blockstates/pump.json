@@ -1,18 +1,33 @@
 {
     "variants": {
-      "facing=north": {
-        "model": "micro_machinery:block/pump"
+      "facing=north,is_expand_part=false": {
+        "model": "micro_machinery:block/pump_base"
       },
-      "facing=east": {
-        "model": "micro_machinery:block/pump",
+      "facing=east,is_expand_part=false": {
+        "model": "micro_machinery:block/pump_base",
         "y": 90
       },
-      "facing=south": {
-        "model": "micro_machinery:block/pump",
+      "facing=south,is_expand_part=false": {
+        "model": "micro_machinery:block/pump_base",
         "y": 180
       },
-      "facing=west": {
-        "model": "micro_machinery:block/pump",
+      "facing=west,is_expand_part=false": {
+        "model": "micro_machinery:block/pump_base",
+        "y": 270
+      },
+      "facing=north,is_expand_part=true": {
+        "model": "micro_machinery:block/empty"
+      },
+      "facing=east,is_expand_part=true": {
+        "model": "micro_machinery:block/empty",
+        "y": 90
+      },
+      "facing=south,is_expand_part=true": {
+        "model": "micro_machinery:block/empty",
+        "y": 180
+      },
+      "facing=west,is_expand_part=true": {
+        "model": "micro_machinery:block/empty",
         "y": 270
       }
     }
