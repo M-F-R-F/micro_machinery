@@ -74,8 +74,8 @@ public class TilePump extends MainTile {
         if (world.isClientSide) return;
         TilePump tilePump = (TilePump) blockEntity;
         FluidTank tank = tilePump.tank;
-        Direction backDirection = tilePump.getBackDirection();
-        world.getBlockEntity(pos.relative(backDirection)).getCapability(ForgeCapabilities.FLUID_HANDLER, backDirection.getOpposite()).ifPresent(
+        Direction facingDirection = tilePump.getFacingDirection();
+        world.getBlockEntity(pos.relative(facingDirection)).getCapability(ForgeCapabilities.FLUID_HANDLER, facingDirection.getOpposite()).ifPresent(
                 iFluidHandler -> {
                     tank.drain(iFluidHandler.fill(tank.drain(tank.getFluidAmount(), FluidTank.FluidAction.SIMULATE), FluidTank.FluidAction.EXECUTE), FluidTank.FluidAction.EXECUTE);
                     tilePump.setChanged();

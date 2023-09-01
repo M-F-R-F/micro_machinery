@@ -1,18 +1,18 @@
 {
     "variants": {
       "facing=north,is_expand_part=false": {
-        "model": "micro_machinery:block/pump_base"
+        "model": "micro_machinery:block/pump"
       },
       "facing=east,is_expand_part=false": {
-        "model": "micro_machinery:block/pump_base",
+        "model": "micro_machinery:block/pump",
         "y": 90
       },
       "facing=south,is_expand_part=false": {
-        "model": "micro_machinery:block/pump_base",
+        "model": "micro_machinery:block/pump",
         "y": 180
       },
       "facing=west,is_expand_part=false": {
-        "model": "micro_machinery:block/pump_base",
+        "model": "micro_machinery:block/pump",
         "y": 270
       },
       "facing=north,is_expand_part=true": {
