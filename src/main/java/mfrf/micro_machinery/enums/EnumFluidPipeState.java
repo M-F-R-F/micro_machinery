@@ -3,7 +3,12 @@ package mfrf.micro_machinery.enums;
 import net.minecraft.util.StringRepresentable;
 
 public enum EnumFluidPipeState implements StringRepresentable {
-    OPEN, AUTO_TRUE, AUTO_FALSE, CLOSE, AUTO_CONNECTED;
+    OPEN(true), AUTO_TRUE(true), AUTO_FALSE(false), CLOSE(false), AUTO_CONNECTED(true);
+    public final boolean judge;
+
+    EnumFluidPipeState(boolean judge) {
+        this.judge = judge;
+    }
 
     @Override
     public String getSerializedName() {

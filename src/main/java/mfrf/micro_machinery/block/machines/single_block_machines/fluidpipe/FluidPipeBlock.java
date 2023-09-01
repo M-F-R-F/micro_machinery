@@ -1,6 +1,7 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.fluidpipe;
 
 import mfrf.micro_machinery.block.MMBlockBase;
+import mfrf.micro_machinery.enums.EnumCableState;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.TileHelper;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
@@ -75,7 +77,7 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
                 }
             }
         }
-       return defaultState;
+        return defaultState;
     }
 
     @Override
@@ -161,35 +163,14 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-
         VoxelShape shape = CENTER_SHAPE;
-
-//        for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-//            EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-//            if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
-//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
-//            }
-//        }
-
-
-        return shape;
+        return Shapes.or(shape, DIRECTION_ENUM_PROPERTY_MAP.entrySet().parallelStream().filter(ent -> state.getValue(ent.getValue()).judge).map(ent -> DIRECTION_VOXEL_SHAPE_MAP.get(ent.getKey())).toArray(VoxelShape[]::new));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-
         VoxelShape shape = CENTER_SHAPE;
-
-//        for (Map.Entry<Direction, EnumProperty<EnumFluidPipeState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-//            EnumFluidPipeState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-//            if (enumCableState != EnumFluidPipeState.AUTO_FALSE && enumCableState != EnumFluidPipeState.CLOSE) {
-//                shape = Shapes.join(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()), BooleanOp.OR);
-//            }
-//        }
-
-
-        return shape;
+        return Shapes.or(shape, DIRECTION_ENUM_PROPERTY_MAP.entrySet().parallelStream().filter(ent -> state.getValue(ent.getValue()).judge).map(ent -> DIRECTION_VOXEL_SHAPE_MAP.get(ent.getKey())).toArray(VoxelShape[]::new));
     }
-
 }
 

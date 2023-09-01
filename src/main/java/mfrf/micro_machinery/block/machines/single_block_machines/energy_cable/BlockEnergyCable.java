@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
@@ -154,30 +155,13 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
-
-//        for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-//            EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-//            if (enumCableState != EnumCableState.EMPTY) {
-//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
-//            }
-//        }
-//
-
-        return shape;
+        return Shapes.or(shape, DIRECTION_ENUM_PROPERTY_MAP.entrySet().parallelStream().filter(ent -> state.getValue(ent.getValue()) != EnumCableState.EMPTY).map(ent -> DIRECTION_VOXEL_SHAPE_MAP.get(ent.getKey())).toArray(VoxelShape[]::new));
     }
+
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
-
-//        for (Map.Entry<Direction, EnumProperty<EnumCableState>> directionEnumPropertyEntry : DIRECTION_ENUM_PROPERTY_MAP.entrySet()) {
-//            EnumCableState enumCableState = state.getValue(directionEnumPropertyEntry.getValue());
-//            if (enumCableState != EnumCableState.EMPTY) {
-//                shape = Shapes.or(shape, DIRECTION_VOXEL_SHAPE_MAP.get(directionEnumPropertyEntry.getKey()));
-//            }
-//        }
-
-
-        return shape;
+        return Shapes.or(shape, DIRECTION_ENUM_PROPERTY_MAP.entrySet().parallelStream().filter(ent -> state.getValue(ent.getValue()) != EnumCableState.EMPTY).map(ent -> DIRECTION_VOXEL_SHAPE_MAP.get(ent.getKey())).toArray(VoxelShape[]::new));
     }
 }
