@@ -142,7 +142,7 @@ public class FluidPipeTile extends MMTileBase {
                     int thisUse = 0;
                     int receivedUse = 0;
 //                    if (fluidCrashRecipe.fluidA == thisFluid.getFluid().getRegistryName()) {
-                    if(false){
+                    if (false) {
                         generateCount = Math.min(thisAmount / fluidCrashRecipe.fluidAUsage, receiveAmount / fluidCrashRecipe.fluidBUsage);
                         if (generateCount == 0) {
                             thisUse = Math.min(receiveAmount, fluidCrashRecipe.fluidAUsage);
@@ -271,9 +271,9 @@ public class FluidPipeTile extends MMTileBase {
         for (Direction value : Direction.values()) {
             BlockPos pos = getBlockPos();
             BlockPos offset = pos.relative(value);
-            BlockState blockState = level.getBlockState(offset);
-            if (blockState.getBlock() instanceof FluidPipeBlock block) {
-                level.setBlock(pos, block.getState(level, pos), 18);
+            if (level.getBlockState(offset).getBlock() instanceof FluidPipeBlock) {
+                level.setBlock(pos, ((FluidPipeBlock) getBlockState().getBlock()).getState(level, pos), 18);
+                break;
             }
         }
     }
