@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -70,7 +71,7 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
         return getState(context.getLevel(), context.getClickedPos());
     }
 
-    public BlockState getState(Level world, BlockPos pos) {
+    public BlockState getState(LevelReader world, BlockPos pos) {
         BlockState defaultState = defaultBlockState();
         for (Direction direction : Direction.values()) {
             BlockPos offset = pos.relative(direction);
@@ -163,5 +164,12 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
         return Shapes.or(shape, DIRECTION_ENUM_PROPERTY_MAP.entrySet().parallelStream().filter(ent -> state.getValue(ent.getValue()) != EnumCableState.EMPTY).map(ent -> DIRECTION_VOXEL_SHAPE_MAP.get(ent.getKey())).toArray(VoxelShape[]::new));
+    }
+
+    @Override
+    public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
+        if (level instanceof Level level1) {
+            setStateNoUpdateNeighbor(level1, pos, getState(level, pos));
+        }
     }
 }

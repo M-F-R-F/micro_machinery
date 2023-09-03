@@ -2,6 +2,7 @@ package mfrf.micro_machinery.events;
 
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.special_renders.ter.AnvilTer;
+import mfrf.micro_machinery.special_renders.ter.FluidPipeTer;
 import mfrf.micro_machinery.special_renders.ter.HandGeneratorTer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -17,6 +18,7 @@ public class TerBindEventHandler {
 //        event.registerBlockEntityRenderer(MMBlockEntityTypes.TILE_BLAST_FURNACE.get(), BlastFurnaceTer::new);
         event.registerBlockEntityRenderer(MMBlockEntityTypes.TILE_HAND_GENERATOR.get(), HandGeneratorTer::new);
         event.registerBlockEntityRenderer(MMBlockEntityTypes.TILE_ANVIL_TYPE.get(), AnvilTer::new);
+        event.registerBlockEntityRenderer(MMBlockEntityTypes.FLUID_PIPE.get(), FluidPipeTer::new);
 //        ClientRegistry.bindBlockEntityRenderer(RegisteredBlockEntityTypes.TILE_ETCHER.get(), EtcherTer::new);
     }
 

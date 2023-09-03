@@ -41,7 +41,7 @@ public class FluidPipeTile extends MMTileBase {
     private int material = -1;
 
     public FluidPipeTile(BlockPos pos, BlockState state) {
-        super(MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get(), pos, state);
+        super(MMBlockEntityTypes.FLUID_PIPE.get(), pos, state);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class FluidPipeTile extends MMTileBase {
 
         if (blocked(getBlockState())) {
             BlockEntity offset = level.getBlockEntity(worldPosition.relative(direction));
-            if (offset != null && offset.getType() == MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+            if (offset != null && offset.getType() == MMBlockEntityTypes.FLUID_PIPE.get()) {
                 FluidPipeTile destPipe = (FluidPipeTile) offset;
                 if (!blocked(getBlockState()) && destPipe.fluidTank.getFluidAmount() < thisAmount + receiveAmount) {
                     destPipe.block(this.unBlock());
@@ -228,7 +228,7 @@ public class FluidPipeTile extends MMTileBase {
                             tileEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, side.getOpposite()).ifPresent(
                                     iFluidHandler -> {
                                         //if is pipe, check
-                                        if (tileEntity.getType() == MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get()) {
+                                        if (tileEntity.getType() == MMBlockEntityTypes.FLUID_PIPE.get()) {
                                             pipeDirections.add(side);
                                             int amount = iFluidHandler.getFluidInTank(0).getAmount();
                                             if (amount - fluidPipeTile.fluidTank.getFluidAmount() < -1)
@@ -278,5 +278,7 @@ public class FluidPipeTile extends MMTileBase {
         }
     }
 
-
+    public FluidTank getFluidTank() {
+        return fluidTank;
+    }
 }

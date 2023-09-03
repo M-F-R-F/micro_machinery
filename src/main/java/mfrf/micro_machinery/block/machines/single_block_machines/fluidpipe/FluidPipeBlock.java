@@ -1,7 +1,6 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.fluidpipe;
 
 import mfrf.micro_machinery.block.MMBlockBase;
-import mfrf.micro_machinery.enums.EnumCableState;
 import mfrf.micro_machinery.enums.EnumFluidPipeState;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
 import mfrf.micro_machinery.utils.TileHelper;
@@ -157,7 +156,7 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
     @org.jetbrains.annotations.Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_FLUID_PIPE_DEMO.get(), pBlockEntityType, FluidPipeTile::tick);
+        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.FLUID_PIPE.get(), pBlockEntityType, FluidPipeTile::tick);
     }
 
 
