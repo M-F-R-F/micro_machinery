@@ -2,6 +2,7 @@ package mfrf.micro_machinery.recipes;
 
 
 import com.google.gson.JsonObject;
+import mfrf.micro_machinery.events.ResourceReloadListenerEvent;
 import mfrf.micro_machinery.item.MMCastBase;
 import mfrf.micro_machinery.recipes.anvil.AnvilRecipe;
 import mfrf.micro_machinery.recipes.atomization.AtomizationRecipe;
@@ -17,20 +18,27 @@ import mfrf.micro_machinery.recipes.weld.WeldRecipe;
 import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import mfrf.micro_machinery.utils.RecipeFluidStack;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.PreparableReloadListener;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
-public class RecipeHelper {
+public class RecipeHelper implements PreparableReloadListener {
+
+    private static final Map<RecipeType<?>, List<?>> CACHE = new HashMap<>();
 
     public static KlinItemToFluidRecipe GetKlinItemToFluidRecipe(ItemStack stackInSlot1, ItemStack stackInSlot2, RecipeManager manager) {
         if (!(stackInSlot1.isEmpty() && stackInSlot2.isEmpty())) {
@@ -199,7 +207,11 @@ public class RecipeHelper {
     }
 
     public static <cast extends Recipe<?>> List<cast> getRecipeListByType(RecipeManager manager, RecipeType<cast> type) {
-        return manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).map(iRecipe -> (cast) iRecipe).collect(Collectors.toList());
+        if (CACHE.containsKey(type))
+            return (List<cast>) CACHE.get(type);
+        List<cast> collect = manager.getRecipes().stream().filter(iRecipe -> iRecipe.getType() == type).map(iRecipe -> (cast) iRecipe).collect(Collectors.toList());
+        CACHE.put(type, collect);
+        return collect;
     }
 
     public static boolean testItemStackWithIngredient(ItemStack stack, Ingredient ingredient, int count) {
@@ -226,6 +238,14 @@ public class RecipeHelper {
         return new RecipeFluidStack(getFluidNameFromJsonObject(object), getFluidAmountFromJsonObject(object));
     }
 
+    @Override
+    public CompletableFuture<Void> reload(PreparationBarrier pPreparationBarrier, ResourceManager pResourceManager, ProfilerFiller pPreparationsProfiler, ProfilerFiller pReloadProfiler, Executor pBackgroundExecutor, Executor pGameExecutor) {
+        CACHE.clear();
+        CompletableFuture<Void> voidCompletableFuture = new CompletableFuture<>();
+        voidCompletableFuture.complete(null);
+        return voidCompletableFuture;
+    }
+
     public static class weldRecipeAndShrinkItemStacks {
         public final WeldRecipe weldRecipe;
         public final int[] shrinkCounts;
@@ -235,5 +255,6 @@ public class RecipeHelper {
             this.shrinkCounts = shrinkCounts;
         }
     }
+
 }
 
