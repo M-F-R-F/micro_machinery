@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "micro_machinery:stone_hammer",
-    "micro_machinery:bronze_hammer",
+    "micro_machinery:copper_hammer",
     "micro_machinery:iron_hammer",
-    "micro_machinery:superhammer"
+    "micro_machinery:super_hammer"
   ]
 }

@@ -17,6 +17,7 @@ import mfrf.micro_machinery.recipes.klin.KlinItemToFluidRecipe;
 import mfrf.micro_machinery.recipes.weld.WeldRecipe;
 import mfrf.micro_machinery.registry_lists.MMRecipeSerializers;
 import mfrf.micro_machinery.utils.RecipeFluidStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -242,7 +243,9 @@ public class RecipeHelper implements PreparableReloadListener {
     public CompletableFuture<Void> reload(PreparationBarrier pPreparationBarrier, ResourceManager pResourceManager, ProfilerFiller pPreparationsProfiler, ProfilerFiller pReloadProfiler, Executor pBackgroundExecutor, Executor pGameExecutor) {
         CACHE.clear();
         CompletableFuture<Void> voidCompletableFuture = new CompletableFuture<>();
-        voidCompletableFuture.complete(null);
+//        Minecraft.getInstance().tell(() -> {
+        voidCompletableFuture.complete((Void)null);
+//        });
         return voidCompletableFuture;
     }
 

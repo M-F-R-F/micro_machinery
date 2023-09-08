@@ -11,6 +11,6 @@ public class ResourceReloadListenerEvent {
     @SubscribeEvent
     public static void onResourceReload(AddReloadListenerEvent event) {
         event.addListener(new MultiblockStructureMaps());
-        event.addListener(new RecipeHelper());
+//        event.addListener(new RecipeHelper());
     }
 }
