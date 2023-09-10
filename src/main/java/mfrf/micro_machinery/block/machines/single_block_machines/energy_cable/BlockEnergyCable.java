@@ -167,6 +167,11 @@ public class BlockEnergyCable extends MMBlockBase implements EntityBlock {
     }
 
     @Override
+    protected boolean isAir(BlockState state) {
+        return false;
+    }
+
+    @Override
     public void onNeighborChange(BlockState state, LevelReader level, BlockPos pos, BlockPos neighbor) {
         if (level instanceof Level level1) {
             setStateNoUpdateNeighbor(level1, pos, getState(level, pos));

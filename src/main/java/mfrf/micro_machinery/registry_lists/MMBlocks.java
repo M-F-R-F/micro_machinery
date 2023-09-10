@@ -151,7 +151,7 @@ public class MMBlocks {
             WELD/*待删除*/ = makeBlockWithItem("weld", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
             LATHE = makeBlockWithItem("lathe", () -> new BlockWeld(Block.Properties.of().sound(SoundType.METAL))),
             WHEEL_GENERATOR = makeBlockWithItem("wheel_generator", () -> new BlockWeld(Block.Properties.of().sound(SoundType.WOOD))),
-            PUMP = makeBlockWithItem("pump", () -> new BlockPump(Block.Properties.of().sound(SoundType.METAL))),
+            PUMP = makeBlockWithItem("pump", () -> new BlockPump(Block.Properties.of().sound(SoundType.METAL).noOcclusion())),
 
     //    public static final Block BLOCK_ETCHER = new BlockEtcher(Block.Properties.of().sound(SoundType.METAL)),
 

@@ -167,6 +167,11 @@ public class FluidPipeBlock extends MMBlockBase implements EntityBlock {
     }
 
     @Override
+    protected boolean isAir(BlockState state) {
+        return false;
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         VoxelShape shape = CENTER_SHAPE;
         return Shapes.or(shape, DIRECTION_ENUM_PROPERTY_MAP.entrySet().parallelStream().filter(ent -> state.getValue(ent.getValue()).judge).map(ent -> DIRECTION_VOXEL_SHAPE_MAP.get(ent.getKey())).toArray(VoxelShape[]::new));
