@@ -117,8 +117,11 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
                     });
                 }
             }
-            currentEnergy -= sum.get();
-            setChanged();
+            int i1 = sum.get();
+            if (i1 > 0) {
+                currentEnergy -= i1;
+                setChanged();
+            }
         }
     }
 
