@@ -135,6 +135,7 @@ public class FluidPipeTile extends MMTileBase {
         } else {
             FluidCrashRecipe fluidCrashRecipe = RecipeHelper.getFluidCrashRecipe(thisFluid, stack, level.getRecipeManager());
             boolean generateTrash = fluidCrashRecipe == null;
+            boolean update = false;
             if (!generateTrash) {
                 if (receiveAmount < thisAmount) {
                     int generateCount;
@@ -179,8 +180,10 @@ public class FluidPipeTile extends MMTileBase {
 
                     if (thisAmount == 0 && receiveAmount != 0) {
                         this.fluidTank.setFluid(new FluidStack(receiveFluid, receiveAmount));
+                        setChanged();
                     } else {
                         this.fluidTank.setFluid(new FluidStack(thisFluid, thisAmount));
+                        setChanged();
                     }
 
                     if (!generateTrash) {
@@ -194,7 +197,7 @@ public class FluidPipeTile extends MMTileBase {
                 }
 
             }
-            setChanged();
+//            setChanged();
             return receiveAmount;
         }
     }

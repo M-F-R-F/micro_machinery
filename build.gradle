@@ -171,6 +171,10 @@ repositories {
     maven { // TOP
         url "https://maven.k-4u.nl"
     }
+
+     flatDir {
+         dir 'libs'
+     }
 }
 
 dependencies {
@@ -179,6 +183,10 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+
+//    compileOnly fileTree(dir:'libs',includes:['*jar'])
+
+
 
     implementation fg.deobf(project.dependencies.create("mcjty.theoneprobe:theoneprobe:${top_version}") {
         transitive = false
