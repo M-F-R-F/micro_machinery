@@ -130,7 +130,7 @@ public class TilePump extends MainTile {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (side == getBackDirection() && cap == ForgeCapabilities.FLUID_HANDLER)
+        if (side == getFacingDirection() && cap == ForgeCapabilities.FLUID_HANDLER)
             return LazyOptional.of(() -> tank).cast();
         return LazyOptional.empty();
     }
