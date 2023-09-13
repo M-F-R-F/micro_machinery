@@ -1,5 +1,6 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.energy_cable;
 
+import mfrf.micro_machinery.Config;
 import mfrf.micro_machinery.block.machines.MMTileBase;
 import mfrf.micro_machinery.enums.EnumCableState;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
@@ -43,8 +44,13 @@ public class TileEnergyCable extends MMTileBase implements IEnergyStorage {
 
     public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (!world.isClientSide() && blockEntity instanceof TileEnergyCable tileEnergyCable) {
-            tileEnergyCable.solveCable();
-            tileEnergyCable.solveOutput();
+            if (world.getGameTime() % (Config.HIGH_FREQUENCY_BLOCK_ACTIVE_UPDATE_CYCLE.get() * 0.9) == 0) {
+                tileEnergyCable.solveCable();
+            }
+
+            if (world.getGameTime() % (Config.HIGH_FREQUENCY_BLOCK_ACTIVE_UPDATE_CYCLE.get() * 1.1) == 0) {
+                tileEnergyCable.solveOutput();
+            }
         }
     }
 
