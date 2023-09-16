@@ -41,7 +41,7 @@ public class DelegateTile extends MMTileBase {
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (main_pos == null) return LazyOptional.empty();
-        AtomicReference<LazyOptional<T>> ret = new AtomicReference<>();
+        AtomicReference<LazyOptional<T>> ret = new AtomicReference<>(LazyOptional.empty());
         assertNonNullMainPart().ifPresent(m -> ret.set(m.getCapability(cap, side, worldPosition)));
         return ret.get();
     }
@@ -51,7 +51,7 @@ public class DelegateTile extends MMTileBase {
     }
 
     protected void destroySelf() {
-        level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(),3);
+        level.setBlock(worldPosition, Blocks.AIR.defaultBlockState(), 3);
     }
 
     public void link(BlockPos main_pos) {
@@ -63,7 +63,7 @@ public class DelegateTile extends MMTileBase {
     protected Optional<MainTile> assertNonNullMainPart() {
         MainTile blockEntity = (MainTile) level.getBlockEntity(main_pos);
         if (blockEntity == null) {
-            destroySelf();
+//            destroySelf();
             return Optional.empty();
         } else return Optional.of(blockEntity);
     }
