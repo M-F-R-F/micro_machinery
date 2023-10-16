@@ -1,0 +1,135 @@
+{
+    "variants": {
+      "facing=north": {
+        "model": "micro_machinery:block/conveyor_belt_core1"
+      },
+      "facing=east": {
+        "model": "micro_machinery:block/conveyor_belt_core1",
+        "y": 90
+      },
+      "facing=south": {
+        "model": "micro_machinery:block/conveyor_belt_core1",
+        "y": 180
+      },
+      "facing=west": {
+        "model": "micro_machinery:block/conveyor_belt_core1",
+        "y": 270
+      },
+      "facing=up": {
+        "model": "micro_machinery:block/conveyor_belt_up1"
+      },
+      "facing=down": {
+        "model": "micro_machinery:block/conveyor_belt_down1"
+      }
+    },
+    "multipart": [
+      {
+        "when": {
+          "north_connect": "connect"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_connect1",
+          "y": 180
+        }
+      },
+      {
+        "when": {
+          "east_connect": "connect"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_connect1",
+          "y": 270
+        }
+      },
+      {
+        "when": {
+          "south_connect": "connect"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_connect1",
+          "y": 0
+        }
+      },
+      {
+        "when": {
+          "west_connect": "connect"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_connect1",
+          "y": 90
+        }
+      },
+      {
+        "when": {
+          "north_connect": "blocked"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_blocked1",
+          "y": 180
+        }
+      },
+      {
+        "when": {
+          "east_connect": "blocked"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_blocked1",
+          "y": 270
+        }
+      },
+      {
+        "when": {
+          "south_connect": "blocked"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_blocked1",
+          "y": 0
+        }
+      },
+      {
+        "when": {
+          "west_connect": "blocked"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_blocked1",
+          "y": 90
+        }
+      },
+      {
+        "when": {
+          "north_connect": "null"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_null",
+          "y": 180
+        }
+      },
+      {
+        "when": {
+          "east_connect": "null"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_null",
+          "y": 270
+        }
+      },
+      {
+        "when": {
+          "south_connect": "null"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_null",
+          "y": 0
+        }
+      },
+      {
+        "when": {
+          "west_connect": "null"
+        },
+        "apply": {
+          "model": "micro_machinery:block/conveyor_belt_null",
+          "y": 90
+        }
+      }
+    ]
+}
