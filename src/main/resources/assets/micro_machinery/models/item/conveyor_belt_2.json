@@ -2,9 +2,9 @@
 	"credit": "Made by hqyzsy",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "micro_machinery:block/conveyor_face1",
-		"1": "micro_machinery:block/conveyor_belt_1",
-		"particle": "micro_machinery:block/conveyor_belt_1"
+		"0": "micro_machinery:block/conveyor_face2",
+		"1": "micro_machinery:block/conveyor_belt_2",
+		"particle": "micro_machinery:block/conveyor_belt_2"
 	},
 	"elements": [
 		{
@@ -270,47 +270,61 @@
 			}
 		}
 	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 45, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	},
 	"groups": [
 		{
 			"name": "group",
 			"origin": [8, 8, 8],
-			"color": 0,
 			"children": [
 				{
 					"name": "group",
 					"origin": [0, 0, 14.25],
-					"color": 0,
 					"children": [0, 1, 2]
 				},
 				{
 					"name": "group",
 					"origin": [0, 0, 14.25],
-					"color": 0,
 					"children": [3, 4, 5]
 				},
 				{
 					"name": "group",
 					"origin": [0, 0, 14.25],
-					"color": 0,
 					"children": [6, 7, 8]
 				},
 				{
 					"name": "group",
 					"origin": [0, 0, 14.25],
-					"color": 0,
 					"children": [9, 10, 11]
-				},
-				12,
-				13,
-				14,
-				15,
-				16
-			]
-		},
-		17,
-		18,
-		19,
-		20,
-		21
-	]
+				}, 12, 13, 14, 15, 16]
+		}, 17, 18, 19, 20, 21]
 }
