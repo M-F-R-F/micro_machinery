@@ -12,7 +12,7 @@ import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main
 import mfrf.micro_machinery.block.machines.multiblock_new_system.expand_machine.pump.BlockPump;
 import mfrf.micro_machinery.block.machines.single_block_machines.atomization.BlockAtomization;
 import mfrf.micro_machinery.block.machines.single_block_machines.centrifuge.BlockCentrifuge;
-import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBelt;
+import mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt.BlockConveyorBeltBase;
 import mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell.BlockCreativeEnergyCell;
 import mfrf.micro_machinery.block.machines.single_block_machines.creative_energy_cell.testcr;
 import mfrf.micro_machinery.block.machines.single_block_machines.cutter.BlockCutter;
@@ -162,9 +162,9 @@ public class MMBlocks {
             CABLE_4 = makeBlockWithItem("cable_4", () -> new BlockEnergyCable(Block.Properties.of().sound(SoundType.METAL).noOcclusion().dynamicShape().requiresCorrectToolForDrops().strength(3.0f), EnumCableMaterial.LEVEL4)),
             TESTCR = makeBlockWithItem("testcr", testcr::new),
     //convey belt
-    CONVEYOR_BELT_1 = makeBlockWithItem("conveyor_belt_1", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().dynamicShape().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get))),
-            CONVEYOR_BELT_2 = makeBlockWithItem("conveyor_belt_2", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).noOcclusion().dynamicShape().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_2_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_2_TRANSMIT_SPEED::get, Config.CONVEY_BELT_2_TRANSMIT_STACK_SIZE::get))),
-            CONVEYOR_BELT_3 = makeBlockWithItem("conveyor_belt_3", () -> new BlockConveyorBelt(Block.Properties.of().sound(SoundType.METAL).dynamicShape().noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_3_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_3_TRANSMIT_SPEED::get, Config.CONVEY_BELT_3_TRANSMIT_STACK_SIZE::get))),
+    CONVEYOR_BELT_1 = makeBlockWithItem("conveyor_belt_1", () -> new BlockConveyorBeltBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().dynamicShape().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_1_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_1_TRANSMIT_SPEED::get, Config.CONVEY_BELT_1_TRANSMIT_STACK_SIZE::get))),
+            CONVEYOR_BELT_2 = makeBlockWithItem("conveyor_belt_2", () -> new BlockConveyorBeltBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().dynamicShape().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_2_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_2_TRANSMIT_SPEED::get, Config.CONVEY_BELT_2_TRANSMIT_STACK_SIZE::get))),
+            CONVEYOR_BELT_3 = makeBlockWithItem("conveyor_belt_3", () -> new BlockConveyorBeltBase(Block.Properties.of().sound(SoundType.METAL).dynamicShape().noOcclusion().requiresCorrectToolForDrops().strength(2.0f), TriFields.of(Config.CONVEY_BELT_3_EXTRACT_INTERVAL::get, Config.CONVEY_BELT_3_TRANSMIT_SPEED::get, Config.CONVEY_BELT_3_TRANSMIT_STACK_SIZE::get))),
             SPLITTER = makeBlockWithItem("splitter", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
             MECHANICAL_ARM = makeBlockWithItem("mechanical_arm", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(5.0f))),
     //fluid pipe

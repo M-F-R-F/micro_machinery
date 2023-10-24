@@ -3,13 +3,12 @@ package mfrf.micro_machinery.enums;
 import net.minecraft.util.StringRepresentable;
 
 public enum EnumConveyorConnectState implements StringRepresentable {
-    CONNECTED("connected"), BLOCKED("blocked"), UP("up"), DOWN("down"), NULL("null");
-
+    STRAIGHT,LEFT,RIGHT,UP,DOWN,MERGE,DIVIDE;
 
     private final String name;
 
-    EnumConveyorConnectState(String name) {
-        this.name = name;
+    EnumConveyorConnectState() {
+        this.name = this.name();
     }
 
     @Override
