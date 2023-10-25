@@ -1,9 +1,7 @@
 package mfrf.micro_machinery.block.machines.single_block_machines.conveyor_belt;
 
 import mfrf.micro_machinery.block.machines.MMTileBase;
-import mfrf.micro_machinery.enums.EnumConveyorConnectState;
 import mfrf.micro_machinery.registry_lists.MMBlockEntityTypes;
-import mfrf.micro_machinery.utils.ItemContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -23,8 +21,10 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -38,64 +38,6 @@ public class TileConveyBelt extends MMTileBase {
         array = new StackArray(() -> ((BlockConveyorBeltBase) getBlockState().getBlock()).properties_speed_stack_interval_supplier.b.get(), () -> ((BlockConveyorBeltBase) getBlockState().getBlock()).properties_speed_stack_interval_supplier.a.get());
     }
 
-    public static void tick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-//        //todo remake,SPlit into different ticker
-//        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
-//            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
-//
-//            Direction out = state.getValue(BlockConveyorBeltBase.FACING);
-//            EnumConveyorConnectState out_state = state.getValue(BlockConveyorBeltBase.OUT_STATE);
-//            if (!popped.isEmpty()) {
-//                boolean toConveyorBeltOnly = false;
-//                BlockPos out_pos = pos.relative(out);
-//                BlockEntity downT = world.getBlockEntity(out_pos.below());
-//                BlockEntity upT = world.getBlockEntity(out_pos.above());
-//                BlockState downS = null;
-//                BlockState upS = null;
-//                if (downT instanceof TileConveyBelt) {
-//                    downS = downT.getBlockState();
-//                }
-//                if (upT instanceof TileConveyBelt) {
-//                    upS = upT.getBlockState();
-//                }
-//
-//                if (out_state == EnumConveyorConnectState.DOWN) {
-//                    out_pos = out_pos.below();
-//                    if (downS != null && downS.getValue(BlockConveyorBeltBase.FACING) == out && downS.getValue(BlockConveyorBeltBase.BACK_STATE) && downS.getValue(BlockConveyorBeltBase.OUT_STATE) == EnumConveyorConnectState.UP) {
-//                        toConveyorBeltOnly = true;
-//                    }
-//                } else if (out_state == EnumConveyorConnectState.UP) {
-//                    out_pos = out_pos.above();
-//                    if (upS != null && upS.getValue(BlockConveyorBeltBase.FACING) == out && upS.getValue(BlockConveyorBeltBase.BACK_STATE) && upS.getValue(BlockConveyorBeltBase.OUT_STATE) == EnumConveyorConnectState.UP) {
-//                        toConveyorBeltOnly = true;
-//                    }
-//                }
-//                BlockEntity tileEntity = world.getBlockEntity(out_pos);
-//
-//                if (toConveyorBeltOnly && tileEntity instanceof TileConveyBelt conveyBelt2) {
-//                    if (conveyBelt2.array.notFull()) {
-//                        conveyBelt2.array.receive(popped);
-//                        conveyBelt2.setChanged();
-//                    }
-//                } else {
-//                    tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, out.getOpposite()).ifPresent(iItemHandler -> {
-//                        for (StackArray.CallbackSlot callbackSlot : popped) {
-//
-//                            ItemStack outS = ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.func(), false);
-//                            if (!outS.isEmpty()) {
-//                                ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY() + 0.6, pos.getZ(), outS);
-//                                itemEntity.setDefaultPickUpDelay();
-//                                world.addFreshEntity(itemEntity);
-//                            }
-//
-//                        }
-//                    });
-//                }
-//            }
-//            conveyBelt.array.tick();
-//            conveyBelt.setChanged();
-//        }
-    }
 
     @Nonnull
     @Override
@@ -184,6 +126,10 @@ public class TileConveyBelt extends MMTileBase {
 
         public List<CallbackSlot> popAll() {
             return stacks.stream().filter(Stack::popAble).map(Stack::getStack).map(CallbackSlot::new).collect(Collectors.toList());
+        }
+
+        public Optional<CallbackSlot> popOnce() {
+            return stacks.stream().filter(Stack::popAble).map(Stack::getStack).map(CallbackSlot::new).findAny();
         }
 
         class CallbackSlot {
@@ -343,4 +289,139 @@ public class TileConveyBelt extends MMTileBase {
             }
         }
     }
+
+    public static void straightTick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
+
+            Direction out = state.getValue(BlockConveyorBeltBase.FACING);
+            BlockPos out_pos = pos.relative(out);
+            BlockEntity tileEntity = world.getBlockEntity(out_pos);
+
+            tryOutPut(world, pos, popped, tileEntity, out);
+            commonTick(conveyBelt);
+        }
+    }
+
+    public static void upTick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
+
+            Direction out = state.getValue(BlockConveyorBeltBase.FACING);
+            BlockPos out_pos = pos.relative(out).above();
+            BlockEntity tileEntity = world.getBlockEntity(out_pos);
+
+            tryOutPut(world, pos, popped, tileEntity, out);
+            commonTick(conveyBelt);
+        }
+    }
+
+    public static void downTick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
+
+            Direction out = state.getValue(BlockConveyorBeltBase.FACING);
+            BlockPos out_pos = pos.relative(out).below();
+            BlockEntity tileEntity = world.getBlockEntity(out_pos);
+
+            tryOutPut(world, pos, popped, tileEntity, out);
+            commonTick(conveyBelt);
+        }
+    }
+
+    public static void leftTick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
+
+            Direction out = state.getValue(BlockConveyorBeltBase.FACING).getCounterClockWise();
+            BlockPos out_pos = pos.relative(out);
+            BlockEntity tileEntity = world.getBlockEntity(out_pos);
+
+            tryOutPut(world, pos, popped, tileEntity, out);
+            commonTick(conveyBelt);
+        }
+    }
+
+    public static void rightTick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
+
+            Direction out = state.getValue(BlockConveyorBeltBase.FACING).getClockWise();
+            BlockPos out_pos = pos.relative(out);
+            BlockEntity tileEntity = world.getBlockEntity(out_pos);
+
+            tryOutPut(world, pos, popped, tileEntity, out);
+            commonTick(conveyBelt);
+        }
+    }
+
+
+    public static void mergeTick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+            List<StackArray.CallbackSlot> popped = conveyBelt.array.popAll();
+
+            Direction out = state.getValue(BlockConveyorBeltBase.FACING).getOpposite();
+            BlockPos out_pos = pos.relative(out);
+            BlockEntity tileEntity = world.getBlockEntity(out_pos);
+
+            tryOutPut(world, pos, popped, tileEntity, out);
+            commonTick(conveyBelt);
+        }
+    }
+
+
+    public static void splitTick(Level world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        if (!world.isClientSide() && blockEntity instanceof TileConveyBelt conveyBelt) {
+
+            Direction out = state.getValue(BlockConveyorBeltBase.FACING);
+            Direction r = out.getClockWise();
+            Direction l = out.getCounterClockWise();
+            BlockEntity tileEntity_l = world.getBlockEntity(pos.relative(l));
+            BlockEntity tileEntity_r = world.getBlockEntity(pos.relative(r));
+
+            Optional<StackArray.CallbackSlot> popped = conveyBelt.array.popOnce();
+            boolean left_or_right = true;
+            while (popped.isPresent()) {
+                if (left_or_right) {
+                    tryOutPut(world, pos, Collections.singletonList(popped.get()), tileEntity_l, l);
+                } else {
+                    tryOutPut(world, pos, Collections.singletonList(popped.get()), tileEntity_r, r);
+                }
+                popped = conveyBelt.array.popOnce();
+                left_or_right = !left_or_right;
+            }
+            commonTick(conveyBelt);
+        }
+    }
+
+    protected static void commonTick(TileConveyBelt conveyBelt) {
+        conveyBelt.array.tick();
+        conveyBelt.setChanged();
+    }
+
+    protected static void tryOutPut(Level world, BlockPos pos, List<StackArray.CallbackSlot> popped, BlockEntity tileEntity, Direction out) {
+        if (!popped.isEmpty()) {
+
+            if (tileEntity instanceof TileConveyBelt conveyBelt2) {
+                if (conveyBelt2.array.notFull()) {
+                    conveyBelt2.array.receive(popped);
+                    conveyBelt2.setChanged();
+                }
+            } else {
+                tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, out.getOpposite()).ifPresent(iItemHandler -> {
+                    for (StackArray.CallbackSlot callbackSlot : popped) {
+
+                        ItemStack outS = ItemHandlerHelper.insertItem(iItemHandler, callbackSlot.func(), false);
+                        if (!outS.isEmpty()) {
+                            ItemEntity itemEntity = new ItemEntity(world, pos.getX(), pos.getY() + 0.6, pos.getZ(), outS);
+                            itemEntity.setDefaultPickUpDelay();
+                            world.addFreshEntity(itemEntity);
+                        }
+
+                    }
+                });
+            }
+        }
+    }
+
 }

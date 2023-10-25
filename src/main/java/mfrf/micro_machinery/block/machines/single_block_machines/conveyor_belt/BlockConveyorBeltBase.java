@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.Nullable;
+import org.openjdk.nashorn.internal.runtime.regexp.joni.Warnings;
 
 public class BlockConveyorBeltBase extends MMBlockTileProviderBase {
     public final TriFields<Integer, Integer, Integer> properties_speed_stack_interval_supplier;
@@ -118,6 +119,14 @@ public class BlockConveyorBeltBase extends MMBlockTileProviderBase {
     @Override
     //todo use different ticker
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_CONVEY_BELT.get(), pBlockEntityType, TileConveyBelt::tick);
+        return (BlockEntityTicker<T>) TileHelper.createTicker(pLevel, MMBlockEntityTypes.TILE_CONVEY_BELT.get(), pBlockEntityType, switch (pState.getValue(CONNECT_STATE)) {
+            case STRAIGHT -> TileConveyBelt::straightTick;
+            case LEFT -> TileConveyBelt::leftTick;
+            case RIGHT -> TileConveyBelt::rightTick;
+            case UP -> TileConveyBelt::upTick;
+            case DOWN -> TileConveyBelt::downTick;
+            case MERGE -> TileConveyBelt::mergeTick;
+            case DIVIDE -> TileConveyBelt::splitTick;
+        });
     }
 }
