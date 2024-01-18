@@ -32,11 +32,13 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public class MMBlocks {
@@ -213,9 +215,9 @@ public class MMBlocks {
         return Pair.of(ret_block, ret_item);
     }
 
-    public static Pair<RegistryObject<Block>, RegistryObject<Item>> makeBlockWithItem(String name, Supplier<Block> block) {
+    public static Pair<RegistryObject<Block>, RegistryObject<Item>> makeBlockWithItem(String name, Lazy<Block> block) {
         RegistryObject<Block> ret_block = BLOCK_REGISTER.register(name, block);
-        RegistryObject<Item> ret_item = MMItems.ITEM_REGISTER.register(name, () -> new MMBlockItemBase(ret_block.get()));
+        RegistryObject<Item> ret_item = MMItems.ITEM_REGISTER.register(name,ret_block.lazyMap(MMBlockItemBase::new) );
         return Pair.of(ret_block, ret_item);
     }
 

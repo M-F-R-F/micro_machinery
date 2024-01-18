@@ -24,14 +24,14 @@ import org.openjdk.nashorn.internal.runtime.regexp.joni.Warnings;
 
 public class BlockConveyorBeltBase extends MMBlockTileProviderBase {
     public final TriFields<Integer, Integer, Integer> properties_speed_stack_interval_supplier;
-    public static final EnumProperty<EnumConveyorConnectState> CONNECT_STATE = EnumProperty.create("connect_state", EnumConveyorConnectState.class);
+    public static final EnumProperty<EnumConveyorConnectState> CONNECT_STATE = EnumProperty.create("status", EnumConveyorConnectState.class);
 
 
     public BlockConveyorBeltBase(Properties properties, TriFields<Integer, Integer, Integer> speed_stack_interval) {
         super(properties);
         this.properties_speed_stack_interval_supplier = speed_stack_interval;
         this.registerDefaultState(
-                this.getStateDefinition().any()
+                this.defaultBlockState()
                         .setValue(CONNECT_STATE, EnumConveyorConnectState.STRAIGHT)
                         .setValue(FACING, Direction.SOUTH)
         );
@@ -39,8 +39,8 @@ public class BlockConveyorBeltBase extends MMBlockTileProviderBase {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder);
         pBuilder.add(CONNECT_STATE);
+        super.createBlockStateDefinition(pBuilder);
     }
 
     @Override

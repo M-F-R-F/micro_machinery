@@ -38,15 +38,13 @@ public class ReadMultiBlockCommand implements Command<CommandSourceStack> {
                         BlockPos pos2 = NBTUtil.readBlockPos(clickedPos.getCompound("pos2"));
                         BlockPos center = NBTUtil.readBlockPos(activeBlock.getCompound("pos"));
                         Direction direction = Direction.from2DDataValue(activeBlock.getInt("direction"));
-//                    Direction direction = Direction.byIndex(activeBlock.getInt("direction"));
                         ServerLevel world = (ServerLevel) serverPlayer.level();
-
-//                    JsonObject jsonObject = MathUtil.getNormalizedBlockPosBox(pos1, pos2, world, direction,center).convertToJson();
                         String id = heldItem.getDisplayName().getString();
-                        MultiblockStructureMaps.StructureMap structureMap = MultiblockStructureMaps.create(world, pos1, pos2, center, direction);
                         File file = new File("test" + File.separator + id + ".json");
+
+
+                        MultiblockStructureMaps.StructureMap structureMap = MultiblockStructureMaps.create(world, pos1, pos2, center, direction);
                         try {
-//                        FileUtils.writeStringToFile(file, jsonObject.toString(), Charsets.UTF_8);
                             FileUtils.writeStringToFile(file, structureMap.toJson(id).toString(), Charsets.UTF_8);
                         } catch (IOException e) {
                             e.printStackTrace();
