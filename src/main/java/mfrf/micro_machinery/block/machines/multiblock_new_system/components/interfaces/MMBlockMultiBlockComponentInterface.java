@@ -39,7 +39,7 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
     @org.jetbrains.annotations.Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState().setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
     }
 
     protected BlockState getStateToRegistry() {

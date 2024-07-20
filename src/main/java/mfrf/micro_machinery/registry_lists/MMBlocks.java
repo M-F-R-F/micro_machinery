@@ -7,6 +7,8 @@ import mfrf.micro_machinery.block.MMBlockBase;
 import mfrf.micro_machinery.block.MMDirectionalBlock;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMBlockMultiBlockPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.energy_io.BlockFEInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.fluid_io.BlockFluidInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.item_io.BlockItemInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.redstone_io.BlockRedstoneInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.test.MMTestBlockMainPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.expand_machine.pump.BlockPump;
@@ -128,8 +130,8 @@ public class MMBlocks {
             MODULE_PRESSURE_BEARING = makeBlockWithItem("module_pressure_bearing", () -> new MMBlockBase(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             INTERFACE_ENERGY = makeBlockWithItem("interface_energy", () -> new BlockFEInterface(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             INTERFACE_DATA = makeBlockWithItem("interface_data", () -> new BlockRedstoneInterface(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_ITEM = makeBlockWithItem("interface_item", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
-            INTERFACE_FLUID = makeBlockWithItem("interface_fluid", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_ITEM = makeBlockWithItem("interface_item", () -> new BlockItemInterface(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
+            INTERFACE_FLUID = makeBlockWithItem("interface_fluid", () -> new BlockFluidInterface(Block.Properties.of().sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             MODULE_DTE = makeBlockWithItem("module_dte", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
             MODULE_INTELLIGENT = makeBlockWithItem("module_intelligent", () -> new MMDirectionalBlock(Block.Properties.of().sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops().strength(3.0f))),
     //other

@@ -3,6 +3,8 @@ package mfrf.micro_machinery.registry_lists;
 import mfrf.micro_machinery.MicroMachinery;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.MMTileMultiBlockPart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.energy_io.TileFEInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.fluid_io.TileFluidInterface;
+import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.item_io.TileItemInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces.redstone_io.TileRedstoneInterface;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.components.main_parts.test.MMTestTileMainMart;
 import mfrf.micro_machinery.block.machines.multiblock_new_system.expand_machine.DelegateTile;
@@ -57,6 +59,8 @@ public class MMBlockEntityTypes {
     public static final RegistryObject<BlockEntityType<MMTileMultiBlockPart>> MULTI_BLOCK_PART = TILE_ENTITY_TYPE_REGISTER.register("part", () -> BlockEntityType.Builder.of(MMTileMultiBlockPart::new, MMBlocks.MULTIBLOCK_PART.get()).build(null));
     public static final RegistryObject<BlockEntityType<TileRedstoneInterface>> REDSTONE_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("redstone_interface", () -> BlockEntityType.Builder.of(TileRedstoneInterface::new, MMBlocks.INTERFACE_DATA.getKey().get()).build(null));
     public static final RegistryObject<BlockEntityType<TileFEInterface>> FE_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("fe_interface", () -> BlockEntityType.Builder.of(TileFEInterface::new, MMBlocks.INTERFACE_ENERGY.getKey().get()).build(null));
+    public static final RegistryObject<BlockEntityType<TileFluidInterface>> FLUID_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("fluid_interface", () -> BlockEntityType.Builder.of(TileFluidInterface::new, MMBlocks.INTERFACE_FLUID.getKey().get()).build(null));
+    public static final RegistryObject<BlockEntityType<TileItemInterface>> ITEM_INTERFACE = TILE_ENTITY_TYPE_REGISTER.register("item_interface", () -> BlockEntityType.Builder.of(TileItemInterface::new, MMBlocks.INTERFACE_ITEM.getKey().get()).build(null));
     //
     public static final RegistryObject<BlockEntityType<MMTestTileMainMart>> TEST = TILE_ENTITY_TYPE_REGISTER.register("test", () -> BlockEntityType.Builder.of(MMTestTileMainMart::new, MMBlocks.TEST_MAIN_MART.get()).build(null));
     public static final RegistryObject<BlockEntityType<DelegateTile>> DELEGATE_TILE = TILE_ENTITY_TYPE_REGISTER.register("delegate_tile", () -> BlockEntityType.Builder.of(DelegateTile::new, ExpandMachineBase.main_parts.toArray(new ExpandMachineBase[]{})).build(null));

@@ -14,6 +14,12 @@
       "facing=west": {
         "model": "micro_machinery:block/interface_item",
         "y": 270
+      },
+      "facing=up": {
+        "model": "micro_machinery:block/interface_item_up"
+      },
+      "facing=down": {
+        "model": "micro_machinery:block/interface_item_down"
       }
     }
 }
