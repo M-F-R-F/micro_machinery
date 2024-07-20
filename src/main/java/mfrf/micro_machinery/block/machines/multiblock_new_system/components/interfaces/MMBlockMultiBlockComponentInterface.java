@@ -1,10 +1,10 @@
 package mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces;
 
-import mfrf.micro_machinery.block.MMBlockBase;
 import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -36,9 +36,14 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
         pBuilder.add(CONSTRUCTED);
     }
 
+    @org.jetbrains.annotations.Nullable
     @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
+    }
+
     protected BlockState getStateToRegistry() {
-        return super.getStateToRegistry().setValue(CONSTRUCTED, false).setValue(FACING, Direction.SOUTH);
+        return this.stateDefinition.any().setValue(FACING, Direction.NORTH);
     }
 
     public void link(BlockPos mainPart, Level accessor, Vec3i key, BlockPos current) {
