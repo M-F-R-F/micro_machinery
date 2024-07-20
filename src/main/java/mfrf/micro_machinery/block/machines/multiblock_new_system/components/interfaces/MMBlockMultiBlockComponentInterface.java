@@ -1,7 +1,9 @@
 package mfrf.micro_machinery.block.machines.multiblock_new_system.components.interfaces;
 
+import mfrf.micro_machinery.block.MMBlockBase;
 import mfrf.micro_machinery.block.machines.MMBlockTileProviderBase;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -9,10 +11,13 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTileProviderBase {
     public static BooleanProperty CONSTRUCTED = BooleanProperty.create("constructed");
+    public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static Properties DEFAULT_PROPERTIES = BlockBehaviour.Properties.of().sound(SoundType.ANVIL).noOcclusion().dynamicShape().strength(3.0f);
 
     public MMBlockMultiBlockComponentInterface(Properties properties) {
@@ -27,13 +32,13 @@ public abstract class MMBlockMultiBlockComponentInterface extends MMBlockTilePro
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder);
+        pBuilder.add(FACING);
         pBuilder.add(CONSTRUCTED);
     }
 
     @Override
     protected BlockState getStateToRegistry() {
-        return super.getStateToRegistry().setValue(CONSTRUCTED, false);
+        return super.getStateToRegistry().setValue(CONSTRUCTED, false).setValue(FACING, Direction.SOUTH);
     }
 
     public void link(BlockPos mainPart, Level accessor, Vec3i key, BlockPos current) {
