@@ -1,0 +1,35 @@
+{
+    "variants": 
+    {
+        "working=true,facing=north": {
+            "model": "micro_machinery:block/kiln_working"
+        },
+        "working=true,facing=east": {
+            "model": "micro_machinery:block/kiln_working",
+            "y": 90
+        },
+        "working=true,facing=south": {
+            "model": "micro_machinery:block/kiln_working",
+            "y": 180
+        },
+        "working=true,facing=west": {
+            "model": "micro_machinery:block/kiln_working",
+            "y": 270
+        },
+        "burning=false,facing=north": {
+            "model": "micro_machinery:block/kiln"
+        },
+        "burning=false,facing=east": {
+            "model": "micro_machinery:block/kiln",
+            "y": 90
+        },
+        "burning=false,facing=south": {
+            "model": "micro_machinery:block/kiln",
+            "y": 180
+        },
+        "burning=false,facing=west": {
+            "model": "micro_machinery:block/kiln",
+            "y": 270
+        }
+    }
+}

@@ -1,24 +1,6 @@
-# Blender MTL File: 'spherical_tank.blend'
-# Material Count: 2
-
-newmtl m_a1101fca-9d1e-d96f-48a5-1f50f8610eff
-Ns 0.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 1
-map_Kd micro_machinery:block/interface
-
-newmtl m_bcaf8ed8-67e4-9a34-2a92-aef9cd3efe9a
-Ns 0.000000
-Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
-Ks 0.000000 0.000000 0.000000
-Ke 0.000000 0.000000 0.000000
-Ni 1.450000
-d 1.000000
-illum 1
+# Made in Blockbench 4.10.4
+newmtl m_2ab8e999-2bb2-c5de-f933-9ce460c98f14
 map_Kd micro_machinery:obj/spherical_tank
+newmtl m_d71ff3dd-297f-c2b5-c192-7aedec8fb662
+map_Kd micro_machinery:block/interface
+newmtl none
